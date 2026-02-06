@@ -2,6 +2,7 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
 import { getAuth, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
 
+// 🔥 CONFIGURAÇÃO DO FIREBASE
 const firebaseConfig = {
   apiKey: "AIzaSyC3jisbwoN9p0GJzAzfld3Y2l25ZtqIrEg",
   authDomain: "sistema-rede.firebaseapp.com",
@@ -12,10 +13,14 @@ const firebaseConfig = {
   measurementId: "G-JDJK73865X"
 };
 
+// Inicializa Firebase
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 
-document.getElementById("loginForm").addEventListener("submit", (e) => {
+// Login
+const form = document.getElementById("loginForm");
+
+form.addEventListener("submit", (e) => {
   e.preventDefault();
 
   const email = document.getElementById("email").value;
@@ -28,7 +33,4 @@ document.getElementById("loginForm").addEventListener("submit", (e) => {
     .catch((error) => {
       alert("Erro no login: " + error.message);
     });
-  
-  console.log("JS carregou");
-  
 });
