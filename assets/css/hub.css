@@ -1,0 +1,22 @@
+/* ===== HUB – Correções de contraste ===== */
+
+.featured-services .service-item {
+  background: #ffffff;
+  color: #212529;
+}
+
+.featured-services .service-item h3 {
+  color: #212529;
+}
+
+.featured-services .service-item p {
+  color: #495057;
+}
+
+.featured-services .service-item a {
+  color: #0d6efd;
+}
+
+.featured-services .service-item .icon i {
+  color: #0d6efd;
+}
