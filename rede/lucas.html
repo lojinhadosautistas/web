@@ -12,7 +12,7 @@
   <!-- Google Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
 
- <style>
+  <style>
     :root {
       --bg-main: #f4f6f9;
       --bg-sidebar: #0f172a;
@@ -59,6 +59,14 @@
 
     .topbar .actions a:hover {
       color: var(--primary);
+    }
+
+    .topbar .actions #userEmail {
+      margin-left: 15px;
+      font-weight: 500;
+      color: var(--primary);
+      font-style: italic;
+      font-size: 0.9rem;
     }
 
     /* ===== SIDEBAR ===== */
@@ -117,28 +125,7 @@
       margin-top: 5px;
     }
 
-    /* ===== STATS ===== */
-    .stat-card {
-      background: var(--bg-card);
-      border-radius: 12px;
-      padding: 20px;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-      height: 100%;
-    }
-
-    .stat-card h3 {
-      font-size: 1.8rem;
-      margin: 0;
-      font-weight: 700;
-      color: var(--primary);
-    }
-
-    .stat-card span {
-      color: var(--text-muted);
-      font-size: 0.9rem;
-    }
-
-    /* ===== MODULE CARDS ===== */
+    /* ===== MODULE CARD ===== */
     .module-card {
       background: var(--bg-card);
       border-radius: 16px;
@@ -152,11 +139,6 @@
       transform: translateY(-4px);
     }
 
-    .module-card i {
-      font-size: 2rem;
-      color: var(--primary);
-    }
-
     .module-card h3 {
       margin-top: 15px;
       font-size: 1.2rem;
@@ -168,12 +150,19 @@
       font-size: 0.95rem;
     }
 
-    .module-card a {
-      display: inline-block;
-      margin-top: 10px;
-      font-weight: 600;
-      text-decoration: none;
-      color: var(--primary);
+    /* ===== CHAT ===== */
+    #chatWindow {
+      height: 220px;
+      overflow-y: auto;
+      margin-bottom: 15px;
+      background: #f9f9f9;
+      padding: 10px;
+      border-radius: 8px;
+      border: 1px solid #ddd;
+    }
+
+    #chatWindow p {
+      margin: 5px 0;
     }
 
     /* ===== RESPONSIVE ===== */
@@ -186,9 +175,6 @@
       }
     }
   </style>
-  
-  <!-- Reutiliza o mesmo CSS do hub -->
-  <link href="../assets/css/hub.css" rel="stylesheet" />
 </head>
 
 <body>
@@ -198,6 +184,7 @@
     <div class="brand">Sistema REDE</div>
     <div class="actions">
       <a href="../index.html">Site</a>
+      <span id="userEmail">Carregando...</span>
       <a href="#" id="logoutBtn">Sair</a>
     </div>
   </div>
@@ -206,13 +193,8 @@
   <aside class="sidebar">
     <h6>Dashboard</h6>
     <a href="hub.html">
-      <i class="bi bi-grid"></i> Visão Geral
+      <i class="bi bi-grid"></i> Hub Interno
     </a>
-
-    <h6>Conteúdos</h6>
-    <a href="#"><i class="bi bi-film"></i> Rota Azul</a>
-    <a href="#"><i class="bi bi-calendar4-week"></i> Calendário 2026</a>
-    <a href="#"><i class="bi bi-journal-text"></i> Relatórios</a>
 
     <h6>Ferramentas</h6>
     <a href="lucas.html" class="active">
@@ -222,24 +204,16 @@
 
   <!-- MAIN -->
   <main class="main">
-
-    <!-- PAGE TITLE -->
     <div class="page-title mb-4">
       <h1>LUCAS – Agente de IA</h1>
-      <p>
-        Agente institucional de análise, curadoria e apoio estratégico do Sistema REDE.
-      </p>
+      <p>Agente institucional de análise, curadoria e apoio estratégico do Sistema REDE.</p>
     </div>
 
-    <!-- INFO CARD -->
     <div class="row mb-4">
       <div class="col-lg-8">
         <div class="module-card">
           <h3>Contexto do Agente</h3>
-          <p>
-            O LUCAS opera exclusivamente com base nos documentos autorizados
-            ao seu perfil de acesso e no conhecimento técnico validado.
-          </p>
+          <p>O LUCAS opera exclusivamente com base nos documentos autorizados ao seu perfil de acesso e no conhecimento técnico validado.</p>
           <span class="badge bg-primary">Modo institucional</span>
           <span class="badge bg-secondary">Acesso controlado por role</span>
         </div>
@@ -250,36 +224,74 @@
     <div class="row">
       <div class="col-lg-8">
         <div class="module-card" style="min-height: 380px;">
-          
-          <div id="chatWindow" style="height: 220px; overflow-y: auto; margin-bottom: 15px;">
-            <p class="text-muted">
-              <strong>LUCAS:</strong> Estou pronto para analisar documentos, responder perguntas
-              técnicas e apoiar decisões dentro do escopo autorizado.
-            </p>
+          <div id="chatWindow">
+            <p class="text-muted"><strong>LUCAS:</strong> Estou pronto para analisar documentos, responder perguntas técnicas e apoiar decisões dentro do escopo autorizado.</p>
           </div>
 
           <form id="lucasForm">
-            <textarea
-              class="form-control mb-3"
-              rows="3"
-              placeholder="Digite sua pergunta ou solicitação..."
-              required
-            ></textarea>
-
-            <button type="submit" class="btn btn-primary">
-              Enviar para o LUCAS
-            </button>
+            <textarea class="form-control mb-3" rows="3" placeholder="Digite sua pergunta ou solicitação..." required></textarea>
+            <button type="submit" class="btn btn-primary">Enviar para o LUCAS</button>
           </form>
-
         </div>
       </div>
     </div>
-
   </main>
 
   <!-- JS -->
   <script src="../assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-  <script type="module" src="js/lucas.js"></script>
 
+  <!-- Firebase -->
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+
+  <script>
+    // Config Firebase
+    const firebaseConfig = {
+      apiKey: "AIzaSyC3jisbwoN9p0GJzAzfld3Y2l25ZtqIrEg",
+      authDomain: "sistema-rede.firebaseapp.com",
+      projectId: "sistema-rede",
+      storageBucket: "sistema-rede.firebasestorage.app",
+      messagingSenderId: "930399212687",
+      appId: "1:930399212687:web:a89c0d73be4b9fbd488cfa"
+    };
+    firebase.initializeApp(firebaseConfig);
+
+    const emailSpan = document.getElementById("userEmail");
+    const logoutBtn = document.getElementById("logoutBtn");
+
+    // Protege página: se não logado, volta para login
+    firebase.auth().onAuthStateChanged((user) => {
+      if (user) {
+        emailSpan.textContent = user.email;
+      } else {
+        window.location.href = "login.html";
+      }
+    });
+
+    // Logout
+    logoutBtn.addEventListener("click", (e) => {
+      e.preventDefault();
+      firebase.auth().signOut().then(() => {
+        window.location.href = "../index.html";
+      });
+    });
+
+    // Formulário "Enviar para LUCAS" → mensagem de perfil sem permissão
+    const lucasForm = document.getElementById("lucasForm");
+    const chatWindow = document.getElementById("chatWindow");
+
+    lucasForm.addEventListener("submit", (e) => {
+      e.preventDefault();
+
+      const msg = document.createElement("p");
+      msg.classList.add("text-danger");
+      msg.innerHTML = "<strong>LUCAS:</strong> Perfil sem permissões de acesso à LUCAS.";
+
+      chatWindow.appendChild(msg);
+      chatWindow.scrollTop = chatWindow.scrollHeight;
+
+      lucasForm.querySelector("textarea").value = "";
+    });
+  </script>
 </body>
 </html>
