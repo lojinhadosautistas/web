@@ -302,26 +302,34 @@ lucasForm.addEventListener("submit", async (e) => {
   textarea.value = "";
 
   try {
-    const response = await fetch(
-      "https://lucas-backend--autistas.replit.app/api/lucas",
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify({
-          question: pergunta
-        })
-      }
-    );
+const response = await fetch(
+  "https://lucas-backend--autistas.replit.app/api/lucas",
+  {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({
+      question: pergunta
+    })
+  }
+);
 
-    const data = await response.json();
+const data = await response.json();
 
-    if (data.answer) {
-      lucasMsg.innerHTML = `<strong>LUCAS:</strong> ${data.answer}`;
-    } else {
-      lucasMsg.innerHTML = `<strong>LUCAS:</strong> Erro ao interpretar resposta.`;
-    }
+if (!response.ok) {
+  lucasMsg.innerHTML =
+    `<strong>LUCAS:</strong> Erro do servidor: ${data.error || "falha desconhecida"}`;
+  return;
+}
+
+if (data.answer) {
+  lucasMsg.innerHTML = `<strong>LUCAS:</strong> ${data.answer}`;
+} else {
+  lucasMsg.innerHTML =
+    `<strong>LUCAS:</strong> Resposta vazia do backend.`;
+}
+
 
   } catch (err) {
     console.error(err);
