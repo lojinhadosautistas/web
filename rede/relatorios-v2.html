@@ -224,14 +224,12 @@
 
 
   <script>
-    // Visual + Carrossel
   const filterButtons = document.querySelectorAll('.filter-btn');
   const carouselItems = document.querySelectorAll('#docsCarousel .carousel-item');
 
   filterButtons.forEach(btn => {
     btn.addEventListener('click', () => {
 
-      // Estado visual
       filterButtons.forEach(b => b.classList.remove('active'));
       btn.classList.add('active');
 
@@ -251,7 +249,6 @@
         item.classList.remove('active');
       });
 
-      // Ativa o primeiro visível
       if (firstVisible) {
         firstVisible.classList.add('active');
       }
