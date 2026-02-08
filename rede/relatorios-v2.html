@@ -217,55 +217,39 @@
 
 <script>
   const filterButtons = document.querySelectorAll('.filter-btn');
-  const carouselInner = document.querySelector('#docsCarousel .carousel-inner');
+const carouselInner = document.querySelector('#docsCarousel .carousel-inner');
+const carousel = bootstrap.Carousel.getOrCreateInstance(document.getElementById('docsCarousel'));
 
-  filterButtons.forEach(btn => {
-    btn.addEventListener('click', () => {
+filterButtons.forEach(btn => {
+  btn.addEventListener('click', () => {
+    // Atualiza UI do botão
+    filterButtons.forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
 
-      // UI
-      filterButtons.forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
+    const filter = btn.dataset.filter;
+    const cards = carouselInner.querySelectorAll('.module-card');
 
-      const filter = btn.dataset.filter;
-      const slides = carouselInner.querySelectorAll('.carousel-item');
+    let firstVisible = null;
 
-      let firstVisibleSlide = null;
-
-      slides.forEach(slide => {
-        const cards = slide.querySelectorAll('.module-card');
-        let hasVisible = false;
-
-        cards.forEach(card => {
-          if (filter === 'all' || card.dataset.type.includes(filter)) {
-            card.style.display = '';
-            hasVisible = true;
-          } else {
-            card.style.display = 'none';
-          }
-        });
-
-        if (hasVisible) {
-          slide.style.display = '';
-          if (!firstVisibleSlide) firstVisibleSlide = slide;
-        } else {
-          slide.style.display = 'none';
-        }
-
-        slide.classList.remove('active');
-      });
-
-      // garante active correto
-      if (firstVisibleSlide) {
-        firstVisibleSlide.classList.add('active');
+    cards.forEach(card => {
+      if (filter === 'all' || card.dataset.type.includes(filter)) {
+        card.style.display = 'block';
+        if (!firstVisible) firstVisible = card;
+      } else {
+        card.style.display = 'none';
       }
-
-      bootstrap.Carousel.getOrCreateInstance(
-  document.getElementById('docsCarousel')
-).to(0);
-
-      
+      card.classList.remove('active'); // remove active do card
     });
+
+    // Garante que o primeiro card visível seja "ativo"
+    if (firstVisible) {
+      firstVisible.classList.add('active');
+    }
+
+    // Reinicia o carousel no primeiro card visível
+    carousel.to(0);
   });
+});
 </script>
 
   
