@@ -1249,6 +1249,22 @@ section,
   bottom: 0;
 }
 
+
+/* Alteração PAULA: Corrige botão play no Portfolio */
+.portfolio-thumb-wrapper {
+  position: relative;
+}
+
+.portfolio-thumb-wrapper .pulsating-play-btn {
+  position: absolute;
+  inset: 0;
+  margin: auto;
+  z-index: 3;
+}
+/* Alteração PAULA: Corrige botão play no Portfolio */
+
+
+
 /*--------------------------------------------------------------
 # Team Section
 --------------------------------------------------------------*/
