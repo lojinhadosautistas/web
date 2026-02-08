@@ -529,6 +529,24 @@
   <!-- Main JS File -->
   <script src="assets/js/main.js"></script>
   
+  <!-- Compartilhar -->
+  <script>
+  document.addEventListener("click", function (e) {
+    const btn = e.target.closest("[data-copy]");
+    if (!btn) return;
+
+    const link = btn.getAttribute("data-copy");
+
+  navigator.clipboard.writeText(link).then(() => {
+    btn.innerHTML = "✓";
+    setTimeout(() => {
+      btn.innerHTML = '<i class="bi bi-link-45deg"></i>';
+      }, 1200);
+    });
+   });
+  </script>
+
+  
 </body>
 
 </html>
