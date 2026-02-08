@@ -259,3 +259,24 @@ body.index-page {
     margin-left: 0;
   }
 }
+
+
+
+/* ===============================
+   CARROSSEL DE DOCUMENTOS
+================================ */
+
+#docsCarousel .carousel-item {
+  padding: 10px;
+}
+
+#docsCarousel .module-card {
+  max-width: 420px;
+  margin: 0 auto;
+}
+
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+  filter: invert(1);
+}
+
