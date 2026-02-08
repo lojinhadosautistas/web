@@ -92,7 +92,7 @@ h6 {
 .pulsating-play-btn {
   width: 94px;
   height: 94px;
-  background: radial-gradient(var(--accent-color) 50%, color-mix(in srgb, var(--accent-color), transparent 75%) 52%);
+  background: radial-gradient(var(--accent-color) 50%, rgba(255, 193, 7, 0.25) 52%);
   border-radius: 50%;
   display: block;
   position: relative;
