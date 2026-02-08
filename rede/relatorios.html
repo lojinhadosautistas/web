@@ -401,5 +401,32 @@
       });
     });
   </script>
+
+
+  
+    // Menu links (interno)
+<script>
+  const menuLinks = document.querySelectorAll('.services-list a');
+  const contents = document.querySelectorAll('.service-content');
+
+  menuLinks.forEach(link => {
+    link.addEventListener('click', (e) => {
+      e.preventDefault();
+
+      // remove active do menu
+      menuLinks.forEach(l => l.classList.remove('active'));
+      link.classList.add('active');
+
+      // esconde todos os conteúdos
+      contents.forEach(c => c.classList.remove('active'));
+
+      // mostra o conteúdo correto
+      const target = link.getAttribute('data-target');
+      document.getElementById(target).classList.add('active');
+    });
+  });
+</script>
+
+  
 </body>
 </html>
