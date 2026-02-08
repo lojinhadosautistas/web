@@ -1,0 +1,261 @@
+/* ===============================
+   VARIÁVEIS GLOBAIS — SISTEMA REDE
+================================ */
+
+:root {
+  --bg-main: #f4f6f9;
+  --bg-sidebar: #0f172a;
+  --bg-card: #ffffff;
+  --primary: #2563eb;
+  --text-main: #0f172a;
+  --text-muted: #64748b;
+}
+
+/* ===============================
+   RESET / BASE
+================================ */
+
+body {
+  font-family: "Inter", sans-serif;
+  background: var(--bg-main);
+  margin: 0;
+}
+
+/* Reset específico de landing */
+body.index-page {
+  background: #f5f7fa;
+}
+
+.main {
+  min-height: auto !important;
+  padding-bottom: 60px;
+}
+
+/* Remove efeitos herdados de hero */
+.hero,
+.section {
+  min-height: auto !important;
+  padding: 0 !important;
+}
+
+/* ===============================
+   TOPBAR
+================================ */
+
+.topbar {
+  height: 60px;
+  background: #fff;
+  border-bottom: 1px solid #e5e7eb;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 20px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+}
+
+.topbar .brand {
+  font-weight: 700;
+  font-size: 1.1rem;
+  color: var(--text-main);
+}
+
+.topbar .actions a {
+  margin-left: 15px;
+  text-decoration: none;
+  color: var(--text-muted);
+  font-weight: 500;
+}
+
+.topbar .actions a:hover {
+  color: var(--primary);
+}
+
+.topbar .actions #userEmail {
+  margin-left: 15px;
+  font-weight: 500;
+  color: var(--primary);
+  font-style: italic;
+  font-size: 0.9rem;
+}
+
+/* ===============================
+   SIDEBAR
+================================ */
+
+.sidebar {
+  position: fixed;
+  top: 60px;
+  left: 0;
+  width: 240px;
+  height: calc(100vh - 60px);
+  background: var(--bg-sidebar);
+  padding: 20px 0;
+  overflow-y: auto;
+}
+
+.sidebar h6 {
+  color: #94a3b8;
+  font-size: 0.75rem;
+  padding: 0 20px;
+  margin-top: 20px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.sidebar a {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 20px;
+  color: #e5e7eb;
+  text-decoration: none;
+  font-size: 0.95rem;
+  border-left: 3px solid transparent;
+}
+
+.sidebar a:hover,
+.sidebar a.active {
+  background: rgba(255, 255, 255, 0.08);
+  border-left: 3px solid var(--primary);
+  color: #fff;
+}
+
+/* ===============================
+   MAIN CONTENT
+================================ */
+
+.main {
+  margin-left: 240px;
+  padding: 90px 30px 30px;
+}
+
+.page-title h1 {
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: var(--text-main);
+}
+
+.page-title p {
+  color: var(--text-muted);
+  margin-top: 5px;
+}
+
+/* ===============================
+   DASHBOARD HEADER
+================================ */
+
+.dashboard-header {
+  background: #ffffff;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.dashboard-header h2 {
+  font-weight: 600;
+  color: #1f2937;
+}
+
+.dashboard-header p {
+  color: #6b7280;
+}
+
+/* ===============================
+   STATUS BOXES
+================================ */
+
+.stat-box {
+  background: var(--bg-card);
+  border-radius: 12px;
+  padding: 20px;
+  text-align: center;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.05);
+}
+
+.stat-box strong {
+  display: block;
+  font-size: 1.6rem;
+  font-weight: 600;
+  color: var(--primary);
+}
+
+.stat-box span {
+  font-size: 0.9rem;
+  color: #6b7280;
+}
+
+/* ===============================
+   DASHBOARD / MODULE CARDS
+================================ */
+
+.dashboard-card,
+.module-card {
+  background: var(--bg-card);
+  border-radius: 16px;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.06);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.dashboard-card:hover,
+.module-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 16px 40px rgba(0,0,0,0.08);
+}
+
+.dashboard-card-icon,
+.module-card i {
+  font-size: 2.2rem;
+  color: var(--primary);
+  margin-bottom: 16px;
+}
+
+.dashboard-card h3,
+.module-card h3 {
+  font-size: 1.2rem;
+  font-weight: 600;
+  margin-bottom: 10px;
+}
+
+.dashboard-card p,
+.module-card p {
+  font-size: 0.95rem;
+  color: var(--text-muted);
+  flex-grow: 1;
+}
+
+.module-card a {
+  margin-top: 10px;
+  font-weight: 600;
+  text-decoration: none;
+  color: var(--primary);
+}
+
+/* ===============================
+   FOOTER
+================================ */
+
+.footer {
+  background: transparent !important;
+  padding: 30px 0;
+  color: #6b7280;
+  font-size: 0.85rem;
+}
+
+/* ===============================
+   RESPONSIVO
+================================ */
+
+@media (max-width: 992px) {
+  .sidebar {
+    display: none;
+  }
+
+  .main {
+    margin-left: 0;
+  }
+}
