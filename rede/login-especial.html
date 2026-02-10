@@ -41,6 +41,45 @@
   #loginForm label {
     color: #212529;
   }
+
+
+  /* Google login */
+  .google-btn {
+  width: 100%;
+  height: 42px;
+
+  margin: 12px auto 0;   /* centraliza + espaçamento */
+  
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+
+  background-color: #ffffff;
+  color: #3c4043;
+
+  border: none;          /* remove a borda */
+  border-radius: 6px;
+
+  font-size: 14px;
+  font-weight: 500;
+
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.google-btn:hover {
+  background-color: #f1f3f4;
+}
+
+.google-btn:focus {
+  outline: none;
+}
+
+.google-icon {
+  width: 18px;
+  height: 18px;
+}
 </style>
 
 <script src="https://accounts.google.com/gsi/client" async defer></script>
