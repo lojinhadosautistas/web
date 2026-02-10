@@ -322,3 +322,59 @@ body.index-page {
   background: #f9fafb;
   transform: translateY(-2px);
 }
+
+
+
+
+/* ===============================
+   MINI LAUNCHER
+================================ */
+
+.system-launcher {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 16px;
+}
+
+.launcher-item {
+  height: 120px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 16px;
+
+  text-decoration: none;
+  color: #1f2937;
+  font-weight: 500;
+
+  transition: all 0.2s ease;
+}
+
+.launcher-item i {
+  font-size: 2rem;
+  color: var(--primary);
+}
+
+.launcher-item span {
+  font-size: 0.95rem;
+  text-align: center;
+}
+
+.launcher-item:hover {
+  background: #f9fafb;
+  transform: translateY(-3px);
+}
+
+/* opcional: destaque de área sensível */
+.launcher-secure i {
+  color: #b91c1c;
+}
+
+
+
