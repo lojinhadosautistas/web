@@ -280,3 +280,45 @@ body.index-page {
   filter: invert(1);
 }
 
+
+
+/* ===============================
+   QUICK ACCESS
+================================ */
+
+.quick-access {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.quick-item {
+  flex: 1;
+  min-width: 140px;
+
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  padding: 14px 16px;
+  border-radius: 12px;
+
+  background: #fff;
+  border: 1px solid #e5e7eb;
+
+  text-decoration: none;
+  color: #1f2937;
+  font-weight: 500;
+
+  transition: all 0.2s ease;
+}
+
+.quick-item i {
+  font-size: 1.4rem;
+  color: var(--primary);
+}
+
+.quick-item:hover {
+  background: #f9fafb;
+  transform: translateY(-2px);
+}
