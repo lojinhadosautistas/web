@@ -1,0 +1,115 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sistema REDE | Calendário 2026</title>
+  
+  <!-- Favicons -->
+  <link href="../assets/img/favicon.png" rel="icon">
+  <link href="../assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+  
+  <!-- Bootstrap + Icons -->
+  <link href="../assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="../assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet" />
+
+  <!-- Google Fonts -->
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
+    rel="stylesheet"
+  />
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="../assets/css/hub.css">
+  
+</head>
+
+<body>
+  <!-- TOPBAR -->
+  <div class="topbar">
+    <div class="brand">Sistema REDE <a href="hub.html" class="active"><i class="bi bi-forward-fill"></i> Visão Geral</a></div>
+    <div class="actions">
+      <span id="userEmail" style="margin-left: 15px; color: var(--primary); font-weight: 500; font-style: italic; font-size: 0.9rem;">Carregando...</span>
+      <a href="#" id="logoutBtn">Sair</a>
+    </div>
+  </div>
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+    <h6>Dashboard</h6>
+    <a href="hub.html"><i class="bi bi-grid"></i> Visão Geral</a>
+
+    <h6>Conteúdo</h6>
+    <a href="documentos.html"><i class="bi bi-journal-text"></i> Documentos Técnicos</a>
+    <a href="calendario-2026.html" class="active"><i class="bi bi-calendar4-week"></i> Calendário 2026</a>
+
+    <h6>Artefatos do Sistema</h6>
+    <a href="arquitetura.html"><i class="bi bi-journal-text"></i> Arquitetura e Modelagem</a>
+    <a href="#"><i class="bi bi-calendar4-week"></i> Estrutura conceitual</a>
+
+    <h6>Ferramentas</h6>
+    <a href="lucas.html"><i class="bi bi-shield-lock"></i> LUCAS - Agente de IA</a>
+  </aside>
+
+  <!-- MAIN -->
+  <main class="main">
+    <div class="page-title mb-4">
+      <h1>Estratégia "Calendário 2026"</h1>
+      <p>Economia da atenção aplicads à estruturação de rotinas previsíveis.</p>
+    </div>
+
+   <div class="module-card">
+  <h3>Calendário Estratégico 2026</h3>
+
+<iframe src="https://calendar.google.com/calendar/embed?src=lojinhadosautistas%40gmail.com&ctz=America%2FBoa_Vista" style="border: 0" width="100%" height="600px" frameborder="0" scrolling="no"></iframe>
+</div>
+  </main>
+
+  <!-- JS -->
+  <script src="../assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script type="module" src="js/hub.js"></script>
+
+  <!-- Firebase -->
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+
+  <script>
+    // Configuração do Firebase
+    const firebaseConfig = {
+      apiKey: "AIzaSyC3jisbwoN9p0GJzAzfld3Y2l25ZtqIrEg",
+      authDomain: "sistema-rede.firebaseapp.com",
+      projectId: "sistema-rede",
+      storageBucket: "sistema-rede.firebasestorage.app",
+      messagingSenderId: "930399212687",
+      appId: "1:930399212687:web:a89c0d73be4b9fbd488cfa"
+    };
+
+    // Inicializa o Firebase
+    firebase.initializeApp(firebaseConfig);
+
+    const emailSpan = document.getElementById("userEmail");
+    const logoutBtn = document.getElementById("logoutBtn");
+
+    // Observa mudanças de autenticação
+    firebase.auth().onAuthStateChanged((user) => {
+      if (user) {
+        emailSpan.textContent = user.email;
+      } else {
+        emailSpan.textContent = "Usuário não logado";
+      }
+    });
+
+    // Logout
+    logoutBtn.addEventListener("click", (e) => {
+      e.preventDefault();
+      firebase.auth().signOut().then(() => {
+        window.location.href = "../index.html";
+      });
+    });
+  </script>
+
+
+  
+</body>
+</html>
