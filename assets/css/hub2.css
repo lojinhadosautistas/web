@@ -120,3 +120,18 @@
     padding-top: 260px;
   }
 }
+
+
+.calendar-app {
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 20px;
+  padding: 12px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+  margin-bottom: 32px;
+}
+
+.calendar-app iframe {
+  border-radius: 12px;
+}
+
