@@ -15,6 +15,10 @@
   transition: background 0.2s ease;
 }
 
+#repoTable th.sortable:active .sort-icon {
+  transform: rotate(180deg);
+}
+
 #repoTable th.sortable:hover {
   background-color: #f1f3f5;
 }
