@@ -133,11 +133,6 @@ body.index-page {
   padding: 90px 30px 30px;
 }
 
-/* 👇 compensação da topbar fixa */
-.page-title {
-  margin-top: clamp(70px, 10vh, 110px);
-}
-
 .page-title h1 {
   font-size: 1.6rem;
   font-weight: 700;
@@ -150,7 +145,7 @@ body.index-page {
 }
 
 .first-block {
-  margin-top: 28px;
+  margin-top: 16px;
 }
 
 /* ===============================
