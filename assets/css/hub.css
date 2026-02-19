@@ -409,6 +409,11 @@ body.index-page {
     color: #021229 !important;
   }
 
+   .sidebar a:hover {
+  background: #f1f5f9;
+  border-radius: 8px;
+}
+   
   .sidebar.show {
     left: 0;
   }
