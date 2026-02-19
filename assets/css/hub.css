@@ -148,6 +148,12 @@ body.index-page {
   margin-top: 16px;
 }
 
+.badge-group {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
 /* ===============================
    DASHBOARD HEADER
 ================================ */
