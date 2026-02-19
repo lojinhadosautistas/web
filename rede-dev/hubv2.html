@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sistema REDE | Hub Interno</title>
+
+  <!-- Favicons -->
+  <link href="../assets/img/favicon.png" rel="icon">
+  <link href="../assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+
+  <!-- Bootstrap + Icons -->
+  <link href="../assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="../assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet" />
+
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="../assets/css/hub.css">
+
+  <!-- MICRO STYLE (grid app) -->
+  <style>
+    .system-launcher {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
+      gap: 18px;
+    }
+
+    .launcher-item {
+      background: #ffffff;
+      border-radius: 16px;
+      padding: 20px 10px;
+      text-align: center;
+      text-decoration: none;
+      color: #0f172a;
+      box-shadow: 0 4px 14px rgba(0,0,0,0.05);
+      transition: .2s;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100px;
+    }
+
+    .launcher-item i {
+      font-size: 1.6rem;
+      margin-bottom: 6px;
+      color: var(--primary, #2563eb);
+    }
+
+    .launcher-item span {
+      font-size: .82rem;
+      font-weight: 500;
+      line-height: 1.2;
+    }
+
+    .launcher-item:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+    }
+
+    .launcher-secure i {
+      color: #16a34a;
+    }
+
+    @media (max-width:768px){
+      .launcher-item {
+        min-height: 95px;
+        padding: 16px 8px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+<div id="header-container"></div>
+<div id="sidebar-container"></div>
+
+<!-- MAIN -->
+<main class="main">
+
+  <div class="page-title mb-4">
+    <h1>Hub Interno</h1>
+  </div>
+
+  <!-- APP LAUNCHER -->
+  <div class="system-launcher">
+
+    <a href="documentos.html" class="launcher-item">
+      <i class="bi bi-journal-text"></i>
+      <span>Documentos</span>
+    </a>
+
+    <a href="repositoriov2.html" class="launcher-item">
+      <i class="bi bi-archive"></i>
+      <span>Repositório</span>
+    </a>
+
+    <a href="calendario-2026.html" class="launcher-item">
+      <i class="bi bi-calendar4-week"></i>
+      <span>Calendário 2026</span>
+    </a>
+
+    <a href="estrutura-conceitual.html" class="launcher-item">
+      <i class="bi bi-diagram-3"></i>
+      <span>Estrutura conceitual</span>
+    </a>
+
+    <a href="relatorios.html" class="launcher-item">
+      <i class="bi bi-clipboard-data"></i>
+      <span>Relatórios</span>
+    </a>
+
+    <a href="dossies.html" class="launcher-item">
+      <i class="bi bi-folder2-open"></i>
+      <span>Dossiês</span>
+    </a>
+
+    <a href="planos.html" class="launcher-item">
+      <i class="bi bi-kanban"></i>
+      <span>Planos</span>
+    </a>
+
+    <a href="rota-azul.html" class="launcher-item">
+      <i class="bi bi-film"></i>
+      <span>Rota Azul</span>
+    </a>
+
+    <a href="analytics.html" class="launcher-item">
+      <i class="bi bi-graph-up"></i>
+      <span>Analytics</span>
+    </a>
+
+    <a href="lucas.html" class="launcher-item launcher-secure">
+      <i class="bi bi-shield-lock"></i>
+      <span>LUCAS IA</span>
+    </a>
+
+  </div>
+
+</main>
+
+<!-- JS -->
+<script src="../assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="js/components.js"></script>
+
+<!-- Firebase -->
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+
+<script>
+  const firebaseConfig = {
+    apiKey: "AIzaSyC3jisbwoN9p0GJzAzfld3Y2l25ZtqIrEg",
+    authDomain: "sistema-rede.firebaseapp.com",
+    projectId: "sistema-rede",
+    storageBucket: "sistema-rede.firebasestorage.app",
+    messagingSenderId: "930399212687",
+    appId: "1:930399212687:web:a89c0d73be4b9fbd488cfa"
+  };
+
+  firebase.initializeApp(firebaseConfig);
+
+  firebase.auth().onAuthStateChanged((user) => {
+    if (!user) window.location.href = "login.html";
+  });
+</script>
+
+</body>
+</html>
