@@ -135,7 +135,7 @@ body.index-page {
 
 /* 👇 compensação da topbar fixa */
 .page-title {
-  margin-top: 90px;
+  margin-top: clamp(70px, 10vh, 110px);
 }
 
 .page-title h1 {
