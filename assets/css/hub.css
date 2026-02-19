@@ -443,4 +443,7 @@ body.index-page {
   .launcher-item i {
     font-size: 2.4rem;
   }
+   .launcher-item {
+    padding: 1.6rem 1rem;
+  }
 }
