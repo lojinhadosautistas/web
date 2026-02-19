@@ -423,3 +423,24 @@ body.index-page {
   }
 }
 
+
+
+
+/* ===== SYSTEM LAUNCHER ICON ===== */
+.launcher-item i {
+  font-size: 1.6rem; /* mobile base (mantém perfeito) */
+}
+
+/* TABLET */
+@media (min-width: 768px) {
+  .launcher-item i {
+    font-size: 2rem;
+  }
+}
+
+/* DESKTOP */
+@media (min-width: 1200px) {
+  .launcher-item i {
+    font-size: 2.4rem;
+  }
+}
