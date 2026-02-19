@@ -398,7 +398,10 @@ body.index-page {
     z-index: 1050;
     transition: left 0.3s ease;
     box-shadow: 2px 0 10px rgba(0,0,0,0.1);
+  text-decoration: none;
+  color: #021229;
   }
+   
 
   .sidebar.show {
     left: 0;
