@@ -125,10 +125,13 @@ body {
 ================================ */
 
 .page-title h1 {
+    display: block !important;
   font-size: 1.6rem;
   font-weight: 700;
   color: var(--text-main);
+    margin-bottom: 0.3rem;
 }
+
 
 .page-title p {
   color: var(--text-muted);
