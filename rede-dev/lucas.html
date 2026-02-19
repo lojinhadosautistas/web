@@ -1,0 +1,172 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sistema REDE | Lojinha dos Autistas</title>
+
+  <!-- Favicons -->
+  <link href="../assets/img/favicon.png" rel="icon">
+  <link href="../assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+  
+  <!-- Bootstrap + Icons -->
+  <link href="../assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="../assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet" />
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+
+  
+  <!-- CSS -->
+  <link rel="stylesheet" href="../assets/css/hub.css">
+
+  
+
+</head>
+
+<body>
+
+
+<div id="header-container"></div>
+<div id="sidebar-container"></div>
+
+  <!-- MAIN -->
+  <main class="main">
+    <div class="page-title mb-4">
+      <h1>LUCAS – Agente de IA</h1>
+      <p>Agente institucional de análise, curadoria e apoio estratégico do Sistema REDE.</p>
+    </div>
+
+    <div class="row mb-4">
+      <div class="col-lg-8">
+        <div class="module-card">
+          <h3>Contexto do Agente</h3>
+          <p>O LUCAS (Leitura Unificada de Contextos para Acolhimento e Suporte) opera exclusivamente com base nos documentos autorizados ao seu perfil de acesso e no conhecimento técnico validado.</p>
+          <span class="badge bg-primary">Modo institucional</span>
+          <span class="badge bg-secondary">Acesso controlado por perfil de usuário</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- CHAT AREA -->
+    <div class="row">
+      <div class="col-lg-8">
+        <div class="module-card" style="min-height: 380px;">
+          <div id="chatWindow">
+            <p class="text-muted"><strong>LUCAS:</strong> Estou pronto para analisar documentos, responder perguntas técnicas e apoiar decisões dentro do escopo autorizado.</p>
+          </div>
+
+          <form id="lucasForm">
+            <textarea class="form-control mb-3" rows="3" placeholder="Digite sua pergunta ou solicitação..." required></textarea>
+            <button type="submit" class="btn btn-primary">Enviar para o LUCAS</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- JS -->
+  <script src="../assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+  <!-- Firebase -->
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+
+  <script>
+    // Config Firebase
+    const firebaseConfig = {
+      apiKey: "AIzaSyC3jisbwoN9p0GJzAzfld3Y2l25ZtqIrEg",
+      authDomain: "sistema-rede.firebaseapp.com",
+      projectId: "sistema-rede",
+      storageBucket: "sistema-rede.firebasestorage.app",
+      messagingSenderId: "930399212687",
+      appId: "1:930399212687:web:a89c0d73be4b9fbd488cfa"
+    };
+    firebase.initializeApp(firebaseConfig);
+
+    const emailSpan = document.getElementById("userEmail");
+    const logoutBtn = document.getElementById("logoutBtn");
+
+    // Protege página: se não logado, volta para login
+    firebase.auth().onAuthStateChanged((user) => {
+      if (user) {
+        emailSpan.textContent = user.email;
+      } else {
+        window.location.href = "login.html";
+      }
+    });
+
+    // Logout
+    logoutBtn.addEventListener("click", (e) => {
+      e.preventDefault();
+      firebase.auth().signOut().then(() => {
+        window.location.href = "../index.html";
+      });
+    });
+
+    // Formulário "Enviar para LUCAS" → mensagem de perfil sem permissão
+    const lucasForm = document.getElementById("lucasForm");
+    const chatWindow = document.getElementById("chatWindow");
+
+lucasForm.addEventListener("submit", async (e) => {
+  e.preventDefault();
+
+  const textarea = lucasForm.querySelector("textarea");
+  const pergunta = textarea.value.trim();
+
+  if (!pergunta) return;
+
+  // Mensagem do usuário
+  const userMsg = document.createElement("p");
+  userMsg.innerHTML = `<strong>Você:</strong> ${pergunta}`;
+  chatWindow.appendChild(userMsg);
+
+  // Placeholder do LUCAS
+  const lucasMsg = document.createElement("p");
+  lucasMsg.innerHTML = `<strong>LUCAS:</strong> analisando...`;
+  chatWindow.appendChild(lucasMsg);
+
+  chatWindow.scrollTop = chatWindow.scrollHeight;
+  textarea.value = "";
+
+try {
+  const response = await fetch(
+    "https://lucas-backend--autistas.replit.app/api/lucas",
+    {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        question: pergunta,
+      }),
+    }
+  );
+
+  const data = await response.json();
+
+  if (!response.ok) {
+    lucasMsg.innerHTML =
+      `<strong>LUCAS:</strong> Erro do servidor: ${data.error || "falha desconhecida."}`;
+    return;
+  }
+
+  lucasMsg.innerHTML =
+    `<strong>LUCAS:</strong> ${data.answer}`;
+
+} catch (err) {
+  console.error(err);
+  lucasMsg.innerHTML =
+    `<strong>LUCAS:</strong> Erro de conexão com o servidor.`;
+}
+
+
+  chatWindow.scrollTop = chatWindow.scrollHeight;
+});
+  </script>
+
+
+  
+</body>
+</html>
