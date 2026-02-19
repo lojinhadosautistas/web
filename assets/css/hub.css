@@ -49,7 +49,7 @@ body.index-page {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0 30px;
+  padding: 0 20px;
   position: fixed;
   top: 0;
   left: 0;
@@ -130,7 +130,7 @@ body.index-page {
 
 .main {
   margin-left: 240px;
-  padding: 90px 30px 30px;
+  padding: 100px 30px 30px;
 }
 
 .page-title h1 {
