@@ -1,0 +1,1 @@
+Plataforma web modular que organiza conteúdos, documentos e iniciativas relacionadas ao autismo, inclusão e inovação social, funcionando como hub digital colaborativo e ambiente de gestão do ecossistema Autistas.net.
