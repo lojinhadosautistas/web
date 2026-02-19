@@ -133,6 +133,11 @@ body.index-page {
   padding: 100px 30px 30px;
 }
 
+/* 👇 compensação da topbar fixa */
+.page-title {
+  margin-top: 90px;
+}
+
 .page-title h1 {
   font-size: 1.6rem;
   font-weight: 700;
