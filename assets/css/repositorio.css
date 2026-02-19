@@ -1,321 +1,12 @@
 /* =====================================================
-   SISTEMA REDE — REPOSITÓRIO UNIFICADO
-   Versão consolidada Hub + Explorer
+   SUBMENU VISUAL
 ===================================================== */
 
-/* ===============================
-   VARIÁVEIS GLOBAIS
-================================ */
-
-:root {
-  --bg-main: #f4f6f9;
-  --bg-sidebar: #0f172a;
-  --bg-card: #ffffff;
-  --primary: #2563eb;
-  --text-main: #0f172a;
-  --text-muted: #64748b;
-  --border-light: #e5e7eb;
-}
-
-/* ===============================
-   BASE
-================================ */
-
-body {
-  font-family: "Inter", sans-serif;
-  background: var(--bg-main);
-  margin: 0;
-}
-
-.main {
-  margin-left: 240px;
-  padding: 90px 30px 40px;
-  min-height: auto !important;
-}
-
-/* ===============================
-   TOPBAR
-================================ */
-
-.topbar {
-  height: 60px;
-  background: #fff;
-  border-bottom: 1px solid var(--border-light);
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 0 20px;
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  z-index: 1000;
-}
-
-.topbar .brand {
-  font-weight: 700;
-  font-size: 1.1rem;
-  color: var(--text-main);
-}
-
-.topbar .actions a {
-  margin-left: 15px;
-  text-decoration: none;
-  color: var(--text-muted);
-  font-weight: 500;
-}
-
-.topbar .actions a:hover {
-  color: var(--primary);
-}
-
-.topbar .actions #userEmail {
-  margin-left: 15px;
-  font-weight: 500;
-  color: var(--primary);
-  font-style: italic;
-  font-size: 0.9rem;
-}
-
-/* ===============================
-   SIDEBAR
-================================ */
-
-.sidebar {
-  position: fixed;
-  top: 60px;
-  left: 0;
-  width: 240px;
-  height: calc(100vh - 60px);
-  background: var(--bg-sidebar);
-  padding: 20px 0;
-  overflow-y: auto;
-}
-
-.sidebar h6 {
-  color: #94a3b8;
-  font-size: 0.75rem;
-  padding: 0 20px;
-  margin-top: 20px;
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-}
-
-.sidebar a {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  padding: 10px 20px;
-  color: #e5e7eb;
-  text-decoration: none;
-  font-size: 0.95rem;
-  border-left: 3px solid transparent;
-  transition: 0.2s ease;
-}
-
-.sidebar a:hover,
-.sidebar a.active {
-  background: rgba(255, 255, 255, 0.08);
-  border-left: 3px solid var(--primary);
-  color: #fff;
-}
-
-/* ===============================
-   PAGE TITLE
-================================ */
-
-.page-title h1 {
-    display: block !important;
-  font-size: 1.6rem;
-  font-weight: 700;
-  color: var(--text-main);
-    margin-bottom: 0.3rem;
-}
-
-
-.page-title p {
-  color: var(--text-muted);
-  margin-top: 5px;
-}
-
-/* =====================================================
-   REPOSITÓRIO — ESTILO EXPLORER
-===================================================== */
-
-.explorer-card {
-  background: var(--bg-card);
-  border-radius: 14px;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.05);
-  overflow: hidden;
-}
-
-/* Tabela */
-
-#repoTable {
-  margin: 0;
-}
-
-#repoTable thead {
-  background: #f8fafc;
-  border-bottom: 1px solid var(--border-light);
-}
-
-#repoTable th {
-  font-weight: 600;
-  font-size: 0.78rem;
-  text-transform: uppercase;
-  letter-spacing: 0.6px;
-  padding: 14px 16px;
-  color: var(--text-muted);
-  position: relative;
-}
-
-#repoTable td {
-  padding: 14px 16px;
-  font-size: 0.95rem;
-  color: var(--text-main);
-  border-top: 1px solid var(--border-light);
-}
-
-/* Hover linhas */
-
-#repoTable tbody tr {
-  transition: background 0.15s ease;
-}
-
-#repoTable tbody tr:hover {
-  background: #f9fafb;
-}
-
-/* Pastas */
-
-.folder-row {
-  background: #f8fafc;
-  font-weight: 500;
-}
-
-.folder-row i {
-  color: #f59e0b;
-}
-
-/* Arquivos */
-
-.file-pdf i {
-  color: #dc2626;
-}
-
-.file-doc i {
-  color: var(--primary);
-}
-
-/* Links internos */
-
-#repoTable a {
-  text-decoration: none;
-  color: inherit;
-}
-
-#repoTable a:hover {
-  text-decoration: underline;
-}
-
-/* ===============================
-   ORDENAÇÃO VISUAL
-================================ */
-
-#repoTable th.sortable {
-  cursor: pointer;
-  transition: background 0.2s ease;
-}
-
-#repoTable th.sortable:hover {
-  background-color: #eef2f7;
-}
-
-#repoTable .sort-icon {
-  font-size: 0.75rem;
-  margin-left: 6px;
-  opacity: 0.35;
-  transition: 0.2s ease;
-}
-
-#repoTable th.sortable:hover .sort-icon {
-  opacity: 1;
-  transform: scale(1.1);
-}
-
-#repoTable th.sortable:active .sort-icon {
-  transform: rotate(180deg);
-}
-
-/* Estado preparado para JS futuro */
-
-#repoTable th.active {
-  background-color: #e2e8f0;
-  color: var(--text-main);
-}
-
-#repoTable th.active .sort-icon {
-  opacity: 1;
-}
-
-/* ===============================
-   BADGES
-================================ */
-
-.badge-interno {
-  background: #e5e7eb;
-  color: #374151;
-  font-size: 0.75rem;
-  padding: 4px 8px;
-  border-radius: 6px;
-}
-
-.badge-ativo {
-  background: #dcfce7;
-  color: #166534;
-  font-size: 0.75rem;
-  padding: 4px 8px;
-  border-radius: 6px;
-}
-
-.badge-restrito {
-  background: #fef3c7;
-  color: #92400e;
-  font-size: 0.75rem;
-  padding: 4px 8px;
-  border-radius: 6px;
-}
-
-/* ===============================
-   RESPONSIVO
-================================ */
-
-@media (max-width: 992px) {
-  .sidebar {
-    display: none;
-  }
-
-  .main {
-    margin-left: 0;
-    padding: 80px 20px 30px;
-  }
-
-  #repoTable th,
-  #repoTable td {
-    font-size: 0.85rem;
-    padding: 10px;
-  }
-}
-
-
-
-
-/* SUBMENU VISUAL */
 .sidebar a.submenu {
   padding-left: 35px;
   font-size: 0.92rem;
   opacity: 0.85;
+  position: relative;
 }
 
 .sidebar a.submenu::before {
@@ -333,8 +24,10 @@ body {
 }
 
 
+/* =====================================================
+   BOTÃO MENU MOBILE
+===================================================== */
 
-/* BOTÃO MENU MOBILE */
 .menu-toggle {
   background: none;
   border: none;
@@ -344,9 +37,14 @@ body {
   color: var(--primary);
 }
 
-/* MOBILE */
+
+/* =====================================================
+   MOBILE LAYOUT
+===================================================== */
+
 @media (max-width: 768px) {
 
+  /* SIDEBAR DRAWER */
   .sidebar {
     position: fixed;
     left: -260px;
@@ -359,7 +57,7 @@ body {
     box-shadow: 2px 0 10px rgba(0,0,0,0.1);
   }
 
-  /* 👇 força cor escura nos itens internos */
+  /* Força contraste interno */
   .sidebar,
   .sidebar a,
   .sidebar .nav-link,
@@ -368,15 +66,27 @@ body {
     color: #021229 !important;
   }
 
-   .sidebar a:hover {
-  background: #f1f5f9;
-  border-radius: 8px;
-}
-   
+  /* Hover mobile */
+  .sidebar a:hover {
+    background: #f1f5f9;
+    border-radius: 8px;
+  }
+
+  /* Estado aberto */
   .sidebar.show {
     left: 0;
   }
 
+  /* 👇 CORREÇÃO PRINCIPAL — compensar topbar fixa */
   .main {
-    padding: 1rem;
+    padding: 70px 1rem 1rem 1rem;
   }
+
+  /* Garantia de visibilidade do título */
+  .page-title h1 {
+    display: block !important;
+    margin-top: 0;
+    color: #021229;
+  }
+
+}
