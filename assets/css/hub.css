@@ -130,7 +130,7 @@ body.index-page {
 
 .main {
   margin-left: 240px;
-  padding: 100px 30px 30px;
+  padding: 90px 30px 30px;
 }
 
 /* 👇 compensação da topbar fixa */
@@ -150,7 +150,7 @@ body.index-page {
 }
 
 .first-block {
-  margin-top: 32px;
+  margin-top: 28px;
 }
 
 /* ===============================
