@@ -1,0 +1,149 @@
+
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sistema REDE | Calendário 2026</title>
+  
+  <!-- Favicons -->
+  <link href="../assets/img/favicon.png" rel="icon">
+  <link href="../assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+  
+  <!-- Bootstrap + Icons -->
+  <link href="../assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="../assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet" />
+
+  <!-- Google Fonts -->
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
+    rel="stylesheet"
+  />
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="../assets/css/hub.css">
+  
+</head>
+
+<body>
+<div id="header-container"></div>
+<div id="sidebar-container"></div>
+
+  <!-- MAIN -->
+  <main class="main">
+    <div class="page-title mb-4">
+      <h1>Estratégia "Calendário 2026"</h1>
+      <p>Planejamento temporal como um ativo estratégico para promover regulação emocional.</p>
+    </div>
+
+   <div class="module-card">
+  <h3>Economia da atenção aplicada à estruturação de rotinas previsíveis</h3>
+<iframe src="https://calendar.google.com/calendar/embed?src=5180df422bc5053c05031fe4ec6e94004670473f434cb1e80c7792f117e31fc0@group.calendar.google.com&color=%23F4511E&src=lojinhadosautistas%40gmail.com&color=%23188038&ctz=America%2FBoa_Vista&mode=MONTH&showTitle=0&showTabs=0&showCalendars=0" style="border:0; width:100%; height:650px;" frameborder="0" scrolling="no"></iframe>
+</div>
+
+
+<br><hr style="width:50%; margin: 30px auto;"><br>
+
+            <!-- MODULES -->
+    <div class="row g-4">
+      <br>
+      <h3 align="center">Próximos Eventos:</h3>
+      <div class="col-lg-4 col-md-6">
+        <div class="module-card">
+          <a href="https://drive.google.com/file/d/1mpny6zcE9B5XSqPOmq0Hv_a8CaLV7vU_/preview" target="_blank"><h3>13 a 18 de Fevereiro</h3>
+          <span>Carnaval no Quintal 2026 e "Bloco da Gia"</span></a>
+        </div>
+      </div>
+
+      <div class="col-lg-4 col-md-6">
+        <div class="module-card">
+          <a href="https://drive.google.com/file/d/1YqzTPrbpHuejbOyZ3zt4VqVl0wTAX3S6/preview" target="_blank"><h3>16 de Fevereiro</h3>
+          <span>Cinema na Varanda #3</span></a>
+        </div>
+      </div>
+
+      <div class="col-lg-4 col-md-6">
+        <div class="module-card">
+          <a href="https://drive.google.com/file/d/110quo4bzM60aCqpxk1bmiiP8fr6-Yce8/preview" target="_blank"><h3>22 de Março</h3>
+          <span>Cinema na Varanda #4</span></a>
+        </div>
+      </div>
+
+      <div class="col-lg-4 col-md-6">
+        <div class="module-card">
+          <a href="https://drive.google.com/file/d/1wdp9uI-a6cnFqmoR6TyzJXbt4uWQ14hY/preview" target="_blank"><h3>05 de Abril</h3>
+          <span>Páscoa</span></a>
+        </div>
+      </div>
+
+      <div class="col-lg-4 col-md-6">
+        <div class="module-card">
+          <a href="https://drive.google.com/file/d/14msURyZUQEzWKHjLNubno6it1pzxdXuO/preview" target="_blank"><h3>18 de Abril</h3>
+          <span>Cinema na Varanda #5</span></a>
+        </div>
+      </div>
+
+      <div class="col-lg-4 col-md-6">
+        <div class="module-card">
+          <a href="https://drive.google.com/file/d/1dcy7kF_QoU-pCU6ubaNwXFqU_BnxVQqh/preview" target="_blank"><h3>13 de Junho</h3>
+          <span>Festa Junina & Arraiá da Gia</span></a>
+        </div>
+      </div>
+      
+      </div>
+
+<!--      MODULES -->
+    
+  </main>
+
+  <!-- JS -->
+  <script src="../assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script type="module" src="js/hub.js"></script>
+
+  <!-- Firebase -->
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+
+  <script>
+    // Configuração do Firebase
+    const firebaseConfig = {
+      apiKey: "AIzaSyC3jisbwoN9p0GJzAzfld3Y2l25ZtqIrEg",
+      authDomain: "sistema-rede.firebaseapp.com",
+      projectId: "sistema-rede",
+      storageBucket: "sistema-rede.firebasestorage.app",
+      messagingSenderId: "930399212687",
+      appId: "1:930399212687:web:a89c0d73be4b9fbd488cfa"
+    };
+
+    // Inicializa o Firebase
+    firebase.initializeApp(firebaseConfig);
+
+    const emailSpan = document.getElementById("userEmail");
+    const logoutBtn = document.getElementById("logoutBtn");
+
+    // Observa mudanças de autenticação
+    firebase.auth().onAuthStateChanged((user) => {
+      if (user) {
+        emailSpan.textContent = user.email;
+      } else {
+        emailSpan.textContent = "Usuário não logado";
+      }
+    });
+
+    // Logout
+    logoutBtn.addEventListener("click", (e) => {
+      e.preventDefault();
+      firebase.auth().signOut().then(() => {
+        window.location.href = "../index.html";
+      });
+    });
+  </script>
+
+
+  <script src="js/components.js"></script>
+
+
+  
+</body>
+</html>
