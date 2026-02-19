@@ -251,11 +251,7 @@ body.index-page {
 ================================ */
 
 @media (max-width: 992px) {
-  .sidebar {
-    display: none;
-  }
-
-  .main {
+   .main {
     margin-left: 0;
   }
 }
@@ -394,8 +390,8 @@ body.index-page {
   .sidebar {
     position: fixed;
     left: -260px;
-    top: 0;
-    height: 100%;
+    top: 60px;
+    height: calc(100vh - 60px);
     width: 260px;
     background: #fff;
     z-index: 1050;
