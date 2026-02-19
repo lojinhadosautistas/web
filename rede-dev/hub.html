@@ -208,22 +208,7 @@
     }
   });
 </script>
-  <!-- BOTÃO MOBILE -->
-<script>
-  const menuToggle = document.getElementById("menuToggle");
-  const sidebar = document.querySelector(".sidebar");
 
-  menuToggle.addEventListener("click", () => {
-    sidebar.classList.toggle("show");
-  });
-
-  // Fecha ao clicar fora
-  document.addEventListener("click", function(e) {
-    if (!sidebar.contains(e.target) && !menuToggle.contains(e.target)) {
-      sidebar.classList.remove("show");
-    }
-  });
-</script>
 
   <script src="js/components.js"></script>
   
