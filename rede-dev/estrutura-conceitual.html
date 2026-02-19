@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sistema REDE | Estrutura Conceitual do Sistema</title>
+  
+  <!-- Favicons -->
+  <link href="../assets/img/favicon.png" rel="icon">
+  <link href="../assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+  
+  <!-- Bootstrap + Icons -->
+  <link href="../assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="../assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet" />
+
+  <!-- Google Fonts -->
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
+    rel="stylesheet"
+  />
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="../assets/css/hub.css">
+  
+</head>
+
+<body>
+
+<div id="header-container"></div>
+<div id="sidebar-container"></div>
+
+  <!-- MAIN -->
+  <main class="main">
+
+    <div class="page-title mb-4">
+      <h1>Estrutura Conceitual</h1>
+      <p>Fundamentos teóricos e operacionais do Sistema REDE</p>
+    </div>
+
+    <div class="row g-4">
+
+      <!-- Visão Geral -->
+      <div class="col-lg-12">
+        <div class="module-card">
+          <i class="bi bi-diagram-3"></i>
+          <h3>Fundamento básico</h3>
+          <p>
+            O <b>Sistema REDE</b> é um sistema socio-técnico de organização,
+            análise e planejamento estratégico, concebido para transformar
+            registros da experiência cotidiana em decisão estruturada,
+            previsível e escalável.
+            <br><br>
+            Sua lógica é cíclica, adaptativa e cumulativa, integrando dados
+            qualitativos, leitura situacional e planejamento temporal em
+            um fluxo contínuo de aprendizado organizacional.
+          </p>
+        </div>
+      </div>
+
+      <!-- Princípios -->
+      <div class="col-lg-6">
+        <div class="module-card">
+          <i class="bi bi-compass"></i>
+          <h3>Princípios Estruturantes</h3>
+          <p>
+            A estrutura conceitual do Sistema REDE se apoia nos seguintes
+            princípios:
+          </p>
+          <ul>
+            <li><b>Centralidade da Experiência</b> — a prática precede a teoria.</li>
+            <li><b>Registro como Ativo Estratégico</b> — dados geram valor ao longo do tempo.</li>
+            <li><b>Temporalidade como Regulação</b> — o tempo organiza a atenção.</li>
+            <li><b>Interdependência entre Análise e Ação</b>.</li>
+            <li><b>Escalabilidade Cognitiva</b> — crescer sem colapsar.</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Camadas -->
+      <div class="col-lg-6">
+        <div class="module-card">
+          <i class="bi bi-layers"></i>
+          <h3>Camadas Conceituais</h3>
+          <p>
+            O Sistema REDE é organizado em camadas interdependentes,
+            que operam em fluxo circular:
+          </p>
+          <ul>
+            <li><b>Registros</b> — dados brutos, observações e eventos.</li>
+            <li><b>Relatórios</b> — leituras situacionais estruturadas.</li>
+            <li><b>Dossiês</b> — consolidação histórica e temática.</li>
+            <li><b>Planos Programáticos</b> — ação, cronograma e avaliação.</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Função -->
+      <div class="col-lg-12">
+        <div class="module-card">
+          <i class="bi bi-bullseye"></i>
+          <h3>Função do Sistema</h3>
+          <p>
+            A função central do Sistema REDE é:
+          </p>
+          <p style="font-weight: 600; font-style: italic;">
+            Reduzir incerteza organizacional por meio de estrutura,
+            registro e previsibilidade.
+          </p>
+          <p>
+            Ao cumprir essa função, o sistema reduz mediações emergenciais,
+            diminui desgaste emocional, fortalece a autonomia organizacional
+            e cria continuidade entre passado, presente e futuro.
+          </p>
+        </div>
+      </div>
+
+      <!-- Natureza -->
+      <div class="col-lg-12">
+        <div class="module-card">
+          <i class="bi bi-bricks"></i>
+          <h3>Natureza do Sistema</h3>
+          <p>
+            O Sistema REDE não é apenas uma plataforma tecnológica nem apenas
+            um método conceitual.
+            <br><br>
+            Ele é simultaneamente:
+          </p>
+          <ul>
+            <li>um modelo de organização;</li>
+            <li>um sistema de registro e análise;</li>
+            <li>uma ferramenta de planejamento temporal;</li>
+            <li>um ambiente de tomada de decisão assistida.</li>
+          </ul>
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+
+  <!-- JS -->
+  <script src="../assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script type="module" src="js/hub.js"></script>
+
+  <!-- Firebase -->
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+
+  <script>
+    // Configuração do Firebase
+    const firebaseConfig = {
+      apiKey: "AIzaSyC3jisbwoN9p0GJzAzfld3Y2l25ZtqIrEg",
+      authDomain: "sistema-rede.firebaseapp.com",
+      projectId: "sistema-rede",
+      storageBucket: "sistema-rede.firebasestorage.app",
+      messagingSenderId: "930399212687",
+      appId: "1:930399212687:web:a89c0d73be4b9fbd488cfa"
+    };
+
+    // Inicializa o Firebase
+    firebase.initializeApp(firebaseConfig);
+
+    const emailSpan = document.getElementById("userEmail");
+    const logoutBtn = document.getElementById("logoutBtn");
+
+    // Observa mudanças de autenticação
+    firebase.auth().onAuthStateChanged((user) => {
+      if (user) {
+        emailSpan.textContent = user.email;
+      } else {
+        emailSpan.textContent = "Usuário não logado";
+      }
+    });
+
+    // Logout
+    logoutBtn.addEventListener("click", (e) => {
+      e.preventDefault();
+      firebase.auth().signOut().then(() => {
+        window.location.href = "../index.html";
+      });
+    });
+  </script>
+
+<!-- Script de Filtro -->
+<script>
+  const filterButtons = document.querySelectorAll('.filter-btn');
+  const items = document.querySelectorAll('#docsGrid .portfolio-item');
+
+  filterButtons.forEach(btn => {
+    btn.addEventListener('click', () => {
+      // ativa botão
+      filterButtons.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+
+      const filter = btn.dataset.filter;
+
+      items.forEach(item => {
+        if (filter === 'all' || item.classList.contains(`filter-${filter}`)) {
+          item.style.display = '';
+        } else {
+          item.style.display = 'none';
+        }
+      });
+    });
+  });
+</script>
+<!--
+<script>
+  const filterButtons = document.querySelectorAll('.filter-btn');
+const carouselInner = document.querySelector('#docsCarousel .carousel-inner');
+const carousel = bootstrap.Carousel.getOrCreateInstance(document.getElementById('docsCarousel'));
+
+filterButtons.forEach(btn => {
+  btn.addEventListener('click', () => {
+    // Atualiza UI do botão
+    filterButtons.forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+
+    const filter = btn.dataset.filter;
+    const cards = carouselInner.querySelectorAll('.module-card');
+
+    let firstVisible = null;
+
+    cards.forEach(card => {
+      if (filter === 'all' || card.dataset.type.includes(filter)) {
+        card.style.display = 'block';
+        if (!firstVisible) firstVisible = card;
+      } else {
+        card.style.display = 'none';
+      }
+      card.classList.remove('active'); // remove active do card
+    });
+
+    // Garante que o primeiro card visível seja "ativo"
+    if (firstVisible) {
+      firstVisible.classList.add('active');
+    }
+
+    // Reinicia o carousel no primeiro card visível
+    carousel.to(0);
+  });
+});
+</script>-->
+
+
+    <script src="js/components.js"></script>
+  
+</body>
+</html>
