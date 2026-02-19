@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sistema REDE | Repositório v2</title>
+
+  <!-- Favicons -->
+  <link href="../assets/img/favicon.png" rel="icon">
+  <link href="../assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+
+  <!-- Bootstrap + Icons -->
+  <link href="../assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="../assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet" />
+
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="../assets/css/repositorio.css">
+  <link rel="stylesheet" href="../assets/css/hub.css">
+
+  <!-- STYLE LOCAL (painel teórico) -->
+  <style>
+    .info-panel {
+      background: #f8fafc;
+      border-radius: 12px;
+      padding: 16px;
+      border: 1px solid #e2e8f0;
+      font-size: 0.92rem;
+      line-height: 1.5;
+    }
+
+    .info-row td {
+      padding: 0 !important;
+      border-top: none;
+    }
+
+    .info-toggle {
+      border-radius: 8px;
+    }
+
+    .info-toggle:hover {
+      background: #eef2ff;
+    }
+  </style>
+</head>
+
+<body>
+
+<div id="header-container"></div>
+<div id="sidebar-container"></div>
+
+<!-- MAIN -->
+<main class="main">
+
+  <div class="page-title mb-4">
+    <h1>Repositório de Arquivos</h1>
+    <p>
+      Ambiente estruturado de acesso aos documentos técnicos e institucionais
+      do Sistema REDE, bem como arquivos derivados dos respectivos documentos.
+    </p>
+  </div>
+
+  <div class="explorer-card">
+    <div class="table-responsive">
+      <table class="table align-middle mb-0" id="repoTable">
+
+        <thead>
+          <tr>
+            <th>Nome</th>
+            <th>Tipo</th>
+            <th>Síntese</th>
+            <th>Data</th>
+            <th>Status</th>
+            <th></th>
+          </tr>
+        </thead>
+
+        <tbody>
+
+          <!-- ================= DOSSIÊ CALENDÁRIO ================= -->
+          <tr>
+            <td>
+              <i class="bi bi-folder2-open me-2"></i>
+              <a href="https://drive.google.com/file/d/1Ccxq-kaZV3Oz7T1GP9obDtAp1ULbSZYN/preview" target="_blank">
+                Dossiê Calendário 2026
+              </a>
+            </td>
+            <td>Dossiê</td>
+            <td>Leitura integrada da estratégia Calendário 2026.</td>
+            <td>25/01/2026</td>
+            <td><span class="badge-ativo">Ativo</span></td>
+            <td>
+              <button class="btn btn-sm btn-light info-toggle">
+                <i class="bi bi-journal-text"></i>
+              </button>
+            </td>
+          </tr>
+
+          <tr class="info-row d-none">
+            <td colspan="6">
+              <div class="info-panel">
+                <strong>Eixo conceitual:</strong> Temporalidade e previsibilidade familiar<br>
+                <strong>Referencial:</strong> Bronfenbrenner; Mullainathan & Shafir; Zimbardo
+              </div>
+            </td>
+          </tr>
+
+          <!-- ================= DOSSIÊ FÉRIAS ================= -->
+          <tr>
+            <td>
+              <i class="bi bi-folder2-open me-2"></i>
+              <a href="https://drive.google.com/file/d/1oWfLQspDjsb93KM1J5AabB7uHGVMkCDC/preview" target="_blank">
+                Dossiê Férias 2025-2026
+              </a>
+            </td>
+            <td>Dossiê</td>
+            <td>Leitura integrada do período de férias.</td>
+            <td>17/01/2026</td>
+            <td><span class="badge-ativo">Ativo</span></td>
+            <td>
+              <button class="btn btn-sm btn-light info-toggle">
+                <i class="bi bi-journal-text"></i>
+              </button>
+            </td>
+          </tr>
+
+          <tr class="info-row d-none">
+            <td colspan="6">
+              <div class="info-panel">
+                <strong>Eixo conceitual:</strong> Ecologia do desenvolvimento e convivência familiar<br>
+                <strong>Referencial:</strong> Bronfenbrenner; Nichols; Siegel
+              </div>
+            </td>
+          </tr>
+
+        </tbody>
+
+      </table>
+    </div>
+  </div>
+
+</main>
+
+<!-- JS -->
+<script src="../assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="js/components.js"></script>
+
+<!-- SCRIPT EXPAND ROW -->
+<script>
+  document.querySelectorAll(".info-toggle").forEach(btn => {
+    btn.addEventListener("click", () => {
+      const tr = btn.closest("tr");
+      const infoRow = tr.nextElementSibling;
+      infoRow.classList.toggle("d-none");
+    });
+  });
+</script>
+
+</body>
+</html>
