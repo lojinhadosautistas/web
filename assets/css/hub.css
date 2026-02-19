@@ -379,7 +379,8 @@ body.index-page {
 .menu-toggle {
   background: none;
   border: none;
-  font-size: 1.8rem;
+  font-size: 1.4rem;
+  margin-right: 10px;
   cursor: pointer;
   color: var(--primary);
 }
