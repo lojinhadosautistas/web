@@ -1,0 +1,156 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sistema REDE | Documentos Técnicos</title>
+  
+  <!-- Favicons -->
+  <link href="../assets/img/favicon.png" rel="icon">
+  <link href="../assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+  
+  <!-- Bootstrap + Icons -->
+  <link href="../assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="../assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet" />
+
+  <!-- Google Fonts -->
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
+    rel="stylesheet"
+  />
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="../assets/css/hub.css">
+  
+</head>
+
+<body>
+<div id="header-container"></div>
+<div id="sidebar-container"></div>
+
+  <!-- MAIN -->
+  <main class="main">
+    <div class="page-title mb-4">
+      <h1>Documentos Técnicos</h1>      
+      <p>A arquitetura do <b>Sistema REDE</b> se materializa por meio de três tipos de produtos institucionais: </p>
+    </div>
+  
+<div class="text-start mb-4">
+  <a href="repositorio.html" class="btn btn-primary btn-sm px-4">
+    <i class="bi bi-collection"></i> Acessar Repositório Completo
+  </a>
+</div>
+    
+    <!-- MODULES -->
+    <div class="row g-4">
+      <div class="col-lg-4 col-md-6">
+        <div class="module-card" id="relatorios">
+          <i class="bi bi-journal-text"></i>
+          <h3>Relatórios</h3>
+          <p>Documentos analíticos, produzido a partir de uma situação específica e/ou de uma problemática concreta. Os Relatórios são divididos em 2 categorias:<br>
+            <b>Relatórios de Alerta</b>: possuem caráter situacional e validade de curto a médio prazo - respondem ao “aqui e agora” da experiência vivida (vinculados ao Módulo RAI).<br>
+            <b>Relatórios de Trigger</b>: têm como função compreender um contexto determinado, identificar fatores envolvidos, propor orientações e estratégias de ação.<br>
+            </p>
+        </div>
+      </div>
+
+      <div class="col-lg-4 col-md-6">
+        <div class="module-card" id="dossie">
+          <i class="bi bi-newspaper"></i>
+          <h3>Dossiês</h3>
+          <p>Documentos derivados, constituídos a partir da análise integrada de múltiplos relatórios, registros internos e contextos históricos específicos.<br><br>
+            Sua função é produzir uma leitura longitudinal, identificar padrões recorrentes e sustentar decisões estruturais de médio a longo prazo. Não apresentam uma visão especificamente relacionada a eventos isolados; observam ciclos, recorrências e processos.</p>
+         <!-- <a href="#">Acessar nossa Wiki →</a> -->
+        </div>
+      </div>
+
+      <div class="col-lg-4 col-md-6">
+        <div class="module-card" id="planos">
+          <i class="bi bi-calendar4-week"></i>
+          <h3>Planos Programáticos</h3>
+          <p>Organizam eixos, interesses, objetivos e produtos ao longo de um período, oferecendo suporte concreto à prática pedagógica e terapêutica, com foco em menor improvisação e menor custo emocional.<br><br>
+          Estes documentos não se limitam à análise nem à resposta a problemas, mas traduzem a leitura produzida pelo sistema em diretrizes intencionais para experiências programáticas voltadas ao desenvolvimento humano. </p>
+         <!-- <a href="#">Consultar referencial bibliográfico →</a> -->
+        </div>
+      </div>
+          <div class="page-title mb-4">
+      <p>Esses produtos não representam etapas rígidas e/ou hierárquicas, mas camadas complementares de leitura, organização e ação pedagógico-terapêutica.
+</p>
+    </div>
+    </div>
+    
+  </main>
+
+  <!-- JS -->
+  <script src="../assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script type="module" src="js/hub.js"></script>
+
+  <!-- Firebase -->
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+
+  <script>
+    // Configuração do Firebase
+    const firebaseConfig = {
+      apiKey: "AIzaSyC3jisbwoN9p0GJzAzfld3Y2l25ZtqIrEg",
+      authDomain: "sistema-rede.firebaseapp.com",
+      projectId: "sistema-rede",
+      storageBucket: "sistema-rede.firebasestorage.app",
+      messagingSenderId: "930399212687",
+      appId: "1:930399212687:web:a89c0d73be4b9fbd488cfa"
+    };
+
+    // Inicializa o Firebase
+    firebase.initializeApp(firebaseConfig);
+
+    const emailSpan = document.getElementById("userEmail");
+    const logoutBtn = document.getElementById("logoutBtn");
+
+    // Observa mudanças de autenticação
+    firebase.auth().onAuthStateChanged((user) => {
+      if (user) {
+        emailSpan.textContent = user.email;
+      } else {
+        emailSpan.textContent = "Usuário não logado";
+      }
+    });
+
+    // Logout
+    logoutBtn.addEventListener("click", (e) => {
+      e.preventDefault();
+      firebase.auth().signOut().then(() => {
+        window.location.href = "../index.html";
+      });
+    });
+  </script>
+
+<!-- Script de Filtro -->
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+
+  const emailSpan = document.getElementById("userEmail");
+  const logoutBtn = document.getElementById("logoutBtn");
+
+  firebase.auth().onAuthStateChanged((user) => {
+    if (emailSpan){
+      emailSpan.textContent = user ? user.email : "Usuário não logado";
+    }
+  });
+
+  if (logoutBtn){
+    logoutBtn.addEventListener("click", (e) => {
+      e.preventDefault();
+      firebase.auth().signOut().then(() => {
+        window.location.href = "../index.html";
+      });
+    });
+  }
+
+});
+</script>
+
+  <script src="js/components.js"></script>
+  
+</body>
+</html>
