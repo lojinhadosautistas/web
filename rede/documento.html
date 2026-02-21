@@ -74,10 +74,9 @@
          <!-- <a href="#">Consultar referencial bibliográfico →</a> -->
         </div>
       </div>
-          <div class="page-title mb-4">
-      <p>Esses produtos não representam etapas rígidas e/ou hierárquicas, mas camadas complementares de leitura, organização e ação pedagógico-terapêutica.
-</p>
     </div>
+    <div class="page-title mb-4">
+      <p>Esses produtos não representam etapas rígidas e/ou hierárquicas, mas camadas complementares de leitura, organização e ação pedagógico-terapêutica.</p>
     </div>
     
   </main>
@@ -104,30 +103,7 @@
     // Inicializa o Firebase
     firebase.initializeApp(firebaseConfig);
 
-    const emailSpan = document.getElementById("userEmail");
-    const logoutBtn = document.getElementById("logoutBtn");
-
-    // Observa mudanças de autenticação
-    firebase.auth().onAuthStateChanged((user) => {
-      if (user) {
-        emailSpan.textContent = user.email;
-      } else {
-        emailSpan.textContent = "Usuário não logado";
-      }
-    });
-
-    // Logout
-    logoutBtn.addEventListener("click", (e) => {
-      e.preventDefault();
-      firebase.auth().signOut().then(() => {
-        window.location.href = "../index.html";
-      });
-    });
-  </script>
-
-<!-- Script de Filtro -->
-<script>
-document.addEventListener("DOMContentLoaded", () => {
+    document.addEventListener("DOMContentLoaded", () => {
 
   const emailSpan = document.getElementById("userEmail");
   const logoutBtn = document.getElementById("logoutBtn");
@@ -148,7 +124,8 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
 });
-</script>
+  </script>
+
 
   <script src="js/components.js"></script>
   
