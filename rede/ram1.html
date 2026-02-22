@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sistema REDE | RAM — Aumento de peso</title>
+
+  <link href="../assets/img/favicon.png" rel="icon">
+
+  <link href="../assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="../assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet" />
+
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="../assets/css/hub.css">
+
+<style>
+.kcal-input{
+  width:80px;
+}
+
+.total-box{
+  font-weight:600;
+  font-size:1.1rem;
+  text-align:right;
+  margin-top:10px;
+}
+</style>
+
+</head>
+
+<body>
+
+<div id="header-container"></div>
+<div id="sidebar-container"></div>
+
+<main class="main">
+
+<!-- PAGE TITLE -->
+<div class="page-title mb-4">
+  <h1>RAM — Aumento de peso</h1>
+  <p>Monitoramento alimentar e clínico associado ao ganho ponderal</p>
+</div>
+
+<div class="row g-4">
+
+<!-- CONTEXTO -->
+<div class="col-lg-12">
+<div class="module-card">
+<i class="bi bi-file-earmark-medical"></i>
+<h3>Contextualização</h3>
+<p>
+Alerta registrado em 04/11/2024 indicando ganho de peso progressivo associado a irritabilidade, baixa disposição, alterações de sono e possível refluxo.
+A análise integra dados dos módulos MAD, MAP e RAI com leitura do agente LUCAS.
+</p>
+</div>
+</div>
+
+<!-- ACHADOS -->
+<div class="col-lg-3 col-md-6">
+<div class="module-card">
+<i class="bi bi-graph-up"></i>
+<h3>Ganho ponderal</h3>
+<p>Evolução progressiva observada nos últimos meses.</p>
+</div>
+</div>
+
+<div class="col-lg-3 col-md-6">
+<div class="module-card">
+<i class="bi bi-emoji-frown"></i>
+<h3>Comportamento</h3>
+<p>Irritabilidade e desregulação associadas.</p>
+</div>
+</div>
+
+<div class="col-lg-3 col-md-6">
+<div class="module-card">
+<i class="bi bi-moon"></i>
+<h3>Sono</h3>
+<p>Qualidade reduzida com ronco e despertares.</p>
+</div>
+</div>
+
+<div class="col-lg-3 col-md-6">
+<div class="module-card">
+<i class="bi bi-heart-pulse"></i>
+<h3>Digestivo</h3>
+<p>Sinais compatíveis com refluxo leve.</p>
+</div>
+</div>
+
+<!-- DIETA ATUAL -->
+<div class="col-lg-12">
+<div class="module-card">
+
+<i class="bi bi-calculator"></i>
+<h3>Dieta atual — calculadora nutricional</h3>
+
+<table class="table">
+<thead>
+<tr>
+<th>Refeição</th>
+<th>Alimento</th>
+<th>g</th>
+<th>kcal/100g</th>
+<th>kcal</th>
+</tr>
+</thead>
+
+<tbody id="dietBody">
+
+<tr>
+<td>Manhã</td>
+<td>Tapioca</td>
+<td><input class="form-control kcal-input g"></td>
+<td><input class="form-control kcal-input k100"></td>
+<td class="kcal">0</td>
+</tr>
+
+<tr>
+<td>Manhã</td>
+<td>Ovos</td>
+<td><input class="form-control kcal-input g"></td>
+<td><input class="form-control kcal-input k100"></td>
+<td class="kcal">0</td>
+</tr>
+
+<tr>
+<td>Almoço</td>
+<td>Arroz</td>
+<td><input class="form-control kcal-input g"></td>
+<td><input class="form-control kcal-input k100"></td>
+<td class="kcal">0</td>
+</tr>
+
+<tr>
+<td>Almoço</td>
+<td>Feijão</td>
+<td><input class="form-control kcal-input g"></td>
+<td><input class="form-control kcal-input k100"></td>
+<td class="kcal">0</td>
+</tr>
+
+<tr>
+<td>Jantar</td>
+<td>Farofa</td>
+<td><input class="form-control kcal-input g"></td>
+<td><input class="form-control kcal-input k100"></td>
+<td class="kcal">0</td>
+</tr>
+
+<tr>
+<td>Lanche</td>
+<td>Nuggets</td>
+<td><input class="form-control kcal-input g"></td>
+<td><input class="form-control kcal-input k100"></td>
+<td class="kcal">0</td>
+</tr>
+
+</tbody>
+</table>
+
+<div class="total-box">
+Total diário: <span id="total">0</span> kcal
+</div>
+
+</div>
+</div>
+
+<!-- DIRETRIZES -->
+<div class="col-lg-6">
+<div class="module-card">
+<i class="bi bi-lightbulb"></i>
+<h3>Diretrizes alimentares</h3>
+<ul>
+<li>Mudanças graduais e seguras</li>
+<li>Substituições silenciosas</li>
+<li>Redução de ultraprocessados</li>
+<li>Uso de ingredientes do quintal</li>
+<li>Ampliação sensorial leve</li>
+</ul>
+</div>
+</div>
+
+<!-- CRONOGRAMA -->
+<div class="col-lg-6">
+<div class="module-card">
+<i class="bi bi-calendar-week"></i>
+<h3>Cronograma (8 semanas)</h3>
+<ul>
+<li>Sem 1–2 → redução gordura + ervas</li>
+<li>Sem 3–4 → farofa leve + lanche saudável</li>
+<li>Sem 5–6 → ajuste jantar + proteína</li>
+<li>Sem 7–8 → ampliar variedade</li>
+</ul>
+</div>
+</div>
+
+</div>
+</main>
+
+<script>
+function calcRow(row){
+  const g = row.querySelector('.g').value || 0
+  const k100 = row.querySelector('.k100').value || 0
+  const kcal = (g*k100)/100
+  row.querySelector('.kcal').innerText = kcal.toFixed(1)
+  return kcal
+}
+
+function calcTotal(){
+  let total=0
+  document.querySelectorAll('#dietBody tr').forEach(r=> total+=calcRow(r))
+  document.getElementById('total').innerText=total.toFixed(1)
+}
+
+document.addEventListener('input',calcTotal)
+</script>
+
+<script src="../assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script type="module" src="js/hub.js"></script>
+<script src="js/components.js"></script>
+
+</body>
+</html>
