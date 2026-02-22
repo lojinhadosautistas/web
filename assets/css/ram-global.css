@@ -1,0 +1,63 @@
+/* ===============================
+RAM GLOBAL DASHBOARD
+================================ */
+
+#ramDashboard .card{
+  border-radius:14px;
+  transition:.25s;
+  cursor:pointer;
+}
+
+#ramDashboard .card:hover{
+  transform:translateY(-3px);
+}
+
+/* ===============================
+TIMELINE
+================================ */
+
+#ramTimeline{
+  display:flex;
+  flex-direction:column;
+  gap:14px;
+  margin-top:10px;
+}
+
+.timeline-item{
+  display:flex;
+  align-items:center;
+  gap:10px;
+}
+
+.timeline-dot{
+  width:14px;
+  height:14px;
+  border-radius:50%;
+}
+
+.timeline-text{
+  font-size:.85rem;
+}
+
+/* ===============================
+SUMMARY
+================================ */
+
+.ram-summary{
+  display:flex;
+  gap:16px;
+  flex-wrap:wrap;
+}
+
+.ram-summary .badge{
+  font-size:.9rem;
+  padding:8px 12px;
+}
+
+/* ===============================
+RESPONSIVO
+================================ */
+
+@media(max-width:768px){
+  #ramTimeline{flex-direction:row;flex-wrap:wrap;}
+}
