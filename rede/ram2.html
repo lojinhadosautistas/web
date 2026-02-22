@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Sistema REDE | RAM2 — Monitoramento longitudinal</title>
+
+<link href="../assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet"/>
+<link href="../assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet"/>
+<link rel="stylesheet" href="../assets/css/hub.css">
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<style>
+.metric-big{
+  font-size:2rem;
+  font-weight:600;
+}
+</style>
+
+</head>
+
+<body>
+
+<div id="header-container"></div>
+<div id="sidebar-container"></div>
+
+<main class="main">
+
+<div class="page-title mb-4">
+<h1>RAM2 — Monitoramento longitudinal</h1>
+<p>Linha temporal, prontuário nutricional e análise comparativa</p>
+</div>
+
+<div class="row g-4">
+
+<!-- PESO -->
+<div class="col-lg-12">
+<div class="module-card">
+<i class="bi bi-activity"></i>
+<h3>Linha do tempo do peso</h3>
+
+<canvas id="pesoChart" height="100"></canvas>
+
+</div>
+</div>
+
+<!-- PRONTUARIO -->
+<div class="col-lg-12">
+<div class="module-card">
+<i class="bi bi-journal-medical"></i>
+<h3>Registro diário — prontuário nutricional</h3>
+
+<table class="table table-sm">
+<thead>
+<tr>
+<th>Data</th>
+<th>Peso</th>
+<th>Kcal</th>
+<th>Humor</th>
+<th>Sono</th>
+<th>Observações</th>
+</tr>
+</thead>
+
+<tbody id="logBody">
+
+<tr>
+<td><input type="date" class="form-control"></td>
+<td><input type="number" class="form-control peso"></td>
+<td><input type="number" class="form-control kcal"></td>
+<td><input class="form-control"></td>
+<td><input class="form-control"></td>
+<td><input class="form-control"></td>
+</tr>
+
+</tbody>
+</table>
+
+<button class="btn btn-sm btn-outline-primary" onclick="addRow()">
+<i class="bi bi-plus"></i> adicionar registro
+</button>
+
+</div>
+</div>
+
+<!-- COMPARATIVO -->
+<div class="col-lg-12">
+<div class="module-card">
+<i class="bi bi-bar-chart"></i>
+<h3>Painel comparativo — ingestão vs meta</h3>
+
+<div class="row">
+
+<div class="col-md-4">
+<label>Ingestão atual</label>
+<input id="kAtual" class="form-control">
+</div>
+
+<div class="col-md-4">
+<label>Meta kcal</label>
+<input id="kMeta" class="form-control">
+</div>
+
+<div class="col-md-4">
+<div class="metric-big mt-4" id="delta">0</div>
+<small>Diferença</small>
+</div>
+
+</div>
+
+<div class="progress mt-3" style="height:18px">
+<div id="bar" class="progress-bar"></div>
+</div>
+
+</div>
+</div>
+
+</div>
+</main>
+
+<script>
+/* ===== GRAFICO PESO ===== */
+
+const ctx = document.getElementById('pesoChart');
+
+const pesoChart = new Chart(ctx,{
+type:'line',
+data:{
+labels:['Seg','Ter','Qua','Qui','Sex'],
+datasets:[{
+label:'Peso',
+data:[70,71,71,72,72],
+tension:.3
+}]
+}
+});
+
+/* ===== ADD ROW ===== */
+
+function addRow(){
+const tr=document.createElement('tr');
+tr.innerHTML=`
+<td><input type="date" class="form-control"></td>
+<td><input type="number" class="form-control peso"></td>
+<td><input type="number" class="form-control kcal"></td>
+<td><input class="form-control"></td>
+<td><input class="form-control"></td>
+<td><input class="form-control"></td>
+`
+document.getElementById('logBody').appendChild(tr);
+}
+
+/* ===== COMPARATIVO ===== */
+
+document.addEventListener('input',()=>{
+const atual=document.getElementById('kAtual').value||0
+const meta=document.getElementById('kMeta').value||0
+const delta=atual-meta
+document.getElementById('delta').innerText=delta
+
+const pct=meta? (atual/meta)*100:0
+document.getElementById('bar').style.width=pct+'%'
+})
+</script>
+
+<script src="../assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script type="module" src="js/hub.js"></script>
+<script src="js/components.js"></script>
+
+</body>
+</html>
