@@ -32,6 +32,7 @@
 
 <div id="header-container"></div>
 <div id="sidebar-container"></div>
+<div id="ram-header"></div>
 
 <main class="main">
 
@@ -219,6 +220,26 @@ document.addEventListener('input',calcTotal)
 <script src="../assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 <script type="module" src="js/hub.js"></script>
 <script src="js/components.js"></script>
+
+
+  <script>
+fetch("../components/ram-header.html")
+  .then(r => r.text())
+  .then(html => {
+    document.getElementById("ram-header").innerHTML = html;
+
+    // detectar página atual
+    const current = location.pathname.split("/").pop();
+
+    document.querySelectorAll(".ram-breadcrumb a").forEach(a => {
+      if (a.getAttribute("href") === current) {
+        const li = a.parentElement;
+        li.innerHTML = a.textContent;
+        li.setAttribute("aria-current","page");
+      }
+    });
+  });
+</script>
 
 </body>
 </html>
