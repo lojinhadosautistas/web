@@ -1,0 +1,277 @@
+
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sistema REDE | Hub Interno</title>
+  
+  <!-- Favicons -->
+  <link href="../assets/img/favicon.png" rel="icon">
+  <link href="../assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+  
+  <!-- Bootstrap + Icons -->
+  <link href="../assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="../assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet" />
+
+  <!-- Google Fonts -->
+  <link    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
+    rel="stylesheet"  />
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="../assets/css/hub.css">
+   <!-- MICRO STYLE (grid app) -->
+  <style>
+    .system-launcher {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
+      gap: 18px;
+    }
+
+    .launcher-item {
+      background: #ffffff;
+      border-radius: 16px;
+      padding: 20px 10px;
+      text-align: center;
+      text-decoration: none;
+      color: #0f172a;
+      box-shadow: 0 4px 14px rgba(0,0,0,0.05);
+      transition: .2s;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100px;
+    }
+
+    .launcher-item i {
+      font-size: 1.6rem;
+      margin-bottom: 6px;
+      color: var(--primary, #2563eb);
+    }
+
+    .launcher-item span {
+      font-size: .82rem;
+      font-weight: 500;
+      line-height: 1.2;
+    }
+
+    .launcher-item:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+    }
+
+    .launcher-secure i {
+      color: #16a34a;
+  background: #ffffff;
+  border-left: 4px solid #16a34a;
+    }
+
+    .launcher-utilities i {
+      color: #b0040c;
+  background: #ffffff;
+  border-left: 4px solid #b0040c;
+    }
+
+    @media (max-width:768px){
+      .launcher-item {
+        min-height: 95px;
+        padding: 16px 8px;
+      }
+    }
+  </style>
+ 
+</head>
+
+<body>
+<div id="header-container"></div>
+<div id="sidebar-container"></div>
+
+  <!-- MAIN -->
+  <main class="main">
+    <div class="page-title mb-4">
+      <h1>Hub Interno</h1>
+     <p>Conteúdos estratégicos, técnicos e audiovisuais do Sistema REDE</p>
+    </div>
+
+
+    
+  <!-- APP LAUNCHER -->
+  <div class="system-launcher">
+
+    <a href="documentos.html" class="launcher-item">
+      <i class="bi bi-journal-text"></i>
+      <span>Documentos</span>
+    </a>
+
+    <a href="repositorio.html" class="launcher-item">
+      <i class="bi bi-archive"></i>
+      <span>Repositório</span>
+    </a>
+
+    <a href="calendario-2026.html" class="launcher-item">
+      <i class="bi bi-calendar4-week"></i>
+      <span>Calendário 2026</span>
+    </a>
+
+   <!-- <a href="documentos.html#relatorios" class="launcher-item">
+      <i class="bi bi-clipboard-data"></i>
+      <span>Relatórios</span>
+    </a>
+
+    <a href="documentos.html#dossie" class="launcher-item">
+      <i class="bi bi-folder2-open"></i>
+      <span>Dossiês</span>
+    </a>
+
+    <a href="documentos.html#planos" class="launcher-item">
+      <i class="bi bi-kanban"></i>
+      <span>Planos</span>
+    </a>-->
+
+    <a href="#" class="launcher-item">
+      <i class="bi bi-film"></i>
+      <span>Rota Azul</span>
+    </a>
+
+    <a href="estrutura-conceitual.html" class="launcher-item launcher-secure">
+      <i class="bi bi-diagram-3"></i>
+      <span>Estrutura conceitual</span>
+    </a>
+
+    <a href="lucas.html" class="launcher-item launcher-utilities">
+      <i class="bi bi-shield-lock"></i>
+      <span>LUCAS IA</span>
+    </a>
+
+    <a href="#" class="launcher-item launcher-utilities">
+      <i class="bi bi-graph-up"></i>
+      <span>Analytics</span>
+    </a>
+
+  </div>
+<br><br>
+      
+    <div class="row g-4">
+      <div class="col-lg-4 col-md-6">
+        <div class="module-card">
+          <i class="bi bi-journal-text"></i>
+          <h3>Relatórios & Dossiês</h3>
+          <p>Os três produtos do Sistema REDE operam de forma integrada:<br>
+            1. Relatórios alimentam o sistema com leituras situacionais;<br>
+            2. Dossiês organizam essas leituras ao longo do tempo; e<br>
+            3. Planos Programáticos transformam a análise em prática estruturada.<br><br>
+            Esse fluxo não é linear nem fechado: ele é circular e retroalimentado pela experiência vivida.<br><br>
+            A experiência cotidiana gera registros; os registros geram análise; a análise orienta o planejamento; o planejamento gera novas experiências.<br><br>
+            Esse movimento contínuo é o que confere ao Sistema REDE seu caráter vivo e adaptativo.
+</p>
+          <a href="documentos.html">Consultar acervo →</a>
+        </div>
+      </div>
+
+      <div class="col-lg-4 col-md-6">
+        <div class="module-card">
+          <i class="bi bi-calendar4-week"></i>
+          <h3>Estratégia "Calendário 2026"</h3>
+          <p>Fundamentada no princípio da economia da atenção aplicado à estruturação de rotinas previsíveis, apoia-se no planejamento temporal como um ativo estratégico para promover estabilidade, eficiência e redução de conflitos.<br><br>
+            O objetivo central é o redirecionamento intencional do foco organizacional de eventos de alta carga afetiva para marcos temporais mais amplos, impessoais e antecipáveis — preservando a função regulatória do planejamento sem recorrer a práticas de supressão comportamental. <br><br>
+            Sustentado por dados observacionais, análises funcionais e registros estruturados, esta metodologia demonstra como a hiperconcentração atencional em eventos emocionalmente sensíveis</a> tende a elevar custos emocionais e a desgastar sistemas relacionais, ao mesmo tempo em que apresenta diretrizes claras para a ampliação gradual de responsabilidades, o fortalecimento da autonomia organizacional e a redução progressiva da necessidade de mediação direta. <br><br>
+            Eventos programados para o <b>semestre 2026.1</b>:<br>
+          <a href="https://drive.google.com/file/d/1mpny6zcE9B5XSqPOmq0Hv_a8CaLV7vU_/preview" target="_blank">Carnaval no Quintal 2026 e "Bloco da Gia" → 13 a 18.02</a><br>
+          <a href="https://drive.google.com/file/d/1wdp9uI-a6cnFqmoR6TyzJXbt4uWQ14hY/preview" target="_blank">Páscoa → 05.04</a><br>
+          <a href="https://drive.google.com/file/d/1dcy7kF_QoU-pCU6ubaNwXFqU_BnxVQqh/preview" target="_blank">Festa Junina & Arraiá da Gia → 13.06</a>
+          <br><BR>
+          <a href="https://drive.google.com/file/d/12KjL-KKcK67sf187AYme4coqaVEhtfX4/preview" target="_blank">VISÃO GERAL DA AGENDA 2026</a>
+            </p>
+        </div>
+      </div>
+
+      
+
+      
+      <div class="col-lg-4 col-md-6">
+        <div class="module-card">
+          <i class="bi bi-film"></i>
+          <h3>Laboratório ROTA AZUL</h3>
+          <p>Mais do que um projeto de cinema, é um laboratório de criatividade, inclusão e desenvolvimento humano, em que a arte se transforma em ferramenta de expressão, autonomia e protagonismo.<br><br>
+            O <b>Laboratório de Cinema Rota Azul</b> tem como objetivo criar um espaço de experimentação artística e audiovisual para jovens autistas - promovendo o desenvolvimento humano e criativo de pessoas autistas, integrando a linguagem do cinema com metodologias de roteirização, curadoria audiovisual e arteterapia.
+</p>
+          <a href="https://drive.google.com/file/d/1YqzTPrbpHuejbOyZ3zt4VqVl0wTAX3S6/preview" target="_blank">Cinema na Varanda #3 → 16.02.2026</a><br>
+          <a href="https://drive.google.com/file/d/110quo4bzM60aCqpxk1bmiiP8fr6-Yce8/preview" target="_blank">Cinema na Varanda #4 → 22.03.2026</a><br>
+          <a href="https://drive.google.com/file/d/14msURyZUQEzWKHjLNubno6it1pzxdXuO/preview" target="_blank">Cinema na Varanda #5 → 18.04.2026</a>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- JS -->
+  <script src="../assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script type="module" src="js/hub.js"></script>
+
+  <!-- Firebase -->
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+
+  <script>
+    // Configuração do Firebase
+    const firebaseConfig = {
+      apiKey: "AIzaSyC3jisbwoN9p0GJzAzfld3Y2l25ZtqIrEg",
+      authDomain: "sistema-rede.firebaseapp.com",
+      projectId: "sistema-rede",
+      storageBucket: "sistema-rede.firebasestorage.app",
+      messagingSenderId: "930399212687",
+      appId: "1:930399212687:web:a89c0d73be4b9fbd488cfa"
+    };
+
+    // Inicializa o Firebase
+    firebase.initializeApp(firebaseConfig);
+
+    const emailSpan = document.getElementById("userEmail");
+    const logoutBtn = document.getElementById("logoutBtn");
+
+    // Observa mudanças de autenticação
+    firebase.auth().onAuthStateChanged((user) => {
+      if (user) {
+        emailSpan.textContent = user.email;
+      } else {
+        emailSpan.textContent = "Usuário não logado";
+      }
+    });
+
+    // Logout
+    logoutBtn.addEventListener("click", (e) => {
+      e.preventDefault();
+      firebase.auth().signOut().then(() => {
+        window.location.href = "../index.html";
+      });
+    });
+  </script>
+
+
+<script type="module">
+   // Login do Google
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-app.js";
+  import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-auth.js";
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyC3jisbwoN9p0GJzAzfld3Y2l25ZtqIrEg",
+    authDomain: "sistema-rede.firebaseapp.com",
+    projectId: "sistema-rede",
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
+
+  onAuthStateChanged(auth, (user) => {
+    if (!user) {
+      window.location.href = "login.html";
+    }
+  });
+</script>
+
+
+  <script src="js/components.js"></script>
+  
+</body>
+</html>
