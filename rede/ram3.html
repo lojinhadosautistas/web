@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Sistema REDE | RAM3 — Análise interpretativa</title>
+
+<link href="../assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet"/>
+<link href="../assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet"/>
+<link rel="stylesheet" href="../assets/css/hub.css">
+
+<style>
+
+.semaforo{
+height:90px;
+border-radius:14px;
+display:flex;
+align-items:center;
+justify-content:center;
+font-weight:600;
+color:#fff;
+font-size:1.2rem;
+}
+
+.sem-verde{background:#16a34a}
+.sem-amarelo{background:#f59e0b}
+.sem-vermelho{background:#dc2626}
+
+.alert-box{
+border-left:4px solid #dc2626;
+padding:10px;
+background:#fef2f2;
+margin-bottom:10px;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div id="header-container"></div>
+<div id="sidebar-container"></div>
+
+<main class="main">
+
+<div class="page-title mb-4">
+<h1>RAM3 — Análise interpretativa</h1>
+<p>Síntese clínica e suporte à decisão</p>
+</div>
+
+<div class="row g-4">
+
+<!-- SINTese -->
+<div class="col-lg-12">
+<div class="module-card">
+<i class="bi bi-file-earmark-text"></i>
+<h3>Síntese interpretativa</h3>
+
+<textarea id="sintese" class="form-control" rows="7">
+Paciente apresenta tendência de ganho ponderal progressivo associada a ingestão energética elevada e baixa variedade alimentar. Observa-se correlação com irritabilidade, fadiga e alterações de sono. Recomenda-se manutenção do plano gradual com monitoramento semanal.
+</textarea>
+
+<button class="btn btn-sm btn-outline-primary mt-2" onclick="gerarSintese()">
+gerar síntese automática
+</button>
+
+</div>
+</div>
+
+<!-- SEMAFORO -->
+<div class="col-lg-4">
+<div class="module-card">
+<i class="bi bi-traffic-light"></i>
+<h3>Status clínico</h3>
+
+<div id="semaforo" class="semaforo sem-amarelo">
+atenção
+</div>
+
+</div>
+</div>
+
+<!-- CORRELACAO -->
+<div class="col-lg-8">
+<div class="module-card">
+<i class="bi bi-diagram-2"></i>
+<h3>Correlação observacional</h3>
+
+<table class="table table-sm">
+<thead>
+<tr>
+<th>Indicador</th>
+<th>Tendência</th>
+<th>Interpretação</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>Peso</td>
+<td>↑</td>
+<td>Ganho progressivo</td>
+</tr>
+
+<tr>
+<td>Ingestão</td>
+<td>↑</td>
+<td>Possível excesso calórico</td>
+</tr>
+
+<tr>
+<td>Humor</td>
+<td>↓</td>
+<td>Desregulação associada</td>
+</tr>
+
+<tr>
+<td>Sono</td>
+<td>↓</td>
+<td>Qualidade reduzida</td>
+</tr>
+
+</tbody>
+</table>
+
+</div>
+</div>
+
+<!-- ALERTAS -->
+<div class="col-lg-12">
+<div class="module-card">
+<i class="bi bi-exclamation-triangle"></i>
+<h3>Alertas interpretativos</h3>
+
+<div id="alerts">
+
+<div class="alert-box">
+Ganho de peso sustentado observado.
+</div>
+
+<div class="alert-box">
+Alimentação com baixa diversidade nutricional.
+</div>
+
+<div class="alert-box">
+Possível impacto comportamental associado.
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+</main>
+
+<script>
+
+/* ===== SINTese AUTO ===== */
+
+function gerarSintese(){
+const texto=`Paciente mantém padrão alimentar repetitivo com predominância de carboidratos e gorduras.
+O conjunto de dados sugere associação entre ingestão elevada e ganho ponderal, com repercussões comportamentais e de sono.
+Recomenda-se continuidade do plano gradual e monitoramento longitudinal.`
+document.getElementById('sintese').value=texto
+}
+
+/* ===== SEMAFORO ===== */
+
+function avaliar(){
+const estado="amarelo" // placeholder
+
+const box=document.getElementById('semaforo')
+
+box.className="semaforo"
+
+if(estado==="verde"){
+box.classList.add('sem-verde')
+box.innerText='estável'
+}
+if(estado==="amarelo"){
+box.classList.add('sem-amarelo')
+box.innerText='atenção'
+}
+if(estado==="vermelho"){
+box.classList.add('sem-vermelho')
+box.innerText='risco'
+}
+}
+
+avaliar()
+
+</script>
+
+<script src="../assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script type="module" src="js/hub.js"></script>
+<script src="js/components.js"></script>
+
+</body>
+</html>
