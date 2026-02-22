@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Sistema REDE | RAM4 — Plano programático</title>
+
+<link href="../assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet"/>
+<link href="../assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet"/>
+<link rel="stylesheet" href="../assets/css/hub.css">
+
+<style>
+
+.flow a{
+text-decoration:none;
+font-weight:600;
+}
+
+.semaforo{
+height:80px;
+border-radius:12px;
+display:flex;
+align-items:center;
+justify-content:center;
+color:#fff;
+font-weight:600;
+}
+
+.sem-verde{background:#16a34a}
+.sem-amarelo{background:#f59e0b}
+.sem-vermelho{background:#dc2626}
+
+.rai-item{
+border-left:4px solid #dc2626;
+background:#fef2f2;
+padding:10px;
+margin-bottom:8px;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div id="header-container"></div>
+<div id="sidebar-container"></div>
+
+<main class="main">
+
+<div class="page-title mb-3">
+<h1>RAM4 — Plano programático</h1>
+<p>Transformação da análise em ação estruturada</p>
+</div>
+
+<!-- FLUXO -->
+<div class="module-card mb-4 flow">
+<a href="ram1.html">RAM1</a> →
+<a href="ram2.html">RAM2</a> →
+<a href="ram3.html">RAM3</a> →
+<b>RAM4</b>
+</div>
+
+<div class="row g-4">
+
+<!-- SEMAFORO -->
+<div class="col-lg-4">
+<div class="module-card">
+<i class="bi bi-traffic-light"></i>
+<h3>Status clínico integrado</h3>
+<div id="semaforo" class="semaforo">avaliando…</div>
+</div>
+</div>
+
+<!-- RAI -->
+<div class="col-lg-8">
+<div class="module-card">
+<i class="bi bi-exclamation-octagon"></i>
+<h3>Motor de alertas RAI</h3>
+<div id="raiList"></div>
+</div>
+</div>
+
+<!-- GERAR PLANO -->
+<div class="col-lg-12">
+<div class="module-card">
+<i class="bi bi-bullseye"></i>
+<h3>Plano programático</h3>
+
+<button class="btn btn-primary mb-3" onclick="gerarPlano()">
+<i class="bi bi-magic"></i> gerar plano
+</button>
+
+<div id="plano"></div>
+
+</div>
+</div>
+
+</div>
+</main>
+
+<script>
+
+/* ===== DADOS SIMULADOS (substituir por RAM2 depois) ===== */
+
+const dados={
+pesoMensal:2.5,
+kcalExcesso:25,
+humorQueda:true,
+sonoRuim:true
+}
+
+/* ===== SEMAFORO REAL ===== */
+
+function avaliarSemaforo(){
+let score=0
+if(dados.pesoMensal>2) score++
+if(dados.kcalExcesso>20) score++
+if(dados.humorQueda) score++
+if(dados.sonoRuim) score++
+
+const box=document.getElementById('semaforo')
+box.className="semaforo"
+
+if(score<=1){
+box.classList.add('sem-verde')
+box.innerText="estável"
+}
+else if(score<=2){
+box.classList.add('sem-amarelo')
+box.innerText="atenção"
+}
+else{
+box.classList.add('sem-vermelho')
+box.innerText="risco"
+}
+}
+
+/* ===== MOTOR RAI ===== */
+
+function gerarRAI(){
+const list=document.getElementById('raiList')
+
+if(dados.pesoMensal>2)
+list.innerHTML+=`<div class="rai-item">Ganho ponderal acelerado</div>`
+
+if(dados.kcalExcesso>20)
+list.innerHTML+=`<div class="rai-item">Excesso calórico</div>`
+
+if(dados.humorQueda)
+list.innerHTML+=`<div class="rai-item">Desregulação comportamental</div>`
+
+if(dados.sonoRuim)
+list.innerHTML+=`<div class="rai-item">Alteração de sono</div>`
+}
+
+/* ===== GERAR PLANO ===== */
+
+function gerarPlano(){
+document.getElementById('plano').innerHTML=`
+<ul>
+<li>Reduzir densidade calórica das farofas</li>
+<li>Introduzir proteína alternativa no jantar</li>
+<li>Monitoramento semanal de peso</li>
+<li>Registro comportamental via MAD/RAI</li>
+<li>Revisão nutricional em 30 dias</li>
+</ul>`
+}
+
+avaliarSemaforo()
+gerarRAI()
+
+</script>
+
+<script src="../assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script type="module" src="js/hub.js"></script>
+<script src="js/components.js"></script>
+
+</body>
+</html>
