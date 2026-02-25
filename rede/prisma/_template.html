@@ -1,156 +1,41 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>PRISMA | Template</title>
 
-<title>Sistema REDE | PRISMA</title>
-<meta name="description" content="Relatório PRISMA no Sistema REDE." />
+<!-- Loader -->
+<script src="path.js"></script>
 
-<!-- ===============================
-PRISMA PATH LOADER
-================================ -->
-<script src="../js/prisma-paths.js"></script>
-
-<!-- ===============================
-HEAD DINÂMICO
-================================ -->
+<!-- CSS dinâmico -->
 <script>
-
-document.write(`<link rel="icon" href="${PRISMA_PATHS.assets}img/favicon.png">`);
-
-document.write(`<link rel="stylesheet" href="${PRISMA_PATHS.assets}vendor/bootstrap/css/bootstrap.min.css">`);
-document.write(`<link rel="stylesheet" href="${PRISMA_PATHS.assets}vendor/bootstrap-icons/bootstrap-icons.css">`);
-
-document.write(`<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">`);
-
-document.write(`<link rel="stylesheet" href="${PRISMA_PATHS.assets}css/hub.css">`);
-
+document.write(`<link rel="icon" href="${PRISMA_PATHS.img}favicon.png">`);
+document.write(`<link rel="stylesheet" href="${PRISMA_PATHS.vendor}bootstrap/css/bootstrap.min.css">`);
+document.write(`<link rel="stylesheet" href="${PRISMA_PATHS.vendor}bootstrap-icons/bootstrap-icons.css">`);
+document.write(`<link rel="stylesheet" href="${PRISMA_PATHS.css}hub.css">`);
 </script>
 
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
 </head>
 
 <body>
 
-<!-- ===============================
-COMPONENTES
-================================ -->
 <div id="header-container"></div>
 <div id="sidebar-container"></div>
 
-<!-- ===============================
-MAIN
-================================ -->
-<main class="main">
+<main class="main container py-4">
 
-<!-- ===============================
-PAGE TITLE
-(Duplicar e editar)
-================================ -->
-<div class="page-title mb-4">
+<h1>Template PRISMA</h1>
+<p>Duplicar este arquivo para novos relatórios.</p>
 
-  <h1>PRISMA • ID_RELATORIO</h1>
-
-  <p>
-    <strong>Relatório Executivo — Análise e Monitoramento Sistêmico</strong>
-  </p>
-
-  <div class="mb-3">
-
-    <span class="badge badge-prisma badge-sintese">
-      <i class="bi bi-journal-text"></i> Síntese
-    </span>
-
-    <span class="badge badge-prisma badge-dados">
-      <i class="bi bi-activity"></i> Dados clínicos
-    </span>
-
-    <span class="badge badge-prisma badge-conexoes">
-      <i class="bi bi-diagram-3"></i> Conexões REDE
-    </span>
-
-  </div>
-
-</div>
-
-<div class="row g-4">
-
-<!-- ===============================
-CONTEXTO
-================================ -->
-<div class="col-lg-12">
-  <div class="module-card">
-
-    <i class="bi bi-file-earmark-medical"></i>
-    <h3>Contextualização</h3>
-
-    <p>
-      Inserir contextualização interpretativa do relatório.
-    </p>
-
-  </div>
-</div>
-
-<!-- ===============================
-INFOGRÁFICO
-================================ -->
-<div class="col-lg-12">
-  <div class="module-card text-center">
-
-    <h3><i class="bi bi-image"></i> Infográfico do relatório</h3>
-
-    <a id="infografico-link" target="_blank">
-      <img id="infografico-img"
-           class="img-fluid rounded shadow-sm mt-3"
-           alt="Infográfico PRISMA">
-    </a>
-
-    <p class="mt-3 text-muted">Clique na imagem para ampliar</p>
-
-  </div>
-</div>
-
-<!-- ===============================
-SEÇÕES (duplicar conforme necessário)
-================================ -->
-<div class="col-lg-12">
-  <div class="module-card">
-
-    <i class="bi bi-journal-text"></i>
-    <h3>Título da seção</h3>
-
-    <p>Conteúdo...</p>
-
-  </div>
-</div>
-
-</div>
 </main>
 
-<!-- ===============================
-SCRIPTS DINÂMICOS
-================================ -->
 <script>
-
-document.write(`<script src="${PRISMA_PATHS.assets}vendor/bootstrap/js/bootstrap.bundle.min.js"><\/script>`);
+document.write(`<script src="${PRISMA_PATHS.vendor}bootstrap/js/bootstrap.bundle.min.js"><\/script>`);
 document.write(`<script type="module" src="${PRISMA_PATHS.js}hub.js"><\/script>`);
 document.write(`<script src="${PRISMA_PATHS.js}components.js"><\/script>`);
-
-</script>
-
-<!-- ===============================
-CONFIG LOCAL DA PÁGINA
-(Editável por relatório)
-================================ -->
-<script>
-
-// Caminho do infográfico
-const INFOGRAFICO = PRISMA_PATHS.img + "NOME_IMAGEM.jpg";
-
-document.getElementById("infografico-img").src = INFOGRAFICO;
-document.getElementById("infografico-link").href = INFOGRAFICO;
-
 </script>
 
 </body>
