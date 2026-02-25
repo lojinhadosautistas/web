@@ -13,6 +13,21 @@
       "path": "acervo/doc2.html",
       "tags": ["teorico", "regulacao", "emocao"],
       "connections": ["doc1"]
-    }
+    },
+    {
+  "id": "rt-carnaval-2026",
+  "title": "RT — Carnaval 2026",
+  "path": "acervo/rt-carnaval-2026.html",
+  "tags": [
+    "rt",
+    "carnaval",
+    "ansiedade-antecipatoria",
+    "regulacao-sensorial",
+    "residencia-solon-aranha",
+    "processamento-preditivo",
+    "eventos-sociais"
+  ],
+  "connections": []
+}
   ]
 }
