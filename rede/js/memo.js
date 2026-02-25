@@ -35,7 +35,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 async function loadManifest() {
   try {
-    const response = await fetch("acervo/manifest.json");
+    const response = await fetch("../acervo/manifest.json");
     manifestData = await response.json();
 
     makeBidirectional();
