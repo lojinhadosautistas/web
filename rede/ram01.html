@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Sistema REDE | RAM5 — Dossiê consolidado</title>
+
+<link href="../assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet"/>
+<link href="../assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet"/>
+<link rel="stylesheet" href="../assets/css/hub.css">
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+
+<style>
+
+/* ===============================
+APP NUTRICIONAL PRISMA (TEMP)
+================================ */
+
+.app-nutri{
+max-width:520px;
+margin:auto;
+}
+
+.app-section{
+margin-top:20px;
+}
+
+.app-grid{
+display:grid;
+gap:10px;
+margin:10px 0;
+}
+
+.app-grid-2{
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:10px;
+margin:10px 0;
+}
+
+.app-grid input,
+.app-grid select,
+.app-grid-2 input,
+.app-grid-2 select{
+padding:10px;
+border-radius:12px;
+border:1px solid #e5e7eb;
+}
+
+.app-btn{
+width:100%;
+padding:12px;
+border:none;
+border-radius:14px;
+background:linear-gradient(135deg,#6366f1,#8b5cf6);
+color:white;
+font-weight:600;
+margin-top:8px;
+}
+
+.app-results{
+display:flex;
+justify-content:space-between;
+margin-top:10px;
+font-size:18px;
+}
+
+.app-tip{
+margin-top:10px;
+font-size:14px;
+color:#4b5563;
+}
+
+.app-total{
+text-align:right;
+font-size:20px;
+font-weight:700;
+}
+
+</style>
+
+
+
+
+<style>
+
+.gantt-bar{
+height:18px;
+background:#2563eb;
+border-radius:8px;
+margin-bottom:6px;
+}
+
+.check-item{
+display:flex;
+gap:10px;
+margin-bottom:8px;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div id="header-container"></div>
+<div id="sidebar-container"></div>
+
+<main class="main">
+
+
+<!-- ===============================
+APP NUTRICIONAL PRISMA
+================================ -->
+<div class="module-card app-nutri">
+
+<h3><i class="bi bi-heart-pulse"></i> App Nutricional</h3>
+
+<!-- DADOS CORPORAIS -->
+<div class="app-section">
+<h5>Dados corporais</h5>
+
+<div class="app-grid">
+
+<select id="sexo">
+<option value="f">Feminino</option>
+<option value="m">Masculino</option>
+</select>
+
+<input id="idade" type="number" placeholder="Idade">
+<input id="peso" type="number" placeholder="Peso (kg)">
+<input id="altura" type="number" placeholder="Altura (cm)">
+
+<select id="atividade">
+<option value="1.2">Sedentário</option>
+<option value="1.375">Leve</option>
+<option value="1.55">Moderado</option>
+<option value="1.725">Intenso</option>
+</select>
+
+<select id="objetivo">
+<option value="0">Manutenção</option>
+<option value="-400">Déficit leve</option>
+<option value="-700">Déficit intenso</option>
+<option value="300">Ganho leve</option>
+<option value="600">Ganho intenso</option>
+</select>
+
+</div>
+
+<button class="app-btn" onclick="calcularMeta()">Calcular meta</button>
+
+<div class="app-results">
+<div>IMC: <strong id="imc">—</strong></div>
+<div>Meta calórica: <strong id="meta">—</strong></div>
+</div>
+
+<div id="recomendacao" class="app-tip"></div>
+
+</div>
+
+<!-- DIÁRIO ALIMENTAR -->
+<div class="app-section">
+<h5>Diário alimentar</h5>
+
+<div class="app-grid-2">
+<select id="alimento"></select>
+<input id="quantidade" type="number" placeholder="Quantidade (g)">
+</div>
+
+<button class="app-btn" onclick="adicionarAlimento()">Adicionar</button>
+
+<div class="table-responsive mt-3">
+<table class="table table-sm">
+<thead>
+<tr>
+<th>Alimento</th>
+<th>Qtd</th>
+<th>Kcal</th>
+<th></th>
+</tr>
+</thead>
+<tbody id="tabelaAlimentos"></tbody>
+</table>
+</div>
+
+<div class="app-total">
+Total diário: <strong id="total">0 kcal</strong>
+</div>
+
+</div>
+
+</div>
+
+
+
+<div class="page-title mb-3">
+<h1>RAM5 — Dossiê consolidado</h1>
+<p>Síntese integrada do ciclo de monitoramento e intervenção</p>
+</div>
+
+<!-- CICLO -->
+<div class="module-card mb-4">
+<a href="ram1.html">RAM1</a> →
+<a href="ram2.html">RAM2</a> →
+<a href="ram3.html">RAM3</a> →
+<a href="ram4.html">RAM4</a> →
+<b>RAM5</b>
+</div>
+
+<div class="row g-4">
+
+<!-- SINTese -->
+<div class="col-lg-12">
+<div class="module-card">
+<i class="bi bi-file-text"></i>
+<h3>Síntese geral</h3>
+<p>
+O ciclo RAM identificou ganho ponderal progressivo associado a ingestão energética elevada,
+baixa diversidade alimentar e repercussões comportamentais e de sono.
+A análise longitudinal confirmou tendência sustentada, resultando na formulação de plano gradual
+com foco em substituição alimentar, monitoramento e ampliação sensorial.
+</p>
+</div>
+</div>
+
+<!-- EVIDENCIAS -->
+<div class="col-lg-6">
+<div class="module-card">
+<i class="bi bi-graph-up"></i>
+<h3>Evidência longitudinal</h3>
+<canvas id="pesoChart"></canvas>
+</div>
+</div>
+
+<div class="col-lg-6">
+<div class="module-card">
+<i class="bi bi-bar-chart"></i>
+<h3>Adequação energética</h3>
+<p>Ingestão atual: 1900 kcal</p>
+<p>Meta: 1600 kcal</p>
+</div>
+</div>
+
+<!-- RELATORIO -->
+<div class="col-lg-6">
+<div class="module-card">
+<i class="bi bi-paperclip"></i>
+<h3>Relatório base</h3>
+<a href="../docs/ram-aumento-peso.pdf" class="btn btn-outline-primary btn-sm">
+visualizar relatório
+</a>
+</div>
+</div>
+
+<!-- REFERENCIAL -->
+<div class="col-lg-6">
+<div class="module-card">
+<i class="bi bi-book"></i>
+<h3>Referencial conceitual</h3>
+<ul>
+<li>Monitoramento longitudinal comportamental</li>
+<li>Análise funcional alimentar</li>
+<li>Intervenção gradual estruturada</li>
+<li>Sistema socio-técnico REDE</li>
+</ul>
+</div>
+</div>
+
+<!-- CHECKLIST -->
+<div class="col-lg-6">
+<div class="module-card">
+<i class="bi bi-check2-square"></i>
+<h3>Checklist do plano</h3>
+
+<div class="check-item"><input type="checkbox"> Reduzir farofa</div>
+<div class="check-item"><input type="checkbox"> Introduzir proteína alternativa</div>
+<div class="check-item"><input type="checkbox"> Monitorar peso semanal</div>
+<div class="check-item"><input type="checkbox"> Registrar comportamento</div>
+
+</div>
+</div>
+
+<!-- GANTT -->
+<div class="col-lg-6">
+<div class="module-card">
+<i class="bi bi-calendar"></i>
+<h3>Timeline do plano</h3>
+
+<div>Sem 1–2</div>
+<div class="gantt-bar" style="width:40%"></div>
+
+<div>Sem 3–4</div>
+<div class="gantt-bar" style="width:60%"></div>
+
+<div>Sem 5–6</div>
+<div class="gantt-bar" style="width:80%"></div>
+
+</div>
+</div>
+
+<!-- EXPORT -->
+<div class="col-lg-12">
+<div class="module-card">
+<i class="bi bi-download"></i>
+<h3>Exportação</h3>
+
+<button class="btn btn-primary" onclick="window.print()">
+exportar / imprimir
+</button>
+
+</div>
+</div>
+
+</div>
+</main>
+
+<script>
+new Chart(document.getElementById('pesoChart'),{
+type:'line',
+data:{
+labels:['Jan','Fev','Mar','Abr'],
+datasets:[{label:'Peso',data:[70,71,72,72.5]}]
+}
+})
+</script>
+
+<script src="../assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script type="module" src="js/hub.js"></script>
+<script src="js/components.js"></script>
+
+
+// BASE SIMPLES DE ALIMENTOS
+const alimentos = {
+Arroz:130,
+Feijao:77,
+Frango:165,
+Carne:250,
+Ovo:155,
+Banana:89,
+Maca:52,
+Pao:265,
+Queijo:402,
+Leite:60
+};
+
+// preencher select
+const sel = document.getElementById("alimento");
+Object.keys(alimentos).forEach(a=>{
+const op=document.createElement("option");
+op.value=a;
+op.text=a;
+sel.appendChild(op);
+});
+
+// META CALÓRICA + IMC
+function calcularMeta(){
+
+const sexo=sexoEl.value;
+const idade=+idadeEl.value;
+const peso=+pesoEl.value;
+const altura=+alturaEl.value;
+const atividade=+atividadeEl.value;
+const objetivo=+objetivoEl.value;
+
+if(!peso||!altura||!idade)return alert("Preencha dados");
+
+let bmr= sexo==="m"
+?10*peso+6.25*altura-5*idade+5
+:10*peso+6.25*altura-5*idade-161;
+
+const tdee=Math.round(bmr*atividade+objetivo);
+
+const imc=(peso/((altura/100)**2)).toFixed(1);
+
+document.getElementById("meta").innerHTML=tdee+" kcal";
+document.getElementById("imc").innerHTML=imc;
+
+// recomendação automática
+let rec="";
+if(imc<18.5)rec="Aumentar ingestão energética.";
+else if(imc<25)rec="Peso adequado. Manutenção indicada.";
+else if(imc<30)rec="Leve sobrepeso. Déficit moderado.";
+else rec="Priorizar redução calórica e acompanhamento.";
+
+document.getElementById("recomendacao").innerHTML=rec;
+
+}
+
+// ELEMENTOS
+const sexoEl= document.getElementById("sexo");
+const idadeEl= document.getElementById("idade");
+const pesoEl= document.getElementById("peso");
+const alturaEl= document.getElementById("altura");
+const atividadeEl= document.getElementById("atividade");
+const objetivoEl= document.getElementById("objetivo");
+
+// DIÁRIO
+let total=0;
+
+function adicionarAlimento(){
+
+const nome=sel.value;
+const qtd=+document.getElementById("quantidade").value;
+
+if(!qtd)return;
+
+const kcal=Math.round(alimentos[nome]*qtd/100);
+total+=kcal;
+
+const tr=document.createElement("tr");
+
+tr.innerHTML=`
+<td>${nome}</td>
+<td>${qtd}g</td>
+<td>${kcal}</td>
+<td><button onclick="remover(this,${kcal})">x</button></td>
+`;
+
+document.getElementById("tabelaAlimentos").appendChild(tr);
+document.getElementById("total").innerHTML=total+" kcal";
+}
+
+function remover(btn,kcal){
+btn.closest("tr").remove();
+total-=kcal;
+document.getElementById("total").innerHTML=total+" kcal";
+}
+
+</script>
+
+
+
+
+</body>
+</html>
