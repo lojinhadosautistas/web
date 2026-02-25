@@ -1,14 +1,69 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="utf-8">
-  <title>RT — Carnaval 2026</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-  <link rel="stylesheet" href="../../css/hub.css"> <!-- ajuste conforme seu projeto -->
+  <title>Lojinha dos Autistas | MEMO</title>
+  <meta name="description" content="MEMO — Mecanismo Epistêmico de Memória Organizacional do Sistema REDE." />
 
+  <!-- Open Graph -->
+  <meta property="og:title" content="MEMO — Memória Organizacional Navegável" />
+  <meta property="og:description" content="Mecanismo epistêmico de memória organizacional com navegação cognitiva e indexação distribuída." />
+  <meta property="og:image" content="https://www.autistas.net/assets/img/img-share-autistas.jpg" />
+  <meta property="og:url" content="https://www.autistas.net/rede/memo.html" />
+  <meta property="og:type" content="website" />
+
+  <link href="../../assets/img/favicon.png" rel="icon">
+
+  <!-- Bootstrap -->
+  <link href="../../assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="../../assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet" />
+
+  <!-- Font -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+
+  <!-- CSS base -->
+  <link rel="stylesheet" href="../../assets/css/hub.css">
+
+  <style>
+    /* Campo de busca MEMO */
+    .memo-search-box {
+      background: #fff;
+      border-radius: 16px;
+      padding: 20px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+      margin-bottom: 24px;
+    }
+
+    .memo-search-input {
+      border-radius: 12px;
+      padding: 14px;
+      font-size: 15px;
+    }
+
+    .memo-result-item {
+      padding: 12px;
+      border-bottom: 1px solid #eee;
+      cursor: pointer;
+    }
+
+    .memo-result-item:hover {
+      background: #f4f6f9;
+    }
+
+    .memo-tagline {
+      font-size: 14px;
+      color: #64748b;
+      margin-top: 4px;
+    }
+  </style>
 </head>
 
 <body>
+
+<div id="header-container"></div>
+<div id="sidebar-container"></div>
 
 <div data-acervo-include="_acervo-index-top.html"></div>
 
@@ -20,7 +75,7 @@ fetch("fragments/frag-rt-carnaval-2026.html")
 .then(html=>document.getElementById("doc-container").innerHTML = html);
 </script>
 
-<script src="_acervo-includes.js"></script>
+<script src="../_acervo-includes.js"></script>
 
 </body>
 </html>
