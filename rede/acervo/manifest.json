@@ -3,21 +3,21 @@
     {
       "id": "doc1",
       "title": "Síntese Oficinas Juninas",
-      "path": "doc1.html",
+      "path": "fragment/frag-doc1.html",
       "tags": ["oficinas", "juninas", "contexto"],
       "connections": ["doc2"]
     },
     {
       "id": "doc2",
       "title": "Referencial Teórico - Regulação Emocional",
-      "path": "doc2.html",
+      "path": "fragment/frag-doc2.html",
       "tags": ["teorico", "regulacao", "emocao"],
       "connections": ["doc1"]
     },
     {
   "id": "rt-carnaval-2026",
   "title": "RT — Carnaval 2026",
-  "path": "rt-carnaval-2026.html",
+  "path": "fragment/frag-rt-carnaval-2026.html",
   "tags": [
     "rt",
     "carnaval",
