@@ -191,26 +191,7 @@ Essa composição permite que a memória organizacional seja acessada como rede 
 <script src="../assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 <script src="js/components.js"></script>
 
-<!-- Script inicial de busca (placeholder para manifest) -->
-<script>
-const input = document.getElementById("memoSearch");
-const results = document.getElementById("memoResults");
-
-input.addEventListener("input", () => {
-  const term = input.value.trim();
-  if (!term) {
-    results.innerHTML = "";
-    return;
-  }
-
-  results.innerHTML = `
-    <div class="memo-result-item">
-      🔎 Busca ativa por "<strong>${term}</strong>"<br>
-      <small class="text-muted">Integração com manifest em construção</small>
-    </div>
-  `;
-});
-</script>
+<script type="module" src="js/memo.js"></script>
 
 </body>
 </html>
