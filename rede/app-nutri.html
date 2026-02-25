@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Sistema REDE | RAM Global</title>
+
+<link href="../assets/img/favicon.png" rel="icon">
+<link href="../assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+<link href="../assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/css/hub.css">
+<link rel="stylesheet" href="css/ram-global.css">
+
+<style>
+
+/* ===============================
+APP NUTRICIONAL PRISMA (TEMP)
+================================ */
+
+.app-nutri{
+max-width:520px;
+margin:auto;
+}
+
+.app-section{
+margin-top:20px;
+}
+
+.app-grid{
+display:grid;
+gap:10px;
+margin:10px 0;
+}
+
+.app-grid-2{
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:10px;
+margin:10px 0;
+}
+
+.app-grid input,
+.app-grid select,
+.app-grid-2 input,
+.app-grid-2 select{
+padding:10px;
+border-radius:12px;
+border:1px solid #e5e7eb;
+}
+
+.app-btn{
+width:100%;
+padding:12px;
+border:none;
+border-radius:14px;
+background:linear-gradient(135deg,#6366f1,#8b5cf6);
+color:white;
+font-weight:600;
+margin-top:8px;
+}
+
+.app-results{
+display:flex;
+justify-content:space-between;
+margin-top:10px;
+font-size:18px;
+}
+
+.app-tip{
+margin-top:10px;
+font-size:14px;
+color:#4b5563;
+}
+
+.app-total{
+text-align:right;
+font-size:20px;
+font-weight:700;
+}
+
+</style>
+
+
+
+</head>
+
+<body>
+
+<div id="header-container"></div>
+<div id="sidebar-container"></div>
+
+<main class="main">
+
+<div class="page-title mb-4">
+  <h1>Painel RAM Global</h1>
+  <p>Visão clínica integrada do ciclo assistencial</p>
+</div>
+
+<div class="row g-4">
+
+  <!-- DASHBOARD -->
+  <div class="col-lg-9">
+    <div class="module-card">
+      <i class="bi bi-speedometer2"></i>
+      <h3>Status geral das RAM</h3>
+
+      <div class="row g-3" id="ramDashboard"></div>
+    </div>
+  </div>
+
+  <!-- TIMELINE -->
+  <div class="col-lg-3">
+    <div class="module-card">
+      <i class="bi bi-clock-history"></i>
+      <h3>Linha evolutiva</h3>
+      <div id="ramTimeline"></div>
+    </div>
+  </div>
+
+  <!-- RESUMO -->
+  <div class="col-lg-12">
+    <div class="module-card">
+      <i class="bi bi-clipboard-data"></i>
+      <h3>Síntese clínica</h3>
+
+      <div id="ramSummary" class="ram-summary"></div>
+<!-- ===============================
+APP NUTRICIONAL PRISMA
+================================ -->
+<div class="module-card app-nutri">
+
+<h3><i class="bi bi-heart-pulse"></i> App Nutricional</h3>
+
+<!-- DADOS CORPORAIS -->
+<div class="app-section">
+<h5>Dados corporais</h5>
+
+<div class="app-grid">
+
+<select id="sexo">
+<option value="f">Feminino</option>
+<option value="m">Masculino</option>
+</select>
+
+<input id="idade" type="number" placeholder="Idade">
+<input id="peso" type="number" placeholder="Peso (kg)">
+<input id="altura" type="number" placeholder="Altura (cm)">
+
+<select id="atividade">
+<option value="1.2">Sedentário</option>
+<option value="1.375">Leve</option>
+<option value="1.55">Moderado</option>
+<option value="1.725">Intenso</option>
+</select>
+
+<select id="objetivo">
+<option value="0">Manutenção</option>
+<option value="-400">Déficit leve</option>
+<option value="-700">Déficit intenso</option>
+<option value="300">Ganho leve</option>
+<option value="600">Ganho intenso</option>
+</select>
+
+</div>
+
+<button class="app-btn" onclick="calcularMeta()">Calcular meta</button>
+
+<div class="app-results">
+<div>IMC: <strong id="imc">—</strong></div>
+<div>Meta calórica: <strong id="meta">—</strong></div>
+</div>
+
+<div id="recomendacao" class="app-tip"></div>
+
+</div>
+
+<!-- DIÁRIO ALIMENTAR -->
+<div class="app-section">
+<h5>Diário alimentar</h5>
+
+<div class="app-grid-2">
+<select id="alimento"></select>
+<input id="quantidade" type="number" placeholder="Quantidade (g)">
+</div>
+
+<button class="app-btn" onclick="adicionarAlimento()">Adicionar</button>
+
+<div class="table-responsive mt-3">
+<table class="table table-sm">
+<thead>
+<tr>
+<th>Alimento</th>
+<th>Qtd</th>
+<th>Kcal</th>
+<th></th>
+</tr>
+</thead>
+<tbody id="tabelaAlimentos"></tbody>
+</table>
+</div>
+
+<div class="app-total">
+Total diário: <strong id="total">0 kcal</strong>
+</div>
+
+</div>
+
+</div>
+    </div>
+  </div>
+
+</div>
+</main>
+
+<script src="../assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script type="module" src="js/hub.js"></script>
+<script src="js/components.js"></script>
+
+<script type="module" src="js/ram-global.js"></script>
+
+
+<script>
+
+// BASE SIMPLES DE ALIMENTOS
+const alimentos = {
+Arroz:130,
+Feijao:77,
+Frango:165,
+Carne:250,
+Ovo:155,
+Banana:89,
+Maca:52,
+Pao:265,
+Queijo:402,
+Leite:60
+};
+
+// preencher select
+const sel = document.getElementById("alimento");
+Object.keys(alimentos).forEach(a=>{
+const op=document.createElement("option");
+op.value=a;
+op.text=a;
+sel.appendChild(op);
+});
+
+// META CALÓRICA + IMC
+function calcularMeta(){
+
+const sexo=sexoEl.value;
+const idade=+idadeEl.value;
+const peso=+pesoEl.value;
+const altura=+alturaEl.value;
+const atividade=+atividadeEl.value;
+const objetivo=+objetivoEl.value;
+
+if(!peso||!altura||!idade)return alert("Preencha dados");
+
+let bmr= sexo==="m"
+?10*peso+6.25*altura-5*idade+5
+:10*peso+6.25*altura-5*idade-161;
+
+const tdee=Math.round(bmr*atividade+objetivo);
+
+const imc=(peso/((altura/100)**2)).toFixed(1);
+
+document.getElementById("meta").innerHTML=tdee+" kcal";
+document.getElementById("imc").innerHTML=imc;
+
+// recomendação automática
+let rec="";
+if(imc<18.5)rec="Aumentar ingestão energética.";
+else if(imc<25)rec="Peso adequado. Manutenção indicada.";
+else if(imc<30)rec="Leve sobrepeso. Déficit moderado.";
+else rec="Priorizar redução calórica e acompanhamento.";
+
+document.getElementById("recomendacao").innerHTML=rec;
+
+}
+
+// ELEMENTOS
+const sexoEl= document.getElementById("sexo");
+const idadeEl= document.getElementById("idade");
+const pesoEl= document.getElementById("peso");
+const alturaEl= document.getElementById("altura");
+const atividadeEl= document.getElementById("atividade");
+const objetivoEl= document.getElementById("objetivo");
+
+// DIÁRIO
+let total=0;
+
+function adicionarAlimento(){
+
+const nome=sel.value;
+const qtd=+document.getElementById("quantidade").value;
+
+if(!qtd)return;
+
+const kcal=Math.round(alimentos[nome]*qtd/100);
+total+=kcal;
+
+const tr=document.createElement("tr");
+
+tr.innerHTML=`
+<td>${nome}</td>
+<td>${qtd}g</td>
+<td>${kcal}</td>
+<td><button onclick="remover(this,${kcal})">x</button></td>
+`;
+
+document.getElementById("tabelaAlimentos").appendChild(tr);
+document.getElementById("total").innerHTML=total+" kcal";
+}
+
+function remover(btn,kcal){
+btn.closest("tr").remove();
+total-=kcal;
+document.getElementById("total").innerHTML=total+" kcal";
+}
+
+</script>
+
+</body>
+</html>
