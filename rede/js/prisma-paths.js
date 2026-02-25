@@ -1,38 +1,51 @@
 // ===============================
 // PRISMA PATH LOADER — SISTEMA REDE
-// Versão robusta (corrige acesso a diretórios)
+// Estrutura real:
+// assets fora de /rede
+// js dentro de /rede/js
+// prisma dentro de /rede/prisma
 // ===============================
 
 (function () {
 
   const path = window.location.pathname;
 
-  // pega trecho após /rede/
-  let afterRede = path.split('/rede/')[1] || '';
+  // trecho após /rede/prisma/
+  let afterPrisma = path.split('/rede/prisma/')[1] || '';
 
-  // remove arquivo final se existir
-  if (afterRede.includes('.html')) {
-    afterRede = afterRede.substring(0, afterRede.lastIndexOf('/') + 1);
+  // remove arquivo final
+  if (afterPrisma.includes('.html')) {
+    afterPrisma = afterPrisma.substring(0, afterPrisma.lastIndexOf('/') + 1);
   }
 
   // remove barra final
-  afterRede = afterRede.replace(/\/$/, '');
+  afterPrisma = afterPrisma.replace(/\/$/, '');
 
-  // calcula profundidade real
-  const depth = afterRede ? afterRede.split('/').length : 0;
+  // profundidade dentro de prisma
+  const depth = afterPrisma ? afterPrisma.split('/').length : 0;
 
-  // prefixos
-  const backToRede = '../'.repeat(depth);
+  // prefixo para voltar até prisma
+  const backToPrisma = '../'.repeat(depth);
+
+  // prefixo para voltar até rede
+  const backToRede = backToPrisma + '../';
+
+  // prefixo para voltar até root
   const backToRoot = backToRede + '../';
 
   window.PRISMA_PATHS = {
 
+    prisma: backToPrisma,
     rede: backToRede,
     root: backToRoot,
+
     assets: backToRoot + 'assets/',
+    css: backToRoot + 'assets/css/',
+    vendor: backToRoot + 'assets/vendor/',
+    img: backToRoot + 'assets/img/',
+
     js: backToRede + 'js/',
-    components: backToRede + 'components/',
-    img: backToRoot + 'assets/img/'
+    components: backToRede + 'components/'
 
   };
 
