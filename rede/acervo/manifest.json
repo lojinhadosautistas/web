@@ -40,7 +40,8 @@
        "previsibilidade",
        "hiperfoco",
        "natal",
-       "carnaval"
+       "carnaval",
+       "viagem Nina"
   ],
   "connections": [
     "rt-carnaval-2026",
@@ -63,7 +64,8 @@
     "mediação familiar",
     "ambientes de regulação",
     "aprendizagem emocional assistida",
-    "flexibilidade cognitiva"
+    "flexibilidade cognitiva",
+    "viagem Nina"
   ],
   "connections": ["dossie-ferias-2025-2026", "dossie-calendario-2026"]
 },
@@ -88,6 +90,26 @@
     "mediação familiar"
   ],
   "connections": ["dossie-ferias-2025-2026"]
+},  
+    {
+  "id": "ra-niver-rafael-2025",
+  "title": "RA — Aniversário de Rafael 2025",
+  "path": "acervo/fragments/frag-ra-niver-rafael-2025.html",
+  "tags": [
+    "hiperfoco afetivo",
+    "aniversário", "rafael", "enio", "tathi"
+    "saudade",
+    "ausência física",
+    "rigidez cognitiva",
+    "ansiedade antecipatória",
+    "frustração emocional",
+    "mediação familiar",
+    "substituição simbólica",
+    "regulação emocional",
+    "escalada comportamental",
+    "evento significativo",
+  ],
+  "connections": ["dossie-calendario-2026"]
 }
     
   ]
