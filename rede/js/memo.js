@@ -1,5 +1,5 @@
 /* ===============================
-   MEMO — Motor de memória navegável (Otimizado)
+   MEMO — Motor de memória navegável (Otimizado + Highlight)
    =============================== */
 
 let manifestData = null;
@@ -65,6 +65,20 @@ function makeBidirectional() {
 }
 
 /* ===============================
+   HIGHLIGHT TERM
+   =============================== */
+
+function highlightTerm(text, term) {
+  if (!term) return text;
+
+  // escapa regex
+  const escapedTerm = term.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+  const regex = new RegExp(`(${escapedTerm})`, "gi");
+
+  return text.replace(regex, "<mark>$1</mark>");
+}
+
+/* ===============================
    DOCUMENT FETCH + CACHE
    =============================== */
 
@@ -100,7 +114,8 @@ async function search(term) {
     const tagMatch = (doc.tags || []).some(tag => tag.toLowerCase().includes(normalized));
 
     let contentMatch = false;
-    // Buscar no conteúdo apenas se não houver match em título ou tags
+
+    // Busca conteúdo só se necessário (performance)
     if (!titleMatch && !tagMatch) {
       const content = await fetchDocumentContent(doc.path);
       contentMatch = content.toLowerCase().includes(normalized);
@@ -119,10 +134,17 @@ async function search(term) {
   matches.forEach(doc => {
     const div = document.createElement("div");
     div.className = "memo-result-item";
+
+    const highlightedTitle = highlightTerm(doc.title, term);
+    const highlightedTags = (doc.tags || [])
+      .map(tag => highlightTerm(tag, term))
+      .join(", ");
+
     div.innerHTML = `
-      <strong>${doc.title}</strong><br>
-      <small>Tags: ${(doc.tags || []).join(", ")}</small>
+      <strong>${highlightedTitle}</strong><br>
+      <small>Tags: ${highlightedTags}</small>
     `;
+
     div.onclick = () => openDocument(doc);
     results.appendChild(div);
   });
