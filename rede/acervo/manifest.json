@@ -1,20 +1,6 @@
 {
   "documents": [
     {
-      "id": "doc1",
-      "title": "Síntese Oficinas Juninas",
-      "path": "acervo/fragments/frag-rt-x.html",
-      "tags": ["oficinas", "juninas", "contexto"],
-      "connections": ["doc2"]
-    },
-    {
-      "id": "doc2",
-      "title": "Referencial Teórico - Regulação Emocional",
-      "path": "acervo/fragments/frag-rt-x.html",
-      "tags": ["teorico", "regulacao", "emocao"],
-      "connections": ["doc1"]
-    },
-    {
       "id": "dossie-calendario-2026",
       "title": "Dossiê Calendário 2026",
       "path": "acervo/fragments/frag-dossie-calendario-2026.html",
@@ -32,7 +18,32 @@
        "previsibilidade",
        "hiperconcentração atencional"
   ],
-  "connections": ["rt-carnaval-2026"]
+  "connections": ["rt-carnaval-2026", "dossie-ferias-2025-2026"]
+},    
+    {
+      "id": "dossie-ferias-2025-2026",
+      "title": "Dossiê Férias 2025-2026",
+      "path": "acervo/fragments/frag-dossie-ferias-2025-2026.html",
+      "tags": [
+       "ferias",
+       "dossie",
+       "clinico-familiar",
+       "sistema rede",
+       "regulacao emocional",
+       "vinculos familiares",
+       "eventos sociais",
+       "responsabilidades domesticas",
+       "autonomia",
+       "cinema na varanda",
+       "laboratorio rota azul",
+       "ansiedade antecipatoria",
+       "previsibilidade",
+       "hiperfoco",
+       "carnaval"
+  ],
+  "connections": [
+    "rt-carnaval-2026",
+    "rt-natal-2025"]
 },    
     {
   "id": "rt-carnaval-2026",
@@ -53,7 +64,7 @@
     "aprendizagem emocional assistida",
     "flexibilidade cognitiva"
   ],
-  "connections": ["rt-natal-2025"]
+  "connections": ["dossie-ferias-2025-2026", "dossie-calendario-2026"]
 },
     {
   "id": "rt-natal-2025",
@@ -75,7 +86,7 @@
     "sobrecarga sensorial",
     "mediação familiar"
   ],
-  "connections": ["rt-carnaval-2026"]
+  "connections": ["dossie-ferias-2025-2026"]
 }
     
   ]
