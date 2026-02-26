@@ -19,15 +19,28 @@
   "title": "RT — Carnaval 2026",
   "path": "acervo/fragments/frag-rt-carnaval-2026.html",
   "tags": [
-    "rt",
+    "trigger",
     "carnaval",
     "ansiedade-antecipatoria",
     "regulacao-sensorial",
-    "residencia-solon-aranha",
     "processamento-preditivo",
     "eventos-sociais"
   ],
-  "connections": []
+  "connections": ["rt-natal-2025"]
+},
+    {
+  "id": "rt-natal-2025",
+  "title": "RT — Natal 2025",
+  "path": "acervo/fragments/frag-rt-natal-2025.html",
+  "tags": [
+    "trigger",
+    "natal",
+    "ansiedade-antecipatoria",
+    "regulacao-sensorial",
+    "processamento-preditivo",
+    "eventos-sociais"
+  ],
+  "connections": ["rt-carnaval-2026"]
 }
   ]
 }
