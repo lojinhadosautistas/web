@@ -14,6 +14,30 @@
       "tags": ["teorico", "regulacao", "emocao"],
       "connections": ["doc1"]
     },
+
+    {
+  "id": "dossie-calendario-2026",
+  "title": "Dossiê Calendário 2026",
+  "path": "acervo/fragments/frag-dossie-calendario-2026.html",
+  "tags": [
+    "economia da atenção",
+    "calendário 2026",
+    "regulação emocional",
+    "autonomia funcional",
+    "evento estruturante",
+    "evento de alta carga afetiva",
+    "fluxos de decisão",
+    "indicadores longitudinais",
+    "neurodiversidade",
+    "mediação impessoal",
+    "organização ambiental",
+    "função do comportamento",
+    "previsibilidade",
+    "hiperconcentração atencional",
+    "sistema REDE"
+  ],
+  "connections": ["rt-carnaval-2026"]
+},    
     {
   "id": "rt-carnaval-2026",
   "title": "RT — Carnaval 2026",
