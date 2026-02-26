@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ATLAS — Ambiente de Topologia Lúdica para Aprendizagem Sistêmica</title>
+
+  <link rel="stylesheet" href="css/game.css">
+</head>
+<body>
+
+<div id="atlas-container">
+
+  <!-- MAPA -->
+  <div id="map">
+
+    <!-- CAMADA SVG PARA CONEXÕES -->
+    <svg id="connections"></svg>
+
+    <!-- DOCUMENTOS (exemplo inicial) -->
+    <div class="doc relatorio" data-id="doc1" style="left:200px;top:200px" data-fragment="../acervo/fragments/frag-doc1.html"></div>
+    <div class="doc dossie" data-id="doc2" style="left:500px;top:300px" data-fragment="../acervo/fragments/frag-doc2.html"></div>
+    <div class="doc plano" data-id="doc3" style="left:800px;top:150px" data-fragment="../acervo/fragments/frag-doc3.html"></div>
+
+    <!-- PLAYER -->
+    <div id="player"></div>
+
+  </div>
+
+  <!-- TOOLTIP / FRAGMENT -->
+  <div id="fragment-view"></div>
+
+</div>
+
+<script src="js/game.js"></script>
+</body>
+</html>
