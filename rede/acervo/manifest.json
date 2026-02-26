@@ -20,11 +20,18 @@
   "path": "acervo/fragments/frag-rt-carnaval-2026.html",
   "tags": [
     "trigger",
-    "carnaval",
-    "ansiedade-antecipatoria",
-    "regulacao-sensorial",
-    "processamento-preditivo",
-    "eventos-sociais"
+    "ansiedade antecipatória",
+    "Carnaval 2026",
+    "sobrecarga sensorial",
+    "disputa simbólica de local",
+    "controle ambiental",
+    "previsibilidade",
+    "regulação emocional",
+    "atividades-âncoras",
+    "mediação familiar",
+    "ambientes de regulação",
+    "aprendizagem emocional assistida",
+    "flexibilidade cognitiva"
   ],
   "connections": ["rt-natal-2025"]
 },
@@ -34,13 +41,22 @@
   "path": "acervo/fragments/frag-rt-natal-2025.html",
   "tags": [
     "trigger",
-    "natal",
-    "ansiedade-antecipatoria",
-    "regulacao-sensorial",
-    "processamento-preditivo",
-    "eventos-sociais"
+    "ansiedade antecipatória",
+    "hiperfoco",
+    "Natal",
+    "símbolos natalinos",
+    "músicas natalinas",
+    "rituais familiares",
+    "previsibilidade",
+    "regulação emocional",
+    "musicoterapia",
+    "arteterapia",
+    "eventos simbólicos",
+    "sobrecarga sensorial",
+    "mediação familiar"
   ],
   "connections": ["rt-carnaval-2026"]
 }
+    
   ]
 }
