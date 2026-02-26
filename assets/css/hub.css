@@ -125,6 +125,75 @@ body.index-page {
 }
 
 /* ===============================
+   SIDEBAR
+================================ */
+
+.sidebar {
+  position: fixed;
+  top: 60px;
+  left: 0;
+  width: 240px;
+  height: calc(100vh - 60px);
+  background: var(--bg-sidebar);
+  padding: 20px 0;
+  overflow-y: auto;
+}
+
+.sidebar h6 {
+  color: #94a3b8;
+  font-size: 0.75rem;
+  padding: 0 20px;
+  margin-top: 20px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.sidebar a {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 20px;
+  color: #e5e7eb;
+  text-decoration: none;
+  font-size: 0.95rem;
+  border-left: 3px solid transparent;
+}
+
+.sidebar a:hover,
+.sidebar a.active {
+  background: rgba(255, 255, 255, 0.08);
+  border-left: 3px solid var(--primary);
+  color: #fff;
+}
+
+/* ===============================
+   SIDEBAR — SUBMENU
+================================ */
+
+.sidebar-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.sidebar-parent {
+  font-weight: 500;
+}
+
+.sidebar-sub {
+  margin-left: 28px;
+  display: flex;
+  flex-direction: column;
+}
+
+.sidebar-sub a {
+  font-size: 0.9rem;
+  opacity: 0.9;
+  padding: 6px 20px;
+}
+
+
+
+/* ===============================
    MAIN CONTENT
 ================================ */
 
