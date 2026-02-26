@@ -1,0 +1,56 @@
+/* acervo-fragment.css */
+.memo-document {
+  font-family: 'Inter', sans-serif;
+  line-height: 1.5;
+  margin-bottom: 2rem;
+}
+
+.memo-document h2 {
+  font-size: 1.75rem;
+  margin-bottom: 0.5rem;
+}
+
+.memo-document h3 {
+  font-size: 1.25rem;
+  margin-top: 1.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.memo-document h4 {
+  font-size: 1.1rem;
+  margin-top: 1rem;
+  margin-bottom: 0.25rem;
+}
+
+.memo-document p {
+  margin-bottom: 0.75rem;
+}
+
+.memo-document ul,
+.memo-document ol {
+  margin-left: 1.5rem;
+  margin-bottom: 0.75rem;
+}
+
+.memo-document li {
+  margin-bottom: 0.25rem;
+}
+
+.memo-document hr {
+  margin: 1.5rem 0;
+  border: 0;
+  border-top: 1px solid #ddd;
+}
+
+.memo-document .badge-prisma {
+  font-size: 0.85rem;
+  padding: 0.25rem 0.6rem;
+  margin-bottom: 1rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+}
+
+.memo-document a {
+  text-decoration: none;
+}
