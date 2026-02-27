@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<title>REDE Atlas Cognitivo</title>
+<link rel="stylesheet" href="css/atlas.css">
+</head>
+
+<body>
+
+<div id="atlas-wrapper">
+
+  <input id="atlas-search" placeholder="Buscar nó...">
+
+  <canvas id="atlas-canvas"></canvas>
+  <canvas id="atlas-minimap"></canvas>
+
+  <div id="atlas-breadcrumbs"></div>
+
+  <button id="bookmark-btn">★</button>
+
+  <div id="fragment-view">
+    <div class="fragment-header">
+      <span id="fragment-title"></span>
+      <button id="fragment-close">×</button>
+    </div>
+    <div id="fragment-content"></div>
+  </div>
+
+</div>
+
+<script src="js/atlas.js"></script>
+</body>
+</html>
