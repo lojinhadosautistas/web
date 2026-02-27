@@ -28,6 +28,7 @@ let startX = 0;
 let startY = 0;
 let pinchStartDist = null;
 let startScale = 1;
+let userCameraOverride = false;
 
 // ==============================
 // INIT
@@ -38,6 +39,7 @@ async function initAtlas() {
   const manifest = await res.json();
 
   docsData = manifest.documents || manifest;
+  manifestConnections = manifest.connections || [];
 
   createDocsClustered(docsData);
   updatePlayer();
@@ -108,11 +110,12 @@ document.addEventListener('keydown', e => {
 
 function updatePlayer() {
   player.style.transform = `translate(${pos.x}px, ${pos.y}px)`;
-  centerOnPlayer();
+
+  if (!userCameraOverride) centerOnPlayer();
 }
 
 // ==============================
-// RADAR COGNITIVO
+// RADAR
 // ==============================
 
 const radar = document.createElement('div');
@@ -142,7 +145,6 @@ function checkProximity() {
 
     if (dist < threshold) {
       found = true;
-
       doc.classList.add('near');
 
       if (activeDoc !== doc) {
@@ -153,7 +155,6 @@ function checkProximity() {
     } else {
       doc.classList.remove('near');
     }
-
   });
 
   if (!found) {
@@ -182,22 +183,21 @@ async function loadFragment(url) {
 }
 
 // ==============================
-// CONEXÕES VIVAS
+// CONNECTIONS
 // ==============================
 
 let manifestConnections = [];
 
-async function loadConnections() {
-  const res = await fetch('../acervo/manifest.json');
-  const manifest = await res.json();
-  manifestConnections = manifest.connections || [];
-}
-
-loadConnections();
-
 function loopConnections() {
   drawConnectionsLive();
   requestAnimationFrame(loopConnections);
+}
+
+function worldToScreen(x, y) {
+  return {
+    x: x * scale + panX + 20 * scale,
+    y: y * scale + panY + 20 * scale
+  };
 }
 
 function drawConnectionsLive() {
@@ -216,12 +216,15 @@ function drawConnectionsLive() {
 
     if (dist > threshold * 1.8) return;
 
+    const a = worldToScreen(elA.offsetLeft, elA.offsetTop);
+    const b = worldToScreen(elB.offsetLeft, elB.offsetTop);
+
     const line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
 
-    line.setAttribute('x1', elA.offsetLeft + 20);
-    line.setAttribute('y1', elA.offsetTop + 20);
-    line.setAttribute('x2', elB.offsetLeft + 20);
-    line.setAttribute('y2', elB.offsetTop + 20);
+    line.setAttribute('x1', a.x);
+    line.setAttribute('y1', a.y);
+    line.setAttribute('x2', b.x);
+    line.setAttribute('y2', b.y);
     line.setAttribute('stroke', '#64748b');
     line.setAttribute('stroke-width', '2');
 
@@ -230,7 +233,7 @@ function drawConnectionsLive() {
 }
 
 // ==============================
-// CAMERA ENGINE
+// CAMERA
 // ==============================
 
 function applyCamera() {
@@ -240,17 +243,35 @@ function applyCamera() {
 function centerOnPlayer() {
   const rect = container.getBoundingClientRect();
 
-  panX = rect.width / 2 - pos.x * scale - 20;
-  panY = rect.height / 2 - pos.y * scale - 20;
+  panX = rect.width / 2 - pos.x * scale - 20 * scale;
+  panY = rect.height / 2 - pos.y * scale - 20 * scale;
 
   applyCamera();
 }
 
 // ==============================
-// TOUCH CAMERA
+// TOUCH + MOUSE CAMERA
 // ==============================
 
+container.addEventListener('mousedown', e => {
+  isDragging = true;
+  userCameraOverride = true;
+  startX = e.clientX - panX;
+  startY = e.clientY - panY;
+});
+
+window.addEventListener('mousemove', e => {
+  if (!isDragging) return;
+  panX = e.clientX - startX;
+  panY = e.clientY - startY;
+  applyCamera();
+});
+
+window.addEventListener('mouseup', () => isDragging = false);
+
 container.addEventListener('touchstart', e => {
+
+  userCameraOverride = true;
 
   if (e.touches.length === 1) {
     isDragging = true;
@@ -274,9 +295,13 @@ container.addEventListener('touchmove', e => {
   }
 
   if (e.touches.length === 2) {
+
     const dist = getPinchDistance(e);
     const factor = dist / pinchStartDist;
-    scale = Math.max(0.5, Math.min(2.2, startScale * factor));
+
+    const newScale = Math.max(0.5, Math.min(2.2, startScale * factor));
+
+    scale = newScale;
     applyCamera();
   }
 
@@ -292,3 +317,9 @@ function getPinchDistance(e) {
   const dy = e.touches[0].clientY - e.touches[1].clientY;
   return Math.hypot(dx, dy);
 }
+
+// ==============================
+// LOOP
+// ==============================
+
+setInterval(checkProximity, 120);
