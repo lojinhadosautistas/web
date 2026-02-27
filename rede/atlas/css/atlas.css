@@ -1,72 +1,149 @@
-#atlas-container {
-  position: relative;
-  width: 100%;
-  height: 600px;
+/* ===============================
+   VARIÁVEIS GLOBAIS — SISTEMA REDE
+================================ */
+:root {
+  --bg-main: #f4f6f9;
+  --bg-sidebar: #0f172a;
+  --bg-card: #ffffff;
+  --primary: #2563eb;
+  --text-main: #0f172a;
+  --text-muted: #64748b;
+}
+
+/* ===============================
+   RESET
+================================ */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* ===============================
+   BODY / LAYOUT BASE
+================================ */
+body {
+  background: var(--bg-main);
+  font-family: system-ui, -apple-system, sans-serif;
+  color: var(--text-main);
+}
+
+/* ===============================
+   LAYOUT FLEX PRINCIPAL
+================================ */
+.app-layout {
+  display: flex;
+  min-height: 100vh;
+}
+
+/* ===============================
+   SIDEBAR
+================================ */
+.sidebar {
+  width: 250px;
+  background: var(--bg-sidebar);
+  color: #fff;
+  flex-shrink: 0;
+}
+
+/* ===============================
+   CONTEÚDO
+================================ */
+.main-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+/* ===============================
+   TOPBAR
+================================ */
+.topbar {
+  height: 60px;
+  background: #fff;
+  border-bottom: 1px solid #e5e7eb;
+  display: flex;
+  align-items: center;
+  padding: 0 20px;
+  flex-shrink: 0;
+}
+
+/* ===============================
+   ÁREA INTERNA
+================================ */
+.content-area {
+  padding: 20px;
+  flex: 1;
   overflow: auto;
+}
+
+/* ===============================
+   CARD ATLAS
+================================ */
+.atlas-card {
+  background: var(--bg-card);
   border-radius: 16px;
-  background: radial-gradient(circle at center, #0f172a, #020617);
-}
-
-#map {
-  position: relative;
-  width: 2000px;
-  height: 1200px;
-  display: block;
-  z-index: 1;
-}
-
-#connections {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  pointer-events: none;
-  z-index: 2;
-}
-
-#player {
-  position: absolute;
-  width: 40px;
-  height: 40px;
-  background: #38bdf8;
-  border-radius: 50%;
-  z-index: 3;
-  box-shadow: 0 0 20px #38bdf8;
-}
-
-.doc {
-  position: absolute;
-  width: 40px;
-  height: 40px;
-  border-radius: 8px;
-}
-
-.relatorio { background: #22c55e; }
-.dossie { background: #a855f7; }
-.plano { background: #f59e0b; }
-
-#fragment-view {
-  position: absolute;
-  right: 20px;
-  top: 20px;
-  width: 300px;
-  max-height: 500px;
-  overflow: auto;
-  background: rgba(15,23,42,0.95);
-  border: 1px solid #334155;
-  border-radius: 12px;
   padding: 16px;
-  display: none;
-  color: #e2e8f0;
-}
-#radar{
-  position:absolute;
-  border-radius:50%;
-  border:2px dashed #38bdf8;
-  background:rgba(56,189,248,0.05);
-  pointer-events:none;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.06);
 }
 
-.doc.near{
-  box-shadow:0 0 14px white;
-  transform:scale(1.15);
+/* ===============================
+   FRAME DO RADAR
+================================ */
+.radar-frame {
+  position: relative;
+  width: 100%;
+  border-radius: 14px;
+  overflow: hidden;
+  background: #020617;
+}
+
+/* ===============================
+   CANVAS RADAR
+================================ */
+#radarCanvas {
+  display: block;
+  width: 100%;
+  height: 420px; /* desktop padrão */
+  touch-action: none; /* permite pinch + drag */
+}
+
+/* ===============================
+   RESPONSIVIDADE MOBILE (PRIORIDADE)
+================================ */
+@media (max-width: 768px) {
+
+  .sidebar {
+    position: fixed;
+    z-index: 1000;
+    height: 100vh;
+    transform: translateX(-100%);
+  }
+
+  .sidebar.open {
+    transform: translateX(0);
+  }
+
+  .content-area {
+    padding: 12px;
+  }
+
+  .atlas-card {
+    padding: 10px;
+    border-radius: 12px;
+  }
+
+  #radarCanvas {
+    height: 260px; /* mobile confortável */
+  }
+}
+
+/* ===============================
+   MOBILE PEQUENO
+================================ */
+@media (max-width: 480px) {
+  #radarCanvas {
+    height: 220px;
+  }
 }
