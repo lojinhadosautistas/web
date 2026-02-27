@@ -1,351 +1,268 @@
-/* ================================
-   ATLAS COGNITIVO v4.2 — MODERN STABLE
-================================ */
+/* ===============================
+   ATLAS V3 — ESTÁVEL BASE
+   =============================== */
 
-const canvas = document.getElementById("atlas-canvas");
-const ctx = canvas.getContext("2d");
+const canvas = document.getElementById("atlas-canvas")
+const ctx = canvas.getContext("2d")
 
-const minimap = document.getElementById("atlas-minimap");
-const mctx = minimap.getContext("2d");
+const mini = document.getElementById("atlas-minimap")
+const miniCtx = mini.getContext("2d")
 
-const searchInput = document.getElementById("atlas-search");
-const breadcrumbs = document.getElementById("atlas-breadcrumbs");
+const searchInput = document.getElementById("atlas-search")
+const breadcrumbs = document.getElementById("atlas-breadcrumbs")
 
-const fragmentView = document.getElementById("fragment-view");
-const fragmentTitle = document.getElementById("fragment-title");
-const fragmentContent = document.getElementById("fragment-content");
-const fragmentClose = document.getElementById("fragment-close");
+let DPR = window.devicePixelRatio || 1
+let W, H
 
-/* ================================
-   SIZE
-================================ */
-
-let W,H;
 function resize(){
-  W=canvas.width=window.innerWidth;
-  H=canvas.height=window.innerHeight;
-  minimap.width=220;
-  minimap.height=140;
+  W = canvas.clientWidth
+  H = canvas.clientHeight
+
+  canvas.width = W * DPR
+  canvas.height = H * DPR
+  ctx.setTransform(DPR,0,0,DPR,0,0)
+
+  mini.width = mini.clientWidth * DPR
+  mini.height = mini.clientHeight * DPR
+  miniCtx.setTransform(DPR,0,0,DPR,0,0)
 }
-window.addEventListener("resize",resize);
-resize();
+window.addEventListener("resize", resize)
+resize()
 
-/* ================================
-   STATE
-================================ */
+/* ===============================
+   VIEWPORT
+=============================== */
 
-let nodes=[];
-let edges=[];
+let view = { x:0, y:0, zoom:1 }
+let isDragging = false
+let last = {x:0,y:0}
 
-let hovered=null;
-let selected=null;
+/* ===============================
+   NODES
+=============================== */
 
-let camera={x:0,y:0,zoom:1};
-let targetCamera={x:0,y:0,zoom:1};
+let nodes = []
+let hovered = null
+let selected = null
 
-let navStack=[];
+/* ===============================
+   CLUSTER COLORS
+=============================== */
 
-/* ================================
+const clusterColors = {
+  sintese:"#2563eb",
+  teorico:"#7c3aed",
+  audio:"#ea580c",
+  oficinas:"#16a34a",
+  default:"#64748b"
+}
+
+/* ===============================
    READ TABLE
-================================ */
+=============================== */
 
-function readRepository(){
+function readTable(){
+  const table = document.getElementById("repoTable")
+  if(!table) return
 
-  const table=document.getElementById("repoTable");
-  if(!table) return;
+  const rows = table.querySelectorAll("tbody tr")
 
-  const rows=[...table.querySelectorAll("tbody tr")];
+  let raw = []
 
-  nodes=rows.map((row,i)=>{
+  rows.forEach((tr,i)=>{
+    const title = tr.children[0]?.innerText.trim()
+    const category = tr.querySelector(".badge")?.innerText.toLowerCase() || "default"
 
-    const cols=row.querySelectorAll("td");
-
-    return{
+    raw.push({
       id:i,
-      label:cols[0]?.innerText||"Node",
-      cluster:cols[1]?.innerText||"default",
-      content:row.innerHTML,
+      title,
+      category
+    })
+  })
 
-      x:(Math.random()-0.5)*1200,
-      y:(Math.random()-0.5)*900,
-      vx:0,
-      vy:0,
-      r:24,
-      hover:0
-    }
-  });
-
-  edges=[];
-  for(let i=0;i<nodes.length;i++){
-    for(let j=i+1;j<nodes.length;j++){
-      if(nodes[i].cluster===nodes[j].cluster){
-        edges.push([i,j]);
-      }
-    }
-  }
+  buildLayout(raw)
 }
 
-readRepository();
+/* ===============================
+   BUILD LAYOUT (RADIAL CLUSTER)
+=============================== */
 
-/* ================================
-   COLORS
-================================ */
+function buildLayout(raw){
 
-const palette=["#6366f1","#22c55e","#f59e0b","#ef4444","#06b6d4","#a855f7"];
+  const clusters = {}
 
-function colorForCluster(name){
-  let hash=0;
-  for(let i=0;i<name.length;i++) hash=name.charCodeAt(i)+((hash<<5)-hash);
-  return palette[Math.abs(hash)%palette.length];
+  raw.forEach(n=>{
+    if(!clusters[n.category]) clusters[n.category]=[]
+    clusters[n.category].push(n)
+  })
+
+  const clusterKeys = Object.keys(clusters)
+  const radius = 420
+
+  nodes=[]
+
+  clusterKeys.forEach((key,ci)=>{
+    const angle = (ci/clusterKeys.length)*Math.PI*2
+    const cx = Math.cos(angle)*radius
+    const cy = Math.sin(angle)*radius
+
+    clusters[key].forEach((n,i)=>{
+      const a = (i/clusters[key].length)*Math.PI*2
+      const r = 120
+
+      nodes.push({
+        ...n,
+        x: cx + Math.cos(a)*r,
+        y: cy + Math.sin(a)*r,
+        r:22,
+        color: clusterColors[key] || clusterColors.default
+      })
+    })
+  })
 }
 
-/* ================================
-   PHYSICS — ULTRA STABLE
-================================ */
-
-function step(){
-
-  const repel=11000;
-  const spring=0.00014;
-  const damping=0.86;
-  const cutoff=320;
-  const maxSpeed=0.16;
-
-  for(let i=0;i<nodes.length;i++){
-    const a=nodes[i];
-
-    for(let j=i+1;j<nodes.length;j++){
-
-      const b=nodes[j];
-
-      let dx=b.x-a.x;
-      let dy=b.y-a.y;
-
-      let d=Math.hypot(dx,dy);
-      if(d>cutoff) continue;
-      if(!d) d=1;
-
-      const f=repel/(d*d);
-
-      dx/=d; dy/=d;
-
-      a.vx-=dx*f;
-      a.vy-=dy*f;
-      b.vx+=dx*f;
-      b.vy+=dy*f;
-    }
-  }
-
-  edges.forEach(([ai,bi])=>{
-    const a=nodes[ai];
-    const b=nodes[bi];
-
-    let dx=b.x-a.x;
-    let dy=b.y-a.y;
-    let d=Math.hypot(dx,dy)||1;
-
-    const f=(d-260)*spring;
-
-    dx/=d; dy/=d;
-
-    a.vx+=dx*f;
-    a.vy+=dy*f;
-    b.vx-=dx*f;
-    b.vy-=dy*f;
-  });
-
-  nodes.forEach(n=>{
-
-    const speed=Math.hypot(n.vx,n.vy);
-    if(speed<0.002){ n.vx=0; n.vy=0; }
-
-    if(speed>maxSpeed){
-      n.vx*=maxSpeed/speed;
-      n.vy*=maxSpeed/speed;
-    }
-
-    n.vx*=damping;
-    n.vy*=damping;
-
-    n.x+=n.vx;
-    n.y+=n.vy;
-
-    n.hover+=( (n===hovered?1:0)-n.hover)*0.18;
-  });
-}
-
-/* ================================
-   CAMERA
-================================ */
-
-function updateCamera(){
-
-  targetCamera.zoom=Math.max(0.35,Math.min(2.4,targetCamera.zoom));
-
-  camera.x+=(targetCamera.x-camera.x)*0.08;
-  camera.y+=(targetCamera.y-camera.y)*0.08;
-  camera.zoom+=(targetCamera.zoom-camera.zoom)*0.08;
-}
-
-/* ================================
+/* ===============================
    DRAW
-================================ */
+=============================== */
 
 function draw(){
 
-  ctx.clearRect(0,0,W,H);
+  ctx.clearRect(0,0,W,H)
 
-  ctx.save();
-  ctx.translate(W/2,H/2);
-  ctx.scale(camera.zoom,camera.zoom);
-  ctx.translate(-camera.x,-camera.y);
-
-  ctx.lineWidth=1;
-
-  edges.forEach(([ai,bi])=>{
-    const a=nodes[ai];
-    const b=nodes[bi];
-    ctx.strokeStyle="rgba(0,0,0,0.06)";
-    ctx.beginPath();
-    ctx.moveTo(a.x,a.y);
-    ctx.lineTo(b.x,b.y);
-    ctx.stroke();
-  });
+  ctx.save()
+  ctx.translate(W/2,H/2)
+  ctx.scale(view.zoom,view.zoom)
+  ctx.translate(view.x,view.y)
 
   nodes.forEach(n=>{
+    ctx.beginPath()
+    ctx.arc(n.x,n.y,n.r,0,Math.PI*2)
 
-    const r=n.r*(1+n.hover*0.15);
+    const scale = hovered===n ? 1.05 : 1
+    ctx.save()
+    ctx.translate(n.x,n.y)
+    ctx.scale(scale,scale)
+    ctx.translate(-n.x,-n.y)
 
-    ctx.beginPath();
-    ctx.arc(n.x,n.y,r,0,Math.PI*2);
-    ctx.fillStyle=colorForCluster(n.cluster);
-    ctx.globalAlpha=n===selected?1:0.92;
-    ctx.fill();
-    ctx.globalAlpha=1;
+    ctx.fillStyle=n.color
+    ctx.shadowBlur= hovered===n ? 20:8
+    ctx.shadowColor=n.color
+    ctx.fill()
 
-    ctx.fillStyle="#111";
-    ctx.font="12px Inter, sans-serif";
-    ctx.textAlign="center";
-    ctx.textBaseline="top";
-    ctx.fillText(n.label,n.x,n.y+r+6);
-  });
+    ctx.restore()
+  })
 
-  ctx.restore();
+  ctx.restore()
 
-  drawMinimap();
+  drawMinimap()
+  requestAnimationFrame(draw)
 }
+draw()
 
-/* ================================
+/* ===============================
    MINIMAP
-================================ */
+=============================== */
 
 function drawMinimap(){
+  const w=mini.clientWidth
+  const h=mini.clientHeight
 
-  mctx.clearRect(0,0,minimap.width,minimap.height);
-
-  const scale=0.07;
+  miniCtx.clearRect(0,0,w,h)
 
   nodes.forEach(n=>{
-    mctx.fillStyle=colorForCluster(n.cluster);
-    mctx.fillRect(minimap.width/2+n.x*scale,minimap.height/2+n.y*scale,4,4);
-  });
+    miniCtx.beginPath()
+    miniCtx.arc(w/2+n.x*0.1,h/2+n.y*0.1,3,0,Math.PI*2)
+    miniCtx.fillStyle=n.color
+    miniCtx.fill()
+  })
 }
 
-/* ================================
-   HIT
-================================ */
+/* ===============================
+   HIT DETECTION
+=============================== */
 
-function screenToWorld(x,y){
-  return{
-    x:(x-W/2)/camera.zoom+camera.x,
-    y:(y-H/2)/camera.zoom+camera.y
+function getNode(mx,my){
+
+  const x=(mx-W/2)/view.zoom-view.x
+  const y=(my-H/2)/view.zoom-view.y
+
+  return nodes.find(n=>Math.hypot(n.x-x,n.y-y)<n.r)
+}
+
+/* ===============================
+   EVENTS
+=============================== */
+
+canvas.addEventListener("mousedown",e=>{
+  isDragging=true
+  last={x:e.clientX,y:e.clientY}
+})
+
+window.addEventListener("mouseup",()=>isDragging=false)
+
+canvas.addEventListener("mousemove",e=>{
+  const rect=canvas.getBoundingClientRect()
+  const mx=e.clientX-rect.left
+  const my=e.clientY-rect.top
+
+  hovered=getNode(mx,my)
+
+  if(isDragging){
+    view.x+=(e.clientX-last.x)/view.zoom
+    view.y+=(e.clientY-last.y)/view.zoom
+    last={x:e.clientX,y:e.clientY}
   }
-}
+})
 
-canvas.onmousemove=e=>{
-  const p=screenToWorld(e.clientX,e.clientY);
+canvas.addEventListener("wheel",e=>{
+  const delta=e.deltaY>0?0.9:1.1
+  view.zoom*=delta
+})
 
-  let best=null;
-  let bestD=999;
+canvas.addEventListener("click",e=>{
+  const rect=canvas.getBoundingClientRect()
+  const node=getNode(e.clientX-rect.left,e.clientY-rect.top)
+  if(node) openFragment(node)
+})
 
-  nodes.forEach(n=>{
-    const d=Math.hypot(n.x-p.x,n.y-p.y);
-    if(d<n.r+8 && d<bestD){
-      best=n;
-      bestD=d;
-    }
-  });
-
-  hovered=best;
-};
-
-canvas.onclick=()=>{
-  if(!hovered) return;
-
-  selected=hovered;
-  navStack.push(selected);
-  breadcrumbs.innerHTML=navStack.map(n=>n.label).join(" → ");
-
-  fragmentTitle.innerText=selected.label;
-  fragmentContent.innerHTML=selected.content;
-  fragmentView.classList.add("open");
-};
-
-fragmentClose.onclick=()=>fragmentView.classList.remove("open");
-
-/* ================================
+/* ===============================
    SEARCH
-================================ */
+=============================== */
 
-searchInput.oninput=()=>{
-  const q=searchInput.value.toLowerCase();
-  const found=nodes.find(n=>n.label.toLowerCase().includes(q));
+searchInput?.addEventListener("input",()=>{
+  const v=searchInput.value.toLowerCase()
 
-  if(found){
-    targetCamera.x=found.x;
-    targetCamera.y=found.y;
-    targetCamera.zoom=1.7;
+  const n=nodes.find(n=>n.title.toLowerCase().includes(v))
+  if(n){
+    view.x=-n.x
+    view.y=-n.y
+    view.zoom=1.6
   }
-};
+})
 
-/* ================================
-   PAN + ZOOM
-================================ */
+/* ===============================
+   FRAGMENT VIEW
+=============================== */
 
-let dragging=false;
-let last={x:0,y:0};
+function openFragment(node){
 
-canvas.onmousedown=e=>{
-  dragging=true;
-  last={x:e.clientX,y:e.clientY};
-};
+  const fv=document.getElementById("fragment-view")
+  if(!fv) return
 
-window.onmouseup=()=>dragging=false;
+  document.getElementById("fragment-title").innerText=node.title
+  document.getElementById("fragment-content").innerHTML="Conteúdo do fragmento"
 
-window.onmousemove=e=>{
-  if(!dragging) return;
+  fv.classList.add("open")
 
-  const dx=(e.clientX-last.x)/camera.zoom;
-  const dy=(e.clientY-last.y)/camera.zoom;
-
-  targetCamera.x-=dx;
-  targetCamera.y-=dy;
-
-  last={x:e.clientX,y:e.clientY};
-};
-
-canvas.onwheel=e=>{
-  targetCamera.zoom*=e.deltaY>0?0.92:1.08;
-};
-
-/* ================================
-   LOOP
-================================ */
-
-function loop(){
-  step();
-  updateCamera();
-  draw();
-  requestAnimationFrame(loop);
+  breadcrumbs.innerText=node.title
 }
-loop();
+
+document.getElementById("fragment-close")?.addEventListener("click",()=>{
+  document.getElementById("fragment-view").classList.remove("open")
+})
+
+/* ===============================
+   INIT
+=============================== */
+
+setTimeout(readTable,400)
