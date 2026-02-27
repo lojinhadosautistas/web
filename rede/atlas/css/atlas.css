@@ -7,8 +7,11 @@
   font-family:system-ui;
 }
 
-#atlas-canvas{position:absolute; inset:0;}
+/* canvas */
+#atlas-canvas{position:absolute; inset:0; cursor:grab;}
+#atlas-canvas:active{cursor:grabbing;}
 
+/* search */
 #atlas-search{
   position:absolute;
   top:14px;
@@ -18,10 +21,12 @@
   padding:10px 14px;
   border-radius:12px;
   border:none;
+  outline:none;
   box-shadow:0 8px 24px rgba(0,0,0,0.15);
   z-index:10;
 }
 
+/* breadcrumbs */
 #atlas-breadcrumbs{
   position:absolute;
   bottom:16px;
@@ -33,6 +38,7 @@
   box-shadow:0 6px 18px rgba(0,0,0,0.15);
 }
 
+/* bookmark */
 #bookmark-btn{
   position:absolute;
   bottom:16px;
@@ -44,8 +50,11 @@
   height:40px;
   border-radius:12px;
   cursor:pointer;
+  transition:.25s;
 }
+#bookmark-btn:hover{transform:scale(1.08);}
 
+/* minimap */
 #atlas-minimap{
   position:absolute;
   right:16px;
@@ -54,8 +63,10 @@
   height:120px;
   background:#ffffffdd;
   border-radius:12px;
+  backdrop-filter:blur(6px);
 }
 
+/* fragment */
 #fragment-view{
   position:absolute;
   top:0;
