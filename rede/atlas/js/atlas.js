@@ -1,6 +1,6 @@
 /* ===============================
-   ATLAS V3 — ESTÁVEL BASE
-   =============================== */
+   CANVAS SETUP
+=============================== */
 
 const canvas = document.getElementById("atlas-canvas")
 const ctx = canvas.getContext("2d")
@@ -12,44 +12,45 @@ const searchInput = document.getElementById("atlas-search")
 const breadcrumbs = document.getElementById("atlas-breadcrumbs")
 
 let DPR = window.devicePixelRatio || 1
-let W, H
+let W,H
 
 function resize(){
   W = canvas.clientWidth
   H = canvas.clientHeight
 
-  canvas.width = W * DPR
-  canvas.height = H * DPR
+  canvas.width=W*DPR
+  canvas.height=H*DPR
   ctx.setTransform(DPR,0,0,DPR,0,0)
 
-  mini.width = mini.clientWidth * DPR
-  mini.height = mini.clientHeight * DPR
+  mini.width=mini.clientWidth*DPR
+  mini.height=mini.clientHeight*DPR
   miniCtx.setTransform(DPR,0,0,DPR,0,0)
 }
-window.addEventListener("resize", resize)
+window.addEventListener("resize",resize)
 resize()
 
 /* ===============================
-   VIEWPORT
+   VIEWPORT (com easing)
 =============================== */
 
-let view = { x:0, y:0, zoom:1 }
-let isDragging = false
-let last = {x:0,y:0}
+let view={x:0,y:0,zoom:1}
+let target={x:0,y:0,zoom:1}
+
+function updateView(){
+  view.x+=(target.x-view.x)*0.08
+  view.y+=(target.y-view.y)*0.08
+  view.zoom+=(target.zoom-view.zoom)*0.08
+}
 
 /* ===============================
-   NODES
+   DATA
 =============================== */
 
-let nodes = []
-let hovered = null
-let selected = null
+let nodes=[]
+let hovered=null
+let selected=null
 
-/* ===============================
-   CLUSTER COLORS
-=============================== */
-
-const clusterColors = {
+const clusterColors={
   sintese:"#2563eb",
   teorico:"#7c3aed",
   audio:"#ea580c",
@@ -58,64 +59,57 @@ const clusterColors = {
 }
 
 /* ===============================
-   READ TABLE
+   TABLE READER
 =============================== */
 
 function readTable(){
-  const table = document.getElementById("repoTable")
+  const table=parent.document.getElementById("repoTable")
   if(!table) return
 
-  const rows = table.querySelectorAll("tbody tr")
-
-  let raw = []
+  const rows=table.querySelectorAll("tbody tr")
+  let raw=[]
 
   rows.forEach((tr,i)=>{
-    const title = tr.children[0]?.innerText.trim()
-    const category = tr.querySelector(".badge")?.innerText.toLowerCase() || "default"
+    const title=tr.children[0]?.innerText.trim()
+    const category=tr.querySelector(".badge")?.innerText.toLowerCase()||"default"
 
-    raw.push({
-      id:i,
-      title,
-      category
-    })
+    raw.push({id:i,title,category})
   })
 
   buildLayout(raw)
 }
 
 /* ===============================
-   BUILD LAYOUT (RADIAL CLUSTER)
+   RADIAL LAYOUT
 =============================== */
 
 function buildLayout(raw){
-
-  const clusters = {}
-
+  const clusters={}
   raw.forEach(n=>{
     if(!clusters[n.category]) clusters[n.category]=[]
     clusters[n.category].push(n)
   })
 
-  const clusterKeys = Object.keys(clusters)
-  const radius = 420
-
+  const keys=Object.keys(clusters)
+  const radius=420
   nodes=[]
 
-  clusterKeys.forEach((key,ci)=>{
-    const angle = (ci/clusterKeys.length)*Math.PI*2
-    const cx = Math.cos(angle)*radius
-    const cy = Math.sin(angle)*radius
+  keys.forEach((key,ci)=>{
+    const angle=(ci/keys.length)*Math.PI*2
+    const cx=Math.cos(angle)*radius
+    const cy=Math.sin(angle)*radius
 
     clusters[key].forEach((n,i)=>{
-      const a = (i/clusters[key].length)*Math.PI*2
-      const r = 120
+      const a=(i/clusters[key].length)*Math.PI*2
+      const r=120
 
       nodes.push({
         ...n,
-        x: cx + Math.cos(a)*r,
-        y: cy + Math.sin(a)*r,
+        x:cx+Math.cos(a)*r,
+        y:cy+Math.sin(a)*r,
         r:22,
-        color: clusterColors[key] || clusterColors.default
+        hover:0,
+        color:clusterColors[key]||clusterColors.default
       })
     })
   })
@@ -127,6 +121,7 @@ function buildLayout(raw){
 
 function draw(){
 
+  updateView()
   ctx.clearRect(0,0,W,H)
 
   ctx.save()
@@ -135,17 +130,20 @@ function draw(){
   ctx.translate(view.x,view.y)
 
   nodes.forEach(n=>{
-    ctx.beginPath()
-    ctx.arc(n.x,n.y,n.r,0,Math.PI*2)
 
-    const scale = hovered===n ? 1.05 : 1
+    n.hover += ((hovered===n?1:0)-n.hover)*0.15
+
+    const scale=1+n.hover*0.2
+
     ctx.save()
     ctx.translate(n.x,n.y)
     ctx.scale(scale,scale)
-    ctx.translate(-n.x,-n.y)
+
+    ctx.beginPath()
+    ctx.arc(0,0,n.r,0,Math.PI*2)
 
     ctx.fillStyle=n.color
-    ctx.shadowBlur= hovered===n ? 20:8
+    ctx.shadowBlur=8+18*n.hover
     ctx.shadowColor=n.color
     ctx.fill()
 
@@ -178,14 +176,12 @@ function drawMinimap(){
 }
 
 /* ===============================
-   HIT DETECTION
+   HIT
 =============================== */
 
 function getNode(mx,my){
-
   const x=(mx-W/2)/view.zoom-view.x
   const y=(my-H/2)/view.zoom-view.y
-
   return nodes.find(n=>Math.hypot(n.x-x,n.y-y)<n.r)
 }
 
@@ -193,30 +189,30 @@ function getNode(mx,my){
    EVENTS
 =============================== */
 
+let dragging=false
+let last={x:0,y:0}
+
 canvas.addEventListener("mousedown",e=>{
-  isDragging=true
+  dragging=true
   last={x:e.clientX,y:e.clientY}
 })
 
-window.addEventListener("mouseup",()=>isDragging=false)
+window.addEventListener("mouseup",()=>dragging=false)
 
 canvas.addEventListener("mousemove",e=>{
   const rect=canvas.getBoundingClientRect()
-  const mx=e.clientX-rect.left
-  const my=e.clientY-rect.top
+  hovered=getNode(e.clientX-rect.left,e.clientY-rect.top)
 
-  hovered=getNode(mx,my)
-
-  if(isDragging){
-    view.x+=(e.clientX-last.x)/view.zoom
-    view.y+=(e.clientY-last.y)/view.zoom
+  if(dragging){
+    target.x+=(e.clientX-last.x)/view.zoom
+    target.y+=(e.clientY-last.y)/view.zoom
     last={x:e.clientX,y:e.clientY}
   }
 })
 
 canvas.addEventListener("wheel",e=>{
   const delta=e.deltaY>0?0.9:1.1
-  view.zoom*=delta
+  target.zoom=Math.min(3,Math.max(0.4,target.zoom*delta))
 })
 
 canvas.addEventListener("click",e=>{
@@ -231,29 +227,23 @@ canvas.addEventListener("click",e=>{
 
 searchInput?.addEventListener("input",()=>{
   const v=searchInput.value.toLowerCase()
-
   const n=nodes.find(n=>n.title.toLowerCase().includes(v))
   if(n){
-    view.x=-n.x
-    view.y=-n.y
-    view.zoom=1.6
+    target.x=-n.x
+    target.y=-n.y
+    target.zoom=1.6
   }
 })
 
 /* ===============================
-   FRAGMENT VIEW
+   FRAGMENT
 =============================== */
 
 function openFragment(node){
-
   const fv=document.getElementById("fragment-view")
-  if(!fv) return
-
   document.getElementById("fragment-title").innerText=node.title
   document.getElementById("fragment-content").innerHTML="Conteúdo do fragmento"
-
   fv.classList.add("open")
-
   breadcrumbs.innerText=node.title
 }
 
@@ -261,8 +251,5 @@ document.getElementById("fragment-close")?.addEventListener("click",()=>{
   document.getElementById("fragment-view").classList.remove("open")
 })
 
-/* ===============================
-   INIT
-=============================== */
-
+/* =============================== */
 setTimeout(readTable,400)
