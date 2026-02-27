@@ -1,0 +1,80 @@
+/* ===============================
+   WRAPPER
+================================ */
+
+#atlas-wrapper{
+  position:relative;
+  width:100%;
+  height:100vh;
+  background:#f3efe3;
+  overflow:hidden;
+  font-family:system-ui;
+}
+
+/* ===============================
+   CANVAS
+================================ */
+
+#atlas-canvas{
+  position:absolute;
+  inset:0;
+}
+
+/* ===============================
+   MINI MAP
+================================ */
+
+#atlas-minimap{
+  position:absolute;
+  right:16px;
+  bottom:16px;
+  width:180px;
+  height:120px;
+  background:#ffffffdd;
+  border-radius:12px;
+  box-shadow:0 8px 20px rgba(0,0,0,0.15);
+}
+
+/* ===============================
+   FRAGMENT VIEW
+================================ */
+
+#fragment-view{
+  position:absolute;
+  top:0;
+  right:-420px;
+  width:380px;
+  height:100%;
+  background:white;
+  box-shadow:-6px 0 24px rgba(0,0,0,0.15);
+  transition:0.35s;
+  display:flex;
+  flex-direction:column;
+}
+
+#fragment-view.open{
+  right:0;
+}
+
+.fragment-header{
+  padding:16px;
+  background:#0f172a;
+  color:white;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
+
+#fragment-close{
+  background:none;
+  border:none;
+  color:white;
+  font-size:22px;
+  cursor:pointer;
+}
+
+#fragment-content{
+  padding:18px;
+  overflow:auto;
+  line-height:1.5;
+}
