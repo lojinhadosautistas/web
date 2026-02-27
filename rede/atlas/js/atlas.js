@@ -17,6 +17,7 @@ const speed = 10;
 const threshold = 140;
 
 let docsData = [];
+let manifestConnections = [];
 let activeDoc = null;
 
 // camera
@@ -43,6 +44,7 @@ async function initAtlas() {
 
   createDocsClustered(docsData);
   updatePlayer();
+  updateRadar();
 
   requestAnimationFrame(loopConnections);
 }
@@ -50,7 +52,7 @@ async function initAtlas() {
 window.addEventListener('load', initAtlas);
 
 // ==============================
-// CLUSTER LAYOUT
+// CLUSTER LAYOUT (FIXED)
 // ==============================
 
 function createDocsClustered(data) {
@@ -74,19 +76,29 @@ function createDocsClustered(data) {
     const cx = centerX + Math.cos(angle) * radius;
     const cy = centerY + Math.sin(angle) * radius;
 
-    clusters[key].forEach((doc, i) => {
+    const docs = clusters[key];
 
-      const spread = 120;
-      const dx = cx + Math.cos(i) * spread;
-      const dy = cy + Math.sin(i) * spread;
+    docs.forEach((doc, i) => {
+
+      const spread = 140;
+      const angle2 = (i / docs.length) * Math.PI * 2;
+
+      const dx = cx + Math.cos(angle2) * spread;
+      const dy = cy + Math.sin(angle2) * spread;
 
       const el = document.createElement('div');
-      el.classList.add('doc', doc.type);
-      el.dataset.fragment = `../acervo/fragments/${doc.fragment}`;
+      el.classList.add('doc');
+
+      if (doc.type) el.classList.add(doc.type);
+
       el.dataset.id = doc.id;
+      el.dataset.fragment = doc.fragment
+        ? `../acervo/fragments/${doc.fragment}`
+        : `../acervo/fragments/frag-${doc.id}.html`;
 
       el.style.left = dx + 'px';
       el.style.top = dy + 'px';
+      el.title = doc.title || doc.id;
 
       map.appendChild(el);
     });
@@ -129,7 +141,7 @@ function updateRadar() {
 }
 
 // ==============================
-// PROXIMITY
+// PROXIMITY (SCALE FIX)
 // ==============================
 
 function checkProximity() {
@@ -144,6 +156,7 @@ function checkProximity() {
     const dist = Math.hypot(dx, dy);
 
     if (dist < threshold) {
+
       found = true;
       doc.classList.add('near');
 
@@ -157,7 +170,7 @@ function checkProximity() {
     }
   });
 
-  if (!found) {
+  if (!found && activeDoc) {
     fragmentView.style.display = 'none';
     fragmentView.innerHTML = '';
     activeDoc = null;
@@ -167,15 +180,21 @@ function checkProximity() {
 }
 
 // ==============================
-// LOAD FRAGMENT
+// LOAD FRAGMENT (ANTI-RELOAD)
 // ==============================
 
 async function loadFragment(url) {
+
+  if (fragmentView.dataset.loaded === url) return;
+
   try {
     const res = await fetch(url);
     const html = await res.text();
+
     fragmentView.innerHTML = html;
     fragmentView.style.display = 'block';
+    fragmentView.dataset.loaded = url;
+
   } catch {
     fragmentView.innerHTML = '<p>Fragment não encontrado</p>';
     fragmentView.style.display = 'block';
@@ -183,10 +202,8 @@ async function loadFragment(url) {
 }
 
 // ==============================
-// CONNECTIONS
+// CONNECTIONS (IMPROVED)
 // ==============================
-
-let manifestConnections = [];
 
 function loopConnections() {
   drawConnectionsLive();
@@ -210,11 +227,10 @@ function drawConnectionsLive() {
     const elB = document.querySelector(`[data-id="${pair[1]}"]`);
     if (!elA || !elB) return;
 
-    const dx = elA.offsetLeft - pos.x;
-    const dy = elA.offsetTop - pos.y;
-    const dist = Math.hypot(dx, dy);
+    const distA = Math.hypot(elA.offsetLeft - pos.x, elA.offsetTop - pos.y);
+    const distB = Math.hypot(elB.offsetLeft - pos.x, elB.offsetTop - pos.y);
 
-    if (dist > threshold * 1.8) return;
+    if (distA > threshold * 2 && distB > threshold * 2) return;
 
     const a = worldToScreen(elA.offsetLeft, elA.offsetTop);
     const b = worldToScreen(elB.offsetLeft, elB.offsetTop);
@@ -299,9 +315,7 @@ container.addEventListener('touchmove', e => {
     const dist = getPinchDistance(e);
     const factor = dist / pinchStartDist;
 
-    const newScale = Math.max(0.5, Math.min(2.2, startScale * factor));
-
-    scale = newScale;
+    scale = Math.max(0.5, Math.min(2.2, startScale * factor));
     applyCamera();
   }
 
