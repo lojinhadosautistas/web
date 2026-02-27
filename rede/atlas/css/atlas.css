@@ -58,3 +58,15 @@
   display: none;
   color: #e2e8f0;
 }
+#radar{
+  position:absolute;
+  border-radius:50%;
+  border:2px dashed #38bdf8;
+  background:rgba(56,189,248,0.05);
+  pointer-events:none;
+}
+
+.doc.near{
+  box-shadow:0 0 14px white;
+  transform:scale(1.15);
+}
