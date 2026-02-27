@@ -1,20 +1,57 @@
-// =============================
-// ATLAS GAME ENGINE MVP
-// =============================
-
+const map = document.getElementById('map');
 const player = document.getElementById('player');
-const docs = document.querySelectorAll('.doc');
 const fragmentView = document.getElementById('fragment-view');
 const svg = document.getElementById('connections');
 
-let pos = { x: 100, y: 100 };
-const speed = 4;
-const threshold = 120;
+let pos = { x: 200, y: 200 };
+const speed = 5;
+const threshold = 140;
+
+let docsData = [];
 let activeDoc = null;
 
-// =============================
+// ==============================
+// INIT
+// ==============================
+
+async function initAtlas() {
+  const res = await fetch('../acervo/manifest.json');
+  const manifest = await res.json();
+
+  docsData = manifest.documents || manifest;
+
+  createDocs();
+  drawConnections(manifest.connections || []);
+  updatePlayer();
+}
+
+window.addEventListener('load', initAtlas);
+
+// ==============================
+// CREATE DOCS
+// ==============================
+
+function createDocs() {
+  docsData.forEach((doc, index) => {
+
+    const el = document.createElement('div');
+    el.classList.add('doc');
+    el.classList.add(doc.type); // relatorio, dossie, plano
+    el.dataset.fragment = `../acervo/fragments/${doc.fragment}`;
+
+    // posição simples em grid automático
+    el.style.left = (index % 6) * 200 + 100 + 'px';
+    el.style.top = Math.floor(index / 6) * 200 + 100 + 'px';
+
+    el.dataset.id = doc.id;
+
+    map.appendChild(el);
+  });
+}
+
+// ==============================
 // PLAYER MOVEMENT
-// =============================
+// ==============================
 
 document.addEventListener('keydown', e => {
   if (e.key === 'ArrowUp') pos.y -= speed;
@@ -30,16 +67,17 @@ function updatePlayer() {
   player.style.transform = `translate(${pos.x}px, ${pos.y}px)`;
 }
 
-// =============================
-// PROXIMITY SYSTEM
-// =============================
+// ==============================
+// PROXIMITY
+// ==============================
 
 function checkProximity() {
+  const docs = document.querySelectorAll('.doc');
   let found = false;
 
   docs.forEach(doc => {
     const rect = doc.getBoundingClientRect();
-    const mapRect = document.getElementById('map').getBoundingClientRect();
+    const mapRect = map.getBoundingClientRect();
 
     const dx = (rect.left - mapRect.left) - pos.x;
     const dy = (rect.top - mapRect.top) - pos.y;
@@ -61,9 +99,9 @@ function checkProximity() {
   }
 }
 
-// =============================
+// ==============================
 // LOAD FRAGMENT
-// =============================
+// ==============================
 
 async function loadFragment(url) {
   try {
@@ -71,33 +109,27 @@ async function loadFragment(url) {
     const html = await res.text();
     fragmentView.innerHTML = html;
     fragmentView.style.display = 'block';
-  } catch (err) {
+  } catch {
     fragmentView.innerHTML = '<p>Fragment não encontrado</p>';
     fragmentView.style.display = 'block';
   }
 }
 
-// =============================
-// CONNECTIONS (EXEMPLO)
-// =============================
+// ==============================
+// DRAW CONNECTIONS
+// ==============================
 
-function drawConnections() {
+function drawConnections(connections) {
   svg.innerHTML = '';
 
-  const pairs = [
-    ['doc1', 'doc2'],
-    ['doc2', 'doc3']
-  ];
-
-  pairs.forEach(([a, b]) => {
-    const elA = document.querySelector(`[data-id="${a}"]`);
-    const elB = document.querySelector(`[data-id="${b}"]`);
-
+  connections.forEach(pair => {
+    const elA = document.querySelector(`[data-id="${pair[0]}"]`);
+    const elB = document.querySelector(`[data-id="${pair[1]}"]`);
     if (!elA || !elB) return;
 
     const rA = elA.getBoundingClientRect();
     const rB = elB.getBoundingClientRect();
-    const mapRect = document.getElementById('map').getBoundingClientRect();
+    const mapRect = map.getBoundingClientRect();
 
     const x1 = rA.left - mapRect.left + 20;
     const y1 = rA.top - mapRect.top + 20;
@@ -115,9 +147,3 @@ function drawConnections() {
     svg.appendChild(line);
   });
 }
-
-window.addEventListener('resize', drawConnections);
-window.addEventListener('load', () => {
-  updatePlayer();
-  drawConnections();
-});
