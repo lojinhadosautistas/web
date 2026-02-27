@@ -1,224 +1,267 @@
-// ELEMENTS
-const map = document.getElementById('map');
-const player = document.getElementById('player');
-const fragmentView = document.getElementById('fragment-view');
-const svg = document.getElementById('connections');
-const container = document.getElementById('atlas-container');
+/* ==========================================
+   MAPA COGNITIVO — SISTEMA REDE
+   World Space + Pan + Zoom + Pinch + Nodes
+========================================== */
 
-// STATE
-let pos = { x: 1000, y: 600 };
-const speed = 10;
-const threshold = 140;
+const canvas = document.getElementById("mapCanvas");
+const ctx = canvas.getContext("2d");
 
-let docsData = [];
-let manifestConnections = [];
-let activeDoc = null;
+// ----------------------------
+// ESTADO GLOBAL
+// ----------------------------
 
-// camera
 let scale = 1;
-let panX = 0;
-let panY = 0;
+let offsetX = 0;
+let offsetY = 0;
+
 let isDragging = false;
-let startX = 0;
-let startY = 0;
-let pinchStartDist = null;
-let startScale = 1;
-let userCameraOverride = false;
+let lastX = 0;
+let lastY = 0;
 
-// INIT
-async function initAtlas() {
-  const res = await fetch('../acervo/manifest.json');
-  const manifest = await res.json();
+let bgReady = false;
 
-  docsData = manifest.documents || manifest;
-  manifestConnections = manifest.connections || [];
+// ----------------------------
+// IMAGEM DE FUNDO (WORLD BASE)
+// ----------------------------
 
-  createDocsClustered(docsData);
-  updatePlayer();
-  updateRadar();
+const bgImage = new Image();
+bgImage.src = "assets/mapa-vila.webp"; // altere se necessário
 
-  setTimeout(centerOnPlayer, 80);
+bgImage.onload = () => {
+  bgReady = true;
+  centralizarMapa();
+  render();
+};
 
-  requestAnimationFrame(loopConnections);
-}
-window.addEventListener('load', initAtlas);
+// ----------------------------
+// NODES (EXEMPLO BASE)
+// ----------------------------
 
-// CLUSTERS
-function createDocsClustered(data) {
+const nodes = [
+  { id: "dossie1", x: -200, y: -100, label: "Dossiê A" },
+  { id: "relatorio1", x: 250, y: 120, label: "Relatório B" },
+  { id: "plano1", x: 0, y: 220, label: "Plano C" }
+];
 
-  const clusters = {};
-  data.forEach(doc=>{
-    const key = doc.cluster || doc.type || 'default';
-    if(!clusters[key]) clusters[key]=[];
-    clusters[key].push(doc);
-  });
+// ----------------------------
+// RESIZE RESPONSIVO
+// ----------------------------
 
-  const keys = Object.keys(clusters);
-  const centerX = 1000;
-  const centerY = 600;
-  const radius = 400;
-
-  keys.forEach((key,cIndex)=>{
-    const angle=(cIndex/keys.length)*Math.PI*2;
-    const cx=centerX+Math.cos(angle)*radius;
-    const cy=centerY+Math.sin(angle)*radius;
-
-    clusters[key].forEach((doc,i)=>{
-      const spread=140;
-      const a=(i/clusters[key].length)*Math.PI*2;
-      const dx=cx+Math.cos(a)*spread;
-      const dy=cy+Math.sin(a)*spread;
-
-      const el=document.createElement('div');
-      el.classList.add('doc');
-      if(doc.type) el.classList.add(doc.type);
-
-      el.dataset.id=doc.id;
-      el.dataset.fragment=doc.fragment?`../acervo/fragments/${doc.fragment}`:`../acervo/fragments/frag-${doc.id}.html`;
-      el.style.left=dx+'px';
-      el.style.top=dy+'px';
-      el.title=doc.title||doc.id;
-
-      map.appendChild(el);
-    });
-  });
+function resizeCanvas() {
+  canvas.width = canvas.parentElement.clientWidth;
+  canvas.height = canvas.parentElement.clientHeight;
 }
 
-// PLAYER
-document.addEventListener('keydown',e=>{
-  if(e.key==='ArrowUp') pos.y-=speed;
-  if(e.key==='ArrowDown') pos.y+=speed;
-  if(e.key==='ArrowLeft') pos.x-=speed;
-  if(e.key==='ArrowRight') pos.x+=speed;
-  updatePlayer(); checkProximity();
+window.addEventListener("resize", () => {
+  resizeCanvas();
+  centralizarMapa();
+  render();
 });
 
-function updatePlayer(){
-  player.style.transform=`translate(${pos.x}px,${pos.y}px)`;
-  if(!userCameraOverride) centerOnPlayer();
+resizeCanvas();
+
+// ----------------------------
+// CENTRALIZAÇÃO AUTOMÁTICA
+// ----------------------------
+
+function centralizarMapa() {
+  if (!bgReady) return;
+
+  const vw = canvas.width;
+  const vh = canvas.height;
+
+  const iw = bgImage.width;
+  const ih = bgImage.height;
+
+  const scaleX = vw / iw;
+  const scaleY = vh / ih;
+
+  scale = Math.min(scaleX, scaleY) * 0.9;
+
+  offsetX = vw / 2;
+  offsetY = vh / 2;
 }
 
-// RADAR
-const radar=document.createElement('div');
-radar.id='radar';
-map.appendChild(radar);
+// ----------------------------
+// RENDER PRINCIPAL
+// ----------------------------
 
-function updateRadar(){
-  radar.style.transform=`translate(${pos.x-threshold}px,${pos.y-threshold}px)`;
-  radar.style.width=threshold*2+'px';
-  radar.style.height=threshold*2+'px';
+function render() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+  ctx.save();
+
+  ctx.translate(offsetX, offsetY);
+  ctx.scale(scale, scale);
+
+  drawBackground();
+  drawConnections();
+  drawNodes();
+
+  ctx.restore();
 }
 
-// PROXIMITY
-function checkProximity(){
-  const docs=document.querySelectorAll('.doc');
-  let found=false;
+// ----------------------------
+// DESENHAR FUNDO
+// ----------------------------
 
-  docs.forEach(doc=>{
-    const dist=Math.hypot(doc.offsetLeft-pos.x,doc.offsetTop-pos.y);
-    if(dist<threshold){
-      found=true;
-      doc.classList.add('near');
-      if(activeDoc!==doc){
-        activeDoc=doc;
-        loadFragment(doc.dataset.fragment);
-      }
-    }else doc.classList.remove('near');
-  });
+function drawBackground() {
+  if (!bgReady) return;
 
-  if(!found && activeDoc){
-    fragmentView.style.display='none';
-    fragmentView.innerHTML='';
-    activeDoc=null;
-  }
-  updateRadar();
+  const w = bgImage.width;
+  const h = bgImage.height;
+
+  ctx.drawImage(bgImage, -w / 2, -h / 2);
 }
 
-// FRAGMENT
-async function loadFragment(url){
-  if(fragmentView.dataset.loaded===url) return;
-  try{
-    const res=await fetch(url);
-    fragmentView.innerHTML=await res.text();
-    fragmentView.style.display='block';
-    fragmentView.dataset.loaded=url;
-  }catch{
-    fragmentView.innerHTML='<p>Fragment não encontrado</p>';
-    fragmentView.style.display='block';
-  }
-}
+// ----------------------------
+// DESENHAR NODES
+// ----------------------------
 
-// CONNECTIONS
-function loopConnections(){ drawConnectionsLive(); requestAnimationFrame(loopConnections); }
+function drawNodes() {
+  nodes.forEach(node => {
+    ctx.beginPath();
+    ctx.arc(node.x, node.y, 30, 0, Math.PI * 2);
+    ctx.fillStyle = "#2563eb";
+    ctx.fill();
 
-function worldToScreen(x,y){
-  return {x:x*scale+panX+20*scale,y:y*scale+panY+20*scale};
-}
-
-function drawConnectionsLive(){
-  svg.innerHTML='';
-  manifestConnections.forEach(pair=>{
-    const aEl=document.querySelector(`[data-id="${pair[0]}"]`);
-    const bEl=document.querySelector(`[data-id="${pair[1]}"]`);
-    if(!aEl||!bEl) return;
-
-    const distA=Math.hypot(aEl.offsetLeft-pos.x,aEl.offsetTop-pos.y);
-    const distB=Math.hypot(bEl.offsetLeft-pos.x,bEl.offsetTop-pos.y);
-    if(distA>threshold*2 && distB>threshold*2) return;
-
-    const a=worldToScreen(aEl.offsetLeft,aEl.offsetTop);
-    const b=worldToScreen(bEl.offsetLeft,bEl.offsetTop);
-
-    const line=document.createElementNS('http://www.w3.org/2000/svg','line');
-    line.setAttribute('x1',a.x); line.setAttribute('y1',a.y);
-    line.setAttribute('x2',b.x); line.setAttribute('y2',b.y);
-    line.setAttribute('stroke','#64748b'); line.setAttribute('stroke-width','2');
-    svg.appendChild(line);
+    ctx.fillStyle = "#ffffff";
+    ctx.font = "14px sans-serif";
+    ctx.textAlign = "center";
+    ctx.fillText(node.label, node.x, node.y + 5);
   });
 }
 
-// CAMERA
-function applyCamera(){ map.style.transform=`translate(${panX}px,${panY}px) scale(${scale})`; }
+// ----------------------------
+// DESENHAR CONEXÕES (placeholder)
+// ----------------------------
 
-function centerOnPlayer(){
-  const rect=container.getBoundingClientRect();
-  panX=rect.width/2-pos.x*scale-20*scale;
-  panY=rect.height/2-pos.y*scale-20*scale;
-  applyCamera();
+function drawConnections() {
+  // exemplo simples (opcional)
+  if (nodes.length < 2) return;
+
+  ctx.beginPath();
+  ctx.moveTo(nodes[0].x, nodes[0].y);
+  ctx.lineTo(nodes[1].x, nodes[1].y);
+  ctx.strokeStyle = "rgba(0,0,0,0.2)";
+  ctx.lineWidth = 2;
+  ctx.stroke();
 }
 
-// INPUT CAMERA
-container.addEventListener('mousedown',e=>{
-  isDragging=true; userCameraOverride=true;
-  startX=e.clientX-panX; startY=e.clientY-panY;
+// ----------------------------
+// PAN (MOUSE)
+// ----------------------------
+
+canvas.addEventListener("mousedown", (e) => {
+  isDragging = true;
+  lastX = e.clientX;
+  lastY = e.clientY;
 });
-window.addEventListener('mousemove',e=>{
-  if(!isDragging) return;
-  panX=e.clientX-startX; panY=e.clientY-startY; applyCamera();
+
+canvas.addEventListener("mousemove", (e) => {
+  if (!isDragging) return;
+
+  const dx = e.clientX - lastX;
+  const dy = e.clientY - lastY;
+
+  offsetX += dx;
+  offsetY += dy;
+
+  lastX = e.clientX;
+  lastY = e.clientY;
+
+  render();
 });
-window.addEventListener('mouseup',()=>isDragging=false);
 
-container.addEventListener('touchstart',e=>{
-  userCameraOverride=true;
-  if(e.touches.length===1){isDragging=true;startX=e.touches[0].clientX-panX;startY=e.touches[0].clientY-panY;}
-  if(e.touches.length===2){pinchStartDist=getPinchDistance(e);startScale=scale;}
-},{passive:false});
+canvas.addEventListener("mouseup", () => {
+  isDragging = false;
+});
 
-container.addEventListener('touchmove',e=>{
-  if(isDragging && e.touches.length===1){
-    panX=e.touches[0].clientX-startX; panY=e.touches[0].clientY-startY; applyCamera();
+canvas.addEventListener("mouseleave", () => {
+  isDragging = false;
+});
+
+// ----------------------------
+// ZOOM COM SCROLL
+// ----------------------------
+
+canvas.addEventListener("wheel", (e) => {
+  e.preventDefault();
+
+  const zoomIntensity = 0.1;
+  const mouseX = e.offsetX;
+  const mouseY = e.offsetY;
+
+  const worldX = (mouseX - offsetX) / scale;
+  const worldY = (mouseY - offsetY) / scale;
+
+  const zoom = e.deltaY < 0 ? 1 + zoomIntensity : 1 - zoomIntensity;
+  scale *= zoom;
+
+  offsetX = mouseX - worldX * scale;
+  offsetY = mouseY - worldY * scale;
+
+  render();
+});
+
+// ----------------------------
+// PINCH ZOOM (MOBILE)
+// ----------------------------
+
+let initialDistance = null;
+
+canvas.addEventListener("touchstart", (e) => {
+  if (e.touches.length === 1) {
+    isDragging = true;
+    lastX = e.touches[0].clientX;
+    lastY = e.touches[0].clientY;
   }
-  if(e.touches.length===2){
-    const factor=getPinchDistance(e)/pinchStartDist;
-    scale=Math.max(.5,Math.min(2.2,startScale*factor));
-    applyCamera();
+
+  if (e.touches.length === 2) {
+    initialDistance = getTouchDistance(e);
   }
-},{passive:false});
+});
 
-container.addEventListener('touchend',()=>{isDragging=false;pinchStartDist=null;});
+canvas.addEventListener("touchmove", (e) => {
+  e.preventDefault();
 
-function getPinchDistance(e){
-  return Math.hypot(e.touches[0].clientX-e.touches[1].clientX,e.touches[0].clientY-e.touches[1].clientY);
+  if (e.touches.length === 1 && isDragging) {
+    const dx = e.touches[0].clientX - lastX;
+    const dy = e.touches[0].clientY - lastY;
+
+    offsetX += dx;
+    offsetY += dy;
+
+    lastX = e.touches[0].clientX;
+    lastY = e.touches[0].clientY;
+
+    render();
+  }
+
+  if (e.touches.length === 2) {
+    const newDistance = getTouchDistance(e);
+    const zoom = newDistance / initialDistance;
+
+    scale *= zoom;
+    initialDistance = newDistance;
+
+    render();
+  }
+}, { passive: false });
+
+canvas.addEventListener("touchend", () => {
+  isDragging = false;
+  initialDistance = null;
+});
+
+function getTouchDistance(e) {
+  const dx = e.touches[0].clientX - e.touches[1].clientX;
+  const dy = e.touches[0].clientY - e.touches[1].clientY;
+  return Math.sqrt(dx * dx + dy * dy);
 }
 
-setInterval(checkProximity,120);
+// ----------------------------
+// INICIALIZAÇÃO
+// ----------------------------
+
+render();
