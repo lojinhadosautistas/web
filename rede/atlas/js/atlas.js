@@ -15,7 +15,7 @@ let activeDoc = null;
 // ==============================
 
 async function initAtlas() {
-  const res = await fetch('../../acervo/manifest.json');
+  const res = await fetch('../acervo/manifest.json');
   const manifest = await res.json();
 
   docsData = manifest.documents || manifest;
@@ -37,7 +37,7 @@ function createDocs() {
     const el = document.createElement('div');
     el.classList.add('doc');
     el.classList.add(doc.type); // relatorio, dossie, plano
-    el.dataset.fragment = `../../acervo/fragments/${doc.fragment}`;
+    el.dataset.fragment = `../acervo/fragments/${doc.fragment}`;
 
     // posição simples em grid automático
     el.style.left = (index % 6) * 200 + 100 + 'px';
