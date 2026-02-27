@@ -20,12 +20,13 @@
 }
 
 /* ===============================
-   BODY / LAYOUT BASE
+   BODY
 ================================ */
 body {
   background: var(--bg-main);
   font-family: system-ui, -apple-system, sans-serif;
   color: var(--text-main);
+  height: 100vh;
 }
 
 /* ===============================
@@ -33,7 +34,8 @@ body {
 ================================ */
 .app-layout {
   display: flex;
-  min-height: 100vh;
+  height: 100vh;
+  overflow: hidden;
 }
 
 /* ===============================
@@ -44,6 +46,7 @@ body {
   background: var(--bg-sidebar);
   color: #fff;
   flex-shrink: 0;
+  overflow-y: auto;
 }
 
 /* ===============================
@@ -54,6 +57,7 @@ body {
   display: flex;
   flex-direction: column;
   min-width: 0;
+  overflow: hidden;
 }
 
 /* ===============================
@@ -67,50 +71,135 @@ body {
   align-items: center;
   padding: 0 20px;
   flex-shrink: 0;
+  z-index: 10;
 }
 
 /* ===============================
-   ÁREA INTERNA
+   ÁREA INTERNA (FLEX FIX)
 ================================ */
 .content-area {
   padding: 20px;
   flex: 1;
   overflow: auto;
+
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
 }
 
 /* ===============================
-   CARD ATLAS
+   CARD ATLAS (FLEX FIX)
 ================================ */
 .atlas-card {
   background: var(--bg-card);
   border-radius: 16px;
   padding: 16px;
   box-shadow: 0 8px 24px rgba(0,0,0,0.06);
+
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
 }
 
 /* ===============================
-   FRAME DO RADAR
+   CONTAINER PRINCIPAL DO MAPA
 ================================ */
-.radar-frame {
+#atlas-container {
   position: relative;
   width: 100%;
-  border-radius: 14px;
+  flex: 1;
+  min-height: 0;
   overflow: hidden;
+  border-radius: 16px;
   background: #020617;
 }
 
 /* ===============================
-   CANVAS RADAR
+   MAPA
 ================================ */
-#radarCanvas {
-  display: block;
-  width: 100%;
-  height: 420px; /* desktop padrão */
-  touch-action: none; /* permite pinch + drag */
+#map {
+  position: absolute;
+  width: 3000px;
+  height: 2000px;
+  transform-origin: 0 0;
 }
 
 /* ===============================
-   RESPONSIVIDADE MOBILE (PRIORIDADE)
+   SVG CONEXÕES
+================================ */
+#connections {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+/* ===============================
+   PLAYER
+================================ */
+#player {
+  position: absolute;
+  width: 36px;
+  height: 36px;
+  background: #38bdf8;
+  border-radius: 50%;
+  box-shadow: 0 0 18px rgba(56,189,248,0.7);
+  z-index: 5;
+}
+
+/* ===============================
+   RADAR COGNITIVO
+================================ */
+#radar {
+  position: absolute;
+  border: 2px dashed #38bdf8;
+  border-radius: 50%;
+  pointer-events: none;
+  opacity: .6;
+}
+
+/* ===============================
+   DOCUMENTOS
+================================ */
+.doc {
+  position: absolute;
+  width: 42px;
+  height: 42px;
+  border-radius: 10px;
+  transition: .25s;
+}
+
+/* tipos */
+.doc.relatorio { background: #22c55e; }
+.doc.dossie { background: #f59e0b; }
+.doc.plano { background: #6366f1; }
+
+/* proximidade */
+.doc.near {
+  transform: scale(1.25);
+  box-shadow: 0 0 14px rgba(255,255,255,.4);
+}
+
+/* ===============================
+   FRAGMENT VIEW
+================================ */
+#fragment-view {
+  position: absolute;
+  bottom: 16px;
+  right: 16px;
+  width: 320px;
+  max-height: 420px;
+  overflow: auto;
+  background: #fff;
+  border-radius: 14px;
+  box-shadow: 0 12px 40px rgba(0,0,0,.15);
+  padding: 16px;
+  display: none;
+  z-index: 20;
+}
+
+/* ===============================
+   MOBILE
 ================================ */
 @media (max-width: 768px) {
 
@@ -119,6 +208,7 @@ body {
     z-index: 1000;
     height: 100vh;
     transform: translateX(-100%);
+    transition: .3s;
   }
 
   .sidebar.open {
@@ -134,8 +224,11 @@ body {
     border-radius: 12px;
   }
 
-  #radarCanvas {
-    height: 260px; /* mobile confortável */
+  #fragment-view {
+    width: calc(100% - 24px);
+    right: 12px;
+    bottom: 12px;
+    max-height: 260px;
   }
 }
 
@@ -143,7 +236,6 @@ body {
    MOBILE PEQUENO
 ================================ */
 @media (max-width: 480px) {
-  #radarCanvas {
-    height: 220px;
-  }
+  #player { width: 30px; height: 30px; }
+  .doc { width: 34px; height: 34px; }
 }
