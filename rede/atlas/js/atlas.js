@@ -1,5 +1,5 @@
 /* ================================
-   ATLAS COGNITIVO v4 — STABLE LITE
+   ATLAS COGNITIVO v4.2 — MODERN STABLE
 ================================ */
 
 const canvas = document.getElementById("atlas-canvas");
@@ -15,6 +15,10 @@ const fragmentView = document.getElementById("fragment-view");
 const fragmentTitle = document.getElementById("fragment-title");
 const fragmentContent = document.getElementById("fragment-content");
 const fragmentClose = document.getElementById("fragment-close");
+
+/* ================================
+   SIZE
+================================ */
 
 let W,H;
 function resize(){
@@ -42,7 +46,7 @@ let targetCamera={x:0,y:0,zoom:1};
 let navStack=[];
 
 /* ================================
-   READ TABLE → NODES
+   READ TABLE
 ================================ */
 
 function readRepository(){
@@ -62,15 +66,16 @@ function readRepository(){
       cluster:cols[1]?.innerText||"default",
       content:row.innerHTML,
 
-      x:(Math.random()-0.5)*1000,
-      y:(Math.random()-0.5)*800,
+      x:(Math.random()-0.5)*1200,
+      y:(Math.random()-0.5)*900,
       vx:0,
       vy:0,
-      r:24
+      r:24,
+      hover:0
     }
   });
 
-  // edges semânticos simples
+  edges=[];
   for(let i=0;i<nodes.length;i++){
     for(let j=i+1;j<nodes.length;j++){
       if(nodes[i].cluster===nodes[j].cluster){
@@ -86,10 +91,7 @@ readRepository();
    COLORS
 ================================ */
 
-const palette=[
-  "#6366f1","#22c55e","#f59e0b",
-  "#ef4444","#06b6d4","#a855f7"
-];
+const palette=["#6366f1","#22c55e","#f59e0b","#ef4444","#06b6d4","#a855f7"];
 
 function colorForCluster(name){
   let hash=0;
@@ -98,26 +100,30 @@ function colorForCluster(name){
 }
 
 /* ================================
-   PHYSICS — LITE STABLE
+   PHYSICS — ULTRA STABLE
 ================================ */
 
 function step(){
 
-  const repel=12000;
-  const spring=0.00018;
-  const damping=0.84;
-  const maxSpeed=0.18;
+  const repel=11000;
+  const spring=0.00014;
+  const damping=0.86;
+  const cutoff=320;
+  const maxSpeed=0.16;
 
-  // repulsão
   for(let i=0;i<nodes.length;i++){
+    const a=nodes[i];
+
     for(let j=i+1;j<nodes.length;j++){
 
-      const a=nodes[i];
       const b=nodes[j];
 
       let dx=b.x-a.x;
       let dy=b.y-a.y;
-      let d=Math.hypot(dx,dy)||1;
+
+      let d=Math.hypot(dx,dy);
+      if(d>cutoff) continue;
+      if(!d) d=1;
 
       const f=repel/(d*d);
 
@@ -130,7 +136,6 @@ function step(){
     }
   }
 
-  // spring semântico
   edges.forEach(([ai,bi])=>{
     const a=nodes[ai];
     const b=nodes[bi];
@@ -139,7 +144,7 @@ function step(){
     let dy=b.y-a.y;
     let d=Math.hypot(dx,dy)||1;
 
-    const f=(d-240)*spring;
+    const f=(d-260)*spring;
 
     dx/=d; dy/=d;
 
@@ -149,10 +154,11 @@ function step(){
     b.vy-=dy*f;
   });
 
-  // integração
   nodes.forEach(n=>{
 
     const speed=Math.hypot(n.vx,n.vy);
+    if(speed<0.002){ n.vx=0; n.vy=0; }
+
     if(speed>maxSpeed){
       n.vx*=maxSpeed/speed;
       n.vy*=maxSpeed/speed;
@@ -163,6 +169,8 @@ function step(){
 
     n.x+=n.vx;
     n.y+=n.vy;
+
+    n.hover+=( (n===hovered?1:0)-n.hover)*0.18;
   });
 }
 
@@ -171,6 +179,9 @@ function step(){
 ================================ */
 
 function updateCamera(){
+
+  targetCamera.zoom=Math.max(0.35,Math.min(2.4,targetCamera.zoom));
+
   camera.x+=(targetCamera.x-camera.x)*0.08;
   camera.y+=(targetCamera.y-camera.y)*0.08;
   camera.zoom+=(targetCamera.zoom-camera.zoom)*0.08;
@@ -189,38 +200,34 @@ function draw(){
   ctx.scale(camera.zoom,camera.zoom);
   ctx.translate(-camera.x,-camera.y);
 
-  // edges
-  ctx.strokeStyle="rgba(0,0,0,0.08)";
   ctx.lineWidth=1;
 
   edges.forEach(([ai,bi])=>{
     const a=nodes[ai];
     const b=nodes[bi];
+    ctx.strokeStyle="rgba(0,0,0,0.06)";
     ctx.beginPath();
     ctx.moveTo(a.x,a.y);
     ctx.lineTo(b.x,b.y);
     ctx.stroke();
   });
 
-  // nodes
   nodes.forEach(n=>{
 
-    const isHover=n===hovered;
-    const isSel=n===selected;
-
-    const r=n.r*(isHover?1.15:1);
+    const r=n.r*(1+n.hover*0.15);
 
     ctx.beginPath();
     ctx.arc(n.x,n.y,r,0,Math.PI*2);
     ctx.fillStyle=colorForCluster(n.cluster);
-    ctx.globalAlpha=isSel?1:0.92;
+    ctx.globalAlpha=n===selected?1:0.92;
     ctx.fill();
     ctx.globalAlpha=1;
 
     ctx.fillStyle="#111";
-    ctx.font="12px Inter";
+    ctx.font="12px Inter, sans-serif";
     ctx.textAlign="center";
-    ctx.fillText(n.label,n.x,n.y+r+12);
+    ctx.textBaseline="top";
+    ctx.fillText(n.label,n.x,n.y+r+6);
   });
 
   ctx.restore();
@@ -236,15 +243,11 @@ function drawMinimap(){
 
   mctx.clearRect(0,0,minimap.width,minimap.height);
 
-  const scale=0.08;
+  const scale=0.07;
 
   nodes.forEach(n=>{
     mctx.fillStyle=colorForCluster(n.cluster);
-    mctx.fillRect(
-      minimap.width/2+n.x*scale,
-      minimap.height/2+n.y*scale,
-      4,4
-    );
+    mctx.fillRect(minimap.width/2+n.x*scale,minimap.height/2+n.y*scale,4,4);
   });
 }
 
@@ -261,19 +264,27 @@ function screenToWorld(x,y){
 
 canvas.onmousemove=e=>{
   const p=screenToWorld(e.clientX,e.clientY);
-  hovered=null;
+
+  let best=null;
+  let bestD=999;
+
   nodes.forEach(n=>{
-    if(Math.hypot(n.x-p.x,n.y-p.y)<n.r) hovered=n;
+    const d=Math.hypot(n.x-p.x,n.y-p.y);
+    if(d<n.r+8 && d<bestD){
+      best=n;
+      bestD=d;
+    }
   });
+
+  hovered=best;
 };
 
-canvas.onclick=e=>{
+canvas.onclick=()=>{
   if(!hovered) return;
 
   selected=hovered;
-
   navStack.push(selected);
-  updateBreadcrumbs();
+  breadcrumbs.innerHTML=navStack.map(n=>n.label).join(" → ");
 
   fragmentTitle.innerText=selected.label;
   fragmentContent.innerHTML=selected.content;
@@ -283,26 +294,17 @@ canvas.onclick=e=>{
 fragmentClose.onclick=()=>fragmentView.classList.remove("open");
 
 /* ================================
-   BREADCRUMBS
-================================ */
-
-function updateBreadcrumbs(){
-  breadcrumbs.innerHTML=navStack.map(n=>n.label).join(" → ");
-}
-
-/* ================================
    SEARCH
 ================================ */
 
 searchInput.oninput=()=>{
   const q=searchInput.value.toLowerCase();
-
   const found=nodes.find(n=>n.label.toLowerCase().includes(q));
 
   if(found){
     targetCamera.x=found.x;
     targetCamera.y=found.y;
-    targetCamera.zoom=1.8;
+    targetCamera.zoom=1.7;
   }
 };
 
@@ -333,7 +335,7 @@ window.onmousemove=e=>{
 };
 
 canvas.onwheel=e=>{
-  targetCamera.zoom*=e.deltaY>0?0.9:1.1;
+  targetCamera.zoom*=e.deltaY>0?0.92:1.08;
 };
 
 /* ================================
@@ -346,5 +348,4 @@ function loop(){
   draw();
   requestAnimationFrame(loop);
 }
-
 loop();
