@@ -1,251 +1,348 @@
-/* ======================================
-   ATLAS v4 — Inteligência Cognitiva Real
-   DOM driven (repoTable)
-====================================== */
+/* ================================
+   ATLAS COGNITIVO v4 — STABLE LITE
+================================ */
 
-const canvas = document.getElementById("atlas");
+const canvas = document.getElementById("atlas-canvas");
 const ctx = canvas.getContext("2d");
 
-let nodes = [];
-let edges = [];
-let selectedNode = null;
-let hoverNode = null;
-let navHistory = [];
+const minimap = document.getElementById("atlas-minimap");
+const mctx = minimap.getContext("2d");
 
-let zoom = 1;
-let offsetX = 0;
-let offsetY = 0;
+const searchInput = document.getElementById("atlas-search");
+const breadcrumbs = document.getElementById("atlas-breadcrumbs");
 
-resizeCanvas();
-window.addEventListener("resize", resizeCanvas);
+const fragmentView = document.getElementById("fragment-view");
+const fragmentTitle = document.getElementById("fragment-title");
+const fragmentContent = document.getElementById("fragment-content");
+const fragmentClose = document.getElementById("fragment-close");
 
-function resizeCanvas() {
-  canvas.width = canvas.offsetWidth;
-  canvas.height = canvas.offsetHeight;
+let W,H;
+function resize(){
+  W=canvas.width=window.innerWidth;
+  H=canvas.height=window.innerHeight;
+  minimap.width=220;
+  minimap.height=140;
 }
+window.addEventListener("resize",resize);
+resize();
 
-/* ======================================
-   1️⃣ LER TABELA → NODES
-====================================== */
+/* ================================
+   STATE
+================================ */
 
-function buildNodesFromTable() {
-  const rows = document.querySelectorAll("#repoTable tbody tr");
+let nodes=[];
+let edges=[];
 
-  const categoryCenters = {};
-  const categories = [...new Set([...rows].map(r => r.querySelector(".repo-category")?.textContent.trim()))];
+let hovered=null;
+let selected=null;
 
-  // Distribuição circular macro clusters
-  const radius = Math.min(canvas.width, canvas.height) * 0.35;
-  const cx = canvas.width / 2;
-  const cy = canvas.height / 2;
+let camera={x:0,y:0,zoom:1};
+let targetCamera={x:0,y:0,zoom:1};
 
-  categories.forEach((cat, i) => {
-    const angle = (i / categories.length) * Math.PI * 2;
-    categoryCenters[cat] = {
-      x: cx + Math.cos(angle) * radius,
-      y: cy + Math.sin(angle) * radius
-    };
+let navStack=[];
+
+/* ================================
+   READ TABLE → NODES
+================================ */
+
+function readRepository(){
+
+  const table=document.getElementById("repoTable");
+  if(!table) return;
+
+  const rows=[...table.querySelectorAll("tbody tr")];
+
+  nodes=rows.map((row,i)=>{
+
+    const cols=row.querySelectorAll("td");
+
+    return{
+      id:i,
+      label:cols[0]?.innerText||"Node",
+      cluster:cols[1]?.innerText||"default",
+      content:row.innerHTML,
+
+      x:(Math.random()-0.5)*1000,
+      y:(Math.random()-0.5)*800,
+      vx:0,
+      vy:0,
+      r:24
+    }
   });
 
-  rows.forEach((row, i) => {
-    const title = row.querySelector(".repo-title")?.textContent.trim() || "item";
-    const category = row.querySelector(".repo-category")?.textContent.trim() || "geral";
-    const tags = row.querySelector(".repo-tags")?.textContent.split(",").map(t => t.trim()) || [];
-
-    const center = categoryCenters[category] || { x: cx, y: cy };
-
-    nodes.push({
-      id: i,
-      label: title,
-      category,
-      tags,
-      x: center.x + (Math.random() - 0.5) * 80,
-      y: center.y + (Math.random() - 0.5) * 80,
-      vx: 0,
-      vy: 0,
-      size: 6,
-      baseSize: 6
-    });
-  });
-
-  // Edges por categoria
-  nodes.forEach(a => {
-    nodes.forEach(b => {
-      if (a !== b && a.category === b.category) {
-        edges.push({ a, b });
+  // edges semânticos simples
+  for(let i=0;i<nodes.length;i++){
+    for(let j=i+1;j<nodes.length;j++){
+      if(nodes[i].cluster===nodes[j].cluster){
+        edges.push([i,j]);
       }
-    });
-  });
+    }
+  }
 }
 
-buildNodesFromTable();
+readRepository();
 
-/* ======================================
-   2️⃣ FORCE LAYOUT SUAVE
-====================================== */
+/* ================================
+   COLORS
+================================ */
 
-function physics() {
-  nodes.forEach(n => {
-    n.vx *= 0.92;
-    n.vy *= 0.92;
-  });
+const palette=[
+  "#6366f1","#22c55e","#f59e0b",
+  "#ef4444","#06b6d4","#a855f7"
+];
+
+function colorForCluster(name){
+  let hash=0;
+  for(let i=0;i<name.length;i++) hash=name.charCodeAt(i)+((hash<<5)-hash);
+  return palette[Math.abs(hash)%palette.length];
+}
+
+/* ================================
+   PHYSICS — LITE STABLE
+================================ */
+
+function step(){
+
+  const repel=12000;
+  const spring=0.00018;
+  const damping=0.84;
+  const maxSpeed=0.18;
 
   // repulsão
-  for (let i = 0; i < nodes.length; i++) {
-    for (let j = i + 1; j < nodes.length; j++) {
-      const a = nodes[i];
-      const b = nodes[j];
+  for(let i=0;i<nodes.length;i++){
+    for(let j=i+1;j<nodes.length;j++){
 
-      const dx = b.x - a.x;
-      const dy = b.y - a.y;
-      const dist = Math.sqrt(dx * dx + dy * dy) + 0.1;
+      const a=nodes[i];
+      const b=nodes[j];
 
-      const force = 80 / dist;
+      let dx=b.x-a.x;
+      let dy=b.y-a.y;
+      let d=Math.hypot(dx,dy)||1;
 
-      a.vx -= (dx / dist) * force;
-      a.vy -= (dy / dist) * force;
-      b.vx += (dx / dist) * force;
-      b.vy += (dy / dist) * force;
+      const f=repel/(d*d);
+
+      dx/=d; dy/=d;
+
+      a.vx-=dx*f;
+      a.vy-=dy*f;
+      b.vx+=dx*f;
+      b.vy+=dy*f;
     }
   }
 
-  // atração cluster
-  edges.forEach(e => {
-    const dx = e.b.x - e.a.x;
-    const dy = e.b.y - e.a.y;
+  // spring semântico
+  edges.forEach(([ai,bi])=>{
+    const a=nodes[ai];
+    const b=nodes[bi];
 
-    e.a.vx += dx * 0.0008;
-    e.a.vy += dy * 0.0008;
-    e.b.vx -= dx * 0.0008;
-    e.b.vy -= dy * 0.0008;
+    let dx=b.x-a.x;
+    let dy=b.y-a.y;
+    let d=Math.hypot(dx,dy)||1;
+
+    const f=(d-240)*spring;
+
+    dx/=d; dy/=d;
+
+    a.vx+=dx*f;
+    a.vy+=dy*f;
+    b.vx-=dx*f;
+    b.vy-=dy*f;
   });
 
-  nodes.forEach(n => {
-    n.x += n.vx;
-    n.y += n.vy;
+  // integração
+  nodes.forEach(n=>{
+
+    const speed=Math.hypot(n.vx,n.vy);
+    if(speed>maxSpeed){
+      n.vx*=maxSpeed/speed;
+      n.vy*=maxSpeed/speed;
+    }
+
+    n.vx*=damping;
+    n.vy*=damping;
+
+    n.x+=n.vx;
+    n.y+=n.vy;
   });
 }
 
-/* ======================================
-   3️⃣ CORES SEMÂNTICAS
-====================================== */
+/* ================================
+   CAMERA
+================================ */
 
-const palette = {};
-function getColor(cat) {
-  if (!palette[cat]) {
-    const hue = Math.random() * 360;
-    palette[cat] = `hsl(${hue},70%,55%)`;
-  }
-  return palette[cat];
+function updateCamera(){
+  camera.x+=(targetCamera.x-camera.x)*0.08;
+  camera.y+=(targetCamera.y-camera.y)*0.08;
+  camera.zoom+=(targetCamera.zoom-camera.zoom)*0.08;
 }
 
-/* ======================================
-   4️⃣ DRAW
-====================================== */
+/* ================================
+   DRAW
+================================ */
 
-function draw() {
-  ctx.clearRect(0, 0, canvas.width, canvas.height);
+function draw(){
+
+  ctx.clearRect(0,0,W,H);
 
   ctx.save();
-  ctx.translate(offsetX, offsetY);
-  ctx.scale(zoom, zoom);
+  ctx.translate(W/2,H/2);
+  ctx.scale(camera.zoom,camera.zoom);
+  ctx.translate(-camera.x,-camera.y);
 
   // edges
-  ctx.globalAlpha = 0.08;
-  edges.forEach(e => {
+  ctx.strokeStyle="rgba(0,0,0,0.08)";
+  ctx.lineWidth=1;
+
+  edges.forEach(([ai,bi])=>{
+    const a=nodes[ai];
+    const b=nodes[bi];
     ctx.beginPath();
-    ctx.moveTo(e.a.x, e.a.y);
-    ctx.lineTo(e.b.x, e.b.y);
+    ctx.moveTo(a.x,a.y);
+    ctx.lineTo(b.x,b.y);
     ctx.stroke();
   });
 
-  ctx.globalAlpha = 1;
-
   // nodes
-  nodes.forEach(n => {
-    const targetSize =
-      selectedNode === n ? 14 :
-      hoverNode === n ? 9 :
-      n.baseSize;
+  nodes.forEach(n=>{
 
-    // encolhimento discreto
-    n.size += (targetSize - n.size) * 0.15;
+    const isHover=n===hovered;
+    const isSel=n===selected;
+
+    const r=n.r*(isHover?1.15:1);
 
     ctx.beginPath();
-    ctx.arc(n.x, n.y, n.size, 0, Math.PI * 2);
-    ctx.fillStyle = getColor(n.category);
+    ctx.arc(n.x,n.y,r,0,Math.PI*2);
+    ctx.fillStyle=colorForCluster(n.cluster);
+    ctx.globalAlpha=isSel?1:0.92;
     ctx.fill();
+    ctx.globalAlpha=1;
+
+    ctx.fillStyle="#111";
+    ctx.font="12px Inter";
+    ctx.textAlign="center";
+    ctx.fillText(n.label,n.x,n.y+r+12);
   });
 
   ctx.restore();
+
+  drawMinimap();
 }
 
-/* ======================================
-   5️⃣ HIT TEST
-====================================== */
+/* ================================
+   MINIMAP
+================================ */
 
-function getNode(mx, my) {
-  const x = (mx - offsetX) / zoom;
-  const y = (my - offsetY) / zoom;
+function drawMinimap(){
 
-  return nodes.find(n => Math.hypot(n.x - x, n.y - y) < 10);
+  mctx.clearRect(0,0,minimap.width,minimap.height);
+
+  const scale=0.08;
+
+  nodes.forEach(n=>{
+    mctx.fillStyle=colorForCluster(n.cluster);
+    mctx.fillRect(
+      minimap.width/2+n.x*scale,
+      minimap.height/2+n.y*scale,
+      4,4
+    );
+  });
 }
 
-/* ======================================
-   6️⃣ INTERAÇÃO
-====================================== */
+/* ================================
+   HIT
+================================ */
 
-canvas.addEventListener("mousemove", e => {
-  hoverNode = getNode(e.offsetX, e.offsetY);
-});
-
-canvas.addEventListener("click", e => {
-  const n = getNode(e.offsetX, e.offsetY);
-  if (n) {
-    selectedNode = n;
-    navHistory.push(n);
-    zoomToNode(n);
-    updateBreadcrumb();
+function screenToWorld(x,y){
+  return{
+    x:(x-W/2)/camera.zoom+camera.x,
+    y:(y-H/2)/camera.zoom+camera.y
   }
-});
+}
 
-/* ======================================
-   7️⃣ SEARCH → ZOOM
-====================================== */
+canvas.onmousemove=e=>{
+  const p=screenToWorld(e.clientX,e.clientY);
+  hovered=null;
+  nodes.forEach(n=>{
+    if(Math.hypot(n.x-p.x,n.y-p.y)<n.r) hovered=n;
+  });
+};
 
-window.atlasSearch = function(term) {
-  const n = nodes.find(n => n.label.toLowerCase().includes(term.toLowerCase()));
-  if (n) {
-    selectedNode = n;
-    zoomToNode(n);
-    navHistory.push(n);
-    updateBreadcrumb();
+canvas.onclick=e=>{
+  if(!hovered) return;
+
+  selected=hovered;
+
+  navStack.push(selected);
+  updateBreadcrumbs();
+
+  fragmentTitle.innerText=selected.label;
+  fragmentContent.innerHTML=selected.content;
+  fragmentView.classList.add("open");
+};
+
+fragmentClose.onclick=()=>fragmentView.classList.remove("open");
+
+/* ================================
+   BREADCRUMBS
+================================ */
+
+function updateBreadcrumbs(){
+  breadcrumbs.innerHTML=navStack.map(n=>n.label).join(" → ");
+}
+
+/* ================================
+   SEARCH
+================================ */
+
+searchInput.oninput=()=>{
+  const q=searchInput.value.toLowerCase();
+
+  const found=nodes.find(n=>n.label.toLowerCase().includes(q));
+
+  if(found){
+    targetCamera.x=found.x;
+    targetCamera.y=found.y;
+    targetCamera.zoom=1.8;
   }
 };
 
-function zoomToNode(n) {
-  zoom = 2;
-  offsetX = canvas.width / 2 - n.x * zoom;
-  offsetY = canvas.height / 2 - n.y * zoom;
-}
+/* ================================
+   PAN + ZOOM
+================================ */
 
-/* ======================================
-   8️⃣ BREADCRUMB
-====================================== */
+let dragging=false;
+let last={x:0,y:0};
 
-function updateBreadcrumb() {
-  const bc = document.getElementById("atlasBreadcrumb");
-  if (!bc) return;
+canvas.onmousedown=e=>{
+  dragging=true;
+  last={x:e.clientX,y:e.clientY};
+};
 
-  bc.innerHTML = navHistory.map(n => n.label).join(" → ");
-}
+window.onmouseup=()=>dragging=false;
 
-/* ======================================
+window.onmousemove=e=>{
+  if(!dragging) return;
+
+  const dx=(e.clientX-last.x)/camera.zoom;
+  const dy=(e.clientY-last.y)/camera.zoom;
+
+  targetCamera.x-=dx;
+  targetCamera.y-=dy;
+
+  last={x:e.clientX,y:e.clientY};
+};
+
+canvas.onwheel=e=>{
+  targetCamera.zoom*=e.deltaY>0?0.9:1.1;
+};
+
+/* ================================
    LOOP
-====================================== */
+================================ */
 
-function loop() {
-  physics();
+function loop(){
+  step();
+  updateCamera();
   draw();
   requestAnimationFrame(loop);
 }
