@@ -8,7 +8,28 @@ const speed = 5;
 const threshold = 140;
 
 let docsData = [];
+let connectionsData = [];
 let activeDoc = null;
+
+// ==============================
+// RESPONSIVE HELPERS
+// ==============================
+
+function getResponsiveCols() {
+  const w = window.innerWidth;
+
+  if (w < 576) return 2;      // mobile
+  if (w < 992) return 3;      // tablet
+  return 5;                   // desktop
+}
+
+function getResponsiveGap() {
+  const w = window.innerWidth;
+
+  if (w < 576) return 140;
+  if (w < 992) return 160;
+  return 180;
+}
 
 // ==============================
 // INIT
@@ -19,34 +40,71 @@ async function initAtlas() {
   const manifest = await res.json();
 
   docsData = manifest.documents || manifest;
+  connectionsData = manifest.connections || [];
 
   createDocs();
-  drawConnections(manifest.connections || []);
+  layoutDocs();
+  drawConnections(connectionsData);
   updatePlayer();
 }
 
 window.addEventListener('load', initAtlas);
+
+window.addEventListener('resize', () => {
+  layoutDocs();
+  drawConnections(connectionsData);
+});
 
 // ==============================
 // CREATE DOCS
 // ==============================
 
 function createDocs() {
-  docsData.forEach((doc, index) => {
+  docsData.forEach(doc => {
 
     const el = document.createElement('div');
     el.classList.add('doc');
-    el.classList.add(doc.type); // relatorio, dossie, plano
+    el.classList.add(doc.type);
+
     el.dataset.fragment = `../acervo/fragments/${doc.fragment}`;
-
-    // posição simples em grid automático
-    el.style.left = (index % 6) * 200 + 100 + 'px';
-    el.style.top = Math.floor(index / 6) * 200 + 100 + 'px';
-
     el.dataset.id = doc.id;
 
     map.appendChild(el);
   });
+}
+
+// ==============================
+// LAYOUT DOCS (RESPONSIVE)
+// ==============================
+
+function layoutDocs() {
+
+  const COLS = getResponsiveCols();
+  const GAP = getResponsiveGap();
+  const OFFSET = 80;
+
+  const nodes = document.querySelectorAll('.doc');
+
+  nodes.forEach((el, index) => {
+    const col = index % COLS;
+    const row = Math.floor(index / COLS);
+
+    el.style.left = col * GAP + OFFSET + 'px';
+    el.style.top = row * GAP + OFFSET + 'px';
+  });
+
+  resizeMap(COLS, GAP, OFFSET);
+}
+
+// ==============================
+// RESIZE MAP
+// ==============================
+
+function resizeMap(COLS, GAP, OFFSET) {
+  const rows = Math.ceil(docsData.length / COLS);
+
+  map.style.width = COLS * GAP + OFFSET * 2 + 'px';
+  map.style.height = rows * GAP + OFFSET * 2 + 'px';
 }
 
 // ==============================
@@ -122,6 +180,8 @@ async function loadFragment(url) {
 function drawConnections(connections) {
   svg.innerHTML = '';
 
+  const mapRect = map.getBoundingClientRect();
+
   connections.forEach(pair => {
     const elA = document.querySelector(`[data-id="${pair[0]}"]`);
     const elB = document.querySelector(`[data-id="${pair[1]}"]`);
@@ -129,7 +189,6 @@ function drawConnections(connections) {
 
     const rA = elA.getBoundingClientRect();
     const rB = elB.getBoundingClientRect();
-    const mapRect = map.getBoundingClientRect();
 
     const x1 = rA.left - mapRect.left + 20;
     const y1 = rA.top - mapRect.top + 20;
