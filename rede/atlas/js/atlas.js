@@ -1,35 +1,33 @@
+// ==============================
+// ELEMENTS
+// ==============================
+
 const map = document.getElementById('map');
 const player = document.getElementById('player');
 const fragmentView = document.getElementById('fragment-view');
 const svg = document.getElementById('connections');
+const container = document.getElementById('atlas-container');
 
-let pos = { x: 200, y: 200 };
-const speed = 5;
+// ==============================
+// STATE
+// ==============================
+
+let pos = { x: 400, y: 300 };
+const speed = 10;
 const threshold = 140;
 
 let docsData = [];
-let connectionsData = [];
 let activeDoc = null;
 
-// ==============================
-// RESPONSIVE HELPERS
-// ==============================
-
-function getResponsiveCols() {
-  const w = window.innerWidth;
-
-  if (w < 576) return 2;      // mobile
-  if (w < 992) return 3;      // tablet
-  return 5;                   // desktop
-}
-
-function getResponsiveGap() {
-  const w = window.innerWidth;
-
-  if (w < 576) return 140;
-  if (w < 992) return 160;
-  return 180;
-}
+// camera
+let scale = 1;
+let panX = 0;
+let panY = 0;
+let isDragging = false;
+let startX = 0;
+let startY = 0;
+let pinchStartDist = null;
+let startScale = 1;
 
 // ==============================
 // INIT
@@ -40,78 +38,65 @@ async function initAtlas() {
   const manifest = await res.json();
 
   docsData = manifest.documents || manifest;
-  connectionsData = manifest.connections || [];
 
-  createDocs();
-  layoutDocs();
-  drawConnections(connectionsData);
+  createDocsClustered(docsData);
   updatePlayer();
+
+  requestAnimationFrame(loopConnections);
 }
 
 window.addEventListener('load', initAtlas);
 
-window.addEventListener('resize', () => {
-  layoutDocs();
-  drawConnections(connectionsData);
-});
-
 // ==============================
-// CREATE DOCS
+// CLUSTER LAYOUT
 // ==============================
 
-function createDocs() {
-  docsData.forEach(doc => {
+function createDocsClustered(data) {
 
-    const el = document.createElement('div');
-    el.classList.add('doc');
-    el.classList.add(doc.type);
+  const clusters = {};
 
-    el.dataset.fragment = `../acervo/fragments/${doc.fragment}`;
-    el.dataset.id = doc.id;
+  data.forEach(doc => {
+    const key = doc.cluster || doc.type || 'default';
+    if (!clusters[key]) clusters[key] = [];
+    clusters[key].push(doc);
+  });
 
-    map.appendChild(el);
+  const clusterKeys = Object.keys(clusters);
+  const centerX = 1000;
+  const centerY = 600;
+  const radius = 400;
+
+  clusterKeys.forEach((key, cIndex) => {
+
+    const angle = (cIndex / clusterKeys.length) * Math.PI * 2;
+    const cx = centerX + Math.cos(angle) * radius;
+    const cy = centerY + Math.sin(angle) * radius;
+
+    clusters[key].forEach((doc, i) => {
+
+      const spread = 120;
+      const dx = cx + Math.cos(i) * spread;
+      const dy = cy + Math.sin(i) * spread;
+
+      const el = document.createElement('div');
+      el.classList.add('doc', doc.type);
+      el.dataset.fragment = `../acervo/fragments/${doc.fragment}`;
+      el.dataset.id = doc.id;
+
+      el.style.left = dx + 'px';
+      el.style.top = dy + 'px';
+
+      map.appendChild(el);
+    });
   });
 }
 
 // ==============================
-// LAYOUT DOCS (RESPONSIVE)
-// ==============================
-
-function layoutDocs() {
-
-  const COLS = getResponsiveCols();
-  const GAP = getResponsiveGap();
-  const OFFSET = 80;
-
-  const nodes = document.querySelectorAll('.doc');
-
-  nodes.forEach((el, index) => {
-    const col = index % COLS;
-    const row = Math.floor(index / COLS);
-
-    el.style.left = col * GAP + OFFSET + 'px';
-    el.style.top = row * GAP + OFFSET + 'px';
-  });
-
-  resizeMap(COLS, GAP, OFFSET);
-}
-
-// ==============================
-// RESIZE MAP
-// ==============================
-
-function resizeMap(COLS, GAP, OFFSET) {
-  const rows = Math.ceil(docsData.length / COLS);
-
-  map.style.width = COLS * GAP + OFFSET * 2 + 'px';
-  map.style.height = rows * GAP + OFFSET * 2 + 'px';
-}
-
-// ==============================
-// PLAYER MOVEMENT
+// PLAYER
 // ==============================
 
 document.addEventListener('keydown', e => {
+
   if (e.key === 'ArrowUp') pos.y -= speed;
   if (e.key === 'ArrowDown') pos.y += speed;
   if (e.key === 'ArrowLeft') pos.x -= speed;
@@ -123,6 +108,21 @@ document.addEventListener('keydown', e => {
 
 function updatePlayer() {
   player.style.transform = `translate(${pos.x}px, ${pos.y}px)`;
+  centerOnPlayer();
+}
+
+// ==============================
+// RADAR COGNITIVO
+// ==============================
+
+const radar = document.createElement('div');
+radar.id = 'radar';
+map.appendChild(radar);
+
+function updateRadar() {
+  radar.style.transform = `translate(${pos.x - threshold}px, ${pos.y - threshold}px)`;
+  radar.style.width = threshold * 2 + 'px';
+  radar.style.height = threshold * 2 + 'px';
 }
 
 // ==============================
@@ -130,24 +130,30 @@ function updatePlayer() {
 // ==============================
 
 function checkProximity() {
+
   const docs = document.querySelectorAll('.doc');
   let found = false;
 
   docs.forEach(doc => {
-    const rect = doc.getBoundingClientRect();
-    const mapRect = map.getBoundingClientRect();
 
-    const dx = (rect.left - mapRect.left) - pos.x;
-    const dy = (rect.top - mapRect.top) - pos.y;
+    const dx = doc.offsetLeft - pos.x;
+    const dy = doc.offsetTop - pos.y;
     const dist = Math.hypot(dx, dy);
 
     if (dist < threshold) {
       found = true;
+
+      doc.classList.add('near');
+
       if (activeDoc !== doc) {
         activeDoc = doc;
         loadFragment(doc.dataset.fragment);
       }
+
+    } else {
+      doc.classList.remove('near');
     }
+
   });
 
   if (!found) {
@@ -155,6 +161,8 @@ function checkProximity() {
     fragmentView.innerHTML = '';
     activeDoc = null;
   }
+
+  updateRadar();
 }
 
 // ==============================
@@ -174,35 +182,113 @@ async function loadFragment(url) {
 }
 
 // ==============================
-// DRAW CONNECTIONS
+// CONEXÕES VIVAS
 // ==============================
 
-function drawConnections(connections) {
+let manifestConnections = [];
+
+async function loadConnections() {
+  const res = await fetch('../acervo/manifest.json');
+  const manifest = await res.json();
+  manifestConnections = manifest.connections || [];
+}
+
+loadConnections();
+
+function loopConnections() {
+  drawConnectionsLive();
+  requestAnimationFrame(loopConnections);
+}
+
+function drawConnectionsLive() {
+
   svg.innerHTML = '';
 
-  const mapRect = map.getBoundingClientRect();
+  manifestConnections.forEach(pair => {
 
-  connections.forEach(pair => {
     const elA = document.querySelector(`[data-id="${pair[0]}"]`);
     const elB = document.querySelector(`[data-id="${pair[1]}"]`);
     if (!elA || !elB) return;
 
-    const rA = elA.getBoundingClientRect();
-    const rB = elB.getBoundingClientRect();
+    const dx = elA.offsetLeft - pos.x;
+    const dy = elA.offsetTop - pos.y;
+    const dist = Math.hypot(dx, dy);
 
-    const x1 = rA.left - mapRect.left + 20;
-    const y1 = rA.top - mapRect.top + 20;
-    const x2 = rB.left - mapRect.left + 20;
-    const y2 = rB.top - mapRect.top + 20;
+    if (dist > threshold * 1.8) return;
 
     const line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
-    line.setAttribute('x1', x1);
-    line.setAttribute('y1', y1);
-    line.setAttribute('x2', x2);
-    line.setAttribute('y2', y2);
-    line.setAttribute('stroke', '#94a3b8');
+
+    line.setAttribute('x1', elA.offsetLeft + 20);
+    line.setAttribute('y1', elA.offsetTop + 20);
+    line.setAttribute('x2', elB.offsetLeft + 20);
+    line.setAttribute('y2', elB.offsetTop + 20);
+    line.setAttribute('stroke', '#64748b');
     line.setAttribute('stroke-width', '2');
 
     svg.appendChild(line);
   });
+}
+
+// ==============================
+// CAMERA ENGINE
+// ==============================
+
+function applyCamera() {
+  map.style.transform = `translate(${panX}px, ${panY}px) scale(${scale})`;
+}
+
+function centerOnPlayer() {
+  const rect = container.getBoundingClientRect();
+
+  panX = rect.width / 2 - pos.x * scale - 20;
+  panY = rect.height / 2 - pos.y * scale - 20;
+
+  applyCamera();
+}
+
+// ==============================
+// TOUCH CAMERA
+// ==============================
+
+container.addEventListener('touchstart', e => {
+
+  if (e.touches.length === 1) {
+    isDragging = true;
+    startX = e.touches[0].clientX - panX;
+    startY = e.touches[0].clientY - panY;
+  }
+
+  if (e.touches.length === 2) {
+    pinchStartDist = getPinchDistance(e);
+    startScale = scale;
+  }
+
+}, { passive: false });
+
+container.addEventListener('touchmove', e => {
+
+  if (isDragging && e.touches.length === 1) {
+    panX = e.touches[0].clientX - startX;
+    panY = e.touches[0].clientY - startY;
+    applyCamera();
+  }
+
+  if (e.touches.length === 2) {
+    const dist = getPinchDistance(e);
+    const factor = dist / pinchStartDist;
+    scale = Math.max(0.5, Math.min(2.2, startScale * factor));
+    applyCamera();
+  }
+
+}, { passive: false });
+
+container.addEventListener('touchend', () => {
+  isDragging = false;
+  pinchStartDist = null;
+});
+
+function getPinchDistance(e) {
+  const dx = e.touches[0].clientX - e.touches[1].clientX;
+  const dy = e.touches[0].clientY - e.touches[1].clientY;
+  return Math.hypot(dx, dy);
 }
