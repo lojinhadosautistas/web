@@ -1,14 +1,16 @@
-/* ==========================================
-   MAPA COGNITIVO — SISTEMA REDE
-   World Space + Pan + Zoom + Pinch + Nodes
-========================================== */
+/* ======================================
+   ATLAS ENGINE — Sistema REDE
+====================================== */
 
 const canvas = document.getElementById("mapCanvas");
 const ctx = canvas.getContext("2d");
 
-// ----------------------------
-// ESTADO GLOBAL
-// ----------------------------
+const mini = document.getElementById("miniMap");
+const miniCtx = mini.getContext("2d");
+
+const fragment = document.getElementById("fragment-view");
+
+/* ---------------- STATE ---------------- */
 
 let scale = 1;
 let offsetX = 0;
@@ -18,250 +20,226 @@ let isDragging = false;
 let lastX = 0;
 let lastY = 0;
 
-let bgReady = false;
+let hoveredNode = null;
 
-// ----------------------------
-// IMAGEM DE FUNDO (WORLD BASE)
-// ----------------------------
+/* ---------------- WORLD BG ---------------- */
 
 const bgImage = new Image();
-bgImage.src = "assets/mapa-vila.webp"; // altere se necessário
+bgImage.src = "assets/mapa-vila.webp";
+
+let bgReady = false;
 
 bgImage.onload = () => {
   bgReady = true;
-  centralizarMapa();
+  centralizar();
   render();
 };
 
-// ----------------------------
-// NODES (EXEMPLO BASE)
-// ----------------------------
+/* ---------------- DATA ---------------- */
 
 const nodes = [
-  { id: "dossie1", x: -200, y: -100, label: "Dossiê A" },
-  { id: "relatorio1", x: 250, y: 120, label: "Relatório B" },
-  { id: "plano1", x: 0, y: 220, label: "Plano C" }
+  { id:"1", x:-200, y:-100, label:"Dossiê", content:"Conteúdo do Dossiê" },
+  { id:"2", x:250, y:120, label:"Relatório", content:"Conteúdo do Relatório" },
+  { id:"3", x:0, y:220, label:"Plano", content:"Conteúdo do Plano" }
 ];
 
-// ----------------------------
-// RESIZE RESPONSIVO
-// ----------------------------
+/* ---------------- RESIZE ---------------- */
 
-function resizeCanvas() {
+function resize(){
   canvas.width = canvas.parentElement.clientWidth;
   canvas.height = canvas.parentElement.clientHeight;
+
+  mini.width = mini.clientWidth;
+  mini.height = mini.clientHeight;
+}
+window.addEventListener("resize", ()=>{resize(); render();});
+resize();
+
+/* ---------------- WORLD UTILS ---------------- */
+
+function screenToWorld(x,y){
+  return {
+    x:(x-offsetX)/scale,
+    y:(y-offsetY)/scale
+  }
 }
 
-window.addEventListener("resize", () => {
-  resizeCanvas();
-  centralizarMapa();
-  render();
-});
+/* ---------------- CENTER ---------------- */
 
-resizeCanvas();
-
-// ----------------------------
-// CENTRALIZAÇÃO AUTOMÁTICA
-// ----------------------------
-
-function centralizarMapa() {
-  if (!bgReady) return;
-
-  const vw = canvas.width;
-  const vh = canvas.height;
-
-  const iw = bgImage.width;
-  const ih = bgImage.height;
-
-  const scaleX = vw / iw;
-  const scaleY = vh / ih;
-
-  scale = Math.min(scaleX, scaleY) * 0.9;
-
-  offsetX = vw / 2;
-  offsetY = vh / 2;
+function centralizar(){
+  if(!bgReady) return;
+  scale = Math.min(canvas.width/bgImage.width, canvas.height/bgImage.height)*0.9;
+  offsetX = canvas.width/2;
+  offsetY = canvas.height/2;
 }
 
-// ----------------------------
-// RENDER PRINCIPAL
-// ----------------------------
+/* ---------------- GRID ---------------- */
 
-function render() {
-  ctx.clearRect(0, 0, canvas.width, canvas.height);
+function drawGrid(){
+  const size = 200;
+  ctx.strokeStyle="rgba(0,0,0,0.05)";
+  ctx.lineWidth=1;
 
-  ctx.save();
-
-  ctx.translate(offsetX, offsetY);
-  ctx.scale(scale, scale);
-
-  drawBackground();
-  drawConnections();
-  drawNodes();
-
-  ctx.restore();
-}
-
-// ----------------------------
-// DESENHAR FUNDO
-// ----------------------------
-
-function drawBackground() {
-  if (!bgReady) return;
-
-  const w = bgImage.width;
-  const h = bgImage.height;
-
-  ctx.drawImage(bgImage, -w / 2, -h / 2);
-}
-
-// ----------------------------
-// DESENHAR NODES
-// ----------------------------
-
-function drawNodes() {
-  nodes.forEach(node => {
+  for(let x=-2000;x<2000;x+=size){
     ctx.beginPath();
-    ctx.arc(node.x, node.y, 30, 0, Math.PI * 2);
-    ctx.fillStyle = "#2563eb";
-    ctx.fill();
+    ctx.moveTo(x,-2000);
+    ctx.lineTo(x,2000);
+    ctx.stroke();
+  }
 
-    ctx.fillStyle = "#ffffff";
-    ctx.font = "14px sans-serif";
-    ctx.textAlign = "center";
-    ctx.fillText(node.label, node.x, node.y + 5);
+  for(let y=-2000;y<2000;y+=size){
+    ctx.beginPath();
+    ctx.moveTo(-2000,y);
+    ctx.lineTo(2000,y);
+    ctx.stroke();
+  }
+}
+
+/* ---------------- CLUSTER ---------------- */
+
+function getVisibleNodes(){
+  if(scale>0.6) return nodes;
+
+  const cluster = {};
+  nodes.forEach(n=>{
+    const key=Math.round(n.x/400)+"_"+Math.round(n.y/400);
+    if(!cluster[key]) cluster[key]=[];
+    cluster[key].push(n);
+  });
+
+  return Object.values(cluster).map(group=>{
+    if(group.length===1) return group[0];
+
+    const x=group.reduce((s,n)=>s+n.x,0)/group.length;
+    const y=group.reduce((s,n)=>s+n.y,0)/group.length;
+    return {x,y,label:group.length+" docs",cluster:true};
   });
 }
 
-// ----------------------------
-// DESENHAR CONEXÕES (placeholder)
-// ----------------------------
+/* ---------------- DRAW ---------------- */
 
-function drawConnections() {
-  // exemplo simples (opcional)
-  if (nodes.length < 2) return;
+function drawNodes(){
+  const list=getVisibleNodes();
 
-  ctx.beginPath();
-  ctx.moveTo(nodes[0].x, nodes[0].y);
-  ctx.lineTo(nodes[1].x, nodes[1].y);
-  ctx.strokeStyle = "rgba(0,0,0,0.2)";
-  ctx.lineWidth = 2;
-  ctx.stroke();
+  list.forEach(n=>{
+    const r=n.cluster?40:28;
+
+    ctx.beginPath();
+    ctx.arc(n.x,n.y,r,0,Math.PI*2);
+
+    ctx.fillStyle = n===hoveredNode ? "#ef4444" : "#2563eb";
+    ctx.fill();
+
+    ctx.fillStyle="#fff";
+    ctx.textAlign="center";
+    ctx.fillText(n.label,n.x,n.y+4);
+  });
 }
 
-// ----------------------------
-// PAN (MOUSE)
-// ----------------------------
+/* ---------------- MINI MAP ---------------- */
 
-canvas.addEventListener("mousedown", (e) => {
-  isDragging = true;
-  lastX = e.clientX;
-  lastY = e.clientY;
+function drawMini(){
+  miniCtx.clearRect(0,0,mini.width,mini.height);
+  miniCtx.fillStyle="#e5e7eb";
+  miniCtx.fillRect(0,0,mini.width,mini.height);
+
+  const s=mini.width/bgImage.width;
+
+  nodes.forEach(n=>{
+    miniCtx.fillStyle="#2563eb";
+    miniCtx.fillRect(n.x*s+mini.width/2,n.y*s+mini.height/2,4,4);
+  });
+
+  miniCtx.strokeStyle="red";
+  miniCtx.strokeRect(
+    ( -offsetX/scale )*s+mini.width/2,
+    ( -offsetY/scale )*s+mini.height/2,
+    canvas.width/scale*s,
+    canvas.height/scale*s
+  );
+}
+
+/* ---------------- RENDER ---------------- */
+
+function render(){
+  ctx.clearRect(0,0,canvas.width,canvas.height);
+
+  ctx.save();
+  ctx.translate(offsetX,offsetY);
+  ctx.scale(scale,scale);
+
+  if(bgReady) ctx.drawImage(bgImage,-bgImage.width/2,-bgImage.height/2);
+
+  drawGrid();
+  drawNodes();
+
+  ctx.restore();
+
+  drawMini();
+}
+
+/* ---------------- HIT ---------------- */
+
+function detectNode(wx,wy){
+  return nodes.find(n=>{
+    const dx=n.x-wx;
+    const dy=n.y-wy;
+    return Math.sqrt(dx*dx+dy*dy)<30;
+  });
+}
+
+/* ---------------- EVENTS ---------------- */
+
+canvas.addEventListener("mousedown",e=>{
+  isDragging=true;
+  canvas.classList.add("dragging");
+  lastX=e.clientX;
+  lastY=e.clientY;
 });
 
-canvas.addEventListener("mousemove", (e) => {
-  if (!isDragging) return;
+canvas.addEventListener("mousemove",e=>{
+  const w=screenToWorld(e.offsetX,e.offsetY);
+  hoveredNode=detectNode(w.x,w.y);
 
-  const dx = e.clientX - lastX;
-  const dy = e.clientY - lastY;
-
-  offsetX += dx;
-  offsetY += dy;
-
-  lastX = e.clientX;
-  lastY = e.clientY;
+  if(isDragging){
+    offsetX+=e.clientX-lastX;
+    offsetY+=e.clientY-lastY;
+    lastX=e.clientX;
+    lastY=e.clientY;
+  }
 
   render();
 });
 
-canvas.addEventListener("mouseup", () => {
-  isDragging = false;
+canvas.addEventListener("mouseup",()=>{
+  isDragging=false;
+  canvas.classList.remove("dragging");
 });
 
-canvas.addEventListener("mouseleave", () => {
-  isDragging = false;
+canvas.addEventListener("click",e=>{
+  const w=screenToWorld(e.offsetX,e.offsetY);
+  const node=detectNode(w.x,w.y);
+
+  if(node){
+    fragment.style.display="block";
+    fragment.innerHTML=`<h5>${node.label}</h5><p>${node.content}</p>`;
+  }
 });
 
-// ----------------------------
-// ZOOM COM SCROLL
-// ----------------------------
-
-canvas.addEventListener("wheel", (e) => {
+canvas.addEventListener("wheel",e=>{
   e.preventDefault();
 
-  const zoomIntensity = 0.1;
-  const mouseX = e.offsetX;
-  const mouseY = e.offsetY;
+  const zoom=e.deltaY<0?1.1:0.9;
 
-  const worldX = (mouseX - offsetX) / scale;
-  const worldY = (mouseY - offsetY) / scale;
+  const wx=(e.offsetX-offsetX)/scale;
+  const wy=(e.offsetY-offsetY)/scale;
 
-  const zoom = e.deltaY < 0 ? 1 + zoomIntensity : 1 - zoomIntensity;
-  scale *= zoom;
+  scale*=zoom;
 
-  offsetX = mouseX - worldX * scale;
-  offsetY = mouseY - worldY * scale;
+  offsetX=e.offsetX-wx*scale;
+  offsetY=e.offsetY-wy*scale;
 
   render();
-});
-
-// ----------------------------
-// PINCH ZOOM (MOBILE)
-// ----------------------------
-
-let initialDistance = null;
-
-canvas.addEventListener("touchstart", (e) => {
-  if (e.touches.length === 1) {
-    isDragging = true;
-    lastX = e.touches[0].clientX;
-    lastY = e.touches[0].clientY;
-  }
-
-  if (e.touches.length === 2) {
-    initialDistance = getTouchDistance(e);
-  }
-});
-
-canvas.addEventListener("touchmove", (e) => {
-  e.preventDefault();
-
-  if (e.touches.length === 1 && isDragging) {
-    const dx = e.touches[0].clientX - lastX;
-    const dy = e.touches[0].clientY - lastY;
-
-    offsetX += dx;
-    offsetY += dy;
-
-    lastX = e.touches[0].clientX;
-    lastY = e.touches[0].clientY;
-
-    render();
-  }
-
-  if (e.touches.length === 2) {
-    const newDistance = getTouchDistance(e);
-    const zoom = newDistance / initialDistance;
-
-    scale *= zoom;
-    initialDistance = newDistance;
-
-    render();
-  }
-}, { passive: false });
-
-canvas.addEventListener("touchend", () => {
-  isDragging = false;
-  initialDistance = null;
-});
-
-function getTouchDistance(e) {
-  const dx = e.touches[0].clientX - e.touches[1].clientX;
-  const dy = e.touches[0].clientY - e.touches[1].clientY;
-  return Math.sqrt(dx * dx + dy * dy);
-}
-
-// ----------------------------
-// INICIALIZAÇÃO
-// ----------------------------
+},{passive:false});
 
 render();
