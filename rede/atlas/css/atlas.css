@@ -1,130 +1,120 @@
 /* RESET */
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+*{margin:0;padding:0;box-sizing:border-box;}
+
+.module-card{
+  display:flex;
+  flex-direction:column;
 }
 
 /* CONTAINER */
-.module-card {
-  display: flex;
-  flex-direction: column;
+#atlas-container{
+  position:relative;
+  width:100%;
+  height:70vh;
+  min-height:420px;
+  background:#f3efe3;
+  border-radius:16px;
+  overflow:hidden;
 }
 
-/* ATLAS CONTAINER */
-#atlas-container {
-  position: relative;
-  width: 100%;
-  height: 70vh;
-  min-height: 420px;
-  background: #f3efe3;
-  border-radius: 16px;
-  overflow: hidden;
-}
-
-/* BG SEPARADO */
-.atlas-bg {
-  position: absolute;
-  inset: 0;
-  background-image: url("atlas/img/mapa.bg.jpg");
-  background-size: contain;
-  background-position: center;
-  background-repeat: no-repeat;
-  opacity: .95;
-  z-index: 0;
-}
-
-/* foco cognitivo */
-.atlas-bg::after {
-  content: "";
-  position: absolute;
-  inset: 0;
+/* FOCO COGNITIVO */
+#atlas-container::after{
+  content:"";
+  position:absolute;
+  inset:0;
   background: radial-gradient(circle at center, transparent 55%, rgba(0,0,0,.05));
+  pointer-events:none;
+  z-index:3;
 }
 
-/* MAP */
-#map {
-  position: absolute;
-  width: 3000px;
-  height: 2000px;
-  transform-origin: 0 0;
-  z-index: 2;
+/* MAP WORLD */
+#map{
+  position:absolute;
+  width:3000px;
+  height:2000px;
+  transform-origin:0 0;
+  z-index:2;
+
+  background-image:url("../atlas/img/mapa.bg.jpg");
+  background-size:contain;
+  background-position:center;
+  background-repeat:no-repeat;
 }
 
 /* CONNECTIONS */
-#connections {
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
+#connections{
+  position:absolute;
+  inset:0;
+  pointer-events:none;
 }
 
 /* PLAYER */
-#player {
-  position: absolute;
-  width: 36px;
-  height: 36px;
-  background: #38bdf8;
-  border-radius: 50%;
-  box-shadow: 0 0 18px rgba(56,189,248,0.7);
-  z-index: 5;
+#player{
+  position:absolute;
+  width:36px;
+  height:36px;
+  background:#38bdf8;
+  border-radius:50%;
+  box-shadow:0 0 18px rgba(56,189,248,0.7);
+  z-index:5;
 }
 
 /* RADAR */
-#radar {
-  position: absolute;
-  border: 2px dashed #38bdf8;
-  border-radius: 50%;
-  pointer-events: none;
-  opacity: .6;
+#radar{
+  position:absolute;
+  border:2px dashed #38bdf8;
+  border-radius:50%;
+  pointer-events:none;
+  opacity:.6;
 }
 
 /* DOCS */
-.doc {
-  position: absolute;
-  width: 42px;
-  height: 42px;
-  border-radius: 10px;
-  transition: .25s;
+.doc{
+  position:absolute;
+  width:42px;
+  height:42px;
+  border-radius:10px;
+  transition:.25s;
 }
 
-.doc.relatorio { background: #22c55e; }
-.doc.dossie { background: #f59e0b; }
-.doc.plano { background: #6366f1; }
+.doc.relatorio{background:#22c55e;}
+.doc.dossie{background:#f59e0b;}
+.doc.plano{background:#6366f1;}
 
-.doc.near {
-  transform: scale(1.25);
-  box-shadow: 0 0 14px rgba(255,255,255,.4);
+.doc.near{
+  transform:scale(1.25);
+  box-shadow:0 0 14px rgba(255,255,255,.4);
 }
 
 /* FRAGMENT */
-#fragment-view {
-  position: absolute;
-  bottom: 16px;
-  right: 16px;
-  width: 320px;
-  max-height: 420px;
-  overflow: auto;
-  background: #fff;
-  border-radius: 14px;
-  box-shadow: 0 12px 40px rgba(0,0,0,.15);
-  padding: 16px;
-  display: none;
-  z-index: 20;
+#fragment-view{
+  position:absolute;
+  bottom:16px;
+  right:16px;
+  width:320px;
+  max-height:420px;
+  overflow:auto;
+  background:#fff;
+  border-radius:14px;
+  box-shadow:0 12px 40px rgba(0,0,0,.15);
+  padding:16px;
+  display:none;
+  z-index:20;
 }
 
 /* MOBILE */
-@media (max-width:768px){
-  #atlas-container { height:55vh; min-height:320px; }
-  #fragment-view {
-    width: calc(100% - 24px);
+@media(max-width:768px){
+  #atlas-container{height:55vh;min-height:320px;}
+  #fragment-view{
+    width:calc(100% - 24px);
     right:12px;
     bottom:12px;
     max-height:260px;
   }
 }
 
-@media (max-width:480px){
-  #atlas-container { height:50vh; }
-  #player { width:30px;height:30px; }
-  .doc { width:34px;height:34px; }
+@media(max-width:480px){
+  #atlas-container{height:50vh;}
+  #player{width:30px;height:30px;}
+  .doc{width:34px;height:34px;}
 }
