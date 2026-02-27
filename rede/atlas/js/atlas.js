@@ -1,193 +1,289 @@
-/* ===============================
-   SETUP
-================================ */
+/* =========================
+   ATLAS v4 — Cognitive Engine
+========================= */
 
-const canvas = document.getElementById("atlas-canvas");
+const canvas = document.getElementById("atlasCanvas");
 const ctx = canvas.getContext("2d");
 
-const mini = document.getElementById("atlas-minimap");
-const mctx = mini.getContext("2d");
-
-function resize(){
-  canvas.width=window.innerWidth;
-  canvas.height=window.innerHeight;
+let w, h;
+function resize() {
+  w = canvas.width = window.innerWidth;
+  h = canvas.height = window.innerHeight;
 }
-window.onresize=resize; resize();
+window.addEventListener("resize", resize);
+resize();
 
-/* ===============================
-   CAMERA + MEMORY
-================================ */
+/* =========================
+   CAMERA
+========================= */
 
-let camX=0,camY=0,zoom=1;
+let cam = { x: 0, y: 0, zoom: 1 };
+let targetCam = { x: 0, y: 0, zoom: 1 };
 
-const navHistory=[];
-let navIndex=-1;
+/* =========================
+   CLUSTERS
+========================= */
 
-function pushNav(){
-  navHistory.splice(navIndex+1);
-  navHistory.push({camX,camY,zoom});
-  navIndex++;
-}
-
-/* ===============================
-   DATA MULTI LAYER
-================================ */
-
-const nodes=[
-{id:1,label:"REDE",cluster:"core",x:0,y:0,size:46,layer:0,content:"Hub"},
-{id:2,label:"Pesquisa",cluster:"knowledge",x:-200,y:-120,size:30,layer:1,content:"Pesquisa"},
-{id:3,label:"Documentos",cluster:"knowledge",x:240,y:-100,size:30,layer:1,content:"Docs"},
-{id:4,label:"Oficinas",cluster:"learning",x:-220,y:190,size:30,layer:1,content:"Oficinas"},
-{id:5,label:"Cursos",cluster:"learning",x:210,y:210,size:30,layer:1,content:"Cursos"}
-];
-
-const edges=[[1,2],[1,3],[1,4],[1,5]];
-
-const clusterColors={
-core:"#2563eb",
-knowledge:"#10b981",
-learning:"#8b5cf6"
+const clusterColor = {
+  core: "#fde68a",
+  knowledge: "#93c5fd",
+  learning: "#86efac",
+  analysis: "#fca5a5",
 };
 
-/* ===============================
-   FORCE LAYOUT
-================================ */
+/* =========================
+   DATA
+========================= */
 
-function physics(){
-  nodes.forEach(a=>{
-    nodes.forEach(b=>{
-      if(a===b)return;
-      const dx=a.x-b.x;
-      const dy=a.y-b.y;
-      const d=Math.hypot(dx,dy)+0.1;
-      const rep=4000/(d*d);
-      a.x+=dx/d*rep*0.01;
-      a.y+=dy/d*rep*0.01;
+const nodes = [
+  { id: 1, label: "REDE", cluster: "core", x: 0, y: 0, vx: 0, vy: 0, size: 46, layer: 0, content: "Hub central" },
+
+  { id: 2, label: "Pesquisa", cluster: "knowledge", x: -200, y: -120, vx: 0, vy: 0, size: 30, layer: 1, content: "Base de conhecimento" },
+  { id: 3, label: "Documentos", cluster: "knowledge", x: 240, y: -100, vx: 0, vy: 0, size: 30, layer: 1, content: "Repositório estruturado" },
+
+  { id: 4, label: "Oficinas", cluster: "learning", x: -220, y: 190, vx: 0, vy: 0, size: 30, layer: 1, content: "Espaço formativo" },
+  { id: 5, label: "Cursos", cluster: "learning", x: 210, y: 210, vx: 0, vy: 0, size: 30, layer: 1, content: "Ambiente educacional" },
+];
+
+const edges = [
+  [1, 2],
+  [1, 3],
+  [1, 4],
+  [1, 5],
+];
+
+/* =========================
+   FORCE LAYOUT SUAVE
+========================= */
+
+let simulationEnergy = 1;
+
+function physics() {
+  if (simulationEnergy < 0.001) return;
+
+  const repulsion = 1200;
+  const attraction = 0.002;
+  const damping = 0.9;
+
+  nodes.forEach(a => {
+    nodes.forEach(b => {
+      if (a === b) return;
+
+      const dx = a.x - b.x;
+      const dy = a.y - b.y;
+      const d = Math.hypot(dx, dy) + 0.1;
+
+      const force = repulsion / (d * d);
+      a.vx += (dx / d) * force * 0.01;
+      a.vy += (dy / d) * force * 0.01;
     });
   });
 
-  edges.forEach(([ai,bi])=>{
-    const a=nodes.find(n=>n.id===ai);
-    const b=nodes.find(n=>n.id===bi);
-    const dx=b.x-a.x;
-    const dy=b.y-a.y;
-    a.x+=dx*0.001;
-    a.y+=dy*0.001;
-    b.x-=dx*0.001;
-    b.y-=dy*0.001;
+  edges.forEach(([ai, bi]) => {
+    const a = nodes.find(n => n.id === ai);
+    const b = nodes.find(n => n.id === bi);
+
+    const dx = b.x - a.x;
+    const dy = b.y - a.y;
+
+    a.vx += dx * attraction;
+    a.vy += dy * attraction;
+    b.vx -= dx * attraction;
+    b.vy -= dy * attraction;
+  });
+
+  simulationEnergy = 0;
+
+  nodes.forEach(n => {
+    n.vx *= damping;
+    n.vy *= damping;
+    n.x += n.vx;
+    n.y += n.vy;
+    simulationEnergy += Math.abs(n.vx) + Math.abs(n.vy);
   });
 }
 
-/* ===============================
-   HIT
-================================ */
+/* =========================
+   HIT DETECTION
+========================= */
 
-let hovered=null;
+let hoverNode = null;
 
-function screenToWorld(sx,sy){
-  return{
-    x:(sx-canvas.width/2)/zoom+camX,
-    y:(sy-canvas.height/2)/zoom+camY
-  }
+function screenToWorld(x, y) {
+  return {
+    x: (x - w / 2) / cam.zoom - cam.x,
+    y: (y - h / 2) / cam.zoom - cam.y,
+  };
 }
 
-canvas.onmousemove=e=>{
-  const w=screenToWorld(e.clientX,e.clientY);
-  hovered=null;
-  nodes.forEach(n=>{
-    if(Math.hypot(w.x-n.x,w.y-n.y)<n.size) hovered=n;
+canvas.addEventListener("mousemove", e => {
+  const p = screenToWorld(e.clientX, e.clientY);
+  hoverNode = null;
+
+  nodes.forEach(n => {
+    if (Math.hypot(p.x - n.x, p.y - n.y) < n.size) hoverNode = n;
   });
-};
+});
 
-/* ===============================
-   SEARCH
-================================ */
+/* =========================
+   DRAG / PAN
+========================= */
 
-const search=document.getElementById("atlas-search");
+let dragging = false;
+let last = { x: 0, y: 0 };
 
-search.oninput=()=>{
-  const q=search.value.toLowerCase();
-  const n=nodes.find(n=>n.label.toLowerCase().includes(q));
-  if(n) flyTo(n.x,n.y,1.2);
-};
+canvas.addEventListener("mousedown", e => {
+  dragging = true;
+  last = { x: e.clientX, y: e.clientY };
+});
 
-function flyTo(x,y,z){
-  pushNav();
-  camX=x; camY=y; zoom=z;
-}
+window.addEventListener("mouseup", () => dragging = false);
 
-/* ===============================
-   BOOKMARK
-================================ */
+window.addEventListener("mousemove", e => {
+  if (!dragging) return;
+  cam.x += (e.clientX - last.x) / cam.zoom;
+  cam.y += (e.clientY - last.y) / cam.zoom;
+  last = { x: e.clientX, y: e.clientY };
+});
 
-const bookmarks=[];
+/* =========================
+   ZOOM
+========================= */
 
-document.getElementById("bookmark-btn").onclick=()=>{
-  bookmarks.push({camX,camY,zoom});
-  alert("Bookmark salvo");
-};
-
-/* ===============================
-   PAN + ZOOM
-================================ */
-
-let drag=false,lx,ly;
-
-canvas.onmousedown=e=>{drag=true;lx=e.clientX;ly=e.clientY};
-canvas.onmouseup=()=>drag=false;
-
-canvas.onmousemove=e=>{
-  if(drag){
-    camX-=(e.clientX-lx)/zoom;
-    camY-=(e.clientY-ly)/zoom;
-    lx=e.clientX;ly=e.clientY;
-  }
-};
-
-canvas.onwheel=e=>{
+canvas.addEventListener("wheel", e => {
   e.preventDefault();
-  zoom*=e.deltaY>0?0.9:1.1;
-  zoom=Math.max(.3,Math.min(2.5,zoom));
-};
+  const factor = e.deltaY > 0 ? 0.9 : 1.1;
+  targetCam.zoom *= factor;
+});
 
-/* ===============================
+/* =========================
+   CLICK → FRAGMENT
+========================= */
+
+canvas.addEventListener("click", () => {
+  if (!hoverNode) return;
+  openFragment(hoverNode);
+  addBreadcrumb(hoverNode);
+  saveBookmark(hoverNode);
+});
+
+function openFragment(n) {
+  document.getElementById("fragmentView").classList.add("open");
+  document.getElementById("fragmentTitle").textContent = n.label;
+  document.getElementById("fragmentContent").textContent = n.content;
+}
+
+/* =========================
+   SEARCH → ZOOM
+========================= */
+
+const search = document.getElementById("atlasSearch");
+search.addEventListener("input", () => {
+  const q = search.value.toLowerCase();
+  const found = nodes.find(n => n.label.toLowerCase().includes(q));
+  if (found) focusNode(found);
+});
+
+function focusNode(n) {
+  targetCam.x = -n.x;
+  targetCam.y = -n.y;
+  targetCam.zoom = 1.6;
+}
+
+/* =========================
+   BREADCRUMBS
+========================= */
+
+const breadcrumb = [];
+
+function addBreadcrumb(n) {
+  breadcrumb.push(n.label);
+  document.getElementById("atlasBreadcrumb").textContent = breadcrumb.join(" → ");
+}
+
+/* =========================
+   BOOKMARKS
+========================= */
+
+const bookmarks = JSON.parse(localStorage.getItem("atlasBookmarks") || "[]");
+
+function saveBookmark(n) {
+  if (!bookmarks.includes(n.label)) {
+    bookmarks.push(n.label);
+    localStorage.setItem("atlasBookmarks", JSON.stringify(bookmarks));
+  }
+}
+
+/* =========================
+   MINI MAP
+========================= */
+
+const mini = document.getElementById("atlasMini").getContext("2d");
+
+function drawMini() {
+  const c = mini.canvas;
+  mini.clearRect(0, 0, c.width, c.height);
+
+  nodes.forEach(n => {
+    mini.beginPath();
+    mini.arc(c.width / 2 + n.x * 0.05, c.height / 2 + n.y * 0.05, 3, 0, 7);
+    mini.fillStyle = clusterColor[n.cluster];
+    mini.fill();
+  });
+}
+
+/* =========================
    DRAW
-================================ */
+========================= */
 
-function draw(){
-
-  physics();
-
-  ctx.clearRect(0,0,canvas.width,canvas.height);
+function draw() {
+  ctx.clearRect(0, 0, w, h);
 
   ctx.save();
-  ctx.translate(canvas.width/2,canvas.height/2);
-  ctx.scale(zoom,zoom);
-  ctx.translate(-camX,-camY);
+  ctx.translate(w / 2, h / 2);
+  ctx.scale(cam.zoom, cam.zoom);
+  ctx.translate(cam.x, cam.y);
 
-  edges.forEach(([a,b])=>{
-    const n1=nodes.find(n=>n.id===a);
-    const n2=nodes.find(n=>n.id===b);
+  edges.forEach(([ai, bi]) => {
+    const a = nodes.find(n => n.id === ai);
+    const b = nodes.find(n => n.id === bi);
+    ctx.strokeStyle = "#e5e7eb";
     ctx.beginPath();
-    ctx.moveTo(n1.x,n1.y);
-    ctx.lineTo(n2.x,n2.y);
-    ctx.strokeStyle="#cbd5e1";
+    ctx.moveTo(a.x, a.y);
+    ctx.lineTo(b.x, b.y);
     ctx.stroke();
   });
 
-  nodes.forEach(n=>{
+  nodes.forEach(n => {
+    const scale = hoverNode === n ? 1.06 : 1;
     ctx.beginPath();
-    ctx.fillStyle=clusterColors[n.cluster];
-    ctx.arc(n.x,n.y,n.size,0,6.28);
+    ctx.arc(n.x, n.y, n.size * scale, 0, 7);
+    ctx.fillStyle = clusterColor[n.cluster];
     ctx.fill();
 
-    ctx.fillStyle="#111";
-    ctx.textAlign="center";
-    ctx.fillText(n.label,n.x,n.y+4);
+    ctx.fillStyle = "#111";
+    ctx.font = `${14 / cam.zoom}px sans-serif`;
+    ctx.textAlign = "center";
+    ctx.fillText(n.label, n.x, n.y + 4);
   });
 
   ctx.restore();
-
-  requestAnimationFrame(draw);
 }
-draw();
+
+/* =========================
+   LOOP
+========================= */
+
+function loop() {
+  physics();
+
+  cam.x += (targetCam.x - cam.x) * 0.08;
+  cam.y += (targetCam.y - cam.y) * 0.08;
+  cam.zoom += (targetCam.zoom - cam.zoom) * 0.08;
+
+  draw();
+  drawMini();
+  requestAnimationFrame(loop);
+}
+
+loop();
