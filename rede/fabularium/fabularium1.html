@@ -9,18 +9,82 @@
 
 <meta name="description" content="Fabularium é uma biblioteca de histórias narradas para Rafael, unindo imaginação, afeto e conhecimento." />
 
- <!-- Favicon -->
-  <link href="../../assets/img/favicon.png" rel="icon">
+<!-- Favicon -->
+<link href="../../assets/img/favicon.png" rel="icon">
 
-  <!-- Bootstrap -->
-  <link href="../../assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
-  <link href="../../assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet" />
+<!-- Bootstrap -->
+<link href="../../assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet"/>
+<link href="../../assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet"/>
 
-  <!-- Fonte -->
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+<!-- Fonte -->
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
 
-  <!-- CSS do sistema -->
-  <link rel="stylesheet" href="../../assets/css/hub.css">
+<!-- CSS do sistema -->
+<link rel="stylesheet" href="../../assets/css/hub.css">
+
+<style>
+
+/* ======================================
+FABULARIUM
+====================================== */
+
+.fabularium-hero{
+text-align:center;
+padding-top:20px;
+margin-bottom:30px;
+}
+
+.fabularium-logo{
+max-width:520px;
+width:100%;
+height:auto;
+}
+
+.fabularium-subtitle{
+font-size:1.25rem;
+color:#6c757d;
+margin-top:10px;
+}
+
+.fabularium-intro{
+max-width:900px;
+margin:auto;
+font-size:1rem;
+line-height:1.7;
+color:#444;
+}
+
+.fabularium-intro strong{
+color:#222;
+}
+
+/* pequena atmosfera visual */
+
+.fabularium-hero::after{
+content:"";
+display:block;
+width:120px;
+height:2px;
+background:#e9ecef;
+margin:20px auto 0;
+}
+
+/* responsividade */
+
+@media (max-width:768px){
+
+.fabularium-logo{
+max-width:360px;
+}
+
+.fabularium-intro{
+font-size:0.95rem;
+}
+
+}
+
+</style>
+
 </head>
 
 <body>
@@ -32,13 +96,24 @@
 <!-- MAIN -->
 <main class="main container py-4">
 
-<div class="mb-4">
+<!-- HERO / LOGO -->
 
-<h1>Fabularium</h1>
+<div class="fabularium-hero">
 
-<p class="text-muted fs-5">
+<img
+src="../../assets/img/fabularium-logo.png"
+alt="Fabularium - Biblioteca de Histórias"
+class="fabularium-logo img-fluid">
+
+<div class="fabularium-subtitle">
 Biblioteca de Histórias, Ciência e Imaginação
-</p>
+</div>
+
+</div>
+
+<!-- INTRODUÇÃO -->
+
+<div class="fabularium-intro mb-4">
 
 <p>
 Espaço dedicado à criação e preservação de histórias narradas especialmente para Rafael.
@@ -47,12 +122,10 @@ Espaço dedicado à criação e preservação de histórias narradas especialmen
 Mais do que um simples conjunto de audiobooks, este projeto foi criado para unir
 <strong>imaginação, afeto e conhecimento</strong>, oferecendo experiências que estimulam
 a curiosidade, a criatividade e o desenvolvimento intelectual durante a infância.
-
 <br><br>
 
 Aqui, cada história é pensada como uma oportunidade de aprendizado e descoberta —
 sempre acompanhada pelas vozes familiares que fazem parte da vida de Rafael.
-
 <br><br>
 
 A proposta é construir, ao longo do tempo, uma verdadeira biblioteca de narrativas
@@ -73,6 +146,8 @@ Navegue por palavras-chave e conexões semânticas no MEMO
 
 </div>
 
+<!-- EXPLORADOR -->
+
 <div class="explorer-card">
 
 <div class="table-responsive">
@@ -80,13 +155,11 @@ Navegue por palavras-chave e conexões semânticas no MEMO
 <table class="table align-middle mb-0" id="repoTable">
 
 <thead>
-
 <tr>
-<th class="sortable active">Nome<i class="bi bi-arrow-down sort-icon"></i></th>
-<th class="sortable">Tipo<i class="bi bi-arrow-down-up sort-icon"></i></th>
+<th class="sortable active">Nome <i class="bi bi-arrow-down sort-icon"></i></th>
+<th class="sortable">Tipo <i class="bi bi-arrow-down-up sort-icon"></i></th>
 <th class="sortable">Síntese</th>
 </tr>
-
 </thead>
 
 <tbody>
@@ -132,8 +205,9 @@ Relatório de Alerta 2025.01
 </a>
 </td>
 <td>Relatório de Alerta</td>
-<td>Análise situacional e indicadores críticos relacionados ao aniversário do primo Rafael (2 anos).</td>
+<td>Análise situacional e indicadores críticos relacionados ao aniversário do primo Rafael.</td>
 </tr>
+
 <tr>
 <td>
 <i class="bi bi-lightning-charge me-2"></i>
@@ -155,9 +229,8 @@ Relatório de Trigger 2025.01
 
 </main>
 
-<!-- ===============================
-SCRIPTS
-================================ -->
+<!-- SCRIPTS -->
+
 <script src="../../assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 <script type="module" src="../js/hub.js"></script>
 <script src="../js/components.js"></script>
