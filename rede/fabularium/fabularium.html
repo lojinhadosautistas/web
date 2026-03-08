@@ -27,7 +27,41 @@
 <link rel="stylesheet" href="../assets/css/hub.css">
 <link rel="stylesheet" href="../assets/css/repositorio.css">
 
-<style>
+  <style>
+    /* Campo de busca MEMO */
+    .memo-search-box {
+      background: #fff;
+      border-radius: 16px;
+      padding: 20px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+      margin-bottom: 24px;
+    }
+
+    .memo-search-input {
+      border-radius: 12px;
+      padding: 14px;
+      font-size: 15px;
+    }
+
+    .memo-result-item {
+      padding: 12px;
+      border-bottom: 1px solid #eee;
+      cursor: pointer;
+    }
+
+    .memo-result-item:hover {
+      background: #f4f6f9;
+    }
+
+    .memo-tagline {
+      font-size: 14px;
+      color: #64748b;
+      margin-top: 4px;
+    }
+  </style>
+
+  
+<!--<style>
 
 /* ======================================
 FABULARIUM
@@ -144,7 +178,7 @@ color:#6c757d;
   
 }
 
-</style> 
+</style> -->
 
 </head>
 
@@ -154,9 +188,17 @@ color:#6c757d;
 <div id="header-container"></div>
 <div id="sidebar-container"></div>
 
-<!-- MAIN -->
-<main class="main container pt-2 pb-4">
+<!-- MAIN
+<main class="main container pt-2 pb-4"> -->
+<main class="main">
 
+<!-- PAGE TITLE -->
+<div class="page-title mb-4">
+  <h1>MEMO <a href="memo.html" class="ms-2 text-decoration-none" title="Voltar à página MEMO"><i class="bi bi-house-fill"></i></a></h1> 
+  <p><strong>Mecanismo Epistêmico de Memória Organizacional</strong></p>
+  <!--<div class="memo-tagline"><strong>Objetivo Principal:</strong> Mergulhe nesse mar de informações disponíveis no Sistema REDE</div>-->
+</div>
+  
 <!-- HERO -->
 
 <div class="fabularium-hero">
