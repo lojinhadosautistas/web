@@ -1,0 +1,541 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+
+<title>Fabularium</title>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
+
+<style>
+
+body{
+margin:0;
+font-family:Arial;
+background:#0f172a;
+color:white;
+}
+
+/* topo */
+
+.header{
+padding:16px;
+background:#020617;
+position:sticky;
+top:0;
+z-index:10;
+}
+
+.search{
+width:100%;
+padding:10px;
+border-radius:8px;
+border:none;
+background:#1e293b;
+color:white;
+}
+
+/* categorias */
+
+.categories{
+display:flex;
+gap:8px;
+overflow:auto;
+padding:10px;
+}
+
+.cat-btn{
+background:#1e293b;
+border:none;
+color:white;
+padding:6px 12px;
+border-radius:20px;
+cursor:pointer;
+white-space:nowrap;
+}
+
+.cat-btn.active{
+background:#6366f1;
+}
+
+/* lista */
+
+.story-list{
+padding:12px;
+padding-bottom:120px;
+}
+
+.story-item{
+background:#1e293b;
+padding:12px;
+border-radius:10px;
+margin-bottom:10px;
+display:flex;
+align-items:center;
+gap:10px;
+cursor:pointer;
+}
+
+.story-item.active{
+background:#6366f1;
+}
+
+.story-icon{
+font-size:20px;
+width:28px;
+}
+
+.favorite{
+margin-left:auto;
+cursor:pointer;
+}
+
+/* player */
+
+.audio-player{
+position:fixed;
+bottom:0;
+left:0;
+right:0;
+background:#020617;
+padding:12px;
+display:flex;
+align-items:center;
+gap:10px;
+}
+
+.player-info{
+flex:1;
+}
+
+/* progresso */
+
+.progress{
+height:6px;
+background:#1e293b;
+border-radius:20px;
+margin-top:6px;
+cursor:pointer;
+}
+
+.progress-bar{
+height:100%;
+width:0%;
+background:#6366f1;
+}
+
+/* controles */
+
+.controls{
+display:flex;
+gap:8px;
+}
+
+.btn{
+background:#1e293b;
+border:none;
+color:white;
+width:38px;
+height:38px;
+border-radius:10px;
+font-size:18px;
+display:flex;
+align-items:center;
+justify-content:center;
+}
+
+/* visualizador */
+
+.visualizer{
+display:flex;
+gap:3px;
+height:16px;
+margin-top:4px;
+}
+
+.bar{
+width:3px;
+background:#6366f1;
+animation:equalize 1s infinite;
+}
+
+.bar:nth-child(2){animation-delay:.2s}
+.bar:nth-child(3){animation-delay:.4s}
+.bar:nth-child(4){animation-delay:.6s}
+
+@keyframes equalize{
+0%{height:4px}
+50%{height:16px}
+100%{height:4px}
+}
+
+</style>
+</head>
+<body>
+
+<div class="header">
+
+<input id="searchInput" class="search" placeholder="Buscar história...">
+
+</div>
+
+<div class="categories">
+
+<button class="cat-btn active" data-cat="all">Todas</button>
+<button class="cat-btn" data-cat="astronomia">Astronomia</button>
+<button class="cat-btn" data-cat="biologia">Biologia</button>
+<button class="cat-btn" data-cat="fisica">Física</button>
+<button class="cat-btn" data-cat="fav">❤️ Favoritos</button>
+
+</div>
+
+<div class="story-list" id="storyList">
+
+<div class="story-item"
+data-cat="astronomia"
+data-audio="https://drive.google.com/uc?export=download&id=1Fezp65OBc_gq3j12ERWc0_26Kb9CcTkW"
+data-icon="bi-stars">
+
+<div class="story-icon">
+<i class="bi bi-stars"></i>
+</div>
+
+<div class="story-title">
+Viagem pelas estrelas
+</div>
+
+<div class="favorite">
+<i class="bi bi-heart"></i>
+</div>
+
+</div>
+
+<div class="story-item"
+data-cat="biologia"
+data-audio="https://drive.google.com/uc?export=download&id=1Fezp65OBc_gq3j12ERWc0_26Kb9CcTkW"
+data-icon="bi-tree">
+
+<div class="story-icon">
+<i class="bi bi-tree"></i>
+</div>
+
+<div class="story-title">
+A floresta viva
+</div>
+
+<div class="favorite">
+<i class="bi bi-heart"></i>
+</div>
+
+</div>
+
+<div class="story-item"
+data-cat="fisica"
+data-audio="https://drive.google.com/uc?export=download&id=1Fezp65OBc_gq3j12ERWc0_26Kb9CcTkW"
+data-icon="bi-lightning">
+
+<div class="story-icon">
+<i class="bi bi-lightning"></i>
+</div>
+
+<div class="story-title">
+O poder da eletricidade
+</div>
+
+<div class="favorite">
+<i class="bi bi-heart"></i>
+</div>
+
+</div>
+
+</div>
+
+<!-- PLAYER -->
+
+<div class="audio-player">
+
+<div id="playerIcon">
+<i class="bi bi-music-note"></i>
+</div>
+
+<div class="player-info">
+
+<div id="playerTitle">
+Selecione uma história
+</div>
+
+<div class="visualizer">
+
+<div class="bar"></div>
+<div class="bar"></div>
+<div class="bar"></div>
+<div class="bar"></div>
+
+</div>
+
+<div class="progress" id="progress">
+
+<div class="progress-bar" id="progressBar"></div>
+
+</div>
+
+<div id="time" style="font-size:12px;opacity:.7;">
+00:00
+</div>
+
+</div>
+
+<div class="controls">
+
+<button id="prevBtn" class="btn">
+<i class="bi bi-skip-start-fill"></i>
+</button>
+
+<button id="playBtn" class="btn">
+<i class="bi bi-play-fill"></i>
+</button>
+
+<button id="nextBtn" class="btn">
+<i class="bi bi-skip-end-fill"></i>
+</button>
+
+</div>
+
+<audio id="audio"></audio>
+
+</div>
+
+<script>
+
+/* elementos */
+
+const items=[...document.querySelectorAll(".story-item")];
+const audio=document.getElementById("audio");
+
+const title=document.getElementById("playerTitle");
+const icon=document.getElementById("playerIcon");
+
+const progress=document.getElementById("progress");
+const progressBar=document.getElementById("progressBar");
+
+const playBtn=document.getElementById("playBtn");
+
+const nextBtn=document.getElementById("nextBtn");
+const prevBtn=document.getElementById("prevBtn");
+
+const search=document.getElementById("searchInput");
+
+const cats=document.querySelectorAll(".cat-btn");
+
+let current=-1;
+
+/* carregar */
+
+function load(index){
+
+items.forEach(i=>i.classList.remove("active"));
+
+const item=items[index];
+
+item.classList.add("active");
+
+audio.src=item.dataset.audio;
+
+title.textContent=item.querySelector(".story-title").innerText;
+
+icon.innerHTML=`<i class="bi ${item.dataset.icon}"></i>`;
+
+current=index;
+
+localStorage.setItem("fab_index",index);
+
+audio.play();
+
+playBtn.innerHTML=`<i class="bi bi-pause-fill"></i>`;
+
+}
+
+/* clique */
+
+items.forEach((item,i)=>{
+
+item.addEventListener("click",()=>load(i));
+
+});
+
+/* play */
+
+playBtn.onclick=()=>{
+
+if(audio.paused){
+
+audio.play();
+playBtn.innerHTML=`<i class="bi bi-pause-fill"></i>`;
+
+}else{
+
+audio.pause();
+playBtn.innerHTML=`<i class="bi bi-play-fill"></i>`;
+
+}
+
+};
+
+/* próxima */
+
+nextBtn.onclick=()=>{
+
+let n=current+1;
+
+if(n>=items.length)n=0;
+
+load(n);
+
+};
+
+/* anterior */
+
+prevBtn.onclick=()=>{
+
+let p=current-1;
+
+if(p<0)p=items.length-1;
+
+load(p);
+
+};
+
+/* autoplay */
+
+audio.onended=()=>nextBtn.onclick();
+
+/* progresso */
+
+audio.ontimeupdate=()=>{
+
+let p=(audio.currentTime/audio.duration)*100;
+
+progressBar.style.width=p+"%";
+
+let r=audio.duration-audio.currentTime;
+
+if(!isNaN(r)){
+
+let m=Math.floor(r/60);
+let s=Math.floor(r%60);
+
+time.textContent=`-${m}:${s.toString().padStart(2,"0")}`;
+
+}
+
+};
+
+/* seek */
+
+progress.onclick=e=>{
+
+let w=progress.clientWidth;
+
+audio.currentTime=(e.offsetX/w)*audio.duration;
+
+};
+
+/* busca */
+
+search.oninput=()=>{
+
+let v=search.value.toLowerCase();
+
+items.forEach(i=>{
+
+let t=i.innerText.toLowerCase();
+
+i.style.display=t.includes(v)?"flex":"none";
+
+});
+
+};
+
+/* categorias */
+
+cats.forEach(btn=>{
+
+btn.onclick=()=>{
+
+cats.forEach(b=>b.classList.remove("active"));
+btn.classList.add("active");
+
+let c=btn.dataset.cat;
+
+items.forEach(i=>{
+
+if(c==="all"){
+
+i.style.display="flex";
+
+}else if(c==="fav"){
+
+let favs=JSON.parse(localStorage.getItem("fav")||"[]");
+
+let id=i.querySelector(".story-title").innerText;
+
+i.style.display=favs.includes(id)?"flex":"none";
+
+}else{
+
+i.style.display=i.dataset.cat===c?"flex":"none";
+
+}
+
+});
+
+};
+
+});
+
+/* favoritos */
+
+document.querySelectorAll(".favorite").forEach(btn=>{
+
+btn.onclick=(e)=>{
+
+e.stopPropagation();
+
+let title=btn.parentElement.querySelector(".story-title").innerText;
+
+let favs=JSON.parse(localStorage.getItem("fav")||"[]");
+
+if(favs.includes(title)){
+
+favs=favs.filter(f=>f!==title);
+btn.innerHTML=`<i class="bi bi-heart"></i>`;
+
+}else{
+
+favs.push(title);
+btn.innerHTML=`<i class="bi bi-heart-fill"></i>`;
+
+}
+
+localStorage.setItem("fav",JSON.stringify(favs));
+
+};
+
+});
+
+/* memória */
+
+window.onload=()=>{
+
+let s=localStorage.getItem("fab_index");
+
+if(s)load(s);
+
+};
+
+</script>
+
+</body>
+</html>
