@@ -8,6 +8,8 @@
 
 <title>Fabularium | Biblioteca de Histórias</title>
 
+<meta name="description" content="Fabularium é uma biblioteca de histórias narradas para Rafael, unindo imaginação, afeto e conhecimento."/>
+
 <base href="../">
 
 <link rel="icon" href="../assets/img/favicon.png">
@@ -21,7 +23,7 @@
 <style>
 
 .main{
-padding-bottom:160px;
+padding-bottom:140px;
 }
 
 /* BIBLIOTECA */
@@ -41,15 +43,12 @@ background:#fff;
 padding:14px;
 border-radius:14px;
 box-shadow:0 6px 18px rgba(0,0,0,.05);
-cursor:pointer;
 transition:.2s;
 }
 
 .story-item:hover{
 transform:translateY(-2px);
 }
-
-/* ÍCONES */
 
 .story-icon{
 width:54px;
@@ -86,8 +85,6 @@ font-size:13px;
 color:#64748b;
 }
 
-/* BOTÃO PLAY */
-
 .play-btn{
 border:none;
 background:#2563eb;
@@ -99,6 +96,7 @@ display:flex;
 align-items:center;
 justify-content:center;
 font-size:20px;
+cursor:pointer;
 }
 
 /* PLAYER */
@@ -111,15 +109,10 @@ right:0;
 background:#0f172a;
 color:white;
 display:flex;
-flex-direction:column;
-padding:10px 20px;
-z-index:999;
-}
-
-.player-top{
-display:flex;
 align-items:center;
-gap:14px;
+gap:16px;
+padding:12px 20px;
+z-index:999;
 }
 
 .player-icon{
@@ -138,55 +131,15 @@ flex:1;
 font-size:14px;
 }
 
-/* PROGRESSO */
-
-.progress-container{
-width:100%;
-height:4px;
-background:#334155;
-margin-top:8px;
-border-radius:2px;
-overflow:hidden;
+.audio-player audio{
+height:34px;
 }
-
-.progress-bar{
-height:100%;
-width:0%;
-background:#22c55e;
-}
-
-/* ANIMAÇÃO SOM */
-
-.sound-wave{
-display:flex;
-gap:2px;
-margin-left:6px;
-}
-
-.sound-wave span{
-width:3px;
-height:8px;
-background:#22c55e;
-animation:sound 1s infinite;
-}
-
-.sound-wave span:nth-child(2){animation-delay:.2s}
-.sound-wave span:nth-child(3){animation-delay:.4s}
-
-@keyframes sound{
-
-0%{height:4px}
-50%{height:14px}
-100%{height:4px}
-
-}
-
-/* LOGO */
 
 .fabularium-logo-container{
 display:flex;
 justify-content:center;
 margin-top:60px;
+position:relative;
 }
 
 .fabularium-logo{
@@ -197,6 +150,7 @@ opacity:.9;
 </style>
 
 </head>
+
 
 <body>
 
@@ -234,7 +188,7 @@ une imaginação, afeto e conhecimento em uma biblioteca de histórias narradas.
 <!-- HISTÓRIA 1 -->
 
 <div class="story-item"
-data-audio="https://drive.google.com/uc?export=download&id=11G5OGCLe5zjFPE_cpTHQHw8CVzbDOZOn"
+data-audio="https://drive.google.com/uc?export=open&id=19ykUjtl-IYMFW5p2DewNcLfv2Rkv34Jc"
 data-icon="bi-film">
 
 <div class="story-icon icon-nerd">
@@ -242,12 +196,15 @@ data-icon="bi-film">
 </div>
 
 <div class="story-info">
+
 <div class="story-title">
 Batman (1989) — Coringa no Museu
 </div>
+
 <div class="story-meta">
-Aventuras do Mundo Nerd
+Aventuras do Mundo Nerd • 04:12
 </div>
+
 </div>
 
 <button class="play-btn">
@@ -260,7 +217,7 @@ Aventuras do Mundo Nerd
 <!-- HISTÓRIA 2 -->
 
 <div class="story-item"
-data-audio="https://drive.google.com/uc?export=download&id=11WfJfg8sEgH1_xrQV2JsL1fdQqejTmjl"
+data-audio="https://drive.google.com/uc?export=open&id=11WfJfg8sEgH1_xrQV2JsL1fdQqejTmjl"
 data-icon="bi-moon-stars">
 
 <div class="story-icon icon-astronomia">
@@ -268,12 +225,15 @@ data-icon="bi-moon-stars">
 </div>
 
 <div class="story-info">
+
 <div class="story-title">
 Missão Espacial rumo ao Sol
 </div>
+
 <div class="story-meta">
-Cosmologia e Astronomia
+Cosmologia e Astronomia • 05:21
 </div>
+
 </div>
 
 <button class="play-btn">
@@ -286,7 +246,7 @@ Cosmologia e Astronomia
 <!-- HISTÓRIA 3 -->
 
 <div class="story-item"
-data-audio="https://drive.google.com/uc?export=download&id=1Fezp65OBc_gq3j12ERWc0_26Kb9CcTkW"
+data-audio="https://drive.google.com/uc?export=open&id=1Fezp65OBc_gq3j12ERWc0_26Kb9CcTkW"
 data-icon="bi-moon-stars">
 
 <div class="story-icon icon-astronomia">
@@ -294,12 +254,15 @@ data-icon="bi-moon-stars">
 </div>
 
 <div class="story-info">
+
 <div class="story-title">
 Sagitarius A* — o buraco negro
 </div>
+
 <div class="story-meta">
-Cosmologia e Astronomia
+Cosmologia e Astronomia • 06:03
 </div>
+
 </div>
 
 <button class="play-btn">
@@ -322,29 +285,21 @@ alt="Fabularium">
 </main>
 
 
-<!-- PLAYER -->
-
 <div class="audio-player">
-
-<div class="player-top">
 
 <div id="playerIcon" class="player-icon">
 <i class="bi bi-music-note"></i>
 </div>
 
 <div class="player-info">
+
 <div id="playerTitle">
 Selecione uma história
 </div>
-</div>
-
-<audio id="audioControl"></audio>
 
 </div>
 
-<div class="progress-container">
-<div class="progress-bar" id="progressBar"></div>
-</div>
+<audio id="audioControl" controls></audio>
 
 </div>
 
@@ -358,13 +313,8 @@ const items = document.querySelectorAll(".story-item");
 const audio = document.getElementById("audioControl");
 const title = document.getElementById("playerTitle");
 const icon = document.getElementById("playerIcon");
-const progress = document.getElementById("progressBar");
 
-let currentIndex = -1;
-
-/* PLAY */
-
-items.forEach((item,index)=>{
+items.forEach(item=>{
 
 const btn = item.querySelector(".play-btn");
 
@@ -372,86 +322,21 @@ btn.addEventListener("click",(e)=>{
 
 e.stopPropagation();
 
-if(currentIndex === index && !audio.paused){
-
-audio.pause();
-btn.innerHTML = `<i class="bi bi-play-fill"></i>`;
-
-}else{
-
-playStory(index);
-
-}
-
-});
-
-});
-
-/* FUNÇÃO PLAY */
-
-function playStory(index){
-
-const item = items[index];
 const src = item.dataset.audio;
 const storyTitle = item.querySelector(".story-title").innerText;
 const iconClass = item.dataset.icon;
 
 audio.src = src;
-audio.play();
 
 title.textContent = storyTitle;
-icon.innerHTML = `<i class="bi ${iconClass}"></i>
-<div class="sound-wave">
-<span></span><span></span><span></span>
-</div>`;
 
-currentIndex = index;
+icon.innerHTML = `<i class="bi ${iconClass}"></i>`;
 
-updateButtons();
-
-}
-
-/* ATUALIZA BOTÕES */
-
-function updateButtons(){
-
-items.forEach((item,i)=>{
-
-const btn = item.querySelector(".play-btn");
-
-btn.innerHTML = i===currentIndex && !audio.paused
-? `<i class="bi bi-pause-fill"></i>`
-: `<i class="bi bi-play-fill"></i>`;
+audio.play();
 
 });
 
-}
-
-/* PROGRESSO */
-
-audio.addEventListener("timeupdate",()=>{
-
-const percent = (audio.currentTime/audio.duration)*100;
-progress.style.width = percent+"%";
-
 });
-
-/* AUTOPLAY PRÓXIMO */
-
-audio.addEventListener("ended",()=>{
-
-let next = currentIndex + 1;
-
-if(next < items.length){
-
-playStory(next);
-
-}
-
-});
-
-audio.addEventListener("pause",updateButtons);
-audio.addEventListener("play",updateButtons);
 
 </script>
 
