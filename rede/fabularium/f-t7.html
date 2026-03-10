@@ -10,79 +10,26 @@
 
 <base href="../">
 
-<link rel="icon" href="../assets/img/favicon.png">
-
 <link rel="stylesheet" href="../assets/vendor/bootstrap/css/bootstrap.min.css">
 <link rel="stylesheet" href="../assets/vendor/bootstrap-icons/bootstrap-icons.css">
 <link rel="stylesheet" href="../assets/css/hub.css">
 
 <style>
 
-/* espaço para player */
+/* PLAYER SPACE */
 
 .main{
-padding-bottom:160px;
+padding-bottom:150px;
 }
 
-/* filtros */
-
-.fabularium-filters{
-display:flex;
-gap:10px;
-flex-wrap:wrap;
-margin-bottom:20px;
-}
-
-.filter-btn{
-border:none;
-background:#e2e8f0;
-padding:6px 12px;
-border-radius:20px;
-font-size:13px;
-cursor:pointer;
-}
-
-.filter-btn.active{
-background:#2563eb;
-color:white;
-}
-
-/* biblioteca */
-
-.fabularium-library{
-display:flex;
-flex-direction:column;
-gap:14px;
-}
-
-/* card */
-
-.story-item{
-display:flex;
-align-items:center;
-gap:16px;
-background:white;
-padding:14px;
-border-radius:14px;
-box-shadow:0 6px 18px rgba(0,0,0,.05);
-cursor:pointer;
-transition:.25s;
-position:relative;
-overflow:hidden;
-}
-
-.story-item:hover{
-transform:translateY(-3px);
-}
-
-/* card tocando */
+/* CARD ANIMATION */
 
 .story-item.playing{
-border-left:4px solid #2563eb;
 background:#f1f5f9;
+border-left:4px solid #2563eb;
 }
 
-/* progresso dentro do card */
+/* PROGRESS BAR CARD */
 
 .card-progress{
 position:absolute;
@@ -91,163 +38,25 @@ left:0;
 height:3px;
 background:#38bdf8;
 width:0%;
-}
-
-/* categorias */
-
-.cat-nerd{border-left:4px solid #7c3aed;}
-.cat-astronomia{border-left:4px solid #2563eb;}
-.cat-ciencia{border-left:4px solid #16a34a;}
-.cat-astrologia{border-left:4px solid #db2777;}
-
-/* icones */
-
-.story-icon{
-width:52px;
-height:52px;
-border-radius:12px;
-display:flex;
-align-items:center;
-justify-content:center;
-font-size:24px;
-flex-shrink:0;
-}
-
-.icon-nerd{background:#ede9fe;color:#6d28d9;}
-.icon-astronomia{background:#dbeafe;color:#1e3a8a;}
-.icon-ciencia{background:#dcfce7;color:#166534;}
-.icon-astrologia{background:#fce7f3;color:#be185d;}
-
-.story-info{flex:1;}
-
-.story-title{
-font-weight:600;
-font-size:15px;
-}
-
-.story-meta{
-font-size:13px;
-color:#64748b;
-}
-
-/* badges */
-
-.badge-cat{
-font-size:11px;
-padding:3px 8px;
-border-radius:6px;
-margin-bottom:4px;
-display:inline-block;
-font-weight:600;
-}
-
-.badge-nerd{background:#ede9fe;color:#6d28d9;}
-.badge-astronomia{background:#dbeafe;color:#1e3a8a;}
-.badge-ciencia{background:#dcfce7;color:#166534;}
-.badge-astrologia{background:#fce7f3;color:#be185d;}
-
-/* PLAYER */
-
-.audio-player{
-position:fixed;
-bottom:0;
-left:0;
-right:0;
-background:#0f172a;
-color:white;
-padding:14px 20px;
-z-index:999;
-display:flex;
-flex-direction:column;
-gap:10px;
-}
-
-.player-top{
-display:flex;
-align-items:center;
-gap:14px;
-}
-
-.player-icon{
-width:40px;
-height:40px;
-background:#1e293b;
-display:flex;
-align-items:center;
-justify-content:center;
-border-radius:8px;
-font-size:20px;
-}
-
-.player-info{
-flex:1;
-font-size:14px;
-}
-
-.player-controls{
-display:flex;
-align-items:center;
-gap:10px;
-}
-
-.control-btn{
-background:#1e293b;
-border:none;
-color:white;
-width:36px;
-height:36px;
-border-radius:50%;
-display:flex;
-align-items:center;
-justify-content:center;
-cursor:pointer;
-}
-
-.play-main{
-background:#2563eb;
-}
-
-/* progresso player */
-
-.progress-container{
-flex:1;
-height:6px;
-background:#334155;
-border-radius:6px;
-cursor:pointer;
-}
-
-#progressBar{
-height:100%;
-width:0%;
-background:#38bdf8;
-border-radius:6px;
-}
-
-.player-time{
-font-size:12px;
-min-width:80px;
-text-align:right;
+transition:width .2s linear;
 }
 
 </style>
+
 </head>
 
 <body>
-
-<!-- TOPO / SIDEBAR DO SISTEMA -->
 
 <div id="header-container"></div>
 <div id="sidebar-container"></div>
 
 <main class="main">
 
-<div class="page-title mb-4">
+<div class="page-title">
 
 <h1 class="d-flex align-items-center gap-2">
 
 FABULARIUM
-
 <a href="memo.html">
 <i class="bi bi-house-fill"></i>
 </a>
@@ -258,264 +67,148 @@ FABULARIUM
 
 </div>
 
-<!-- FILTROS -->
 
-<div class="fabularium-filters">
-
-<button class="filter-btn active" data-filter="all">Todos</button>
-<button class="filter-btn" data-filter="cat-astronomia">Astronomia</button>
-<button class="filter-btn" data-filter="cat-nerd">Mundo Nerd</button>
-<button class="filter-btn" data-filter="cat-ciencia">Ciência</button>
-
-</div>
-
-<!-- BIBLIOTECA -->
-
-<div class="fabularium-library">
-
-<div class="story-item cat-nerd"
-data-audio="fabularium/audios/pixacao-do-batmovel.mp3"
-data-icon="bi-film">
-
-<div class="story-icon icon-nerd">
-<i class="bi bi-film"></i>
-</div>
-
-<div class="story-info">
-<div class="badge-cat badge-nerd">MUNDO NERD</div>
-<div class="story-title">A história da pixação do batmóvel</div>
-<div class="story-meta">Aventuras Nerd</div>
-</div>
-
-<div class="card-progress"></div>
-
-</div>
+<!-- HISTÓRIA -->
 
 <div class="story-item cat-astronomia"
-data-audio="fabularium/audios/james-webb-e-as-lrd_ep01.mp3"
-data-icon="bi-moon-stars">
+data-audio="fabularium/audios/james-webb-e-as-lrd.mp3"
+data-icon="bi-moon-stars"
+style="position:relative">
 
 <div class="story-icon icon-astronomia">
 <i class="bi bi-moon-stars"></i>
 </div>
 
 <div class="story-info">
-<div class="badge-cat badge-astronomia">ASTRONOMIA</div>
-<div class="story-title">As Aventuras do James Webb e as Little Red Dots</div>
-<div class="story-meta">Cosmologia e Astronomia</div>
+
+<div class="badge-cat badge-astronomia">
+ASTRONOMIA
+</div>
+
+<div class="story-title">
+James Webb e as Little Red Dots
+</div>
+
+<div class="story-meta">
+Cosmologia e Astronomia
+</div>
+
 </div>
 
 <div class="card-progress"></div>
 
 </div>
 
-<div class="story-item cat-astronomia"
-data-audio="fabularium/audios/james-webb-e-as-lrd_ep02.mp3"
-data-icon="bi-moon-stars">
-
-<div class="story-icon icon-astronomia">
-<i class="bi bi-moon-stars"></i>
-</div>
-
-<div class="story-info">
-<div class="badge-cat badge-astronomia">ASTRONOMIA</div>
-<div class="story-title">Little Red Dots no universo cangaceiro</div>
-<div class="story-meta">Cosmologia e Astronomia</div>
-</div>
-
-<div class="card-progress"></div>
-
-</div>
-
-</div>
 
 </main>
 
-<!-- PLAYER -->
-
-<div class="audio-player">
-
-<div class="player-top">
-
-<div id="playerIcon" class="player-icon">
-<i class="bi bi-music-note"></i>
-</div>
-
-<div id="playerTitle" class="player-info">
-Selecione uma história
-</div>
-
-</div>
-
-<div class="player-controls">
-
-<button id="prevBtn" class="control-btn">
-<i class="bi bi-skip-start-fill"></i>
-</button>
-
-<button id="playBtn" class="control-btn play-main">
-<i class="bi bi-play-fill"></i>
-</button>
-
-<button id="nextBtn" class="control-btn">
-<i class="bi bi-skip-end-fill"></i>
-</button>
-
-<div class="progress-container">
-<div id="progressBar"></div>
-</div>
-
-<div id="timeDisplay" class="player-time">
-0:00 / 0:00
-</div>
-
-</div>
-
-<audio id="audioControl"></audio>
-
-</div>
 
 <script src="../assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 <script src="js/components.js"></script>
 
 <script>
 
-/* LISTA */
+/* FABULARIUM ENGINE */
 
-const items=[...document.querySelectorAll(".story-item")];
-const audio=document.getElementById("audioControl");
+const cards = document.querySelectorAll(".story-item")
+const audio = document.getElementById("audioControl")
 
-const playBtn=document.getElementById("playBtn");
-const prevBtn=document.getElementById("prevBtn");
-const nextBtn=document.getElementById("nextBtn");
+let playlist=[]
+let currentIndex=-1
 
-const progressBar=document.getElementById("progressBar");
-const progressContainer=document.querySelector(".progress-container");
+cards.forEach((card,index)=>{
 
-const title=document.getElementById("playerTitle");
-const icon=document.getElementById("playerIcon");
+playlist.push(card)
 
-let index=-1;
+card.addEventListener("click",()=>{
 
-/* tocar */
+currentIndex=index
+playCard(card)
 
-function playStory(i){
+})
 
-index=i;
+})
 
-items.forEach(el=>el.classList.remove("playing"));
+function playCard(card){
 
-const item=items[i];
+const src=card.dataset.audio
 
-item.classList.add("playing");
+if(!src) return
 
-audio.src=item.dataset.audio;
-audio.play();
+audio.src=src
+audio.play()
 
-title.textContent=item.querySelector(".story-title").innerText;
-
-icon.innerHTML=`<i class="bi ${item.dataset.icon}"></i>`;
+cards.forEach(c=>c.classList.remove("playing"))
+card.classList.add("playing")
 
 }
 
-/* clicar card */
+/* NEXT PREVIOUS */
 
-items.forEach((item,i)=>{
+const nextBtn=document.getElementById("nextBtn")
+const prevBtn=document.getElementById("prevBtn")
 
-item.addEventListener("click",()=>{
-
-playStory(i);
-
-});
-
-});
-
-/* controles */
-
-playBtn.onclick=()=>{
-
-if(audio.paused){
-
-audio.play();
-playBtn.innerHTML='<i class="bi bi-pause-fill"></i>';
-
-}else{
-
-audio.pause();
-playBtn.innerHTML='<i class="bi bi-play-fill"></i>';
-
-}
-
-};
+if(nextBtn){
 
 nextBtn.onclick=()=>{
 
-if(index<items.length-1) playStory(index+1);
+if(currentIndex<playlist.length-1){
 
-};
+currentIndex++
+playCard(playlist[currentIndex])
+
+}
+
+}
+
+}
+
+if(prevBtn){
 
 prevBtn.onclick=()=>{
 
-if(index>0) playStory(index-1);
+if(currentIndex>0){
 
-};
-
-/* progresso */
-
-audio.addEventListener("timeupdate",()=>{
-
-const progress=(audio.currentTime/audio.duration)*100;
-
-progressBar.style.width=progress+"%";
-
-const card=items[index];
-
-if(card){
-
-const cardBar=card.querySelector(".card-progress");
-
-cardBar.style.width=progress+"%";
+currentIndex--
+playCard(playlist[currentIndex])
 
 }
 
-});
+}
 
-/* autoplay */
+}
+
+/* AUTO NEXT */
 
 audio.addEventListener("ended",()=>{
 
-if(index<items.length-1) playStory(index+1);
+if(currentIndex<playlist.length-1){
 
-});
-
-/* filtro */
-
-document.querySelectorAll(".filter-btn").forEach(btn=>{
-
-btn.onclick=()=>{
-
-document.querySelectorAll(".filter-btn").forEach(b=>b.classList.remove("active"));
-btn.classList.add("active");
-
-const filter=btn.dataset.filter;
-
-items.forEach(item=>{
-
-if(filter==="all"||item.classList.contains(filter)){
-
-item.style.display="flex";
-
-}else{
-
-item.style.display="none";
+currentIndex++
+playCard(playlist[currentIndex])
 
 }
 
-});
+})
 
-};
+/* CARD PROGRESS */
 
-});
+audio.addEventListener("timeupdate",()=>{
+
+if(currentIndex===-1) return
+
+const progress=(audio.currentTime/audio.duration)*100
+
+const card=playlist[currentIndex]
+const bar=card.querySelector(".card-progress")
+
+if(bar){
+
+bar.style.width=progress+"%"
+
+}
+
+})
 
 </script>
 
