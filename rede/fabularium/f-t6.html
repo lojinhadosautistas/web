@@ -8,21 +8,24 @@
 
 <title>Fabularium | Biblioteca de Histórias</title>
 
+<meta name="description" content="Fabularium é uma biblioteca de histórias narradas para Rafael, unindo imaginação, afeto e conhecimento."/>
+
 <base href="../">
 
 <link rel="icon" href="../assets/img/favicon.png">
 
 <link rel="stylesheet" href="../assets/vendor/bootstrap/css/bootstrap.min.css">
 <link rel="stylesheet" href="../assets/vendor/bootstrap-icons/bootstrap-icons.css">
+
 <link rel="stylesheet" href="../assets/css/hub.css">
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
 
 <style>
 
 .main{
-padding-bottom:160px;
+padding-bottom:140px;
 }
-
-/* BIBLIOTECA */
 
 .fabularium-library{
 display:flex;
@@ -39,6 +42,11 @@ background:#fff;
 padding:14px;
 border-radius:14px;
 box-shadow:0 6px 18px rgba(0,0,0,.05);
+transition:.2s;
+}
+
+.story-item:hover{
+transform:translateY(-2px);
 }
 
 .story-icon{
@@ -60,6 +68,11 @@ color:#6d28d9;
 .icon-astronomia{
 background:#dbeafe;
 color:#1e3a8a;
+}
+
+.icon-ciencia{
+background:#dcfce7;
+color:#166534;
 }
 
 .story-info{
@@ -90,8 +103,6 @@ font-size:20px;
 cursor:pointer;
 }
 
-/* PLAYER */
-
 .audio-player{
 position:fixed;
 bottom:0;
@@ -100,15 +111,10 @@ right:0;
 background:#0f172a;
 color:white;
 display:flex;
-flex-direction:column;
-padding:10px 20px;
-z-index:999;
-}
-
-.player-top{
-display:flex;
 align-items:center;
-gap:14px;
+gap:16px;
+padding:12px 20px;
+z-index:999;
 }
 
 .player-icon{
@@ -127,46 +133,46 @@ flex:1;
 font-size:14px;
 }
 
-/* PROGRESSO */
-
-.progress-container{
-width:100%;
-height:4px;
-background:#334155;
-margin-top:8px;
-border-radius:2px;
-overflow:hidden;
+.audio-player audio{
+height:34px;
 }
 
-.progress-bar{
-height:100%;
-width:0%;
-background:#22c55e;
-}
-
-/* ANIMAÇÃO SONORA */
-
-.sound-wave{
+.fabularium-logo-container{
 display:flex;
-gap:3px;
-margin-left:6px;
+justify-content:center;
+margin-top:60px;
+position:relative;
 }
 
-.sound-wave span{
-width:3px;
-height:8px;
-background:#22c55e;
-animation:sound 1s infinite;
+.fabularium-logo-container::before{
+content:"";
+position:absolute;
+width:340px;
+height:340px;
+border-radius:50%;
+background:radial-gradient(circle,
+rgba(99,102,241,0.35) 0%,
+rgba(59,130,246,0.25) 35%,
+rgba(168,85,247,0.2) 55%,
+transparent 70%);
+filter:blur(40px);
+animation:haloPulse 6s ease-in-out infinite;
 }
 
-.sound-wave span:nth-child(2){animation-delay:.2s}
-.sound-wave span:nth-child(3){animation-delay:.4s}
+.fabularium-logo{
+max-width:260px;
+opacity:.9;
+position:relative;
+z-index:2;
+}
 
-@keyframes sound{
+@keyframes haloPulse{
 
-0%{height:4px}
-50%{height:14px}
-100%{height:4px}
+0%{transform:scale(0.9);opacity:.6;}
+
+50%{transform:scale(1.05);opacity:.9;}
+
+100%{transform:scale(0.9);opacity:.6;}
 
 }
 
@@ -174,18 +180,45 @@ animation:sound 1s infinite;
 
 </head>
 
+
 <body>
+
+<div id="header-container"></div>
+<div id="sidebar-container"></div>
 
 <main class="main">
 
-<h1>FABULARIUM</h1>
+<div class="page-title mb-4">
+
+<h1 class="d-flex align-items-center gap-2">
+
+FABULARIUM
+
+<a href="memo.html" class="text-decoration-none">
+<i class="bi bi-house-fill"></i>
+</a>
+
+</h1>
+
+<p><strong>Biblioteca de Histórias, Ciência e Imaginação</strong></p>
+
+</div>
+
+<p>
+
+Mais do que um simples conjunto de audiobooks, o <strong>FABULARIUM</strong>
+une imaginação, afeto e conhecimento em uma biblioteca de histórias narradas
+que estimulam a curiosidade e o desenvolvimento intelectual de Rafael.
+
+</p>
+
 
 <div class="fabularium-library">
 
 <!-- HISTÓRIA 1 -->
 
 <div class="story-item"
-data-audio="https://drive.google.com/uc?export=open&id=19ykUjtl-IYMFW5p2DewNcLfv2Rkv34Jc"
+data-audio="https://drive.google.com/uc?export=download&id=19ykUjtl-IYMFW5p2DewNcLfv2Rkv34Jc"
 data-icon="bi-film">
 
 <div class="story-icon icon-nerd">
@@ -199,7 +232,7 @@ Batman (1989) — Coringa no Museu
 </div>
 
 <div class="story-meta">
-Aventuras do Mundo Nerd
+Aventuras do Mundo Nerd • 04:12
 </div>
 
 </div>
@@ -214,7 +247,7 @@ Aventuras do Mundo Nerd
 <!-- HISTÓRIA 2 -->
 
 <div class="story-item"
-data-audio="https://drive.google.com/uc?export=open&id=11WfJfg8sEgH1_xrQV2JsL1fdQqejTmjl"
+data-audio="https://drive.google.com/uc?export=download&id=11WfJfg8sEgH1_xrQV2JsL1fdQqejTmjl"
 data-icon="bi-moon-stars">
 
 <div class="story-icon icon-astronomia">
@@ -228,7 +261,7 @@ Missão Espacial rumo ao Sol
 </div>
 
 <div class="story-meta">
-Cosmologia e Astronomia
+Cosmologia e Astronomia • 05:21
 </div>
 
 </div>
@@ -243,7 +276,7 @@ Cosmologia e Astronomia
 <!-- HISTÓRIA 3 -->
 
 <div class="story-item"
-data-audio="https://drive.google.com/uc?export=open&id=1Fezp65OBc_gq3j12ERWc0_26Kb9CcTkW"
+data-audio="https://drive.google.com/uc?export=download&id=1Fezp65OBc_gq3j12ERWc0_26Kb9CcTkW"
 data-icon="bi-moon-stars">
 
 <div class="story-icon icon-astronomia">
@@ -257,7 +290,7 @@ Sagitarius A* — o buraco negro
 </div>
 
 <div class="story-meta">
-Cosmologia e Astronomia
+Cosmologia e Astronomia • 06:03
 </div>
 
 </div>
@@ -270,137 +303,94 @@ Cosmologia e Astronomia
 
 </div>
 
+
+<div class="fabularium-logo-container">
+
+<img src="../assets/img/fabularium-logo.png"
+class="fabularium-logo img-fluid"
+alt="Fabularium">
+
+</div>
+
 </main>
 
 
-<!-- PLAYER -->
-
 <div class="audio-player">
-
-<div class="player-top">
 
 <div id="playerIcon" class="player-icon">
 <i class="bi bi-music-note"></i>
 </div>
 
 <div class="player-info">
-<div id="playerTitle">Selecione uma história</div>
+<div id="playerTitle">
+Selecione uma história
+</div>
 </div>
 
-<audio id="audioControl"></audio>
-
-</div>
-
-<div class="progress-container">
-<div class="progress-bar" id="progressBar"></div>
-</div>
+<audio id="audioControl" controls></audio>
 
 </div>
 
+
+<script src="../assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="js/components.js"></script>
 
 <script>
 
-const items = document.querySelectorAll(".story-item");
 const audio = document.getElementById("audioControl");
 const title = document.getElementById("playerTitle");
 const icon = document.getElementById("playerIcon");
-const progress = document.getElementById("progressBar");
 
-let currentIndex = -1;
+let currentBtn = null;
 
-/* PLAY */
-
-items.forEach((item,index)=>{
-
-const btn = item.querySelector(".play-btn");
+document.querySelectorAll(".play-btn").forEach(btn=>{
 
 btn.addEventListener("click",(e)=>{
 
-e.stopPropagation();
-
-if(currentIndex === index && !audio.paused){
-
-audio.pause();
-
-}else{
-
-playStory(index);
-
-}
-
-});
-
-});
-
-/* FUNÇÃO PLAY */
-
-function playStory(index){
-
-const item = items[index];
+const item = btn.closest(".story-item");
 
 const src = item.dataset.audio;
 const storyTitle = item.querySelector(".story-title").innerText;
 const iconClass = item.dataset.icon;
 
+if(audio.src !== src){
+
 audio.src = src;
+title.textContent = storyTitle;
+icon.innerHTML = `<i class="bi ${iconClass}"></i>`;
+
 audio.play();
 
-title.textContent = storyTitle;
+if(currentBtn){
+currentBtn.innerHTML = `<i class="bi bi-play-fill"></i>`;
+}
 
-icon.innerHTML = `<i class="bi ${iconClass}"></i>
-<div class="sound-wave">
-<span></span><span></span><span></span>
-</div>`;
+btn.innerHTML = `<i class="bi bi-pause-fill"></i>`;
+currentBtn = btn;
 
-currentIndex = index;
+}else{
 
-updateButtons();
+if(audio.paused){
+audio.play();
+btn.innerHTML = `<i class="bi bi-pause-fill"></i>`;
+}else{
+audio.pause();
+btn.innerHTML = `<i class="bi bi-play-fill"></i>`;
+}
 
 }
 
-/* BOTÕES */
-
-function updateButtons(){
-
-items.forEach((item,i)=>{
-
-const btn = item.querySelector(".play-btn");
-
-btn.innerHTML =
-(i === currentIndex && !audio.paused)
-? `<i class="bi bi-pause-fill"></i>`
-: `<i class="bi bi-play-fill"></i>`;
-
 });
 
-}
-
-/* PROGRESSO */
-
-audio.addEventListener("timeupdate",()=>{
-
-const percent = (audio.currentTime / audio.duration) * 100;
-
-progress.style.width = percent + "%";
-
 });
-
-/* AUTOPLAY */
 
 audio.addEventListener("ended",()=>{
 
-let next = currentIndex + 1;
-
-if(next < items.length){
-
-playStory(next);
-
+if(currentBtn){
+currentBtn.innerHTML = `<i class="bi bi-play-fill"></i>`;
 }
 
 });
-
-audio.addEventListener("pause",updateButtons);
-audio.addEventListener("play",updateButtons);
 
 </script>
 
