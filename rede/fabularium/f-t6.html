@@ -8,7 +8,7 @@
 
 <title>Fabularium | Biblioteca de Histórias</title>
 
-<meta name="description" content="Fabularium é uma biblioteca de histórias narradas para Rafael, unindo imaginação, afeto e conhecimento."/>
+<meta name="description" content="Fabularium é uma biblioteca de histórias narradas para Rafael."/>
 
 <base href="../">
 
@@ -18,8 +18,6 @@
 <link rel="stylesheet" href="../assets/vendor/bootstrap-icons/bootstrap-icons.css">
 
 <link rel="stylesheet" href="../assets/css/hub.css">
-
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
 
 <style>
 
@@ -38,20 +36,40 @@ gap:14px;
 margin-top:20px;
 }
 
+/* CARD */
+
 .story-item{
 display:flex;
 align-items:center;
 gap:16px;
 background:#fff;
-padding:14px;
+padding:16px;
 border-radius:14px;
 box-shadow:0 6px 18px rgba(0,0,0,.05);
 cursor:pointer;
-transition:.2s;
+transition:.25s;
 }
 
 .story-item:hover{
-transform:translateY(-2px);
+transform:translateY(-3px);
+box-shadow:0 12px 28px rgba(0,0,0,.08);
+}
+
+/* CATEGORIAS */
+
+.cat-nerd{
+border-left:5px solid #7c3aed;
+background:linear-gradient(to right,#f5f3ff,#ffffff);
+}
+
+.cat-astronomia{
+border-left:5px solid #2563eb;
+background:linear-gradient(to right,#eff6ff,#ffffff);
+}
+
+.cat-ciencia{
+border-left:5px solid #16a34a;
+background:linear-gradient(to right,#ecfdf5,#ffffff);
 }
 
 /* ÍCONES */
@@ -67,8 +85,6 @@ font-size:26px;
 flex-shrink:0;
 }
 
-/* CORES */
-
 .icon-nerd{
 background:#ede9fe;
 color:#6d28d9;
@@ -79,10 +95,7 @@ background:#dbeafe;
 color:#1e3a8a;
 }
 
-.icon-ciencia{
-background:#dcfce7;
-color:#166534;
-}
+/* INFO */
 
 .story-info{
 flex:1;
@@ -93,9 +106,27 @@ font-weight:600;
 font-size:15px;
 }
 
-.story-meta{
-font-size:13px;
-color:#64748b;
+/* BADGE */
+
+.badge-cat{
+
+display:inline-block;
+font-size:11px;
+padding:3px 8px;
+border-radius:6px;
+margin-bottom:4px;
+font-weight:600;
+
+}
+
+.badge-nerd{
+background:#ede9fe;
+color:#6d28d9;
+}
+
+.badge-astronomia{
+background:#dbeafe;
+color:#1e3a8a;
 }
 
 /* PLAY */
@@ -145,21 +176,8 @@ flex:1;
 font-size:14px;
 }
 
-.audio-player audio{
+audio{
 height:34px;
-}
-
-/* LOGO */
-
-.fabularium-logo-container{
-display:flex;
-justify-content:center;
-margin-top:60px;
-}
-
-.fabularium-logo{
-max-width:260px;
-opacity:.9;
 }
 
 </style>
@@ -173,36 +191,14 @@ opacity:.9;
 
 <main class="main">
 
-<div class="page-title mb-4">
-
-<h1 class="d-flex align-items-center gap-2">
-
-FABULARIUM
-
-<a href="memo.html" class="text-decoration-none">
-<i class="bi bi-house-fill"></i>
-</a>
-
-</h1>
-
-<p><strong>Biblioteca de Histórias, Ciência e Imaginação</strong></p>
-
-</div>
-
-<p>
-
-Mais do que um simples conjunto de audiobooks, o <strong>FABULARIUM</strong>
-une imaginação, afeto e conhecimento em uma biblioteca de histórias narradas
-que estimulam a curiosidade e o desenvolvimento intelectual de Rafael.
-
-</p>
+<h1 class="mb-4">FABULARIUM</h1>
 
 <div class="fabularium-library">
 
-<!-- HISTÓRIA 1 -->
+<!-- HISTORIA 1 -->
 
-<div class="story-item"
-data-audio="fabularium/audios/A-historia-da-pixacao-do-batmovel_Mundo-NERD.mp3"
+<div class="story-item cat-nerd"
+data-audio="audios/A-historia-da-pixacao-do-batmovel_Mundo-NERD.mp3"
 data-icon="bi-film">
 
 <div class="story-icon icon-nerd">
@@ -211,14 +207,14 @@ data-icon="bi-film">
 
 <div class="story-info">
 
+<div class="badge-cat badge-nerd">
+MUNDO NERD
+</div>
+
 <div class="story-title">
 A história da pixação do batmóvel
 </div>
 
-<div class="story-meta">
-Aventuras Nerd
-</div>
-
 </div>
 
 <button class="play-btn">
@@ -227,10 +223,10 @@ Aventuras Nerd
 
 </div>
 
-<!-- HISTÓRIA 2 -->
+<!-- HISTORIA 2 -->
 
-<div class="story-item"
-data-audio="audios/Missão Espacial com a titia rumo ao Sol Cosmologia e Astronomia.mp3"fabularium/audios/As-Aventuras-do-James-Webb-as-amigas-little-red-dots_Cosmologia-e-Astronomia.mp3
+<div class="story-item cat-astronomia"
+data-audio="audios/As-Aventuras-do-James-Webb-as-amigas-little-red-dots_Cosmologia-e-Astronomia.mp3"
 data-icon="bi-moon-stars">
 
 <div class="story-icon icon-astronomia">
@@ -239,70 +235,14 @@ data-icon="bi-moon-stars">
 
 <div class="story-info">
 
-<div class="story-title">
-Missão Espacial rumo ao Sol
+<div class="badge-cat badge-astronomia">
+ASTRONOMIA
 </div>
-
-<div class="story-meta">
-Cosmologia e Astronomia
-</div>
-
-</div>
-
-<button class="play-btn">
-<i class="bi bi-play-fill"></i>
-</button>
-
-</div>
-
-<!-- HISTÓRIA 3 -->
-
-<div class="story-item"
-data-audio="audios/História da titia sobre Sagitarius A.mp3"
-data-icon="bi-moon-stars">
-
-<div class="story-icon icon-astronomia">
-<i class="bi bi-moon-stars"></i>
-</div>
-
-<div class="story-info">
-
-<div class="story-title">
-Sagitarius A* — o buraco negro
-</div>
-
-<div class="story-meta">
-Cosmologia e Astronomia
-</div>
-
-</div>
-
-<button class="play-btn">
-<i class="bi bi-play-fill"></i>
-</button>
-
-</div>
-
-  <!-- HISTÓRIA 4 -->
-
-<div class="story-item"
-data-audio="fabularium/audios/As-Aventuras-do-James-Webb-as-amigas-little-red-dots_Cosmologia-e-Astronomia.mp3"
-data-icon="bi-moon-stars">
-
-<div class="story-icon icon-astronomia">
-<i class="bi bi-moon-stars"></i>
-</div>
-
-<div class="story-info">
 
 <div class="story-title">
 As Aventuras do James Webb e as amigas Little Red Dots
 </div>
 
-<div class="story-meta">
-Cosmologia e Astronomia
-</div>
-
 </div>
 
 <button class="play-btn">
@@ -311,11 +251,10 @@ Cosmologia e Astronomia
 
 </div>
 
+<!-- HISTORIA 3 -->
 
-  <!-- HISTÓRIA 5 -->
-
-<div class="story-item"
-data-audio="fabularium/audios/As-Aventuras-do-James-Webb-e-sua-amiga-little-red-dots-no-universo-cangaceiro_Cosmologia-e-Astronomia.mp3"
+<div class="story-item cat-astronomia"
+data-audio="audios/As-Aventuras-do-James-Webb-e-sua-amiga-little-red-dots-no-universo-cangaceiro_Cosmologia-e-Astronomia.mp3"
 data-icon="bi-moon-stars">
 
 <div class="story-icon icon-astronomia">
@@ -324,12 +263,12 @@ data-icon="bi-moon-stars">
 
 <div class="story-info">
 
-<div class="story-title">
-As Aventuras do James Webb e sua amiga Little Red Dots no meio desse universo cangaceiro
+<div class="badge-cat badge-astronomia">
+ASTRONOMIA
 </div>
 
-<div class="story-meta">
-Cosmologia e Astronomia
+<div class="story-title">
+Little Red Dots no universo cangaceiro
 </div>
 
 </div>
@@ -342,15 +281,9 @@ Cosmologia e Astronomia
 
 </div>
 
-<div class="fabularium-logo-container">
-
-<img src="../assets/img/fabularium-logo.png"
-class="fabularium-logo img-fluid"
-alt="Fabularium">
-
-</div>
-
 </main>
+
+<!-- PLAYER -->
 
 <div class="audio-player">
 
@@ -366,13 +299,9 @@ alt="Fabularium">
 
 </div>
 
-<script src="../assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-<script src="js/components.js"></script>
-
 <script>
 
 const items = document.querySelectorAll(".story-item");
-
 const audio = document.getElementById("audioControl");
 const title = document.getElementById("playerTitle");
 const icon = document.getElementById("playerIcon");
@@ -386,12 +315,12 @@ const storyTitle = item.querySelector(".story-title").innerText;
 const iconClass = item.dataset.icon;
 
 audio.src = src;
+audio.load();
+audio.play();
 
 title.textContent = storyTitle;
 
 icon.innerHTML = `<i class="bi ${iconClass}"></i>`;
-
-audio.play();
 
 });
 
