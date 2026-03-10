@@ -38,6 +38,8 @@ gap:14px;
 margin-top:20px;
 }
 
+/* CARD */
+
 .story-item{
 display:flex;
 align-items:center;
@@ -47,11 +49,26 @@ padding:14px;
 border-radius:14px;
 box-shadow:0 6px 18px rgba(0,0,0,.05);
 cursor:pointer;
-transition:.2s;
+transition:.25s;
 }
 
 .story-item:hover{
-transform:translateY(-2px);
+transform:translateY(-3px);
+box-shadow:0 10px 28px rgba(0,0,0,.08);
+}
+
+/* CORES POR CATEGORIA */
+
+.cat-nerd{
+border-left:4px solid #7c3aed;
+}
+
+.cat-astronomia{
+border-left:4px solid #2563eb;
+}
+
+.cat-ciencia{
+border-left:4px solid #16a34a;
 }
 
 /* ÍCONES */
@@ -66,8 +83,6 @@ justify-content:center;
 font-size:26px;
 flex-shrink:0;
 }
-
-/* CORES */
 
 .icon-nerd{
 background:#ede9fe;
@@ -84,6 +99,8 @@ background:#dcfce7;
 color:#166534;
 }
 
+/* INFO */
+
 .story-info{
 flex:1;
 }
@@ -91,6 +108,32 @@ flex:1;
 .story-title{
 font-weight:600;
 font-size:15px;
+}
+
+/* BADGE */
+
+.badge-cat{
+font-size:11px;
+padding:3px 8px;
+border-radius:6px;
+display:inline-block;
+margin-bottom:4px;
+font-weight:600;
+}
+
+.badge-nerd{
+background:#ede9fe;
+color:#6d28d9;
+}
+
+.badge-astronomia{
+background:#dbeafe;
+color:#1e3a8a;
+}
+
+.badge-ciencia{
+background:#dcfce7;
+color:#166534;
 }
 
 .story-meta{
@@ -149,66 +192,22 @@ font-size:14px;
 height:34px;
 }
 
-/* LOGO CONTAINER */
+/* LOGO */
 
 .fabularium-logo-container{
 display:flex;
 justify-content:center;
 margin-top:60px;
-position:relative;
 }
-
-/* HALO CÓSMICO */
-
-.fabularium-logo-container::before{
-content:"";
-position:absolute;
-width:340px;
-height:340px;
-border-radius:50%;
-background:radial-gradient(circle,
-rgba(99,102,241,0.35) 0%,
-rgba(59,130,246,0.25) 35%,
-rgba(168,85,247,0.2) 55%,
-transparent 70%);
-filter:blur(40px);
-animation:haloPulse 6s ease-in-out infinite;
-}
-
-/* LOGO */
 
 .fabularium-logo{
 max-width:260px;
 opacity:.9;
-position:relative;
-z-index:2;
-}
-
-/* ANIMAÇÃO */
-
-@keyframes haloPulse{
-
-0%{
-transform:scale(0.9);
-opacity:.6;
-}
-
-50%{
-transform:scale(1.05);
-opacity:.9;
-}
-
-100%{
-transform:scale(0.9);
-opacity:.6;
-}
-
 }
 
 </style>
 
 </head>
-
 
 <body>
 
@@ -236,18 +235,16 @@ FABULARIUM
 <p>
 
 Mais do que um simples conjunto de audiobooks, o <strong>FABULARIUM</strong>
-une imaginação, afeto e conhecimento em uma biblioteca de histórias narradas
-que estimulam a curiosidade e o desenvolvimento intelectual de Rafael.
+une imaginação, afeto e conhecimento em uma biblioteca de histórias narradas.
 
 </p>
-
 
 <div class="fabularium-library">
 
 <!-- HISTÓRIA 1 -->
 
-<div class="story-item"
-data-audio="https://drive.google.com/uc?export=download&id=19ykUjtl-IYMFW5p2DewNcLfv2Rkv34Jc"
+<div class="story-item cat-nerd"
+data-audio="fabularium/audios/pixacao-do-batmovel.mp3"
 data-icon="bi-film">
 
 <div class="story-icon icon-nerd">
@@ -256,12 +253,16 @@ data-icon="bi-film">
 
 <div class="story-info">
 
+<div class="badge-cat badge-nerd">
+MUNDO NERD
+</div>
+
 <div class="story-title">
-Batman (1989) — Coringa no Museu
+A história da pixação do batmóvel
 </div>
 
 <div class="story-meta">
-Aventuras do Mundo Nerd • 04:12
+Aventuras Nerd
 </div>
 
 </div>
@@ -271,12 +272,11 @@ Aventuras do Mundo Nerd • 04:12
 </button>
 
 </div>
-
 
 <!-- HISTÓRIA 2 -->
 
-<div class="story-item"
-data-audio="https://drive.google.com/uc?export=download&id=11WfJfg8sEgH1_xrQV2JsL1fdQqejTmjl"
+<div class="story-item cat-astronomia"
+data-audio="fabularium/audios/james-webb-e-as-lrd_ep01.mp3"
 data-icon="bi-moon-stars">
 
 <div class="story-icon icon-astronomia">
@@ -285,12 +285,16 @@ data-icon="bi-moon-stars">
 
 <div class="story-info">
 
+<div class="badge-cat badge-astronomia">
+ASTRONOMIA
+</div>
+
 <div class="story-title">
-Missão Espacial rumo ao Sol
+As Aventuras do James Webb e as amigas Little Red Dots
 </div>
 
 <div class="story-meta">
-Cosmologia e Astronomia • 05:21
+Cosmologia e Astronomia
 </div>
 
 </div>
@@ -300,12 +304,11 @@ Cosmologia e Astronomia • 05:21
 </button>
 
 </div>
-
 
 <!-- HISTÓRIA 3 -->
 
-<div class="story-item"
-data-audio="https://drive.google.com/uc?export=download&id=1Fezp65OBc_gq3j12ERWc0_26Kb9CcTkW"
+<div class="story-item cat-astronomia"
+data-audio="fabularium/audios/james-webb-e-as-lrd_ep02.mp3"
 data-icon="bi-moon-stars">
 
 <div class="story-icon icon-astronomia">
@@ -314,12 +317,16 @@ data-icon="bi-moon-stars">
 
 <div class="story-info">
 
+<div class="badge-cat badge-astronomia">
+ASTRONOMIA
+</div>
+
 <div class="story-title">
-Sagitarius A* — o buraco negro
+Little Red Dots no universo cangaceiro
 </div>
 
 <div class="story-meta">
-Cosmologia e Astronomia • 06:03
+Cosmologia e Astronomia
 </div>
 
 </div>
@@ -331,9 +338,6 @@ Cosmologia e Astronomia • 06:03
 </div>
 
 </div>
-
-
-<!-- LOGO COM HALO -->
 
 <div class="fabularium-logo-container">
 
@@ -345,7 +349,6 @@ alt="Fabularium">
 
 </main>
 
-
 <div class="audio-player">
 
 <div id="playerIcon" class="player-icon">
@@ -353,17 +356,12 @@ alt="Fabularium">
 </div>
 
 <div class="player-info">
-
-<div id="playerTitle">
-Selecione uma história
-</div>
-
+<div id="playerTitle">Selecione uma história</div>
 </div>
 
 <audio id="audioControl" controls></audio>
 
 </div>
-
 
 <script src="../assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 <script src="js/components.js"></script>
@@ -376,21 +374,22 @@ const audio = document.getElementById("audioControl");
 const title = document.getElementById("playerTitle");
 const icon = document.getElementById("playerIcon");
 
-items.forEach(item=>{
+items.forEach(item => {
 
-item.addEventListener("click",()=>{
+item.addEventListener("click", function(){
 
-const src = item.dataset.audio;
-const storyTitle = item.querySelector(".story-title").innerText;
-const iconClass = item.dataset.icon;
+const src = this.getAttribute("data-audio");
+const storyTitle = this.querySelector(".story-title").innerText;
+const iconClass = this.getAttribute("data-icon");
 
 audio.src = src;
+audio.load();
 
 title.textContent = storyTitle;
 
 icon.innerHTML = `<i class="bi ${iconClass}"></i>`;
 
-audio.play();
+audio.play().catch(()=>{});
 
 });
 
