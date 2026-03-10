@@ -3,8 +3,8 @@
 
 <head>
 
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 
 <title>Fabularium | Biblioteca de Histórias</title>
 
@@ -16,20 +16,20 @@
 
 <style>
 
-/* PLAYER SPACE */
+/* espaço para o player fixo */
 
 .main{
-padding-bottom:150px;
+padding-bottom:160px;
 }
 
-/* CARD ANIMATION */
+/* animação do card quando tocando */
 
 .story-item.playing{
 background:#f1f5f9;
 border-left:4px solid #2563eb;
 }
 
-/* PROGRESS BAR CARD */
+/* barra de progresso dentro do card */
 
 .card-progress{
 position:absolute;
@@ -41,22 +41,31 @@ width:0%;
 transition:width .2s linear;
 }
 
+/* garantir posição */
+
+.story-item{
+position:relative;
+}
+
 </style>
 
 </head>
 
 <body>
 
+<!-- HEADER E SIDEBAR DO SISTEMA -->
+
 <div id="header-container"></div>
 <div id="sidebar-container"></div>
 
 <main class="main">
 
-<div class="page-title">
+<div class="page-title mb-4">
 
 <h1 class="d-flex align-items-center gap-2">
 
 FABULARIUM
+
 <a href="memo.html">
 <i class="bi bi-house-fill"></i>
 </a>
@@ -67,13 +76,47 @@ FABULARIUM
 
 </div>
 
+<!-- =========================
+BIBLIOTECA DE HISTÓRIAS
+========================= -->
 
-<!-- HISTÓRIA -->
+<div class="fabularium-library">
+
+<!-- CARD 1 -->
+
+<div class="story-item cat-nerd"
+data-audio="fabularium/audios/pixacao-do-batmovel.mp3"
+data-icon="bi-film">
+
+<div class="story-icon icon-nerd">
+<i class="bi bi-film"></i>
+</div>
+
+<div class="story-info">
+
+<div class="badge-cat badge-nerd">
+MUNDO NERD
+</div>
+
+<div class="story-title">
+A história da pixação do batmóvel
+</div>
+
+<div class="story-meta">
+Aventuras Nerd
+</div>
+
+</div>
+
+<div class="card-progress"></div>
+
+</div>
+
+<!-- CARD 2 -->
 
 <div class="story-item cat-astronomia"
-data-audio="fabularium/audios/james-webb-e-as-lrd.mp3"
-data-icon="bi-moon-stars"
-style="position:relative">
+data-audio="fabularium/audios/james-webb-e-as-lrd_ep01.mp3"
+data-icon="bi-moon-stars">
 
 <div class="story-icon icon-astronomia">
 <i class="bi bi-moon-stars"></i>
@@ -86,7 +129,7 @@ ASTRONOMIA
 </div>
 
 <div class="story-title">
-James Webb e as Little Red Dots
+As Aventuras do James Webb e as Little Red Dots
 </div>
 
 <div class="story-meta">
@@ -99,16 +142,58 @@ Cosmologia e Astronomia
 
 </div>
 
+<!-- CARD 3 -->
+
+<div class="story-item cat-astronomia"
+data-audio="fabularium/audios/james-webb-e-as-lrd_ep02.mp3"
+data-icon="bi-moon-stars">
+
+<div class="story-icon icon-astronomia">
+<i class="bi bi-moon-stars"></i>
+</div>
+
+<div class="story-info">
+
+<div class="badge-cat badge-astronomia">
+ASTRONOMIA
+</div>
+
+<div class="story-title">
+Little Red Dots no universo cangaceiro
+</div>
+
+<div class="story-meta">
+Cosmologia e Astronomia
+</div>
+
+</div>
+
+<div class="card-progress"></div>
+
+</div>
+
+</div>
 
 </main>
 
+<!-- =========================
+PLAYER FIXO
+========================= -->
+
+<div class="audio-player">
+
+<audio id="audioControl"></audio>
+
+</div>
 
 <script src="../assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 <script src="js/components.js"></script>
 
 <script>
 
-/* FABULARIUM ENGINE */
+/* =========================
+FABULARIUM ENGINE V7
+========================= */
 
 const cards = document.querySelectorAll(".story-item")
 const audio = document.getElementById("audioControl")
@@ -143,46 +228,18 @@ card.classList.add("playing")
 
 }
 
-/* NEXT PREVIOUS */
+/* =========================
+NEXT / PREVIOUS
+========================= */
 
 const nextBtn=document.getElementById("nextBtn")
 const prevBtn=document.getElementById("prevBtn")
 
 if(nextBtn){
 
-nextBtn.onclick=()=>{
+nextBtn.addEventListener("click",()=>{
 
-if(currentIndex<playlist.length-1){
-
-currentIndex++
-playCard(playlist[currentIndex])
-
-}
-
-}
-
-}
-
-if(prevBtn){
-
-prevBtn.onclick=()=>{
-
-if(currentIndex>0){
-
-currentIndex--
-playCard(playlist[currentIndex])
-
-}
-
-}
-
-}
-
-/* AUTO NEXT */
-
-audio.addEventListener("ended",()=>{
-
-if(currentIndex<playlist.length-1){
+if(currentIndex < playlist.length-1){
 
 currentIndex++
 playCard(playlist[currentIndex])
@@ -191,7 +248,41 @@ playCard(playlist[currentIndex])
 
 })
 
-/* CARD PROGRESS */
+}
+
+if(prevBtn){
+
+prevBtn.addEventListener("click",()=>{
+
+if(currentIndex>0){
+
+currentIndex--
+playCard(playlist[currentIndex])
+
+}
+
+})
+
+}
+
+/* =========================
+AUTO NEXT
+========================= */
+
+audio.addEventListener("ended",()=>{
+
+if(currentIndex < playlist.length-1){
+
+currentIndex++
+playCard(playlist[currentIndex])
+
+}
+
+})
+
+/* =========================
+PROGRESSO NO CARD
+========================= */
 
 audio.addEventListener("timeupdate",()=>{
 
@@ -200,6 +291,7 @@ if(currentIndex===-1) return
 const progress=(audio.currentTime/audio.duration)*100
 
 const card=playlist[currentIndex]
+
 const bar=card.querySelector(".card-progress")
 
 if(bar){
