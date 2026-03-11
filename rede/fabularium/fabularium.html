@@ -49,7 +49,45 @@
 padding-bottom:140px;
 }
 
-/* BIBLIOTECA */
+/* filtros */
+
+.fabularium-filters{
+display:flex;
+gap:10px;
+flex-wrap:wrap;
+margin-top:20px;
+}
+
+.filter-btn{
+border:none;
+padding:6px 12px;
+border-radius:8px;
+font-size:13px;
+font-weight:600;
+cursor:pointer;
+background:#e5e7eb;
+}
+
+.filter-btn.nerd{
+background:#ede9fe;
+color:#6d28d9;
+}
+
+.filter-btn.astronomia{
+background:#dbeafe;
+color:#1e3a8a;
+}
+
+.filter-btn.ciencia{
+background:#dcfce7;
+color:#166534;
+}
+
+.filter-btn.active{
+outline:2px solid #0f172a;
+}
+
+/* biblioteca */
 
 .fabularium-library{
 display:flex;
@@ -58,7 +96,7 @@ gap:14px;
 margin-top:20px;
 }
 
-/* CARD */
+/* card */
 
 .story-item{
 display:flex;
@@ -70,6 +108,7 @@ border-radius:14px;
 box-shadow:0 6px 18px rgba(0,0,0,.05);
 cursor:pointer;
 transition:.25s;
+position:relative;
 }
 
 .story-item:hover{
@@ -77,7 +116,23 @@ transform:translateY(-3px);
 box-shadow:0 10px 28px rgba(0,0,0,.08);
 }
 
-/* CORES POR CATEGORIA */
+.story-item.playing{
+background:#f1f5f9;
+border-left:4px solid #2563eb;
+}
+
+/* progresso */
+
+.card-progress{
+position:absolute;
+bottom:0;
+left:0;
+height:3px;
+width:0%;
+background:#38bdf8;
+}
+
+/* categorias */
 
 .cat-nerd{
 border-left:4px solid #7c3aed;
@@ -91,7 +146,7 @@ border-left:4px solid #2563eb;
 border-left:4px solid #16a34a;
 }
 
-/* ÍCONES */
+/* ícones */
 
 .story-icon{
 width:54px;
@@ -119,7 +174,7 @@ background:#dcfce7;
 color:#166534;
 }
 
-/* INFO */
+/* info */
 
 .story-info{
 flex:1;
@@ -130,7 +185,7 @@ font-weight:600;
 font-size:15px;
 }
 
-/* BADGE */
+/* badge */
 
 .badge-cat{
 font-size:11px;
@@ -161,7 +216,7 @@ font-size:13px;
 color:#64748b;
 }
 
-/* PLAY */
+/* play */
 
 .play-btn{
 border:none;
@@ -176,7 +231,7 @@ justify-content:center;
 font-size:20px;
 }
 
-/* PLAYER */
+/* player */
 
 .audio-player{
 position:fixed;
@@ -212,7 +267,7 @@ font-size:14px;
 height:34px;
 }
 
-/* LOGO */
+/* logo */
 
 .fabularium-logo-container{
 display:flex;
@@ -253,15 +308,22 @@ FABULARIUM
 </div>
 
 <p>
-
 Mais do que um simples conjunto de audiobooks, o <strong>FABULARIUM</strong>
 une imaginação, afeto e conhecimento em uma biblioteca de histórias narradas.
-
 </p>
+
+<div class="fabularium-filters">
+
+<button class="filter-btn active" data-filter="all">Todos</button>
+<button class="filter-btn nerd" data-filter="cat-nerd">Mundo Nerd</button>
+<button class="filter-btn astronomia" data-filter="cat-astronomia">Astronomia</button>
+<button class="filter-btn ciencia" data-filter="cat-ciencia">Ciência</button>
+
+</div>
 
 <div class="fabularium-library">
 
-<!-- HISTÓRIA 1 -->
+<!-- BATMOVEL -->
 
 <div class="story-item cat-nerd"
 data-audio="fabularium/audios/pixacao-do-batmovel.mp3"
@@ -272,19 +334,9 @@ data-icon="bi-film">
 </div>
 
 <div class="story-info">
-
-<div class="badge-cat badge-nerd">
-MUNDO NERD
-</div>
-
-<div class="story-title">
-A história da pixação do batmóvel
-</div>
-
-<div class="story-meta">
-Aventuras Nerd
-</div>
-
+<div class="badge-cat badge-nerd">MUNDO NERD</div>
+<div class="story-title">A história da pixação do batmóvel</div>
+<div class="story-meta">Aventuras Nerd</div>
 </div>
 
 <button class="play-btn">
@@ -293,7 +345,7 @@ Aventuras Nerd
 
 </div>
 
-<!-- HISTÓRIA 2 -->
+<!-- WEBB 1 -->
 
 <div class="story-item cat-astronomia"
 data-audio="fabularium/audios/james-webb-e-as-lrd_ep01.mp3"
@@ -304,19 +356,9 @@ data-icon="bi-moon-stars">
 </div>
 
 <div class="story-info">
-
-<div class="badge-cat badge-astronomia">
-ASTRONOMIA
-</div>
-
-<div class="story-title">
-As Aventuras do James Webb e as amigas Little Red Dots
-</div>
-
-<div class="story-meta">
-Cosmologia e Astronomia
-</div>
-
+<div class="badge-cat badge-astronomia">ASTRONOMIA</div>
+<div class="story-title">James Webb e as Little Red Dots — Ep 1</div>
+<div class="story-meta">Cosmologia e Astronomia</div>
 </div>
 
 <button class="play-btn">
@@ -325,7 +367,7 @@ Cosmologia e Astronomia
 
 </div>
 
-<!-- HISTÓRIA 3 -->
+<!-- WEBB 2 -->
 
 <div class="story-item cat-astronomia"
 data-audio="fabularium/audios/james-webb-e-as-lrd_ep02.mp3"
@@ -336,19 +378,97 @@ data-icon="bi-moon-stars">
 </div>
 
 <div class="story-info">
-
-<div class="badge-cat badge-astronomia">
-ASTRONOMIA
+<div class="badge-cat badge-astronomia">ASTRONOMIA</div>
+<div class="story-title">Little Red Dots no universo cangaceiro</div>
+<div class="story-meta">Cosmologia e Astronomia</div>
 </div>
 
-<div class="story-title">
-Little Red Dots no universo cangaceiro
+<button class="play-btn">
+<i class="bi bi-play-fill"></i>
+</button>
+
 </div>
 
-<div class="story-meta">
-Cosmologia e Astronomia
+<!-- SOL -->
+
+<div class="story-item cat-ciencia"
+data-audio="fabularium/audios/missao-espacial-rumo-ao-sol_ep01.mp3"
+data-icon="bi-sun">
+
+<div class="story-icon icon-ciencia">
+<i class="bi bi-sun"></i>
 </div>
 
+<div class="story-info">
+<div class="badge-cat badge-ciencia">CIÊNCIA</div>
+<div class="story-title">Missão Espacial Rumo ao Sol</div>
+<div class="story-meta">Exploração espacial</div>
+</div>
+
+<button class="play-btn">
+<i class="bi bi-play-fill"></i>
+</button>
+
+</div>
+
+<!-- GUARANI -->
+
+<div class="story-item cat-ciencia"
+data-audio="fabularium/audios/peri-ceci_o-guarani_ep1.mp3"
+data-icon="bi-book">
+
+<div class="story-icon icon-ciencia">
+<i class="bi bi-book"></i>
+</div>
+
+<div class="story-info">
+<div class="badge-cat badge-ciencia">LITERATURA</div>
+<div class="story-title">Peri e Ceci — O Guarani</div>
+<div class="story-meta">Clássicos brasileiros</div>
+</div>
+
+<button class="play-btn">
+<i class="bi bi-play-fill"></i>
+</button>
+
+</div>
+
+<!-- YOGANANDA 1 -->
+
+<div class="story-item cat-ciencia"
+data-audio="fabularium/audios/yogananda_ep1.mp3"
+data-icon="bi-flower1">
+
+<div class="story-icon icon-ciencia">
+<i class="bi bi-flower1"></i>
+</div>
+
+<div class="story-info">
+<div class="badge-cat badge-ciencia">AUTOCONHECIMENTO</div>
+<div class="story-title">Yogananda — Episódio 1</div>
+<div class="story-meta">Espiritualidade</div>
+</div>
+
+<button class="play-btn">
+<i class="bi bi-play-fill"></i>
+</button>
+
+</div>
+
+<!-- YOGANANDA 2 -->
+
+<div class="story-item cat-ciencia"
+data-audio="fabularium/audios/yogananda_ep2.mp3"
+data-icon="bi-flower1">
+
+<div class="story-icon icon-ciencia">
+<i class="bi bi-flower1"></i>
+</div>
+
+<div class="story-info">
+<div class="badge-cat badge-ciencia">AUTOCONHECIMENTO</div>
+<div class="story-title">Yogananda — Episódio 2</div>
+<div class="story-meta">Espiritualidade</div>
 </div>
 
 <button class="play-btn">
@@ -360,11 +480,7 @@ Cosmologia e Astronomia
 </div>
 
 <div class="fabularium-logo-container">
-
-<img src="../assets/img/fabularium-logo.png"
-class="fabularium-logo img-fluid"
-alt="Fabularium">
-
+<img src="../assets/img/fabularium-logo.png" class="fabularium-logo img-fluid">
 </div>
 
 </main>
@@ -379,7 +495,15 @@ alt="Fabularium">
 <div id="playerTitle">Selecione uma história</div>
 </div>
 
+<button id="prevBtn" class="play-btn">
+<i class="bi bi-skip-start-fill"></i>
+</button>
+
 <audio id="audioControl" controls></audio>
+
+<button id="nextBtn" class="play-btn">
+<i class="bi bi-skip-end-fill"></i>
+</button>
 
 </div>
 
@@ -394,24 +518,113 @@ const audio = document.getElementById("audioControl");
 const title = document.getElementById("playerTitle");
 const icon = document.getElementById("playerIcon");
 
-items.forEach(item => {
+const nextBtn = document.getElementById("nextBtn");
+const prevBtn = document.getElementById("prevBtn");
 
-item.addEventListener("click", function(){
+let playlist=[];
+let currentIndex=-1;
 
-const src = this.getAttribute("data-audio");
-const storyTitle = this.querySelector(".story-title").innerText;
-const iconClass = this.getAttribute("data-icon");
+items.forEach((item,index)=>{
 
-audio.src = src;
+playlist.push(item);
+
+let progress=document.createElement("div");
+progress.className="card-progress";
+item.appendChild(progress);
+
+item.addEventListener("click",()=>{
+
+currentIndex=index;
+playStory(item);
+
+});
+
+});
+
+function playStory(item){
+
+const src=item.getAttribute("data-audio");
+const storyTitle=item.querySelector(".story-title").innerText;
+const iconClass=item.getAttribute("data-icon");
+
+audio.src=src;
 audio.load();
 
-title.textContent = storyTitle;
+title.textContent=storyTitle;
 
-icon.innerHTML = `<i class="bi ${iconClass}"></i>`;
+icon.innerHTML=`<i class="bi ${iconClass}"></i>`;
 
 audio.play().catch(()=>{});
 
+items.forEach(el=>el.classList.remove("playing"));
+item.classList.add("playing");
+
+}
+
+nextBtn.onclick=()=>{
+
+if(currentIndex<playlist.length-1){
+currentIndex++;
+playStory(playlist[currentIndex]);
+}
+
+}
+
+prevBtn.onclick=()=>{
+
+if(currentIndex>0){
+currentIndex--;
+playStory(playlist[currentIndex]);
+}
+
+}
+
+audio.addEventListener("ended",()=>{
+
+if(currentIndex<playlist.length-1){
+currentIndex++;
+playStory(playlist[currentIndex]);
+}
+
 });
+
+audio.addEventListener("timeupdate",()=>{
+
+if(currentIndex===-1 || !audio.duration) return;
+
+const progress=(audio.currentTime/audio.duration)*100;
+const bar=playlist[currentIndex].querySelector(".card-progress");
+
+if(bar) bar.style.width=progress+"%";
+
+});
+
+/* filtros */
+
+const filters=document.querySelectorAll(".filter-btn");
+
+filters.forEach(btn=>{
+
+btn.onclick=()=>{
+
+filters.forEach(b=>b.classList.remove("active"));
+btn.classList.add("active");
+
+const filter=btn.dataset.filter;
+
+items.forEach(item=>{
+
+if(filter==="all"){
+item.style.display="flex";
+}else if(item.classList.contains(filter)){
+item.style.display="flex";
+}else{
+item.style.display="none";
+}
+
+});
+
+};
 
 });
 
