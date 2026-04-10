@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>REDE | Acervo Inteligente</title>
+
+<!-- PDF.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.4.120/pdf.min.js"></script>
+
+<script>
+pdfjsLib.GlobalWorkerOptions.workerSrc =
+"https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.4.120/pdf.worker.min.js";
+</script>
+
+<style>
+body {
+  font-family: Arial;
+  background: #0f172a;
+  color: #e2e8f0;
+  padding: 20px;
+}
+
+#status {
+  margin-bottom: 10px;
+  color: #38bdf8;
+}
+
+#conteudo {
+  white-space: pre-wrap;
+  background: #020617;
+  padding: 15px;
+  border-radius: 8px;
+  max-height: 80vh;
+  overflow-y: auto;
+}
+</style>
+
+</head>
+
+<body>
+
+<h1>🧠 Acervo Inteligente — Sistema REDE</h1>
+
+<div id="status">Carregando acervo...</div>
+
+<div id="conteudo">
+Aguardando leitura dos documentos...
+</div>
+
+<script>
+
+// Converter Google Drive
+function converterDrive(url) {
+  const match = url.match(/\/d\/(.*?)\//);
+  if (match && match[1]) {
+    return `https://drive.google.com/uc?export=download&id=${match[1]}`;
+  }
+  return url;
+}
+
+// Extrair texto
+async function extrairTextoPDF(url) {
+  try {
+    const pdf = await pdfjsLib.getDocument(url).promise;
+    let texto = "";
+
+    for (let i = 1; i <= pdf.numPages; i++) {
+      const page = await pdf.getPage(i);
+      const content = await page.getTextContent();
+      const strings = content.items.map(item => item.str);
+      texto += strings.join(" ") + "\n\n";
+    }
+
+    return texto;
+
+  } catch (erro) {
+    console.error("Erro:", url);
+    return "[Erro ao ler documento]\n\n";
+  }
+}
+
+// Seus documentos
+const documentos = [
+  "https://drive.google.com/file/d/1Ccxq-kaZV3Oz7T1GP9obDtAp1ULbSZYN/preview",
+  "https://drive.google.com/file/d/1oWfLQspDjsb93KM1J5AabB7uHGVMkCDC/preview",
+  "https://drive.google.com/file/d/10CzxjZGTQrqPraSsF6wRsXg4JytSggJv/preview",
+  "https://drive.google.com/file/d/1FQPffAofqiAiHTaKIv49Y1P-E9ZQd6PW/preview",
+  "https://drive.google.com/file/d/1NnzOiebEzgfE4jp3y5gnLI6QTsyZU2G6/preview",
+  "https://drive.google.com/file/d/1mHX1e9Pfz-NsawSOboSeeTA40jK46GlN/preview",
+  "https://drive.google.com/file/d/1lKM9hJE1rfadxwCPMprah9dRG34ciepi/preview",
+  "https://drive.google.com/file/d/12oPYfggle5VhPPRW_HUU2aBV0QAVM9l7/preview",
+  "https://drive.google.com/file/d/1hEP0wleJPaWEknGmM7bN21gpsBJfNBNa/preview"
+];
+
+async function iniciarLeitura() {
+
+  const status = document.getElementById("status");
+  const conteudo = document.getElementById("conteudo");
+
+  let acervo = "";
+
+  for (let i = 0; i < documentos.length; i++) {
+
+    status.innerText = `Lendo documento ${i + 1} de ${documentos.length}...`;
+
+    const url = converterDrive(documentos[i]);
+    const texto = await extrairTextoPDF(url);
+
+    acervo += `\n\n============================\n`;
+    acervo += `DOCUMENTO ${i + 1}\n`;
+    acervo += `============================\n\n`;
+    acervo += texto;
+  }
+
+  status.innerText = "✅ Acervo carregado";
+  conteudo.innerText = acervo;
+
+}
+
+// AUTO INÍCIO
+window.onload = iniciarLeitura;
+
+</script>
+
+</body>
+</html>
