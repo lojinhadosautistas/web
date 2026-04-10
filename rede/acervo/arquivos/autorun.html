@@ -1,0 +1,156 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>REDE | Autorun do Acervo</title>
+
+<!-- PDF.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.4.120/pdf.min.js"></script>
+
+<script>
+pdfjsLib.GlobalWorkerOptions.workerSrc =
+"https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.4.120/pdf.worker.min.js";
+</script>
+
+<style>
+body {
+  font-family: Arial, sans-serif;
+  background: #0f172a;
+  color: #e2e8f0;
+  padding: 20px;
+}
+
+h1 {
+  margin-bottom: 10px;
+}
+
+#status {
+  margin-bottom: 15px;
+  color: #38bdf8;
+  font-size: 14px;
+}
+
+#conteudo {
+  white-space: pre-wrap;
+  background: #020617;
+  padding: 15px;
+  border-radius: 8px;
+  max-height: 70vh;
+  overflow-y: auto;
+  font-size: 13px;
+}
+
+button {
+  margin-top: 10px;
+  padding: 10px;
+  border: none;
+  border-radius: 6px;
+  background: #2563eb;
+  color: white;
+  cursor: pointer;
+}
+</style>
+
+</head>
+
+<body>
+
+<h1>🧠 REDE — Autorun do Acervo</h1>
+
+<div id="status">Inicializando leitura...</div>
+
+<div id="conteudo">Aguardando processamento dos documentos...</div>
+
+<button onclick="copiarAcervo()">📋 Copiar acervo completo</button>
+
+<script>
+
+// 🔒 Corrigir nomes com espaços/emojis
+function pathSeguro(path) {
+  return path.split('/').map(p => encodeURIComponent(p)).join('/');
+}
+
+// 📄 Extrair texto do PDF
+async function extrairTextoPDF(url) {
+  try {
+    const pdf = await pdfjsLib.getDocument(url).promise;
+    let texto = "";
+
+    for (let i = 1; i <= pdf.numPages; i++) {
+      const page = await pdf.getPage(i);
+      const content = await page.getTextContent();
+      const strings = content.items.map(item => item.str);
+      texto += strings.join(" ") + "\n\n";
+    }
+
+    return texto;
+
+  } catch (e) {
+    console.error("Erro ao ler:", url, e);
+    return "[Erro ao ler documento]\n\n";
+  }
+}
+
+// 📚 SEU ACERVO (mesma pasta do HTML)
+const documentos = [
+  "3. SISTEMA REDE v3.pdf",
+  "5. Plano Programático (v1) - SISTEMA REDE v3.pdf",
+  "Dossiê Calendário 2026 _ Sistema REDE.pdf",
+  "Dossiê Ferias 2025-2026 (Sistema-REDE).pdf",
+  "Dra NISE + SISTEMA REDE v2.pdf",
+  "PRISMA-RAM01_0225.pdf",
+  "Protocolo URSULA + SISTEMA REDE v2.pdf",
+  "🧩 RELATÓRIO DE ALERTA001 - NIVER RAFAEL - SISTEMA REDE V1.pdf",
+  "🧩 RELATÓRIO DE TRIGGER001 - CONSULTA PSIQUIÁTRICA - SISTEMA REDE V1 (1).pdf",
+  "🧩 RELATÓRIO DE TRIGGER004 - CARNAVAL 2026 - SISTEMA REDE V1 (1).pdf",
+  "🧩 RELATÓRIO DE TRIGGER004 - CARNAVAL 2026 - SISTEMA REDE V1.pdf"
+];
+
+let ACERVO_GLOBAL = "";
+
+// 🚀 Função principal
+async function iniciarLeitura() {
+
+  const status = document.getElementById("status");
+  const conteudo = document.getElementById("conteudo");
+
+  let acervo = "";
+
+  for (let i = 0; i < documentos.length; i++) {
+
+    status.innerText = `📄 Lendo ${i + 1} de ${documentos.length} → ${documentos[i]}`;
+
+    const caminho = pathSeguro(documentos[i]);
+    const texto = await extrairTextoPDF(caminho);
+
+    acervo += `\n\n============================\n`;
+    acervo += `DOCUMENTO: ${documentos[i]}\n`;
+    acervo += `============================\n\n`;
+    acervo += texto;
+
+    // Atualiza progressivamente (UX melhor)
+    conteudo.innerText = acervo;
+  }
+
+  status.innerText = "✅ Acervo carregado com sucesso!";
+  ACERVO_GLOBAL = acervo;
+
+  console.log("ACERVO:", ACERVO_GLOBAL);
+}
+
+// 📋 Copiar tudo
+function copiarAcervo() {
+  navigator.clipboard.writeText(ACERVO_GLOBAL);
+  alert("Acervo copiado!");
+}
+
+// AUTO START
+window.onload = iniciarLeitura;
+
+</script>
+
+</body>
+</html>
