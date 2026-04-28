@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>ICARO | Observatório Nacional da Transparência Orçamentária</title>
+  <meta name="description" content="ICARO é um observatório nacional de transparência orçamentária baseado em comunicação pública, acessibilidade e responsividade informacional dos dados fiscais no Brasil." />
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="ICARO | Observatório Nacional da Transparência Orçamentária" />
+  <meta property="og:description" content="Sistema de avaliação da transparência fiscal baseado em comunicação, acessibilidade e responsividade da informação pública no Brasil." />
+  <meta property="og:image" content="https://www.autistas.net/web/assets/icaro/ICARO-BID.png" />
+  <meta property="og:url" content="https://www.autistas.net/rede-dev/icaro/icaro.html" />
+  <meta property="og:type" content="website" />
+  <meta property="og:image:width" content="1280" />
+  <meta property="og:image:height" content="538" />
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="ICARO | Observatório de Transparência Orçamentária" />
+  <meta name="twitter:description" content="Indicadores nacionais de transparência fiscal com foco em comunicação pública e usabilidade cidadã." />
+  <meta name="twitter:image" content="https://www.autistas.net/web/assets/icaro/ICARO-BID.png" />
+
+  <!-- Favicons -->
+  <link href="../../assets/icaro/Logo-ICARO.png" rel="icon">
+  <link href="../../assets/icaro/Logo-ICARO.png" rel="apple-touch-icon">
+
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com" rel="preconnect">
+  <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Bootstrap -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+
+  <!-- Main CSS -->
+  <link href="../../assets/css/main.css" rel="stylesheet">
+</head>
+
+<body>
+
+<div class="container py-4">
+
+<!-- HEADER -->
+<div class="header">
+
+  <img class="header-banner"
+       src="../../assets/icaro/ICARO-BID.png"
+       alt="ICARO Banner" />
+
+  <div class="header-top">
+    <img class="logo"
+         src="../../assets/icaro/Logo-ICARO.png"
+         alt="ICARO Logo" />
+
+    <div>
+      <h1>ICARO — Observatório Nacional da Comunicação do Orçamento Público</h1>
+      <p class="sub">
+        Sistema integrado de avaliação da transparência fiscal baseada em comunicação, acessibilidade e responsividade informacional
+      </p>
+    </div>
+  </div>
+
+  <br>
+
+  <div class="nav-system">
+    <b>Fluxo do sistema:</b>
+    ICARO1 → ICARO2 → ICARO3 → ICARO4 → ICARO5 (Observatório + Mapa + Ranking)
+  </div>
+
+</div>
+
+<!-- KPI GLOBAL -->
+<div class="row g-3">
+
+<div class="col-lg-3">
+<div class="kpi">
+<i class="bi bi-speedometer2"></i>
+<h2>48</h2>
+<p class="sub">ICARO Score Brasil</p>
+</div>
+</div>
+
+<div class="col-lg-3">
+<div class="kpi">
+<i class="bi bi-building"></i>
+<h2>27</h2>
+<p class="sub">Unidades federativas</p>
+</div>
+</div>
+
+<div class="col-lg-3">
+<div class="kpi">
+<i class="bi bi-diagram-3"></i>
+<h2>3</h2>
+<p class="sub">Dimensões avaliadas</p>
+</div>
+</div>
+
+<div class="col-lg-3">
+<div class="kpi">
+<i class="bi bi-globe"></i>
+<h2>Baixa</h2>
+<p class="sub">Responsividade informacional</p>
+</div>
+</div>
+
+</div>
+
+<br>
+
+<!-- MAPA + RANKING -->
+<div class="row g-4">
+
+<div class="col-lg-8">
+<div class="map">
+<div>
+<i class="bi bi-map" style="font-size:2rem;color:#2563eb;"></i>
+<h4>Mapa ICARO do Brasil</h4>
+<p class="sub">Distribuição geoespacial da maturidade de comunicação do orçamento público</p>
+<p class="sub">(estrutura preparada para integração com IBGE / GeoJSON)</p>
+</div>
+</div>
+</div>
+
+<div class="col-lg-4">
+<div class="cardx" style="height:520px; overflow:auto;">
+
+<i class="bi bi-trophy"></i>
+<h4>Ranking ICARO — Estados</h4>
+
+<br>
+
+<div><b>DF</b> <span class="tag">72</span></div>
+<div class="bar"><div class="fill" style="width:72%"></div></div>
+<br>
+
+<div><b>SP</b> <span class="tag">68</span></div>
+<div class="bar"><div class="fill" style="width:68%"></div></div>
+<br>
+
+<div><b>RJ</b> <span class="tag">60</span></div>
+<div class="bar"><div class="fill" style="width:60%"></div></div>
+<br>
+
+<div><b>RS</b> <span class="tag">58</span></div>
+<div class="bar"><div class="fill" style="width:58%"></div></div>
+<br>
+
+<div><b>MG</b> <span class="tag">55</span></div>
+<div class="bar"><div class="fill" style="width:55%"></div></div>
+<br>
+
+<div><b>BA</b> <span class="tag">42</span></div>
+<div class="bar"><div class="fill" style="width:42%"></div></div>
+<br>
+
+<div><b>AM</b> <span class="tag">39</span></div>
+<div class="bar"><div class="fill" style="width:39%"></div></div>
+
+</div>
+</div>
+
+</div>
+
+<br>
+
+<!-- ECOSSISTEMA -->
+<div class="row g-4">
+
+<div class="col-lg-4"><div class="cardx"><i class="bi bi-bank"></i><h4>CGU</h4><p class="sub">Portal da Transparência</p><p>Execução orçamentária e gastos públicos</p></div></div>
+
+<div class="col-lg-4"><div class="cardx"><i class="bi bi-cash-stack"></i><h4>STN</h4><p class="sub">Tesouro Nacional</p><p>Dados fiscais e contábeis da União</p></div></div>
+
+<div class="col-lg-4"><div class="cardx"><i class="bi bi-bar-chart"></i><h4>SIOP</h4><p class="sub">Orçamento Federal</p><p>Planejamento e execução orçamentária</p></div></div>
+
+</div>
+
+<br>
+
+<!-- MATRIZ -->
+<div class="cardx">
+
+<i class="bi bi-grid-3x3"></i>
+<h4>Matriz ICARO de avaliação</h4>
+
+<br>
+
+<div class="row">
+
+<div class="col-md-4">
+<b>Comunicação</b>
+<p class="sub">Clareza da linguagem pública</p>
+<div class="bar"><div class="fill" style="width:45%"></div></div>
+</div>
+
+<div class="col-md-4">
+<b>Acessibilidade</b>
+<p class="sub">Usabilidade e navegação cidadã</p>
+<div class="bar"><div class="fill" style="width:50%"></div></div>
+</div>
+
+<div class="col-md-4">
+<b>Responsividade</b>
+<p class="sub">Camadas de complexidade da informação</p>
+<div class="bar"><div class="fill" style="width:40%"></div></div>
+</div>
+
+</div>
+
+</div>
+
+<br>
+
+<!-- BENCHMARK -->
+<div class="row g-4">
+
+<div class="col-lg-6"><div class="cardx"><i class="bi bi-trophy"></i><h4>Benchmark internacional</h4><ul><li><b>Irlanda</b> — orçamento cidadão simplificado</li><li><b>Canadá</b> — UX pública orientada ao cidadão</li><li><b>Nova Zelândia</b> — integração orçamento + cidadania</li><li><b>Coreia do Sul</b> — dashboards participativos</li></ul></div></div>
+
+<div class="col-lg-6"><div class="cardx"><i class="bi bi-diagram-2"></i><h4>Gap estrutural</h4><p>O problema central não é a ausência de dados, mas a ausência de tradução cognitiva da informação pública.</p><p><b>Fluxo crítico:</b><br>Dado → Publicação → Acesso → ❌ Compreensão → ❌ Uso social</p></div></div>
+
+</div>
+
+<br>
+
+<!-- FECHAMENTO -->
+<div class="header">
+<h4><i class="bi bi-arrow-right-circle"></i> ICARO como sistema</h4>
+<p class="sub">O ICARO consolida um modelo de avaliação da transparência fiscal baseado na experiência do usuário, transformando dados orçamentários em informação compreensível e utilizável pelo cidadão.</p>
+</div>
+
+</div>
+
+</body>
+</html>
