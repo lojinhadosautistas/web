@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+<title>Mapa da Nossa Mente | Lojinha dos Autistas</title>
+
+<meta name="description" content="Mapa interativo das funções cognitivas no autismo, inspirado em regiões cerebrais e suas relações com comportamento, sensibilidade e aprendizagem."/>
+
+<link href="../assets/img/favicon.png" rel="icon">
+
+<!-- HUB -->
+<link href="../assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet"/>
+<link href="../assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet"/>
+<link rel="stylesheet" href="../assets/css/hub.css">
+
+<style>
+
+.brain-container{
+  position:relative;
+  text-align:center;
+}
+
+.brain-img{
+  max-width:100%;
+  border-radius:12px;
+}
+
+/* pontos clicáveis */
+.node{
+  position:absolute;
+  width:18px;
+  height:18px;
+  border-radius:50%;
+  cursor:pointer;
+  border:2px solid white;
+}
+
+/* cores */
+.prefrontal{ background:#ef4444; top:30%; left:30%; }
+.parietal{ background:#f97316; top:20%; left:55%; }
+.temporal{ background:#3b82f6; top:60%; left:55%; }
+.occipital{ background:#22c55e; top:50%; left:75%; }
+.cerebelo{ background:#a855f7; top:75%; left:70%; }
+.limbico{ background:#eab308; top:55%; left:45%; }
+
+.cardx{
+  background:#fff;
+  border-radius:12px;
+  padding:16px;
+  box-shadow:0 4px 12px rgba(0,0,0,.05);
+}
+
+.section{margin-top:25px;}
+
+</style>
+
+</head>
+
+<body>
+
+<div id="header-container"></div>
+<div id="sidebar-container"></div>
+
+<main class="main">
+<div class="container py-4">
+
+<h1>🧠 Mapa da Nossa Mente</h1>
+<p>Explorando como diferentes regiões cerebrais se relacionam com o autismo</p>
+
+<div class="row g-4">
+
+<!-- ESQUERDA -->
+<div class="col-lg-8">
+
+<div class="cardx brain-container">
+
+<img src="../assets/img/brain-map.png" class="brain-img">
+
+<!-- NODES -->
+<div class="node prefrontal" onclick="showInfo('prefrontal')"></div>
+<div class="node parietal" onclick="showInfo('parietal')"></div>
+<div class="node temporal" onclick="showInfo('temporal')"></div>
+<div class="node occipital" onclick="showInfo('occipital')"></div>
+<div class="node cerebelo" onclick="showInfo('cerebelo')"></div>
+<div class="node limbico" onclick="showInfo('limbico')"></div>
+
+</div>
+
+</div>
+
+<!-- DIREITA -->
+<div class="col-lg-4">
+
+<div class="cardx">
+<h5><i class="bi bi-cpu"></i> Região selecionada</h5>
+<div id="info">
+Clique em uma área do cérebro
+</div>
+</div>
+
+<div class="cardx mt-3">
+<h5><i class="bi bi-lightbulb"></i> Leitura</h5>
+<p id="leitura">—</p>
+</div>
+
+<div class="cardx mt-3">
+<h5><i class="bi bi-activity"></i> Implicações</h5>
+<ul id="implicacoes"></ul>
+</div>
+
+</div>
+
+</div>
+
+</div>
+</main>
+
+<script>
+
+function showInfo(area){
+
+let data = {
+
+prefrontal:{
+title:"Córtex Pré-frontal",
+desc:"Planejamento, decisões e controle de impulsos",
+leitura:"Pode influenciar organização e flexibilidade cognitiva",
+imp:["Dificuldade com mudanças","Rigidez de rotina","Foco intenso"]
+},
+
+parietal:{
+title:"Córtex Parietal",
+desc:"Integração sensorial",
+leitura:"Relaciona-se à sensibilidade sensorial",
+imp:["Hipersensibilidade","Busca sensorial"]
+},
+
+temporal:{
+title:"Córtex Temporal",
+desc:"Linguagem e memória",
+leitura:"Pode impactar comunicação",
+imp:["Processamento auditivo diferente","Interpretação literal"]
+},
+
+occipital:{
+title:"Córtex Occipital",
+desc:"Processamento visual",
+leitura:"Força comum no autismo",
+imp:["Pensamento visual forte","Reconhecimento de padrões"]
+},
+
+cerebelo:{
+title:"Cerebelo",
+desc:"Coordenação e automatização",
+leitura:"Pode afetar fluidez motora",
+imp:["Coordenação","Aprendizagem motora"]
+},
+
+limbico:{
+title:"Sistema Límbico",
+desc:"Emoções e regulação",
+leitura:"Relaciona-se à intensidade emocional",
+imp:["Ansiedade","Reatividade emocional"]
+}
+
+};
+
+let d = data[area];
+
+document.getElementById("info").innerHTML =
+`<b>${d.title}</b><br>${d.desc}`;
+
+document.getElementById("leitura").innerText = d.leitura;
+
+let html="";
+d.imp.forEach(i=> html+=`<li>${i}</li>`);
+document.getElementById("implicacoes").innerHTML=html;
+
+}
+
+</script>
+
+<script src="../assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="js/components.js"></script>
+
+</body>
+</html>
