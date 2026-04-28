@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+<title>Mapa da Nossa Mente | Sistema REDE</title>
+
+<meta name="description" content="Mapa interativo da mente autista com experiência guiada."/>
+
+<link href="../assets/img/favicon.png" rel="icon">
+
+<link href="../assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet"/>
+<link href="../assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet"/>
+<link rel="stylesheet" href="../assets/css/hub.css">
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet"/>
+
+<style>
+
+body{
+  font-family:'Inter', sans-serif;
+  background:#f5f7fb;
+}
+
+.cardx{
+  background:white;
+  border-radius:14px;
+  padding:18px;
+  box-shadow:0 6px 18px rgba(0,0,0,0.06);
+}
+
+/* LISTA */
+.region-item{
+  padding:10px;
+  border-radius:10px;
+  cursor:pointer;
+}
+.region-item:hover{ background:#eef2ff; }
+.region-active{ background:#dbeafe; }
+
+/* BRAIN */
+.brain-wrapper{
+  position:relative;
+  max-width:520px;
+  margin:auto;
+}
+
+.brain-img{
+  width:100%;
+  border-radius:12px;
+}
+
+/* HOTSPOTS */
+.brain-hotspot{
+  position:absolute;
+  cursor:pointer;
+  border-radius:50%;
+  transition:.2s;
+}
+
+.brain-hotspot.active{
+  background:rgba(37,99,235,0.25);
+  transform:scale(1.2);
+}
+
+.brain-hotspot:hover{
+  background:rgba(37,99,235,0.15);
+}
+
+/* POSIÇÕES */
+#prefrontal{ top:20%; left:15%; width:70px; height:70px; }
+#parietal{ top:10%; left:45%; width:70px; height:70px; }
+#temporal{ top:50%; left:40%; width:70px; height:70px; }
+#occipital{ top:25%; left:75%; width:60px; height:60px; }
+#cerebelo{ top:70%; left:70%; width:60px; height:60px; }
+#limbico{ top:45%; left:30%; width:60px; height:60px; }
+#insula{ top:40%; left:48%; width:40px; height:40px; }
+
+/* GUIA */
+.guia-box{
+  background:#eef2ff;
+  padding:14px;
+  border-radius:12px;
+  min-height:90px;
+  transition:all .3s ease;
+}
+
+/* PROGRESSO */
+.progress-dots{
+  text-align:center;
+  margin-top:8px;
+  font-size:14px;
+  letter-spacing:4px;
+}
+
+.dot{
+  opacity:0.3;
+}
+
+.dot.active{
+  opacity:1;
+  color:#2563eb;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div id="header-container"></div>
+<div id="sidebar-container"></div>
+
+<main class="main">
+
+<div class="page-title mb-4">
+<h1>🧠 Mapa da Nossa Mente</h1>
+<p>Uma forma sensível de entender o cérebro autista</p>
+</div>
+
+<div class="row g-4">
+
+<!-- ESQUERDA -->
+<div class="col-lg-3">
+
+<div class="cardx">
+<h5>Regiões</h5>
+
+<div class="region-item" data-id="prefrontal">🔴 Pré-frontal</div>
+<div class="region-item" data-id="parietal">🟠 Parietal</div>
+<div class="region-item" data-id="temporal">🔵 Temporal</div>
+<div class="region-item" data-id="occipital">🟢 Occipital</div>
+<div class="region-item" data-id="cerebelo">🟣 Cerebelo</div>
+<div class="region-item" data-id="limbico">🟡 Límbico</div>
+<div class="region-item" data-id="insula">🔷 Ínsula</div>
+</div>
+
+<div class="cardx mt-3">
+
+<h5>💙 Trilha para mães</h5>
+
+<div class="guia-box" id="guia">
+Clique em iniciar
+</div>
+
+<div class="progress-dots" id="dots"></div>
+
+<div class="d-flex gap-2 mt-2">
+
+<button class="btn btn-outline-secondary btn-sm" onclick="prevGuia()">
+<i class="bi bi-arrow-left"></i>
+</button>
+
+<button class="btn btn-primary btn-sm flex-fill" onclick="startGuia()">
+Iniciar
+</button>
+
+<button class="btn btn-outline-secondary btn-sm" onclick="nextGuiaManual()">
+<i class="bi bi-arrow-right"></i>
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- CENTRO -->
+<div class="col-lg-6">
+
+<div class="cardx">
+<div class="brain-wrapper">
+
+<img src="../assets/img/brain-map.png" class="brain-img">
+
+<div id="prefrontal" class="brain-hotspot"></div>
+<div id="parietal" class="brain-hotspot"></div>
+<div id="temporal" class="brain-hotspot"></div>
+<div id="occipital" class="brain-hotspot"></div>
+<div id="cerebelo" class="brain-hotspot"></div>
+<div id="limbico" class="brain-hotspot"></div>
+<div id="insula" class="brain-hotspot"></div>
+
+</div>
+</div>
+
+</div>
+
+<!-- DIREITA -->
+<div class="col-lg-3">
+<div class="cardx" id="painel">
+<h5>Região selecionada</h5>
+<p>Clique em uma área</p>
+</div>
+</div>
+
+</div>
+
+</main>
+
+<script src="../assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="js/components.js"></script>
+
+<script>
+
+// BASE
+const regioes = {
+prefrontal:{titulo:"Córtex Pré-frontal",desc:"Planejamento",autismo:"Mudanças podem ser difíceis"},
+parietal:{titulo:"Córtex Parietal",desc:"Sensações",autismo:"Sobrecarga sensorial"},
+temporal:{titulo:"Córtex Temporal",desc:"Linguagem",autismo:"Processamento auditivo diferente"},
+occipital:{titulo:"Córtex Occipital",desc:"Visão",autismo:"Pensamento visual"},
+cerebelo:{titulo:"Cerebelo",desc:"Coordenação",autismo:"Movimentos variáveis"},
+limbico:{titulo:"Sistema Límbico",desc:"Emoções",autismo:"Intensidade emocional"},
+insula:{titulo:"Ínsula",desc:"Consciência interna",autismo:"Percepção corporal"}
+};
+
+// TRILHA COM REGIÃO
+const trilha = [
+{txt:"Respira. Vamos entender juntos.", reg:null},
+{txt:"O cérebro autista sente mais.", reg:"limbico"},
+{txt:"O mundo pode ser intenso.", reg:"parietal"},
+{txt:"A comunicação pode ser diferente.", reg:"temporal"},
+{txt:"Mudanças exigem esforço.", reg:"prefrontal"},
+{txt:"Mas há muitas forças aqui.", reg:"occipital"},
+{txt:"E você não está sozinho.", reg:null}
+];
+
+let passo=0;
+let auto=null;
+
+// RENDER GUIA
+function renderGuia(){
+  const box = document.getElementById("guia");
+  box.style.opacity=0;
+
+  setTimeout(()=>{
+    box.innerText = trilha[passo].txt;
+    box.style.opacity=1;
+  },150);
+
+  renderDots();
+  highlightRegion(trilha[passo].reg);
+}
+
+// DOTS
+function renderDots(){
+  let html="";
+  trilha.forEach((_,i)=>{
+    html+=`<span class="dot ${i===passo?'active':''}">●</span>`;
+  });
+  document.getElementById("dots").innerHTML=html;
+}
+
+// HIGHLIGHT
+function highlightRegion(id){
+
+document.querySelectorAll('.brain-hotspot').forEach(el=>{
+  el.classList.remove('active');
+});
+
+document.querySelectorAll('.region-item').forEach(el=>{
+  el.classList.remove('region-active');
+});
+
+if(id){
+  document.getElementById(id)?.classList.add('active');
+  document.querySelector(`[data-id="${id}"]`)?.classList.add('region-active');
+
+  updatePanel(id);
+}
+
+}
+
+// PAINEL
+function updatePanel(id){
+  let r = regioes[id];
+  document.getElementById("painel").innerHTML = `
+    <h5>${r.titulo}</h5>
+    <p><b>${r.desc}</b></p>
+    <hr>
+    <p>${r.autismo}</p>
+  `;
+}
+
+// CONTROLES
+function startGuia(){
+  passo=0;
+  renderGuia();
+
+  if(auto) clearInterval(auto);
+
+  auto=setInterval(()=>{
+    passo++;
+    if(passo>=trilha.length){
+      clearInterval(auto);
+      return;
+    }
+    renderGuia();
+  },4000);
+}
+
+function nextGuiaManual(){
+  if(passo<trilha.length-1){
+    passo++;
+    renderGuia();
+  }
+}
+
+function prevGuia(){
+  if(passo>0){
+    passo--;
+    renderGuia();
+  }
+}
+
+// CLIQUE MANUAL
+document.querySelectorAll('.region-item').forEach(el=>{
+  el.addEventListener('click',()=>{
+    let id=el.dataset.id;
+    highlightRegion(id);
+  });
+});
+
+document.querySelectorAll('.brain-hotspot').forEach(el=>{
+  el.addEventListener('click',()=>{
+    highlightRegion(el.id);
+  });
+});
+
+</script>
+
+</body>
+</html>
