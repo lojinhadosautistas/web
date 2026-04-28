@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>ICARO | Dashboard Produto 1</title>
+
+<style>
+
+body{
+  margin:0;
+  font-family: Arial, sans-serif;
+  background:#f5f7fb;
+  display:flex;
+}
+
+/* ===================== */
+/* SIDEBAR */
+/* ===================== */
+
+.sidebar{
+  width:260px;
+  background:#0f172a;
+  color:white;
+  height:100vh;
+  position:fixed;
+  padding:20px;
+}
+
+.sidebar h2{
+  font-size:16px;
+  margin-bottom:20px;
+}
+
+.sidebar a{
+  display:block;
+  color:#cbd5e1;
+  text-decoration:none;
+  padding:10px;
+  border-radius:8px;
+  font-size:13px;
+  margin-bottom:6px;
+}
+
+.sidebar a:hover{
+  background:#1d4ed8;
+  color:white;
+}
+
+/* ===================== */
+/* CONTEÚDO */
+/* ===================== */
+
+.main{
+  margin-left:260px;
+  padding:30px;
+  width:100%;
+}
+
+.section{
+  margin-bottom:40px;
+}
+
+/* ===================== */
+/* CARDS E GRÁFICOS */
+/* ===================== */
+
+.card{
+  background:white;
+  padding:20px;
+  border-radius:12px;
+  box-shadow:0 4px 18px rgba(0,0,0,0.08);
+}
+
+h1{
+  font-size:20px;
+}
+
+h2{
+  font-size:16px;
+}
+
+/* ===================== */
+/* GANTT */
+/* ===================== */
+
+.grid{
+  display:grid;
+  grid-template-columns: 220px repeat(16, 1fr);
+  gap:4px;
+  font-size:12px;
+}
+
+.header-cell{
+  background:#eef2ff;
+  padding:6px;
+  text-align:center;
+  border-radius:4px;
+  font-weight:bold;
+}
+
+.label{
+  font-weight:600;
+}
+
+/* ===================== */
+/* BARRAS */
+/* ===================== */
+
+.bar{
+  height:18px;
+  border-radius:6px;
+}
+
+.phase1{background:#1d4ed8;}
+.phase2{background:#2563eb;}
+.phase3{background:#3b82f6;}
+.phase4{background:#60a5fa;}
+
+/* ===================== */
+/* GRÁFICOS */
+/* ===================== */
+
+.bar-row{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  margin:10px 0;
+  font-size:13px;
+}
+
+.bar-bg{
+  flex:1;
+  height:10px;
+  background:#e5e7eb;
+  border-radius:6px;
+  overflow:hidden;
+}
+
+.bar-fill{
+  height:10px;
+  background:#2563eb;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<!-- ===================== -->
+<!-- SIDEBAR -->
+<!-- ===================== -->
+
+<div class="sidebar">
+
+<h2>ICARO — Produto 1</h2>
+
+<a href="#visao">Visão Geral</a>
+<a href="#cronograma">Cronograma</a>
+<a href="#metodologia">Metodologia</a>
+<a href="#benchmark">Benchmark</a>
+<a href="#diagnostico">Diagnóstico</a>
+<a href="#pipeline">Pipeline Analítico</a>
+
+</div>
+
+<!-- ===================== -->
+<!-- CONTEÚDO -->
+<!-- ===================== -->
+
+<div class="main">
+
+<!-- ===================== -->
+<!-- VISÃO GERAL -->
+<!-- ===================== -->
+
+<div class="section" id="visao">
+
+<div class="card">
+
+<h1>Produto 1 — Plano de Trabalho ICARO</h1>
+
+<p>
+Estruturação metodológica de um estudo técnico aplicado voltado à comunicação do orçamento público,
+com foco em diagnóstico, benchmarking internacional e construção de framework analítico.
+</p>
+
+</div>
+
+</div>
+
+<!-- ===================== -->
+<!-- CRONOGRAMA -->
+<!-- ===================== -->
+
+<div class="section" id="cronograma">
+
+<div class="card">
+
+<h2>Cronograma de Execução (16 semanas)</h2>
+
+<br/>
+
+<div class="grid">
+
+<div class="label">Fase</div>
+<div class="header-cell">S1</div><div class="header-cell">S2</div><div class="header-cell">S3</div><div class="header-cell">S4</div>
+<div class="header-cell">S5</div><div class="header-cell">S6</div><div class="header-cell">S7</div><div class="header-cell">S8</div>
+<div class="header-cell">S9</div><div class="header-cell">S10</div><div class="header-cell">S11</div><div class="header-cell">S12</div>
+<div class="header-cell">S13</div><div class="header-cell">S14</div><div class="header-cell">S15</div><div class="header-cell">S16</div>
+
+<div class="label">Estruturação conceitual</div>
+<div class="bar phase1" style="grid-column:2 / span 4;"></div>
+
+<div class="label">Benchmark internacional</div>
+<div class="bar phase2" style="grid-column:6 / span 5;"></div>
+
+<div class="label">Diagnóstico Brasil</div>
+<div class="bar phase3" style="grid-column:11 / span 5;"></div>
+
+<div class="label">Síntese analítica</div>
+<div class="bar phase4" style="grid-column:15 / span 2;"></div>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- ===================== -->
+<!-- METODOLOGIA -->
+<!-- ===================== -->
+
+<div class="section" id="metodologia">
+
+<div class="card">
+
+<h2>Distribuição Metodológica</h2>
+
+<div class="bar-row">
+<span>Benchmark Internacional</span>
+<div class="bar-bg"><div class="bar-fill" style="width:35%"></div></div>
+<span>35%</span>
+</div>
+
+<div class="bar-row">
+<span>Diagnóstico Brasil</span>
+<div class="bar-bg"><div class="bar-fill" style="width:40%"></div></div>
+<span>40%</span>
+</div>
+
+<div class="bar-row">
+<span>Coleta de Evidências</span>
+<div class="bar-bg"><div class="bar-fill" style="width:15%"></div></div>
+<span>15%</span>
+</div>
+
+<div class="bar-row">
+<span>Síntese Analítica</span>
+<div class="bar-bg"><div class="bar-fill" style="width:10%"></div></div>
+<span>10%</span>
+</div>
+
+</div>
+
+</div>
+
+<!-- ===================== -->
+<!-- BENCHMARK -->
+<!-- ===================== -->
+
+<div class="section" id="benchmark">
+
+<div class="card">
+
+<h2>Benchmark Internacional</h2>
+
+<ul>
+<li>Irlanda — orçamento cidadão simplificado</li>
+<li>Canadá — UX pública orientada ao cidadão</li>
+<li>Nova Zelândia — integração orçamento + cidadania</li>
+<li>Coreia do Sul — dashboards participativos</li>
+</ul>
+
+</div>
+
+</div>
+
+<!-- ===================== -->
+<!-- DIAGNÓSTICO -->
+<!-- ===================== -->
+
+<div class="section" id="diagnostico">
+
+<div class="card">
+
+<h2>Dimensões do Diagnóstico</h2>
+
+<p>Clareza, arquitetura da informação, UX, acessibilidade, responsividade e integração institucional.</p>
+
+</div>
+
+</div>
+
+<!-- ===================== -->
+<!-- PIPELINE -->
+<!-- ===================== -->
+
+<div class="section" id="pipeline">
+
+<div class="card">
+
+<h2>Pipeline Analítico</h2>
+
+<p>
+Benchmark → Diagnóstico → Evidências → Síntese → Framework Produto 2
+</p>
+
+</div>
+
+</div>
+
+</div>
+
+</body>
+</html>
