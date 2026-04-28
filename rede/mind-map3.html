@@ -5,7 +5,11 @@
 <meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 
-<title>Mapa da Nossa Mente | Observatório</title>
+<title>Mapa da Nossa Mente | Lojinha dos Autistas</title>
+
+<meta name="description" content="Mapa interativo das regiões do cérebro e sua relação com o autismo."/>
+
+<link href="../assets/img/favicon.png" rel="icon">
 
 <link href="../assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet"/>
 <link href="../assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet"/>
@@ -25,59 +29,79 @@ body{
   border-radius:14px;
   padding:18px;
   box-shadow:0 6px 18px rgba(0,0,0,0.06);
-  transition:.25s;
 }
 
-.cardx:hover{
-  transform:translateY(-2px);
-}
-
-/* REGIÕES */
+/* LISTA */
 .region-item{
   padding:10px;
   border-radius:10px;
   cursor:pointer;
-  transition:.2s;
 }
-
-.region-item:hover{
-  background:#eef2ff;
-}
-
-.region-active{
-  background:#dbeafe;
-  font-weight:600;
-}
+.region-item:hover{ background:#eef2ff; }
+.region-active{ background:#dbeafe; }
 
 /* CÉREBRO */
-.brain-container{
-  overflow:hidden;
+.brain-container{ text-align:center; position:relative; }
+
+.brain-img{
+  width:100%;
+  max-width:520px;
+}
+
+/* NODES */
+.brain-node{
+  position:absolute;
+  transform:translate(-50%,-50%);
+  cursor:pointer;
   text-align:center;
 }
 
-.brain-wrapper{
-  transition:transform .4s ease;
-}
-
-.brain-area{
-  cursor:pointer;
+.brain-node .dot{
+  width:16px;
+  height:16px;
+  background:#2563eb;
+  border-radius:50%;
+  box-shadow:0 0 0 6px rgba(37,99,235,0.15);
   transition:.2s;
-  opacity:.85;
 }
 
-.brain-area:hover{
-  opacity:1;
+.brain-node .label{
+  font-size:0.75rem;
+  margin-top:6px;
+  background:white;
+  padding:3px 8px;
+  border-radius:8px;
+  box-shadow:0 2px 6px rgba(0,0,0,0.1);
 }
 
-.brain-active{
-  stroke:#000;
-  stroke-width:2;
-  opacity:1;
+.brain-node:hover .dot{
+  transform:scale(1.2);
+  background:#1d4ed8;
 }
 
-/* BOTÕES */
-.controls button{
-  margin:2px;
+.brain-node.active .dot{
+  background:#ef4444;
+  box-shadow:0 0 0 8px rgba(239,68,68,0.2);
+}
+
+/* TOOLTIP */
+.tooltip-brain{
+  position:absolute;
+  background:#0f172a;
+  color:white;
+  padding:6px 10px;
+  border-radius:6px;
+  font-size:0.7rem;
+  pointer-events:none;
+  opacity:0;
+  transition:.2s;
+}
+
+/* TAG */
+.tag{
+  padding:4px 10px;
+  border-radius:20px;
+  font-size:0.75rem;
 }
 
 </style>
@@ -89,7 +113,7 @@ body{
 <div class="container py-4">
 
 <h2>🧠 Mapa da Nossa Mente</h2>
-<p class="text-muted">Modo Observatório — Interação Avançada</p>
+<p class="text-muted">Entendendo as regiões cerebrais e suas funções no autismo</p>
 
 <div class="row g-4">
 
@@ -97,24 +121,15 @@ body{
 <div class="col-lg-3">
 
 <div class="cardx">
-<h5>Regiões</h5>
+<h5>Regiões do Cérebro</h5>
 
-<div class="region-item" data-id="prefrontal">🔴 Pré-frontal</div>
-<div class="region-item" data-id="parietal">🟠 Parietal</div>
-<div class="region-item" data-id="temporal">🔵 Temporal</div>
-<div class="region-item" data-id="occipital">🟢 Occipital</div>
+<div class="region-item" data-id="prefrontal">🔴 Córtex Pré-frontal</div>
+<div class="region-item" data-id="parietal">🟠 Córtex Parietal</div>
+<div class="region-item" data-id="temporal">🔵 Córtex Temporal</div>
+<div class="region-item" data-id="occipital">🟢 Córtex Occipital</div>
 <div class="region-item" data-id="cerebelo">🟣 Cerebelo</div>
-<div class="region-item" data-id="limbico">🟡 Límbico</div>
+<div class="region-item" data-id="limbico">🟡 Sistema Límbico</div>
 <div class="region-item" data-id="insula">🔷 Ínsula</div>
-
-</div>
-
-<div class="cardx mt-3">
-<h5>Modo</h5>
-
-<button class="btn btn-sm btn-outline-primary w-100 mb-2" onclick="modoFoco()">Modo Foco</button>
-<button class="btn btn-sm btn-outline-secondary w-100" onclick="resetView()">Reset Geral</button>
-
 </div>
 
 </div>
@@ -122,33 +137,22 @@ body{
 <!-- CENTRO -->
 <div class="col-lg-6">
 
-<div class="cardx mb-3">
-Clique em qualquer região do cérebro ou lista lateral.
+<div class="cardx mb-3" style="background:#eef4ff">
+<b>Como interpretar:</b> clique nas regiões ou nos pontos do cérebro
 </div>
 
 <div class="cardx brain-container">
 
-<div id="brainWrapper" class="brain-wrapper">
+<img src="../assets/img/brain-map.png" class="brain-img">
 
-<svg viewBox="0 0 500 400" width="100%">
-
-<path id="prefrontal" class="brain-area" fill="#ef4444" d="M100 100 L200 80 L220 140 L140 160 Z"/>
-<path id="parietal" class="brain-area" fill="#f97316" d="M200 80 L320 100 L300 170 L220 140 Z"/>
-<path id="temporal" class="brain-area" fill="#3b82f6" d="M200 180 L300 170 L280 260 L180 250 Z"/>
-<path id="occipital" class="brain-area" fill="#22c55e" d="M320 100 L380 160 L340 200 L300 170 Z"/>
-<path id="cerebelo" class="brain-area" fill="#7c3aed" d="M300 260 L380 240 L360 300 L280 260 Z"/>
-<path id="limbico" class="brain-area" fill="#eab308" d="M220 140 L300 170 L260 200 L200 180 Z"/>
-<path id="insula" class="brain-area" fill="#06b6d4" d="M230 160 L260 150 L250 180 L220 180 Z"/>
-
-</svg>
-
-</div>
-
-<div class="controls mt-3 text-center">
-<button class="btn btn-sm btn-outline-secondary" onclick="zoom(1.2)">+ Zoom</button>
-<button class="btn btn-sm btn-outline-secondary" onclick="zoom(0.8)">- Zoom</button>
-<button class="btn btn-sm btn-outline-secondary" onclick="resetZoom()">Reset Zoom</button>
-</div>
+<!-- NODES -->
+<div class="brain-node" style="top:30%; left:25%" data-id="prefrontal"><div class="dot"></div><div class="label">Pré-frontal</div></div>
+<div class="brain-node" style="top:20%; left:50%" data-id="parietal"><div class="dot"></div><div class="label">Parietal</div></div>
+<div class="brain-node" style="top:55%; left:45%" data-id="temporal"><div class="dot"></div><div class="label">Temporal</div></div>
+<div class="brain-node" style="top:35%; left:75%" data-id="occipital"><div class="dot"></div><div class="label">Occipital</div></div>
+<div class="brain-node" style="top:75%; left:70%" data-id="cerebelo"><div class="dot"></div><div class="label">Cerebelo</div></div>
+<div class="brain-node" style="top:50%; left:40%" data-id="limbico"><div class="dot"></div><div class="label">Límbico</div></div>
+<div class="brain-node" style="top:48%; left:48%" data-id="insula"><div class="dot"></div><div class="label">Ínsula</div></div>
 
 </div>
 
@@ -158,103 +162,86 @@ Clique em qualquer região do cérebro ou lista lateral.
 <div class="col-lg-3">
 
 <div class="cardx" id="painel">
-Clique em uma região
+<h5>Região Selecionada</h5>
+<p>Clique em uma região</p>
 </div>
 
 </div>
 
+</div>
+
+<div class="cardx mt-4" style="background:#eef2ff">
+Este mapa é educativo e não substitui avaliação profissional.
 </div>
 
 </div>
 
 <script>
 
-let scale = 1;
-let focoAtivo = false;
-
-// DADOS
+// BASE
 const regioes = {
-prefrontal:{titulo:"Pré-frontal",desc:"Funções executivas"},
-parietal:{titulo:"Parietal",desc:"Sensorial"},
-temporal:{titulo:"Temporal",desc:"Linguagem"},
-occipital:{titulo:"Occipital",desc:"Visual"},
-cerebelo:{titulo:"Cerebelo",desc:"Coordenação"},
-limbico:{titulo:"Límbico",desc:"Emoções"},
-insula:{titulo:"Ínsula",desc:"Consciência"}
+prefrontal:{titulo:"Córtex Pré-frontal",desc:"Funções executivas",funcoes:["Planejamento","Decisão","Controle","Atenção"],autismo:["Rigidez","Foco intenso"]},
+parietal:{titulo:"Córtex Parietal",desc:"Sensorial",funcoes:["Integração","Espaço"],autismo:["Hipersensibilidade"]},
+temporal:{titulo:"Córtex Temporal",desc:"Linguagem",funcoes:["Audição","Memória"],autismo:["Processamento auditivo diferente"]},
+occipital:{titulo:"Córtex Occipital",desc:"Visão",funcoes:["Reconhecimento visual"],autismo:["Pensamento visual"]},
+cerebelo:{titulo:"Cerebelo",desc:"Coordenação",funcoes:["Equilíbrio"],autismo:["Coordenação diferente"]},
+limbico:{titulo:"Sistema Límbico",desc:"Emoções",funcoes:["Regulação"],autismo:["Intensidade emocional"]},
+insula:{titulo:"Ínsula",desc:"Consciência",funcoes:["Empatia"],autismo:["Percepção interna diferente"]}
 };
 
-// SELEÇÃO
-function selecionar(id){
+// TOOLTIP
+const tooltip = document.createElement("div");
+tooltip.className = "tooltip-brain";
+document.body.appendChild(tooltip);
 
-// limpar
-document.querySelectorAll('.brain-area').forEach(e=>e.classList.remove('brain-active'));
-document.querySelectorAll('.region-item').forEach(e=>e.classList.remove('region-active'));
+// SELECT
+function selectRegion(id){
 
-// ativar cérebro
-document.getElementById(id).classList.add('brain-active');
-
-// ativar lista
-document.querySelector(`[data-id=${id}]`)?.classList.add('region-active');
-
-// painel
 let r = regioes[id];
 
 document.getElementById("painel").innerHTML = `
 <h5>${r.titulo}</h5>
-<p>${r.desc}</p>
+<p><b>${r.desc}</b></p>
 <hr>
-<div class="tag bg-primary text-white">Região ativa</div>
+<b>Funções</b>
+<ul>${r.funcoes.map(f=>`<li>${f}</li>`).join("")}</ul>
+<b>No autismo</b>
+<ul>${r.autismo.map(f=>`<li>${f}</li>`).join("")}</ul>
 `;
 
-}
-
-// LISTA CLICK
+// lista
 document.querySelectorAll('.region-item').forEach(el=>{
-el.addEventListener('click',()=>selecionar(el.dataset.id));
+el.classList.toggle('region-active', el.dataset.id===id);
 });
 
-// SVG CLICK
-document.querySelectorAll('.brain-area').forEach(el=>{
-el.addEventListener('click',()=>selecionar(el.id));
-});
-
-// ZOOM
-function zoom(f){
-scale *= f;
-document.getElementById("brainWrapper").style.transform = `scale(${scale})`;
-}
-
-function resetZoom(){
-scale = 1;
-document.getElementById("brainWrapper").style.transform = `scale(1)`;
-}
-
-// FOCO
-function modoFoco(){
-focoAtivo = !focoAtivo;
-
-document.querySelectorAll('.brain-area').forEach(el=>{
-el.style.opacity = focoAtivo ? 0.2 : 0.85;
+// nodes
+document.querySelectorAll('.brain-node').forEach(n=>{
+n.classList.toggle('active', n.dataset.id===id);
 });
 }
 
-// RESET
-function resetView(){
-resetZoom();
-focoAtivo = false;
-
-document.querySelectorAll('.brain-area').forEach(el=>{
-el.style.opacity = 0.85;
-el.classList.remove('brain-active');
-});
-
+// LISTA
 document.querySelectorAll('.region-item').forEach(el=>{
-el.classList.remove('region-active');
+el.onclick=()=>selectRegion(el.dataset.id);
 });
 
-document.getElementById("painel").innerHTML = "Clique em uma região";
+// NODES
+document.querySelectorAll('.brain-node').forEach(node=>{
 
-}
+let id = node.dataset.id;
+
+node.onclick=()=>selectRegion(id);
+
+node.onmousemove=(e)=>{
+tooltip.style.left=e.pageX+10+"px";
+tooltip.style.top=e.pageY+10+"px";
+tooltip.innerText=regioes[id].titulo;
+tooltip.style.opacity=1;
+};
+
+node.onmouseleave=()=>tooltip.style.opacity=0;
+
+});
 
 </script>
 
