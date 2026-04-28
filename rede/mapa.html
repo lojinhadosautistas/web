@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+<title>Mapa do Autismo no Brasil</title>
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"/>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet"/>
+
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+
+<style>
+
+body{
+  font-family: Inter, sans-serif;
+  background:#f5f7fb;
+  color:#0f172a;
+}
+
+.hero{
+  background: linear-gradient(135deg,#1e3a8a,#2563eb);
+  color:white;
+  padding:50px 30px;
+  border-radius:16px;
+}
+
+.cardx{
+  background:white;
+  border-radius:14px;
+  padding:18px;
+  box-shadow:0 6px 18px rgba(0,0,0,0.06);
+}
+
+#map{
+  height:520px;
+  border-radius:14px;
+}
+
+.section{
+  margin-top:30px;
+}
+
+.kpi h2{
+  color:#2563eb;
+  font-weight:700;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="container py-4">
+
+<!-- HERO -->
+<div class="hero">
+<h1>Mapa do Autismo no Brasil</h1>
+<p>
+Visualização interativa baseada nos dados do Censo 2022 do IBGE.
+Explore a distribuição do autismo no país.
+</p>
+</div>
+
+<!-- KPIs -->
+<div class="section row g-3">
+
+<div class="col-lg-3">
+<div class="cardx kpi text-center">
+<h2>2,4M</h2>
+<p>Pessoas com autismo</p>
+</div>
+</div>
+
+<div class="col-lg-3">
+<div class="cardx kpi text-center">
+<h2>1,2%</h2>
+<p>Prevalência nacional</p>
+</div>
+</div>
+
+<div class="col-lg-3">
+<div class="cardx kpi text-center">
+<h2>2,6%</h2>
+<p>Pico (5–9 anos)</p>
+</div>
+</div>
+
+<div class="col-lg-3">
+<div class="cardx kpi text-center">
+<h2>1,5%</h2>
+<p>Homens (vs 0,9% mulheres)</p>
+</div>
+</div>
+
+</div>
+
+<!-- MAPA -->
+<div class="section row g-4">
+
+<div class="col-lg-8">
+<div id="map"></div>
+</div>
+
+<div class="col-lg-4 cardx">
+
+<h5><i class="bi bi-info-circle"></i> Sobre os dados</h5>
+
+<p>
+O Censo 2022 identificou 2,4 milhões de brasileiros com diagnóstico de autismo,
+com maior concentração em crianças e distribuição semelhante entre regiões.
+</p>
+
+<p class="text-muted">
+Os dados representam diagnósticos informados nos domicílios.
+</p>
+
+</div>
+
+</div>
+
+<!-- REGIÕES -->
+<div class="section cardx">
+
+<h4><i class="bi bi-bar-chart"></i> Distribuição por Região</h4>
+
+<ul>
+<li><b>Sudeste:</b> ~1 milhão</li>
+<li><b>Nordeste:</b> ~633 mil</li>
+<li><b>Sul:</b> ~348 mil</li>
+<li><b>Norte:</b> ~202 mil</li>
+<li><b>Centro-Oeste:</b> ~180 mil</li>
+</ul>
+
+</div>
+
+</div>
+
+<!-- JS MAP -->
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+<script>
+
+// Inicializa mapa
+var map = L.map('map').setView([-14.2, -51.9], 4);
+
+// Base
+L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{
+  attribution:'IBGE 2022'
+}).addTo(map);
+
+// Dados por região (aproximados do IBGE)
+var regioes = [
+  {
+    nome:"Sudeste",
+    lat:-22,
+    lon:-44,
+    valor:"~1 milhão",
+    desc:"Maior concentração de pessoas com autismo no país."
+  },
+  {
+    nome:"Nordeste",
+    lat:-8,
+    lon:-40,
+    valor:"~633 mil",
+    desc:"Segunda maior concentração."
+  },
+  {
+    nome:"Sul",
+    lat:-28,
+    lon:-52,
+    valor:"~348 mil",
+    desc:"Alta concentração relativa."
+  },
+  {
+    nome:"Norte",
+    lat:-3,
+    lon:-60,
+    valor:"~202 mil",
+    desc:"Menor densidade populacional."
+  },
+  {
+    nome:"Centro-Oeste",
+    lat:-15,
+    lon:-54,
+    valor:"~180 mil",
+    desc:"Menor número absoluto."
+  }
+];
+
+// Renderiza pontos
+regioes.forEach(r=>{
+  L.circleMarker([r.lat,r.lon],{
+    radius:12,
+    color:"#2563eb",
+    fillOpacity:0.7
+  })
+  .addTo(map)
+  .bindPopup(`
+    <b>${r.nome}</b><br><br>
+    Pessoas com autismo: ${r.valor}<br><br>
+    ${r.desc}
+  `);
+});
+
+</script>
+
+</body>
+</html>
