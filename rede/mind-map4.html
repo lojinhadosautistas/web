@@ -5,81 +5,85 @@
 <meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 
-<title>Mapa da Nossa Mente | Lojinha dos Autistas</title>
+<title>Mapa da Nossa Mente | Sistema REDE</title>
 
-<meta name="description" content="Mapa interativo das regiões do cérebro e sua relação com o autismo."/>
+<meta name="description" content="Mapa interativo da mente autista com experiência guiada para famílias."/>
 
 <link href="../assets/img/favicon.png" rel="icon">
 
+<!-- HUB CSS -->
 <link href="../assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet"/>
 <link href="../assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet"/>
+<link rel="stylesheet" href="../assets/css/hub.css">
 
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet"/>
 
 <style>
 
 body{
-  font-family: 'Inter', sans-serif;
+  font-family:'Inter', sans-serif;
   background:#f5f7fb;
 }
 
-/* CARDS */
+/* CARD */
 .cardx{
   background:white;
   border-radius:14px;
   padding:18px;
   box-shadow:0 6px 18px rgba(0,0,0,0.06);
-  transition:.2s;
 }
 
-.cardx:hover{
-  transform:translateY(-2px);
-}
-
-/* REGIÕES */
+/* LISTA */
 .region-item{
   padding:10px;
   border-radius:10px;
   cursor:pointer;
-  display:flex;
-  align-items:center;
-  gap:8px;
+}
+.region-item:hover{ background:#eef2ff; }
+.region-active{ background:#dbeafe; }
+
+/* BRAIN */
+.brain-wrapper{
+  position:relative;
+  max-width:520px;
+  margin:auto;
 }
 
-.region-item:hover{
-  background:#eef2ff;
+.brain-img{
+  width:100%;
+  border-radius:12px;
 }
 
-.region-active{
-  background:#dbeafe;
-}
-
-/* CÉREBRO */
-.brain-container{
-  text-align:center;
-}
-
-.brain-area{
+/* ÁREAS CLICÁVEIS */
+.brain-hotspot{
+  position:absolute;
   cursor:pointer;
+  border-radius:50%;
   transition:.2s;
 }
 
-.brain-area:hover{
-  opacity:0.85;
-  transform:scale(1.02);
+.brain-hotspot:hover{
+  background:rgba(37,99,235,0.15);
+  transform:scale(1.1);
 }
 
-/* TAG */
-.tag{
-  padding:4px 10px;
-  border-radius:20px;
-  font-size:0.75rem;
-  margin-right:5px;
-}
+/* POSIÇÕES (ajustáveis conforme imagem) */
+#prefrontal{ top:20%; left:15%; width:70px; height:70px; }
+#parietal{ top:10%; left:45%; width:70px; height:70px; }
+#temporal{ top:50%; left:40%; width:70px; height:70px; }
+#occipital{ top:25%; left:75%; width:60px; height:60px; }
+#cerebelo{ top:70%; left:70%; width:60px; height:60px; }
+#limbico{ top:45%; left:30%; width:60px; height:60px; }
+#insula{ top:40%; left:48%; width:40px; height:40px; }
 
-.tag-blue{ background:#dbeafe; color:#1d4ed8; }
-.tag-green{ background:#dcfce7; color:#166534; }
-.tag-yellow{ background:#fef9c3; color:#854d0e; }
+/* GUIA */
+.guia-box{
+  background:#eef2ff;
+  padding:14px;
+  border-radius:12px;
+  min-height:90px;
+  margin-bottom:15px;
+}
 
 </style>
 
@@ -87,10 +91,15 @@ body{
 
 <body>
 
-<div class="container py-4">
+<div id="header-container"></div>
+<div id="sidebar-container"></div>
 
-<h2 class="mb-2">🧠 Mapa da Nossa Mente</h2>
-<p class="text-muted">Entendendo as regiões cerebrais e suas funções no autismo</p>
+<main class="main">
+
+<div class="page-title mb-4">
+<h1>🧠 Mapa da Nossa Mente</h1>
+<p>Uma forma sensível de entender como o cérebro autista funciona</p>
+</div>
 
 <div class="row g-4">
 
@@ -99,30 +108,29 @@ body{
 
 <div class="cardx">
 
-<h5>Regiões do Cérebro</h5>
+<h5>Regiões</h5>
 
-<div class="region-item" data-id="prefrontal">🔴 Córtex Pré-frontal</div>
-<div class="region-item" data-id="parietal">🟠 Córtex Parietal</div>
-<div class="region-item" data-id="temporal">🔵 Córtex Temporal</div>
-<div class="region-item" data-id="occipital">🟢 Córtex Occipital</div>
-<div class="region-item" data-id="cerebelo">🟣 Cerebelo</div>
-<div class="region-item" data-id="limbico">🟡 Sistema Límbico</div>
-<div class="region-item" data-id="insula">🔷 Ínsula</div>
+<div class="region-item" onclick="selectRegion('prefrontal')">🔴 Pré-frontal</div>
+<div class="region-item" onclick="selectRegion('parietal')">🟠 Parietal</div>
+<div class="region-item" onclick="selectRegion('temporal')">🔵 Temporal</div>
+<div class="region-item" onclick="selectRegion('occipital')">🟢 Occipital</div>
+<div class="region-item" onclick="selectRegion('cerebelo')">🟣 Cerebelo</div>
+<div class="region-item" onclick="selectRegion('limbico')">🟡 Límbico</div>
+<div class="region-item" onclick="selectRegion('insula')">🔷 Ínsula</div>
 
 </div>
 
 <div class="cardx mt-3">
 
-<h5>Insights Gerais</h5>
+<h5>💙 Trilha para mães</h5>
 
-<p>O autismo não é um déficit, mas uma forma diferente de processamento.</p>
+<div class="guia-box" id="guia">
+Clique em "Iniciar jornada"
+</div>
 
-<ul>
-<li>Processamento sensorial único</li>
-<li>Forças específicas</li>
-<li>Conectividade neural diferente</li>
-<li>Diversidade de perfis</li>
-</ul>
+<button class="btn btn-primary w-100" onclick="startGuia()">
+Iniciar jornada
+</button>
 
 </div>
 
@@ -131,49 +139,21 @@ body{
 <!-- CENTRO -->
 <div class="col-lg-6">
 
-<div class="cardx mb-3" style="background:#eef4ff">
-<b>Como interpretar:</b><br>
-Clique nas regiões do cérebro ou na lista ao lado.
-</div>
-
-<div class="cardx brain-container">
-
-<svg viewBox="0 0 500 400" width="100%">
-
-<path class="brain-area" data-id="prefrontal" fill="#ef4444" d="M100 100 L200 80 L220 140 L140 160 Z"/>
-<path class="brain-area" data-id="parietal" fill="#f97316" d="M200 80 L320 100 L300 170 L220 140 Z"/>
-<path class="brain-area" data-id="temporal" fill="#3b82f6" d="M200 180 L300 170 L280 260 L180 250 Z"/>
-<path class="brain-area" data-id="occipital" fill="#22c55e" d="M320 100 L380 160 L340 200 L300 170 Z"/>
-<path class="brain-area" data-id="cerebelo" fill="#7c3aed" d="M300 260 L380 240 L360 300 L280 260 Z"/>
-<path class="brain-area" data-id="limbico" fill="#eab308" d="M220 140 L300 170 L260 200 L200 180 Z"/>
-<path class="brain-area" data-id="insula" fill="#06b6d4" d="M230 160 L260 150 L250 180 L220 180 Z"/>
-
-</svg>
-
-</div>
-
-<div class="row mt-3 g-3">
-
-<div class="col-md-6">
 <div class="cardx">
-<h6>Características</h6>
-<ul>
-<li>Sensibilidade sensorial</li>
-<li>Interesse intenso</li>
-<li>Pensamento visual</li>
-</ul>
-</div>
-</div>
 
-<div class="col-md-6">
-<div class="cardx">
-<h6>Estratégias</h6>
-<ul>
-<li>Rotina</li>
-<li>Comunicação visual</li>
-<li>Ambiente adaptado</li>
-</ul>
-</div>
+<div class="brain-wrapper">
+
+<img src="../assets/img/brain-map.png" class="brain-img">
+
+<!-- HOTSPOTS -->
+<div id="prefrontal" class="brain-hotspot" onclick="selectRegion('prefrontal')"></div>
+<div id="parietal" class="brain-hotspot" onclick="selectRegion('parietal')"></div>
+<div id="temporal" class="brain-hotspot" onclick="selectRegion('temporal')"></div>
+<div id="occipital" class="brain-hotspot" onclick="selectRegion('occipital')"></div>
+<div id="cerebelo" class="brain-hotspot" onclick="selectRegion('cerebelo')"></div>
+<div id="limbico" class="brain-hotspot" onclick="selectRegion('limbico')"></div>
+<div id="insula" class="brain-hotspot" onclick="selectRegion('insula')"></div>
+
 </div>
 
 </div>
@@ -184,92 +164,69 @@ Clique nas regiões do cérebro ou na lista ao lado.
 <div class="col-lg-3">
 
 <div class="cardx" id="painel">
-
-<h5>Região Selecionada</h5>
-<p>Clique em uma região</p>
-
-</div>
-
-<div class="cardx mt-3">
-
-<h5>Você sabia?</h5>
-<p>Pessoas autistas têm conectividade neural diferente.</p>
-<h4 style="color:#2563eb;">1 a 100</h4>
-
+<h5>Região selecionada</h5>
+<p>Clique em uma área do cérebro</p>
 </div>
 
 </div>
 
 </div>
 
-<div class="cardx mt-4" style="background:#eef2ff">
-Este mapa é educativo e não substitui avaliação profissional.
-</div>
+</main>
 
-</div>
+<script src="../assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="js/components.js"></script>
 
 <script>
 
+// BASE
 const regioes = {
 
 prefrontal:{
 titulo:"Córtex Pré-frontal",
-desc:"Funções executivas",
-funcoes:["Planejamento","Decisão","Controle de impulsos","Atenção"],
-autismo:["Dificuldade em mudanças","Planejamento complexo","Foco intenso"],
-tags:["Execução","Controle"]
+desc:"Planejamento e controle",
+autismo:"Mudanças podem ser difíceis"
 },
 
 parietal:{
 titulo:"Córtex Parietal",
-desc:"Processamento sensorial",
-funcoes:["Integração sensorial","Percepção espacial"],
-autismo:["Hipersensibilidade","Sobrecarga sensorial"],
-tags:["Sensorial"]
+desc:"Sensações do corpo",
+autismo:"Pode haver sobrecarga sensorial"
 },
 
 temporal:{
 titulo:"Córtex Temporal",
-desc:"Linguagem e memória",
-funcoes:["Processamento auditivo","Linguagem","Memória"],
-autismo:["Processamento auditivo diferente","Dificuldade social"],
-tags:["Linguagem"]
+desc:"Audição e linguagem",
+autismo:"Processamento diferente de sons"
 },
 
 occipital:{
 titulo:"Córtex Occipital",
 desc:"Visão",
-funcoes:["Reconhecimento visual"],
-autismo:["Pensamento visual forte"],
-tags:["Visual"]
+autismo:"Pensamento visual forte"
 },
 
 cerebelo:{
 titulo:"Cerebelo",
 desc:"Coordenação",
-funcoes:["Equilíbrio","Coordenação"],
-autismo:["Coordenação motora diferente"],
-tags:["Motor"]
+autismo:"Movimentos podem variar"
 },
 
 limbico:{
 titulo:"Sistema Límbico",
 desc:"Emoções",
-funcoes:["Regulação emocional"],
-autismo:["Intensidade emocional"],
-tags:["Emocional"]
+autismo:"Sentimentos intensos"
 },
 
 insula:{
 titulo:"Ínsula",
-desc:"Consciência interna",
-funcoes:["Empatia","Sensações"],
-autismo:["Consciência corporal diferente"],
-tags:["Consciência"]
+desc:"Percepção interna",
+autismo:"Consciência corporal diferente"
 }
 
 };
 
+// SELEÇÃO
 function selectRegion(id){
 
 let r = regioes[id];
@@ -277,40 +234,40 @@ let r = regioes[id];
 document.getElementById("painel").innerHTML = `
 <h5>${r.titulo}</h5>
 <p><b>${r.desc}</b></p>
-
-<div class="mb-2">
-${r.tags.map(t=>`<span class="tag tag-blue">${t}</span>`).join("")}
-</div>
-
 <hr>
-
-<b>Funções</b>
-<ul>${r.funcoes.map(f=>`<li>${f}</li>`).join("")}</ul>
-
-<b>No autismo</b>
-<ul>${r.autismo.map(f=>`<li>${f}</li>`).join("")}</ul>
-
-<div style="background:#fee2e2;padding:10px;border-radius:8px;">
-Cada cérebro é único
-</div>
+<p>${r.autismo}</p>
 `;
 
 document.querySelectorAll('.region-item').forEach(el=>{
 el.classList.remove('region-active');
-if(el.dataset.id===id) el.classList.add('region-active');
 });
 
 }
 
-// CLICK LISTA
-document.querySelectorAll('.region-item').forEach(el=>{
-el.addEventListener('click',()=>selectRegion(el.dataset.id));
-});
+// GUIA EMOCIONAL
+const trilha = [
+"Respira. Vamos entender juntos.",
+"O cérebro autista sente mais.",
+"Não é excesso. É intensidade.",
+"Seu filho não está contra você.",
+"Ele está tentando lidar.",
+"E você já está fazendo muito."
+];
 
-// CLICK SVG
-document.querySelectorAll('.brain-area').forEach(el=>{
-el.addEventListener('click',()=>selectRegion(el.dataset.id));
-});
+let passo=0;
+
+function startGuia(){
+passo=0;
+nextGuia();
+}
+
+function nextGuia(){
+if(passo<trilha.length){
+document.getElementById("guia").innerText=trilha[passo];
+passo++;
+setTimeout(nextGuia,4000);
+}
+}
 
 </script>
 
