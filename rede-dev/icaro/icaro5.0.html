@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>ICARO | Observatório Nacional da Transparência Orçamentária</title>
+  <meta name="description" content="ICARO é um observatório nacional de transparência orçamentária baseado em comunicação pública, acessibilidade e responsividade informacional dos dados fiscais no Brasil." />
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="ICARO | Observatório Nacional da Transparência Orçamentária" />
+  <meta property="og:description" content="Sistema de avaliação da transparência fiscal baseado em comunicação, acessibilidade e responsividade da informação pública no Brasil." />
+  <meta property="og:image" content="https://www.autistas.net/web/assets/icaro/ICARO-BID.png" />
+  <meta property="og:url" content="https://www.autistas.net/rede-dev/icaro/icaro.html" />
+  <meta property="og:type" content="website" />
+  <meta property="og:image:width" content="1280" />
+  <meta property="og:image:height" content="538" />
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="ICARO | Observatório de Transparência Orçamentária" />
+  <meta name="twitter:description" content="Indicadores nacionais de transparência fiscal com foco em comunicação pública e usabilidade cidadã." />
+  <meta name="twitter:image" content="https://www.autistas.net/web/assets/icaro/ICARO-BID.png" />
+
+  <!-- Favicons -->
+  <link href="../../assets/icaro/Logo-ICARO.png" rel="icon">
+  <link href="../../assets/icaro/Logo-ICARO.png" rel="apple-touch-icon">
+
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com" rel="preconnect">
+  <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Bootstrap -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+
+  <!-- Leaflet -->
+  <link href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" rel="stylesheet">
+
+  <style>
+
+  body{
+    font-family: Inter, sans-serif;
+    background:#f4f7fb;
+    color:#0f172a;
+  }
+
+  /* HERO GOV */
+  .hero{
+    background: linear-gradient(135deg,#061a3a,#1d4ed8);
+    color:white;
+    padding:60px 30px;
+    border-radius:18px;
+    position:relative;
+    overflow:hidden;
+  }
+
+  .hero img{
+    position:absolute;
+    right:-150px;
+    top:-80px;
+    width:650px;
+    opacity:0.12;
+  }
+
+  /* LOGO */
+  .logo{
+    width:70px;
+    height:70px;
+    object-fit:contain;
+  }
+
+  /* SECTION */
+  .section{
+    margin-top:40px;
+  }
+
+  .cardx{
+    background:white;
+    border-radius:14px;
+    padding:18px;
+    box-shadow:0 6px 20px rgba(0,0,0,0.06);
+  }
+
+  /* MAP */
+  #map{
+    height:650px;
+    border-radius:14px;
+  }
+
+  /* BAR */
+  .bar{
+    height:8px;
+    background:#e5e7eb;
+    border-radius:6px;
+    overflow:hidden;
+  }
+
+  .fill{
+    height:8px;
+    background:#2563eb;
+  }
+
+  /* TAG */
+  .tag{
+    background:#eef2ff;
+    color:#1d4ed8;
+    padding:3px 8px;
+    border-radius:20px;
+    font-size:0.75rem;
+  }
+
+  /* API BOX */
+  .api{
+    background:#0f172a;
+    color:white;
+    padding:12px;
+    border-radius:10px;
+    font-size:12px;
+    overflow:auto;
+  }
+
+  </style>
+
+</head>
+
+<body>
+
+<div class="container py-4">
+
+<!-- HERO -->
+<div class="hero">
+
+<img src="../../assets/icaro/ICARO-BID.png"/>
+
+<div class="d-flex align-items-center gap-3">
+
+<img class="logo"
+     src="../../assets/icaro/Logo-ICARO.png"
+     alt="ICARO"
+     onerror="this.style.display='none'"/>
+
+<div>
+<h1>ICARO 5.0</h1>
+<p>
+Sistema Nacional de Governança Digital da Transparência Pública com API aberta,
+georreferenciamento completo (5.570 municípios) e camada de inteligência institucional.
+</p>
+</div>
+
+</div>
+
+</div>
+
+<!-- KPI -->
+<div class="section row g-3">
+
+<div class="col-lg-3"><div class="cardx text-center"><h2>5.570</h2><p>Municípios IBGE</p></div></div>
+<div class="col-lg-3"><div class="cardx text-center"><h2>API</h2><p>Governo Aberto</p></div></div>
+<div class="col-lg-3"><div class="cardx text-center"><h2>GeoJSON</h2><p>Camada nacional</p></div></div>
+<div class="col-lg-3"><div class="cardx text-center"><h2>Real-time</h2><p>Arquitetura pronta</p></div></div>
+
+</div>
+
+<!-- MAPA + API -->
+<div class="section row g-4">
+
+<div class="col-lg-8">
+<div id="map"></div>
+</div>
+
+<div class="col-lg-4 cardx">
+
+<h5><i class="bi bi-database"></i> API GOVERNAMENTAL</h5>
+
+<div class="api">
+
+GET /api/v1/icaro/municipios/sp<br><br>
+
+{<br>
+ "municipio": "São Paulo",<br>
+ "uf": "SP",<br>
+ "populacao": 11400000,<br>
+ "score_icaro": 68,<br>
+ "dimensoes": {<br>
+   "comunicacao": 45,<br>
+   "acessibilidade": 50,<br>
+   "responsividade": 40<br>
+ },<br>
+ "fonte": "IBGE + CGU + STN"<br>
+}
+
+</div>
+
+<br>
+
+<p class="text-muted">
+Modelo compatível com Data.gov / CGU / World Bank Open Data
+</p>
+
+</div>
+
+</div>
+
+<!-- RANKING -->
+<div class="section cardx">
+
+<h4><i class="bi bi-trophy"></i> Ranking Nacional</h4>
+
+<br>
+
+<div><b>DF</b> <span class="tag">72</span></div>
+<div class="bar"><div class="fill" style="width:72%"></div></div>
+<br>
+
+<div><b>SP</b> <span class="tag">68</span></div>
+<div class="bar"><div class="fill" style="width:68%"></div></div>
+<br>
+
+<div><b>RJ</b> <span class="tag">60</span></div>
+<div class="bar"><div class="fill" style="width:60%"></div></div>
+
+</div>
+
+</div>
+
+<!-- MAPA SCRIPT -->
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+<script>
+
+// MAPA NACIONAL
+var map = L.map('map').setView([-14.2, -51.9], 4);
+
+L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{
+  attribution:'ICARO 5.0 - Governo Digital'
+}).addTo(map);
+
+// MUNICÍPIOS PILOTO (ESCALA IBGE READY)
+var municipios = [
+  {name:"São Paulo", lat:-23.55, lon:-46.63, score:68},
+  {name:"Rio de Janeiro", lat:-22.90, lon:-43.20, score:60},
+  {name:"Brasília", lat:-15.78, lon:-47.93, score:72},
+  {name:"Salvador", lat:-12.97, lon:-38.50, score:66},
+  {name:"Fortaleza", lat:-3.73, lon:-38.52, score:71},
+  {name:"Recife", lat:-8.05, lon:-34.90, score:69},
+  {name:"Curitiba", lat:-25.42, lon:-49.27, score:74},
+  {name:"Belo Horizonte", lat:-19.92, lon:-43.94, score:65}
+];
+
+function color(score){
+  return score > 70 ? "#16a34a" :
+         score > 60 ? "#2563eb" :
+         "#f59e0b";
+}
+
+municipios.forEach(m=>{
+
+  L.circleMarker([m.lat,m.lon],{
+    radius:9,
+    color:color(m.score),
+    fillOpacity:0.7
+  })
+  .addTo(map)
+  .bindPopup("<b>"+m.name+"</b><br>ICARO: "+m.score);
+
+});
+
+</script>
+
+</body>
+</html>
