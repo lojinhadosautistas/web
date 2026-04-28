@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+<title>ICARO | Observatório Nacional do Orçamento Cidadão</title>
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"/>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet"/>
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+
+<style>
+
+body{
+  font-family: Inter, sans-serif;
+  background:#f4f6fa;
+}
+
+/* HEADER */
+.header{
+  background:white;
+  padding:24px;
+  border-radius:16px;
+  box-shadow:0 2px 12px rgba(0,0,0,0.06);
+  margin-bottom:20px;
+}
+
+.header h1{
+  font-size:1.8rem;
+  font-weight:700;
+}
+
+.sub{
+  color:#666;
+}
+
+/* KPI BOX */
+.kpi{
+  background:white;
+  border-radius:14px;
+  padding:18px;
+  box-shadow:0 2px 10px rgba(0,0,0,0.05);
+  height:100%;
+}
+
+.kpi h2{
+  font-size:2rem;
+  font-weight:700;
+  color:#1d4ed8;
+}
+
+.kpi small{
+  color:#666;
+}
+
+/* SECTION CARD */
+.cardx{
+  background:white;
+  border-radius:14px;
+  padding:18px;
+  box-shadow:0 2px 10px rgba(0,0,0,0.05);
+  height:100%;
+}
+
+.cardx i{
+  font-size:1.3rem;
+  color:#2563eb;
+  margin-bottom:8px;
+}
+
+/* RANKING BAR */
+.bar{
+  height:10px;
+  border-radius:6px;
+  background:#e5e7eb;
+  overflow:hidden;
+}
+
+.fill{
+  height:10px;
+  background:#2563eb;
+}
+
+/* TAGS */
+.tag{
+  display:inline-block;
+  padding:4px 10px;
+  border-radius:20px;
+  font-size:0.75rem;
+  background:#eef2ff;
+  color:#1d4ed8;
+  margin-right:5px;
+}
+
+/* FLOW */
+.flow{
+  font-size:0.85rem;
+  color:#555;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="container py-4">
+
+<!-- HEADER -->
+<div class="header">
+
+<h1>ICARO — Observatório Nacional da Comunicação do Orçamento Público</h1>
+
+<p class="sub">
+Instrumento de monitoramento da transparência fiscal orientado à experiência do cidadão
+</p>
+
+<br>
+
+<div class="flow">
+ICARO1 → ICARO2 → ICARO3 → ICARO4 → <b>ICARO5 (Observatório)</b>
+</div>
+
+</div>
+
+<!-- KPI GLOBAL -->
+<div class="row g-3">
+
+<div class="col-lg-3">
+<div class="kpi">
+<i class="bi bi-speedometer2"></i>
+<h2>48</h2>
+<small>ICARO Score Brasil</small>
+</div>
+</div>
+
+<div class="col-lg-3">
+<div class="kpi">
+<i class="bi bi-diagram-3"></i>
+<h2>C</h2>
+<small>Maturidade institucional</small>
+</div>
+</div>
+
+<div class="col-lg-3">
+<div class="kpi">
+<i class="bi bi-people"></i>
+<h2>Baixo</h2>
+<small>Engajamento cidadão</small>
+</div>
+</div>
+
+<div class="col-lg-3">
+<div class="kpi">
+<i class="bi bi-globe"></i>
+<h2>Fragmentado</h2>
+<small>Arquitetura informacional</small>
+</div>
+</div>
+
+</div>
+
+<!-- PAINEL CENTRAL -->
+<div class="row g-4 mt-1">
+
+<!-- MAPA SISTÊMICO -->
+<div class="col-lg-8">
+<div class="cardx">
+
+<i class="bi bi-diagram-2"></i>
+<h4>Ecossistema de transparência fiscal</h4>
+
+<p>
+Arquitetura institucional do orçamento público no Brasil
+</p>
+
+<br>
+
+<div class="row">
+
+<div class="col-md-4">
+<span class="tag">CGU</span>
+<p><b>Portal da Transparência</b></p>
+<div class="bar"><div class="fill" style="width:70%"></div></div>
+<small>Execução orçamentária</small>
+</div>
+
+<div class="col-md-4">
+<span class="tag">STN</span>
+<p><b>Tesouro Nacional</b></p>
+<div class="bar"><div class="fill" style="width:60%"></div></div>
+<small>Dados fiscais e contábeis</small>
+</div>
+
+<div class="col-md-4">
+<span class="tag">SIOP</span>
+<p><b>Orçamento Federal</b></p>
+<div class="bar"><div class="fill" style="width:55%"></div></div>
+<small>Planejamento e execução</small>
+</div>
+
+</div>
+
+</div>
+</div>
+
+<!-- LEITURA QUALITATIVA -->
+<div class="col-lg-4">
+<div class="cardx">
+
+<i class="bi bi-eye"></i>
+<h4>Leitura de UX pública</h4>
+
+<ul>
+<li>Fragmentação entre sistemas</li>
+<li>Linguagem técnica dominante</li>
+<li>Baixa navegabilidade cidadã</li>
+<li>Ausência de camadas de explicação</li>
+</ul>
+
+</div>
+</div>
+
+<!-- GAP ESTRUTURAL -->
+<div class="col-lg-6">
+<div class="cardx">
+
+<i class="bi bi-exclamation-triangle"></i>
+<h4>Gap estrutural</h4>
+
+<p>
+O Brasil possui alta capacidade de produção de dados fiscais, mas baixa capacidade de tradução da informação em conhecimento público.
+</p>
+
+<br>
+
+<p>
+<b>Fluxo crítico:</b><br>
+Dado → Publicação → Acesso → ❌ Compreensão → ❌ Uso social
+</p>
+
+</div>
+</div>
+
+<!-- BENCHMARK -->
+<div class="col-lg-6">
+<div class="cardx">
+
+<i class="bi bi-trophy"></i>
+<h4>Benchmark internacional</h4>
+
+<ul>
+<li><b>Irlanda</b> — orçamento em linguagem simples</li>
+<li><b>Canadá</b> — visualização centrada no cidadão</li>
+<li><b>Nova Zelândia</b> — integração orçamento-cidadania</li>
+<li><b>Coreia do Sul</b> — dashboards participativos</li>
+</ul>
+
+</div>
+</div>
+
+<!-- MATRIZ ICARO -->
+<div class="col-lg-12">
+<div class="cardx">
+
+<i class="bi bi-grid-3x3"></i>
+<h4>Matriz ICARO de avaliação</h4>
+
+<div class="row mt-3">
+
+<div class="col-md-4">
+<b>Comunicação</b>
+<p class="sub">Clareza e linguagem acessível</p>
+<div class="bar"><div class="fill" style="width:45%"></div></div>
+</div>
+
+<div class="col-md-4">
+<b>Acessibilidade</b>
+<p class="sub">Navegação e usabilidade</p>
+<div class="bar"><div class="fill" style="width:50%"></div></div>
+</div>
+
+<div class="col-md-4">
+<b>Responsividade</b>
+<p class="sub">Camadas de informação</p>
+<div class="bar"><div class="fill" style="width:40%"></div></div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+<!-- RANKINGS -->
+<div class="col-lg-6">
+<div class="cardx">
+
+<i class="bi bi-bar-chart"></i>
+<h4>Ranking de maturidade</h4>
+
+<ul>
+<li><b>A</b> — Alta maturidade (ex: Nova Zelândia)</li>
+<li><b>B</b> — Boa estrutura com baixa tradução</li>
+<li><b>C</b> — Brasil (fase intermediária)</li>
+<li><b>D</b> — Baixa integração institucional</li>
+</ul>
+
+</div>
+</div>
+
+<div class="col-lg-6">
+<div class="cardx">
+
+<i class="bi bi-award"></i>
+<h4>Campeões de transparência</h4>
+
+<ul>
+<li>Irlanda — simplicidade cognitiva</li>
+<li>Canadá — UX orientado ao cidadão</li>
+<li>Estônia — digitalização integrada</li>
+</ul>
+
+</div>
+</div>
+
+<!-- FOOTER ANALÍTICO -->
+<div class="col-lg-12">
+<div class="cardx">
+
+<i class="bi bi-arrow-right-circle"></i>
+<h4>Interpretação estratégica</h4>
+
+<p>
+O ICARO identifica que a próxima fronteira da transparência fiscal não é a abertura de dados, mas a engenharia da compreensão pública.
+</p>
+
+</div>
+</div>
+
+</div>
+
+</div>
+
+</body>
+</html>
