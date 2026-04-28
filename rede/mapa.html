@@ -11,42 +11,33 @@
 <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet"/>
 
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 <style>
 
-body{
-  font-family: Inter, sans-serif;
-  background:#f5f7fb;
-  color:#0f172a;
-}
+body{font-family:Inter;background:#f5f7fb;}
 
 .hero{
-  background: linear-gradient(135deg,#1e3a8a,#2563eb);
-  color:white;
-  padding:50px 30px;
-  border-radius:16px;
+  background:linear-gradient(135deg,#1e3a8a,#2563eb);
+  color:white;padding:50px;border-radius:16px;
 }
 
 .cardx{
-  background:white;
-  border-radius:14px;
-  padding:18px;
+  background:white;border-radius:14px;padding:18px;
   box-shadow:0 6px 18px rgba(0,0,0,0.06);
 }
 
-#map{
-  height:520px;
-  border-radius:14px;
-}
+#map{height:600px;border-radius:14px;}
+.section{margin-top:30px;}
 
-.section{
-  margin-top:30px;
-}
+.rank-bar{height:6px;background:#e5e7eb;border-radius:6px;margin-bottom:10px;}
+.rank-fill{height:6px;background:#2563eb;}
 
-.kpi h2{
-  color:#2563eb;
-  font-weight:700;
+.regiao{
+  cursor:pointer;padding:6px;border-radius:6px;transition:.2s;
 }
+.regiao:hover{background:#eef2ff;}
+.regiao.ativa{background:#dbeafe;}
 
 </style>
 
@@ -56,154 +47,244 @@ body{
 
 <div class="container py-4">
 
-<!-- HERO -->
 <div class="hero">
 <h1>Mapa do Autismo no Brasil</h1>
-<p>
-Visualização interativa baseada nos dados do Censo 2022 do IBGE.
-Explore a distribuição do autismo no país.
-</p>
+<p>Baseado no Censo 2022 do IBGE</p>
 </div>
 
-<!-- KPIs -->
 <div class="section row g-3">
 
-<div class="col-lg-3">
-<div class="cardx kpi text-center">
-<h2>2,4M</h2>
-<p>Pessoas com autismo</p>
-</div>
-</div>
-
-<div class="col-lg-3">
-<div class="cardx kpi text-center">
-<h2>1,2%</h2>
-<p>Prevalência nacional</p>
-</div>
-</div>
-
-<div class="col-lg-3">
-<div class="cardx kpi text-center">
-<h2>2,6%</h2>
-<p>Pico (5–9 anos)</p>
-</div>
-</div>
-
-<div class="col-lg-3">
-<div class="cardx kpi text-center">
-<h2>1,5%</h2>
-<p>Homens (vs 0,9% mulheres)</p>
-</div>
-</div>
+<div class="col-lg-3"><div class="cardx text-center"><h2>2,4M</h2><p>Pessoas com autismo</p></div></div>
+<div class="col-lg-3"><div class="cardx text-center"><h2>1,2%</h2><p>Prevalência</p></div></div>
+<div class="col-lg-3"><div class="cardx text-center"><h2>760 mil</h2><p>Estudantes</p></div></div>
+<div class="col-lg-3"><div class="cardx text-center"><h2>66,8%</h2><p>Ensino fundamental</p></div></div>
 
 </div>
 
-<!-- MAPA -->
+<div class="section cardx">
+<label><b>Visualizar por:</b></label>
+<select id="filtro">
+<option value="pop">População estimada</option>
+<option value="prev">Prevalência (%)</option>
+</select>
+</div>
+
 <div class="section row g-4">
 
 <div class="col-lg-8">
+
 <div id="map"></div>
-</div>
-
-<div class="col-lg-4 cardx">
-
-<h5><i class="bi bi-info-circle"></i> Sobre os dados</h5>
-
-<p>
-O Censo 2022 identificou 2,4 milhões de brasileiros com diagnóstico de autismo,
-com maior concentração em crianças e distribuição semelhante entre regiões.
-</p>
-
-<p class="text-muted">
-Os dados representam diagnósticos informados nos domicílios.
-</p>
-
-</div>
-
-</div>
 
 <!-- REGIÕES -->
-<div class="section cardx">
+<div class="section cardx mt-3">
 
 <h4><i class="bi bi-bar-chart"></i> Distribuição por Região</h4>
 
-<ul>
-<li><b>Sudeste:</b> ~1 milhão</li>
-<li><b>Nordeste:</b> ~633 mil</li>
-<li><b>Sul:</b> ~348 mil</li>
-<li><b>Norte:</b> ~202 mil</li>
-<li><b>Centro-Oeste:</b> ~180 mil</li>
-</ul>
+<div class="regiao" data-regiao="SE"><b>Sudeste</b>
+<div class="rank-bar"><div class="rank-fill" style="width:100%"></div></div></div>
+
+<div class="regiao" data-regiao="NE"><b>Nordeste</b>
+<div class="rank-bar"><div class="rank-fill" style="width:63%"></div></div></div>
+
+<div class="regiao" data-regiao="S"><b>Sul</b>
+<div class="rank-bar"><div class="rank-fill" style="width:35%"></div></div></div>
+
+<div class="regiao" data-regiao="N"><b>Norte</b>
+<div class="rank-bar"><div class="rank-fill" style="width:20%"></div></div></div>
+
+<div class="regiao" data-regiao="CO"><b>Centro-Oeste</b>
+<div class="rank-bar"><div class="rank-fill" style="width:18%"></div></div></div>
 
 </div>
 
 </div>
 
-<!-- JS MAP -->
+<div class="col-lg-4">
+
+<div class="cardx mb-3">
+<h5>Estado selecionado</h5>
+<div id="info">Clique em um estado</div>
+</div>
+
+<div class="cardx mb-3">
+<h5>Distribuição etária</h5>
+<canvas id="chart"></canvas>
+</div>
+
+<div class="cardx">
+<h5>Ranking</h5>
+<div id="ranking"></div>
+</div>
+
+</div>
+
+</div>
+
+</div>
+
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 
 <script>
 
-// Inicializa mapa
-var map = L.map('map').setView([-14.2, -51.9], 4);
+// MAP
+var map = L.map('map').setView([-14.2,-51.9],4);
 
-// Base
-L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{
-  attribution:'IBGE 2022'
-}).addTo(map);
+L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);
 
-// Dados por região (aproximados do IBGE)
-var regioes = [
-  {
-    nome:"Sudeste",
-    lat:-22,
-    lon:-44,
-    valor:"~1 milhão",
-    desc:"Maior concentração de pessoas com autismo no país."
-  },
-  {
-    nome:"Nordeste",
-    lat:-8,
-    lon:-40,
-    valor:"~633 mil",
-    desc:"Segunda maior concentração."
-  },
-  {
-    nome:"Sul",
-    lat:-28,
-    lon:-52,
-    valor:"~348 mil",
-    desc:"Alta concentração relativa."
-  },
-  {
-    nome:"Norte",
-    lat:-3,
-    lon:-60,
-    valor:"~202 mil",
-    desc:"Menor densidade populacional."
-  },
-  {
-    nome:"Centro-Oeste",
-    lat:-15,
-    lon:-54,
-    valor:"~180 mil",
-    desc:"Menor número absoluto."
+// DADOS
+var dados = {
+  "SP": {pop:500000, prev:1.2},
+  "MG": {pop:250000, prev:1.2},
+  "RJ": {pop:200000, prev:1.2},
+  "BA": {pop:180000, prev:1.2},
+  "PR": {pop:140000, prev:1.2},
+  "RS": {pop:130000, prev:1.2},
+  "CE": {pop:120000, prev:1.2},
+  "SC": {pop:80000, prev:1.2},
+  "AM": {pop:60000, prev:1.2},
+  "DF": {pop:50000, prev:1.1}
+};
+
+// REGIÕES
+const regioesUF = {
+  "SE": ["SP","RJ","MG","ES"],
+  "NE": ["BA","PE","CE","MA","PB","RN","AL","PI","SE"],
+  "S": ["PR","RS","SC"],
+  "N": ["AM","PA","RO","AC","AP","RR","TO"],
+  "CO": ["DF","GO","MT","MS"]
+};
+
+let regiaoAtiva = null;
+let geojson;
+
+// COR
+function getColor(v){
+  return v>400000?"#08306b":
+         v>200000?"#2171b5":
+         v>100000?"#4292c6":
+         v>50000?"#6baed6":"#9ecae1";
+}
+
+// STYLE
+function styleFiltrado(f){
+  let uf = f.properties.sigla;
+  let tipo = document.getElementById("filtro").value;
+  let val = dados[uf]?dados[uf][tipo]:0;
+
+  if(!regiaoAtiva) return baseStyle(val);
+
+  if(regioesUF[regiaoAtiva].includes(uf)){
+    return baseStyle(val);
   }
-];
 
-// Renderiza pontos
-regioes.forEach(r=>{
-  L.circleMarker([r.lat,r.lon],{
-    radius:12,
-    color:"#2563eb",
-    fillOpacity:0.7
-  })
-  .addTo(map)
-  .bindPopup(`
-    <b>${r.nome}</b><br><br>
-    Pessoas com autismo: ${r.valor}<br><br>
-    ${r.desc}
-  `);
+  return {fillColor:"#e5e7eb",weight:1,color:"#fff",fillOpacity:0.3};
+}
+
+function baseStyle(val){
+  return {fillColor:getColor(val),weight:1,color:"#fff",fillOpacity:0.8};
+}
+
+// ZOOM REGIÃO
+function zoomRegiao(regiao){
+  let bounds = [];
+
+  geojson.eachLayer(l=>{
+    let uf = l.feature.properties.sigla;
+    if(regioesUF[regiao].includes(uf)){
+      bounds.push(l.getBounds());
+    }
+  });
+
+  if(bounds.length){
+    let group = L.featureGroup(bounds.map(b=>L.rectangle(b)));
+    map.fitBounds(group.getBounds());
+  }
+}
+
+// RANKING DINÂMICO
+function renderRanking(){
+  let arr = Object.entries(dados);
+
+  if(regiaoAtiva){
+    arr = arr.filter(([uf])=>regioesUF[regiaoAtiva].includes(uf));
+  }
+
+  arr.sort((a,b)=>b[1].pop-a[1].pop);
+
+  let html="";
+
+  arr.forEach(([uf,d])=>{
+    html+=`
+      <div><b>${uf}</b> (${d.pop.toLocaleString()})</div>
+      <div class="rank-bar"><div class="rank-fill" style="width:${d.pop/5000}%"></div></div>
+    `;
+  });
+
+  document.getElementById("ranking").innerHTML=html;
+}
+
+// CHART
+let chart;
+
+function updateChart(){
+  if(chart) chart.destroy();
+
+  let data = regiaoAtiva ? [2.3,2.8,2.0,1.0] : [2.1,2.6,1.9,0.9];
+
+  chart = new Chart(document.getElementById('chart'),{
+    type:'bar',
+    data:{
+      labels:["0-4","5-9","10-14","Adultos"],
+      datasets:[{label:"%",data:data}]
+    }
+  });
+}
+
+// CLICK REGIÃO
+document.querySelectorAll('.regiao').forEach(el=>{
+  el.addEventListener('click', function(){
+
+    let r = this.dataset.regiao;
+
+    if(regiaoAtiva === r){
+      regiaoAtiva = null;
+      map.setView([-14.2,-51.9],4);
+      document.querySelectorAll('.regiao').forEach(e=>e.classList.remove('ativa'));
+    } else {
+      regiaoAtiva = r;
+      document.querySelectorAll('.regiao').forEach(e=>e.classList.remove('ativa'));
+      this.classList.add('ativa');
+      zoomRegiao(r);
+    }
+
+    geojson.setStyle(styleFiltrado);
+    renderRanking();
+    updateChart();
+
+  });
+});
+
+// FILTRO
+document.getElementById("filtro").addEventListener("change",()=>{
+  geojson.setStyle(styleFiltrado);
+});
+
+// GEOJSON
+fetch("https://raw.githubusercontent.com/codeforamerica/click_that_hood/master/public/data/brazil-states.geojson")
+.then(r=>r.json())
+.then(data=>{
+  geojson = L.geoJson(data,{
+    style:styleFiltrado,
+    onEachFeature:(f,l)=>{
+      l.on('click',()=>{
+        document.getElementById("info").innerHTML =
+          `<b>${f.properties.nome}</b>`;
+      });
+    }
+  }).addTo(map);
+
+  renderRanking();
+  updateChart();
 });
 
 </script>
