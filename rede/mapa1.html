@@ -9,47 +9,56 @@
 
 <meta name="description" content="Mapa interativo e observatório com dados do Censo 2022 sobre autismo no Brasil."/>
 
-<!-- Open Graph -->
-<meta property="og:title" content="Mapa do Autismo no Brasil 🧩"/>
-<meta property="og:description" content="Visualize dados do IBGE sobre autismo por estado e região."/>
-<meta property="og:image" content="https://www.autistas.net/assets/img/img-share-autistas.jpg"/>
-<meta property="og:type" content="website"/>
-
 <link href="../assets/img/favicon.png" rel="icon">
 
-<!-- Bootstrap HUB -->
+<!-- HUB -->
 <link href="../assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet"/>
 <link href="../assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet"/>
 <link rel="stylesheet" href="../assets/css/hub.css">
 
-<!-- Leaflet + Chart -->
+<!-- Leaflet -->
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 <style>
 
-body{background:#f5f7fb;font-family:Inter;}
 #map{height:520px;border-radius:12px;}
-.cardx{background:#fff;border-radius:12px;padding:16px;box-shadow:0 4px 12px rgba(0,0,0,.05);}
-.section{margin-top:25px;}
-.rank-bar{height:6px;background:#e5e7eb;border-radius:6px;margin-bottom:10px;}
-.rank-fill{height:6px;background:#2563eb;}
 
-.print-btn{
-  cursor:pointer;
+.cardx{
+  background:#fff;
+  border-radius:12px;
+  padding:16px;
+  box-shadow:0 4px 12px rgba(0,0,0,.05);
+}
+
+.section{margin-top:25px;}
+
+.rank-bar{
+  height:6px;
+  background:#e5e7eb;
+  border-radius:6px;
+  margin-bottom:10px;
+}
+
+.rank-fill{
+  height:6px;
   background:#2563eb;
-  color:white;
-  padding:8px 14px;
-  border-radius:8px;
-  display:inline-block;
-  margin-top:10px;
+}
+
+.kpi{
+  font-size:1.4rem;
+  font-weight:600;
+}
+
+.icon{
+  margin-right:6px;
+  color:#2563eb;
 }
 
 /* PRINT */
 @media print{
-  body{background:white;}
+  #header-container, #sidebar-container, .btn-print{display:none;}
   #map{height:400px;}
-  .print-btn, #header-container, #sidebar-container{display:none;}
 }
 
 </style>
@@ -67,49 +76,85 @@ body{background:#f5f7fb;font-family:Inter;}
 <h1>Mapa do Autismo no Brasil</h1>
 <p>Baseado no Censo 2022 (IBGE)</p>
 
-<div class="print-btn" onclick="window.print()">
-<i class="bi bi-printer"></i> Gerar relatório
-</div>
-
 <!-- KPIs -->
 <div class="section row g-3">
-<div class="col"><div class="cardx text-center"><h4>2,4M</h4><small>Pessoas</small></div></div>
-<div class="col"><div class="cardx text-center"><h4>1,2%</h4><small>Prevalência</small></div></div>
-<div class="col"><div class="cardx text-center"><h4>760 mil</h4><small>Estudantes</small></div></div>
-<div class="col"><div class="cardx text-center"><h4>66,8%</h4><small>Fundamental</small></div></div>
+
+<div class="col">
+<div class="cardx text-center">
+<div class="kpi">2,4M</div>
+<small><i class="bi bi-people icon"></i>Pessoas</small>
+</div>
+</div>
+
+<div class="col">
+<div class="cardx text-center">
+<div class="kpi">1,2%</div>
+<small><i class="bi bi-graph-up icon"></i>Prevalência</small>
+</div>
+</div>
+
+<div class="col">
+<div class="cardx text-center">
+<div class="kpi">760 mil</div>
+<small><i class="bi bi-mortarboard icon"></i>Estudantes</small>
+</div>
+</div>
+
+<div class="col">
+<div class="cardx text-center">
+<div class="kpi">66,8%</div>
+<small><i class="bi bi-book icon"></i>Ensino fundamental</small>
+</div>
+</div>
+
+</div>
+
+<!-- ESTADO (AGORA EM CIMA) -->
+<div class="section cardx">
+<h5><i class="bi bi-geo-alt icon"></i>Estado selecionado</h5>
+<div id="info">Clique em um estado no mapa</div>
 </div>
 
 <div class="section row g-4">
 
+<!-- MAPA -->
 <div class="col-lg-8">
 
 <div id="map"></div>
 
 <div class="section cardx">
-<h5>Distribuição por Região</h5>
-<div><b>Sudeste</b></div><div class="rank-bar"><div class="rank-fill" style="width:100%"></div></div>
-<div><b>Nordeste</b></div><div class="rank-bar"><div class="rank-fill" style="width:63%"></div></div>
-<div><b>Sul</b></div><div class="rank-bar"><div class="rank-fill" style="width:35%"></div></div>
-<div><b>Norte</b></div><div class="rank-bar"><div class="rank-fill" style="width:20%"></div></div>
-<div><b>Centro-Oeste</b></div><div class="rank-bar"><div class="rank-fill" style="width:18%"></div></div>
-</div>
+<h5><i class="bi bi-bar-chart icon"></i>Distribuição por Região</h5>
+
+<div><b>Sudeste</b></div>
+<div class="rank-bar"><div class="rank-fill" style="width:100%"></div></div>
+
+<div><b>Nordeste</b></div>
+<div class="rank-bar"><div class="rank-fill" style="width:63%"></div></div>
+
+<div><b>Sul</b></div>
+<div class="rank-bar"><div class="rank-fill" style="width:35%"></div></div>
+
+<div><b>Norte</b></div>
+<div class="rank-bar"><div class="rank-fill" style="width:20%"></div></div>
+
+<div><b>Centro-Oeste</b></div>
+<div class="rank-bar"><div class="rank-fill" style="width:18%"></div></div>
 
 </div>
 
+</div>
+
+<!-- LADO DIREITO -->
 <div class="col-lg-4">
 
 <div class="cardx mb-3">
-<h5>Estado selecionado</h5>
-<div id="info">Clique em um estado</div>
-</div>
-
-<div class="cardx mb-3">
+<h5><i class="bi bi-pie-chart icon"></i>Distribuição etária</h5>
 <canvas id="chart"></canvas>
 </div>
 
 <div class="cardx">
-<h5>Ranking</h5>
-<small class="text-muted">Estimativa com base no Censo 2022</small>
+<h5><i class="bi bi-trophy icon"></i>Ranking</h5>
+<small class="text-muted">Base IBGE</small>
 <div id="ranking"></div>
 </div>
 
@@ -119,18 +164,25 @@ body{background:#f5f7fb;font-family:Inter;}
 
 <!-- OBSERVATÓRIO -->
 <div class="section cardx">
-<h5>Leitura do Território</h5>
-<p id="leituraTexto">Clique em um estado para análise.</p>
+<h5><i class="bi bi-cpu icon"></i>Leitura do Território</h5>
+<p id="leituraTexto">Selecione um estado para análise.</p>
 </div>
 
 <div class="section cardx">
-<h5>Insights</h5>
+<h5><i class="bi bi-lightbulb icon"></i>Insights</h5>
 <ul id="insights"></ul>
 </div>
 
 <div class="section cardx">
-<h5>Implicações</h5>
+<h5><i class="bi bi-activity icon"></i>Implicações</h5>
 <ul id="implicacoes"></ul>
+</div>
+
+<!-- BOTÃO FINAL -->
+<div class="section text-center">
+<button class="btn btn-primary btn-print" onclick="window.print()">
+<i class="bi bi-printer"></i> Gerar relatório
+</button>
 </div>
 
 </div>
@@ -140,26 +192,23 @@ body{background:#f5f7fb;font-family:Inter;}
 
 <script>
 
-// MAP
 var map = L.map('map').setView([-14.2,-51.9],4);
 
 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);
 
-// DADOS
 var dados={
-"SP":{pop:500000,prev:1.2},
-"MG":{pop:250000,prev:1.2},
-"RJ":{pop:200000,prev:1.2},
-"BA":{pop:180000,prev:1.2},
-"PR":{pop:140000,prev:1.2},
-"RS":{pop:130000,prev:1.2},
-"CE":{pop:120000,prev:1.2},
-"SC":{pop:80000,prev:1.2},
-"AM":{pop:60000,prev:1.2},
-"DF":{pop:50000,prev:1.1}
+"SP":{pop:500000},
+"MG":{pop:250000},
+"RJ":{pop:200000},
+"BA":{pop:180000},
+"PR":{pop:140000},
+"RS":{pop:130000},
+"CE":{pop:120000},
+"SC":{pop:80000},
+"AM":{pop:60000},
+"DF":{pop:50000}
 };
 
-// STYLE
 function getColor(v){
 return v>400000?"#08306b":
 v>200000?"#2171b5":
@@ -175,7 +224,6 @@ weight:1,color:"#fff",fillOpacity:0.8
 };
 }
 
-// CHART
 let chart;
 
 function updatePanel(uf,nome){
@@ -184,30 +232,22 @@ let d=dados[uf];
 
 document.getElementById("info").innerHTML=`
 <b>${nome}</b><br>
-${d?d.pop.toLocaleString()+" pessoas":"Sem dados"}
+<i class="bi bi-people"></i> ${d?d.pop.toLocaleString()+" pessoas":"Sem dados"}
 `;
 
-let leitura="",insights="",implicacoes="";
+document.getElementById("leituraTexto").innerText =
+`${nome} apresenta distribuição alinhada ao padrão nacional.`
 
-if(d){
-leitura=`${nome} possui cerca de ${d.pop.toLocaleString()} pessoas com autismo.`;
-
-insights=`
-<li>Distribuição proporcional à população</li>
+document.getElementById("insights").innerHTML=`
 <li>Maior concentração em idade escolar</li>
-`;
+<li>Distribuição proporcional à população</li>
+`
 
-implicacoes=`
-<li>Demanda por suporte educacional</li>
+document.getElementById("implicacoes").innerHTML=`
+<li>Necessidade de suporte educacional</li>
 <li>Planejamento de serviços locais</li>
-`;
-}
+`
 
-document.getElementById("leituraTexto").innerText=leitura;
-document.getElementById("insights").innerHTML=insights;
-document.getElementById("implicacoes").innerHTML=implicacoes;
-
-// gráfico
 if(chart)chart.destroy();
 
 chart=new Chart(document.getElementById('chart'),{
@@ -220,7 +260,7 @@ datasets:[{data:[2.1,2.6,1.9,0.9]}]
 
 }
 
-// RANKING
+// ranking
 let arr=Object.entries(dados).sort((a,b)=>b[1].pop-a[1].pop);
 let html="";
 arr.forEach(([uf,d])=>{
@@ -229,7 +269,7 @@ html+=`<div><b>${uf}</b> (${d.pop.toLocaleString()})</div>
 });
 document.getElementById("ranking").innerHTML=html;
 
-// GEOJSON
+// geojson
 fetch("https://raw.githubusercontent.com/codeforamerica/click_that_hood/master/public/data/brazil-states.geojson")
 .then(r=>r.json())
 .then(data=>{
