@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Cronograma ICARO - Produto 1</title>
+
+<style>
+body{
+  font-family: Arial, sans-serif;
+  background:#f5f7fb;
+  padding:30px;
+}
+
+h1{
+  font-size:20px;
+  margin-bottom:5px;
+}
+
+.sub{
+  color:#666;
+  margin-bottom:25px;
+}
+
+.timeline{
+  max-width:1000px;
+  margin:auto;
+  background:white;
+  padding:25px;
+  border-radius:12px;
+  box-shadow:0 4px 18px rgba(0,0,0,0.08);
+}
+
+.grid{
+  display:grid;
+  grid-template-columns: 220px repeat(16, 1fr);
+  gap:4px;
+  align-items:center;
+  font-size:12px;
+}
+
+.header-cell{
+  font-weight:bold;
+  text-align:center;
+  padding:6px 0;
+  background:#eef2ff;
+  border-radius:4px;
+}
+
+.label{
+  font-weight:600;
+  color:#333;
+  padding-right:10px;
+}
+
+.bar{
+  height:22px;
+  border-radius:6px;
+}
+
+.phase1{ background:#1d4ed8; }
+.phase2{ background:#2563eb; }
+.phase3{ background:#3b82f6; }
+.phase4{ background:#60a5fa; }
+
+.cell{
+  height:22px;
+}
+
+.legend{
+  margin-top:20px;
+  font-size:13px;
+  color:#444;
+}
+
+.dot{
+  display:inline-block;
+  width:10px;
+  height:10px;
+  border-radius:50%;
+  margin-right:6px;
+}
+
+</style>
+</head>
+
+<body>
+
+<h1>ICARO — Cronograma de Execução (Produto 1)</h1>
+<div class="sub">Horizonte temporal: 16 semanas | Estrutura metodológica BID / World Bank style</div>
+
+<div class="timeline">
+
+<!-- HEADER SEMANAS -->
+<div class="grid">
+  <div class="label">Fases</div>
+  <div class="header-cell">S1</div><div class="header-cell">S2</div><div class="header-cell">S3</div><div class="header-cell">S4</div>
+  <div class="header-cell">S5</div><div class="header-cell">S6</div><div class="header-cell">S7</div><div class="header-cell">S8</div>
+  <div class="header-cell">S9</div><div class="header-cell">S10</div><div class="header-cell">S11</div><div class="header-cell">S12</div>
+  <div class="header-cell">S13</div><div class="header-cell">S14</div><div class="header-cell">S15</div><div class="header-cell">S16</div>
+</div>
+
+<br/>
+
+<!-- FASE 1 -->
+<div class="grid">
+  <div class="label">Fase 1 — Estruturação conceitual</div>
+  <div class="cell bar phase1" style="grid-column:2 / span 4;"></div>
+</div>
+
+<!-- FASE 2 -->
+<div class="grid">
+  <div class="label">Fase 2 — Benchmark internacional</div>
+  <div class="cell bar phase2" style="grid-column:6 / span 5;"></div>
+</div>
+
+<!-- FASE 3 -->
+<div class="grid">
+  <div class="label">Fase 3 — Diagnóstico Brasil</div>
+  <div class="cell bar phase3" style="grid-column:11 / span 5;"></div>
+</div>
+
+<!-- FASE 4 -->
+<div class="grid">
+  <div class="label">Fase 4 — Sistematização analítica</div>
+  <div class="cell bar phase4" style="grid-column:15 / span 2;"></div>
+</div>
+
+<div class="legend">
+  <p><span class="dot" style="background:#1d4ed8"></span> Fase 1 — Base conceitual e framework analítico</p>
+  <p><span class="dot" style="background:#2563eb"></span> Fase 2 — Benchmark e melhores práticas internacionais</p>
+  <p><span class="dot" style="background:#3b82f6"></span> Fase 3 — Diagnóstico da comunicação no Brasil</p>
+  <p><span class="dot" style="background:#60a5fa"></span> Fase 4 — Consolidação e síntese analítica</p>
+</div>
+
+</div>
+
+</body>
+</html>
