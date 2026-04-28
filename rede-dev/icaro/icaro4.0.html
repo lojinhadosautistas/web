@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+<title>ICARO 4.0 | Sistema Nacional de Transparência Pública</title>
+
+<meta name="description" content="ICARO 4.0 é um sistema nacional de governança de dados públicos com georreferenciamento municipal, ranking de transparência e API aberta."/>
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"/>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet"/>
+<link href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" rel="stylesheet"/>
+
+<style>
+
+body{
+  font-family: Inter, sans-serif;
+  background:#f4f7fb;
+  color:#0f172a;
+}
+
+/* HERO GOVERNAMENTAL */
+.hero{
+  background: linear-gradient(135deg,#081c3a,#1d4ed8);
+  color:white;
+  padding:60px 30px;
+  border-radius:18px;
+  position:relative;
+  overflow:hidden;
+}
+
+.hero img{
+  position:absolute;
+  right:-140px;
+  top:-60px;
+  width:600px;
+  opacity:0.12;
+}
+
+/* LOGO */
+.logo{
+  width:72px;
+  height:72px;
+  object-fit:contain;
+}
+
+/* LAYOUT */
+.section{
+  margin-top:40px;
+}
+
+.cardx{
+  background:white;
+  border-radius:14px;
+  padding:18px;
+  box-shadow:0 6px 20px rgba(0,0,0,0.06);
+}
+
+/* MAPA */
+#map{
+  height:600px;
+  border-radius:14px;
+}
+
+/* KPI */
+.kpi h2{
+  color:#1d4ed8;
+  font-weight:700;
+}
+
+/* HEAT BAR */
+.bar{
+  height:8px;
+  background:#e5e7eb;
+  border-radius:6px;
+  overflow:hidden;
+}
+
+.fill{
+  height:8px;
+  background:#2563eb;
+  transition:width 1s ease;
+}
+
+/* TAG */
+.tag{
+  background:#eef2ff;
+  color:#1d4ed8;
+  padding:3px 8px;
+  border-radius:20px;
+  font-size:0.75rem;
+}
+
+/* API BOX */
+.api{
+  background:#0f172a;
+  color:#fff;
+  padding:12px;
+  border-radius:10px;
+  font-size:12px;
+  overflow:auto;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="container py-4">
+
+<!-- HERO -->
+<div class="hero">
+
+<img src="../../assets/icaro/ICARO-BID.png"/>
+
+<div class="d-flex align-items-center gap-3">
+
+<img class="logo"
+     src="../../assets/icaro/Logo-ICARO.png"
+     onerror="this.style.display='none'"/>
+
+<div>
+<h1>ICARO 4.0</h1>
+<p>
+Sistema Nacional de Transparência Pública com georreferenciamento completo de municípios,
+API aberta e indicadores de governança.
+</p>
+</div>
+
+</div>
+
+</div>
+
+<!-- KPI -->
+<div class="section row g-3">
+
+<div class="col-lg-3"><div class="cardx text-center"><h2>5.570</h2><p>Municípios (IBGE-ready)</p></div></div>
+<div class="col-lg-3"><div class="cardx text-center"><h2>27</h2><p>Estados</p></div></div>
+<div class="col-lg-3"><div class="cardx text-center"><h2>1 API</h2><p>Camada pública</p></div></div>
+<div class="col-lg-3"><div class="cardx text-center"><h2>Global</h2><p>Escala nacional</p></div></div>
+
+</div>
+
+<!-- MAPA + API -->
+<div class="section row g-4">
+
+<div class="col-lg-8">
+<div id="map"></div>
+</div>
+
+<div class="col-lg-4 cardx">
+
+<h5><i class="bi bi-cloud"></i> API GOVERNAMENTAL (SIMULADA)</h5>
+
+<div class="api">
+GET /icaro/municipios/fortaleza<br><br>
+
+{<br>
+ "municipio": "Fortaleza",<br>
+ "uf": "CE",<br>
+ "populacao": 2700000,<br>
+ "score_icaro": 71,<br>
+ "dimensoes": {<br>
+   "comunicacao": 45,<br>
+   "acessibilidade": 50,<br>
+   "responsividade": 40<br>
+ }<br>
+}
+</div>
+
+<br>
+
+<p class="text-muted">
+Estrutura compatível com CGU / IBGE / STN / SICONFI
+</p>
+
+</div>
+
+</div>
+
+<!-- RANKING -->
+<div class="section cardx">
+
+<h4><i class="bi bi-trophy"></i> Ranking Nacional (Top Estados)</h4>
+
+<br>
+
+<div><b>DF</b> <span class="tag">72</span></div>
+<div class="bar"><div class="fill" style="width:72%"></div></div>
+<br>
+
+<div><b>SP</b> <span class="tag">68</span></div>
+<div class="bar"><div class="fill" style="width:68%"></div></div>
+<br>
+
+<div><b>RJ</b> <span class="tag">60</span></div>
+<div class="bar"><div class="fill" style="width:60%"></div></div>
+
+</div>
+
+<!-- MATRIZ -->
+<div class="section cardx">
+
+<h4>Matriz ICARO (Governança da Informação)</h4>
+
+<div class="row">
+
+<div class="col-md-4">
+<b>Comunicação</b>
+<div class="bar"><div class="fill" style="width:45%"></div></div>
+</div>
+
+<div class="col-md-4">
+<b>Acessibilidade</b>
+<div class="bar"><div class="fill" style="width:50%"></div></div>
+</div>
+
+<div class="col-md-4">
+<b>Responsividade</b>
+<div class="bar"><div class="fill" style="width:40%"></div></div>
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- MAPA SCRIPT -->
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+<script>
+
+// MAPA NACIONAL
+var map = L.map('map').setView([-14.2, -51.9], 4);
+
+L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{
+  attribution:'ICARO 4.0 - Governo Aberto'
+}).addTo(map);
+
+// CLUSTER MUNICIPAL SIMULADO (BASE IBGE READY)
+var municipios = [
+  {name:"São Paulo", lat:-23.55, lon:-46.63, score:68},
+  {name:"Rio de Janeiro", lat:-22.90, lon:-43.20, score:60},
+  {name:"Brasília", lat:-15.78, lon:-47.93, score:72},
+  {name:"Salvador", lat:-12.97, lon:-38.50, score:66},
+  {name:"Fortaleza", lat:-3.73, lon:-38.52, score:71},
+  {name:"Recife", lat:-8.05, lon:-34.90, score:69},
+  {name:"Belo Horizonte", lat:-19.92, lon:-43.94, score:65},
+  {name:"Curitiba", lat:-25.42, lon:-49.27, score:74}
+];
+
+function getColor(score){
+  return score > 70 ? "#16a34a" :
+         score > 60 ? "#2563eb" :
+         score > 50 ? "#f59e0b" : "#ef4444";
+}
+
+municipios.forEach(m=>{
+
+  L.circleMarker([m.lat,m.lon],{
+    radius:10,
+    color:getColor(m.score),
+    fillOpacity:0.7
+  })
+  .addTo(map)
+  .bindPopup(
+    "<b>"+m.name+"</b><br>Score ICARO: "+m.score
+  );
+
+});
+
+</script>
+
+</body>
+</html>
