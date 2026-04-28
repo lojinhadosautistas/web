@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+<title>Mapa do Autismo no Brasil</title>
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"/>
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<style>
+body{font-family:Inter;background:#f5f7fb;}
+.hero{background:linear-gradient(135deg,#1e3a8a,#2563eb);color:#fff;padding:40px;border-radius:14px;}
+.cardx{background:#fff;padding:16px;border-radius:12px;box-shadow:0 4px 12px rgba(0,0,0,.05);}
+#map{height:600px;border-radius:12px;}
+.section{margin-top:25px;}
+</style>
+
+</head>
+
+<body>
+
+<div class="container py-4">
+
+<div class="hero">
+<h1>Mapa do Autismo no Brasil</h1>
+<p>Base IBGE 2022 • Distribuição proporcional por população</p>
+</div>
+
+<div class="section row g-3">
+<div class="col-md-3"><div class="cardx text-center"><h3>2,4M</h3><p>Pessoas com autismo</p></div></div>
+<div class="col-md-3"><div class="cardx text-center"><h3>1,2%</h3><p>Prevalência</p></div></div>
+<div class="col-md-3"><div class="cardx text-center"><h3>760 mil</h3><p>Estudantes</p></div></div>
+<div class="col-md-3"><div class="cardx text-center"><h3>66,8%</h3><p>Ensino fundamental</p></div></div>
+</div>
+
+<div class="section row">
+<div class="col-lg-8"><div id="map"></div></div>
+
+<div class="col-lg-4">
+
+<div class="cardx mb-3">
+<h5>Estado</h5>
+<div id="info">Clique em um estado</div>
+</div>
+
+<div class="cardx">
+<canvas id="chart"></canvas>
+</div>
+
+</div>
+</div>
+
+</div>
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+<script>
+
+// TOTAL IBGE
+const TOTAL_AUTISMO = 2400000;
+const PREVALENCIA = 0.012;
+
+// POPULAÇÃO IBGE (aprox Censo)
+const popUF = {
+"SP":44400000,"MG":20500000,"RJ":16000000,"BA":14800000,
+"PR":11400000,"RS":10800000,"PE":9000000,"CE":8800000,
+"PA":8100000,"SC":7600000,"GO":7000000,"MA":6800000,
+"AM":3900000,"PB":4000000,"ES":4000000,"RN":3300000,
+"MT":3600000,"AL":3300000,"PI":3200000,"DF":2900000,
+"MS":2800000,"SE":2300000,"RO":1700000,"TO":1500000,
+"AC":830000,"AP":800000,"RR":650000
+};
+
+// CALCULA AUTISMO POR UF
+let dados = {};
+
+Object.keys(popUF).forEach(uf=>{
+  let estimativa = popUF[uf] * PREVALENCIA;
+  dados[uf] = {
+    pop: Math.round(estimativa),
+    prev: 1.2
+  };
+});
+
+// MAPA
+var map = L.map('map').setView([-14.2,-51.9],4);
+
+L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);
+
+// COR
+function getColor(v){
+  return v>400000?"#08306b":
+         v>200000?"#2171b5":
+         v>100000?"#4292c6":
+         v>50000?"#6baed6":"#9ecae1";
+}
+
+// ESTILO
+function style(f){
+  let uf = f.properties.sigla;
+  let val = dados[uf]?.pop || 0;
+
+  return {fillColor:getColor(val),weight:1,color:"#fff",fillOpacity:0.8};
+}
+
+// CHART
+let chart;
+function updatePanel(uf,nome){
+  let d = dados[uf];
+
+  document.getElementById("info").innerHTML=`
+  <b>${nome}</b><br>
+  Estimativa: ${d.pop.toLocaleString()} pessoas<br>
+  Prevalência: 1,2%<br><br>
+  <small>Estimativa baseada no IBGE</small>
+  `;
+
+  if(chart) chart.destroy();
+
+  chart = new Chart(document.getElementById('chart'),{
+    type:'bar',
+    data:{
+      labels:["0-4","5-9","10-14","Adultos"],
+      datasets:[{label:"%",data:[2.1,2.6,1.9,0.9]}]
+    }
+  });
+}
+
+// GEOJSON
+fetch("https://raw.githubusercontent.com/codeforamerica/click_that_hood/master/public/data/brazil-states.geojson")
+.then(r=>r.json())
+.then(data=>{
+  L.geoJson(data,{
+    style:style,
+    onEachFeature:(f,l)=>{
+      l.on('click',()=>{
+        updatePanel(f.properties.sigla,f.properties.nome);
+      });
+    }
+  }).addTo(map);
+});
+
+</script>
+
+</body>
+</html>
