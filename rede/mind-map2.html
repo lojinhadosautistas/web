@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+<title>Mapa da Nossa Mente | Lojinha dos Autistas</title>
+
+<meta name="description" content="Mapa interativo das regiões do cérebro e sua relação com o autismo."/>
+
+<link href="../assets/img/favicon.png" rel="icon">
+
+<link href="../assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet"/>
+<link href="../assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet"/>
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet"/>
+
+<style>
+
+body{
+  font-family: 'Inter', sans-serif;
+  background:#f5f7fb;
+}
+
+/* CARDS */
+.cardx{
+  background:white;
+  border-radius:14px;
+  padding:18px;
+  box-shadow:0 6px 18px rgba(0,0,0,0.06);
+  transition:.2s;
+}
+
+.cardx:hover{
+  transform:translateY(-2px);
+}
+
+/* REGIÕES */
+.region-item{
+  padding:10px;
+  border-radius:10px;
+  cursor:pointer;
+}
+
+.region-item:hover{
+  background:#eef2ff;
+}
+
+.region-active{
+  background:#dbeafe;
+}
+
+/* CÉREBRO */
+.brain-container{
+  text-align:center;
+}
+
+.brain-area{
+  cursor:pointer;
+  transition:.2s;
+}
+
+.brain-area:hover{
+  opacity:0.8;
+  transform:scale(1.02);
+}
+
+/* TAG */
+.tag{
+  padding:4px 10px;
+  border-radius:20px;
+  font-size:0.75rem;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="container py-4">
+
+<h2 class="mb-2">🧠 Mapa da Nossa Mente</h2>
+<p class="text-muted">Entendendo as regiões cerebrais e suas funções no autismo</p>
+
+<div class="row g-4">
+
+<!-- ESQUERDA -->
+<div class="col-lg-3">
+
+<div class="cardx">
+
+<h5>Regiões do Cérebro</h5>
+
+<div class="region-item" onclick="selectRegion('prefrontal')">🔴 Córtex Pré-frontal</div>
+<div class="region-item" onclick="selectRegion('parietal')">🟠 Córtex Parietal</div>
+<div class="region-item" onclick="selectRegion('temporal')">🔵 Córtex Temporal</div>
+<div class="region-item" onclick="selectRegion('occipital')">🟢 Córtex Occipital</div>
+<div class="region-item" onclick="selectRegion('cerebelo')">🟣 Cerebelo</div>
+<div class="region-item" onclick="selectRegion('limbico')">🟡 Sistema Límbico</div>
+<div class="region-item" onclick="selectRegion('insula')">🔷 Ínsula</div>
+
+</div>
+
+<div class="cardx mt-3">
+
+<h5>Insights Gerais</h5>
+
+<p>O autismo não é um déficit, mas uma forma diferente de processamento.</p>
+
+<ul>
+<li>Processamento sensorial único</li>
+<li>Forças específicas</li>
+<li>Conectividade neural diferente</li>
+<li>Diversidade de perfis</li>
+</ul>
+
+</div>
+
+</div>
+
+<!-- CENTRO -->
+<div class="col-lg-6">
+
+<div class="cardx mb-3" style="background:#eef4ff">
+<b>Como interpretar:</b><br>
+Clique nas regiões do cérebro ou na lista ao lado.
+</div>
+
+<div class="cardx brain-container">
+
+<svg viewBox="0 0 500 400" width="100%">
+
+<path class="brain-area" fill="#ef4444" onclick="selectRegion('prefrontal')" d="M100 100 L200 80 L220 140 L140 160 Z"/>
+<path class="brain-area" fill="#f97316" onclick="selectRegion('parietal')" d="M200 80 L320 100 L300 170 L220 140 Z"/>
+<path class="brain-area" fill="#3b82f6" onclick="selectRegion('temporal')" d="M200 180 L300 170 L280 260 L180 250 Z"/>
+<path class="brain-area" fill="#22c55e" onclick="selectRegion('occipital')" d="M320 100 L380 160 L340 200 L300 170 Z"/>
+<path class="brain-area" fill="#7c3aed" onclick="selectRegion('cerebelo')" d="M300 260 L380 240 L360 300 L280 260 Z"/>
+<path class="brain-area" fill="#eab308" onclick="selectRegion('limbico')" d="M220 140 L300 170 L260 200 L200 180 Z"/>
+<path class="brain-area" fill="#06b6d4" onclick="selectRegion('insula')" d="M230 160 L260 150 L250 180 L220 180 Z"/>
+
+</svg>
+
+<div class="mt-3">
+
+<button class="btn btn-sm btn-outline-secondary">+ Zoom</button>
+<button class="btn btn-sm btn-outline-secondary">- Zoom</button>
+<button class="btn btn-sm btn-outline-secondary">Reset</button>
+
+</div>
+
+</div>
+
+<div class="row mt-3 g-3">
+
+<div class="col-md-6">
+<div class="cardx">
+<h6>Características</h6>
+<ul>
+<li>Sensibilidade sensorial</li>
+<li>Interesse intenso</li>
+<li>Pensamento visual</li>
+</ul>
+</div>
+</div>
+
+<div class="col-md-6">
+<div class="cardx">
+<h6>Estratégias</h6>
+<ul>
+<li>Rotina</li>
+<li>Comunicação visual</li>
+<li>Ambiente adaptado</li>
+</ul>
+</div>
+</div>
+
+</div>
+
+</div>
+
+<!-- DIREITA -->
+<div class="col-lg-3">
+
+<div class="cardx" id="painel">
+
+<h5>Região Selecionada</h5>
+<p>Clique em uma região</p>
+
+</div>
+
+<div class="cardx mt-3">
+
+<h5>Você sabia?</h5>
+<p>Pessoas autistas têm conectividade neural diferente.</p>
+<h4 style="color:#2563eb;">1 a 100</h4>
+
+</div>
+
+</div>
+
+</div>
+
+<div class="cardx mt-4" style="background:#eef2ff">
+Este mapa é educativo e não substitui avaliação profissional.
+</div>
+
+</div>
+
+<script>
+
+// BASE COMPLETA
+const regioes = {
+
+prefrontal:{
+titulo:"Córtex Pré-frontal",
+desc:"Funções executivas",
+funcoes:[
+"Planejamento",
+"Decisão",
+"Controle de impulsos",
+"Atenção"
+],
+autismo:[
+"Dificuldade em mudanças",
+"Planejamento complexo",
+"Foco intenso"
+]
+},
+
+parietal:{
+titulo:"Córtex Parietal",
+desc:"Processamento sensorial",
+funcoes:[
+"Integração sensorial",
+"Percepção espacial"
+],
+autismo:[
+"Hipersensibilidade",
+"Sobrecarga sensorial"
+]
+},
+
+temporal:{
+titulo:"Córtex Temporal",
+desc:"Linguagem e memória",
+funcoes:[
+"Processamento auditivo",
+"Linguagem",
+"Memória"
+],
+autismo:[
+"Processamento auditivo diferente",
+"Dificuldade social"
+]
+},
+
+occipital:{
+titulo:"Córtex Occipital",
+desc:"Visão",
+funcoes:[
+"Reconhecimento visual"
+],
+autismo:[
+"Pensamento visual forte"
+]
+},
+
+cerebelo:{
+titulo:"Cerebelo",
+desc:"Coordenação",
+funcoes:[
+"Equilíbrio",
+"Coordenação"
+],
+autismo:[
+"Coordenação motora diferente"
+]
+},
+
+limbico:{
+titulo:"Sistema Límbico",
+desc:"Emoções",
+funcoes:[
+"Regulação emocional"
+],
+autismo:[
+"Intensidade emocional"
+]
+},
+
+insula:{
+titulo:"Ínsula",
+desc:"Consciência interna",
+funcoes:[
+"Empatia",
+"Sensações"
+],
+autismo:[
+"Consciência corporal diferente"
+]
+}
+
+};
+
+// FUNÇÃO PRINCIPAL
+function selectRegion(id){
+
+let r = regioes[id];
+
+// painel
+document.getElementById("painel").innerHTML = `
+<h5>${r.titulo}</h5>
+<p><b>${r.desc}</b></p>
+
+<hr>
+
+<b>Funções</b>
+<ul>${r.funcoes.map(f=>`<li>${f}</li>`).join("")}</ul>
+
+<b>No autismo</b>
+<ul>${r.autismo.map(f=>`<li>${f}</li>`).join("")}</ul>
+
+<div style="background:#fee2e2;padding:10px;border-radius:8px;">
+Cada cérebro é único
+</div>
+`;
+
+// destaque lista
+document.querySelectorAll('.region-item').forEach(el=>{
+el.classList.remove('region-active');
+});
+
+event.target.classList.add('region-active');
+
+}
+
+</script>
+
+</body>
+</html>
