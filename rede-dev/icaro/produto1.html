@@ -1,327 +1,261 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
-<meta charset="utf-8"/>
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>CONSULTORIAS IND. | Dashboard</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-<style>
+  <title>ICARO | Produto 1 - Plano de Trabalho</title>
 
-body{
-  margin:0;
-  font-family: Arial, sans-serif;
-  background:#f5f7fb;
-  display:flex;
-}
+  <meta name="description" content="Plano de Trabalho do ICARO - Observatório Nacional da Transparência Orçamentária." />
 
-/* ===================== */
-/* SIDEBAR */
-/* ===================== */
+  <!-- Open Graph -->
+  <meta property="og:title" content="ICARO | Produto 1 - Plano de Trabalho" />
+  <meta property="og:description" content="Diagnóstico, benchmarking e framework analítico para transparência orçamentária no Brasil." />
+  <meta property="og:image" content="../../assets/img/img-share-autistas.jpg" />
+  <meta property="og:type" content="website" />
 
-.sidebar{
-  width:260px;
-  background:#0f172a;
-  color:white;
-  height:100vh;
-  position:fixed;
-  padding:20px;
-}
+  <!-- Favicon -->
+  <link href="../../assets/img/favicon.png" rel="icon">
 
-.sidebar h2{
-  font-size:16px;
-  margin-bottom:20px;
-}
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
-.sidebar a{
-  display:block;
-  color:#cbd5e1;
-  text-decoration:none;
-  padding:10px;
-  border-radius:8px;
-  font-size:13px;
-  margin-bottom:6px;
-}
+  <!-- Vendor CSS -->
+  <link href="../../assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="../../assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+  <link href="../../assets/vendor/aos/aos.css" rel="stylesheet">
 
-.sidebar a:hover{
-  background:#1d4ed8;
-  color:white;
-}
+  <!-- Main CSS REDE -->
+  <link href="../../assets/css/main.css" rel="stylesheet">
 
-/* ===================== */
-/* CONTEÚDO */
-/* ===================== */
+  <style>
 
-.main{
-  margin-left:260px;
-  padding:30px;
-  width:100%;
-}
+    body{
+      font-family: Inter, sans-serif;
+      background:#f4f6fb;
+    }
 
-.section{
-  margin-bottom:40px;
-}
+    /* LAYOUT DASHBOARD */
+    .sidebar{
+      width:260px;
+      height:100vh;
+      position:fixed;
+      left:0;
+      top:0;
+      background:#0f172a;
+      color:white;
+      padding:20px;
+    }
 
-/* ===================== */
-/* CARDS E GRÁFICOS */
-/* ===================== */
+    .sidebar h2{
+      font-size:1.1rem;
+      margin-bottom:20px;
+    }
 
-.card{
-  background:white;
-  padding:20px;
-  border-radius:12px;
-  box-shadow:0 4px 18px rgba(0,0,0,0.08);
-}
+    .sidebar a{
+      display:block;
+      padding:10px;
+      color:#cbd5e1;
+      text-decoration:none;
+      border-radius:8px;
+      margin-bottom:6px;
+      font-size:0.9rem;
+    }
 
-h1{
-  font-size:20px;
-}
+    .sidebar a:hover{
+      background:#1e293b;
+      color:white;
+    }
 
-h2{
-  font-size:16px;
-}
+    .main{
+      margin-left:260px;
+      padding:30px;
+    }
 
-/* ===================== */
-/* GANTT */
-/* ===================== */
+    .cardx{
+      background:white;
+      border-radius:14px;
+      padding:18px;
+      box-shadow:0 2px 10px rgba(0,0,0,0.05);
+      margin-bottom:20px;
+    }
 
-.grid{
-  display:grid;
-  grid-template-columns: 220px repeat(16, 1fr);
-  gap:4px;
-  font-size:12px;
-}
+    .kpi{
+      font-size:2rem;
+      font-weight:700;
+      color:#1d4ed8;
+    }
 
-.header-cell{
-  background:#eef2ff;
-  padding:6px;
-  text-align:center;
-  border-radius:4px;
-  font-weight:bold;
-}
+    .title{
+      font-size:1.4rem;
+      font-weight:700;
+    }
 
-.label{
-  font-weight:600;
-}
+    .sub{
+      color:#6b7280;
+      font-size:0.9rem;
+    }
 
-/* ===================== */
-/* BARRAS */
-/* ===================== */
+    .bar{
+      height:8px;
+      background:#e5e7eb;
+      border-radius:6px;
+    }
 
-.bar{
-  height:18px;
-  border-radius:6px;
-}
+    .fill{
+      height:8px;
+      background:#2563eb;
+    }
 
-.phase1{background:#1d4ed8;}
-.phase2{background:#2563eb;}
-.phase3{background:#3b82f6;}
-.phase4{background:#60a5fa;}
-
-/* ===================== */
-/* GRÁFICOS */
-/* ===================== */
-
-.bar-row{
-  display:flex;
-  align-items:center;
-  gap:10px;
-  margin:10px 0;
-  font-size:13px;
-}
-
-.bar-bg{
-  flex:1;
-  height:10px;
-  background:#e5e7eb;
-  border-radius:6px;
-  overflow:hidden;
-}
-
-.bar-fill{
-  height:10px;
-  background:#2563eb;
-}
-
-</style>
+  </style>
 
 </head>
 
 <body>
 
-<!-- ===================== -->
 <!-- SIDEBAR -->
-<!-- ===================== -->
-
 <div class="sidebar">
 
-<h2>ICARO — Produto 1</h2>
+  <h2>ICARO System</h2>
 
-<a href="#visao">Visão Geral</a>
-<a href="#cronograma">Cronograma</a>
-<a href="#metodologia">Metodologia</a>
-<a href="#benchmark">Benchmark</a>
-<a href="#diagnostico">Diagnóstico</a>
-<a href="#pipeline">Pipeline Analítico</a>
+  <a href="#">📊 Produto 1 - Plano de Trabalho</a>
+  <a href="#">📍 Diagnóstico Brasil</a>
+  <a href="#">🌍 Benchmark Internacional</a>
+  <a href="#">🧭 Framework Analítico</a>
+  <a href="#">📅 Cronograma</a>
+  <a href="../icaro.html">← Voltar ICARO</a>
 
 </div>
 
-<!-- ===================== -->
-<!-- CONTEÚDO -->
-<!-- ===================== -->
-
+<!-- MAIN -->
 <div class="main">
 
-<!-- ===================== -->
-<!-- VISÃO GERAL -->
-<!-- ===================== -->
+  <!-- HEADER -->
+  <div class="cardx">
+    <div class="title">Produto 1 — Plano de Trabalho ICARO</div>
+    <div class="sub">
+      Estrutura metodológica para avaliação da comunicação do orçamento público no Brasil,
+      integrando diagnóstico, benchmarking e construção de framework analítico.
+    </div>
+  </div>
 
-<div class="section" id="visao">
+  <!-- KPI ROW -->
+  <div class="row">
 
-<div class="card">
+    <div class="col-md-4">
+      <div class="cardx">
+        <div class="kpi">4</div>
+        <div class="sub">Componentes Analíticos</div>
+      </div>
+    </div>
 
-<h1>Produto 1 — Plano de Trabalho ICARO</h1>
+    <div class="col-md-4">
+      <div class="cardx">
+        <div class="kpi">5</div>
+        <div class="sub">Eixos Metodológicos</div>
+      </div>
+    </div>
 
-<p>
-Estruturação metodológica de um estudo técnico aplicado voltado à comunicação do orçamento público,
-com foco em diagnóstico, benchmarking internacional e construção de framework analítico.
-</p>
+    <div class="col-md-4">
+      <div class="cardx">
+        <div class="kpi">1</div>
+        <div class="sub">Framework Integrado</div>
+      </div>
+    </div>
 
-</div>
+  </div>
 
-</div>
+  <!-- CONTEÚDO PRINCIPAL -->
+  <div class="cardx">
 
-<!-- ===================== -->
-<!-- CRONOGRAMA -->
-<!-- ===================== -->
+    <div class="title">Componente 1 — Diagnóstico Estruturado</div>
+    <p class="sub">
+      Avaliação da comunicação orçamentária no Brasil com base em cinco dimensões estruturantes:
+      clareza da linguagem, acessibilidade digital, arquitetura da informação, experiência do usuário e
+      responsividade informacional. O diagnóstico busca identificar padrões de fragmentação comunicacional
+      e lacunas entre produção de dados e sua efetiva compreensão pelo cidadão.
+    </p>
 
-<div class="section" id="cronograma">
+  </div>
 
-<div class="card">
+  <div class="cardx">
 
-<h2>Cronograma de Execução (16 semanas)</h2>
+    <div class="title">Componente 2 — Benchmark Internacional</div>
+    <p class="sub">
+      Análise comparativa de experiências internacionais em transparência fiscal, com ênfase em modelos
+      centrados no cidadão. Inclui práticas da OCDE, FMI e iniciativas de governo aberto que demonstram
+      maior efetividade na tradução de dados orçamentários em informação pública inteligível.
+    </p>
 
-<br/>
+  </div>
 
-<div class="grid">
+  <div class="cardx">
 
-<div class="label">Fase</div>
-<div class="header-cell">S1</div><div class="header-cell">S2</div><div class="header-cell">S3</div><div class="header-cell">S4</div>
-<div class="header-cell">S5</div><div class="header-cell">S6</div><div class="header-cell">S7</div><div class="header-cell">S8</div>
-<div class="header-cell">S9</div><div class="header-cell">S10</div><div class="header-cell">S11</div><div class="header-cell">S12</div>
-<div class="header-cell">S13</div><div class="header-cell">S14</div><div class="header-cell">S15</div><div class="header-cell">S16</div>
+    <div class="title">Componente 3 — Diretrizes Estratégicas</div>
+    <p class="sub">
+      Formulação de princípios orientadores para reestruturação da comunicação orçamentária no Brasil,
+      incorporando abordagem centrada no usuário, design de informação pública e segmentação de públicos.
+      As diretrizes visam reduzir assimetrias informacionais e ampliar a usabilidade dos dados públicos.
+    </p>
 
-<div class="label">Estruturação conceitual</div>
-<div class="bar phase1" style="grid-column:2 / span 4;"></div>
+  </div>
 
-<div class="label">Benchmark internacional</div>
-<div class="bar phase2" style="grid-column:6 / span 5;"></div>
+  <div class="cardx">
 
-<div class="label">Diagnóstico Brasil</div>
-<div class="bar phase3" style="grid-column:11 / span 5;"></div>
+    <div class="title">Componente 4 — Roadmap de Implementação</div>
+    <p class="sub">
+      Estruturação de plano de implementação com priorização de ações, definição de governança institucional,
+      cronograma de execução e indicadores de monitoramento e avaliação. O roadmap conecta diagnóstico,
+      análise e intervenção em uma arquitetura sequencial de política pública.
+    </p>
 
-<div class="label">Síntese analítica</div>
-<div class="bar phase4" style="grid-column:15 / span 2;"></div>
+  </div>
 
-</div>
+  <!-- METODOLOGIA -->
+  <div class="cardx">
 
-</div>
+    <div class="title">Eixos Metodológicos</div>
 
-</div>
+    <br>
 
-<!-- ===================== -->
-<!-- METODOLOGIA -->
-<!-- ===================== -->
+    <b>Benchmarking estruturado</b>
+    <div class="bar"><div class="fill" style="width:70%"></div></div>
+    <br>
 
-<div class="section" id="metodologia">
+    <b>Diagnóstico analítico</b>
+    <div class="bar"><div class="fill" style="width:80%"></div></div>
+    <br>
 
-<div class="card">
+    <b>Coleta qualitativa</b>
+    <div class="bar"><div class="fill" style="width:60%"></div></div>
+    <br>
 
-<h2>Distribuição Metodológica</h2>
+    <b>Mensuração estruturada</b>
+    <div class="bar"><div class="fill" style="width:75%"></div></div>
 
-<div class="bar-row">
-<span>Benchmark Internacional</span>
-<div class="bar-bg"><div class="bar-fill" style="width:35%"></div></div>
-<span>35%</span>
-</div>
+  </div>
 
-<div class="bar-row">
-<span>Diagnóstico Brasil</span>
-<div class="bar-bg"><div class="bar-fill" style="width:40%"></div></div>
-<span>40%</span>
-</div>
+  <!-- PRODUTOS -->
+  <div class="cardx">
 
-<div class="bar-row">
-<span>Coleta de Evidências</span>
-<div class="bar-bg"><div class="bar-fill" style="width:15%"></div></div>
-<span>15%</span>
-</div>
+    <div class="title">Produtos Esperados</div>
 
-<div class="bar-row">
-<span>Síntese Analítica</span>
-<div class="bar-bg"><div class="bar-fill" style="width:10%"></div></div>
-<span>10%</span>
-</div>
+    <p><b>Produto 1:</b> Plano de Trabalho e Framework Analítico</p>
+    <p><b>Produto 2:</b> Diagnóstico e Benchmark Internacional</p>
+    <p><b>Produto 3:</b> Roadmap e Diretrizes Estratégicas</p>
 
-</div>
-
-</div>
-
-<!-- ===================== -->
-<!-- BENCHMARK -->
-<!-- ===================== -->
-
-<div class="section" id="benchmark">
-
-<div class="card">
-
-<h2>Benchmark Internacional</h2>
-
-<ul>
-<li>Irlanda — orçamento cidadão simplificado</li>
-<li>Canadá — UX pública orientada ao cidadão</li>
-<li>Nova Zelândia — integração orçamento + cidadania</li>
-<li>Coreia do Sul — dashboards participativos</li>
-</ul>
-
-</div>
-
-</div>
-
-<!-- ===================== -->
-<!-- DIAGNÓSTICO -->
-<!-- ===================== -->
-
-<div class="section" id="diagnostico">
-
-<div class="card">
-
-<h2>Dimensões do Diagnóstico</h2>
-
-<p>Clareza, arquitetura da informação, UX, acessibilidade, responsividade e integração institucional.</p>
+  </div>
 
 </div>
 
-</div>
+<!-- JS -->
+<script src="../../assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="../../assets/vendor/aos/aos.js"></script>
 
-<!-- ===================== -->
-<!-- PIPELINE -->
-<!-- ===================== -->
-
-<div class="section" id="pipeline">
-
-<div class="card">
-
-<h2>Pipeline Analítico</h2>
-
-<p>
-Benchmark → Diagnóstico → Evidências → Síntese → Framework Produto 2
-</p>
-
-</div>
-
-</div>
-
-</div>
+<script>
+  AOS.init();
+</script>
 
 </body>
 </html>
