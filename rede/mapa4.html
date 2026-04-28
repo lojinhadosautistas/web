@@ -8,15 +8,51 @@
 <title>Mapa do Autismo no Brasil</title>
 
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"/>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet"/>
+
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 <style>
-body{font-family:Inter;background:#f5f7fb;}
-.hero{background:linear-gradient(135deg,#1e3a8a,#2563eb);color:#fff;padding:40px;border-radius:14px;}
-.cardx{background:#fff;padding:16px;border-radius:12px;box-shadow:0 4px 12px rgba(0,0,0,.05);}
-#map{height:600px;border-radius:12px;}
-.section{margin-top:25px;}
+
+body{
+  font-family: Inter, sans-serif;
+  background:#f5f7fb;
+}
+
+.hero{
+  background: linear-gradient(135deg,#1e3a8a,#2563eb);
+  color:white;
+  padding:50px;
+  border-radius:16px;
+}
+
+.cardx{
+  background:white;
+  border-radius:14px;
+  padding:18px;
+  box-shadow:0 6px 18px rgba(0,0,0,0.06);
+}
+
+#map{
+  height:600px;
+  border-radius:14px;
+}
+
+.section{ margin-top:30px; }
+
+.rank-bar{
+  height:6px;
+  background:#e5e7eb;
+  border-radius:6px;
+  margin-bottom:12px;
+}
+
+.rank-fill{
+  height:6px;
+  background:#2563eb;
+}
+
 </style>
 
 </head>
@@ -27,121 +63,189 @@ body{font-family:Inter;background:#f5f7fb;}
 
 <div class="hero">
 <h1>Mapa do Autismo no Brasil</h1>
-<p>Base IBGE 2022 • Distribuição proporcional por população</p>
+<p>Baseado no Censo 2022 do IBGE</p>
 </div>
 
+<!-- KPIs -->
 <div class="section row g-3">
-<div class="col-md-3"><div class="cardx text-center"><h3>2,4M</h3><p>Pessoas com autismo</p></div></div>
-<div class="col-md-3"><div class="cardx text-center"><h3>1,2%</h3><p>Prevalência</p></div></div>
-<div class="col-md-3"><div class="cardx text-center"><h3>760 mil</h3><p>Estudantes</p></div></div>
-<div class="col-md-3"><div class="cardx text-center"><h3>66,8%</h3><p>Ensino fundamental</p></div></div>
+
+<div class="col-lg-3"><div class="cardx text-center"><h2>2,4M</h2><p>Pessoas com autismo</p></div></div>
+<div class="col-lg-3"><div class="cardx text-center"><h2>1,2%</h2><p>Prevalência</p></div></div>
+<div class="col-lg-3"><div class="cardx text-center"><h2>760 mil</h2><p>Estudantes</p></div></div>
+<div class="col-lg-3"><div class="cardx text-center"><h2>66,8%</h2><p>Ensino fundamental</p></div></div>
+
 </div>
 
-<div class="section row">
-<div class="col-lg-8"><div id="map"></div></div>
+<!-- FILTRO -->
+<div class="section cardx">
+<label><b>Visualizar por:</b></label>
+<select id="filtro">
+<option value="pop">População estimada</option>
+<option value="prev">Prevalência (%)</option>
+</select>
+</div>
+
+<!-- MAP + SIDE -->
+<div class="section row g-4">
+
+<div class="col-lg-8">
+
+<div id="map"></div>
+
+<!-- REGIÕES -->
+<div class="section cardx mt-3">
+
+<h4><i class="bi bi-bar-chart"></i> Distribuição por Região</h4>
+
+<div><b>Sudeste</b></div>
+<div class="rank-bar"><div class="rank-fill" style="width:100%"></div></div>
+
+<div><b>Nordeste</b></div>
+<div class="rank-bar"><div class="rank-fill" style="width:63%"></div></div>
+
+<div><b>Sul</b></div>
+<div class="rank-bar"><div class="rank-fill" style="width:35%"></div></div>
+
+<div><b>Norte</b></div>
+<div class="rank-bar"><div class="rank-fill" style="width:20%"></div></div>
+
+<div><b>Centro-Oeste</b></div>
+<div class="rank-bar"><div class="rank-fill" style="width:18%"></div></div>
+
+</div>
+
+</div>
 
 <div class="col-lg-4">
 
 <div class="cardx mb-3">
-<h5>Estado</h5>
+<h5>Estado selecionado</h5>
 <div id="info">Clique em um estado</div>
 </div>
 
-<div class="cardx">
+<div class="cardx mb-3">
+<h5>Distribuição etária</h5>
 <canvas id="chart"></canvas>
 </div>
 
-</div>
+<div class="cardx">
+<h5>Ranking</h5>
+<div id="ranking"></div>
 </div>
 
 </div>
 
+</div>
+
+</div>
+
+<!-- LIBS -->
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 
 <script>
 
-// TOTAL IBGE
-const TOTAL_AUTISMO = 2400000;
-const PREVALENCIA = 0.012;
-
-// POPULAÇÃO IBGE (aprox Censo)
-const popUF = {
-"SP":44400000,"MG":20500000,"RJ":16000000,"BA":14800000,
-"PR":11400000,"RS":10800000,"PE":9000000,"CE":8800000,
-"PA":8100000,"SC":7600000,"GO":7000000,"MA":6800000,
-"AM":3900000,"PB":4000000,"ES":4000000,"RN":3300000,
-"MT":3600000,"AL":3300000,"PI":3200000,"DF":2900000,
-"MS":2800000,"SE":2300000,"RO":1700000,"TO":1500000,
-"AC":830000,"AP":800000,"RR":650000
-};
-
-// CALCULA AUTISMO POR UF
-let dados = {};
-
-Object.keys(popUF).forEach(uf=>{
-  let estimativa = popUF[uf] * PREVALENCIA;
-  dados[uf] = {
-    pop: Math.round(estimativa),
-    prev: 1.2
-  };
-});
-
-// MAPA
-var map = L.map('map').setView([-14.2,-51.9],4);
+// MAP
+var map = L.map('map').setView([-14.2, -51.9], 4);
 
 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);
+
+// DADOS
+var dados = {
+  "SP": {pop:500000, prev:1.2},
+  "MG": {pop:250000, prev:1.2},
+  "RJ": {pop:200000, prev:1.2},
+  "BA": {pop:180000, prev:1.2},
+  "PR": {pop:140000, prev:1.2},
+  "RS": {pop:130000, prev:1.2},
+  "CE": {pop:120000, prev:1.2},
+  "SC": {pop:80000, prev:1.2},
+  "AM": {pop:60000, prev:1.2},
+  "DF": {pop:50000, prev:1.1}
+};
 
 // COR
 function getColor(v){
   return v>400000?"#08306b":
          v>200000?"#2171b5":
          v>100000?"#4292c6":
-         v>50000?"#6baed6":"#9ecae1";
+         v>50000?"#6baed6":
+         "#9ecae1";
 }
 
-// ESTILO
+// STYLE
 function style(f){
   let uf = f.properties.sigla;
-  let val = dados[uf]?.pop || 0;
+  let tipo = document.getElementById("filtro").value;
+  let val = dados[uf]?dados[uf][tipo]:0;
 
-  return {fillColor:getColor(val),weight:1,color:"#fff",fillOpacity:0.8};
+  return { fillColor:getColor(val), weight:1, color:"#fff", fillOpacity:0.8 };
 }
 
-// CHART
+// PANEL + CHART
 let chart;
-function updatePanel(uf,nome){
+
+function updatePanel(uf, nome){
   let d = dados[uf];
 
-  document.getElementById("info").innerHTML=`
-  <b>${nome}</b><br>
-  Estimativa: ${d.pop.toLocaleString()} pessoas<br>
-  Prevalência: 1,2%<br><br>
-  <small>Estimativa baseada no IBGE</small>
+  document.getElementById("info").innerHTML = `
+    <b>${nome}</b><br><br>
+    Pessoas: ${d?d.pop.toLocaleString():"-"}<br>
+    Prevalência: ${d?d.prev:"-"}%
   `;
+
+  let ctx = document.getElementById('chart');
 
   if(chart) chart.destroy();
 
-  chart = new Chart(document.getElementById('chart'),{
+  chart = new Chart(ctx, {
     type:'bar',
     data:{
       labels:["0-4","5-9","10-14","Adultos"],
-      datasets:[{label:"%",data:[2.1,2.6,1.9,0.9]}]
+      datasets:[{
+        label:"Prevalência",
+        data:[2.1,2.6,1.9,0.9]
+      }]
     }
   });
 }
 
+// RANKING
+function renderRanking(){
+  let arr = Object.entries(dados).sort((a,b)=>b[1].pop-a[1].pop);
+
+  let html="";
+
+  arr.forEach(([uf,d])=>{
+    html+=`
+      <div><b>${uf}</b> (${d.pop.toLocaleString()})</div>
+      <div class="rank-bar"><div class="rank-fill" style="width:${d.pop/5000}%"></div></div>
+    `;
+  });
+
+  document.getElementById("ranking").innerHTML=html;
+}
+
+renderRanking();
+
 // GEOJSON
+let geojson;
+
 fetch("https://raw.githubusercontent.com/codeforamerica/click_that_hood/master/public/data/brazil-states.geojson")
 .then(r=>r.json())
 .then(data=>{
-  L.geoJson(data,{
+  geojson = L.geoJson(data,{
     style:style,
     onEachFeature:(f,l)=>{
       l.on('click',()=>{
-        updatePanel(f.properties.sigla,f.properties.nome);
+        updatePanel(f.properties.sigla, f.properties.nome);
       });
     }
   }).addTo(map);
+});
+
+// FILTRO
+document.getElementById("filtro").addEventListener("change",()=>{
+  geojson.setStyle(style);
 });
 
 </script>
