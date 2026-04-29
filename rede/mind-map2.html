@@ -5,35 +5,24 @@
 <meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 
-<title>Mapa da Nossa Mente | Lojinha dos Autistas</title>
-
-<meta name="description" content="Mapa interativo das regiões do cérebro e sua relação com o autismo."/>
-
-<link href="../assets/img/favicon.png" rel="icon">
+<title>Atlas Cognitivo - Mapa da Mente | Sistema REDE</title>
 
 <link href="../assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet"/>
 <link href="../assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet"/>
-
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
 
 <style>
-
 body{
-  font-family: 'Inter', sans-serif;
+  font-family:'Inter',sans-serif;
   background:#f5f7fb;
 }
 
-/* CARDS */
 .cardx{
-  background:white;
+  background:#fff;
   border-radius:14px;
   padding:18px;
-  box-shadow:0 6px 18px rgba(0,0,0,0.06);
-  transition:.2s;
-}
-
-.cardx:hover{
-  transform:translateY(-2px);
+  box-shadow:0 6px 18px rgba(0,0,0,.06);
+  margin-bottom:18px;
 }
 
 /* REGIÕES */
@@ -41,48 +30,140 @@ body{
   padding:10px;
   border-radius:10px;
   cursor:pointer;
-}
-
-.region-item:hover{
-  background:#eef2ff;
-}
-
-.region-active{
-  background:#dbeafe;
-}
-
-/* CÉREBRO */
-.brain-container{
-  text-align:center;
-}
-
-.brain-area{
-  cursor:pointer;
   transition:.2s;
 }
 
-.brain-area:hover{
-  opacity:0.8;
-  transform:scale(1.02);
+.region-item:hover{ background:#eef2ff; }
+
+.region-active{
+  background:#dbeafe;
+  font-weight:600;
 }
 
-/* TAG */
-.tag{
-  padding:4px 10px;
-  border-radius:20px;
-  font-size:0.75rem;
+/* MAPA */
+.brain-wrapper{
+  position:relative;
+  max-width:560px;
+  margin:auto;
 }
 
+.brain-img{
+  width:100%;
+  border-radius:14px;
+}
+
+/* HOTSPOTS */
+.brain-hotspot{
+  position:absolute;
+  border-radius:50%;
+  cursor:pointer;
+  transition:.25s;
+  background:rgba(37,99,235,.12);
+  border:2px solid rgba(37,99,235,.45);
+}
+
+.brain-hotspot:hover{
+  background:rgba(37,99,235,.22);
+  transform:scale(1.08);
+}
+
+.brain-hotspot.active{
+  background:rgba(37,99,235,.35);
+  border-color:#2563eb;
+  transform:scale(1.18);
+}
+
+/* 🔥 GLOW DINÂMICO (NOVO V3) */
+.brain-hotspot.audio-glow{
+  animation: audioPulse 1.2s infinite;
+}
+
+@keyframes audioPulse{
+  0%{ transform:scale(1); box-shadow:0 0 0 rgba(37,99,235,.2); }
+  50%{ transform:scale(1.25); box-shadow:0 0 22px rgba(37,99,235,.6); }
+  100%{ transform:scale(1); box-shadow:0 0 0 rgba(37,99,235,.2); }
+}
+
+/* POSIÇÕES */
+#prefrontal{ top:18%; left:15%; width:72px; height:72px; }
+#parietal{ top:10%; left:45%; width:72px; height:72px; }
+#temporal{ top:50%; left:42%; width:72px; height:72px; }
+#occipital{ top:25%; left:76%; width:58px; height:58px; }
+#cerebelo{ top:72%; left:70%; width:58px; height:58px; }
+#limbico{ top:45%; left:30%; width:60px; height:60px; }
+#insula{ top:40%; left:49%; width:42px; height:42px; }
+
+/* GUIA */
+.guia-box{
+  background:#eef2ff;
+  padding:14px;
+  border-radius:12px;
+  min-height:100px;
+}
+
+/* DOTS */
+.dot{ opacity:.3; }
+.dot.active{ opacity:1; color:#2563eb; }
+
+/* STORY */
+.story-item{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  padding:12px;
+  border-radius:12px;
+  background:#f8fafc;
+  margin-top:14px;
+  cursor:pointer;
+}
+
+/* PLAYER */
+.audio-player{
+  position:fixed;
+  bottom:0;
+  left:0;
+  right:0;
+  background:#0f172a;
+  color:white;
+  display:flex;
+  gap:12px;
+  padding:12px 20px;
+  z-index:999;
+}
+
+/* MOBILE APP MODE */
+@media (max-width:768px){
+  .row{ flex-direction:column; }
+  .col-lg-3,.col-lg-6{ width:100%; }
+
+  .brain-hotspot{
+    width:85px !important;
+    height:85px !important;
+  }
+
+  .audio-player{
+    border-radius:18px 18px 0 0;
+  }
+}
+
+/* PLAYLIST */
+.fabularium-library{
+  display:flex;
+  flex-direction:column;
+  gap:10px;
+  max-height:420px;
+  overflow:auto;
+}
+
+.cat-active{
+  outline:2px solid #2563eb;
+}
 </style>
-
 </head>
 
 <body>
 
-<div class="container py-4">
-
-<h2 class="mb-2">🧠 Mapa da Nossa Mente</h2>
-<p class="text-muted">Entendendo as regiões cerebrais e suas funções no autismo</p>
+<main class="main">
 
 <div class="row g-4">
 
@@ -90,31 +171,15 @@ body{
 <div class="col-lg-3">
 
 <div class="cardx">
+<h5>Regiões</h5>
 
-<h5>Regiões do Cérebro</h5>
-
-<div class="region-item" onclick="selectRegion('prefrontal')">🔴 Córtex Pré-frontal</div>
-<div class="region-item" onclick="selectRegion('parietal')">🟠 Córtex Parietal</div>
-<div class="region-item" onclick="selectRegion('temporal')">🔵 Córtex Temporal</div>
-<div class="region-item" onclick="selectRegion('occipital')">🟢 Córtex Occipital</div>
-<div class="region-item" onclick="selectRegion('cerebelo')">🟣 Cerebelo</div>
-<div class="region-item" onclick="selectRegion('limbico')">🟡 Sistema Límbico</div>
-<div class="region-item" onclick="selectRegion('insula')">🔷 Ínsula</div>
-
-</div>
-
-<div class="cardx mt-3">
-
-<h5>Insights Gerais</h5>
-
-<p>O autismo não é um déficit, mas uma forma diferente de processamento.</p>
-
-<ul>
-<li>Processamento sensorial único</li>
-<li>Forças específicas</li>
-<li>Conectividade neural diferente</li>
-<li>Diversidade de perfis</li>
-</ul>
+<div class="region-item" data-id="prefrontal">Pré-frontal</div>
+<div class="region-item" data-id="parietal">Parietal</div>
+<div class="region-item" data-id="temporal">Temporal</div>
+<div class="region-item" data-id="occipital">Occipital</div>
+<div class="region-item" data-id="cerebelo">Cerebelo</div>
+<div class="region-item" data-id="limbico">Límbico</div>
+<div class="region-item" data-id="insula">Ínsula</div>
 
 </div>
 
@@ -123,59 +188,24 @@ body{
 <!-- CENTRO -->
 <div class="col-lg-6">
 
-<div class="cardx mb-3" style="background:#eef4ff">
-<b>Como interpretar:</b><br>
-Clique nas regiões do cérebro ou na lista ao lado.
-</div>
-
-<div class="cardx brain-container">
-
-<svg viewBox="0 0 500 400" width="100%">
-
-<path class="brain-area" fill="#ef4444" onclick="selectRegion('prefrontal')" d="M100 100 L200 80 L220 140 L140 160 Z"/>
-<path class="brain-area" fill="#f97316" onclick="selectRegion('parietal')" d="M200 80 L320 100 L300 170 L220 140 Z"/>
-<path class="brain-area" fill="#3b82f6" onclick="selectRegion('temporal')" d="M200 180 L300 170 L280 260 L180 250 Z"/>
-<path class="brain-area" fill="#22c55e" onclick="selectRegion('occipital')" d="M320 100 L380 160 L340 200 L300 170 Z"/>
-<path class="brain-area" fill="#7c3aed" onclick="selectRegion('cerebelo')" d="M300 260 L380 240 L360 300 L280 260 Z"/>
-<path class="brain-area" fill="#eab308" onclick="selectRegion('limbico')" d="M220 140 L300 170 L260 200 L200 180 Z"/>
-<path class="brain-area" fill="#06b6d4" onclick="selectRegion('insula')" d="M230 160 L260 150 L250 180 L220 180 Z"/>
-
-</svg>
-
-<div class="mt-3">
-
-<button class="btn btn-sm btn-outline-secondary">+ Zoom</button>
-<button class="btn btn-sm btn-outline-secondary">- Zoom</button>
-<button class="btn btn-sm btn-outline-secondary">Reset</button>
-
-</div>
-
-</div>
-
-<div class="row mt-3 g-3">
-
-<div class="col-md-6">
 <div class="cardx">
-<h6>Características</h6>
-<ul>
-<li>Sensibilidade sensorial</li>
-<li>Interesse intenso</li>
-<li>Pensamento visual</li>
-</ul>
+<div class="brain-wrapper">
+<img src="../assets/img/brain-map.png" class="brain-img"/>
+
+<div id="prefrontal" class="brain-hotspot"></div>
+<div id="parietal" class="brain-hotspot"></div>
+<div id="temporal" class="brain-hotspot"></div>
+<div id="occipital" class="brain-hotspot"></div>
+<div id="cerebelo" class="brain-hotspot"></div>
+<div id="limbico" class="brain-hotspot"></div>
+<div id="insula" class="brain-hotspot"></div>
+
 </div>
 </div>
 
-<div class="col-md-6">
-<div class="cardx">
-<h6>Estratégias</h6>
-<ul>
-<li>Rotina</li>
-<li>Comunicação visual</li>
-<li>Ambiente adaptado</li>
-</ul>
-</div>
-</div>
-
+<div class="cardx" id="painel">
+<h5>Região</h5>
+<p>Selecione uma área</p>
 </div>
 
 </div>
@@ -183,159 +213,158 @@ Clique nas regiões do cérebro ou na lista ao lado.
 <!-- DIREITA -->
 <div class="col-lg-3">
 
-<div class="cardx" id="painel">
-
-<h5>Região Selecionada</h5>
-<p>Clique em uma região</p>
-
-</div>
-
-<div class="cardx mt-3">
-
-<h5>Você sabia?</h5>
-<p>Pessoas autistas têm conectividade neural diferente.</p>
-<h4 style="color:#2563eb;">1 a 100</h4>
-
+<div class="cardx">
+<h5>Audioteca</h5>
+<div id="fabulariumLibrary" class="fabularium-library"></div>
 </div>
 
 </div>
 
 </div>
-
-<div class="cardx mt-4" style="background:#eef2ff">
-Este mapa é educativo e não substitui avaliação profissional.
-</div>
-
-</div>
+</main>
 
 <script>
-
-// BASE COMPLETA
-const regioes = {
-
-prefrontal:{
-titulo:"Córtex Pré-frontal",
-desc:"Funções executivas",
-funcoes:[
-"Planejamento",
-"Decisão",
-"Controle de impulsos",
-"Atenção"
-],
-autismo:[
-"Dificuldade em mudanças",
-"Planejamento complexo",
-"Foco intenso"
-]
-},
-
-parietal:{
-titulo:"Córtex Parietal",
-desc:"Processamento sensorial",
-funcoes:[
-"Integração sensorial",
-"Percepção espacial"
-],
-autismo:[
-"Hipersensibilidade",
-"Sobrecarga sensorial"
-]
-},
-
-temporal:{
-titulo:"Córtex Temporal",
-desc:"Linguagem e memória",
-funcoes:[
-"Processamento auditivo",
-"Linguagem",
-"Memória"
-],
-autismo:[
-"Processamento auditivo diferente",
-"Dificuldade social"
-]
-},
-
-occipital:{
-titulo:"Córtex Occipital",
-desc:"Visão",
-funcoes:[
-"Reconhecimento visual"
-],
-autismo:[
-"Pensamento visual forte"
-]
-},
-
-cerebelo:{
-titulo:"Cerebelo",
-desc:"Coordenação",
-funcoes:[
-"Equilíbrio",
-"Coordenação"
-],
-autismo:[
-"Coordenação motora diferente"
-]
-},
-
-limbico:{
-titulo:"Sistema Límbico",
-desc:"Emoções",
-funcoes:[
-"Regulação emocional"
-],
-autismo:[
-"Intensidade emocional"
-]
-},
-
-insula:{
-titulo:"Ínsula",
-desc:"Consciência interna",
-funcoes:[
-"Empatia",
-"Sensações"
-],
-autismo:[
-"Consciência corporal diferente"
-]
-}
-
+/* =========================
+🧠 STATE CORE (V3)
+========================= */
+const STATE = {
+  currentRegion:null,
+  currentAudio:null,
+  isPlaying:false
 };
 
-// FUNÇÃO PRINCIPAL
-function selectRegion(id){
+/* =========================
+DADOS
+========================= */
+const regioes = {
+prefrontal:{
+  titulo:"Pré-frontal",
+  desc:"Funções executivas",
+  audioFile:"audio1.mp3",
+  musicFile:"music1.mp3",
+  musicSubtitle:"Controle e planejamento"
+},
+parietal:{
+  titulo:"Parietal",
+  desc:"Sensorial",
+  audioFile:"audio2.mp3",
+  musicFile:"music2.mp3",
+  musicSubtitle:"Sensações"
+},
+temporal:{
+  titulo:"Temporal",
+  desc:"Linguagem",
+  audioFile:"audio3.mp3",
+  musicFile:"music3.mp3",
+  musicSubtitle:"Memória"
+}
+};
 
-let r = regioes[id];
+/* =========================
+HOTSPOT SYNC CENTRAL
+========================= */
+function syncRegion(id){
+  STATE.currentRegion = id;
 
-// painel
-document.getElementById("painel").innerHTML = `
-<h5>${r.titulo}</h5>
-<p><b>${r.desc}</b></p>
+  document.querySelectorAll('.brain-hotspot')
+    .forEach(e=>e.classList.remove('active','audio-glow'));
 
-<hr>
+  document.querySelectorAll('.region-item')
+    .forEach(e=>e.classList.remove('region-active'));
 
-<b>Funções</b>
-<ul>${r.funcoes.map(f=>`<li>${f}</li>`).join("")}</ul>
+  const el = document.getElementById(id);
+  if(el){
+    el.classList.add('active','audio-glow');
+  }
 
-<b>No autismo</b>
-<ul>${r.autismo.map(f=>`<li>${f}</li>`).join("")}</ul>
+  document.querySelector(`[data-id="${id}"]`)
+    ?.classList.add('region-active');
 
-<div style="background:#fee2e2;padding:10px;border-radius:8px;">
-Cada cérebro é único
-</div>
-`;
-
-// destaque lista
-document.querySelectorAll('.region-item').forEach(el=>{
-el.classList.remove('region-active');
-});
-
-event.target.classList.add('region-active');
-
+  updatePanel(id);
+  scrollPlaylistTo(id);
 }
 
+/* =========================
+PLAYER (SYNC V3)
+========================= */
+function playRegionAudio(src,title,id){
+  syncRegion(id);
+
+  const audio = document.getElementById("audioControl");
+  const label = document.getElementById("playerTitle");
+
+  if(!audio){
+    const a = document.createElement("audio");
+    a.id="audioControl";
+    document.body.appendChild(a);
+  }
+
+  const el = document.getElementById("audioControl");
+  el.src = src;
+  el.play();
+
+  STATE.currentAudio = id;
+}
+
+/* =========================
+SCROLL INTELIGENTE
+========================= */
+function scrollPlaylistTo(id){
+  const el = document.querySelector(".cat-"+id);
+  if(el){
+    el.scrollIntoView({behavior:"smooth", block:"center"});
+  }
+}
+
+/* =========================
+UI
+========================= */
+function updatePanel(id){
+  const r = regioes[id];
+  if(!r) return;
+
+  document.getElementById("painel").innerHTML = `
+    <h5>${r.titulo}</h5>
+    <p>${r.desc}</p>
+  `;
+}
+
+/* =========================
+PLAYLIST
+========================= */
+function renderPlaylist(){
+  const c = document.getElementById("fabulariumLibrary");
+  c.innerHTML="";
+
+  Object.entries(regioes).forEach(([k,r])=>{
+    const div=document.createElement("div");
+    div.className="story-item cat-"+k;
+
+    div.innerHTML=`
+      <div>${r.titulo}</div>
+    `;
+
+    div.onclick=()=>playRegionAudio(r.musicFile,r.titulo,k);
+
+    c.appendChild(div);
+  });
+}
+
+/* =========================
+EVENTOS
+========================= */
+document.querySelectorAll(".brain-hotspot")
+.forEach(el=>{
+  el.onclick=()=>syncRegion(el.id);
+});
+
+document.querySelectorAll(".region-item")
+.forEach(el=>{
+  el.onclick=()=>syncRegion(el.dataset.id);
+});
+
+/* INIT */
+renderPlaylist();
 </script>
 
 </body>
