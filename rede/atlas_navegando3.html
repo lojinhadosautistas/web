@@ -1,48 +1,19 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-
 <meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 
 <title>Atlas Cognitivo - Navegando na Tempestade | Sistema REDE</title>
-<meta name="description" content="Mapa interativo dos 4 eixos de desenvolvimento com experiência guiada, trilha visual e narração."/>
+<meta name="description" content="Mapa interativo dos 4 eixos de desenvolvimento com experiência guiada."/>
 
-  <!-- Open Graph (WhatsApp, Facebook, LinkedIn) -->
-  <meta property="og:title" content="Lojinha dos Autistas 💙 Atlas Cognitivo - Mapa da Mente | Sistema REDE" />
-  <meta property="og:description" content="Atlas Cognitivo 🧠 Navegando na Tempestade - Um mapa interativo dos 4 eixos de desenvolvimento e autoregulação." />
-  <meta property="og:image" content="https://www.autistas.net/assets/img/img-share-autistas.jpg" />
-  <meta property="og:url" content="https://www.autistas.net/index.html" />
-  <meta property="og:type" content="website" />
-  <meta property="og:image:width" content="1200" />
-  <meta property="og:image:height" content="630" />
-
-  <!-- Twitter Card (melhora compatibilidade geral) -->
-  <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="Lojinha dos Autistas 💙 Atlas Cognitivo - Mapa da Mente | Sistema REDE" />
-  <meta name="twitter:description" content="Atlas Cognitivo 🧠 Navegando na Tempestade - Um mapa interativo dos 4 eixos de desenvolvimento e autoregulação." />
-  <meta name="twitter:image" content="https://www.autistas.net/assets/img/img-share-autistas.jpg" />
-
-  <!-- Favicons -->
-  <link href="../assets/img/favicon.png" rel="icon">
-  <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
-
-  <!-- Fonts -->
-  <link href="https://fonts.googleapis.com" rel="preconnect">
-  <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Raleway:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
-
-  <!-- Vendor CSS Files -->
 <link href="../assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet"/>
 <link href="../assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet"/>
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/glightbox/dist/css/glightbox.min.css" />
-<link rel="stylesheet" href="../assets/css/hub.css">
-
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/glightbox/dist/css/glightbox.min.css"/>
 
 <style>
 body{
-  font-family:'Inter',sans-serif;
+  font-family:Arial,sans-serif;
   background:#f5f7fb;
 }
 
@@ -58,12 +29,9 @@ body{
   padding:10px;
   border-radius:10px;
   cursor:pointer;
-  transition:.2s;
 }
 
-.region-item:hover{
-  background:#eef2ff;
-}
+.region-item:hover{ background:#eef2ff; }
 
 .region-active{
   background:#dbeafe;
@@ -81,86 +49,41 @@ body{
   border-radius:14px;
 }
 
-
-
-  .brain-hotspot{
+.brain-hotspot{
   position:absolute;
   border-radius:50%;
   cursor:pointer;
   transition:.25s;
-
-  /* 🔥 NOVO: VISIBILIDADE BASE */
-  background:rgba(37,99,235,.12);
+  background:rgba(37,99,235,.15);
   border:2px solid rgba(37,99,235,.45);
-
-  /* 🔥 GLOW SUAVE */
-  box-shadow:0 0 0 rgba(37,99,235,0);
 }
 
-/* hover mais forte */
 .brain-hotspot:hover{
-  background:rgba(37,99,235,.22);
-  border-color:rgba(37,99,235,.7);
-  box-shadow:0 0 12px rgba(37,99,235,.35);
   transform:scale(1.08);
+  box-shadow:0 0 12px rgba(37,99,235,.35);
 }
 
-/* ativo = destaque real */
 .brain-hotspot.active{
   background:rgba(37,99,235,.35);
   border-color:#2563eb;
-  box-shadow:0 0 18px rgba(37,99,235,.55);
   transform:scale(1.18);
 }
 
-  .brain-hotspot.active::after{
-  content:"";
-  position:absolute;
-  inset:-6px;
-  border-radius:50%;
-  border:2px solid rgba(37,99,235,.35);
-  animation:pulse 1.8s infinite;
+.brain-hotspot.audio-glow{
+  animation:audioPulse 1.2s infinite;
 }
 
-@keyframes pulse{
-  0%{ transform:scale(0.9); opacity:.6; }
-  70%{ transform:scale(1.3); opacity:0; }
-  100%{ opacity:0; }
+@keyframes audioPulse{
+  0%{transform:scale(1);}
+  50%{transform:scale(1.2); box-shadow:0 0 22px rgba(37,99,235,.55);}
+  100%{transform:scale(1);}
 }
 
-
-
-
-  
-
-/* posições */
-#prefrontal{ top:18%; left:15%; width:72px; height:72px; }
-#parietal{ top:10%; left:45%; width:72px; height:72px; }
-#temporal{ top:50%; left:42%; width:72px; height:72px; }
-#occipital{ top:25%; left:76%; width:58px; height:58px; }
-#cerebelo{ top:72%; left:70%; width:58px; height:58px; }
-#limbico{ top:45%; left:30%; width:60px; height:60px; }
-#insula{ top:40%; left:49%; width:42px; height:42px; }
-
-.guia-box{
-  background:#eef2ff;
-  padding:14px;
-  border-radius:12px;
-  min-height:100px;
-}
-
-.progress-dots{
-  text-align:center;
-  margin-top:10px;
-  letter-spacing:5px;
-}
-
-.dot{ opacity:.3; }
-
-.dot.active{
-  opacity:1;
-  color:#2563eb;
-}
+/* hotspots corretos */
+#terapeutico{ top:18%; left:14%; width:78px; height:78px; }
+#familiar{ top:28%; left:68%; width:72px; height:72px; }
+#ambiental{ top:62%; left:18%; width:78px; height:78px; }
+#biologico{ top:65%; left:68%; width:72px; height:72px; }
 
 .story-item{
   display:flex;
@@ -168,88 +91,8 @@ body{
   gap:12px;
   padding:12px;
   border-radius:12px;
-  cursor:pointer;
   background:#f8fafc;
-  margin-top:14px;
-  transition:.2s;
-}
-
-.story-item:hover{
-  background:#eef2ff;
-}
-
-.audio-player{
-  position:fixed;
-  bottom:0;
-  left:0;
-  right:0;
-  background:#0f172a;
-  color:white;
-  display:flex;
-  align-items:center;
-  gap:16px;
-  padding:12px 20px;
-  z-index:999;
-}
-
-.player-icon{
-  font-size:22px;
-}
-
-.player-info{
-  flex:1;
-}
-
-main{
-  padding-bottom:110px;
-}
-
-.fabularium-filters{
-  display:flex;
-  flex-wrap:wrap;
-  gap:8px;
-  margin-bottom:12px;
-}
-
-.filter-btn{
-  border:none;
-  padding:6px 10px;
-  border-radius:999px;
-  background:#eef2ff;
-  font-size:12px;
-  cursor:pointer;
-  transition:.2s;
-}
-
-.filter-btn.active{
-  background:#2563eb;
-  color:#fff;
-}
-
-.fabularium-library{
-  display:flex;
-  flex-direction:column;
-  gap:10px;
-}
-
-.story-icon{
-  width:42px;
-  height:42px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  border-radius:10px;
-  background:#e0e7ff;
-}
-
-.story-title{
-  font-weight:600;
-  font-size:14px;
-}
-
-.story-meta{
-  font-size:12px;
-  opacity:.7;
+  margin-top:10px;
 }
 
 .play-btn{
@@ -259,449 +102,123 @@ main{
   width:36px;
   height:36px;
   border-radius:50%;
-  display:flex;
-  align-items:center;
-  justify-content:center;
 }
 
-  /* =========================
-🧠 V1 ENHANCEMENTS (SAFE LAYER)
-========================= */
-
-.brain-hotspot.audio-glow{
-  animation: audioPulse 1.2s infinite;
-}
-
-@keyframes audioPulse{
-  0%{
-    transform:scale(1);
-    box-shadow:0 0 0 rgba(37,99,235,.2);
-  }
-  50%{
-    transform:scale(1.2);
-    box-shadow:0 0 22px rgba(37,99,235,.55);
-  }
-  100%{
-    transform:scale(1);
-    box-shadow:0 0 0 rgba(37,99,235,.2);
-  }
-}
-
-/* scroll suave da playlist */
 .fabularium-library{
+  display:flex;
+  flex-direction:column;
+  gap:10px;
   scroll-behavior:smooth;
 }
 
-/* mobile app feel sem quebrar layout */
-@media (max-width:768px){
-  .col-lg-3,.col-lg-6{
-    width:100%;
-  }
-
-  .brain-hotspot{
-    width:80px !important;
-    height:80px !important;
-  }
-
-  .audio-player{
-    border-radius:18px 18px 0 0;
-  }
+audio{
+  width:100%;
+  position:fixed;
+  bottom:0;
+  left:0;
+  z-index:999;
 }
-
-
-  .video-btn{
-  position:absolute;
-  bottom:12px;
-  right:12px;
-  width:52px;
-  height:52px;
-  background:rgba(37,99,235,.9);
-  border-radius:50%;
-}
-
-.video-btn::after{
-  content:"▶";
-  color:white;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  height:100%;
-}
-
-  
 </style>
 </head>
-
 <body>
 
-<div id="header-container"></div>
-<div id="sidebar-container"></div>
+<div class="container py-4">
 
-<main class="main">
-
-<div class="page-title mb-4">
-  <h1>Atlas Cognitivo 🧠 Navegando na Tempestade</h1>
-  <p>Mapa Interativo dos 4 Eixos do desenvolvimento e autoregulação: uma análise do <b>Pacerer PRISMA - Evento dos Crias (2026.1)</b>.</p>
-</div>
+<h1>Atlas Cognitivo 🧠 Navegando na Tempestade</h1>
 
 <div class="row g-4">
 
-  <!-- esquerda -->
-  <div class="col-lg-3">
-
-<div class="cardx">
-  <h5><i class="bi bi-compass"></i> Eixos do Sistema REDE</h5>
-
-  <div class="region-item" data-id="terapeutico">🧠 Eixo Terapêutico</div>
-  <div class="region-item" data-id="familiar">👨‍👩‍👦 Eixo Familiar</div>
-  <div class="region-item" data-id="ambiental">🏠 Eixo Ambiental</div>
-  <div class="region-item" data-id="biologico">💊 Eixo Biológico</div>
-</div>
-
-    <div class="cardx">
-      <h5>💙 Ciclo de Autoregulação</h5>
-
-      <div id="guia" class="guia-box">
-        Clique em iniciar
-      </div>
-
-      <div id="dots" class="progress-dots"></div>
-
-      <div class="d-flex gap-2 mt-3">
-        <button class="btn btn-outline-secondary btn-sm" onclick="prevGuia()">
-          <i class="bi bi-arrow-left"></i>
-        </button>
-
-        <button class="btn btn-primary btn-sm flex-fill" onclick="startGuia()">
-          Iniciar
-        </button>
-
-        <button class="btn btn-outline-secondary btn-sm" onclick="nextGuiaManual()">
-          <i class="bi bi-arrow-right"></i>
-        </button>
-      </div>
-    </div>
-
-  </div>
-
-<!-- centro -->
-<div class="col-lg-6">
-
-  <!-- TESTE ZOOM IN -->
-  <div class="cardx">
-    <h5><i class="bi bi-zoom-in"></i> Atlas Interativo</h5>
-    <div class="position-relative">
-      <img src="../assets/img/prisma-4-eixos_bg2.png"
-           class="img-fluid"
-           alt="Atlas Cognitivo - Sistema REDE">
-
-      <!-- BOTÃO DE ZOOM / ABRIR -->
-      <a href="../assets/img/prisma-4-eixos_bg2.png"
-         class="glightbox pulsating-play-btn"
-         title="Expandir Atlas Cognitivo">
-      </a>
-
-      <!-- BOTÃO DE VÍDEO / EXPLICAÇÃO -->
-      <a href="https://www.youtube.com/watch?v=Jbvewd7jt30"
-         class="glightbox pulsating-play-btn video-btn"
-         title="Cada Passo, uma Jornada & Sistema REDE" targtet="blank">
-      </a>
-    </div>
-  </div>
-
-  <!-- TESTE ZOOM IN -->
-
-
-  
-  <!-- PAINEL AGORA CORRETAMENTE DENTRO DO CENTRO -->
-  <div class="cardx" id="painel">
-
-    <h5><i class="bi bi-geo-alt-fill"></i> Eixo selecionado</h5>
-
-    <p>Selecione um dos eixos focais para visualizar a leitura integrada do <b>Pacerer PRISMA - Evento dos Crias (2026.1)</b>.</p>
-
-  </div>
-
-  
-  <!-- PAINEL AGORA CORRETAMENTE DENTRO DO CENTRO -->
-
-  
-  <!-- MAPA DOS EIXOS -->  
-  <div class="cardx">
-    <div class="brain-wrapper">
-
-      <h5><i class="bi bi-search"></i> Mapa dos Eixos Focais</h5>
-
-      <img src="../assets/img/prisma-4-eixos_bg.png" class="brain-img">
-
-      <!-- EIXOS SISTÊMICOS -->
-      <div id="terapeutico" class="brain-hotspot eixo-terapeutico"></div>
-      <div id="familiar" class="brain-hotspot eixo-familiar"></div>
-      <div id="ambiental" class="brain-hotspot eixo-ambiental"></div>
-      <div id="biologico" class="brain-hotspot eixo-biologico"></div>
-
-    </div>
-  </div>
-  <!-- MAPA DOS EIXOS -->  
-
-</div>
-
-
-
-
-  
-<!-- direita -->
 <div class="col-lg-3">
 
-  <div class="cardx">
+<div class="cardx">
+<h5>Eixos</h5>
 
-    <h5><i class="bi bi-music-note-list"></i> Audioteca - Eixos Focais</h5>
-
-    <div class="fabularium-filters">
-
-      <button class="filter-btn active" data-filter="all">Todos</button>
-
-      <button class="filter-btn" data-filter="terapeutico">Terapêutico</button>
-      <button class="filter-btn" data-filter="familiar">Familiar</button>
-      <button class="filter-btn" data-filter="ambiental">Ambiental</button>
-      <button class="filter-btn" data-filter="biologico">Biológico</button>
-
-    </div>
-
-    <div id="fabulariumLibrary" class="fabularium-library"></div>
-
-  </div>
+<div class="region-item" data-id="terapeutico">🧠 Terapêutico</div>
+<div class="region-item" data-id="familiar">👨‍👩‍👦 Familiar</div>
+<div class="region-item" data-id="ambiental">🏠 Ambiental</div>
+<div class="region-item" data-id="biologico">💊 Biológico</div>
+</div>
 
 </div>
-  
+
+<div class="col-lg-6">
+
+<div class="cardx" id="painel">
+<h5>Eixo selecionado</h5>
+<p>Selecione um eixo.</p>
 </div>
-</main>
 
+<div class="cardx">
+<div class="brain-wrapper">
 
-<script src="../assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-<script src="js/components.js"></script>
+<img src="../assets/img/prisma-4-eixos_bg.png" class="brain-img">
+
+<div id="terapeutico" class="brain-hotspot"></div>
+<div id="familiar" class="brain-hotspot"></div>
+<div id="ambiental" class="brain-hotspot"></div>
+<div id="biologico" class="brain-hotspot"></div>
+
+</div>
+</div>
+
+</div>
+
+<div class="col-lg-3">
+<div class="cardx">
+<h5>Audioteca</h5>
+<div id="fabulariumLibrary" class="fabularium-library"></div>
+</div>
+</div>
+
+</div>
+</div>
+
+<audio id="audioControl" controls></audio>
 
 <script>
-
 const regioes = {
-
-terapeutico: {
-  titulo: "Eixo Terapêutico",
-  desc: "Organização da experiência interna e regulação simbólica",
-  autismo: "Uso de memória autobiográfica e antecipação progressiva para organizar estados emocionais em experiências de alta complexidade.",
-  
-  detalhamento: `
-No Pacerer PRISMA sobre o Evento dos Crias (2026.1), este eixo atuou na preparação mental e emocional para um contexto de alta carga afetiva.
-
-Foram utilizados registros audiovisuais de experiências anteriores para construção de previsibilidade interna.
-
-A intervenção permitiu:
-- identificação de estados emocionais
-- associação entre contexto e resposta emocional
-- projeção de cenários futuros
-
-<b>Base teórica:</b> integração narrativa (Daniel Siegel) e self autobiográfico (Antonio Damasio).
-  `
-},
-
-familiar: {
-  titulo: "Eixo Familiar",
-  desc: "Mediação relacional e comunicação funcional no ambiente",
-  autismo: "Ajuste da comunicação familiar e dos referenciais simbólicos aumentou responsividade e reduziu fricções interacionais.",
-  
-  detalhamento: `
-A família atuou como mediadora ativa da experiência em tempo real.
-
-Foram realizadas:
-- adaptações na linguagem
-- ajuste de nomeações e símbolos
-- negociação de estímulos motivacionais
-- modelagem de respostas no contexto natural
-
-<b>Resultado:</b> aumento significativo da responsividade e redução de episódios de desorganização.
-
-<b>Base teórica:</b> comunicação funcional no autismo (Barry Prizant) e ABA (B. F. Skinner).
-  `
-},
-
-ambiental: {
-  titulo: "Eixo Ambiental",
-  desc: "Estruturação do contexto e redução da imprevisibilidade",
-  autismo: "Ambiente organizado com previsibilidade e espaços de regulação reduziu sobrecarga sensorial e comportamental.",
-  
-  detalhamento: `
-O ambiente foi estruturado como suporte ativo da regulação.
-
-Incluiu:
-- previsibilidade espacial
-- manutenção de locais conhecidos
-- organização gradual das interações sociais
-- possibilidade de retirada/regulação
-
-Esse eixo funcionou como estabilizador externo do sistema.
-
-<b>Base teórica:</b> modelos ecológicos do desenvolvimento (Urie Bronfenbrenner).
-  `
-},
-
-biologico: {
-  titulo: "Eixo Biológico",
-  desc: "Sustentação fisiológica da capacidade de engajamento",
-  autismo: "Suporte medicamentoso adequado ampliou tolerância às demandas sem substituir intervenções comportamentais.",
-  
-  detalhamento: `
-O suporte biológico funcionou como camada de sustentação da autorregulação.
-
-Seu papel foi:
-- ampliar janela de tolerância
-- reduzir sobrecarga fisiológica
-- sustentar engajamento funcional
-
-<b>Importante:</b> não atua isoladamente, mas como base do sistema integrado. Integração obrigatória com os demais eixos do PRISMA.
-  `
-}
-
+  terapeutico:{ titulo:"Eixo Terapêutico" },
+  familiar:{ titulo:"Eixo Familiar" },
+  ambiental:{ titulo:"Eixo Ambiental" },
+  biologico:{ titulo:"Eixo Biológico" }
 };
 
-const trilha = [
-  {
-    txt: "Respira. Vamos organizar a experiência antes de entrar no contexto.",
-    reg: null
-  },
-
-  {
-    txt: "Alguns contextos podem gerar maior carga sensorial e emocional, exigindo mais tempo de adaptação.",
-    reg: "ambiental"
-  },
-
-  {
-    txt: "As respostas emocionais podem ser intensas quando o sistema está sobrecarregado ou diante de imprevisibilidade.",
-    reg: "familiar"
-  },
-
-  {
-    txt: "Planejamento, antecipação e estrutura ajudam na organização da ação e na redução da ansiedade de mudança.",
-    reg: "terapeutico"
-  },
-
-  {
-    txt: "A comunicação pode ser mais eficaz quando adaptada ao repertório e ao contexto da pessoa.",
-    reg: "familiar"
-  },
-
-  {
-    txt: "O suporte fisiológico pode ampliar a capacidade de engajamento e tolerância ao ambiente.",
-    reg: "biologico"
-  },
-
-  {
-    txt: "Cada sistema é único. O objetivo é criar previsibilidade, não controle.",
-    reg: null
-  }
-];
-
-let passo = 0;
-let auto = null;
-
+const AUDIO_MAP = {
+  geral:"audios/atlascognitivo_geral.mp3",
+  terapeutico:"audios/atlascognitivo_terapeutico.mp3",
+  familiar:"audios/atlascognitivo_emocional.mp3",
+  ambiental:"audios/atlascognitivo_ambiental.mp3",
+  biologico:"audios/atlascognitivo_biologico.mp3"
+};
 
 function updatePanel(id){
-  let r = regioes[id];
+  const r = regioes[id];
 
   document.getElementById("painel").innerHTML = `
     <h5>${r.titulo}</h5>
-    <p><b>${r.desc}</b></p>
-
-    <hr>
-
-    <p><b>Leitura clínica:</b> ${r.autismo}</p>
-
-    <div style="margin-top:10px; white-space:pre-line;">
-     <b>Teoria na Prática:</b> ${r.detalhamento}
-    </div>
-
-    <hr>
-
-    <div class="story-item"
-         onclick="playRegionAudio('${id}')">
+    <div class="story-item" onclick="playRegionAudio('${id}')">
       <i class="bi bi-play-circle"></i>
-      <div><strong>Audioguias do eixo</strong></div>
+      <strong>Audioguia do eixo</strong>
     </div>
   `;
 }
 
-function highlightRegion(id){
+function syncRegion(id){
+  document.querySelectorAll('.brain-hotspot')
+    .forEach(el=>el.classList.remove('active','audio-glow'));
 
-document.querySelectorAll('.brain-hotspot').forEach(el=>el.classList.remove('active'));
-document.querySelectorAll('.region-item').forEach(el=>el.classList.remove('region-active'));
+  document.querySelectorAll('.region-item')
+    .forEach(el=>el.classList.remove('region-active'));
 
-if(id){
-document.getElementById(id)?.classList.add('active');
-document.querySelector('[data-id="'+id+'"]')?.classList.add('region-active');
-updatePanel(id);
-}
-}
+  document.getElementById(id)?.classList.add('active','audio-glow');
+  document.querySelector('[data-id="'+id+'"]')
+    ?.classList.add('region-active');
 
-function renderDots(){
-let html="";
-trilha.forEach((_,i)=>{
-html += `<span class="dot ${i===passo?'active':''}">●</span>`;
-});
-document.getElementById("dots").innerHTML = html;
+  updatePanel(id);
 }
 
-function renderGuia(){
-document.getElementById("guia").innerText = trilha[passo].txt;
-renderDots();
-highlightRegion(trilha[passo].reg);
-}
-
-function startGuia(){
-passo=0;
-renderGuia();
-
-if(auto) clearInterval(auto);
-
-auto=setInterval(()=>{
-passo++;
-if(passo>=trilha.length){
-clearInterval(auto);
-return;
-}
-renderGuia();
-},4000);
-}
-
-function nextGuiaManual(){
-if(passo<trilha.length-1){
-passo++;
-renderGuia();
-}
-}
-
-function prevGuia(){
-if(passo>0){
-passo--;
-renderGuia();
-}
-}
-
-document.querySelectorAll('.region-item').forEach(el=>{
-el.addEventListener('click',()=>highlightRegion(el.dataset.id));
-});
-
-document.querySelectorAll('.brain-hotspot').forEach(el=>{
-el.addEventListener('click',()=>highlightRegion(el.id));
-});
-
-renderDots();
-
-
-
-
-  function playRegionAudio(regionId){
-
+function playRegionAudio(regionId){
   const audio = document.getElementById("audioControl");
-
   const src = AUDIO_MAP[regionId];
   if(!src) return;
 
@@ -712,128 +229,51 @@ renderDots();
   syncRegion(regionId);
 }
 
-  const AUDIO_MAP = {
-  geral: "../audios/atlascognitivo_geral.mp3",
-  terapeutico: "../audios/atlascognitivo_terapeutico.mp3",
-  familiar: "../audios/atlascognitivo_emocional.mp3", // ou criar arquivo próprio depois
-  ambiental: "../audios/atlascognitivo_ambiental.mp3",
-  biologico: "../audios/atlascognitivo_biologico.mp3",
-  emocional: "../audios/atlascognitivo_emocional.mp3"
-};
-  
-
-function renderPlaylist(filter = "all") {
+function renderPlaylist(){
   const container = document.getElementById("fabulariumLibrary");
   container.innerHTML = "";
 
-  Object.entries(regioes).forEach(([key, r]) => {
-
-    if (filter !== "all" && filter !== key) return;
-
+  Object.entries(regioes).forEach(([key,r])=>{
     const item = document.createElement("div");
-    item.className = "story-item cat-" + key;
+    item.className = "story-item";
 
     item.innerHTML = `
-      <div class="story-icon">
-        <i class="bi bi-file-play"></i>
-      </div>
-
-      <div class="story-info">
-        <div class="story-title">${r.titulo}</div>
-        <div class="story-meta">Conteúdo narrado</div>
-      </div>
-
-      <button class="play-btn">
-        <i class="bi bi-play-fill"></i>
-      </button>
+      <div>${r.titulo}</div>
+      <button class="play-btn">▶</button>
     `;
 
-item.querySelector(".play-btn").addEventListener("click", () => {
-  playRegionAudio(key);
-});
+    item.querySelector(".play-btn")
+      .addEventListener("click",()=>playRegionAudio(key));
 
     container.appendChild(item);
   });
 }
 
-// filtros
-document.querySelectorAll(".filter-btn").forEach(btn => {
-  btn.addEventListener("click", () => {
-    document.querySelectorAll(".filter-btn").forEach(b => b.classList.remove("active"));
-    btn.classList.add("active");
-
-    renderPlaylist(btn.dataset.filter);
+document.querySelectorAll('.brain-hotspot').forEach(el=>{
+  el.addEventListener('click',()=>{
+    syncRegion(el.id);
+    playRegionAudio(el.id);
   });
 });
 
-// inicial
-renderPlaylist();
-
-
-
-  /* =========================
-🧠 STATE CORE (LEVE - V1 SAFE)
-========================= */
-const STATE = {
-  currentRegion: null,
-  currentAudio: null
-};
-
-
-
-/* =========================
-🧠 SYNC VISUAL (HOTSPOTS + GLOW)
-========================= */
-function syncRegion(id){
-
-  document.querySelectorAll('.brain-hotspot')
-    .forEach(el => el.classList.remove('active','audio-glow'));
-
-  document.querySelectorAll('.region-item')
-    .forEach(el => el.classList.remove('region-active'));
-
-  const hotspot = document.getElementById(id);
-  if(hotspot){
-    hotspot.classList.add('active','audio-glow');
-  }
-
-  document.querySelector('[data-id="'+id+'"]')
-    ?.classList.add('region-active');
-
-  updatePanel(id);
-  scrollPlaylist(id);
-}
-
-/* =========================
-🔄 SCROLL INTELIGENTE PLAYLIST
-========================= */
-function scrollPlaylist(id){
-  const el = document.querySelector(".cat-" + id);
-
-  if(el){
-    el.scrollIntoView({
-      behavior:"smooth",
-      block:"center"
-    });
-  }
-}
-
-  
-  
-</script>
-  
-<script src="https://cdn.jsdelivr.net/npm/glightbox/dist/js/glightbox.min.js">
-
-  const lightbox = GLightbox({
-  touchNavigation: true,
-  loop: false,
-  zoomable: true
+document.querySelectorAll('.region-item').forEach(el=>{
+  el.addEventListener('click',()=>{
+    syncRegion(el.dataset.id);
+    playRegionAudio(el.dataset.id);
+  });
 });
-  
+
+renderPlaylist();
 </script>
 
+<script src="https://cdn.jsdelivr.net/npm/glightbox/dist/js/glightbox.min.js"></script>
+<script>
+GLightbox({
+  touchNavigation:true,
+  loop:false,
+  zoomable:true
+});
+</script>
 
-<audio id="audioControl" controls style="width:100%; position:fixed; bottom:0; left:0; z-index:999;"></audio>
-  
 </body>
 </html>
