@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+<title>Atlas Cognitivo - Navegando na Tempestade | Sistema REDE</title>
+<meta name="description" content="Mapa interativo dos 4 eixos de desenvolvimento com experiência guiada, trilha visual e narração."/>
+
+<!-- Open Graph -->
+<meta property="og:title" content="Lojinha dos Autistas 💙 Atlas Cognitivo - Sistema REDE" />
+<meta property="og:description" content="Atlas Cognitivo 🧠 Navegando na Tempestade - 4 eixos do desenvolvimento." />
+<meta property="og:image" content="https://www.autistas.net/assets/img/img-share-autistas.jpg" />
+<meta property="og:url" content="https://www.autistas.net/index.html" />
+<meta property="og:type" content="website" />
+
+<!-- Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+
+<!-- Bootstrap -->
+<link href="../assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet"/>
+<link href="../assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet"/>
+
+<!-- GLightbox -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/glightbox/dist/css/glightbox.min.css" />
+
+<link rel="stylesheet" href="../assets/css/hub.css">
+
+<style>
+
+/* =========================
+BASE
+========================= */
+body{
+  font-family:'Inter',sans-serif;
+  background:#f5f7fb;
+}
+
+.cardx{
+  background:#fff;
+  border-radius:14px;
+  padding:18px;
+  box-shadow:0 6px 18px rgba(0,0,0,.06);
+  margin-bottom:18px;
+}
+
+/* =========================
+BRAIN / ZOOM CORE
+========================= */
+.brain-wrapper{
+  position:relative;
+  max-width:560px;
+  margin:auto;
+  overflow:hidden; /* 🔥 necessário para zoom */
+}
+
+.brain-img{
+  width:100%;
+  border-radius:14px;
+  transition: transform 0.8s ease, transform-origin 0.8s ease;
+  will-change: transform;
+}
+
+/* HOTSPOTS */
+.brain-hotspot{
+  position:absolute;
+  border-radius:50%;
+  cursor:pointer;
+  transition:.25s;
+  background:rgba(37,99,235,.12);
+  border:2px solid rgba(37,99,235,.45);
+  box-shadow:0 0 0 rgba(37,99,235,0);
+}
+
+.brain-hotspot:hover{
+  background:rgba(37,99,235,.22);
+  border-color:rgba(37,99,235,.7);
+  transform:scale(1.08);
+}
+
+.brain-hotspot.active{
+  background:rgba(37,99,235,.35);
+  border-color:#2563eb;
+  transform:scale(1.18);
+}
+
+/* POSIÇÕES */
+#terapeutico{ top:18%; left:15%; width:72px; height:72px; }
+#familiar{ top:10%; left:45%; width:72px; height:72px; }
+#ambiental{ top:50%; left:42%; width:72px; height:72px; }
+#biologico{ top:65%; left:70%; width:60px; height:60px; }
+
+/* =========================
+TRILHA
+========================= */
+.guia-box{
+  background:#eef2ff;
+  padding:14px;
+  border-radius:12px;
+  min-height:100px;
+}
+
+.dot{ opacity:.3; }
+.dot.active{ opacity:1; color:#2563eb; }
+
+/* =========================
+AUDIOTECA
+========================= */
+.fabularium-filters{
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px;
+  margin-bottom:12px;
+}
+
+.filter-btn{
+  border:none;
+  padding:6px 10px;
+  border-radius:999px;
+  background:#eef2ff;
+  font-size:12px;
+  cursor:pointer;
+}
+
+.filter-btn.active{
+  background:#2563eb;
+  color:#fff;
+}
+
+/* =========================
+ZOOM BUTTONS
+========================= */
+.video-btn{
+  position:absolute;
+  bottom:12px;
+  right:12px;
+  width:52px;
+  height:52px;
+  background:rgba(37,99,235,.9);
+  border-radius:50%;
+}
+
+.video-btn::after{
+  content:"▶";
+  color:white;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  height:100%;
+}
+
+/* MOBILE */
+@media (max-width:768px){
+  .brain-hotspot{
+    width:80px !important;
+    height:80px !important;
+  }
+}
+
+</style>
+
+</head>
+
+<body>
+
+<main class="main">
+
+<div class="page-title mb-4">
+  <h1>Atlas Cognitivo 🧠 Navegando na Tempestade</h1>
+  <p>Mapa Interativo dos 4 Eixos do Sistema REDE</p>
+</div>
+
+<div class="row g-4">
+
+<!-- ESQUERDA -->
+<div class="col-lg-3">
+  <div class="cardx">
+    <h5>🧭 Eixos REDE</h5>
+    <div class="region-item" data-id="terapeutico">Terapêutico</div>
+    <div class="region-item" data-id="familiar">Familiar</div>
+    <div class="region-item" data-id="ambiental">Ambiental</div>
+    <div class="region-item" data-id="biologico">Biológico</div>
+  </div>
+</div>
+
+<!-- CENTRO -->
+<div class="col-lg-6">
+
+  <!-- ZOOM ATLAS -->
+  <div class="cardx">
+    <h5>🧠 Atlas Interativo</h5>
+
+    <div class="position-relative brain-wrapper">
+
+      <img src="../assets/img/prisma-4-eixos_bg2.png" class="brain-img">
+
+      <!-- GLIGHTBOX ZOOM -->
+      <a href="../assets/img/prisma-4-eixos_bg2.png"
+         class="glightbox video-btn"
+         title="Expandir Atlas">
+      </a>
+
+      <div id="terapeutico" class="brain-hotspot"></div>
+      <div id="familiar" class="brain-hotspot"></div>
+      <div id="ambiental" class="brain-hotspot"></div>
+      <div id="biologico" class="brain-hotspot"></div>
+
+    </div>
+  </div>
+
+  <!-- PAINEL -->
+  <div class="cardx" id="painel">
+    <h5>📍 Eixo selecionado</h5>
+    <p>Selecione um eixo para análise PRISMA</p>
+  </div>
+
+</div>
+
+<!-- DIREITA -->
+<div class="col-lg-3">
+  <div class="cardx">
+    <h5>🎧 Audioteca</h5>
+    <div class="fabularium-filters">
+      <button class="filter-btn active" data-filter="all">Todos</button>
+      <button class="filter-btn" data-filter="terapeutico">Terapêutico</button>
+      <button class="filter-btn" data-filter="familiar">Familiar</button>
+      <button class="filter-btn" data-filter="ambiental">Ambiental</button>
+      <button class="filter-btn" data-filter="biologico">Biológico</button>
+    </div>
+    <div id="fabulariumLibrary"></div>
+  </div>
+</div>
+
+</div>
+</main>
+
+<!-- SCRIPTS -->
+<script src="../assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/glightbox/dist/js/glightbox.min.js"></script>
+
+<script>
+
+/* =========================
+GLIGHTBOX INIT
+========================= */
+const lightbox = GLightbox({
+  touchNavigation: true,
+  loop: false,
+  zoomable: true
+});
+
+/* =========================
+ZOOM CLÍNICO REDE
+========================= */
+const ZOOM_MAP = {
+  terapeutico: { x: 30, y: 25, scale: 2.2 },
+  familiar: { x: 50, y: 45, scale: 2.2 },
+  ambiental: { x: 20, y: 60, scale: 2.0 },
+  biologico: { x: 70, y: 65, scale: 2.0 }
+};
+
+function zoomToEixo(id){
+  const img = document.querySelector(".brain-img");
+  const cfg = ZOOM_MAP[id];
+  if(!img || !cfg) return;
+
+  img.style.transformOrigin = `${cfg.x}% ${cfg.y}%`;
+  img.style.transform = `scale(${cfg.scale})`;
+}
+
+/* =========================
+HIGHLIGHT + ZOOM
+========================= */
+function highlightRegion(id){
+
+  document.querySelectorAll('.brain-hotspot')
+    .forEach(el => el.classList.remove('active'));
+
+  if(id){
+    document.getElementById(id)?.classList.add('active');
+
+    // 🔥 ZOOM CLÍNICO
+    zoomToEixo(id);
+  }
+}
+
+document.querySelectorAll('.brain-hotspot').forEach(el=>{
+  el.addEventListener('click',()=>highlightRegion(el.id));
+});
+
+</script>
+
+</body>
+</html>
