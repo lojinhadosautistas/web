@@ -257,6 +257,9 @@ prefrontal:{
   audioFile:"fabularium/audios/mindmap-prefrontal.mp3",
   audioLabel:"Audiobook: Funções Executivas",
   audioSubtitle:"Música: Pré-frontal e seus mistérios"
+  musicFile:"fabularium/audios/mindmap-music-prefrontal.mp3",
+  musicLabel:"",
+  musicSubtitle:"Música: Pré-frontal e seus mistérios"
 },
 
 parietal:{
@@ -266,6 +269,9 @@ parietal:{
   audioFile:"fabularium/audios/mindmap-sensorial.mp3",
   audioLabel:"Audiobook: Funções Sensoriais",
   audioSubtitle:"Música: Parietal super sensorial"
+  musicFile:"fabularium/audios/mindmap-music-sensorial.mp3",
+  musicLabel:"",
+  musicSubtitle:"Música: Parietal super sensorial"
 },
 
 temporal:{
@@ -274,7 +280,10 @@ temporal:{
   autismo:"Processamento auditivo pode ocorrer de forma diferente",
   audioFile:"fabularium/audios/mindmap-temporal.mp3",
   audioLabel:"Audiobook: Funções Atemporais",
-  audioSubtitle:"Música: Memórias Cantadas"
+  audioSubtitle:""
+  musicFile:"fabularium/audios/mindmap-music-temporal.mp3",
+  musicLabel:"",
+  musicSubtitle:"Música: Memórias Cantadas"
 },
 
 occipital:{
@@ -283,7 +292,10 @@ occipital:{
   autismo:"Pensamento visual costuma ser uma força",
   audioFile:"fabularium/audios/mindmap-occipital.mp3",
   audioLabel:"Audiobook: Funções Visuais",
-  audioSubtitle:"Música: A visão do Pensamento"
+  audioSubtitle:""
+  musicFile:"fabularium/audios/mindmap-music-occipital.mp3",
+  musicLabel:"",
+  musicSubtitle:"Música: A visão do Pensamento"
 },
 
 cerebelo:{
@@ -292,7 +304,10 @@ cerebelo:{
   autismo:"Coordenação motora pode variar",
   audioFile:"fabularium/audios/mindmap-cerebelo.mp3",
   audioLabel:"Audiobook: Funções Motoras",
-  audioSubtitle:"Música: Coordenação em Ação"
+  audioSubtitle:""
+  musicFile:"fabularium/audios/mindmap-music-cerebelo.mp3",
+  musicLabel:"",
+  musicSubtitle:"Música: Coordenação em Ação"
 },
 
 limbico:{
@@ -301,7 +316,10 @@ limbico:{
   autismo:"Vivências emocionais podem ser muito intensas",
   audioFile:"fabularium/audios/mindmap-emocoes.mp3",
   audioLabel:"Audiobook: Sentimento e Emoções",
-  audioSubtitle:"Música: Quando o Coração Fala!"
+  audioSubtitle:""
+  musicFile:"fabularium/audios/mindmap-music-emocoes.mp3",
+  musicLabel:"",
+  musicSubtitle:"Música: Quando o Coração Fala!"
 },
 
 insula:{
@@ -310,7 +328,10 @@ insula:{
   autismo:"Percepção corporal e interna diferenciada",
   audioFile:"fabularium/audios/mindmap-insula.mp3",
   audioLabel:"Audiobook: Consciência Corporal",
-  audioSubtitle:"Música: Minha Voz Interior"
+  audioSubtitle:""
+  musicFile:"fabularium/audios/mindmap-music-insula.mp3",
+  musicLabel:"",
+  musicSubtitle:"Música: Minha Voz Interior"
 }
 };
 
@@ -353,6 +374,15 @@ function updatePanel(id){
       <div>
         <strong>${r.audioLabel}</strong><br>
         <small>${r.audioSubtitle}</small>
+      </div>
+    </div>
+
+    <div class="story-item"
+         onclick="playRegionAudio('${r.musicFile}','${r.titulo}')">
+      <i class="bi bi-play-circle"></i>
+      <div>
+        <strong>${r.musicLabel}</strong><br>
+        <small>${r.musicSubtitle}</small>
       </div>
     </div>
   `;
