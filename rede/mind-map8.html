@@ -17,13 +17,11 @@
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
 
 <style>
-
 body{
   font-family:'Inter',sans-serif;
   background:#f5f7fb;
 }
 
-/* cards */
 .cardx{
   background:#fff;
   border-radius:14px;
@@ -32,7 +30,6 @@ body{
   margin-bottom:18px;
 }
 
-/* lista lateral */
 .region-item{
   padding:10px;
   border-radius:10px;
@@ -49,7 +46,6 @@ body{
   font-weight:600;
 }
 
-/* brain */
 .brain-wrapper{
   position:relative;
   max-width:560px;
@@ -61,7 +57,6 @@ body{
   border-radius:14px;
 }
 
-/* hotspots */
 .brain-hotspot{
   position:absolute;
   border-radius:50%;
@@ -78,7 +73,7 @@ body{
   transform:scale(1.15);
 }
 
-/* hotspots positions */
+/* posições */
 #prefrontal{ top:18%; left:15%; width:72px; height:72px; }
 #parietal{ top:10%; left:45%; width:72px; height:72px; }
 #temporal{ top:50%; left:42%; width:72px; height:72px; }
@@ -87,13 +82,11 @@ body{
 #limbico{ top:45%; left:30%; width:60px; height:60px; }
 #insula{ top:40%; left:49%; width:42px; height:42px; }
 
-/* guia */
 .guia-box{
   background:#eef2ff;
   padding:14px;
   border-radius:12px;
   min-height:100px;
-  transition:.3s;
 }
 
 .progress-dots{
@@ -102,30 +95,13 @@ body{
   letter-spacing:5px;
 }
 
-.dot{
-  opacity:.3;
-}
+.dot{ opacity:.3; }
 
 .dot.active{
   opacity:1;
   color:#2563eb;
 }
 
-/* cards info */
-.region-mini{
-  background:#f8fafc;
-  border-radius:12px;
-  padding:14px;
-  height:100%;
-  border:1px solid #e2e8f0;
-}
-
-.region-mini h6{
-  font-weight:700;
-  margin-bottom:8px;
-}
-
-/* player */
 .story-item{
   display:flex;
   align-items:center;
@@ -134,7 +110,7 @@ body{
   border-radius:12px;
   cursor:pointer;
   background:#f8fafc;
-  margin-bottom:10px;
+  margin-top:14px;
   transition:.2s;
 }
 
@@ -167,7 +143,6 @@ body{
 main{
   padding-bottom:110px;
 }
-
 </style>
 </head>
 
@@ -228,7 +203,6 @@ main{
 
   <!-- centro -->
   <div class="col-lg-6">
-
     <div class="cardx">
       <div class="brain-wrapper">
 
@@ -244,80 +218,17 @@ main{
 
       </div>
     </div>
-
-<!-- player biblioteca narrada -->
-<div class="cardx mt-4">
-<h5><i class="bi bi-headphones"></i> Biblioteca Narrada</h5>
-
-<div class="story-item" data-audio="fabularium/audios/mindmap-prefrontal.mp3" data-title="Córtex Pré-frontal">
-<i class="bi bi-play-circle"></i>
-<span>Pré-frontal — funções executivas</span>
-</div>
-
-<div class="story-item" data-audio="fabularium/audios/mindmap-sensorial.mp3" data-title="Córtex Parietal">
-<i class="bi bi-play-circle"></i>
-<span>Parietal — sensorial</span>
-</div>
-
-<div class="story-item" data-audio="fabularium/audios/mindmap-emocoes.mp3" data-title="Sistema Límbico">
-<i class="bi bi-play-circle"></i>
-<span>Sistema Límbico — emoções</span>
-</div>
-
-</div>
-
-
-
-    
   </div>
 
   <!-- direita -->
   <div class="col-lg-3">
-
     <div class="cardx" id="painel">
       <h5>Região selecionada</h5>
       <p>Clique em uma área do cérebro</p>
     </div>
-
   </div>
 
 </div>
-
-<!-- cards resumo 
-<div class="row mt-4 g-3">
-
-<div class="col-md-3"><div class="region-mini"><h6>Pré-frontal</h6>Planejamento • decisão • atenção<br><small>Rigidez e foco intenso</small></div></div>
-<div class="col-md-3"><div class="region-mini"><h6>Parietal</h6>Sensorial • integração • espaço<br><small>Hipersensibilidade</small></div></div>
-<div class="col-md-3"><div class="region-mini"><h6>Temporal</h6>Linguagem • audição • memória<br><small>Processamento auditivo diferente</small></div></div>
-<div class="col-md-3"><div class="region-mini"><h6>Occipital</h6>Visão • reconhecimento<br><small>Pensamento visual</small></div></div>
-
-<div class="col-md-3"><div class="region-mini"><h6>Cerebelo</h6>Coordenação • equilíbrio<br><small>Coordenação diferente</small></div></div>
-<div class="col-md-3"><div class="region-mini"><h6>Límbico</h6>Emoções • regulação<br><small>Intensidade emocional</small></div></div>
-<div class="col-md-3"><div class="region-mini"><h6>Ínsula</h6>Empatia • percepção interna<br><small>Consciência corporal</small></div></div>
-
-</div>-->
-
-<!-- player -->
-<div class="cardx mt-4">
-<h5><i class="bi bi-headphones"></i> Biblioteca Narrada</h5>
-
-<div class="story-item" data-audio="fabularium/audios/mindmap-prefrontal.mp3" data-title="Córtex Pré-frontal">
-<i class="bi bi-play-circle"></i>
-<span>Pré-frontal — funções executivas</span>
-</div>
-
-<div class="story-item" data-audio="fabularium/audios/mindmap-sensorial.mp3" data-title="Córtex Parietal">
-<i class="bi bi-play-circle"></i>
-<span>Parietal — sensorial</span>
-</div>
-
-<div class="story-item" data-audio="fabularium/audios/mindmap-emocoes.mp3" data-title="Sistema Límbico">
-<i class="bi bi-play-circle"></i>
-<span>Sistema Límbico — emoções</span>
-</div>
-
-</div>
-
 </main>
 
 <!-- player fixo -->
@@ -339,13 +250,68 @@ main{
 <script>
 
 const regioes = {
-prefrontal:{titulo:"Córtex Pré-frontal",desc:"Funções executivas",autismo:"Mudanças podem exigir esforço e gerar rigidez",audio:"Informações sobre o Córtex Pré-frontal."},
-parietal:{titulo:"Córtex Parietal",desc:"Processamento sensorial",autismo:"O mundo pode ser intenso sensorialmente",audio:"Informações sobre o Córtex Parietal."},
-temporal:{titulo:"Córtex Temporal",desc:"Linguagem e memória",autismo:"Processamento auditivo pode ocorrer de forma diferente",audio:"Informações sobre o Córtex Temporal."},
-occipital:{titulo:"Córtex Occipital",desc:"Visão",autismo:"Pensamento visual costuma ser uma força",audio:"Informações sobre o Córtex Occipital."},
-cerebelo:{titulo:"Cerebelo",desc:"Coordenação",autismo:"Coordenação motora pode variar",audio:"Informações sobre o Cerebelo."},
-limbico:{titulo:"Sistema Límbico",desc:"Emoções",autismo:"Vivências emocionais podem ser muito intensas",audio:"Informações sobre o Sistema Límbico."},
-insula:{titulo:"Ínsula",desc:"Consciência interna",autismo:"Percepção corporal e interna diferenciada",audio:"Informações sobre a Ínsula."}
+prefrontal:{
+  titulo:"Córtex Pré-frontal",
+  desc:"Funções executivas",
+  autismo:"Mudanças podem exigir esforço e gerar rigidez",
+  audioFile:"fabularium/audios/mindmap-prefrontal.mp3",
+  audioLabel:"Informações sobre o Córtex Pré-frontal",
+  audioSubtitle:"Pré-frontal — funções executivas"
+},
+
+parietal:{
+  titulo:"Córtex Parietal",
+  desc:"Processamento sensorial",
+  autismo:"O mundo pode ser intenso sensorialmente",
+  audioFile:"fabularium/audios/mindmap-sensorial.mp3",
+  audioLabel:"Informações sobre o Córtex Parietal",
+  audioSubtitle:"Parietal — sensorial"
+},
+
+temporal:{
+  titulo:"Córtex Temporal",
+  desc:"Linguagem e memória",
+  autismo:"Processamento auditivo pode ocorrer de forma diferente",
+  audioFile:"fabularium/audios/mindmap-temporal.mp3",
+  audioLabel:"Informações sobre o Córtex Temporal",
+  audioSubtitle:"Temporal — linguagem"
+},
+
+occipital:{
+  titulo:"Córtex Occipital",
+  desc:"Visão",
+  autismo:"Pensamento visual costuma ser uma força",
+  audioFile:"fabularium/audios/mindmap-occipital.mp3",
+  audioLabel:"Informações sobre o Córtex Occipital",
+  audioSubtitle:"Occipital — visão"
+},
+
+cerebelo:{
+  titulo:"Cerebelo",
+  desc:"Coordenação",
+  autismo:"Coordenação motora pode variar",
+  audioFile:"fabularium/audios/mindmap-cerebelo.mp3",
+  audioLabel:"Informações sobre o Cerebelo",
+  audioSubtitle:"Cerebelo — coordenação"
+},
+
+limbico:{
+  titulo:"Sistema Límbico",
+  desc:"Emoções",
+  autismo:"Vivências emocionais podem ser muito intensas",
+  audioFile:"fabularium/audios/mindmap-emocoes.mp3",
+  audioLabel:"Informações sobre o Sistema Límbico",
+  audioSubtitle:"Sistema Límbico — emoções"
+},
+
+insula:{
+  titulo:"Ínsula",
+  desc:"Consciência interna",
+  autismo:"Percepção corporal e interna diferenciada",
+  audioFile:"fabularium/audios/mindmap-insula.mp3",
+  audioLabel:"Informações sobre a Ínsula",
+  audioSubtitle:"Ínsula — consciência corporal"
+}
 };
 
 const trilha = [
@@ -361,15 +327,34 @@ const trilha = [
 let passo = 0;
 let auto = null;
 
+function playRegionAudio(src,titleText){
+  const audio = document.getElementById("audioControl");
+  const title = document.getElementById("playerTitle");
+
+  audio.src = src;
+  audio.load();
+  audio.play();
+
+  title.textContent = titleText;
+}
+
 function updatePanel(id){
   let r = regioes[id];
+
   document.getElementById("painel").innerHTML = `
     <h5>${r.titulo}</h5>
     <p><b>${r.desc}</b></p>
     <hr>
-    <p>${r.autismo}</p>
-    <hr>
-    <p>${r.audio}</p>
+    <p><b>No Autismo:</b> ${r.autismo}</p>
+
+    <div class="story-item"
+         onclick="playRegionAudio('${r.audioFile}','${r.titulo}')">
+      <i class="bi bi-play-circle"></i>
+      <div>
+        <strong>${r.audioLabel}</strong><br>
+        <small>${r.audioSubtitle}</small>
+      </div>
+    </div>
   `;
 }
 
@@ -430,30 +415,14 @@ renderGuia();
 }
 
 document.querySelectorAll('.region-item').forEach(el=>{
-el.addEventListener('click',()=>{
-highlightRegion(el.dataset.id);
-});
+el.addEventListener('click',()=>highlightRegion(el.dataset.id));
 });
 
 document.querySelectorAll('.brain-hotspot').forEach(el=>{
-el.addEventListener('click',()=>{
-highlightRegion(el.id);
-});
+el.addEventListener('click',()=>highlightRegion(el.id));
 });
 
-/* player */
-const items = document.querySelectorAll(".story-item");
-const audio = document.getElementById("audioControl");
-const title = document.getElementById("playerTitle");
-
-items.forEach(item=>{
-item.addEventListener("click",()=>{
-audio.src = item.dataset.audio;
-audio.load();
-audio.play();
-title.textContent = item.dataset.title;
-});
-});
+renderDots();
 
 </script>
 
