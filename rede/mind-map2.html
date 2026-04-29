@@ -9,6 +9,8 @@
 
 <link href="../assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet"/>
 <link href="../assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet"/>
+<link rel="stylesheet" href="../assets/css/hub.css">
+
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
 
 <style>
@@ -17,6 +19,9 @@ body{
   background:#f5f7fb;
 }
 
+/* =========================
+SEU CSS ORIGINAL (mantido)
+========================= */
 .cardx{
   background:#fff;
   border-radius:14px;
@@ -25,7 +30,6 @@ body{
   margin-bottom:18px;
 }
 
-/* REGIÕES */
 .region-item{
   padding:10px;
   border-radius:10px;
@@ -40,7 +44,6 @@ body{
   font-weight:600;
 }
 
-/* MAPA */
 .brain-wrapper{
   position:relative;
   max-width:560px;
@@ -73,18 +76,18 @@ body{
   transform:scale(1.18);
 }
 
-/* 🔥 GLOW DINÂMICO (NOVO V3) */
+/* 🔥 V3 GLOW */
 .brain-hotspot.audio-glow{
-  animation: audioPulse 1.2s infinite;
+  animation: pulseGlow 1.2s infinite;
 }
 
-@keyframes audioPulse{
+@keyframes pulseGlow{
   0%{ transform:scale(1); box-shadow:0 0 0 rgba(37,99,235,.2); }
-  50%{ transform:scale(1.25); box-shadow:0 0 22px rgba(37,99,235,.6); }
+  50%{ transform:scale(1.2); box-shadow:0 0 22px rgba(37,99,235,.6); }
   100%{ transform:scale(1); box-shadow:0 0 0 rgba(37,99,235,.2); }
 }
 
-/* POSIÇÕES */
+/* POSIÇÕES (mantidas) */
 #prefrontal{ top:18%; left:15%; width:72px; height:72px; }
 #parietal{ top:10%; left:45%; width:72px; height:72px; }
 #temporal{ top:50%; left:42%; width:72px; height:72px; }
@@ -112,12 +115,12 @@ body{
   gap:12px;
   padding:12px;
   border-radius:12px;
+  cursor:pointer;
   background:#f8fafc;
   margin-top:14px;
-  cursor:pointer;
 }
 
-/* PLAYER */
+/* AUDIO PLAYER FIX */
 .audio-player{
   position:fixed;
   bottom:0;
@@ -126,19 +129,23 @@ body{
   background:#0f172a;
   color:white;
   display:flex;
-  gap:12px;
+  align-items:center;
+  gap:16px;
   padding:12px 20px;
   z-index:999;
 }
 
-/* MOBILE APP MODE */
+/* =========================
+MOBILE (mantido + leve upgrade)
+========================= */
 @media (max-width:768px){
-  .row{ flex-direction:column; }
-  .col-lg-3,.col-lg-6{ width:100%; }
+  .col-lg-3,.col-lg-6{
+    width:100%;
+  }
 
   .brain-hotspot{
-    width:85px !important;
-    height:85px !important;
+    width:80px !important;
+    height:80px !important;
   }
 
   .audio-player{
@@ -146,24 +153,24 @@ body{
   }
 }
 
-/* PLAYLIST */
 .fabularium-library{
   display:flex;
   flex-direction:column;
   gap:10px;
-  max-height:420px;
-  overflow:auto;
-}
-
-.cat-active{
-  outline:2px solid #2563eb;
 }
 </style>
 </head>
 
 <body>
 
+<div id="header-container"></div>
+<div id="sidebar-container"></div>
+
 <main class="main">
+
+<div class="page-title mb-4">
+  <h1>Atlas Cognitivo 🧠</h1>
+</div>
 
 <div class="row g-4">
 
@@ -225,11 +232,10 @@ body{
 
 <script>
 /* =========================
-🧠 STATE CORE (V3)
+🧠 STATE CORE V3 (RESTAURADO)
 ========================= */
 const STATE = {
   currentRegion:null,
-  currentAudio:null,
   isPlaying:false
 };
 
@@ -237,33 +243,20 @@ const STATE = {
 DADOS
 ========================= */
 const regioes = {
-prefrontal:{
-  titulo:"Pré-frontal",
-  desc:"Funções executivas",
-  audioFile:"audio1.mp3",
-  musicFile:"music1.mp3",
-  musicSubtitle:"Controle e planejamento"
-},
-parietal:{
-  titulo:"Parietal",
-  desc:"Sensorial",
-  audioFile:"audio2.mp3",
-  musicFile:"music2.mp3",
-  musicSubtitle:"Sensações"
-},
-temporal:{
-  titulo:"Temporal",
-  desc:"Linguagem",
-  audioFile:"audio3.mp3",
-  musicFile:"music3.mp3",
-  musicSubtitle:"Memória"
-}
+prefrontal:{titulo:"Pré-frontal", audioFile:"audio1.mp3"},
+parietal:{titulo:"Parietal", audioFile:"audio2.mp3"},
+temporal:{titulo:"Temporal", audioFile:"audio3.mp3"},
+occipital:{titulo:"Occipital", audioFile:"audio4.mp3"},
+cerebelo:{titulo:"Cerebelo", audioFile:"audio5.mp3"},
+limbico:{titulo:"Límbico", audioFile:"audio6.mp3"},
+insula:{titulo:"Ínsula", audioFile:"audio7.mp3"}
 };
 
 /* =========================
-HOTSPOT SYNC CENTRAL
+SYNC CENTRAL (V3)
 ========================= */
 function syncRegion(id){
+
   STATE.currentRegion = id;
 
   document.querySelectorAll('.brain-hotspot')
@@ -272,44 +265,35 @@ function syncRegion(id){
   document.querySelectorAll('.region-item')
     .forEach(e=>e.classList.remove('region-active'));
 
-  const el = document.getElementById(id);
-  if(el){
-    el.classList.add('active','audio-glow');
-  }
+  document.getElementById(id)?.classList.add('active','audio-glow');
+  document.querySelector(`[data-id="${id}"]`)?.classList.add('region-active');
 
-  document.querySelector(`[data-id="${id}"]`)
-    ?.classList.add('region-active');
-
+  scrollPlaylist(id);
   updatePanel(id);
-  scrollPlaylistTo(id);
 }
 
 /* =========================
-PLAYER (SYNC V3)
+AUDIO SYNC
 ========================= */
 function playRegionAudio(src,title,id){
+
   syncRegion(id);
 
-  const audio = document.getElementById("audioControl");
-  const label = document.getElementById("playerTitle");
-
+  let audio = document.getElementById("audioControl");
   if(!audio){
-    const a = document.createElement("audio");
-    a.id="audioControl";
-    document.body.appendChild(a);
+    audio = document.createElement("audio");
+    audio.id="audioControl";
+    document.body.appendChild(audio);
   }
 
-  const el = document.getElementById("audioControl");
-  el.src = src;
-  el.play();
-
-  STATE.currentAudio = id;
+  audio.src = src;
+  audio.play();
 }
 
 /* =========================
-SCROLL INTELIGENTE
+SCROLL PLAYLIST
 ========================= */
-function scrollPlaylistTo(id){
+function scrollPlaylist(id){
   const el = document.querySelector(".cat-"+id);
   if(el){
     el.scrollIntoView({behavior:"smooth", block:"center"});
@@ -321,12 +305,8 @@ UI
 ========================= */
 function updatePanel(id){
   const r = regioes[id];
-  if(!r) return;
-
-  document.getElementById("painel").innerHTML = `
-    <h5>${r.titulo}</h5>
-    <p>${r.desc}</p>
-  `;
+  document.getElementById("painel").innerHTML =
+  `<h5>${r.titulo}</h5>`;
 }
 
 /* =========================
@@ -339,31 +319,20 @@ function renderPlaylist(){
   Object.entries(regioes).forEach(([k,r])=>{
     const div=document.createElement("div");
     div.className="story-item cat-"+k;
+    div.innerHTML=r.titulo;
 
-    div.innerHTML=`
-      <div>${r.titulo}</div>
-    `;
-
-    div.onclick=()=>playRegionAudio(r.musicFile,r.titulo,k);
-
+    div.onclick=()=>playRegionAudio(r.audioFile,r.titulo,k);
     c.appendChild(div);
   });
 }
 
-/* =========================
-EVENTOS
-========================= */
+/* EVENTS */
 document.querySelectorAll(".brain-hotspot")
-.forEach(el=>{
-  el.onclick=()=>syncRegion(el.id);
-});
+.forEach(e=>e.onclick=()=>syncRegion(e.id));
 
 document.querySelectorAll(".region-item")
-.forEach(el=>{
-  el.onclick=()=>syncRegion(el.dataset.id);
-});
+.forEach(e=>e.onclick=()=>syncRegion(e.dataset.id));
 
-/* INIT */
 renderPlaylist();
 </script>
 
