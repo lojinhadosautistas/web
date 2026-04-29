@@ -428,75 +428,85 @@ main{
 <script>
 
 const regioes = {
-prefrontal:{
-  titulo:"Córtex Pré-frontal",
-  desc:"Funções executivas",
-  autismo:"Mudanças podem exigir esforço e gerar rigidez",
-  audioFile:"fabularium/audios/mindmap-prefrontal.mp3",
-  audioLabel:"Funções Executivas",
-  musicFile:"fabularium/audios/mindmap-music-prefrontal.mp3",
-  musicSubtitle:"Pré-frontal e seus mistérios"
+
+terapeutico: {
+  titulo: "Eixo Terapêutico",
+  desc: "Organização da experiência interna e regulação simbólica",
+  autismo: "Uso de memória autobiográfica e antecipação progressiva para organizar estados emocionais em experiências de alta complexidade.",
+  
+  detalhamento: `
+No PRISMA do Evento dos Crias, este eixo atuou na preparação mental e emocional para um contexto de alta carga afetiva.
+
+Foram utilizados registros audiovisuais de experiências anteriores para construção de previsibilidade interna.
+
+A intervenção permitiu:
+- identificação de estados emocionais
+- associação entre contexto e resposta emocional
+- projeção de cenários futuros
+
+Base teórica: integração narrativa (Daniel Siegel) e self autobiográfico (Antonio Damasio).
+  `
 },
 
-parietal:{
-  titulo:"Córtex Parietal",
-  desc:"Processamento sensorial",
-  autismo:"O mundo pode ser intenso sensorialmente",
-  audioFile:"fabularium/audios/mindmap-sensorial.mp3",
-  audioLabel:"Funções Sensoriais",
-  musicFile:"fabularium/audios/mindmap-music-sensorial.mp3",
-  musicSubtitle:"Parietal super sensorial"
+familiar: {
+  titulo: "Eixo Familiar",
+  desc: "Mediação relacional e comunicação funcional no ambiente",
+  autismo: "Ajuste da comunicação familiar e dos referenciais simbólicos aumentou responsividade e reduziu fricções interacionais.",
+  
+  detalhamento: `
+A família atuou como mediadora ativa da experiência em tempo real.
+
+Foram realizadas:
+- adaptações na linguagem
+- ajuste de nomeações e símbolos
+- negociação de estímulos motivacionais
+- modelagem de respostas no contexto natural
+
+Resultado: aumento significativo da responsividade e redução de episódios de desorganização.
+
+Base teórica: comunicação funcional no autismo (Barry Prizant) e ABA (B. F. Skinner).
+  `
 },
 
-temporal:{
-  titulo:"Córtex Temporal",
-  desc:"Linguagem e memória",
-  autismo:"Processamento auditivo pode ocorrer de forma diferente",
-  audioFile:"fabularium/audios/mindmap-temporal.mp3",
-  audioLabel:"Funções Atemporais",
-  musicFile:"fabularium/audios/mindmap-music-temporal.mp3",
-  musicSubtitle:"Memórias Cantadas"
+ambiental: {
+  titulo: "Eixo Ambiental",
+  desc: "Estruturação do contexto e redução da imprevisibilidade",
+  autismo: "Ambiente organizado com previsibilidade e espaços de regulação reduziu sobrecarga sensorial e comportamental.",
+  
+  detalhamento: `
+O ambiente foi estruturado como suporte ativo da regulação.
+
+Incluiu:
+- previsibilidade espacial
+- manutenção de locais conhecidos
+- organização gradual das interações sociais
+- possibilidade de retirada/regulação
+
+Esse eixo funcionou como estabilizador externo do sistema.
+
+Base teórica: modelos ecológicos do desenvolvimento (Urie Bronfenbrenner).
+  `
 },
 
-occipital:{
-  titulo:"Córtex Occipital",
-  desc:"Visão",
-  autismo:"Pensamento visual costuma ser uma força",
-  audioFile:"fabularium/audios/mindmap-occipital.mp3",
-  audioLabel:"Funções Visuais",
-  musicFile:"fabularium/audios/mindmap-music-occipital.mp3",
-  musicSubtitle:"A visão do Pensamento"
-},
+biologico: {
+  titulo: "Eixo Biológico",
+  desc: "Sustentação fisiológica da capacidade de engajamento",
+  autismo: "Suporte medicamentoso adequado ampliou tolerância às demandas sem substituir intervenções comportamentais.",
+  
+  detalhamento: `
+O suporte biológico funcionou como camada de sustentação da autorregulação.
 
-cerebelo:{
-  titulo:"Cerebelo",
-  desc:"Coordenação",
-  autismo:"Coordenação motora pode variar",
-  audioFile:"fabularium/audios/mindmap-cerebelo.mp3",
-  audioLabel:"Funções Motoras",
-  musicFile:"fabularium/audios/mindmap-music-cerebelo.mp3",
-  musicSubtitle:"Coordenação em Ação"
-},
+Seu papel foi:
+- ampliar janela de tolerância
+- reduzir sobrecarga fisiológica
+- sustentar engajamento funcional
 
-limbico:{
-  titulo:"Sistema Límbico",
-  desc:"Emoções",
-  autismo:"Vivências emocionais podem ser muito intensas",
-  audioFile:"fabularium/audios/mindmap-emocoes.mp3",
-  audioLabel:"Sentimento e Emoções",
-  musicFile:"fabularium/audios/mindmap-music-emocoes.mp3",
-  musicSubtitle:"Quando o Coração Fala!"
-},
+Importante: não atua isoladamente, mas como base do sistema integrado.
 
-insula:{
-  titulo:"Ínsula",
-  desc:"Consciência interna",
-  autismo:"Percepção corporal e interna diferenciada",
-  audioFile:"fabularium/audios/mindmap-insula.mp3",
-  audioLabel:"Consciência Corporal",
-  musicFile:"fabularium/audios/mindmap-music-insula.mp3",
-  musicSubtitle:"Minha Voz Interior"
+Integração obrigatória com os demais eixos do PRISMA.
+  `
 }
+
 };
 
 const trilha = [
@@ -529,23 +539,21 @@ function updatePanel(id){
   document.getElementById("painel").innerHTML = `
     <h5>${r.titulo}</h5>
     <p><b>${r.desc}</b></p>
-    <hr>
-    <p><b>No Autismo:</b> ${r.autismo}</p>
 
-    <div class="story-item"
-         onclick="playRegionAudio('${r.audioFile}','${r.titulo}')">
-      <i class="bi bi-play-circle"></i>
-      <div>
-        <strong>Audiobook:</strong> ${r.audioLabel}<br>
-      </div>
+    <hr>
+
+    <p><b>Leitura clínica:</b> ${r.autismo}</p>
+
+    <div style="margin-top:10px; white-space:pre-line;">
+      ${r.detalhamento}
     </div>
 
+    <hr>
+
     <div class="story-item"
-         onclick="playRegionAudio('${r.musicFile}','${r.titulo}')">
+         onclick="playRegionAudio(r.audioFile,'${r.titulo}')">
       <i class="bi bi-play-circle"></i>
-      <div>
-        <small><b>Música:</b> ${r.musicSubtitle}</small>
-      </div>
+      <div><strong>Audioguias do eixo</strong></div>
     </div>
   `;
 }
