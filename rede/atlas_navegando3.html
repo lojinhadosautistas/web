@@ -404,7 +404,7 @@ main{
       <!-- BOTÃO DE VÍDEO / EXPLICAÇÃO -->
       <a href="https://www.youtube.com/watch?v=Jbvewd7jt30"
          class="glightbox pulsating-play-btn video-btn"
-         title="Cada Passo, uma Jornada & Sistema REDE">
+         title="Cada Passo, uma Jornada & Sistema REDE" targtet="blank">
       </a>
     </div>
   </div>
@@ -603,16 +603,6 @@ const trilha = [
 let passo = 0;
 let auto = null;
 
-function playRegionAudio(src,titleText){
-  const audio = document.getElementById("audioControl");
-  const title = document.getElementById("playerTitle");
-
-  audio.src = src;
-  audio.load();
-  audio.play();
-
-  title.textContent = titleText;
-}
 
 function updatePanel(id){
   let r = regioes[id];
@@ -707,6 +697,31 @@ renderDots();
 
 
 
+
+  function playRegionAudio(regionId){
+
+  const audio = document.getElementById("audioControl");
+
+  const src = AUDIO_MAP[regionId];
+  if(!src) return;
+
+  audio.src = src;
+  audio.load();
+  audio.play();
+
+  syncRegion(regionId);
+}
+
+  const AUDIO_MAP = {
+  geral: "../audios/atlascognitivo_geral.mp3",
+  terapeutico: "../audios/atlascognitivo_terapeutico.mp3",
+  familiar: "../audios/atlascognitivo_emocional.mp3", // ou criar arquivo próprio depois
+  ambiental: "../audios/atlascognitivo_ambiental.mp3",
+  biologico: "../audios/atlascognitivo_biologico.mp3",
+  emocional: "../audios/atlascognitivo_emocional.mp3"
+};
+  
+
 function renderPlaylist(filter = "all") {
   const container = document.getElementById("fabulariumLibrary");
   container.innerHTML = "";
@@ -733,9 +748,9 @@ function renderPlaylist(filter = "all") {
       </button>
     `;
 
-    item.querySelector(".play-btn").addEventListener("click", () => {
-      playRegionAudio(r.musicFile, r.titulo, key);
-    });
+item.querySelector(".play-btn").addEventListener("click", () => {
+  playRegionAudio(key);
+});
 
     container.appendChild(item);
   });
