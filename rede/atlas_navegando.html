@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+<title>Atlas Cognitivo - Navegando na Tempestade | Sistema REDE</title>
+<meta name="description" content="Mapa sistêmico de integração entre eixos terapêutico, familiar, ambiental e biológico."/>
+
+<link href="../assets/img/favicon.png" rel="icon">
+<link href="../assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet"/>
+<link href="../assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet"/>
+<link rel="stylesheet" href="../assets/css/hub.css">
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+
+<style>
+body{
+  font-family:'Inter',sans-serif;
+  background:#f5f7fb;
+}
+
+.cardx{
+  background:#fff;
+  border-radius:14px;
+  padding:18px;
+  box-shadow:0 6px 18px rgba(0,0,0,.06);
+  margin-bottom:18px;
+}
+
+/* =========================
+   MAPA CENTRAL (EIXOS)
+========================= */
+
+.map-wrapper{
+  position:relative;
+  max-width:640px;
+  margin:auto;
+}
+
+.map-img{
+  width:100%;
+  border-radius:16px;
+}
+
+/* hotspots dos 4 eixos */
+.axis-hotspot{
+  position:absolute;
+  width:120px;
+  height:120px;
+  border-radius:50%;
+  cursor:pointer;
+  transition:.25s;
+  background:rgba(37,99,235,.10);
+  border:2px solid rgba(37,99,235,.35);
+}
+
+.axis-hotspot:hover{
+  transform:scale(1.08);
+  background:rgba(37,99,235,.18);
+  border-color:rgba(37,99,235,.6);
+}
+
+.axis-hotspot.active{
+  transform:scale(1.15);
+  background:rgba(37,99,235,.28);
+  border-color:#2563eb;
+  box-shadow:0 0 18px rgba(37,99,235,.35);
+}
+
+/* posições aproximadas na imagem */
+#terapeutico{ top:12%; left:12%; }
+#ambiental{ top:12%; left:62%; }
+#familiar{ top:62%; left:12%; }
+#biologico{ top:62%; left:62%; }
+
+/* painel */
+.guia-box{
+  background:#eef2ff;
+  padding:14px;
+  border-radius:12px;
+  min-height:100px;
+}
+
+/* audioteca */
+.story-item{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  padding:12px;
+  border-radius:12px;
+  cursor:pointer;
+  background:#f8fafc;
+  margin-top:14px;
+}
+
+.story-item:hover{
+  background:#eef2ff;
+}
+
+.play-btn{
+  border:none;
+  background:#2563eb;
+  color:#fff;
+  width:36px;
+  height:36px;
+  border-radius:50%;
+}
+</style>
+</head>
+
+<body>
+
+<main class="main">
+
+<div class="page-title mb-4">
+  <h1>Atlas Cognitivo 🌩 Navegando na Tempestade</h1>
+  <p>Integração sistêmica entre os 4 eixos do desenvolvimento</p>
+</div>
+
+<div class="row g-4">
+
+<!-- ================= LEFT ================= -->
+<div class="col-lg-3">
+
+  <div class="cardx">
+    <h5>🧭 Eixos do Sistema REDE</h5>
+
+    <div class="region-item" data-id="terapeutico">🔵 Eixo Terapêutico</div>
+    <div class="region-item" data-id="ambiental">🟢 Eixo Ambiental</div>
+    <div class="region-item" data-id="familiar">🟠 Eixo Familiar</div>
+    <div class="region-item" data-id="biologico">🟣 Eixo Biológico</div>
+  </div>
+
+  <div class="cardx">
+    <h5>💡 Trilha Cognitiva</h5>
+
+    <div id="guia" class="guia-box">Clique em iniciar</div>
+
+    <div class="d-flex gap-2 mt-3">
+      <button class="btn btn-outline-secondary btn-sm" onclick="prevGuia()">←</button>
+      <button class="btn btn-primary btn-sm flex-fill" onclick="startGuia()">Iniciar</button>
+      <button class="btn btn-outline-secondary btn-sm" onclick="nextGuiaManual()">→</button>
+    </div>
+  </div>
+
+</div>
+
+<!-- ================= CENTER ================= -->
+<div class="col-lg-6">
+
+  <div class="cardx">
+    <h5>🧠 Integração Sistêmica</h5>
+
+    <div class="map-wrapper">
+      <!-- 👇 NOVA IMAGEM (PRISMA 4 EIXOS) -->
+      <img src="../assets/img/prisma-4-eixos.png" class="map-img">
+
+      <div id="terapeutico" class="axis-hotspot"></div>
+      <div id="ambiental" class="axis-hotspot"></div>
+      <div id="familiar" class="axis-hotspot"></div>
+      <div id="biologico" class="axis-hotspot"></div>
+    </div>
+  </div>
+
+  <div class="cardx" id="painel">
+    <h5>📌 Eixo selecionado</h5>
+    <p>Clique em um eixo para analisar o sistema</p>
+  </div>
+
+</div>
+
+<!-- ================= RIGHT ================= -->
+<div class="col-lg-3">
+
+  <div class="cardx">
+    <h5>🎧 Audioteca REDE</h5>
+    <div id="library"></div>
+  </div>
+
+</div>
+
+</div>
+</main>
+
+<script>
+
+/* =========================
+   MODELO DOS 4 EIXOS
+========================= */
+
+const eixos = {
+
+terapeutico:{
+  titulo:"Eixo Terapêutico",
+  desc:"Estruturação interna e integração de repertório",
+  foco:"Antecipação, narrativa, regulação emocional e construção de sentido.",
+  audio:"audios/terapeutico.mp3"
+},
+
+ambiental:{
+  titulo:"Eixo Ambiental",
+  desc:"Organização do contexto e previsibilidade",
+  foco:"Redução de imprevisibilidade, suporte sensorial e estrutura externa.",
+  audio:"audios/ambiental.mp3"
+},
+
+familiar:{
+  titulo:"Eixo Familiar",
+  desc:"Mediação relacional em tempo real",
+  foco:"Comunicação adaptada, vínculos e negociação funcional no ambiente.",
+  audio:"audios/familiar.mp3"
+},
+
+biologico:{
+  titulo:"Eixo Biológico",
+  desc:"Sustentação neurofisiológica",
+  foco:"Sono, medicação, estabilidade fisiológica e tolerância ao estresse.",
+  audio:"audios/biologico.mp3"
+}
+
+};
+
+/* =========================
+   TRILHA
+========================= */
+
+const trilha = [
+{txt:"Todo comportamento emerge de um sistema integrado.", reg:null},
+{txt:"O eixo terapêutico organiza o sentido interno.", reg:"terapeutico"},
+{txt:"O ambiente reduz ou amplifica a desorganização.", reg:"ambiental"},
+{txt:"A família atua como mediadora em tempo real.", reg:"familiar"},
+{txt:"O corpo sustenta ou limita a experiência.", reg:"biologico"},
+{txt:"Nenhum eixo atua sozinho.", reg:null}
+];
+
+let passo=0;
+let auto=null;
+
+/* =========================
+   UI UPDATE
+========================= */
+
+function highlight(id){
+
+document.querySelectorAll('.axis-hotspot').forEach(e=>e.classList.remove('active'));
+document.querySelectorAll('.region-item').forEach(e=>e.classList.remove('region-active'));
+
+if(id){
+document.getElementById(id)?.classList.add('active');
+document.querySelector('[data-id="'+id+'"]')?.classList.add('region-active');
+updatePanel(id);
+}
+}
+
+function updatePanel(id){
+const e = eixos[id];
+
+document.getElementById("painel").innerHTML = `
+<h5>${e.titulo}</h5>
+<p><b>${e.desc}</b></p>
+<hr>
+<p>${e.foco}</p>
+
+<div class="story-item">
+<button class="play-btn" onclick="playAudio('${e.audio}')">▶</button>
+<span>Áudio explicativo do eixo</span>
+</div>
+`;
+}
+
+function playAudio(src){
+const a = new Audio(src);
+a.play();
+}
+
+/* =========================
+   TRILHA
+========================= */
+
+function render(){
+document.getElementById("guia").innerText = trilha[passo].txt;
+highlight(trilha[passo].reg);
+}
+
+function startGuia(){
+passo=0;
+render();
+
+if(auto) clearInterval(auto);
+
+auto=setInterval(()=>{
+passo++;
+if(passo>=trilha.length) return clearInterval(auto);
+render();
+},4000);
+}
+
+function nextGuiaManual(){
+if(passo<trilha.length-1){passo++;render();}
+}
+
+function prevGuia(){
+if(passo>0){passo--;render();}
+}
+
+/* =========================
+   EVENTS
+========================= */
+
+document.querySelectorAll('.axis-hotspot').forEach(el=>{
+el.addEventListener('click',()=>highlight(el.id));
+});
+
+document.querySelectorAll('.region-item').forEach(el=>{
+el.addEventListener('click',()=>highlight(el.dataset.id));
+});
+
+</script>
+
+</body>
+</html>
