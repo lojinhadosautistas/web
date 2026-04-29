@@ -339,13 +339,13 @@ main{
 <script>
 
 const regioes = {
-prefrontal:{titulo:"Córtex Pré-frontal",desc:"Funções executivas",autismo:"Mudanças podem exigir esforço e gerar rigidez,audio:"Audio sobre o Córtex Pré-frontal"."},
-parietal:{titulo:"Córtex Parietal",desc:"Processamento sensorial",autismo:"O mundo pode ser intenso sensorialmente,audio:"Audio sobre o Córtex Parietal"."},
-temporal:{titulo:"Córtex Temporal",desc:"Linguagem e memória",autismo:"Processamento auditivo pode ocorrer de forma diferente,audio:"Audio sobre o Córtex Temporal"."},
-occipital:{titulo:"Córtex Occipital",desc:"Visão",autismo:"Pensamento visual costuma ser uma força,audio:"Audio sobre o Córtex Occipital"."},
-cerebelo:{titulo:"Cerebelo",desc:"Coordenação",autismo:"Coordenação motora pode variar,audio:"Audio sobre o Cerebelo"."},
-limbico:{titulo:"Sistema Límbico",desc:"Emoções",autismo:"Vivências emocionais podem ser muito intensas,audio:"Audio sobre o Sistema Límbico"."},
-insula:{titulo:"Ínsula",desc:"Consciência interna",autismo:"Percepção corporal e interna diferenciada,audio:"Audio sobre a Ínsula"."}
+prefrontal:{titulo:"Córtex Pré-frontal",desc:"Funções executivas",autismo:"Mudanças podem exigir esforço e gerar rigidez",audio:"Informações sobre o Córtex Pré-frontal"."},
+parietal:{titulo:"Córtex Parietal",desc:"Processamento sensorial",autismo:"O mundo pode ser intenso sensorialmente",audio:"Informações sobre o Córtex Parietal"."},
+temporal:{titulo:"Córtex Temporal",desc:"Linguagem e memória",autismo:"Processamento auditivo pode ocorrer de forma diferente",audio:"Informações sobre o Córtex Temporal"."},
+occipital:{titulo:"Córtex Occipital",desc:"Visão",autismo:"Pensamento visual costuma ser uma força",audio:"Informações sobre o Córtex Occipital"."},
+cerebelo:{titulo:"Cerebelo",desc:"Coordenação",autismo:"Coordenação motora pode variar",audio:"Informações sobre o Cerebelo"."},
+limbico:{titulo:"Sistema Límbico",desc:"Emoções",autismo:"Vivências emocionais podem ser muito intensas",audio:"Informações sobre o Sistema Límbico"."},
+insula:{titulo:"Ínsula",desc:"Consciência interna",autismo:"Percepção corporal e interna diferenciada",audio:"Informações sobre a Ínsula"."}
 };
 
 const trilha = [
@@ -368,6 +368,8 @@ function updatePanel(id){
     <p><b>${r.desc}</b></p>
     <hr>
     <p>${r.autismo}</p>
+    <hr>
+    <p>${r.audio}</p>
   `;
 }
 
