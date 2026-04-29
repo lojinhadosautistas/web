@@ -767,27 +767,37 @@ const STATE = {
 /* =========================
 🎧 AUDIO + AUTOPLAY SYNC
 ========================= */
-function playRegionAudio(src, titleText, regionId){
+function playRegionAudio(regionId){
 
-  const audio = document.getElementById("audioControl");
+  let audio = document.getElementById("audioControl");
 
   if(!audio){
-    const a = document.createElement("audio");
-    a.id = "audioControl";
-    document.body.appendChild(a);
+    audio = document.createElement("audio");
+    audio.id = "audioControl";
+    audio.controls = true;
+    audio.style.cssText = `
+      width:100%;
+      position:fixed;
+      bottom:0;
+      left:0;
+      z-index:999;
+    `;
+    document.body.appendChild(audio);
   }
 
-  const player = document.getElementById("audioControl");
+  const src = AUDIO_MAP[regionId];
+  if(!src) return;
 
-  player.src = src;
-  player.load();
-  player.play();
+  audio.src = src;
+  audio.load();
+  audio.play();
 
   STATE.currentRegion = regionId;
 
   syncRegion(regionId);
 }
 
+  
 /* =========================
 🧠 SYNC VISUAL (HOTSPOTS + GLOW)
 ========================= */
