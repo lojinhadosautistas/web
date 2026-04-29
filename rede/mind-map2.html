@@ -37,7 +37,9 @@ body{
   transition:.2s;
 }
 
-.region-item:hover{ background:#eef2ff; }
+.region-item:hover{
+  background:#eef2ff;
+}
 
 .region-active{
   background:#dbeafe;
@@ -55,38 +57,59 @@ body{
   border-radius:14px;
 }
 
-.brain-hotspot{
+
+
+  .brain-hotspot{
   position:absolute;
   border-radius:50%;
   cursor:pointer;
   transition:.25s;
+
+  /* 🔥 NOVO: VISIBILIDADE BASE */
   background:rgba(37,99,235,.12);
   border:2px solid rgba(37,99,235,.45);
+
+  /* 🔥 GLOW SUAVE */
+  box-shadow:0 0 0 rgba(37,99,235,0);
 }
 
+/* hover mais forte */
 .brain-hotspot:hover{
   background:rgba(37,99,235,.22);
   border-color:rgba(37,99,235,.7);
+  box-shadow:0 0 12px rgba(37,99,235,.35);
   transform:scale(1.08);
 }
 
+/* ativo = destaque real */
 .brain-hotspot.active{
   background:rgba(37,99,235,.35);
   border-color:#2563eb;
+  box-shadow:0 0 18px rgba(37,99,235,.55);
   transform:scale(1.18);
 }
 
-.brain-hotspot.audio-glow{
-  animation: audioPulse 1.2s infinite;
+  .brain-hotspot.active::after{
+  content:"";
+  position:absolute;
+  inset:-6px;
+  border-radius:50%;
+  border:2px solid rgba(37,99,235,.35);
+  animation:pulse 1.8s infinite;
 }
 
-@keyframes audioPulse{
-  0%{ transform:scale(1); box-shadow:0 0 0 rgba(37,99,235,.2); }
-  50%{ transform:scale(1.2); box-shadow:0 0 22px rgba(37,99,235,.6); }
-  100%{ transform:scale(1); box-shadow:0 0 0 rgba(37,99,235,.2); }
+@keyframes pulse{
+  0%{ transform:scale(0.9); opacity:.6; }
+  70%{ transform:scale(1.3); opacity:0; }
+  100%{ opacity:0; }
 }
 
-/* POSIÇÕES */
+
+
+
+  
+
+/* posições */
 #prefrontal{ top:18%; left:15%; width:72px; height:72px; }
 #parietal{ top:10%; left:45%; width:72px; height:72px; }
 #temporal{ top:50%; left:42%; width:72px; height:72px; }
@@ -109,7 +132,11 @@ body{
 }
 
 .dot{ opacity:.3; }
-.dot.active{ opacity:1; color:#2563eb; }
+
+.dot.active{
+  opacity:1;
+  color:#2563eb;
+}
 
 .story-item{
   display:flex;
@@ -120,6 +147,11 @@ body{
   cursor:pointer;
   background:#f8fafc;
   margin-top:14px;
+  transition:.2s;
+}
+
+.story-item:hover{
+  background:#eef2ff;
 }
 
 .audio-player{
@@ -136,17 +168,122 @@ body{
   z-index:999;
 }
 
-main{ padding-bottom:110px; }
+.player-icon{
+  font-size:22px;
+}
 
-/* MOBILE APP MODE */
+.player-info{
+  flex:1;
+}
+
+main{
+  padding-bottom:110px;
+}
+
+.fabularium-filters{
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px;
+  margin-bottom:12px;
+}
+
+.filter-btn{
+  border:none;
+  padding:6px 10px;
+  border-radius:999px;
+  background:#eef2ff;
+  font-size:12px;
+  cursor:pointer;
+  transition:.2s;
+}
+
+.filter-btn.active{
+  background:#2563eb;
+  color:#fff;
+}
+
+.fabularium-library{
+  display:flex;
+  flex-direction:column;
+  gap:10px;
+}
+
+.story-icon{
+  width:42px;
+  height:42px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  border-radius:10px;
+  background:#e0e7ff;
+}
+
+.story-title{
+  font-weight:600;
+  font-size:14px;
+}
+
+.story-meta{
+  font-size:12px;
+  opacity:.7;
+}
+
+.play-btn{
+  border:none;
+  background:#2563eb;
+  color:#fff;
+  width:36px;
+  height:36px;
+  border-radius:50%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+
+  /* =========================
+🧠 V1 ENHANCEMENTS (SAFE LAYER)
+========================= */
+
+.brain-hotspot.audio-glow{
+  animation: audioPulse 1.2s infinite;
+}
+
+@keyframes audioPulse{
+  0%{
+    transform:scale(1);
+    box-shadow:0 0 0 rgba(37,99,235,.2);
+  }
+  50%{
+    transform:scale(1.2);
+    box-shadow:0 0 22px rgba(37,99,235,.55);
+  }
+  100%{
+    transform:scale(1);
+    box-shadow:0 0 0 rgba(37,99,235,.2);
+  }
+}
+
+/* scroll suave da playlist */
+.fabularium-library{
+  scroll-behavior:smooth;
+}
+
+/* mobile app feel sem quebrar layout */
 @media (max-width:768px){
-  .col-lg-3,.col-lg-6{ width:100%; }
+  .col-lg-3,.col-lg-6{
+    width:100%;
+  }
 
   .brain-hotspot{
     width:80px !important;
     height:80px !important;
   }
+
+  .audio-player{
+    border-radius:18px 18px 0 0;
+  }
 }
+  
 </style>
 </head>
 
@@ -164,220 +301,416 @@ main{ padding-bottom:110px; }
 
 <div class="row g-4">
 
-<!-- ESQUERDA -->
-<div class="col-lg-3">
+  <!-- esquerda -->
+  <div class="col-lg-3">
 
-<div class="cardx">
-<h5>Regiões</h5>
+    <div class="cardx">
+      <h5><i class="bi bi-compass"></i> Regiões</h5>
 
-<div class="region-item" data-id="prefrontal">Córtex Pré-frontal</div>
-<div class="region-item" data-id="parietal">Córtex Parietal</div>
-<div class="region-item" data-id="temporal">Córtex Temporal</div>
-<div class="region-item" data-id="occipital">Córtex Occipital</div>
-<div class="region-item" data-id="cerebelo">Cerebelo</div>
-<div class="region-item" data-id="limbico">Sistema Límbico</div>
-<div class="region-item" data-id="insula">Ínsula</div>
+      <div class="region-item" data-id="prefrontal">🔴 Córtex Pré-frontal</div>
+      <div class="region-item" data-id="parietal">🟠 Córtex Parietal</div>
+      <div class="region-item" data-id="temporal">🔵 Córtex Temporal</div>
+      <div class="region-item" data-id="occipital">🟢 Córtex Occipital</div>
+      <div class="region-item" data-id="cerebelo">🟣 Cerebelo</div>
+      <div class="region-item" data-id="limbico">🟡 Sistema Límbico</div>
+      <div class="region-item" data-id="insula">🔷 Ínsula</div>
+    </div>
 
-</div>
+    <div class="cardx">
+      <h5>💙 Trilha para mães</h5>
 
-</div>
+      <div id="guia" class="guia-box">
+        Clique em iniciar
+      </div>
 
-<!-- CENTRO -->
+      <div id="dots" class="progress-dots"></div>
+
+      <div class="d-flex gap-2 mt-3">
+        <button class="btn btn-outline-secondary btn-sm" onclick="prevGuia()">
+          <i class="bi bi-arrow-left"></i>
+        </button>
+
+        <button class="btn btn-primary btn-sm flex-fill" onclick="startGuia()">
+          Iniciar
+        </button>
+
+        <button class="btn btn-outline-secondary btn-sm" onclick="nextGuiaManual()">
+          <i class="bi bi-arrow-right"></i>
+        </button>
+      </div>
+    </div>
+
+  </div>
+
+<!-- centro -->
 <div class="col-lg-6">
+  <div class="cardx">
+    <div class="brain-wrapper">
+      <h5><i class="bi bi-search"></i> Onde fica cada parte</h5>
+      <img src="../assets/img/brain-map.png" class="brain-img">
 
-<div class="cardx">
-<div class="brain-wrapper">
+      <div id="prefrontal" class="brain-hotspot"></div>
+      <div id="parietal" class="brain-hotspot"></div>
+      <div id="temporal" class="brain-hotspot"></div>
+      <div id="occipital" class="brain-hotspot"></div>
+      <div id="cerebelo" class="brain-hotspot"></div>
+      <div id="limbico" class="brain-hotspot"></div>
+      <div id="insula" class="brain-hotspot"></div>
+    </div>
+  </div>
 
-<img src="../assets/img/brain-map.png" class="brain-img">
-
-<div id="prefrontal" class="brain-hotspot"></div>
-<div id="parietal" class="brain-hotspot"></div>
-<div id="temporal" class="brain-hotspot"></div>
-<div id="occipital" class="brain-hotspot"></div>
-<div id="cerebelo" class="brain-hotspot"></div>
-<div id="limbico" class="brain-hotspot"></div>
-<div id="insula" class="brain-hotspot"></div>
-
-</div>
-</div>
-
-<div class="cardx" id="painel">
-<h5>Região selecionada</h5>
-<p>Clique em uma área do cérebro</p>
-</div>
-
+  <div class="cardx" id="painel">
+    <h5><i class="bi bi-geo-alt-fill"></i> Região selecionada</h5>
+    <p>Clique em uma área do cérebro</p>
+  </div>
 </div>
 
-<!-- DIREITA -->
+
+  
+  <!-- direita -->
 <div class="col-lg-3">
 
-<div class="cardx">
-<h5>Audioteca</h5>
-<div id="fabulariumLibrary"></div>
-</div>
+  <div class="cardx">
+
+    <h5><i class="bi bi-music-note-list"></i> Audioteca</h5>
+
+    <div class="fabularium-filters">
+      <button class="filter-btn active" data-filter="all">Todos</button>
+      <button class="filter-btn" data-filter="prefrontal">Pré-frontal</button>
+      <button class="filter-btn" data-filter="parietal">Parietal</button>
+      <button class="filter-btn" data-filter="temporal">Temporal</button>
+      <button class="filter-btn" data-filter="occipital">Occipital</button>
+      <button class="filter-btn" data-filter="cerebelo">Cerebelo</button>
+      <button class="filter-btn" data-filter="limbico">Límbico</button>
+      <button class="filter-btn" data-filter="insula">Ínsula</button>
+    </div>
+
+    <div id="fabulariumLibrary" class="fabularium-library"></div>
+
+  </div>
 
 </div>
-
+  
 </div>
 </main>
 
+
+<script src="../assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="js/components.js"></script>
+
 <script>
-/* =========================
-🧠 STATE + TRACKING V3.6
-========================= */
-const STATE = {
-  currentRegion: null,
-  currentAudio: null,
-  attention: {},
-  tracker: null,
-  lastTick: null
-};
 
-/* init attention map */
-["prefrontal","parietal","temporal","occipital","cerebelo","limbico","insula"]
-.forEach(r=>{
-  STATE.attention[r] = { time:0, visits:0 };
-});
-
-/* =========================
-REGIÕES (simplificado)
-========================= */
 const regioes = {
-prefrontal:{titulo:"Pré-frontal", audioFile:"audio1.mp3"},
-parietal:{titulo:"Parietal", audioFile:"audio2.mp3"},
-temporal:{titulo:"Temporal", audioFile:"audio3.mp3"},
-occipital:{titulo:"Occipital", audioFile:"audio4.mp3"},
-cerebelo:{titulo:"Cerebelo", audioFile:"audio5.mp3"},
-limbico:{titulo:"Límbico", audioFile:"audio6.mp3"},
-insula:{titulo:"Ínsula", audioFile:"audio7.mp3"}
+prefrontal:{
+  titulo:"Córtex Pré-frontal",
+  desc:"Funções executivas",
+  autismo:"Mudanças podem exigir esforço e gerar rigidez",
+  audioFile:"fabularium/audios/mindmap-prefrontal.mp3",
+  audioLabel:"Funções Executivas",
+  musicFile:"fabularium/audios/mindmap-music-prefrontal.mp3",
+  musicSubtitle:"Pré-frontal e seus mistérios"
+},
+
+parietal:{
+  titulo:"Córtex Parietal",
+  desc:"Processamento sensorial",
+  autismo:"O mundo pode ser intenso sensorialmente",
+  audioFile:"fabularium/audios/mindmap-sensorial.mp3",
+  audioLabel:"Funções Sensoriais",
+  musicFile:"fabularium/audios/mindmap-music-sensorial.mp3",
+  musicSubtitle:"Parietal super sensorial"
+},
+
+temporal:{
+  titulo:"Córtex Temporal",
+  desc:"Linguagem e memória",
+  autismo:"Processamento auditivo pode ocorrer de forma diferente",
+  audioFile:"fabularium/audios/mindmap-temporal.mp3",
+  audioLabel:"Funções Atemporais",
+  musicFile:"fabularium/audios/mindmap-music-temporal.mp3",
+  musicSubtitle:"Memórias Cantadas"
+},
+
+occipital:{
+  titulo:"Córtex Occipital",
+  desc:"Visão",
+  autismo:"Pensamento visual costuma ser uma força",
+  audioFile:"fabularium/audios/mindmap-occipital.mp3",
+  audioLabel:"Funções Visuais",
+  musicFile:"fabularium/audios/mindmap-music-occipital.mp3",
+  musicSubtitle:"A visão do Pensamento"
+},
+
+cerebelo:{
+  titulo:"Cerebelo",
+  desc:"Coordenação",
+  autismo:"Coordenação motora pode variar",
+  audioFile:"fabularium/audios/mindmap-cerebelo.mp3",
+  audioLabel:"Funções Motoras",
+  musicFile:"fabularium/audios/mindmap-music-cerebelo.mp3",
+  musicSubtitle:"Coordenação em Ação"
+},
+
+limbico:{
+  titulo:"Sistema Límbico",
+  desc:"Emoções",
+  autismo:"Vivências emocionais podem ser muito intensas",
+  audioFile:"fabularium/audios/mindmap-emocoes.mp3",
+  audioLabel:"Sentimento e Emoções",
+  musicFile:"fabularium/audios/mindmap-music-emocoes.mp3",
+  musicSubtitle:"Quando o Coração Fala!"
+},
+
+insula:{
+  titulo:"Ínsula",
+  desc:"Consciência interna",
+  autismo:"Percepção corporal e interna diferenciada",
+  audioFile:"fabularium/audios/mindmap-insula.mp3",
+  audioLabel:"Consciência Corporal",
+  musicFile:"fabularium/audios/mindmap-music-insula.mp3",
+  musicSubtitle:"Minha Voz Interior"
+}
 };
 
-/* =========================
-TRACKING DE ATENÇÃO
-========================= */
-function startTracking(){
-  stopTracking();
-  STATE.lastTick = Date.now();
+const trilha = [
+{txt:"Respira. Vamos entender esse cérebro juntos.", reg:null},
+{txt:"O cérebro autista pode sentir o mundo de forma intensa.", reg:"parietal"},
+{txt:"As emoções podem ser profundas e amplificadas.", reg:"limbico"},
+{txt:"Mudanças exigem energia e organização mental.", reg:"prefrontal"},
+{txt:"A comunicação pode seguir caminhos próprios.", reg:"temporal"},
+{txt:"Há muitas forças aqui, inclusive pensamento visual.", reg:"occipital"},
+{txt:"Cada cérebro é único. Você não está sozinho.", reg:null}
+];
 
-  STATE.tracker = setInterval(()=>{
-    if(!STATE.currentRegion) return;
+let passo = 0;
+let auto = null;
 
-    const now = Date.now();
-    const diff = (now - STATE.lastTick)/1000;
-    STATE.lastTick = now;
-
-    STATE.attention[STATE.currentRegion].time += diff;
-
-  },1000);
-}
-
-function stopTracking(){
-  if(STATE.tracker){
-    clearInterval(STATE.tracker);
-    STATE.tracker = null;
-  }
-}
-
-/* =========================
-SYNC CENTRAL
-========================= */
-function syncRegion(id){
-
-  if(!id) return;
-
-  STATE.currentRegion = id;
-  STATE.attention[id].visits++;
-
-  document.querySelectorAll('.brain-hotspot')
-    .forEach(e=>e.classList.remove('active','audio-glow'));
-
-  document.querySelectorAll('.region-item')
-    .forEach(e=>e.classList.remove('region-active'));
-
-  document.getElementById(id)?.classList.add('active','audio-glow');
-  document.querySelector(`[data-id="${id}"]`)?.classList.add('region-active');
-
-  updatePanel(id);
-  scrollPlaylist(id);
-
-  startTracking();
-}
-
-/* =========================
-AUDIO SYNC
-========================= */
-function playRegionAudio(src,title,id){
-
-  syncRegion(id);
-
-  let audio = document.getElementById("audioControl");
-
-  if(!audio){
-    audio = document.createElement("audio");
-    audio.id = "audioControl";
-    document.body.appendChild(audio);
-  }
+function playRegionAudio(src,titleText){
+  const audio = document.getElementById("audioControl");
+  const title = document.getElementById("playerTitle");
 
   audio.src = src;
+  audio.load();
   audio.play();
+
+  title.textContent = titleText;
 }
 
-/* =========================
-SCROLL
-========================= */
-function scrollPlaylist(id){
-  const el = document.querySelector(".cat-"+id);
-  if(el){
-    el.scrollIntoView({behavior:"smooth",block:"center"});
-  }
-}
-
-/* =========================
-UI PANEL
-========================= */
 function updatePanel(id){
-  const r = regioes[id];
-  document.getElementById("painel").innerHTML =
-  `<h5>${r.titulo}</h5>`;
+  let r = regioes[id];
+
+  document.getElementById("painel").innerHTML = `
+    <h5>${r.titulo}</h5>
+    <p><b>${r.desc}</b></p>
+    <hr>
+    <p><b>No Autismo:</b> ${r.autismo}</p>
+
+    <div class="story-item"
+         onclick="playRegionAudio('${r.audioFile}','${r.titulo}')">
+      <i class="bi bi-play-circle"></i>
+      <div>
+        <strong>Audiobook:</strong> ${r.audioLabel}<br>
+      </div>
+    </div>
+
+    <div class="story-item"
+         onclick="playRegionAudio('${r.musicFile}','${r.titulo}')">
+      <i class="bi bi-play-circle"></i>
+      <div>
+        <small><b>Música:</b> ${r.musicSubtitle}</small>
+      </div>
+    </div>
+  `;
 }
 
-/* =========================
-PLAYLIST
-========================= */
-function renderPlaylist(){
-  const c = document.getElementById("fabulariumLibrary");
-  c.innerHTML="";
+function highlightRegion(id){
 
-  Object.entries(regioes).forEach(([k,r])=>{
-    const div=document.createElement("div");
-    div.className="story-item cat-"+k;
-    div.innerHTML=r.titulo;
+document.querySelectorAll('.brain-hotspot').forEach(el=>el.classList.remove('active'));
+document.querySelectorAll('.region-item').forEach(el=>el.classList.remove('region-active'));
 
-    div.onclick=()=>playRegionAudio(r.audioFile,r.titulo,k);
-    c.appendChild(div);
+if(id){
+document.getElementById(id)?.classList.add('active');
+document.querySelector('[data-id="'+id+'"]')?.classList.add('region-active');
+updatePanel(id);
+}
+}
+
+function renderDots(){
+let html="";
+trilha.forEach((_,i)=>{
+html += `<span class="dot ${i===passo?'active':''}">●</span>`;
+});
+document.getElementById("dots").innerHTML = html;
+}
+
+function renderGuia(){
+document.getElementById("guia").innerText = trilha[passo].txt;
+renderDots();
+highlightRegion(trilha[passo].reg);
+}
+
+function startGuia(){
+passo=0;
+renderGuia();
+
+if(auto) clearInterval(auto);
+
+auto=setInterval(()=>{
+passo++;
+if(passo>=trilha.length){
+clearInterval(auto);
+return;
+}
+renderGuia();
+},4000);
+}
+
+function nextGuiaManual(){
+if(passo<trilha.length-1){
+passo++;
+renderGuia();
+}
+}
+
+function prevGuia(){
+if(passo>0){
+passo--;
+renderGuia();
+}
+}
+
+document.querySelectorAll('.region-item').forEach(el=>{
+el.addEventListener('click',()=>highlightRegion(el.dataset.id));
+});
+
+document.querySelectorAll('.brain-hotspot').forEach(el=>{
+el.addEventListener('click',()=>highlightRegion(el.id));
+});
+
+renderDots();
+
+
+
+function renderPlaylist(filter = "all") {
+  const container = document.getElementById("fabulariumLibrary");
+  container.innerHTML = "";
+
+  Object.entries(regioes).forEach(([key, r]) => {
+
+    if (filter !== "all" && filter !== key) return;
+
+    const item = document.createElement("div");
+    item.className = "story-item cat-" + key;
+
+    item.innerHTML = `
+      <div class="story-icon">
+        <i class="bi bi-music-note-beamed"></i>
+      </div>
+
+      <div class="story-info">
+        <div class="story-title">${r.titulo}</div>
+        <div class="story-meta">${r.musicSubtitle}</div>
+      </div>
+
+      <button class="play-btn">
+        <i class="bi bi-play-fill"></i>
+      </button>
+    `;
+
+    item.querySelector(".play-btn").addEventListener("click", () => {
+      playRegionAudio(r.musicFile, r.titulo, key);
+    });
+
+    container.appendChild(item);
   });
 }
 
-/* EVENTS */
-document.querySelectorAll('.brain-hotspot')
-.forEach(e=>{
-  e.onclick=()=>syncRegion(e.id);
+// filtros
+document.querySelectorAll(".filter-btn").forEach(btn => {
+  btn.addEventListener("click", () => {
+    document.querySelectorAll(".filter-btn").forEach(b => b.classList.remove("active"));
+    btn.classList.add("active");
+
+    renderPlaylist(btn.dataset.filter);
+  });
 });
 
-document.querySelectorAll('.region-item')
-.forEach(e=>{
-  e.onclick=()=>syncRegion(e.dataset.id);
-});
-
+// inicial
 renderPlaylist();
 
-/* =========================
-DEBUG / INSIGHTS
+
+
+  /* =========================
+🧠 STATE CORE (LEVE - V1 SAFE)
 ========================= */
-function getAttentionReport(){
-  console.table(STATE.attention);
-  return STATE.attention;
+const STATE = {
+  currentRegion: null,
+  currentAudio: null
+};
+
+/* =========================
+🎧 AUDIO + AUTOPLAY SYNC
+========================= */
+function playRegionAudio(src, titleText, regionId){
+
+  const audio = document.getElementById("audioControl");
+
+  if(!audio){
+    const a = document.createElement("audio");
+    a.id = "audioControl";
+    document.body.appendChild(a);
+  }
+
+  const player = document.getElementById("audioControl");
+
+  player.src = src;
+  player.load();
+  player.play();
+
+  STATE.currentRegion = regionId;
+
+  syncRegion(regionId);
 }
+
+/* =========================
+🧠 SYNC VISUAL (HOTSPOTS + GLOW)
+========================= */
+function syncRegion(id){
+
+  document.querySelectorAll('.brain-hotspot')
+    .forEach(el => el.classList.remove('active','audio-glow'));
+
+  document.querySelectorAll('.region-item')
+    .forEach(el => el.classList.remove('region-active'));
+
+  const hotspot = document.getElementById(id);
+  if(hotspot){
+    hotspot.classList.add('active','audio-glow');
+  }
+
+  document.querySelector('[data-id="'+id+'"]')
+    ?.classList.add('region-active');
+
+  updatePanel(id);
+  scrollPlaylist(id);
+}
+
+/* =========================
+🔄 SCROLL INTELIGENTE PLAYLIST
+========================= */
+function scrollPlaylist(id){
+  const el = document.querySelector(".cat-" + id);
+
+  if(el){
+    el.scrollIntoView({
+      behavior:"smooth",
+      block:"center"
+    });
+  }
+}
+
+  
+  
 </script>
 
 </body>
