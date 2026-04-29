@@ -344,6 +344,22 @@ main{
   height:100%;
 }
 /* CSS MAPA DOS EIXOS */
+
+
+
+
+
+  #atlasImage{
+  transform-origin:center;
+  transition:transform .3s ease;
+}
+
+.zoom-active #atlasImage{
+  transform:scale(1.8);
+}
+
+
+  
   
 </style>
 </head>
@@ -965,7 +981,12 @@ document.querySelectorAll(".brain-hotspot").forEach(el=>{
       .scrollIntoView({behavior:"smooth", block:"center"});
   });
 });
-  
+
+    function toggleAtlasZoom(){
+  const container = document.querySelector(".zoom-container");
+
+  container.classList.toggle("zoom-active");
+}
 </script>
     <!-- SCRIPT DO MAPA DOS EIXOS -->
 
