@@ -6,6 +6,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 
 <title>Atlas Cognitivo - Mapa da Mente | Sistema REDE</title>
+<meta name="description" content="Mapa interativo da mente autista com experiência guiada, trilha visual e narração."/>
+
+<link href="../assets/img/favicon.png" rel="icon">
 
 <link href="../assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet"/>
 <link href="../assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet"/>
@@ -19,9 +22,6 @@ body{
   background:#f5f7fb;
 }
 
-/* =========================
-SEU CSS ORIGINAL (mantido)
-========================= */
 .cardx{
   background:#fff;
   border-radius:14px;
@@ -55,7 +55,6 @@ SEU CSS ORIGINAL (mantido)
   border-radius:14px;
 }
 
-/* HOTSPOTS */
 .brain-hotspot{
   position:absolute;
   border-radius:50%;
@@ -67,6 +66,7 @@ SEU CSS ORIGINAL (mantido)
 
 .brain-hotspot:hover{
   background:rgba(37,99,235,.22);
+  border-color:rgba(37,99,235,.7);
   transform:scale(1.08);
 }
 
@@ -76,18 +76,17 @@ SEU CSS ORIGINAL (mantido)
   transform:scale(1.18);
 }
 
-/* 🔥 V3 GLOW */
 .brain-hotspot.audio-glow{
-  animation: pulseGlow 1.2s infinite;
+  animation: audioPulse 1.2s infinite;
 }
 
-@keyframes pulseGlow{
+@keyframes audioPulse{
   0%{ transform:scale(1); box-shadow:0 0 0 rgba(37,99,235,.2); }
   50%{ transform:scale(1.2); box-shadow:0 0 22px rgba(37,99,235,.6); }
   100%{ transform:scale(1); box-shadow:0 0 0 rgba(37,99,235,.2); }
 }
 
-/* POSIÇÕES (mantidas) */
+/* POSIÇÕES */
 #prefrontal{ top:18%; left:15%; width:72px; height:72px; }
 #parietal{ top:10%; left:45%; width:72px; height:72px; }
 #temporal{ top:50%; left:42%; width:72px; height:72px; }
@@ -96,7 +95,6 @@ SEU CSS ORIGINAL (mantido)
 #limbico{ top:45%; left:30%; width:60px; height:60px; }
 #insula{ top:40%; left:49%; width:42px; height:42px; }
 
-/* GUIA */
 .guia-box{
   background:#eef2ff;
   padding:14px;
@@ -104,11 +102,15 @@ SEU CSS ORIGINAL (mantido)
   min-height:100px;
 }
 
-/* DOTS */
+.progress-dots{
+  text-align:center;
+  margin-top:10px;
+  letter-spacing:5px;
+}
+
 .dot{ opacity:.3; }
 .dot.active{ opacity:1; color:#2563eb; }
 
-/* STORY */
 .story-item{
   display:flex;
   align-items:center;
@@ -120,7 +122,6 @@ SEU CSS ORIGINAL (mantido)
   margin-top:14px;
 }
 
-/* AUDIO PLAYER FIX */
 .audio-player{
   position:fixed;
   bottom:0;
@@ -135,28 +136,16 @@ SEU CSS ORIGINAL (mantido)
   z-index:999;
 }
 
-/* =========================
-MOBILE (mantido + leve upgrade)
-========================= */
+main{ padding-bottom:110px; }
+
+/* MOBILE APP MODE */
 @media (max-width:768px){
-  .col-lg-3,.col-lg-6{
-    width:100%;
-  }
+  .col-lg-3,.col-lg-6{ width:100%; }
 
   .brain-hotspot{
     width:80px !important;
     height:80px !important;
   }
-
-  .audio-player{
-    border-radius:18px 18px 0 0;
-  }
-}
-
-.fabularium-library{
-  display:flex;
-  flex-direction:column;
-  gap:10px;
 }
 </style>
 </head>
@@ -169,7 +158,8 @@ MOBILE (mantido + leve upgrade)
 <main class="main">
 
 <div class="page-title mb-4">
-  <h1>Atlas Cognitivo 🧠</h1>
+  <h1>Atlas Cognitivo 🧠 Mapa da Mente</h1>
+  <p>Uma forma visual e sensível de compreender o cérebro autista</p>
 </div>
 
 <div class="row g-4">
@@ -180,12 +170,12 @@ MOBILE (mantido + leve upgrade)
 <div class="cardx">
 <h5>Regiões</h5>
 
-<div class="region-item" data-id="prefrontal">Pré-frontal</div>
-<div class="region-item" data-id="parietal">Parietal</div>
-<div class="region-item" data-id="temporal">Temporal</div>
-<div class="region-item" data-id="occipital">Occipital</div>
+<div class="region-item" data-id="prefrontal">Córtex Pré-frontal</div>
+<div class="region-item" data-id="parietal">Córtex Parietal</div>
+<div class="region-item" data-id="temporal">Córtex Temporal</div>
+<div class="region-item" data-id="occipital">Córtex Occipital</div>
 <div class="region-item" data-id="cerebelo">Cerebelo</div>
-<div class="region-item" data-id="limbico">Límbico</div>
+<div class="region-item" data-id="limbico">Sistema Límbico</div>
 <div class="region-item" data-id="insula">Ínsula</div>
 
 </div>
@@ -197,7 +187,8 @@ MOBILE (mantido + leve upgrade)
 
 <div class="cardx">
 <div class="brain-wrapper">
-<img src="../assets/img/brain-map.png" class="brain-img"/>
+
+<img src="../assets/img/brain-map.png" class="brain-img">
 
 <div id="prefrontal" class="brain-hotspot"></div>
 <div id="parietal" class="brain-hotspot"></div>
@@ -211,8 +202,8 @@ MOBILE (mantido + leve upgrade)
 </div>
 
 <div class="cardx" id="painel">
-<h5>Região</h5>
-<p>Selecione uma área</p>
+<h5>Região selecionada</h5>
+<p>Clique em uma área do cérebro</p>
 </div>
 
 </div>
@@ -222,7 +213,7 @@ MOBILE (mantido + leve upgrade)
 
 <div class="cardx">
 <h5>Audioteca</h5>
-<div id="fabulariumLibrary" class="fabularium-library"></div>
+<div id="fabulariumLibrary"></div>
 </div>
 
 </div>
@@ -232,15 +223,24 @@ MOBILE (mantido + leve upgrade)
 
 <script>
 /* =========================
-🧠 STATE CORE V3 (RESTAURADO)
+🧠 STATE + TRACKING V3.6
 ========================= */
 const STATE = {
-  currentRegion:null,
-  isPlaying:false
+  currentRegion: null,
+  currentAudio: null,
+  attention: {},
+  tracker: null,
+  lastTick: null
 };
 
+/* init attention map */
+["prefrontal","parietal","temporal","occipital","cerebelo","limbico","insula"]
+.forEach(r=>{
+  STATE.attention[r] = { time:0, visits:0 };
+});
+
 /* =========================
-DADOS
+REGIÕES (simplificado)
 ========================= */
 const regioes = {
 prefrontal:{titulo:"Pré-frontal", audioFile:"audio1.mp3"},
@@ -253,11 +253,40 @@ insula:{titulo:"Ínsula", audioFile:"audio7.mp3"}
 };
 
 /* =========================
-SYNC CENTRAL (V3)
+TRACKING DE ATENÇÃO
+========================= */
+function startTracking(){
+  stopTracking();
+  STATE.lastTick = Date.now();
+
+  STATE.tracker = setInterval(()=>{
+    if(!STATE.currentRegion) return;
+
+    const now = Date.now();
+    const diff = (now - STATE.lastTick)/1000;
+    STATE.lastTick = now;
+
+    STATE.attention[STATE.currentRegion].time += diff;
+
+  },1000);
+}
+
+function stopTracking(){
+  if(STATE.tracker){
+    clearInterval(STATE.tracker);
+    STATE.tracker = null;
+  }
+}
+
+/* =========================
+SYNC CENTRAL
 ========================= */
 function syncRegion(id){
 
+  if(!id) return;
+
   STATE.currentRegion = id;
+  STATE.attention[id].visits++;
 
   document.querySelectorAll('.brain-hotspot')
     .forEach(e=>e.classList.remove('active','audio-glow'));
@@ -268,8 +297,10 @@ function syncRegion(id){
   document.getElementById(id)?.classList.add('active','audio-glow');
   document.querySelector(`[data-id="${id}"]`)?.classList.add('region-active');
 
-  scrollPlaylist(id);
   updatePanel(id);
+  scrollPlaylist(id);
+
+  startTracking();
 }
 
 /* =========================
@@ -280,9 +311,10 @@ function playRegionAudio(src,title,id){
   syncRegion(id);
 
   let audio = document.getElementById("audioControl");
+
   if(!audio){
     audio = document.createElement("audio");
-    audio.id="audioControl";
+    audio.id = "audioControl";
     document.body.appendChild(audio);
   }
 
@@ -291,17 +323,17 @@ function playRegionAudio(src,title,id){
 }
 
 /* =========================
-SCROLL PLAYLIST
+SCROLL
 ========================= */
 function scrollPlaylist(id){
   const el = document.querySelector(".cat-"+id);
   if(el){
-    el.scrollIntoView({behavior:"smooth", block:"center"});
+    el.scrollIntoView({behavior:"smooth",block:"center"});
   }
 }
 
 /* =========================
-UI
+UI PANEL
 ========================= */
 function updatePanel(id){
   const r = regioes[id];
@@ -327,13 +359,25 @@ function renderPlaylist(){
 }
 
 /* EVENTS */
-document.querySelectorAll(".brain-hotspot")
-.forEach(e=>e.onclick=()=>syncRegion(e.id));
+document.querySelectorAll('.brain-hotspot')
+.forEach(e=>{
+  e.onclick=()=>syncRegion(e.id);
+});
 
-document.querySelectorAll(".region-item")
-.forEach(e=>e.onclick=()=>syncRegion(e.dataset.id));
+document.querySelectorAll('.region-item')
+.forEach(e=>{
+  e.onclick=()=>syncRegion(e.dataset.id);
+});
 
 renderPlaylist();
+
+/* =========================
+DEBUG / INSIGHTS
+========================= */
+function getAttentionReport(){
+  console.table(STATE.attention);
+  return STATE.attention;
+}
 </script>
 
 </body>
