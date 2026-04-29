@@ -308,6 +308,22 @@ main{
   }
 }
 
+/* CSS MAPA DOS EIXOS */
+  .zoom-container{
+  position:relative;
+  overflow:hidden;
+  border-radius:14px;
+  cursor:grab;
+}
+
+.zoom-container:active{
+  cursor:grabbing;
+}
+
+#brainMap{
+  transform-origin:center center;
+  transition: transform 0.3s ease;
+}
 
   .video-btn{
   position:absolute;
@@ -327,7 +343,7 @@ main{
   justify-content:center;
   height:100%;
 }
-
+/* CSS MAPA DOS EIXOS */
   
 </style>
 </head>
@@ -458,23 +474,37 @@ main{
 
   
   
-  <!-- MAPA DOS EIXOS -->  
-  <div class="cardx">
-    <div class="brain-wrapper">
+<!-- MAPA DOS EIXOS -->
+<div class="cardx">
+  <div class="brain-wrapper">
 
-      <h5><i class="bi bi-search"></i> Mapa dos Eixos Focais</h5>
+    <h5><i class="bi bi-search"></i> Mapa dos Eixos Focais</h5>
 
-      <img src="../assets/img/prisma-4-eixos_bg.png" class="brain-img">
+    <!-- ZOOM CONTAINER -->
+    <div class="zoom-container" id="zoomContainer">
 
-      <!-- EIXOS SISTÊMICOS -->
+      <img src="../assets/img/prisma-4-eixos_bg.png"
+           class="brain-img"
+           id="brainMap">
+
+      <!-- HOTSPOTS -->
       <div id="terapeutico" class="brain-hotspot eixo-terapeutico"></div>
       <div id="familiar" class="brain-hotspot eixo-familiar"></div>
       <div id="ambiental" class="brain-hotspot eixo-ambiental"></div>
       <div id="biologico" class="brain-hotspot eixo-biologico"></div>
 
     </div>
+
+    <!-- CONTROLES -->
+    <div class="d-flex justify-content-center gap-2 mt-3">
+      <button class="btn btn-outline-primary btn-sm" onclick="zoomOut()">−</button>
+      <button class="btn btn-outline-primary btn-sm" onclick="resetZoom()">⟳</button>
+      <button class="btn btn-outline-primary btn-sm" onclick="zoomIn()">+</button>
+    </div>
+
   </div>
-  <!-- MAPA DOS EIXOS -->  
+</div>
+<!-- MAPA DOS EIXOS -->
 
   
 
@@ -845,5 +875,101 @@ function scrollPlaylist(id){
   
 </script>
 
+
+  <!-- SCRIPT DO MAPA DOS EIXOS -->
+  <script>
+
+/* =========================
+GLIGHTBOX INIT
+========================= */
+const lightbox = GLightbox({
+  touchNavigation: true,
+  loop: false,
+  zoomable: true
+});
+
+/* =========================
+ZOOM CLÍNICO REDE
+========================= */
+const ZOOM_MAP = {
+  terapeutico: { x: 30, y: 25, scale: 2.2 },
+  familiar: { x: 50, y: 45, scale: 2.2 },
+  ambiental: { x: 20, y: 60, scale: 2.0 },
+  biologico: { x: 70, y: 65, scale: 2.0 }
+};
+
+function zoomToEixo(id){
+  const img = document.querySelector(".brain-img");
+  const cfg = ZOOM_MAP[id];
+  if(!img || !cfg) return;
+
+  img.style.transformOrigin = `${cfg.x}% ${cfg.y}%`;
+  img.style.transform = `scale(${cfg.scale})`;
+}
+
+/* =========================
+HIGHLIGHT + ZOOM
+========================= */
+function highlightRegion(id){
+
+  document.querySelectorAll('.brain-hotspot')
+    .forEach(el => el.classList.remove('active'));
+
+  if(id){
+    document.getElementById(id)?.classList.add('active');
+
+    // 🔥 ZOOM CLÍNICO
+    zoomToEixo(id);
+  }
+}
+
+document.querySelectorAll('.brain-hotspot').forEach(el=>{
+  el.addEventListener('click',()=>highlightRegion(el.id));
+});
+
+  let zoomLevel = 1;
+
+function applyZoom(){
+  const img = document.getElementById("brainMap");
+  img.style.transform = `scale(${zoomLevel})`;
+}
+
+function zoomIn(){
+  zoomLevel += 0.15;
+  if(zoomLevel > 2.5) zoomLevel = 2.5;
+  applyZoom();
+}
+
+function zoomOut(){
+  zoomLevel -= 0.15;
+  if(zoomLevel < 1) zoomLevel = 1;
+  applyZoom();
+}
+
+function resetZoom(){
+  zoomLevel = 1;
+  applyZoom();
+}
+
+/* 🔥 CLICK NO EIXO = ZOOM AUTOMÁTICO */
+document.querySelectorAll(".brain-hotspot").forEach(el=>{
+  el.addEventListener("click", ()=>{
+
+    highlightRegion(el.id);
+
+    zoomLevel = 1.8;
+    applyZoom();
+
+    // pequeno ajuste visual opcional (centraliza sensação)
+    document.getElementById("zoomContainer")
+      .scrollIntoView({behavior:"smooth", block:"center"});
+  });
+});
+  
+</script>
+    <!-- SCRIPT DO MAPA DOS EIXOS -->
+
+
+  
 </body>
 </html>
