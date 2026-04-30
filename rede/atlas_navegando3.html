@@ -388,7 +388,7 @@ main{
               <p class="d-flex flex-column gap-2">
               <a href="../assets/eventos/Palestra-Atlas-Julho.png" class="active" target="_blank"><i class="bi bi-hand-index-thumb"></i> Cartaz - Palestra 2.Julho</a><br>
               <i class="bi bi-file-ppt"></i> Slides Palestra<br>
-              <a href="atlas/docs/APRESENTACAO_AtlasCognitivo-Navegando-na-Tempestade.pdf" class="active" target="_blank"><i class="bi bi-file-pdf"></i> Proposta do Projeto (Série de Palestras)</a><br>
+              <a href="atlas/docs/APRESENTACAO_AtlasCognitivo-Navegando-na-Tempestade.pdf" target="_blank"><i class="bi bi-file-pdf"></i> Proposta do Projeto</a><br>
               <i class="bi bi-file-slides"></i> Slides (Google Drive)
               </p>
             </div>
@@ -486,29 +486,82 @@ main{
 DADOS
 ========================= */
 const regioes = {
-  terapeutico: {
-    titulo: "Eixo Terapêutico",
-    desc: "Organização da experiência interna e regulação simbólica",
-    autismo: "Uso de memória autobiográfica e antecipação progressiva para organizar estados emocionais."
-  },
 
-  familiar: {
-    titulo: "Eixo Familiar",
-    desc: "Mediação relacional e comunicação funcional no ambiente",
-    autismo: "Ajuste da comunicação familiar e dos referenciais simbólicos."
-  },
+terapeutico: {
+  titulo: "Eixo Terapêutico",
+  desc: "Organização da experiência interna e regulação simbólica",
+  autismo: "Uso de memória autobiográfica e antecipação progressiva para organizar estados emocionais em experiências de alta complexidade.",
+  
+  detalhamento: `
+No Pacerer PRISMA sobre o Evento dos Crias (2026.1), este eixo atuou na preparação mental e emocional para um contexto de alta carga afetiva.
 
-  ambiental: {
-    titulo: "Eixo Ambiental",
-    desc: "Estruturação do contexto e redução da imprevisibilidade",
-    autismo: "Ambiente organizado com previsibilidade e espaços de regulação."
-  },
+Foram utilizados registros audiovisuais de experiências anteriores para construção de previsibilidade interna.
 
-  biologico: {
-    titulo: "Eixo Biológico",
-    desc: "Sustentação fisiológica da capacidade de engajamento",
-    autismo: "Suporte fisiológico ampliando tolerância e engajamento."
-  }
+A intervenção permitiu:
+- identificação de estados emocionais
+- associação entre contexto e resposta emocional
+- projeção de cenários futuros
+
+<b>Base teórica:</b> integração narrativa (Daniel Siegel) e self autobiográfico (Antonio Damasio).
+  `
+},
+
+familiar: {
+  titulo: "Eixo Familiar",
+  desc: "Mediação relacional e comunicação funcional no ambiente",
+  autismo: "Ajuste da comunicação familiar e dos referenciais simbólicos aumentou responsividade e reduziu fricções interacionais.",
+  
+  detalhamento: `
+A família atuou como mediadora ativa da experiência em tempo real.
+
+Foram realizadas:
+- adaptações na linguagem
+- ajuste de nomeações e símbolos
+- negociação de estímulos motivacionais
+- modelagem de respostas no contexto natural
+
+<b>Resultado:</b> aumento significativo da responsividade e redução de episódios de desorganização.
+
+<b>Base teórica:</b> comunicação funcional no autismo (Barry Prizant) e ABA (B. F. Skinner).
+  `
+},
+
+ambiental: {
+  titulo: "Eixo Ambiental",
+  desc: "Estruturação do contexto e redução da imprevisibilidade",
+  autismo: "Ambiente organizado com previsibilidade e espaços de regulação reduziu sobrecarga sensorial e comportamental.",
+  
+  detalhamento: `
+O ambiente foi estruturado como suporte ativo da regulação.
+
+Incluiu:
+- previsibilidade espacial
+- manutenção de locais conhecidos
+- organização gradual das interações sociais
+- possibilidade de retirada/regulação
+
+Esse eixo funcionou como estabilizador externo do sistema.
+
+<b>Base teórica:</b> modelos ecológicos do desenvolvimento (Urie Bronfenbrenner).
+  `
+},
+
+biologico: {
+  titulo: "Eixo Biológico",
+  desc: "Sustentação fisiológica da capacidade de engajamento",
+  autismo: "Suporte medicamentoso adequado ampliou tolerância às demandas sem substituir intervenções comportamentais.",
+  
+  detalhamento: `
+O suporte biológico funcionou como camada de sustentação da autorregulação.
+
+Seu papel foi:
+- ampliar janela de tolerância
+- reduzir sobrecarga fisiológica
+- sustentar engajamento funcional
+
+<b>Importante:</b> não atua isoladamente, mas como base do sistema integrado. Integração obrigatória com os demais eixos do PRISMA.
+  `
+}
 };
 
 const AUDIO_MAP = {
@@ -520,12 +573,40 @@ const AUDIO_MAP = {
 };
 
 const trilha = [
-  { txt: "Respira. Vamos organizar a experiência.", reg: null },
-  { txt: "Contextos podem gerar sobrecarga sensorial.", reg: "ambiental" },
-  { txt: "Respostas emocionais podem ser intensas.", reg: "familiar" },
-  { txt: "Planejamento reduz ansiedade.", reg: "terapeutico" },
-  { txt: "Comunicação adaptada favorece regulação.", reg: "familiar" },
-  { txt: "Suporte fisiológico amplia tolerância.", reg: "biologico" }
+  {
+    txt: "Respira. Vamos organizar a experiência antes de entrar no contexto.",
+    reg: null
+  },
+
+  {
+    txt: "Alguns contextos podem gerar maior carga sensorial e emocional, exigindo mais tempo de adaptação.",
+    reg: "ambiental"
+  },
+
+  {
+    txt: "As respostas emocionais podem ser intensas quando o sistema está sobrecarregado ou diante de imprevisibilidade.",
+    reg: "familiar"
+  },
+
+  {
+    txt: "Planejamento, antecipação e estrutura ajudam na organização da ação e na redução da ansiedade de mudança.",
+    reg: "terapeutico"
+  },
+
+  {
+    txt: "A comunicação pode ser mais eficaz quando adaptada ao repertório e ao contexto da pessoa.",
+    reg: "familiar"
+  },
+
+  {
+    txt: "O suporte fisiológico pode ampliar a capacidade de engajamento e tolerância ao ambiente.",
+    reg: "biologico"
+  },
+
+  {
+    txt: "Cada sistema é único. O objetivo é criar previsibilidade, não controle.",
+    reg: null
+  }
 ];
 
 let passo = 0;
