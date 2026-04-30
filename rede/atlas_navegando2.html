@@ -134,13 +134,10 @@ body{
   
 
 /* posições */
-#prefrontal{ top:18%; left:15%; width:72px; height:72px; }
-#parietal{ top:10%; left:45%; width:72px; height:72px; }
-#temporal{ top:50%; left:42%; width:72px; height:72px; }
-#occipital{ top:25%; left:76%; width:58px; height:58px; }
-#cerebelo{ top:72%; left:70%; width:58px; height:58px; }
-#limbico{ top:45%; left:30%; width:60px; height:60px; }
-#insula{ top:40%; left:49%; width:42px; height:42px; }
+#terapeutico{ top:20%; left:16%; width:88px; height:88px; }
+#familiar{ top:22%; right:14%; width:88px; height:88px; }
+#ambiental{ top:63%; left:15%; width:88px; height:88px; }
+#biologico{ top:61%; right:15%; width:88px; height:88px; }
 
 .guia-box{
   background:#eef2ff;
@@ -308,22 +305,6 @@ main{
   }
 }
 
-/* CSS MAPA DOS EIXOS */
-  .zoom-container{
-  position:relative;
-  overflow:hidden;
-  border-radius:14px;
-  cursor:grab;
-}
-
-.zoom-container:active{
-  cursor:grabbing;
-}
-
-#brainMap{
-  transform-origin:center center;
-  transition: transform 0.3s ease;
-}
 
   .video-btn{
   position:absolute;
@@ -343,23 +324,7 @@ main{
   justify-content:center;
   height:100%;
 }
-/* CSS MAPA DOS EIXOS */
 
-
-
-
-
-  #atlasImage{
-  transform-origin:center;
-  transition:transform .3s ease;
-}
-
-.zoom-active #atlasImage{
-  transform:scale(1.8);
-}
-
-
-  
   
 </style>
 </head>
@@ -373,7 +338,6 @@ main{
 
 <div class="page-title mb-4">
   <h1>Atlas Cognitivo 🧠 Navegando na Tempestade</h1>
-  <small>Uma leitura pedagógica do funcionamento humano no espectro do autismo</small>
   <p>Mapa Interativo dos 4 Eixos do desenvolvimento e autoregulação: uma análise do <b>Pacerer PRISMA - Evento dos Crias (2026.1)</b>.</p>
 </div>
 
@@ -383,7 +347,7 @@ main{
   <div class="col-lg-3">
 
 <div class="cardx">
-  <h5><i class="bi bi-compass"></i> Eixos Focais</h5>
+  <h5><i class="bi bi-compass"></i> Eixos do Sistema REDE</h5>
 
   <div class="region-item" data-id="terapeutico">🧠 Eixo Terapêutico</div>
   <div class="region-item" data-id="familiar">👨‍👩‍👦 Eixo Familiar</div>
@@ -391,8 +355,34 @@ main{
   <div class="region-item" data-id="biologico">💊 Eixo Biológico</div>
 </div>
 
+
+
+    <!-- BAIXAR ARQUIVOS -->
+<div class="cardx">
+  <div class="services-list">
+    <h5><i class="bi bi-download"></i> Baixar arquivos:</h5>
+
+    <p class="d-flex flex-column gap-2">
+      <a href="../assets/eventos/Palestra-ATLAS-Julho.png" target="_blank">
+        <i class="bi bi-hand-index-thumb"></i> Cartaz da palestra
+      </a>
+
+      <a href="atlas/docs/APRESENTACAO_AtlasCognitivo-Navegando-na-Tempestade.pdf" target="_blank">
+        <i class="bi bi-file-pdf"></i> Proposta do Projeto
+      </a>
+
+      <span>
+        <i class="bi bi-file-ppt"></i> Slides (em breve)
+      </span>
+    </p>
+  </div>
+</div>
+    <!-- BAIXAR ARQUIVOS -->
+    
+
+    
     <div class="cardx">
-      <h5>💙 Ciclo de Autoregulação 💙</h5>
+      <h5>💙 Ciclo de Autoregulação</h5>
 
       <div id="guia" class="guia-box">
         Clique em iniciar
@@ -422,26 +412,26 @@ main{
 
   <!-- TESTE ZOOM IN -->
   <div class="cardx">
-  <h5>
-    <i class="bi bi-zoom-in" onclick="toggleAtlasZoom()" style="cursor:pointer;"></i>
-    Atlas Interativo
-  </h5>
+    <h5><i class="bi bi-zoom-in"></i> Atlas Interativo</h5>
+    <div class="position-relative">
+      <img src="../assets/img/prisma-4-eixos_bg2.png"
+           class="img-fluid"
+           alt="Atlas Cognitivo - Sistema REDE">
 
-  <div class="zoom-container">
-
-    <img src="../assets/img/prisma-4-eixos_bg2.png"
-         id="atlasImage"
-         class="img-fluid"
-         alt="Atlas Cognitivo">
+      <!-- BOTÃO DE ZOOM / ABRIR -->
+      <a href="../assets/img/prisma-4-eixos_bg2.png"
+         class="glightbox pulsating-play-btn"
+         title="Expandir Atlas Cognitivo">
+      </a>
 
       <!-- BOTÃO DE VÍDEO / EXPLICAÇÃO -->
       <a href="https://www.youtube.com/watch?v=Jbvewd7jt30"
          class="glightbox pulsating-play-btn video-btn"
-         title="Cada Passo, uma Jornada & Sistema REDE" target="blank">
+         title="Cada Passo, uma Jornada & Sistema REDE">
       </a>
+    </div>
   </div>
-</div>
-  
+
   <!-- TESTE ZOOM IN -->
 
 
@@ -458,6 +448,24 @@ main{
   
   <!-- PAINEL AGORA CORRETAMENTE DENTRO DO CENTRO -->
 
+  
+  <!-- MAPA DOS EIXOS -->  
+  <div class="cardx">
+    <div class="brain-wrapper">
+
+      <h5><i class="bi bi-search"></i> Mapa dos Eixos Focais</h5>
+
+      <img src="../assets/img/prisma-4-eixos_bg.png" class="brain-img">
+
+      <!-- EIXOS SISTÊMICOS -->
+      <div id="terapeutico" class="brain-hotspot eixo-terapeutico"></div>
+      <div id="familiar" class="brain-hotspot eixo-familiar"></div>
+      <div id="ambiental" class="brain-hotspot eixo-ambiental"></div>
+      <div id="biologico" class="brain-hotspot eixo-biologico"></div>
+
+    </div>
+  </div>
+  <!-- MAPA DOS EIXOS -->  
 
 </div>
 
@@ -485,45 +493,25 @@ main{
 
     <div id="fabulariumLibrary" class="fabularium-library"></div>
 
-  </div>
+      <!-- MAPA DOS EIXOS -->  
+  <div class="cardx">
+    <div class="brain-wrapper">
 
+      <h5><i class="bi bi-search"></i> Mapa dos Eixos Focais</h5>
 
+      <img src="../assets/img/prisma-4-eixos_bg.png" class="brain-img">
 
-  
-  
-<!-- MAPA DOS EIXOS -->
-<div class="cardx">
-  <div class="brain-wrapper">
-
-    <h5><i class="bi bi-search"></i> Mapa dos Eixos Focais</h5>
-
-    <!-- ZOOM CONTAINER -->
-    <div class="zoom-container" id="zoomContainer">
-
-      <img src="../assets/img/prisma-4-eixos_bg.png"
-           class="brain-img"
-           id="brainMap">
-
-      <!-- HOTSPOTS -->
+      <!-- EIXOS SISTÊMICOS -->
       <div id="terapeutico" class="brain-hotspot eixo-terapeutico"></div>
       <div id="familiar" class="brain-hotspot eixo-familiar"></div>
       <div id="ambiental" class="brain-hotspot eixo-ambiental"></div>
       <div id="biologico" class="brain-hotspot eixo-biologico"></div>
 
     </div>
-
-    <!-- CONTROLES 
-    <div class="d-flex justify-content-center gap-2 mt-3">
-      <button class="btn btn-outline-primary btn-sm" onclick="zoomOut()">−</button>
-      <button class="btn btn-outline-primary btn-sm" onclick="resetZoom()">⟳</button>
-      <button class="btn btn-outline-primary btn-sm" onclick="zoomIn()">+</button>
-    </div>-->
+  </div>
+  <!-- MAPA DOS EIXOS -->  
 
   </div>
-</div>
-<!-- MAPA DOS EIXOS -->
-
-  
 
 </div>
   
@@ -616,6 +604,15 @@ Seu papel foi:
 
 };
 
+const AUDIO_MAP = {
+  terapeutico: "atlas/audios/atlascognitivo_terapeutico.mp3",
+  familiar: "atlas/audios/atlascognitivo_emocional.mp3",
+  ambiental: "atlas/audios/atlascognitivo_ambiental.mp3",
+  biologico: "atlas/audios/atlascognitivo_biologico.mp3"
+};
+
+  
+
 const trilha = [
   {
     txt: "Respira. Vamos organizar a experiência antes de entrar no contexto.",
@@ -656,16 +653,7 @@ const trilha = [
 let passo = 0;
 let auto = null;
 
-function playRegionAudio(src,titleText){
-  const audio = document.getElementById("audioControl");
-  const title = document.getElementById("playerTitle");
 
-  audio.src = src;
-  audio.load();
-  audio.play();
-
-  title.textContent = titleText;
-}
 
 function updatePanel(id){
   let r = regioes[id];
@@ -685,7 +673,7 @@ function updatePanel(id){
     <hr>
 
     <div class="story-item"
-         onclick="playRegionAudio(r.audioFile,'${r.titulo}')">
+         onclick="playRegionAudio('${id}')">
       <i class="bi bi-play-circle"></i>
       <div><strong>Audioguias do eixo</strong></div>
     </div>
@@ -787,7 +775,7 @@ function renderPlaylist(filter = "all") {
     `;
 
     item.querySelector(".play-btn").addEventListener("click", () => {
-      playRegionAudio(r.musicFile, r.titulo, key);
+      playRegionAudio(key);
     });
 
     container.appendChild(item);
@@ -820,27 +808,37 @@ const STATE = {
 /* =========================
 🎧 AUDIO + AUTOPLAY SYNC
 ========================= */
-function playRegionAudio(src, titleText, regionId){
+function playRegionAudio(regionId){
 
-  const audio = document.getElementById("audioControl");
+  let audio = document.getElementById("audioControl");
 
   if(!audio){
-    const a = document.createElement("audio");
-    a.id = "audioControl";
-    document.body.appendChild(a);
+    audio = document.createElement("audio");
+    audio.id = "audioControl";
+    audio.controls = true;
+    audio.style.cssText = `
+      width:100%;
+      position:fixed;
+      bottom:0;
+      left:0;
+      z-index:999;
+    `;
+    document.body.appendChild(audio);
   }
 
-  const player = document.getElementById("audioControl");
+  const src = AUDIO_MAP[regionId];
+  if(!src) return;
 
-  player.src = src;
-  player.load();
-  player.play();
+  audio.src = src;
+  audio.load();
+  audio.play();
 
   STATE.currentRegion = regionId;
 
   syncRegion(regionId);
 }
 
+  
 /* =========================
 🧠 SYNC VISUAL (HOTSPOTS + GLOW)
 ========================= */
@@ -893,104 +891,13 @@ function scrollPlaylist(id){
 </script>
 
 
-  <!-- SCRIPT DO MAPA DOS EIXOS -->
-  <script>
 
-/* =========================
-GLIGHTBOX INIT
-========================= */
-const lightbox = GLightbox({
-  touchNavigation: true,
-  loop: false,
-  zoomable: true
-});
 
-/* =========================
-ZOOM CLÍNICO REDE
-========================= */
-const ZOOM_MAP = {
-  terapeutico: { x: 30, y: 25, scale: 2.2 },
-  familiar: { x: 50, y: 45, scale: 2.2 },
-  ambiental: { x: 20, y: 60, scale: 2.0 },
-  biologico: { x: 70, y: 65, scale: 2.0 }
-};
-
-function zoomToEixo(id){
-  const img = document.querySelector(".brain-img");
-  const cfg = ZOOM_MAP[id];
-  if(!img || !cfg) return;
-
-  img.style.transformOrigin = `${cfg.x}% ${cfg.y}%`;
-  img.style.transform = `scale(${cfg.scale})`;
-}
-
-/* =========================
-HIGHLIGHT + ZOOM
-========================= */
-function highlightRegion(id){
-
-  document.querySelectorAll('.brain-hotspot')
-    .forEach(el => el.classList.remove('active'));
-
-  if(id){
-    document.getElementById(id)?.classList.add('active');
-
-    // 🔥 ZOOM CLÍNICO
-    zoomToEixo(id);
-  }
-}
-
-document.querySelectorAll('.brain-hotspot').forEach(el=>{
-  el.addEventListener('click',()=>highlightRegion(el.id));
-});
-
-  let zoomLevel = 1;
-
-function applyZoom(){
-  const img = document.getElementById("brainMap");
-  img.style.transform = `scale(${zoomLevel})`;
-}
-
-function zoomIn(){
-  zoomLevel += 0.15;
-  if(zoomLevel > 2.5) zoomLevel = 2.5;
-  applyZoom();
-}
-
-function zoomOut(){
-  zoomLevel -= 0.15;
-  if(zoomLevel < 1) zoomLevel = 1;
-  applyZoom();
-}
-
-function resetZoom(){
-  zoomLevel = 1;
-  applyZoom();
-}
-
-/* 🔥 CLICK NO EIXO = ZOOM AUTOMÁTICO */
-document.querySelectorAll(".brain-hotspot").forEach(el=>{
-  el.addEventListener("click", ()=>{
-
-    highlightRegion(el.id);
-
-    zoomLevel = 1.8;
-    applyZoom();
-
-    // pequeno ajuste visual opcional (centraliza sensação)
-    document.getElementById("zoomContainer")
-      .scrollIntoView({behavior:"smooth", block:"center"});
-  });
-});
-
-    function toggleAtlasZoom(){
-  const container = document.querySelector(".zoom-container");
-
-  container.classList.toggle("zoom-active");
-}
-</script>
-    <!-- SCRIPT DO MAPA DOS EIXOS -->
-
+<audio
+  id="audioControl"
+  controls
+  style="width:100%;position:fixed;bottom:0;left:0;z-index:999;background:#fff;">
+</audio>
 
   
 </body>
