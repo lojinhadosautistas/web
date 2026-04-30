@@ -770,11 +770,13 @@ let html="";
 trilha.forEach((_,i)=>{
 html += `<span class="dot ${i===passo?'active':''}">●</span>`;
 });
-document.getElementById("dots").innerHTML = html;
+const dots = document.getElementById("dots");
+if(dots) dots.innerHTML = html;
 }
 
 function renderGuia(){
-document.getElementById("guia").innerText = trilha[passo].txt;
+const guia = document.getElementById("guia");
+if(guia) guia.innerText = trilha[passo].txt;
 renderDots();
 highlightRegion(trilha[passo].reg);
 }
