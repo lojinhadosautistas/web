@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+<title>Atlas Cognitivos | Sistema REDE</title>
+<meta name="description" content="Biblioteca interativa de Atlas Cognitivos do Sistema REDE."/>
+
+<link href="../assets/img/favicon.png" rel="icon">
+
+<!-- Vendor CSS -->
+<link href="../assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet"/>
+<link href="../assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet"/>
+
+<!-- CSS principal -->
+<link rel="stylesheet" href="../assets/css/hub.css">
+
+<style>
+.atlas-cover{
+  width:100%;
+  border-radius:14px;
+  margin-bottom:14px;
+  object-fit:cover;
+  max-height:260px;
+}
+
+.atlas-card{
+  transition:.25s;
+  height:100%;
+}
+
+.atlas-card:hover{
+  transform:translateY(-4px);
+}
+
+.atlas-badge{
+  font-size:.75rem;
+}
+</style>
+
+</head>
+<body>
+
+<!-- COMPONENTES GLOBAIS -->
+<div id="header-container"></div>
+<div id="sidebar-container"></div>
+
+<main class="main">
+
+  <!-- PAGE TITLE -->
+  <div class="page-title mb-4">
+    <h1>🧠 Atlas Cognitivos</h1>
+    <p>
+      Biblioteca interativa de mapas clínicos, experiências narrativas
+      e ferramentas visuais do <b>Sistema REDE</b>.
+    </p>
+  </div>
+
+  <div class="row g-4">
+
+    <!-- ATLAS 1 -->
+    <div class="col-lg-6">
+      <a href="atlas_mind-map.html"
+         class="text-decoration-none text-dark">
+
+        <div class="cardx atlas-card">
+
+          <img src="../assets/img/atlas-mindmap-cover.png"
+               class="atlas-cover"
+               alt="Mapa da Mente">
+
+          <h4 class="mb-2">
+            <i class="bi bi-diagram-3"></i>
+            Mapa da Mente
+          </h4>
+
+          <p class="text-muted">
+            Exploração visual da arquitetura cognitiva, organização interna,
+            processamento emocional e autorregulação.
+          </p>
+
+          <div class="d-flex justify-content-between align-items-center">
+            <span class="badge bg-primary atlas-badge">
+              Interativo
+            </span>
+
+            <i class="bi bi-arrow-right-circle fs-4"></i>
+          </div>
+
+        </div>
+      </a>
+    </div>
+
+    <!-- ATLAS 2 -->
+    <div class="col-lg-6">
+      <a href="atlas_navegando.html"
+         class="text-decoration-none text-dark">
+
+        <div class="cardx atlas-card">
+
+          <img src="../assets/img/prisma-4-eixos_bg2.png"
+               class="atlas-cover"
+               alt="Navegando na Tempestade">
+
+          <h4 class="mb-2">
+            <i class="bi bi-compass"></i>
+            Navegando na Tempestade
+          </h4>
+
+          <p class="text-muted">
+            Atlas interativo dos 4 eixos do desenvolvimento e autoregulação,
+            aplicado ao Parecer PRISMA.
+          </p>
+
+          <div class="d-flex justify-content-between align-items-center">
+            <span class="badge bg-success atlas-badge">
+              Audioteca + PRISMA
+            </span>
+
+            <i class="bi bi-arrow-right-circle fs-4"></i>
+          </div>
+
+        </div>
+      </a>
+    </div>
+
+    <!-- FUTUROS -->
+    <div class="col-12">
+      <div class="cardx">
+        <h5>
+          <i class="bi bi-stars"></i>
+          Em desenvolvimento
+        </h5>
+
+        <div class="d-flex flex-wrap gap-2 mt-3">
+          <span class="badge bg-light text-dark p-2">Atlas Sensorial</span>
+          <span class="badge bg-light text-dark p-2">Atlas Familiar</span>
+          <span class="badge bg-light text-dark p-2">Atlas Executivo</span>
+          <span class="badge bg-light text-dark p-2">Atlas Social</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+</main>
+
+<!-- SCRIPTS -->
+<script src="../assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="js/components.js"></script>
+
+</body>
+</html>
