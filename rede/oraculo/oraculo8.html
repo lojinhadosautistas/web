@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>ORÁCULO V7</title>
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"/>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<style>
+body{background:#f5f7fb;}
+
+.cardx{
+background:#fff;
+border-radius:14px;
+padding:18px;
+box-shadow:0 6px 18px rgba(0,0,0,.06);
+margin-bottom:18px;
+}
+
+.metric{
+font-size:28px;
+font-weight:700;
+}
+
+.low{color:#16a34a;}
+.medium{color:#f59e0b;}
+.high{color:#dc2626;}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="container mt-4">
+
+<h2>🧠 ORÁCULO V7 — Inteligência Clínica</h2>
+
+<!-- DASHBOARD -->
+<div class="row">
+
+<div class="col-md-4">
+<div class="cardx">
+<h6>Risco Atual</h6>
+<div id="riscoAtual" class="metric">--</div>
+</div>
+</div>
+
+<div class="col-md-4">
+<div class="cardx">
+<h6>Tendência</h6>
+<div id="tendencia" class="metric">--</div>
+</div>
+</div>
+
+<div class="col-md-4">
+<div class="cardx">
+<h6>Probabilidade de Desregulação</h6>
+<div id="probabilidade" class="metric">--</div>
+</div>
+</div>
+
+</div>
+
+<!-- REGISTRO -->
+<div class="cardx">
+
+<h5>Registro Clínico</h5>
+
+<input id="data" class="form-control mb-2" placeholder="Data">
+<input id="atividade" class="form-control mb-2" placeholder="Atividade">
+
+<select id="atencao" class="form-control mb-2">
+<option>baixa</option><option>media</option><option>boa</option>
+</select>
+
+<select id="conversacao" class="form-control mb-2">
+<option>nao</option><option>pouca</option><option>presente</option>
+</select>
+
+<select id="transicoes" class="form-control mb-2">
+<option>dificeis</option><option>ok</option><option>tranquilas</option>
+</select>
+
+<button class="btn btn-primary" onclick="APP.add()">Adicionar</button>
+
+</div>
+
+<!-- GRÁFICO -->
+<div class="cardx">
+<canvas id="grafico"></canvas>
+</div>
+
+<!-- SÍNTESE -->
+<div class="cardx">
+<button class="btn btn-success" onclick="APP.sintese()">Gerar Síntese</button>
+<div id="sintese"></div>
+</div>
+
+</div>
+
+<script>
+
+const STORAGE="oraculo_v7";
+
+/* =====================
+🧠 MOTOR
+===================== */
+
+const ENGINE={
+
+map(v,t){
+const m={
+atencao:{baixa:1,media:2,boa:3},
+conversacao:{nao:1,pouca:2,presente:3},
+transicoes:{dificeis:1,ok:2,tranquilas:3}
+};
+return m[t][v]||0;
+},
+
+risco(d){
+let s=0;
+s+=4-this.map(d.atencao,"atencao");
+s+=4-this.map(d.conversacao,"conversacao");
+s+=4-this.map(d.transicoes,"transicoes");
+return s/9;
+},
+
+probabilidade(lista){
+
+if(lista.length<3) return 0.3;
+
+const ult=lista.slice(-3).map(d=>this.risco(d));
+const media=ult.reduce((a,b)=>a+b,0)/ult.length;
+
+return Math.min(1, media + (ult[2]-ult[0]));
+},
+
+tendencia(lista){
+
+if(lista.length<2) return "Estável";
+
+const a=this.risco(lista[0]);
+const b=this.risco(lista[lista.length-1]);
+
+if(b>a+0.1) return "📈 Piora";
+if(b<a-0.1) return "📉 Melhora";
+return "➡️ Estável";
+}
+
+};
+
+/* =====================
+📊 APP
+===================== */
+
+const APP={
+
+dados:JSON.parse(localStorage.getItem(STORAGE)||"[]"),
+chart:null,
+
+save(){
+localStorage.setItem(STORAGE, JSON.stringify(this.dados));
+},
+
+add(){
+
+const d={
+data:data.value,
+atividade:atividade.value,
+atencao:atencao.value,
+conversacao:conversacao.value,
+transicoes:transicoes.value
+};
+
+this.dados.push(d);
+
+this.save();
+this.update();
+},
+
+update(){
+
+this.renderChart();
+this.updateDashboard();
+},
+
+renderChart(){
+
+const ctx=document.getElementById("grafico");
+
+if(this.chart) this.chart.destroy();
+
+this.chart=new Chart(ctx,{
+type:"line",
+data:{
+labels:this.dados.map(d=>d.data),
+datasets:[
+{
+label:"Risco",
+data:this.dados.map(d=>ENGINE.risco(d))
+}
+]
+}
+});
+},
+
+updateDashboard(){
+
+if(this.dados.length===0) return;
+
+const risco=ENGINE.risco(this.dados[this.dados.length-1]);
+const prob=ENGINE.probabilidade(this.dados);
+const tend=ENGINE.tendencia(this.dados);
+
+const el=document.getElementById("riscoAtual");
+el.innerText=(risco*100).toFixed(0)+"%";
+el.className="metric "+this.color(risco);
+
+document.getElementById("probabilidade").innerText=(prob*100).toFixed(0)+"%";
+document.getElementById("tendencia").innerText=tend;
+
+},
+
+color(v){
+if(v<0.4) return "low";
+if(v<0.7) return "medium";
+return "high";
+},
+
+sintese(){
+
+const ult=this.dados.slice(-7);
+
+if(ult.length===0){
+sintese.innerText="Sem dados";
+return;
+}
+
+const riscoMed=(ult.reduce((a,b)=>a+ENGINE.risco(b),0)/ult.length).toFixed(2);
+
+let txt=`
+Risco médio: ${riscoMed}
+
+Tendência: ${ENGINE.tendencia(ult)}
+
+Recomendação:
+`;
+
+if(riscoMed>0.7) txt+="Reduzir estímulos imediatamente.";
+else if(riscoMed>0.4) txt+="Ajustar ambiente.";
+else txt+="Manter estratégia.";
+
+document.getElementById("sintese").innerText=txt;
+
+}
+
+};
+
+/* INIT */
+APP.update();
+
+</script>
+
+</body>
+</html>
