@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>ORÁCULO V5 | Offline-First</title>
+
+<link href="../../assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet"/>
+<link href="../../assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet"/>
+<link href="../../assets/css/hub.css" rel="stylesheet"/>
+
+<style>
+body{ background:#f5f7fb; }
+
+.cardx{
+  background:#fff;
+  border-radius:14px;
+  padding:18px;
+  box-shadow:0 6px 18px rgba(0,0,0,.06);
+  margin-bottom:18px;
+}
+
+.region-item{
+  padding:10px;
+  border-radius:10px;
+  cursor:pointer;
+  transition:.2s;
+}
+
+.region-item:hover{ background:#eef2ff; }
+
+.region-item.active{
+  background:#2563eb;
+  color:#fff;
+  font-weight:500;
+}
+
+textarea{
+  width:100%;
+  border-radius:10px;
+  border:1px solid #ddd;
+  padding:10px;
+  font-size:13px;
+  margin-bottom:10px;
+}
+
+.btn-main{
+  background:#2563eb;
+  color:#fff;
+  border:none;
+}
+
+.badge-net{
+  font-size:11px;
+  margin-left:10px;
+}
+</style>
+</head>
+
+<body>
+
+<div id="header-container"></div>
+<div id="sidebar-container"></div>
+
+<main class="container mt-4">
+
+<h2>🧠 ORÁCULO V5 
+<span id="netStatus" class="badge bg-secondary badge-net">offline</span>
+</h2>
+
+<p class="text-muted">
+Sistema clínico offline-first com sincronização inteligente
+</p>
+
+<div class="row">
+
+<!-- CONTEXTO -->
+<div class="col-lg-3">
+<div class="cardx">
+
+<h5>🅾️ Contexto</h5>
+
+<select id="contextTipo" class="form-control mb-2">
+<option value="">Tipo de situação</option>
+<option>Rotina Doméstica</option>
+<option>Rotina Programática</option>
+<option>Atividade Física</option>
+<option>Musicalização</option>
+<option>Cinema</option>
+<option>Circo</option>
+<option>Evento Familiar</option>
+<option>Evento Externo</option>
+<option>Viagem</option>
+</select>
+
+<textarea id="contextDesc" placeholder="Descreva o contexto..."></textarea>
+
+<select id="contextComplex" class="form-control">
+<option value="">Complexidade</option>
+<option>Muito Baixa</option>
+<option>Baixa</option>
+<option>Média</option>
+<option>Alta</option>
+<option>Muito Alta</option>
+</select>
+
+</div>
+</div>
+
+<!-- EIXOS -->
+<div class="col-lg-3">
+<div class="cardx">
+
+<h5>Eixos</h5>
+
+<div class="region-item" onclick="ORACULO.toggleBloco('terapeutico')">🧠 Terapêutico</div>
+<div class="region-item" onclick="ORACULO.toggleBloco('familiar')">👨‍👩‍👦 Familiar</div>
+<div class="region-item" onclick="ORACULO.toggleBloco('ambiental')">🏠 Ambiental</div>
+<div class="region-item" onclick="ORACULO.toggleBloco('biologico')">💊 Biológico</div>
+
+</div>
+</div>
+
+<!-- CONFIG -->
+<div class="col-lg-6">
+<div class="cardx" id="painel">
+<h5>Configuração</h5>
+<p>Selecione um eixo</p>
+</div>
+</div>
+
+</div>
+
+<!-- OUTPUT -->
+<div class="cardx mt-3">
+
+<button class="btn btn-main" onclick="ORACULO.exportarPP()">
+Salvar PP
+</button>
+
+<pre id="output"></pre>
+
+</div>
+
+</main>
+
+<!-- =====================
+🧠 STORAGE LOCAL
+===================== -->
+<script>
+const STORAGE = {
+
+KEY:"ORACULO_DB",
+
+load(){
+  const d=localStorage.getItem(this.KEY);
+  return d?JSON.parse(d):{pps:[]};
+},
+
+save(db){
+  localStorage.setItem(this.KEY,JSON.stringify(db));
+},
+
+addPP(pp){
+  const db=this.load();
+  db.pps.push({...pp,id:"pp_"+Date.now(),synced:false});
+  this.save(db);
+}
+
+};
+</script>
+
+<!-- =====================
+🌐 NETWORK
+===================== -->
+<script>
+const NETWORK = {
+
+init(){
+  this.update();
+
+  window.addEventListener("online",()=>{
+    this.update();
+    SYNC.sync();
+  });
+
+  window.addEventListener("offline",this.update);
+},
+
+update(){
+  const el=document.getElementById("netStatus");
+  if(navigator.onLine){
+    el.innerText="online";
+    el.className="badge bg-success badge-net";
+  }else{
+    el.innerText="offline";
+    el.className="badge bg-secondary badge-net";
+  }
+}
+
+};
+
+NETWORK.init();
+</script>
+
+<!-- =====================
+🔄 SYNC
+===================== -->
+<script>
+const SYNC = {
+
+async sync(){
+
+  if(!navigator.onLine) return;
+
+  const db=STORAGE.load();
+
+  for(const pp of db.pps){
+
+    if(pp.synced) continue;
+
+    try{
+      await this.fake(pp);
+      pp.synced=true;
+    }catch(e){
+      console.log("erro sync");
+    }
+
+  }
+
+  STORAGE.save(db);
+},
+
+async fake(){
+  return new Promise(r=>setTimeout(r,300));
+}
+
+};
+</script>
+
+<!-- =====================
+🧠 CORE
+===================== -->
+<script>
+
+const ORACULO = {
+
+state:{ blocos:{} },
+
+toggleBloco(id){
+
+  if(this.state.blocos[id]){
+    delete this.state.blocos[id];
+  }else{
+    this.state.blocos[id]={observar:"",ajustar:"",evitar:""};
+  }
+
+  UI.updateEixos();
+  UI.render();
+},
+
+updateCampo(id,campo,v){
+  this.state.blocos[id][campo]=v;
+},
+
+gerarPP(){
+
+  let txt="PLANO PROGRAMÁTICO\n\n";
+
+  Object.entries(this.state.blocos).forEach(([k,v])=>{
+    txt+=k.toUpperCase()+"\n";
+    txt+="Observar: "+v.observar+"\n";
+    txt+="Ajustar: "+v.ajustar+"\n";
+    txt+="Evitar: "+v.evitar+"\n\n";
+  });
+
+  return txt;
+},
+
+exportarPP(){
+
+  const txt=this.gerarPP();
+  document.getElementById("output").innerText=txt;
+
+  STORAGE.addPP({
+    contexto:{
+      tipo:contextTipo.value,
+      desc:contextDesc.value,
+      complex:contextComplex.value
+    },
+    blocos:this.state.blocos,
+    criadoEm:new Date().toISOString()
+  });
+
+  SYNC.sync();
+}
+
+};
+
+</script>
+
+<!-- =====================
+🎛️ UI
+===================== -->
+<script>
+
+const UI = {
+
+render(){
+
+  const painel=document.getElementById("painel");
+
+  painel.innerHTML="";
+
+  Object.entries(ORACULO.state.blocos).forEach(([id,b])=>{
+
+    painel.innerHTML+=`
+    <div class="cardx">
+      <h6>${id.toUpperCase()}</h6>
+
+      <textarea placeholder="Observar"
+      oninput="ORACULO.updateCampo('${id}','observar',this.value)">${b.observar}</textarea>
+
+      <textarea placeholder="Ajustar"
+      oninput="ORACULO.updateCampo('${id}','ajustar',this.value)">${b.ajustar}</textarea>
+
+      <textarea placeholder="Evitar"
+      oninput="ORACULO.updateCampo('${id}','evitar',this.value)">${b.evitar}</textarea>
+    </div>`;
+  });
+
+},
+
+updateEixos(){
+
+  document.querySelectorAll(".region-item").forEach(el=>{
+    el.classList.remove("active");
+  });
+
+  Object.keys(ORACULO.state.blocos).forEach(id=>{
+    const el=document.querySelector(`[onclick="ORACULO.toggleBloco('${id}')"]`);
+    if(el) el.classList.add("active");
+  });
+
+}
+
+};
+
+</script>
+
+<script src="../../assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="../../js/components.js"></script>
+
+</body>
+</html>
