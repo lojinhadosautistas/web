@@ -6,13 +6,12 @@
 
 <title>ORÁCULO | Sistema REDE</title>
 
-<link href="../assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+<link href="../../assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet"/>
+<link href="../../assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet"/>
+<link href="../../assets/css/hub.css" rel="stylesheet"/>
 
 <style>
-body{
-  background:#f5f7fb;
-  font-family: 'Inter', sans-serif;
-}
+body{ background:#f5f7fb; }
 
 .cardx{
   background:#fff;
@@ -38,7 +37,7 @@ textarea{
   border-radius:10px;
   border:1px solid #ddd;
   padding:10px;
-  font-size:13px;
+  margin-bottom:10px;
 }
 
 .btn-main{
@@ -46,170 +45,288 @@ textarea{
   color:#fff;
   border:none;
 }
-
 </style>
 </head>
 
 <body>
 
-<div class="container mt-4">
+<div id="header-container"></div>
+<div id="sidebar-container"></div>
 
-<h2>🧠 ORÁCULO — Arquitetura de Suporte à Decisão</h2>
-<p class="text-muted">Pipeline cognitivo para construção de Planos Programáticos</p>
+<main class="container mt-4">
 
-<div class="row">
+<h2>🧠 ORÁCULO</h2>
 
-<!-- CONTEXTO -->
-<div class="col-lg-3">
-<div class="cardx">
-
-<h5>🅾️ Observação Contextual</h5>
-
-<select id="contextTipo" class="form-control mb-2">
-<option value="">Tipo de situação</option>
-<option>Evento</option>
-<option>Escola</option>
-<option>Rotina</option>
-<option>Viagem</option>
-</select>
-
-<textarea id="contextDesc" placeholder="Descreva o contexto..."></textarea>
-
-<select id="contextComplex" class="form-control mt-2">
-<option value="">Complexidade</option>
-<option>Baixa</option>
-<option>Média</option>
-<option>Alta</option>
-</select>
-
-</div>
+<!-- 🔘 MODO -->
+<div class="mb-3">
+<button class="btn btn-sm btn-outline-primary" onclick="UI.modoLivre()">Modo Livre</button>
+<button class="btn btn-sm btn-outline-dark" onclick="UI.modoWizard()">Modo Guiado</button>
 </div>
 
-<!-- EIXOS -->
-<div class="col-lg-3">
-<div class="cardx">
+<!-- 🔁 CONTAINER DINÂMICO -->
+<div id="app"></div>
 
-<h5>🆁 Reconhecimento de Padrões</h5>
-
-<div class="region-item" onclick="toggleBloco('terapeutico')">🧠 Terapêutico</div>
-<div class="region-item" onclick="toggleBloco('familiar')">👨‍👩‍👦 Familiar</div>
-<div class="region-item" onclick="toggleBloco('ambiental')">🏠 Ambiental</div>
-<div class="region-item" onclick="toggleBloco('biologico')">💊 Biológico</div>
-
-</div>
-</div>
-
-<!-- CONFIGURAÇÃO -->
-<div class="col-lg-6">
-<div class="cardx" id="painel">
-
-<h5>🅲 Configuração Estratégica</h5>
-<p>Selecione um eixo para configurar.</p>
-
-</div>
-</div>
-
-</div>
-
-<!-- OUTPUT -->
-<div class="cardx mt-3">
-
-<h5>🅾️ Output Programático</h5>
-
-<button class="btn btn-main" onclick="exportarPP()">Gerar Plano</button>
-
-<pre id="output" style="margin-top:15px;"></pre>
-
-</div>
-
-</div>
+</main>
 
 <script>
 
-const BLOCOS = {
-  terapeutico:{titulo:"Terapêutico"},
-  familiar:{titulo:"Familiar"},
-  ambiental:{titulo:"Ambiental"},
-  biologico:{titulo:"Biológico"}
+/* =====================
+🧠 ENGINE
+===================== */
+
+const ENGINE = {
+
+sugerirEixos(contexto){
+  const s=[];
+  if(contexto.includes("evento")||contexto.includes("viagem")){
+    s.push("ambiental","terapeutico");
+  }
+  if(contexto.includes("família")||contexto.includes("casa")){
+    s.push("familiar");
+  }
+  return [...new Set(s)];
+}
+
 };
 
-let STATE = {
+/* =====================
+🧠 CORE
+===================== */
+
+const ORACULO = {
+
+state:{
+  step:1,
+  modo:"livre",
   blocos:{}
-};
+},
 
-function toggleBloco(id){
+toggleBloco(id){
 
-  if(STATE.blocos[id]){
-    delete STATE.blocos[id];
+  if(this.state.blocos[id]){
+    delete this.state.blocos[id];
   } else {
-    STATE.blocos[id] = {
-      observar:"",
-      ajustar:"",
-      evitar:""
-    };
+    this.state.blocos[id]={ observar:"", ajustar:"", evitar:"" };
   }
 
-  renderPainel(id);
-  updateUI();
-}
+  UI.updateEixos();
+  UI.renderPainel(id);
+},
 
-function renderPainel(id){
+next(){ this.state.step++; UI.render(); },
+prev(){ this.state.step--; UI.render(); },
 
-  if(!STATE.blocos[id]) return;
+updateCampo(id,campo,valor){
+  this.state.blocos[id][campo]=valor;
+},
 
-  document.getElementById("painel").innerHTML = `
-    <h5>${BLOCOS[id].titulo}</h5>
+gerarPP(){
 
-    <label>Observar</label>
-    <textarea onchange="updateField('${id}','observar',this.value)"></textarea>
+  let txt="PLANO PROGRAMÁTICO\n\n";
 
-    <label>Ajustar</label>
-    <textarea onchange="updateField('${id}','ajustar',this.value)"></textarea>
-
-    <label>Evitar</label>
-    <textarea onchange="updateField('${id}','evitar',this.value)"></textarea>
-  `;
-}
-
-function updateField(id,field,value){
-  STATE.blocos[id][field] = value;
-}
-
-function updateUI(){
-  document.querySelectorAll(".region-item").forEach(el=>{
-    el.classList.remove("active");
-  });
-
-  Object.keys(STATE.blocos).forEach(id=>{
-    document.querySelector(`[onclick="toggleBloco('${id}')"]`)
-      ?.classList.add("active");
-  });
-}
-
-function gerarPP(){
-
-  let txt = "";
-
-  txt += "CONTEXTO\n";
-  txt += document.getElementById("contextTipo").value + "\n";
-  txt += document.getElementById("contextDesc").value + "\n\n";
-
-  Object.entries(STATE.blocos).forEach(([id,b])=>{
-    txt += "=== " + id.toUpperCase() + " ===\n";
-    txt += "Observar:\n" + b.observar + "\n";
-    txt += "Ajustar:\n" + b.ajustar + "\n";
-    txt += "Evitar:\n" + b.evitar + "\n\n";
+  Object.entries(this.state.blocos).forEach(([id,b])=>{
+    txt+=id.toUpperCase()+"\n";
+    txt+="Observar: "+b.observar+"\n";
+    txt+="Ajustar: "+b.ajustar+"\n";
+    txt+="Evitar: "+b.evitar+"\n\n";
   });
 
   return txt;
 }
 
-function exportarPP(){
-  const txt = gerarPP();
-  document.getElementById("output").innerText = txt;
+};
+
+/* =====================
+🎛️ UI
+===================== */
+
+const UI = {
+
+modoLivre(){
+  ORACULO.state.modo="livre";
+  this.render();
+},
+
+modoWizard(){
+  ORACULO.state.modo="wizard";
+  ORACULO.state.step=1;
+  this.render();
+},
+
+render(){
+
+  if(ORACULO.state.modo==="livre"){
+    this.renderLivre();
+  }else{
+    this.renderWizard();
+  }
+
+},
+
+/* =====================
+🧩 MODO LIVRE (SEU ORIGINAL)
+===================== */
+
+renderLivre(){
+
+document.getElementById("app").innerHTML=`
+
+<div class="row">
+
+<div class="col-lg-3">
+<div class="cardx">
+
+<h5>Contexto</h5>
+<textarea id="contextDesc"></textarea>
+
+<button class="btn btn-sm btn-outline-primary"
+onclick="UI.sugerirEixos()">✨ Sugerir Eixos</button>
+
+</div>
+</div>
+
+<div class="col-lg-3">
+<div class="cardx">
+
+<div class="region-item" onclick="ORACULO.toggleBloco('terapeutico')">🧠 Terapêutico</div>
+<div class="region-item" onclick="ORACULO.toggleBloco('familiar')">👨‍👩‍👦 Familiar</div>
+<div class="region-item" onclick="ORACULO.toggleBloco('ambiental')">🏠 Ambiental</div>
+
+</div>
+</div>
+
+<div class="col-lg-6">
+<div class="cardx" id="painel"></div>
+</div>
+
+</div>
+
+<div class="cardx mt-3">
+<button class="btn btn-main" onclick="UI.showPP()">Gerar</button>
+<pre id="output"></pre>
+</div>
+
+`;
+
+},
+
+/* =====================
+🧠 WIZARD
+===================== */
+
+renderWizard(){
+
+const s=ORACULO.state.step;
+
+if(s===1){
+document.getElementById("app").innerHTML=`
+<div class="cardx">
+<h5>🅾️ Contexto</h5>
+
+<textarea id="contextDesc" placeholder="Descreva..."></textarea>
+
+<button class="btn btn-main mt-3" onclick="ORACULO.next()">Avançar →</button>
+</div>`;
 }
 
+if(s===2){
+document.getElementById("app").innerHTML=`
+<div class="cardx">
+<h5>🆁🅰️ Eixos</h5>
+
+<button class="btn btn-sm btn-outline-primary mb-2"
+onclick="UI.sugerirEixos()">✨ Sugerir</button>
+
+<div class="region-item" onclick="ORACULO.toggleBloco('terapeutico')">🧠 Terapêutico</div>
+<div class="region-item" onclick="ORACULO.toggleBloco('familiar')">👨‍👩‍👦 Familiar</div>
+<div class="region-item" onclick="ORACULO.toggleBloco('ambiental')">🏠 Ambiental</div>
+
+<div class="mt-3 d-flex justify-content-between">
+<button class="btn btn-light" onclick="ORACULO.prev()">← Voltar</button>
+<button class="btn btn-main" onclick="ORACULO.next()">Avançar →</button>
+</div>
+</div>`;
+}
+
+if(s===3){
+document.getElementById("app").innerHTML=`
+<div class="cardx">
+<h5>🅲 Estratégia</h5>
+<div id="painel"></div>
+
+<div class="mt-3 d-flex justify-content-between">
+<button class="btn btn-light" onclick="ORACULO.prev()">← Voltar</button>
+<button class="btn btn-main" onclick="ORACULO.next()">Gerar →</button>
+</div>
+</div>`;
+
+const first=Object.keys(ORACULO.state.blocos)[0];
+if(first){ this.renderPainel(first); }
+}
+
+if(s===4){
+document.getElementById("app").innerHTML=`
+<div class="cardx">
+<h5>🅾️ Plano</h5>
+
+<pre>${ORACULO.gerarPP()}</pre>
+
+<button class="btn btn-light" onclick="ORACULO.prev()">← Ajustar</button>
+</div>`;
+}
+
+},
+
+renderPainel(id){
+
+if(!ORACULO.state.blocos[id]) return;
+
+const b=ORACULO.state.blocos[id];
+
+document.getElementById("painel").innerHTML=`
+<h5>${id}</h5>
+
+<textarea oninput="ORACULO.updateCampo('${id}','observar',this.value)">${b.observar}</textarea>
+<textarea oninput="ORACULO.updateCampo('${id}','ajustar',this.value)">${b.ajustar}</textarea>
+<textarea oninput="ORACULO.updateCampo('${id}','evitar',this.value)">${b.evitar}</textarea>
+`;
+
+},
+
+updateEixos(){
+document.querySelectorAll(".region-item").forEach(el=>el.classList.remove("active"));
+Object.keys(ORACULO.state.blocos).forEach(id=>{
+document.querySelector(`[onclick="ORACULO.toggleBloco('${id}')"]`)
+?.classList.add("active");
+});
+},
+
+sugerirEixos(){
+
+const desc=document.getElementById("contextDesc")?.value?.toLowerCase()||"";
+const s=ENGINE.sugerirEixos(desc);
+
+s.forEach(id=>{
+if(!ORACULO.state.blocos[id]){
+ORACULO.toggleBloco(id);
+}
+});
+
+},
+
+showPP(){
+document.getElementById("output").innerText=ORACULO.gerarPP();
+}
+
+};
+
+/* INIT */
+UI.render();
+
 </script>
+
+<script src="../../assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="../../js/components.js"></script>
 
 </body>
 </html>
