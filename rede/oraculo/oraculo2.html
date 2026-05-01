@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>ORÁCULO | Sistema REDE</title>
+
+<link href="../../assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet"/>
+<link href="../../assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet"/>
+<link href="../../assets/css/hub.css" rel="stylesheet"/>
+
+<style>
+body{ background:#f5f7fb; }
+
+.cardx{
+  background:#fff;
+  border-radius:14px;
+  padding:18px;
+  box-shadow:0 6px 18px rgba(0,0,0,.06);
+  margin-bottom:18px;
+}
+
+.region-item{
+  padding:10px;
+  border-radius:10px;
+  cursor:pointer;
+}
+
+.region-item.active{
+  background:#2563eb;
+  color:#fff;
+}
+
+textarea{
+  width:100%;
+  border-radius:10px;
+  border:1px solid #ddd;
+  padding:10px;
+  font-size:13px;
+  margin-bottom:10px;
+}
+
+select{
+  margin-bottom:10px;
+}
+
+.btn-main{
+  background:#2563eb;
+  color:#fff;
+  border:none;
+}
+
+.chat-box{
+  height:200px;
+  overflow:auto;
+  background:#f8fafc;
+  padding:10px;
+  border-radius:10px;
+  margin-bottom:10px;
+}
+
+.msg{ margin-bottom:8px; }
+.msg.bot{ color:#334155; }
+.msg.user{ text-align:right; color:#2563eb; }
+
+.priority-high{ border-left:5px solid #dc2626; }
+.priority-medium{ border-left:5px solid #f59e0b; }
+.priority-low{ border-left:5px solid #16a34a; }
+
+</style>
+</head>
+
+<body>
+
+<main class="container mt-4">
+
+<h2>🧠 ORÁCULO</h2>
+<p class="text-muted">Decision Support System com priorização clínica</p>
+
+<div class="row">
+
+<!-- CONTEXTO -->
+<div class="col-lg-3">
+<div class="cardx">
+
+<h5>Contexto</h5>
+
+<select id="contextTipo" class="form-control">
+<option value="">Tipo</option>
+<option>Rotina Doméstica</option>
+<option>Evento Externo</option>
+<option>Viagem</option>
+</select>
+
+<textarea id="contextDesc" placeholder="Descreva o contexto"></textarea>
+
+<select id="contextComplex" class="form-control">
+<option value="">Complexidade</option>
+<option>Baixa</option>
+<option>Média</option>
+<option>Alta</option>
+</select>
+
+</div>
+
+<!-- CHAT -->
+<div class="cardx">
+<h6>💬 Assistente</h6>
+
+<div id="chat" class="chat-box"></div>
+
+<input id="input" class="form-control" placeholder="Digite..." onkeydown="if(event.key==='Enter')send()">
+
+</div>
+
+</div>
+
+<!-- EIXOS -->
+<div class="col-lg-3">
+<div class="cardx">
+
+<h5>Eixos</h5>
+
+<div class="region-item" onclick="ORACULO.toggleBloco('terapeutico')">🧠 Terapêutico</div>
+<div class="region-item" onclick="ORACULO.toggleBloco('familiar')">👨‍👩‍👦 Familiar</div>
+<div class="region-item" onclick="ORACULO.toggleBloco('ambiental')">🏠 Ambiental</div>
+<div class="region-item" onclick="ORACULO.toggleBloco('biologico')">💊 Biológico</div>
+
+</div>
+</div>
+
+<!-- PAINEL -->
+<div class="col-lg-6">
+<div class="cardx" id="painel"></div>
+</div>
+
+</div>
+
+<!-- OUTPUT -->
+<div class="cardx mt-3">
+
+<button class="btn btn-main" onclick="ORACULO.exportarPP()">
+Gerar Plano Programático
+</button>
+
+<pre id="output"></pre>
+
+</div>
+
+</main>
+
+<script>
+
+/* =====================
+🧠 ENGINE
+===================== */
+const ENGINE = {
+
+detectarEixos(txt){
+  txt=txt.toLowerCase();
+  const eixos=[];
+
+  if(txt.match(/barulho|cheio|fila/)) eixos.push("ambiental");
+  if(txt.match(/mãe|família/)) eixos.push("familiar");
+  if(txt.match(/ansiedade|medo/)) eixos.push("terapeutico");
+  if(txt.match(/cansaço|sono/)) eixos.push("biologico");
+
+  return [...new Set(eixos)];
+},
+
+score(txt){
+  if(txt.includes("muito")) return 3;
+  if(txt.includes("moderado")) return 2;
+  return 1;
+}
+
+};
+
+/* =====================
+🧠 CORE
+===================== */
+const ORACULO = {
+
+state:{
+  blocos:{}
+},
+
+BLOCOS:{
+  terapeutico:{titulo:"Terapêutico"},
+  familiar:{titulo:"Familiar"},
+  ambiental:{titulo:"Ambiental"},
+  biologico:{titulo:"Biológico"}
+},
+
+toggleBloco(id){
+
+  if(this.state.blocos[id]){
+    delete this.state.blocos[id];
+  }else{
+    this.state.blocos[id]={
+      observar:"",
+      ajustar:"",
+      evitar:"",
+      prioridade:"media",
+      score:2
+    };
+  }
+
+  UI.updateEixos();
+  UI.renderPainelMulti();
+},
+
+updateCampo(id,campo,valor){
+  this.state.blocos[id][campo]=valor;
+},
+
+updatePrioridade(id,val){
+  const map={baixo:1,medio:2,alto:3};
+  this.state.blocos[id].prioridade=val;
+  this.state.blocos[id].score=map[val];
+},
+
+gerarPP(){
+
+  let blocosOrdenados = Object.entries(this.state.blocos)
+    .sort((a,b)=>b[1].score-a[1].score);
+
+  let txt="PLANO PROGRAMÁTICO\n\n";
+
+  blocosOrdenados.forEach(([id,b])=>{
+    txt+=id.toUpperCase()+" ("+b.prioridade+")\n";
+    txt+="Observar: "+b.observar+"\n";
+    txt+="Ajustar: "+b.ajustar+"\n";
+    txt+="Evitar: "+b.evitar+"\n\n";
+  });
+
+  return txt;
+},
+
+exportarPP(){
+  document.getElementById("output").innerText=this.gerarPP();
+}
+
+};
+
+/* =====================
+🎛️ UI
+===================== */
+const UI={
+
+renderPainelMulti(){
+
+  let html="<h5>Configuração</h5>";
+
+  Object.entries(ORACULO.state.blocos).forEach(([id,b])=>{
+
+    html+=`
+    <div class="cardx priority-${b.prioridade}">
+
+      <h6>${ORACULO.BLOCOS[id].titulo}</h6>
+
+      <select onchange="ORACULO.updatePrioridade('${id}',this.value)">
+        <option ${b.prioridade==="baixo"?"selected":""}>baixo</option>
+        <option ${b.prioridade==="medio"?"selected":""}>medio</option>
+        <option ${b.prioridade==="alto"?"selected":""}>alto</option>
+      </select>
+
+      <textarea placeholder="Observar" oninput="ORACULO.updateCampo('${id}','observar',this.value)">${b.observar}</textarea>
+      <textarea placeholder="Ajustar" oninput="ORACULO.updateCampo('${id}','ajustar',this.value)">${b.ajustar}</textarea>
+      <textarea placeholder="Evitar" oninput="ORACULO.updateCampo('${id}','evitar',this.value)">${b.evitar}</textarea>
+
+    </div>`;
+  });
+
+  document.getElementById("painel").innerHTML=html;
+},
+
+updateEixos(){
+
+  document.querySelectorAll(".region-item").forEach(el=>el.classList.remove("active"));
+
+  Object.keys(ORACULO.state.blocos).forEach(id=>{
+    document.querySelector(`[onclick="ORACULO.toggleBloco('${id}')"]`)?.classList.add("active");
+  });
+
+}
+
+};
+
+/* =====================
+💬 CHAT
+===================== */
+
+const STATE={step:0};
+
+function addMsg(txt,type="bot"){
+  const d=document.createElement("div");
+  d.className="msg "+type;
+  d.innerText=txt;
+  document.getElementById("chat").appendChild(d);
+}
+
+function send(){
+
+  const input=document.getElementById("input");
+  const txt=input.value;
+
+  if(!txt) return;
+
+  addMsg(txt,"user");
+
+  const eixos=ENGINE.detectarEixos(txt);
+
+  eixos.forEach(e=>{
+    if(!ORACULO.state.blocos[e]){
+      ORACULO.toggleBloco(e);
+    }
+  });
+
+  if(eixos.length){
+    addMsg("Eixos detectados: "+eixos.join(", "));
+  }else{
+    addMsg("Me conte mais detalhes.");
+  }
+
+  input.value="";
+}
+
+addMsg("Me conte o que está acontecendo.");
+
+</script>
+
+</body>
+</html>
