@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>ORÁCULO | Sistema REDE</title>
+
+<!-- CSS do REDE -->
+<link href="../assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet"/>
+<link href="../assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet"/>
+<link href="../assets/css/hub.css" rel="stylesheet"/>
+
+<style>
+body{
+  background:#f5f7fb;
+}
+
+.cardx{
+  background:#fff;
+  border-radius:14px;
+  padding:18px;
+  box-shadow:0 6px 18px rgba(0,0,0,.06);
+  margin-bottom:18px;
+}
+
+.region-item{
+  padding:10px;
+  border-radius:10px;
+  cursor:pointer;
+  transition:.2s;
+}
+
+.region-item:hover{
+  background:#eef2ff;
+}
+
+.region-item.active{
+  background:#2563eb;
+  color:#fff;
+  font-weight:500;
+}
+
+textarea{
+  width:100%;
+  border-radius:10px;
+  border:1px solid #ddd;
+  padding:10px;
+  font-size:13px;
+  margin-bottom:10px;
+}
+
+.btn-main{
+  background:#2563eb;
+  color:#fff;
+  border:none;
+}
+
+main{
+  padding-bottom:120px;
+}
+</style>
+</head>
+
+<body>
+
+<div id="header-container"></div>
+<div id="sidebar-container"></div>
+
+<main class="container mt-4">
+
+<h2>🧠 ORÁCULO</h2>
+<p class="text-muted">
+Arquitetura de suporte à decisão em contextos complexos (PP Navegável)
+</p>
+
+<div class="row">
+
+<!-- 🅾️ CONTEXTO -->
+<div class="col-lg-3">
+<div class="cardx">
+
+<h5>🅾️ Observação Contextual</h5>
+
+<select id="contextTipo" class="form-control mb-2">
+<option value="">Tipo de situação</option>
+<option>Evento</option>
+<option>Escola</option>
+<option>Rotina</option>
+<option>Viagem</option>
+</select>
+
+<textarea id="contextDesc" placeholder="Descreva o contexto..."></textarea>
+
+<select id="contextComplex" class="form-control">
+<option value="">Complexidade</option>
+<option>Baixa</option>
+<option>Média</option>
+<option>Alta</option>
+</select>
+
+</div>
+</div>
+
+<!-- 🆁🅰️ EIXOS -->
+<div class="col-lg-3">
+<div class="cardx">
+
+<h5>🆁 Reconhecimento / 🅰️ Ativação</h5>
+
+<div class="region-item" onclick="ORACULO.toggleBloco('terapeutico')">🧠 Terapêutico</div>
+<div class="region-item" onclick="ORACULO.toggleBloco('familiar')">👨‍👩‍👦 Familiar</div>
+<div class="region-item" onclick="ORACULO.toggleBloco('ambiental')">🏠 Ambiental</div>
+<div class="region-item" onclick="ORACULO.toggleBloco('biologico')">💊 Biológico</div>
+
+</div>
+</div>
+
+<!-- 🅲 CONFIGURAÇÃO -->
+<div class="col-lg-6">
+<div class="cardx" id="painel">
+
+<h5>🅲 Configuração Estratégica</h5>
+<p>Selecione um eixo para configurar.</p>
+
+</div>
+</div>
+
+</div>
+
+<!-- 🅾️ OUTPUT -->
+<div class="cardx mt-3">
+
+<h5>🅾️ Output Programático</h5>
+
+<button class="btn btn-main" onclick="ORACULO.exportarPP()">
+Gerar Plano Programático
+</button>
+
+<pre id="output" style="margin-top:15px;"></pre>
+
+</div>
+
+</main>
+
+<!-- ===================== -->
+<!-- 🧠 CORE -->
+<!-- ===================== -->
+
+<script>
+
+const ORACULO = {
+
+state: {
+  contexto: {},
+  blocos: {},
+  blocoAtual: null
+},
+
+BLOCOS: {
+  terapeutico: { titulo:"Eixo Terapêutico" },
+  familiar: { titulo:"Eixo Familiar" },
+  ambiental: { titulo:"Eixo Ambiental" },
+  biologico: { titulo:"Eixo Biológico" }
+},
+
+toggleBloco(id){
+
+  if(this.state.blocos[id]){
+    delete this.state.blocos[id];
+    this.state.blocoAtual = null;
+  } else {
+    this.state.blocos[id] = {
+      observar: "",
+      ajustar: "",
+      evitar: ""
+    };
+    this.state.blocoAtual = id;
+  }
+
+  UI.updateEixos();
+  UI.renderPainel(id);
+},
+
+updateCampo(id, campo, valor){
+  if(!this.state.blocos[id]) return;
+  this.state.blocos[id][campo] = valor;
+},
+
+gerarPP(){
+
+  const tipo = document.getElementById("contextTipo").value;
+  const desc = document.getElementById("contextDesc").value;
+  const comp = document.getElementById("contextComplex").value;
+
+  let txt = "";
+
+  txt += "============================\n";
+  txt += "PLANO PROGRAMÁTICO (PP)\n";
+  txt += "============================\n\n";
+
+  txt += "CONTEXTO\n";
+  txt += "Tipo: " + tipo + "\n";
+  txt += "Descrição: " + desc + "\n";
+  txt += "Complexidade: " + comp + "\n\n";
+
+  Object.entries(this.state.blocos).forEach(([id, b]) => {
+
+    txt += "=== " + id.toUpperCase() + " ===\n";
+
+    txt += "Observar:\n" + b.observar + "\n\n";
+    txt += "Ajustar:\n" + b.ajustar + "\n\n";
+    txt += "Evitar:\n" + b.evitar + "\n\n";
+
+  });
+
+  return txt;
+},
+
+exportarPP(){
+  const txt = this.gerarPP();
+  document.getElementById("output").innerText = txt;
+}
+
+};
+
+</script>
+
+<!-- ===================== -->
+<!-- 🎛️ UI -->
+<!-- ===================== -->
+
+<script>
+
+const UI = {
+
+renderPainel(id){
+
+  if(!ORACULO.state.blocos[id]){
+    document.getElementById("painel").innerHTML = `
+      <h5>🅲 Configuração Estratégica</h5>
+      <p>Selecione um eixo para configurar.</p>
+    `;
+    return;
+  }
+
+  const b = ORACULO.state.blocos[id];
+
+  document.getElementById("painel").innerHTML = `
+    <h5>${ORACULO.BLOCOS[id].titulo}</h5>
+
+    <label>Observar</label>
+    <textarea oninput="ORACULO.updateCampo('${id}','observar',this.value)">${b.observar}</textarea>
+
+    <label>Ajustar</label>
+    <textarea oninput="ORACULO.updateCampo('${id}','ajustar',this.value)">${b.ajustar}</textarea>
+
+    <label>Evitar</label>
+    <textarea oninput="ORACULO.updateCampo('${id}','evitar',this.value)">${b.evitar}</textarea>
+  `;
+},
+
+updateEixos(){
+
+  document.querySelectorAll(".region-item").forEach(el=>{
+    el.classList.remove("active");
+  });
+
+  Object.keys(ORACULO.state.blocos).forEach(id=>{
+    const el = document.querySelector(`[onclick="ORACULO.toggleBloco('${id}')"]`);
+    if(el) el.classList.add("active");
+  });
+
+}
+
+};
+
+</script>
+
+<!-- Scripts REDE -->
+<script src="../assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="../js/components.js"></script>
+
+</body>
+</html>
