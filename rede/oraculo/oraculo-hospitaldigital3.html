@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>ORÁCULO PP V12 — Laudo Clínico PDF</title>
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"/>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+<style>
+body{background:#f4f6fb;}
+
+.sidebar{
+  position:fixed;left:0;top:0;width:240px;height:100vh;
+  background:#111827;color:#fff;padding:18px;
+}
+
+.main{margin-left:240px;padding:20px;}
+
+.cardx{
+  background:#fff;border-radius:14px;padding:18px;
+  box-shadow:0 6px 18px rgba(0,0,0,.06);margin-bottom:18px;
+}
+
+.metric{font-size:30px;font-weight:800;}
+.low{color:#0f766e;}
+.medium{color:#fbbf24;}
+.high{color:#f97316;}
+
+.flatpickr-day.low-day{background:#0f766e!important;color:#fff;border-radius:6px;}
+.flatpickr-day.medium-day{background:#fbbf24!important;color:#111;border-radius:6px;}
+.flatpickr-day.high-day{background:#f97316!important;color:#fff;border-radius:6px;}
+.flatpickr-day.critical-day{background:#ef4444!important;color:#fff;border-radius:6px;}
+
+.month-map{display:grid;grid-template-columns:repeat(7,1fr);gap:6px;}
+.day-box{background:#e5e7eb;padding:8px;border-radius:8px;text-align:center;font-size:12px;}
+.day-low{background:#0f766e;color:#fff;}
+.day-medium{background:#fbbf24;color:#111;}
+.day-high{background:#f97316;color:#fff;}
+.day-critical{background:#ef4444;color:#fff;}
+</style>
+</head>
+
+<body>
+
+<div class="sidebar">
+<h4>🧠 ORÁCULO PP</h4>
+<hr>
+<p>Paciente único</p>
+<p>Monitor clínico</p>
+<p>Laudo automático</p>
+</div>
+
+<div class="main">
+
+<h2>🏥 Painel Clínico Individual — Laudo Automático</h2>
+
+<div class="cardx">
+<button class="btn btn-danger" onclick="APP.exportPDF()">📄 Exportar Laudo PDF</button>
+</div>
+
+<div class="row">
+<div class="col-md-4"><div class="cardx"><h6>Risco Atual</h6><div id="riscoAtual" class="metric">--</div></div></div>
+<div class="col-md-4"><div class="cardx"><h6>Tendência</h6><div id="tendencia" class="metric">--</div></div></div>
+<div class="col-md-4"><div class="cardx"><h6>Estabilidade</h6><div id="estabilidade" class="metric">--</div></div></div>
+</div>
+
+<div class="cardx">
+<h5>📅 Registro Clínico</h5>
+<input id="data" class="form-control mb-2" placeholder="Data"/>
+<input id="atividade" class="form-control mb-2" placeholder="Atividade"/>
+<select id="atencao" class="form-control mb-2"><option>baixa</option><option>media</option><option>boa</option></select>
+<select id="conversacao" class="form-control mb-2"><option>nao</option><option>pouca</option><option>presente</option></select>
+<select id="transicoes" class="form-control mb-2"><option>dificeis</option><option>ok</option><option>tranquilas</option></select>
+<button class="btn btn-primary" onclick="APP.add()">Adicionar</button>
+</div>
+
+<div class="cardx"><canvas id="grafico"></canvas></div>
+
+<div class="cardx"><div id="monthlyMap" class="month-map"></div></div>
+
+</div>
+
+<script>
+const STORAGE="oraculo_pp_v12";
+
+const ENGINE={
+map(v,t){const m={atencao:{baixa:1,media:2,boa:3},conversacao:{nao:1,pouca:2,presente:3},transicoes:{dificeis:1,ok:2,tranquilas:3}};return m[t][v]||0;},
+risco(d){let s=0;s+=4-this.map(d.atencao,"atencao");s+=4-this.map(d.conversacao,"conversacao");s+=4-this.map(d.transicoes,"transicoes");return Math.min(1,Math.max(0,s/9));}
+};
+
+const APP={
+
+dados:JSON.parse(localStorage.getItem(STORAGE)||"[]"),
+chart:null,
+
+save(){localStorage.setItem(STORAGE,JSON.stringify(this.dados));},
+
+add(){
+this.dados.push({
+data:document.getElementById("data").value,
+atividade:document.getElementById("atividade").value,
+atencao:document.getElementById("atencao").value,
+conversacao:document.getElementById("conversacao").value,
+transicoes:document.getElementById("transicoes").value
+});
+this.save();this.update();this.refreshCalendar();
+},
+
+riskByDate(d){const l=this.dados.filter(x=>x.data===d);if(!l.length)return null;return l.reduce((a,b)=>a+ENGINE.risco(b),0)/l.length;},
+
+update(){this.renderChart();this.updateDashboard();this.buildMonthly();},
+
+updateDashboard(){if(!this.dados.length)return;const r=ENGINE.risco(this.dados.at(-1));document.getElementById("riscoAtual").innerText=(r*100).toFixed(0)+"%";},
+
+renderChart(){const ctx=document.getElementById("grafico").getContext("2d");if(this.chart)this.chart.destroy();this.chart=new Chart(ctx,{type:"line",data:{labels:this.dados.map(d=>d.data),datasets:[{label:"Risco",data:this.dados.map(d=>ENGINE.risco(d))}]}});},
+
+buildMonthly(){const el=document.getElementById("monthlyMap");el.innerHTML="";const now=new Date();const y=now.getFullYear();const m=now.getMonth();const days=new Date(y,m+1,0).getDate();for(let i=1;i<=days;i++){const iso=new Date(y,m,i).toISOString().split("T")[0];const r=this.riskByDate(iso);const d=document.createElement("div");d.className="day-box";d.innerText=i;if(r!==null){d.classList.add(r<0.3?"day-low":r<0.6?"day-medium":r<0.8?"day-high":"day-critical");}el.appendChild(d);}},
+
+refreshCalendar(){const el=document.getElementById("data");if(el._flatpickr)el._flatpickr.redraw();},
+
+exportPDF(){
+const { jsPDF } = window.jspdf;
+const doc = new jsPDF();
+
+const last = this.dados.at(-1);
+const risk = last ? ENGINE.risco(last) : 0;
+
+let y=10;
+
+doc.setFontSize(16);
+doc.text("LAUDO CLÍNICO - ORÁCULO PP",10,y);y+=10;
+
+doc.setFontSize(12);
+doc.text("Risco atual: "+(risk*100).toFixed(1)+"%",10,y);y+=10;
+
+doc.text("Total de registros: "+this.dados.length,10,y);y+=10;
+
+const trend=this.dados.length>1?(ENGINE.risco(this.dados.at(-1))>ENGINE.risco(this.dados[0])?"Piora":"Melhora"):"Estável";
+doc.text("Tendência: "+trend,10,y);y+=10;
+
+this.dados.slice(-10).forEach((d,i)=>{
+if(y>270){doc.addPage();y=10;}
+doc.text(`${d.data} | risco ${(ENGINE.risco(d)*100).toFixed(0)}%`,10,y);
+y+=8;
+});
+
+doc.save("laudo_oraculo_pp.pdf");
+}
+
+};
+
+APP.update();
+
+flatpickr("#data",{dateFormat:"Y-m-d"});
+</script>
+
+</body>
+</html>
