@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>ORÁCULO | Dashboard Institucional</title>
+
+<link href="../../assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet"/>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<style>
+body{background:#f4f6fb;font-family:Inter;}
+.cardx{
+  background:#fff;
+  border-radius:16px;
+  padding:20px;
+  box-shadow:0 6px 18px rgba(0,0,0,.05);
+  margin-bottom:20px;
+}
+.metric{
+  font-size:28px;
+  font-weight:600;
+}
+.label{
+  font-size:13px;
+  color:#6b7280;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container mt-4">
+
+<h2>🧠 ORÁCULO — Painel de Inteligência Clínica</h2>
+<p class="text-muted">Monitoramento de Planos Programáticos e evolução adaptativa</p>
+
+<div class="row">
+
+<!-- KPIs -->
+<div class="col-lg-3">
+<div class="cardx">
+<div class="metric" id="totalPP">0</div>
+<div class="label">Planos Gerados</div>
+</div>
+</div>
+
+<div class="col-lg-3">
+<div class="cardx">
+<div class="metric" id="taxaSucesso">0%</div>
+<div class="label">Taxa de Sucesso</div>
+</div>
+</div>
+
+<div class="col-lg-3">
+<div class="cardx">
+<div class="metric" id="riscoMedio">0</div>
+<div class="label">Risco Médio</div>
+</div>
+</div>
+
+<div class="col-lg-3">
+<div class="cardx">
+<div class="metric" id="eixoCritico">-</div>
+<div class="label">Eixo mais crítico</div>
+</div>
+</div>
+
+</div>
+
+<!-- GRÁFICOS -->
+<div class="row">
+
+<div class="col-lg-6">
+<div class="cardx">
+<h6>Evolução dos Resultados</h6>
+<canvas id="chartEvolucao"></canvas>
+</div>
+</div>
+
+<div class="col-lg-6">
+<div class="cardx">
+<h6>Distribuição por Eixo</h6>
+<canvas id="chartEixos"></canvas>
+</div>
+</div>
+
+</div>
+
+<!-- HISTÓRICO -->
+<div class="cardx">
+<h6>Histórico de Contextos</h6>
+<div id="historico"></div>
+</div>
+
+</div>
+
+<script>
+
+/* ================= DB ================= */
+
+let DB = {
+  historico: [],
+  aprendizado: { estrategias:{} }
+};
+
+function loadDB(){
+  const d = localStorage.getItem("oraculo_db");
+  if(d) DB = JSON.parse(d);
+}
+
+loadDB();
+
+/* ================= KPI ================= */
+
+function calcularKPIs(){
+
+  const total = DB.historico.length;
+
+  let sucesso=0, falha=0;
+
+  DB.historico.forEach(p=>{
+    if(p.feedback?.resultado==="positivo") sucesso++;
+    if(p.feedback?.resultado==="negativo") falha++;
+  });
+
+  const taxa = total ? ((sucesso/total)*100).toFixed(1) : 0;
+
+  document.getElementById("totalPP").innerText = total;
+  document.getElementById("taxaSucesso").innerText = taxa+"%";
+
+}
+
+/* ================= EIXOS ================= */
+
+function calcularEixos(){
+
+  const map = {};
+
+  DB.historico.forEach(p=>{
+    Object.keys(p.blocos || {}).forEach(e=>{
+      if(!map[e]) map[e]=0;
+      map[e]++;
+    });
+  });
+
+  const labels = Object.keys(map);
+  const values = Object.values(map);
+
+  new Chart(document.getElementById("chartEixos"),{
+    type:'bar',
+    data:{
+      labels,
+      datasets:[{data:values}]
+    }
+  });
+
+}
+
+/* ================= EVOLUÇÃO ================= */
+
+function calcularEvolucao(){
+
+  const labels = [];
+  const data = [];
+
+  DB.historico.forEach((p,i)=>{
+    labels.push("Caso "+(i+1));
+
+    let score = 0;
+    if(p.feedback?.resultado==="positivo") score=1;
+    if(p.feedback?.resultado==="neutro") score=0.5;
+    if(p.feedback?.resultado==="negativo") score=0;
+
+    data.push(score);
+  });
+
+  new Chart(document.getElementById("chartEvolucao"),{
+    type:'line',
+    data:{
+      labels,
+      datasets:[{data}]
+    }
+  });
+
+}
+
+/* ================= HISTÓRICO ================= */
+
+function renderHistorico(){
+
+  let html="";
+
+  DB.historico.forEach((p,i)=>{
+    html+=`
+      <div class="mb-2">
+        <strong>Caso ${i+1}</strong> — ${p.feedback?.resultado || "-"}
+      </div>
+    `;
+  });
+
+  document.getElementById("historico").innerHTML = html;
+
+}
+
+/* ================= RISCO ================= */
+
+function calcularRisco(){
+
+  let total = DB.historico.length;
+  if(!total) return;
+
+  let risco = 0;
+
+  DB.historico.forEach(p=>{
+    if(p.feedback?.resultado==="negativo") risco++;
+  });
+
+  document.getElementById("riscoMedio").innerText = (risco/total).toFixed(2);
+
+}
+
+/* ================= EIXO CRÍTICO ================= */
+
+function eixoCritico(){
+
+  let map = {};
+
+  DB.historico.forEach(p=>{
+    Object.keys(p.blocos || {}).forEach(e=>{
+      if(!map[e]) map[e]=0;
+
+      if(p.feedback?.resultado==="negativo"){
+        map[e]++;
+      }
+    });
+  });
+
+  let max = 0;
+  let eixo = "-";
+
+  Object.entries(map).forEach(([k,v])=>{
+    if(v>max){
+      max=v;
+      eixo=k;
+    }
+  });
+
+  document.getElementById("eixoCritico").innerText = eixo;
+
+}
+
+/* ================= INIT ================= */
+
+calcularKPIs();
+calcularEixos();
+calcularEvolucao();
+renderHistorico();
+calcularRisco();
+eixoCritico();
+
+</script>
+
+</body>
+</html>
