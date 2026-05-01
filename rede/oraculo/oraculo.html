@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>ORÁCULO | Sistema REDE</title>
+
+<link href="../assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+<style>
+body{
+  background:#f5f7fb;
+  font-family: 'Inter', sans-serif;
+}
+
+.cardx{
+  background:#fff;
+  border-radius:14px;
+  padding:18px;
+  box-shadow:0 6px 18px rgba(0,0,0,.06);
+  margin-bottom:18px;
+}
+
+.region-item{
+  padding:10px;
+  border-radius:10px;
+  cursor:pointer;
+}
+
+.region-item.active{
+  background:#2563eb;
+  color:#fff;
+}
+
+textarea{
+  width:100%;
+  border-radius:10px;
+  border:1px solid #ddd;
+  padding:10px;
+  font-size:13px;
+}
+
+.btn-main{
+  background:#2563eb;
+  color:#fff;
+  border:none;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="container mt-4">
+
+<h2>🧠 ORÁCULO — Arquitetura de Suporte à Decisão</h2>
+<p class="text-muted">Pipeline cognitivo para construção de Planos Programáticos</p>
+
+<div class="row">
+
+<!-- CONTEXTO -->
+<div class="col-lg-3">
+<div class="cardx">
+
+<h5>🅾️ Observação Contextual</h5>
+
+<select id="contextTipo" class="form-control mb-2">
+<option value="">Tipo de situação</option>
+<option>Evento</option>
+<option>Escola</option>
+<option>Rotina</option>
+<option>Viagem</option>
+</select>
+
+<textarea id="contextDesc" placeholder="Descreva o contexto..."></textarea>
+
+<select id="contextComplex" class="form-control mt-2">
+<option value="">Complexidade</option>
+<option>Baixa</option>
+<option>Média</option>
+<option>Alta</option>
+</select>
+
+</div>
+</div>
+
+<!-- EIXOS -->
+<div class="col-lg-3">
+<div class="cardx">
+
+<h5>🆁 Reconhecimento de Padrões</h5>
+
+<div class="region-item" onclick="toggleBloco('terapeutico')">🧠 Terapêutico</div>
+<div class="region-item" onclick="toggleBloco('familiar')">👨‍👩‍👦 Familiar</div>
+<div class="region-item" onclick="toggleBloco('ambiental')">🏠 Ambiental</div>
+<div class="region-item" onclick="toggleBloco('biologico')">💊 Biológico</div>
+
+</div>
+</div>
+
+<!-- CONFIGURAÇÃO -->
+<div class="col-lg-6">
+<div class="cardx" id="painel">
+
+<h5>🅲 Configuração Estratégica</h5>
+<p>Selecione um eixo para configurar.</p>
+
+</div>
+</div>
+
+</div>
+
+<!-- OUTPUT -->
+<div class="cardx mt-3">
+
+<h5>🅾️ Output Programático</h5>
+
+<button class="btn btn-main" onclick="exportarPP()">Gerar Plano</button>
+
+<pre id="output" style="margin-top:15px;"></pre>
+
+</div>
+
+</div>
+
+<script>
+
+const BLOCOS = {
+  terapeutico:{titulo:"Terapêutico"},
+  familiar:{titulo:"Familiar"},
+  ambiental:{titulo:"Ambiental"},
+  biologico:{titulo:"Biológico"}
+};
+
+let STATE = {
+  blocos:{}
+};
+
+function toggleBloco(id){
+
+  if(STATE.blocos[id]){
+    delete STATE.blocos[id];
+  } else {
+    STATE.blocos[id] = {
+      observar:"",
+      ajustar:"",
+      evitar:""
+    };
+  }
+
+  renderPainel(id);
+  updateUI();
+}
+
+function renderPainel(id){
+
+  if(!STATE.blocos[id]) return;
+
+  document.getElementById("painel").innerHTML = `
+    <h5>${BLOCOS[id].titulo}</h5>
+
+    <label>Observar</label>
+    <textarea onchange="updateField('${id}','observar',this.value)"></textarea>
+
+    <label>Ajustar</label>
+    <textarea onchange="updateField('${id}','ajustar',this.value)"></textarea>
+
+    <label>Evitar</label>
+    <textarea onchange="updateField('${id}','evitar',this.value)"></textarea>
+  `;
+}
+
+function updateField(id,field,value){
+  STATE.blocos[id][field] = value;
+}
+
+function updateUI(){
+  document.querySelectorAll(".region-item").forEach(el=>{
+    el.classList.remove("active");
+  });
+
+  Object.keys(STATE.blocos).forEach(id=>{
+    document.querySelector(`[onclick="toggleBloco('${id}')"]`)
+      ?.classList.add("active");
+  });
+}
+
+function gerarPP(){
+
+  let txt = "";
+
+  txt += "CONTEXTO\n";
+  txt += document.getElementById("contextTipo").value + "\n";
+  txt += document.getElementById("contextDesc").value + "\n\n";
+
+  Object.entries(STATE.blocos).forEach(([id,b])=>{
+    txt += "=== " + id.toUpperCase() + " ===\n";
+    txt += "Observar:\n" + b.observar + "\n";
+    txt += "Ajustar:\n" + b.ajustar + "\n";
+    txt += "Evitar:\n" + b.evitar + "\n\n";
+  });
+
+  return txt;
+}
+
+function exportarPP(){
+  const txt = gerarPP();
+  document.getElementById("output").innerText = txt;
+}
+
+</script>
+
+</body>
+</html>
