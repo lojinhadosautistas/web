@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ORÁCULO V4.5</title>
+
+<link href="../../assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet"/>
+<link href="../../assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet"/>
+<link href="../../assets/css/hub.css" rel="stylesheet"/>
+
+<style>
+body{background:#f5f7fb;}
+.cardx{background:#fff;border-radius:14px;padding:18px;box-shadow:0 6px 18px rgba(0,0,0,.06);margin-bottom:18px;}
+.region-item{padding:10px;border-radius:10px;cursor:pointer;}
+.region-item.active{background:#2563eb;color:#fff;}
+textarea{width:100%;border-radius:10px;border:1px solid #ddd;padding:10px;font-size:13px;margin-bottom:10px;}
+.btn-main{background:#2563eb;color:#fff;border:none;}
+.msg{padding:8px;margin:5px;border-radius:10px;}
+.bot{background:#eef2ff;}
+.user{background:#2563eb;color:#fff;text-align:right;}
+</style>
+</head>
+
+<body>
+
+<main class="container mt-4">
+
+<h2>🧠 ORÁCULO V4.5</h2>
+<p class="text-muted">Sistema adaptativo com aprendizado clínico</p>
+
+<div class="row">
+
+<!-- CONTEXTO -->
+<div class="col-lg-3">
+<div class="cardx">
+<h5>Contexto</h5>
+
+<select id="contextTipo" class="form-control mb-2">
+<option>Tipo de situação</option>
+<option>Rotina Doméstica</option>
+<option>Evento Externo</option>
+<option>Viagem</option>
+</select>
+
+<textarea id="contextDesc" placeholder="Descreva o contexto..."></textarea>
+
+<select id="contextComplex" class="form-control">
+<option>Complexidade</option>
+<option>Baixa</option>
+<option>Média</option>
+<option>Alta</option>
+</select>
+
+</div>
+</div>
+
+<!-- EIXOS -->
+<div class="col-lg-3">
+<div class="cardx">
+<h5>Eixos</h5>
+
+<div class="region-item" onclick="ORACULO.toggleBloco('terapeutico')">Terapêutico</div>
+<div class="region-item" onclick="ORACULO.toggleBloco('familiar')">Familiar</div>
+<div class="region-item" onclick="ORACULO.toggleBloco('ambiental')">Ambiental</div>
+<div class="region-item" onclick="ORACULO.toggleBloco('biologico')">Biológico</div>
+
+</div>
+</div>
+
+<!-- CONFIG -->
+<div class="col-lg-6">
+<div class="cardx" id="painel">
+<h5>Configuração</h5>
+<p>Selecione um eixo</p>
+</div>
+</div>
+
+</div>
+
+<!-- CHAT -->
+<div class="cardx">
+<h5>💬 ORÁCULO Conversacional</h5>
+<div id="chat"></div>
+<input id="input" class="form-control" placeholder="Digite..." onkeydown="if(event.key==='Enter')send()">
+</div>
+
+<!-- OUTPUT -->
+<div class="cardx">
+<h5>Plano Programático</h5>
+<button class="btn btn-main" onclick="ORACULO.exportarPP()">Gerar</button>
+<pre id="output"></pre>
+</div>
+
+<!-- FEEDBACK -->
+<div class="cardx">
+<h5>Feedback Clínico</h5>
+
+<select id="feedbackResultado" class="form-control mb-2">
+<option value="">Resultado</option>
+<option value="positivo">Positivo</option>
+<option value="neutro">Neutro</option>
+<option value="negativo">Negativo</option>
+</select>
+
+<textarea id="feedbackObs"></textarea>
+
+<button class="btn btn-main" onclick="ORACULO.salvarFeedback()">Salvar Feedback</button>
+</div>
+
+</main>
+
+<script>
+
+/* ================= DB ================= */
+
+let ORACULO_DB = {
+  historico: [],
+  aprendizado: { estrategias:{} }
+};
+
+function persistDB(){
+  localStorage.setItem("oraculo_db", JSON.stringify(ORACULO_DB));
+}
+function loadDB(){
+  const d = localStorage.getItem("oraculo_db");
+  if(d) ORACULO_DB = JSON.parse(d);
+}
+loadDB();
+
+/* ================= LEARNING ================= */
+
+const LEARNING = {
+  registrarFeedback(pp){
+    Object.keys(pp.blocos).forEach(e=>{
+      if(!ORACULO_DB.aprendizado.estrategias[e]){
+        ORACULO_DB.aprendizado.estrategias[e]={sucesso:0,falha:0,neutro:0};
+      }
+
+      ORACULO_DB.aprendizado.estrategias[e][pp.feedback.resultado]++;
+    });
+    persistDB();
+  },
+
+  score(e){
+    const d=ORACULO_DB.aprendizado.estrategias[e];
+    if(!d) return 0.5;
+    const t=d.sucesso+d.falha+d.neutro;
+    if(!t) return 0.5;
+    return (d.sucesso+(d.neutro*0.5))/t;
+  }
+};
+
+/* ================= CORE ================= */
+
+const ORACULO = {
+
+state:{blocos:{}},
+
+toggleBloco(id){
+  if(this.state.blocos[id]) delete this.state.blocos[id];
+  else this.state.blocos[id]={observar:"",ajustar:"",evitar:""};
+
+  UI.updateEixos();
+  UI.renderPainel();
+},
+
+exportarPP(){
+
+  let txt="PLANO\n\n";
+
+  Object.entries(this.state.blocos).forEach(([k,v])=>{
+    txt+=k+"\n";
+    txt+="Observar:"+v.observar+"\n";
+    txt+="Ajustar:"+v.ajustar+"\n";
+    txt+="Evitar:"+v.evitar+"\n\n";
+  });
+
+  document.getElementById("output").innerText=txt;
+
+},
+
+salvarFeedback(){
+
+  const resultado=document.getElementById("feedbackResultado").value;
+
+  const pp={
+    blocos:this.state.blocos,
+    feedback:{resultado}
+  };
+
+  ORACULO_DB.historico.push(pp);
+  LEARNING.registrarFeedback(pp);
+
+  alert("Aprendizado registrado");
+
+}
+
+};
+
+/* ================= UI ================= */
+
+const UI = {
+
+renderPainel(){
+
+  let html="";
+
+  Object.entries(ORACULO.state.blocos).forEach(([id,b])=>{
+
+    const score=LEARNING.score(id);
+
+    html+=`
+    <div class="cardx">
+      <h6>${id} (score: ${score.toFixed(2)})</h6>
+
+      <textarea placeholder="Observar"
+      oninput="ORACULO.state.blocos['${id}'].observar=this.value">${b.observar}</textarea>
+
+      <textarea placeholder="Ajustar"
+      oninput="ORACULO.state.blocos['${id}'].ajustar=this.value">${b.ajustar}</textarea>
+
+      <textarea placeholder="Evitar"
+      oninput="ORACULO.state.blocos['${id}'].evitar=this.value">${b.evitar}</textarea>
+    </div>
+    `;
+  });
+
+  document.getElementById("painel").innerHTML=html || "Selecione eixos";
+
+},
+
+updateEixos(){
+  document.querySelectorAll(".region-item").forEach(el=>el.classList.remove("active"));
+  Object.keys(ORACULO.state.blocos).forEach(id=>{
+    document.querySelectorAll(".region-item").forEach(el=>{
+      if(el.innerText.toLowerCase().includes(id)) el.classList.add("active");
+    });
+  });
+}
+
+};
+
+/* ================= CHAT ================= */
+
+function addMsg(txt,type="bot"){
+  const d=document.createElement("div");
+  d.className="msg "+type;
+  d.innerText=txt;
+  document.getElementById("chat").appendChild(d);
+}
+
+function send(){
+  const i=document.getElementById("input");
+  const t=i.value;
+  if(!t) return;
+
+  addMsg(t,"user");
+
+  if(t.includes("barulho")) ORACULO.toggleBloco("ambiental");
+  if(t.includes("família")) ORACULO.toggleBloco("familiar");
+
+  addMsg("Entendi. Podemos estruturar um plano.");
+  i.value="";
+}
+
+addMsg("Me conte o que está acontecendo.");
+
+</script>
+
+</body>
+</html>
