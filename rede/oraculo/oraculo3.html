@@ -4,197 +4,84 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>ORÁCULO | Sistema REDE</title>
+<title>ORÁCULO Conversacional</title>
 
-<link href="../assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet"/>
-<link href="../assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet"/>
-<link href="../assets/css/hub.css" rel="stylesheet"/>
+<link href="../../assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet"/>
 
 <style>
 body{ background:#f5f7fb; }
 
-.cardx{
-  background:#fff;
-  border-radius:14px;
-  padding:18px;
-  box-shadow:0 6px 18px rgba(0,0,0,.06);
-  margin-bottom:18px;
+.chat{
+  max-width:700px;
+  margin:auto;
 }
 
-.region-item{
-  padding:10px;
-  border-radius:10px;
-  cursor:pointer;
+.msg{
+  padding:12px;
+  border-radius:12px;
+  margin:8px 0;
 }
 
-.region-item.active{
+.bot{
+  background:#e0e7ff;
+}
+
+.user{
   background:#2563eb;
   color:#fff;
+  text-align:right;
 }
 
-textarea{
-  width:100%;
-  border-radius:10px;
-  border:1px solid #ddd;
-  padding:10px;
-  margin-bottom:10px;
+.input-area{
+  display:flex;
+  gap:8px;
+  margin-top:10px;
 }
 
-.btn-main{
-  background:#2563eb;
-  color:#fff;
-  border:none;
-}
 </style>
 </head>
 
 <body>
 
-<div id="header-container"></div>
-<div id="sidebar-container"></div>
+<div class="chat mt-4">
 
-<main class="container mt-4">
+<h3>🔮 ORÁCULO</h3>
 
-<h2>🧠 ORÁCULO</h2>
-<p class="text-muted">Suporte à decisão em contextos complexos</p>
+<div id="chat"></div>
 
-<div class="row">
-
-<!-- CONTEXTO -->
-<div class="col-lg-3">
-<div class="cardx">
-
-<h5>🅾️ Contexto</h5>
-
-<select id="contextTipo" class="form-control mb-2">
-<option value="">Tipo</option>
-<option>Evento</option>
-<option>Escola</option>
-<option>Rotina</option>
-<option>Viagem</option>
-</select>
-
-<textarea id="contextDesc" placeholder="Descreva o contexto..."></textarea>
-
-<select id="contextComplex" class="form-control">
-<option value="">Complexidade</option>
-<option>Baixa</option>
-<option>Média</option>
-<option>Alta</option>
-</select>
-
-<button class="btn btn-outline-primary btn-sm mt-2"
-onclick="UI.sugerirEixos()">Sugerir Eixos</button>
-
-</div>
-</div>
-
-<!-- EIXOS -->
-<div class="col-lg-3">
-<div class="cardx">
-
-<h5>Eixos</h5>
-
-<div class="region-item" onclick="ORACULO.toggleBloco('terapeutico')">🧠 Terapêutico</div>
-<div class="region-item" onclick="ORACULO.toggleBloco('familiar')">👨‍👩‍👦 Familiar</div>
-<div class="region-item" onclick="ORACULO.toggleBloco('ambiental')">🏠 Ambiental</div>
-<div class="region-item" onclick="ORACULO.toggleBloco('biologico')">💊 Biológico</div>
-
-</div>
-</div>
-
-<!-- PAINEL -->
-<div class="col-lg-6">
-<div class="cardx" id="painel">
-
-<h5>Configuração</h5>
-<p>Selecione um eixo</p>
-
-</div>
+<div class="input-area">
+<input id="input" class="form-control" placeholder="Digite sua resposta...">
+<button class="btn btn-primary" onclick="send()">Enviar</button>
 </div>
 
 </div>
-
-<!-- OUTPUT -->
-<div class="cardx mt-3">
-
-<h5>Plano Programático</h5>
-
-<button class="btn btn-main" onclick="ORACULO.exportarPP()">Gerar Plano</button>
-
-<pre id="output" style="margin-top:15px;"></pre>
-
-</div>
-
-</main>
 
 <script>
 
 /* =====================
-🧠 ENGINE (INTELIGÊNCIA LEVE)
+🧠 ENGINE
 ===================== */
 
 const ENGINE = {
 
-sugerirEixos(contexto){
+detectarEixos(txt){
 
-  const s = [];
+  txt = txt.toLowerCase();
+  const eixos = [];
 
-  if(contexto.includes("evento") || contexto.includes("viagem")){
-    s.push("ambiental","terapeutico");
+  if(txt.includes("barulho") || txt.includes("cheio")){
+    eixos.push("ambiental");
   }
 
-  if(contexto.includes("família") || contexto.includes("casa")){
-    s.push("familiar");
+  if(txt.includes("família") || txt.includes("mãe")){
+    eixos.push("familiar");
   }
 
-  if(contexto.includes("crise") || contexto.includes("sobrecarga")){
-    s.push("biologico","terapeutico");
+  if(txt.includes("ansiedade") || txt.includes("medo")){
+    eixos.push("terapeutico");
   }
 
-  return [...new Set(s)];
-},
-
-sugerirCampos(id){
-
-  const base = {
-
-    terapeutico:{
-      observar:"sinais de ansiedade e antecipação",
-      ajustar:"uso de previsibilidade",
-      evitar:"mudanças abruptas"
-    },
-
-    ambiental:{
-      observar:"ruído e estímulos",
-      ajustar:"organizar ambiente",
-      evitar:"sobrecarga sensorial"
-    },
-
-    familiar:{
-      observar:"padrões de comunicação",
-      ajustar:"mediação simples",
-      evitar:"excesso de cobrança"
-    },
-
-    biologico:{
-      observar:"sinais físicos",
-      ajustar:"rotina e descanso",
-      evitar:"sobrecarga contínua"
-    }
-
-  };
-
-  return base[id] || null;
-},
-
-verificarConflitos(blocos){
-
-  if(blocos.biologico && blocos.ambiental){
-    return "Ambiente pode impactar a regulação fisiológica.";
-  }
-
-  return null;
+  return [...new Set(eixos)];
 }
 
 };
@@ -203,132 +90,119 @@ verificarConflitos(blocos){
 🧠 CORE
 ===================== */
 
-const ORACULO = {
-
-state:{ blocos:{} },
-
-toggleBloco(id){
-
-  if(this.state.blocos[id]){
-    delete this.state.blocos[id];
-  } else {
-    this.state.blocos[id] = {
-      observar:"",
-      ajustar:"",
-      evitar:""
-    };
-  }
-
-  UI.updateEixos();
-  UI.renderPainel(id);
-},
-
-updateCampo(id,campo,valor){
-  this.state.blocos[id][campo] = valor;
-},
-
-gerarPP(){
-
-  let txt = "PLANO PROGRAMÁTICO\n\n";
-
-  txt += document.getElementById("contextDesc").value + "\n\n";
-
-  Object.entries(this.state.blocos).forEach(([id,b])=>{
-    txt += id.toUpperCase()+"\n";
-    txt += "Observar: "+b.observar+"\n";
-    txt += "Ajustar: "+b.ajustar+"\n";
-    txt += "Evitar: "+b.evitar+"\n\n";
-  });
-
-  const alerta = ENGINE.verificarConflitos(this.state.blocos);
-  if(alerta){
-    txt += "⚠️ ALERTA: "+alerta;
-  }
-
-  return txt;
-},
-
-exportarPP(){
-  document.getElementById("output").innerText = this.gerarPP();
-}
-
+const STATE = {
+  step:0,
+  respostas:[],
+  blocos:{}
 };
+
+const FLOW = [
+  "Me conte o que está acontecendo.",
+  "Esse contexto tem algo que pode gerar sobrecarga?",
+  "Como a pessoa costuma reagir nessas situações?",
+  "Quer estruturar um plano com base nisso?"
+];
 
 /* =====================
-🎛️ UI
+💬 CHAT
 ===================== */
 
-const UI = {
-
-renderPainel(id){
-
-  if(!ORACULO.state.blocos[id]){
-    document.getElementById("painel").innerHTML =
-      "<p>Selecione um eixo</p>";
-    return;
-  }
-
-  const b = ORACULO.state.blocos[id];
-
-  document.getElementById("painel").innerHTML = `
-    <h5>${id}</h5>
-
-    <button class="btn btn-sm btn-outline-secondary mb-2"
-    onclick="UI.sugerirCampos('${id}')">
-    Sugerir estratégia
-    </button>
-
-    <textarea oninput="ORACULO.updateCampo('${id}','observar',this.value)">${b.observar}</textarea>
-    <textarea oninput="ORACULO.updateCampo('${id}','ajustar',this.value)">${b.ajustar}</textarea>
-    <textarea oninput="ORACULO.updateCampo('${id}','evitar',this.value)">${b.evitar}</textarea>
-  `;
-},
-
-updateEixos(){
-
-  document.querySelectorAll(".region-item").forEach(el=>{
-    el.classList.remove("active");
-  });
-
-  Object.keys(ORACULO.state.blocos).forEach(id=>{
-    document.querySelector(`[onclick="ORACULO.toggleBloco('${id}')"]`)
-    ?.classList.add("active");
-  });
-},
-
-sugerirEixos(){
-
-  const desc = document.getElementById("contextDesc").value.toLowerCase();
-
-  const sugestoes = ENGINE.sugerirEixos(desc);
-
-  sugestoes.forEach(id=>{
-    if(!ORACULO.state.blocos[id]){
-      ORACULO.toggleBloco(id);
-    }
-  });
-
-},
-
-sugerirCampos(id){
-
-  const s = ENGINE.sugerirCampos(id);
-  if(!s) return;
-
-  ORACULO.state.blocos[id] = {
-    ...ORACULO.state.blocos[id],
-    ...s
-  };
-
-  UI.renderPainel(id);
+function addMsg(txt,type="bot"){
+  const div=document.createElement("div");
+  div.className="msg "+type;
+  div.innerText=txt;
+  document.getElementById("chat").appendChild(div);
+  window.scrollTo(0,document.body.scrollHeight);
 }
 
-};
+function send(){
+
+  const input=document.getElementById("input");
+  const txt=input.value;
+
+  if(!txt) return;
+
+  addMsg(txt,"user");
+  STATE.respostas.push(txt);
+
+  process(txt);
+
+  input.value="";
+}
+
+/* =====================
+🧠 PROCESSAMENTO
+===================== */
+
+function process(txt){
+
+  if(STATE.step===0){
+    addMsg(FLOW[1]);
+  }
+
+  if(STATE.step===1){
+    const eixos=ENGINE.detectarEixos(txt);
+
+    eixos.forEach(e=>{
+      STATE.blocos[e]={ observar:"", ajustar:"", evitar:"" };
+    });
+
+    addMsg("Percebo alguns eixos relevantes: "+eixos.join(", "));
+    addMsg(FLOW[2]);
+  }
+
+  if(STATE.step===2){
+    addMsg("Vamos estruturar estratégias.");
+    gerarSugestao();
+  }
+
+  if(STATE.step===3){
+    gerarPlano();
+  }
+
+  STATE.step++;
+}
+
+/* =====================
+🧩 SUGESTÕES
+===================== */
+
+function gerarSugestao(){
+
+  Object.keys(STATE.blocos).forEach(e=>{
+    STATE.blocos[e]={
+      observar:"monitorar sinais",
+      ajustar:"organizar contexto",
+      evitar:"sobrecarga"
+    };
+  });
+
+  addMsg("Estruturei uma base inicial. Podemos ajustar depois.");
+  addMsg(FLOW[3]);
+}
+
+/* =====================
+📄 PLANO
+===================== */
+
+function gerarPlano(){
+
+  let txt="PLANO PROGRAMÁTICO\n\n";
+
+  Object.entries(STATE.blocos).forEach(([k,v])=>{
+    txt+=k.toUpperCase()+"\n";
+    txt+="Observar: "+v.observar+"\n";
+    txt+="Ajustar: "+v.ajustar+"\n";
+    txt+="Evitar: "+v.evitar+"\n\n";
+  });
+
+  addMsg(txt);
+}
+
+/* INIT */
+addMsg(FLOW[0]);
 
 </script>
-
-<script src="../assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-<script src="../js/components.js"></script>
 
 </body>
 </html>
