@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>ORÁCULO V9 — Calendário Clínico</title>
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"/>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<style>
+body{
+  background:#f4f6fb;
+}
+
+.cardx{
+  background:#fff;
+  border-radius:14px;
+  padding:18px;
+  box-shadow:0 6px 18px rgba(0,0,0,.06);
+  margin-bottom:18px;
+}
+
+.metric{
+  font-size:28px;
+  font-weight:700;
+}
+
+.low{color:#0f766e;}
+.medium{color:#fbbf24;}
+.high{color:#f97316;}
+.critical{color:#ef4444;}
+
+/* calendário clínico */
+.flatpickr-day.low-day{
+  background:#0f766e !important;
+  color:#fff !important;
+  border-radius:6px;
+}
+
+.flatpickr-day.medium-day{
+  background:#fbbf24 !important;
+  color:#111 !important;
+  border-radius:6px;
+}
+
+.flatpickr-day.high-day{
+  background:#f97316 !important;
+  color:#fff !important;
+  border-radius:6px;
+}
+
+.flatpickr-day.critical-day{
+  background:#ef4444 !important;
+  color:#fff !important;
+  border-radius:6px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container mt-4">
+
+<h2>🧠 ORÁCULO V9 — Calendário Clínico Inteligente</h2>
+
+<div class="row">
+
+<div class="col-md-4">
+<div class="cardx">
+<h6>Risco Atual</h6>
+<div id="riscoAtual" class="metric">--</div>
+</div>
+</div>
+
+<div class="col-md-4">
+<div class="cardx">
+<h6>Tendência</h6>
+<div id="tendencia" class="metric">--</div>
+</div>
+</div>
+
+<div class="col-md-4">
+<div class="cardx">
+<h6>Probabilidade</h6>
+<div id="probabilidade" class="metric">--</div>
+</div>
+</div>
+
+</div>
+
+<div class="cardx">
+<h5>Registro Clínico</h5>
+
+<input id="data" type="text" class="form-control mb-2" placeholder="Selecione a data" />
+<input id="atividade" class="form-control mb-2" placeholder="Atividade" />
+
+<select id="atencao" class="form-control mb-2">
+<option>baixa</option><option>media</option><option>boa</option>
+</select>
+
+<select id="conversacao" class="form-control mb-2">
+<option>nao</option><option>pouca</option><option>presente</option>
+</select>
+
+<select id="transicoes" class="form-control mb-2">
+<option>dificeis</option><option>ok</option><option>tranquilas</option>
+</select>
+
+<button class="btn btn-primary" onclick="APP.add()">Adicionar</button>
+</div>
+
+<div class="cardx">
+<canvas id="grafico"></canvas>
+</div>
+
+<div class="cardx">
+<button class="btn btn-success" onclick="APP.sintese()">Gerar Síntese</button>
+<pre id="sintese"></pre>
+</div>
+
+</div>
+
+<script>
+const STORAGE = "oraculo_v9";
+
+const ENGINE = {
+
+map(v,t){
+const m={
+  atencao:{baixa:1,media:2,boa:3},
+  conversacao:{nao:1,pouca:2,presente:3},
+  transicoes:{dificeis:1,ok:2,tranquilas:3}
+};
+return m[t][v]||0;
+},
+
+risco(d){
+let s=0;
+s+=4-this.map(d.atencao,"atencao");
+s+=4-this.map(d.conversacao,"conversacao");
+s+=4-this.map(d.transicoes,"transicoes");
+return Math.min(1, Math.max(0, s/9));
+},
+
+}
+
+const APP = {
+
+dados: JSON.parse(localStorage.getItem(STORAGE) || "[]"),
+chart:null,
+
+save(){
+localStorage.setItem(STORAGE, JSON.stringify(this.dados));
+},
+
+add(){
+this.dados.push({
+  data: document.getElementById("data").value,
+  atividade: document.getElementById("atividade").value,
+  atencao: document.getElementById("atencao").value,
+  conversacao: document.getElementById("conversacao").value,
+  transicoes: document.getElementById("transicoes").value
+});
+
+this.save();
+this.update();
+this.refreshCalendar();
+},
+
+update(){
+this.renderChart();
+this.updateDashboard();
+},
+
+riskByDate(dateStr){
+const list = this.dados.filter(d => d.data === dateStr);
+if(!list.length) return null;
+return list.reduce((a,b)=>a+ENGINE.risco(b),0)/list.length;
+},
+
+refreshCalendar(){
+const el = document.getElementById("data");
+if(el._flatpickr) el._flatpickr.redraw();
+},
+
+renderChart(){
+const ctx=document.getElementById("grafico").getContext("2d");
+if(this.chart) this.chart.destroy();
+
+this.chart=new Chart(ctx,{type:"line",
+data:{labels:this.dados.map(d=>d.data),datasets:[{label:"Risco",data:this.dados.map(d=>ENGINE.risco(d))}]}});
+},
+
+updateDashboard(){
+if(!this.dados.length) return;
+const last=this.dados[this.dados.length-1];
+const r=ENGINE.risco(last);
+
+const el=document.getElementById("riscoAtual");
+el.innerText=(r*100).toFixed(0)+"%";
+
+},
+
+sintese(){
+const ult=this.dados.slice(-7);
+if(!ult.length){document.getElementById("sintese").innerText="Sem dados";return;}
+
+const media=ult.reduce((a,b)=>a+ENGINE.risco(b),0)/ult.length;
+
+let txt=`RISCO MÉDIO: ${(media*100).toFixed(1)}%\n`;
+
+if(media>0.7) txt+="ALERTA ALTO\nReduzir estímulos";
+else if(media>0.4) txt+="ATENÇÃO\nAjustar ambiente";
+else txt+="ESTÁVEL";
+
+document.getElementById("sintese").innerText=txt;
+}
+
+};
+
+function getRiskByDate(dateStr){
+return APP.riskByDate(dateStr);
+}
+
+APP.update();
+
+flatpickr("#data",{
+  dateFormat:"Y-m-d",
+  allowInput:true,
+
+  onDayCreate:function(_,__,fp,dayElem){
+    const iso = dayElem.dateObj.toISOString().split("T")[0];
+    const r = APP.riskByDate(iso);
+
+    if(r===null) return;
+
+    dayElem.classList.add(
+      r<0.3 ? "low-day" :
+      r<0.6 ? "medium-day" :
+      r<0.8 ? "high-day" : "critical-day"
+    );
+  }
+});
+</script>
+
+</body>
+</html>
