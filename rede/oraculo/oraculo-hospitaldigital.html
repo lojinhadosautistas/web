@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>ORÁCULO V10 — Painel Institucional Hospitalar</title>
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"/>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<style>
+body{
+  background:#0b1220;
+  color:#e5e7eb;
+}
+
+.sidebar{
+  width:260px;
+  height:100vh;
+  position:fixed;
+  left:0;
+  top:0;
+  background:#0f172a;
+  padding:20px;
+}
+
+.main{
+  margin-left:260px;
+  padding:20px;
+}
+
+.cardx{
+  background:#111827;
+  border-radius:14px;
+  padding:16px;
+  margin-bottom:16px;
+  box-shadow:0 8px 24px rgba(0,0,0,.4);
+}
+
+.metric{
+  font-size:26px;
+  font-weight:700;
+}
+
+.badge-low{background:#0f766e;}
+.badge-medium{background:#fbbf24;color:#111;}
+.badge-high{background:#f97316;}
+.badge-critical{background:#ef4444;}
+
+.patient{
+  display:flex;
+  justify-content:space-between;
+  padding:10px;
+  border-radius:10px;
+  background:#0b1220;
+  margin-bottom:8px;
+}
+
+.alert-box{
+  padding:10px;
+  border-left:4px solid #ef4444;
+  background:#1f2937;
+  margin-bottom:10px;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="sidebar">
+<h4>🧠 ORÁCULO HOSPITAL</h4>
+<hr />
+<div>📊 Dashboard</div>
+<div>🧾 Pacientes</div>
+<div>🌡️ Risco</div>
+<div>⚠️ Alertas</div>
+</div>
+
+<div class="main">
+
+<h2>🏥 Painel Institucional — Monitor Clínico Inteligente</h2>
+
+<div class="row">
+
+<div class="col-md-3">
+<div class="cardx">
+<h6>Pacientes Ativos</h6>
+<div class="metric" id="totalPacientes">12</div>
+</div>
+</div>
+
+<div class="col-md-3">
+<div class="cardx">
+<h6>Risco Médio</h6>
+<div class="metric" id="riscoMedio">--</div>
+</div>
+</div>
+
+<div class="col-md-3">
+<div class="cardx">
+<h6>Alertas Críticos</h6>
+<div class="metric" id="alertas">--</div>
+</div>
+</div>
+
+<div class="col-md-3">
+<div class="cardx">
+<h6>Status Geral</h6>
+<div class="metric" id="statusGeral">--</div>
+</div>
+</div>
+
+</div>
+
+<div class="row">
+
+<div class="col-md-6">
+<div class="cardx">
+<h5>🧾 Lista de Pacientes</h5>
+<div id="patients"></div>
+</div>
+</div>
+
+<div class="col-md-6">
+<div class="cardx">
+<h5>⚠️ Alertas Clínicos</h5>
+<div id="alerts"></div>
+</div>
+</div>
+
+</div>
+
+<div class="cardx">
+<h5>📊 Evolução de Risco Institucional</h5>
+<canvas id="chart"></canvas>
+</div>
+
+</div>
+
+<script>
+
+const DATA = {
+patients:[
+{name:"Paciente A",risk:0.2,status:"estável"},
+{name:"Paciente B",risk:0.5,status:"atenção"},
+{name:"Paciente C",risk:0.8,status:"crítico"},
+{name:"Paciente D",risk:0.9,status:"crítico"},
+{name:"Paciente E",risk:0.3,status:"estável"},
+{name:"Paciente F",risk:0.6,status:"atenção"}
+]
+};
+
+function badge(r){
+if(r<0.3)return"badge-low";
+if(r<0.6)return"badge-medium";
+if(r<0.8)return"badge-high";
+return"badge-critical";
+}
+
+function init(){
+
+const container=document.getElementById("patients");
+const alerts=document.getElementById("alerts");
+
+let totalRisk=0;
+let critical=0;
+
+DATA.patients.forEach(p=>{
+
+totalRisk+=p.risk;
+if(p.risk>=0.8)critical++;
+
+container.innerHTML+=`
+<div class='patient'>
+<span>${p.name}</span>
+<span class='badge ${badge(p.risk)}'>${(p.risk*100).toFixed(0)}%</span>
+</div>`;
+
+if(p.risk>=0.8){
+alerts.innerHTML+=`
+<div class='alert-box'>
+⚠️ ${p.name} em estado crítico
+</div>`;
+}
+
+});
+
+const avg=totalRisk/DATA.patients.length;
+
+document.getElementById("riscoMedio").innerText=(avg*100).toFixed(0)+"%";
+document.getElementById("alertas").innerText=critical;
+
+if(avg<0.4)document.getElementById("statusGeral").innerText="ESTÁVEL";
+else if(avg<0.7)document.getElementById("statusGeral").innerText="ATENÇÃO";
+else document.getElementById("statusGeral").innerText="CRÍTICO";
+
+const ctx=document.getElementById("chart").getContext("2d");
+new Chart(ctx,{type:"line",data:{labels:DATA.patients.map(p=>p.name),datasets:[{label:"Risco",data:DATA.patients.map(p=>p.risk)}]}});
+
+}
+
+init();
+
+</script>
+
+</body>
+</html>
