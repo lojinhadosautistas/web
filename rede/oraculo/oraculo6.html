@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>ORÁCULO V6 | Sistema REDE</title>
+
+<base href="../../">
+
+<link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet"/>
+<link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet"/>
+<link href="assets/css/hub.css" rel="stylesheet"/>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<style>
+body{ background:#f5f7fb; }
+
+.cardx{
+  background:#fff;
+  border-radius:14px;
+  padding:18px;
+  box-shadow:0 6px 18px rgba(0,0,0,.06);
+  margin-bottom:18px;
+}
+
+.region-item{
+  padding:10px;
+  border-radius:10px;
+  cursor:pointer;
+}
+
+.region-item.active{
+  background:#2563eb;
+  color:#fff;
+}
+
+textarea{
+  width:100%;
+  border-radius:10px;
+  border:1px solid #ddd;
+  padding:10px;
+  font-size:13px;
+  margin-bottom:10px;
+}
+
+.btn-main{
+  background:#2563eb;
+  color:#fff;
+  border:none;
+}
+
+</style>
+</head>
+
+<body>
+
+<div id="header-container"></div>
+<div id="sidebar-container"></div>
+
+<main class="container mt-4">
+
+<h2>🧠 ORÁCULO V6</h2>
+
+<div class="row">
+
+<!-- CONTEXTO -->
+<div class="col-lg-3">
+<div class="cardx">
+
+<h5>Contexto</h5>
+
+<select id="contextTipo" class="form-control mb-2">
+<option>Rotina Doméstica</option>
+<option>Evento Externo</option>
+<option>Viagem</option>
+</select>
+
+<textarea id="contextDesc" placeholder="Descreva..."></textarea>
+
+</div>
+</div>
+
+<!-- EIXOS -->
+<div class="col-lg-3">
+<div class="cardx">
+
+<h5>Eixos</h5>
+
+<div class="region-item" onclick="ORACULO.toggleBloco('terapeutico')">Terapêutico</div>
+<div class="region-item" onclick="ORACULO.toggleBloco('familiar')">Familiar</div>
+<div class="region-item" onclick="ORACULO.toggleBloco('ambiental')">Ambiental</div>
+
+</div>
+</div>
+
+<!-- CONFIG -->
+<div class="col-lg-6">
+<div class="cardx" id="painel"></div>
+</div>
+
+</div>
+
+<!-- OUTPUT -->
+<div class="cardx">
+
+<button class="btn btn-main" onclick="ORACULO.exportarPP()">Gerar PP</button>
+
+<pre id="output"></pre>
+
+</div>
+
+<!-- REGISTRO -->
+<div class="cardx">
+
+<h5>Registro</h5>
+
+<input id="rData" placeholder="Data" class="form-control mb-2">
+<input id="rAtividade" placeholder="Atividade" class="form-control mb-2">
+
+<select id="rAtencao" class="form-control mb-2">
+<option>baixa</option><option>media</option><option>boa</option>
+</select>
+
+<select id="rConversacao" class="form-control mb-2">
+<option>nao</option><option>pouca</option><option>presente</option>
+</select>
+
+<select id="rTransicoes" class="form-control mb-2">
+<option>dificeis</option><option>ok</option><option>tranquilas</option>
+</select>
+
+<select id="rInteresse" class="form-control mb-2">
+<option>sim</option><option>nao</option>
+</select>
+
+<textarea id="rObs" placeholder="Observação"></textarea>
+
+<button class="btn btn-main" onclick="REGISTRO.add()">Adicionar</button>
+<button class="btn btn-outline-dark" onclick="REGISTRO.print()">Imprimir</button>
+
+<div id="tabelaRegistro"></div>
+
+</div>
+
+<!-- GRÁFICO -->
+<div class="cardx">
+<h5>Evolução</h5>
+<canvas id="graficoEvolucao"></canvas>
+</div>
+
+</main>
+
+<script>
+
+const ORACULO = {
+
+state:{ blocos:{} },
+
+toggleBloco(id){
+
+if(this.state.blocos[id]){
+delete this.state.blocos[id];
+}else{
+this.state.blocos[id]={ observar:"", ajustar:"", evitar:"" };
+}
+
+UI.renderPainel();
+UI.updateEixos();
+},
+
+exportarPP(){
+
+let txt="PLANO PROGRAMÁTICO\n\n";
+
+Object.entries(this.state.blocos).forEach(([k,v])=>{
+txt+=k+"\n";
+txt+="Observar:"+v.observar+"\n";
+txt+="Ajustar:"+v.ajustar+"\n";
+txt+="Evitar:"+v.evitar+"\n\n";
+});
+
+document.getElementById("output").innerText=txt;
+}
+
+};
+
+const UI={
+
+renderPainel(){
+
+let html="";
+
+Object.entries(ORACULO.state.blocos).forEach(([id,b])=>{
+html+=`
+<div class="cardx">
+<h6>${id}</h6>
+<textarea placeholder="Observar" oninput="ORACULO.state.blocos['${id}'].observar=this.value"></textarea>
+<textarea placeholder="Ajustar" oninput="ORACULO.state.blocos['${id}'].ajustar=this.value"></textarea>
+<textarea placeholder="Evitar" oninput="ORACULO.state.blocos['${id}'].evitar=this.value"></textarea>
+</div>
+`;
+});
+
+document.getElementById("painel").innerHTML=html || "Selecione um eixo";
+},
+
+updateEixos(){
+
+document.querySelectorAll(".region-item").forEach(el=>el.classList.remove("active"));
+
+Object.keys(ORACULO.state.blocos).forEach(id=>{
+document.querySelector(`[onclick="ORACULO.toggleBloco('${id}')"]`).classList.add("active");
+});
+
+}
+
+};
+
+const REGISTRO={
+
+dados:[],
+chart:null,
+
+map(v,t){
+const m={
+atencao:{baixa:1,media:2,boa:3},
+conversacao:{nao:1,pouca:2,presente:3},
+transicoes:{dificeis:1,ok:2,tranquilas:3}
+};
+return m[t][v]||0;
+},
+
+add(){
+
+const d={
+data:rData.value,
+atividade:rAtividade.value,
+atencao:rAtencao.value,
+conversacao:rConversacao.value,
+transicoes:rTransicoes.value,
+interesse:rInteresse.value,
+obs:rObs.value
+};
+
+this.dados.push(d);
+
+this.render();
+this.chartUpdate();
+},
+
+render(){
+
+let html="<table class='table'><tr><th>Data</th><th>Atividade</th><th>Atenção</th></tr>";
+
+this.dados.forEach(d=>{
+html+=`<tr><td>${d.data}</td><td>${d.atividade}</td><td>${d.atencao}</td></tr>`;
+});
+
+html+="</table>";
+
+tabelaRegistro.innerHTML=html;
+},
+
+chartUpdate(){
+
+const ctx=document.getElementById("graficoEvolucao");
+
+if(this.chart) this.chart.destroy();
+
+this.chart=new Chart(ctx,{
+type:'line',
+data:{
+labels:this.dados.map(d=>d.data),
+datasets:[
+{label:"Atenção",data:this.dados.map(d=>this.map(d.atencao,"atencao"))},
+{label:"Conversação",data:this.dados.map(d=>this.map(d.conversacao,"conversacao"))},
+{label:"Transições",data:this.dados.map(d=>this.map(d.transicoes,"transicoes"))}
+]
+}
+});
+},
+
+print(){
+window.print();
+}
+
+};
+
+</script>
+
+<script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="js/components.js"></script>
+
+</body>
+</html>
