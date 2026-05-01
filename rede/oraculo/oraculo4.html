@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>ORÁCULO | Sistema REDE</title>
+
+<link href="../../assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet"/>
+<link href="../../assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet"/>
+<link href="../../assets/css/hub.css" rel="stylesheet"/>
+
+<style>
+body{ background:#f5f7fb; }
+
+.cardx{
+  background:#fff;
+  border-radius:14px;
+  padding:18px;
+  box-shadow:0 6px 18px rgba(0,0,0,.06);
+  margin-bottom:18px;
+}
+
+.region-item{
+  padding:10px;
+  border-radius:10px;
+  cursor:pointer;
+}
+
+.region-item.active{
+  background:#2563eb;
+  color:#fff;
+}
+
+textarea{
+  width:100%;
+  border-radius:10px;
+  border:1px solid #ddd;
+  padding:10px;
+  margin-bottom:10px;
+}
+
+.btn-main{
+  background:#2563eb;
+  color:#fff;
+}
+</style>
+</head>
+
+<body>
+
+<div id="header-container"></div>
+<div id="sidebar-container"></div>
+
+<main class="container mt-4">
+
+<h2>🧠 ORÁCULO</h2>
+<p class="text-muted">PP Navegável</p>
+
+<div class="row">
+
+<!-- CONTEXTO -->
+<div class="col-lg-3">
+<div class="cardx">
+
+<h5>Contexto</h5>
+
+<select id="contextTipo" class="form-control mb-2">
+<option value="">Tipo</option>
+<option>Rotina</option>
+<option>Evento</option>
+<option>Viagem</option>
+</select>
+
+<textarea id="contextDesc"></textarea>
+
+<select id="contextComplex" class="form-control">
+<option value="">Complexidade</option>
+<option>Baixa</option>
+<option>Média</option>
+<option>Alta</option>
+</select>
+
+</div>
+</div>
+
+<!-- EIXOS -->
+<div class="col-lg-3">
+<div class="cardx">
+
+<h5>Eixos</h5>
+
+<div class="region-item" onclick="ORACULO.toggleBloco('terapeutico')">Terapêutico</div>
+<div class="region-item" onclick="ORACULO.toggleBloco('familiar')">Familiar</div>
+<div class="region-item" onclick="ORACULO.toggleBloco('ambiental')">Ambiental</div>
+<div class="region-item" onclick="ORACULO.toggleBloco('biologico')">Biológico</div>
+
+</div>
+</div>
+
+<!-- PAINEL -->
+<div class="col-lg-6">
+<div class="cardx" id="painel">
+<p>Selecione um eixo</p>
+</div>
+</div>
+
+</div>
+
+<!-- OUTPUT -->
+<div class="cardx mt-3">
+
+<button class="btn btn-main" onclick="ORACULO.exportarPP()">
+Gerar PP
+</button>
+
+<button class="btn btn-outline-dark" onclick="ORACULO.imprimirPP()">
+Gerar Relatório
+</button>
+
+<pre id="output"></pre>
+
+</div>
+
+</main>
+
+<script>
+
+const ORACULO = {
+
+state:{ blocos:{} },
+
+BLOCOS:{
+  terapeutico:{ titulo:"Eixo Terapêutico" },
+  familiar:{ titulo:"Eixo Familiar" },
+  ambiental:{ titulo:"Eixo Ambiental" },
+  biologico:{ titulo:"Eixo Biológico" }
+},
+
+toggleBloco(id){
+
+  if(this.state.blocos[id]){
+    delete this.state.blocos[id];
+  } else {
+    this.state.blocos[id]={
+      leitura:"",
+      observar:"",
+      ajustar:"",
+      evitar:"",
+      indicadores:{
+        positivo:"",
+        alerta:""
+      }
+    };
+  }
+
+  UI.updateEixos();
+  UI.renderPainel(id);
+},
+
+updateCampo(id,campo,valor){
+
+  if(campo.includes("indicadores.")){
+    const k=campo.split(".")[1];
+    this.state.blocos[id].indicadores[k]=valor;
+  } else {
+    this.state.blocos[id][campo]=valor;
+  }
+},
+
+gerarPP(){
+
+  let txt="PLANO PROGRAMÁTICO\n\n";
+
+  Object.entries(this.state.blocos).forEach(([id,b])=>{
+    txt+=id.toUpperCase()+"\n";
+    txt+="Leitura: "+b.leitura+"\n";
+    txt+="Observar: "+b.observar+"\n";
+    txt+="Ajustar: "+b.ajustar+"\n";
+    txt+="Evitar: "+b.evitar+"\n";
+    txt+="Indicadores +: "+b.indicadores.positivo+"\n";
+    txt+="Indicadores !: "+b.indicadores.alerta+"\n\n";
+  });
+
+  return txt;
+},
+
+exportarPP(){
+  document.getElementById("output").innerText=this.gerarPP();
+},
+
+imprimirPP(){
+
+let html=`
+<html>
+<head>
+<style>
+body{font-family:Arial;padding:40px;}
+h2{border-bottom:1px solid #ccc;}
+.box{background:#f5f7fb;padding:10px;margin:10px 0;}
+</style>
+</head>
+<body>
+
+<h1>PLANO PROGRAMÁTICO</h1>
+<p>Data: ${new Date().toLocaleDateString()}</p>
+`;
+
+Object.entries(this.state.blocos).forEach(([id,b])=>{
+
+html+=`
+<h2>${this.BLOCOS[id].titulo}</h2>
+
+<h4>Leitura Clínica</h4>
+<div class="box">${b.leitura}</div>
+
+<h4>Intervenção</h4>
+<div class="box">
+<b>Observar:</b><br>${b.observar}<br><br>
+<b>Ajustar:</b><br>${b.ajustar}<br><br>
+<b>Evitar:</b><br>${b.evitar}
+</div>
+
+<h4>Indicadores</h4>
+<div class="box">
+<b>Positivos:</b><br>${b.indicadores.positivo}<br><br>
+<b>Alerta:</b><br>${b.indicadores.alerta}
+</div>
+`;
+});
+
+html+=`<script>window.print()<\/script></body></html>`;
+
+const w=window.open();
+w.document.write(html);
+w.document.close();
+
+}
+
+};
+
+const UI = {
+
+renderPainel(id){
+
+if(!ORACULO.state.blocos[id]) return;
+
+const b=ORACULO.state.blocos[id];
+
+document.getElementById("painel").innerHTML=`
+<h5>${ORACULO.BLOCOS[id].titulo}</h5>
+
+<label>Leitura</label>
+<textarea oninput="ORACULO.updateCampo('${id}','leitura',this.value)">${b.leitura}</textarea>
+
+<label>Observar</label>
+<textarea oninput="ORACULO.updateCampo('${id}','observar',this.value)">${b.observar}</textarea>
+
+<label>Ajustar</label>
+<textarea oninput="ORACULO.updateCampo('${id}','ajustar',this.value)">${b.ajustar}</textarea>
+
+<label>Evitar</label>
+<textarea oninput="ORACULO.updateCampo('${id}','evitar',this.value)">${b.evitar}</textarea>
+
+<hr>
+
+<label>Indicadores Positivos</label>
+<textarea oninput="ORACULO.updateCampo('${id}','indicadores.positivo',this.value)">
+${b.indicadores.positivo}
+</textarea>
+
+<label>Indicadores Alerta</label>
+<textarea oninput="ORACULO.updateCampo('${id}','indicadores.alerta',this.value)">
+${b.indicadores.alerta}
+</textarea>
+`;
+},
+
+updateEixos(){
+
+document.querySelectorAll(".region-item").forEach(el=>el.classList.remove("active"));
+
+Object.keys(ORACULO.state.blocos).forEach(id=>{
+document.querySelector(`[onclick="ORACULO.toggleBloco('${id}')"]`)
+?.classList.add("active");
+});
+
+}
+
+};
+
+</script>
+
+<script src="../../assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="../../js/components.js"></script>
+
+</body>
+</html>
