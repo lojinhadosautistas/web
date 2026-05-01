@@ -14,12 +14,7 @@
 <!-- Frufru Calendário Flatpickr -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
 <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
-<input id="data" class="form-control">
-<script>
-flatpickr("#data", {
-  dateFormat: "Y-m-d"
-});
-</script>
+
 
 <!-- Frufru Calendário Flatpickr -->
   
@@ -84,7 +79,7 @@ font-weight:700;
 
 <h5>Registro Clínico</h5>
 
-<input type="date" id="data" class="form-control mb-2" placeholder="Data">
+<input id="data" class="form-control mb-2" placeholder="Selecione a data">
 <input id="atividade" class="form-control mb-2" placeholder="Atividade">
 
 <select id="atencao" class="form-control mb-2">
@@ -222,6 +217,19 @@ data:this.dados.map(d=>ENGINE.risco(d))
 });
 },
 
+/* =====================
+📅 CALENDÁRIO
+===================== */
+
+flatpickr("#data", {
+  dateFormat: "Y-m-d",
+  locale: "pt",
+  allowInput: true
+});
+
+  
+
+  
 updateDashboard(){
 
 if(this.dados.length===0) return;
