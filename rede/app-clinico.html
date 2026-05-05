@@ -148,6 +148,77 @@ font-weight:700;
 </div>
 
 </div>
+
+
+
+
+
+  
+  <div class="page-title mb-4">
+    <h1>DADOS</h1>
+    <p><strong>Núcleo Operacional</strong></p>
+    <div class="memo-tagline">
+      Visualização e edição de dados estruturados em tempo real.
+    </div>
+  </div>
+  <div class="row g-4">
+
+    <div class="col-lg-12">
+      <div class="module-card">
+        <i class="bi bi-table"></i>
+        <h3>Painel de Dados</h3>
+        <p>Interface conectada à base de dados do sistema.</p>
+
+        <!-- ABAS -->
+        <div class="mb-3">
+          <button class="btn btn-outline-primary btn-sm" onclick="carregarAba('Paciente')">Paciente</button>
+          <button class="btn btn-outline-primary btn-sm" onclick="carregarAba('Evolucao')">Evolução</button>
+          <button class="btn btn-outline-primary btn-sm" onclick="carregarAba('Indicadores')">Indicadores</button>
+        </div>
+
+        <!-- TABELA -->
+        <div id="tabelaSheet"><p class="text-muted">Selecione uma aba.</p></div>
+
+      </div>
+    </div>
+
+
+    <div class="col-lg-12">
+      <div class="module-card">
+        <i class="bi bi-table"></i> <h3>Painel de Dados</h3>
+        <p>1. Embed padrão (visualização com abas)</p>
+        <!-- TABELA -->
+        <div id="tabelaSheet">
+          <p class="text-muted">Selecione uma aba.</p>
+
+          <iframe src="https://docs.google.com/spreadsheets/d/e/1XvH2dBXdsex3uFvem_kqz4x0hCmCb97-__N4BXoulVA/pubhtml?widget=true&headers=false" width="100%" height="600"></iframe>
+          
+        </div>
+      </div>
+    </div>
+    
+
+    <div class="col-lg-12">
+      <div class="module-card">
+        <i class="bi bi-table"></i> <h3>Painel de Dados</h3>
+        <p>2. Embed com edição (modo "quase completo") </p>
+        <!-- TABELA -->
+        <div id="tabelaSheet">
+          <p class="text-muted">Selecione uma aba.</p>
+
+          
+          <iframe src="https://docs.google.com/spreadsheets/d/1XvH2dBXdsex3uFvem_kqz4x0hCmCb97-__N4BXoulVA/edit?usp=sharing" width="100%" height="600"></iframe>
+
+        
+        </div>
+      </div>
+    </div>
+
+    
+
+  </div>
+
+  
 </main>
 
 <script src="../assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
