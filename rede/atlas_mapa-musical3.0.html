@@ -127,65 +127,67 @@ iframe{
 
 <script>
 
+// ============================
 // MAPA
-const map = L.map('map').setView([20,0],2);
+// ============================
+
+const map = L.map('map', {
+  zoomControl: true
+}).setView([20,0],2);
 
 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{
   attribution:'&copy; OpenStreetMap'
 }).addTo(map);
 
 // ============================
-// 🎨 CLUSTER PREMIUM
+// CLUSTER (SUAVE)
 // ============================
 
 const cluster = L.markerClusterGroup({
+  showCoverageOnHover:false,
+  zoomToBoundsOnClick:true,
+  spiderfyOnMaxZoom:true,
+  disableClusteringAtZoom:6,
+  animate:true,
+  animateAddingMarkers:true,
 
   iconCreateFunction: function(cluster){
 
     const markers = cluster.getAllChildMarkers();
     const count = markers.length;
-
-    // pega até 4 bandeiras
-    const bandeiras = markers.slice(0,4).map(m => m.options.pais || "un");
-
-    const grid = bandeiras.map(b => `
-      <img src="https://flagcdn.com/w40/${b}.png">
-    `).join("");
+    const pais = markers[0].options.pais || "un";
 
     return L.divIcon({
       html: `
         <div style="
           position:relative;
-          width:52px;
-          height:52px;
-          border-radius:16px;
+          width:44px;
+          height:44px;
+          border-radius:50%;
           overflow:hidden;
-          background:white;
-          display:grid;
-          grid-template-columns:1fr 1fr;
-          grid-template-rows:1fr 1fr;
-          box-shadow:0 6px 18px rgba(0,0,0,0.25);
+          border:2px solid white;
+          box-shadow:0 4px 12px rgba(0,0,0,0.25);
         ">
-          ${grid}
+          <img src="https://flagcdn.com/w40/${pais}.png"
+               style="width:100%;height:100%;object-fit:cover;">
 
           <div style="
             position:absolute;
-            bottom:-6px;
-            right:-6px;
-            background:#111827;
+            bottom:-5px;
+            right:-5px;
+            background:linear-gradient(135deg,#6366f1,#8b5cf6);
             color:white;
             font-size:12px;
             border-radius:12px;
-            padding:3px 7px;
+            padding:2px 6px;
             font-weight:600;
-            box-shadow:0 2px 6px rgba(0,0,0,0.3);
           ">
             ${count}
           </div>
         </div>
       `,
       className:'',
-      iconSize:[52,52]
+      iconSize:[44,44]
     });
 
   }
@@ -195,7 +197,7 @@ const cluster = L.markerClusterGroup({
 map.addLayer(cluster);
 
 // ============================
-// 🎵 DADOS
+// DADOS
 // ============================
 
 const artistas = [
@@ -207,14 +209,14 @@ const artistas = [
 ];
 
 // ============================
-// 🎯 VAR
+// VAR
 // ============================
 
 let markers=[];
 let ativo=null;
 
 // ============================
-// 🎨 ÍCONE
+// ÍCONE
 // ============================
 
 function criarIcone(pais, ativo=false){
@@ -229,7 +231,6 @@ function criarIcone(pais, ativo=false){
         border:2px solid white;
         box-shadow:0 3px 10px rgba(0,0,0,0.3);
       ">
-
         <img src="https://flagcdn.com/w40/${pais}.png"
              style="width:100%;height:100%;object-fit:cover;">
 
@@ -245,7 +246,6 @@ function criarIcone(pais, ativo=false){
             animation:pulse 1.5s infinite;
           "></div>
         ` : ""}
-
       </div>
     `,
     className:'',
@@ -253,7 +253,7 @@ function criarIcone(pais, ativo=false){
   });
 }
 
-// animação global
+// animação
 const style = document.createElement("style");
 style.innerHTML = `
 @keyframes pulse{
@@ -264,7 +264,7 @@ style.innerHTML = `
 document.head.appendChild(style);
 
 // ============================
-// 🗺️ RENDER
+// RENDER
 // ============================
 
 function render(lista){
@@ -279,21 +279,10 @@ function render(lista){
       pais: a.bandeira
     });
 
-    // POPUP PREMIUM
     m.bindPopup(`
-      <div style="font-family:Inter;">
-        <b>🎤 ${a.nome}</b><br>
-        🌍 ${a.local}<br><br>
-        <button style="
-          padding:6px 10px;
-          border:none;
-          border-radius:8px;
-          background:#6366f1;
-          color:white;
-        " onclick="tocarSelecionado('${a.nome}')">
-          ▶️ Ouvir
-        </button>
-      </div>
+      <b>🎤 ${a.nome}</b><br>
+      🌍 ${a.local}<br>
+      <button onclick="tocarSelecionado('${a.nome}')">▶️ Ouvir</button>
     `);
 
     m.on("click",()=>{
@@ -310,13 +299,12 @@ function render(lista){
 render(artistas);
 
 // ============================
-// 🎧 PLAYER + HIGHLIGHT
+// PLAYER + HIGHLIGHT
 // ============================
 
 function tocar(a){
 
   document.getElementById("player").src = a.youtube;
-
   ativo = a.nome;
 
   markers.forEach(obj=>{
@@ -326,13 +314,28 @@ function tocar(a){
 
 }
 
-function tocarSelecionado(nome){
-  const artista = artistas.find(a=>a.nome===nome);
-  if(artista) tocar(artista);
+// ============================
+// FOCO INTELIGENTE
+// ============================
+
+function focarArtista(a){
+
+  // zoom progressivo suave
+  map.flyTo(a.coords, 6, {
+    duration: 1.5
+  });
+
+  setTimeout(()=>{
+    const found = markers.find(m=>m.data.nome === a.nome);
+    if(found){
+      found.marker.openPopup();
+    }
+  }, 800);
+
 }
 
 // ============================
-// 🔎 BUSCA
+// BUSCA
 // ============================
 
 const input = document.getElementById("search");
@@ -356,7 +359,7 @@ input.addEventListener("input", e=>{
     div.innerText=a.nome;
 
     div.onclick=()=>{
-      map.setView(a.coords,6);
+      focarArtista(a);
       tocar(a);
       results.innerHTML="";
     };
@@ -367,7 +370,7 @@ input.addEventListener("input", e=>{
 });
 
 // ============================
-// 📍 GEO
+// GEO
 // ============================
 
 navigator.geolocation.getCurrentPosition(pos=>{
