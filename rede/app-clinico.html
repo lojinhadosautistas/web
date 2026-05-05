@@ -209,8 +209,21 @@ Total diário: <strong id="total">0 kcal</strong>
 
       <div id="ramSummary" class="ram-summary"></div>
 
+      <i class="bi bi-table"></i>
+    <h3>Painel de Dados</h3>
+
+    <!-- Abas simuladas -->
+    <div class="mb-3">
+      <button class="btn btn-outline-primary btn-sm" onclick="carregarAba('Paciente')">Paciente</button>
+      <button class="btn btn-outline-primary btn-sm" onclick="carregarAba('Evolucao')">Evolução</button>
+      <button class="btn btn-outline-primary btn-sm" onclick="carregarAba('Indicadores')">Indicadores</button>
     </div>
+
+    <!-- Tabela dinâmica -->
+    <div id="tabelaSheet"></div>
+
   </div>
+</div>
 
 </div>
 </main>
