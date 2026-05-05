@@ -5,9 +5,19 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Mapa Musical Mobile</title>
+<title>Sistema REDE | Atlas Cognitivo - Mapa Musical</title>
 
+<link href="../assets/img/favicon.png" rel="icon">
+<link href="../assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+<link href="../assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+  
+<link rel="stylesheet" href="../assets/css/hub.css">
+<link rel="stylesheet" href="css/ram-global.css">
+
 
 <style>
 
@@ -109,6 +119,11 @@ iframe{
 </head>
 
 <body>
+  
+<div id="header-container"></div>
+<div id="sidebar-container"></div>
+
+<main class="main">
 
 <div id="map"></div>
 
@@ -143,7 +158,9 @@ iframe{
   </div>
 
 </div>
-
+  
+</main>
+  
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 
 <script>
