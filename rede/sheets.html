@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>Sistema REDE | DADOS</title>
+
+  <link href="../assets/img/favicon.png" rel="icon">
+
+  <!-- Bootstrap -->
+  <link href="../assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="../assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet" />
+
+  <!-- Font -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"/>
+
+  <!-- CSS base -->
+  <link rel="stylesheet" href="../assets/css/hub.css">
+
+  <style>
+    #tabelaSheet table {
+      font-size: 14px;
+    }
+
+    #tabelaSheet td {
+      cursor: text;
+    }
+
+    #tabelaSheet td:focus {
+      outline: 2px solid #0d6efd;
+      background: #eef5ff;
+    }
+  </style>
+</head>
+
+<body>
+
+<div id="header-container"></div>
+<div id="sidebar-container"></div>
+
+<main class="main">
+
+  <div class="page-title mb-4">
+    <h1>DADOS</h1>
+    <p><strong>Núcleo Operacional</strong></p>
+    <div class="memo-tagline">
+      Visualização e edição de dados estruturados em tempo real.
+    </div>
+  </div>
+
+  <div class="row g-4">
+
+    <div class="col-lg-12">
+      <div class="module-card">
+
+        <i class="bi bi-table"></i>
+        <h3>Painel de Dados</h3>
+
+        <p>
+          Interface conectada à base de dados do sistema.
+        </p>
+
+        <!-- ABAS -->
+        <div class="mb-3">
+          <button class="btn btn-outline-primary btn-sm" onclick="carregarAba('Paciente')">Paciente</button>
+          <button class="btn btn-outline-primary btn-sm" onclick="carregarAba('Evolucao')">Evolução</button>
+          <button class="btn btn-outline-primary btn-sm" onclick="carregarAba('Indicadores')">Indicadores</button>
+        </div>
+
+        <!-- TABELA -->
+        <div id="tabelaSheet">
+          <p class="text-muted">Selecione uma aba.</p>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+
+</main>
+
+<script src="../assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="js/components.js"></script>
+
+<script>
+const API_URL = "https://script.google.com/macros/s/XXXXX/exec"; // 🔥 coloque aqui
+
+async function carregarAba(aba) {
+  document.getElementById("tabelaSheet").innerHTML = "<p class='text-muted'>Carregando...</p>";
+
+  try {
+    const res = await fetch(`${API_URL}?aba=${aba}`);
+    const data = await res.json();
+
+    renderTabela(data, aba);
+  } catch (error) {
+    document.getElementById("tabelaSheet").innerHTML =
+      "<p class='text-danger'>Erro ao carregar dados.</p>";
+  }
+}
+
+function renderTabela(data, aba) {
+  let html = `<div class="table-responsive"><table class="table table-hover align-middle">`;
+
+  data.forEach((linha, i) => {
+    html += "<tr>";
+
+    linha.forEach((celula, j) => {
+      if (i === 0) {
+        html += `<th>${celula}</th>`;
+      } else {
+        html += `
+          <td contenteditable="true"
+              onblur="atualizarCelula('${aba}', ${i+1}, ${j+1}, this.innerText)">
+            ${celula || ""}
+          </td>
+        `;
+      }
+    });
+
+    html += "</tr>";
+  });
+
+  html += "</table></div>";
+
+  document.getElementById("tabelaSheet").innerHTML = html;
+}
+
+async function atualizarCelula(aba, linha, coluna, valor) {
+  try {
+    await fetch(API_URL, {
+      method: "POST",
+      body: JSON.stringify({
+        aba,
+        linha,
+        coluna,
+        valor
+      })
+    });
+  } catch (error) {
+    console.error("Erro ao atualizar célula");
+  }
+}
+</script>
+
+</body>
+</html>
