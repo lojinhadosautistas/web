@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Mapa Musical</title>
+
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+
+<style>
+
+body{
+  margin:0;
+  font-family: Inter, sans-serif;
+  background:#f4f6fb;
+}
+
+/* LAYOUT BASE */
+.app{
+  display:flex;
+  height:100vh;
+  width:100%;
+}
+
+/* MAPA */
+#map{
+  flex:1;
+}
+
+/* PAINEL */
+.panel{
+  width:320px;
+  background:white;
+  padding:14px;
+  display:flex;
+  flex-direction:column;
+  gap:10px;
+  box-shadow:-2px 0 10px rgba(0,0,0,0.05);
+}
+
+/* MOBILE MODE */
+@media(max-width: 768px){
+
+  .app{
+    flex-direction:column;
+  }
+
+  #map{
+    height:100vh;
+  }
+
+  .panel{
+    position:fixed;
+    bottom:0;
+    left:0;
+    right:0;
+    height:40%;
+    width:100%;
+    border-top-left-radius:16px;
+    border-top-right-radius:16px;
+    box-shadow:0 -2px 10px rgba(0,0,0,0.1);
+    overflow:auto;
+  }
+
+}
+
+/* UI */
+select, button{
+  padding:10px;
+  border-radius:10px;
+  border:none;
+  font-size:15px;
+}
+
+button{
+  background:#6366f1;
+  color:white;
+}
+
+iframe{
+  width:100%;
+  height:180px;
+  border:none;
+  border-radius:10px;
+}
+
+/* HEADER */
+.header{
+  font-weight:bold;
+  font-size:18px;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="app">
+
+  <div id="map"></div>
+
+  <div class="panel">
+    <div class="header">🎼 Mapa Musical</div>
+
+    <select id="filtro">
+      <option value="all">Todos</option>
+      <option value="icone">Ícones</option>
+    </select>
+
+    <iframe id="player"></iframe>
+
+  </div>
+
+</div>
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+<script>
+
+// MAPA
+const map = L.map('map').setView([20,0],2);
+
+L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{
+  attribution:'&copy; OpenStreetMap'
+}).addTo(map);
+
+// DADOS
+const artistas = [
+  {nome:"Michael Jackson",tipo:"icone",coords:[41.5934,-87.3464],local:"EUA",youtube:"https://www.youtube.com/embed/Zi_XLOBDo_Y"},
+  {nome:"Freddie Mercury",tipo:"icone",coords:[-6.1659,39.1979],local:"Tanzânia",youtube:"https://www.youtube.com/embed/fJ9rUzIMcZQ"},
+  {nome:"Whitney Houston",tipo:"icone",coords:[40.7357,-74.1724],local:"EUA",youtube:"https://www.youtube.com/embed/3JWTaaS7LdU"},
+  {nome:"Luiz Gonzaga",tipo:"icone",coords:[-7.5113,-39.7242],local:"Brasil",youtube:"https://www.youtube.com/embed/3VYhM0p7qSg"},
+  {nome:"Chico Buarque",tipo:"icone",coords:[-22.9068,-43.1729],local:"Brasil",youtube:"https://www.youtube.com/embed/2h4C1q8g6i8"}
+];
+
+// VAR
+let markers=[];
+
+// RENDER
+function render(){
+
+  markers.forEach(m=>map.removeLayer(m));
+  markers=[];
+
+  const filtro=document.getElementById("filtro").value;
+
+  artistas.forEach(a=>{
+
+    if(filtro!=="all" && a.tipo!==filtro) return;
+
+    const m=L.circleMarker(a.coords,{
+      radius:10,
+      color:"#8b5cf6",
+      fillColor:"#8b5cf6",
+      fillOpacity:0.85
+    }).addTo(map);
+
+    m.bindPopup(`
+      <b>${a.nome}</b><br>
+      ${a.local}<br><br>
+      <button onclick="tocar('${a.youtube}')">▶️ Ouvir</button>
+    `);
+
+    // Clique direto já toca
+    m.on("click",()=>{
+      tocar(a.youtube);
+    });
+
+    markers.push(m);
+
+  });
+
+}
+
+render();
+
+// PLAYER
+function tocar(link){
+  document.getElementById("player").src = link;
+}
+
+// FILTRO
+document.getElementById("filtro").addEventListener("change",render);
+
+// GEOLOCALIZAÇÃO
+navigator.geolocation.getCurrentPosition(pos=>{
+  L.marker([pos.coords.latitude,pos.coords.longitude])
+    .addTo(map)
+    .bindPopup("📍 Você está aqui");
+});
+
+</script>
+
+</body>
+</html>
