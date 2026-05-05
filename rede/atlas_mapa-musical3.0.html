@@ -1,0 +1,252 @@
+<script>
+
+// MAPA
+const map = L.map('map').setView([20,0],2);
+
+L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{
+  attribution:'&copy; OpenStreetMap'
+}).addTo(map);
+
+// ============================
+// 🎨 CLUSTER PREMIUM
+// ============================
+
+const cluster = L.markerClusterGroup({
+
+  iconCreateFunction: function(cluster){
+
+    const markers = cluster.getAllChildMarkers();
+    const count = markers.length;
+
+    // pega até 4 bandeiras
+    const bandeiras = markers.slice(0,4).map(m => m.options.pais || "un");
+
+    const grid = bandeiras.map(b => `
+      <img src="https://flagcdn.com/w40/${b}.png">
+    `).join("");
+
+    return L.divIcon({
+      html: `
+        <div style="
+          position:relative;
+          width:52px;
+          height:52px;
+          border-radius:16px;
+          overflow:hidden;
+          background:white;
+          display:grid;
+          grid-template-columns:1fr 1fr;
+          grid-template-rows:1fr 1fr;
+          box-shadow:0 6px 18px rgba(0,0,0,0.25);
+        ">
+          ${grid}
+
+          <div style="
+            position:absolute;
+            bottom:-6px;
+            right:-6px;
+            background:#111827;
+            color:white;
+            font-size:12px;
+            border-radius:12px;
+            padding:3px 7px;
+            font-weight:600;
+            box-shadow:0 2px 6px rgba(0,0,0,0.3);
+          ">
+            ${count}
+          </div>
+        </div>
+      `,
+      className:'',
+      iconSize:[52,52]
+    });
+
+  }
+
+});
+
+map.addLayer(cluster);
+
+// ============================
+// 🎵 DADOS
+// ============================
+
+const artistas = [
+  {nome:"Michael Jackson",coords:[41.5934,-87.3464],youtube:"https://www.youtube.com/embed/Zi_XLOBDo_Y",bandeira:"us",local:"EUA"},
+  {nome:"Freddie Mercury",coords:[-6.1659,39.1979],youtube:"https://www.youtube.com/embed/fJ9rUzIMcZQ",bandeira:"tz",local:"Tanzânia"},
+  {nome:"Whitney Houston",coords:[40.7357,-74.1724],youtube:"https://www.youtube.com/embed/3JWTaaS7LdU",bandeira:"us",local:"EUA"},
+  {nome:"Luiz Gonzaga",coords:[-7.5113,-39.7242],youtube:"https://www.youtube.com/embed/3VYhM0p7qSg",bandeira:"br",local:"Brasil"},
+  {nome:"Chico Buarque",coords:[-22.9068,-43.1729],youtube:"https://www.youtube.com/embed/2h4C1q8g6i8",bandeira:"br",local:"Brasil"}
+];
+
+// ============================
+// 🎯 VAR
+// ============================
+
+let markers=[];
+let ativo=null;
+
+// ============================
+// 🎨 ÍCONE
+// ============================
+
+function criarIcone(pais, ativo=false){
+  return L.divIcon({
+    html:`
+      <div style="
+        position:relative;
+        width:38px;
+        height:38px;
+        border-radius:50%;
+        overflow:hidden;
+        border:2px solid white;
+        box-shadow:0 3px 10px rgba(0,0,0,0.3);
+      ">
+
+        <img src="https://flagcdn.com/w40/${pais}.png"
+             style="width:100%;height:100%;object-fit:cover;">
+
+        ${ativo ? `
+          <div style="
+            position:absolute;
+            top:-6px;
+            left:-6px;
+            right:-6px;
+            bottom:-6px;
+            border-radius:50%;
+            border:3px solid #6366f1;
+            animation:pulse 1.5s infinite;
+          "></div>
+        ` : ""}
+
+      </div>
+    `,
+    className:'',
+    iconSize:[38,38]
+  });
+}
+
+// animação global
+const style = document.createElement("style");
+style.innerHTML = `
+@keyframes pulse{
+  0%{transform:scale(1);opacity:0.7}
+  50%{transform:scale(1.2);opacity:0.3}
+  100%{transform:scale(1);opacity:0.7}
+}`;
+document.head.appendChild(style);
+
+// ============================
+// 🗺️ RENDER
+// ============================
+
+function render(lista){
+
+  cluster.clearLayers();
+  markers=[];
+
+  lista.forEach(a=>{
+
+    const m = L.marker(a.coords,{
+      icon: criarIcone(a.bandeira,false),
+      pais: a.bandeira
+    });
+
+    // POPUP PREMIUM
+    m.bindPopup(`
+      <div style="font-family:Inter;">
+        <b>🎤 ${a.nome}</b><br>
+        🌍 ${a.local}<br><br>
+        <button style="
+          padding:6px 10px;
+          border:none;
+          border-radius:8px;
+          background:#6366f1;
+          color:white;
+        " onclick="tocarSelecionado('${a.nome}')">
+          ▶️ Ouvir
+        </button>
+      </div>
+    `);
+
+    m.on("click",()=>{
+      tocar(a);
+    });
+
+    cluster.addLayer(m);
+    markers.push({marker:m,data:a});
+
+  });
+
+}
+
+render(artistas);
+
+// ============================
+// 🎧 PLAYER + HIGHLIGHT
+// ============================
+
+function tocar(a){
+
+  document.getElementById("player").src = a.youtube;
+
+  ativo = a.nome;
+
+  markers.forEach(obj=>{
+    const isActive = obj.data.nome === ativo;
+    obj.marker.setIcon(criarIcone(obj.data.bandeira, isActive));
+  });
+
+}
+
+function tocarSelecionado(nome){
+  const artista = artistas.find(a=>a.nome===nome);
+  if(artista) tocar(artista);
+}
+
+// ============================
+// 🔎 BUSCA
+// ============================
+
+const input = document.getElementById("search");
+const results = document.getElementById("results");
+
+input.addEventListener("input", e=>{
+
+  const termo = e.target.value.toLowerCase();
+
+  const filtrados = artistas.filter(a =>
+    a.nome.toLowerCase().includes(termo)
+  );
+
+  render(filtrados);
+
+  results.innerHTML="";
+
+  filtrados.forEach(a=>{
+    const div=document.createElement("div");
+    div.className="result-item";
+    div.innerText=a.nome;
+
+    div.onclick=()=>{
+      map.setView(a.coords,6);
+      tocar(a);
+      results.innerHTML="";
+    };
+
+    results.appendChild(div);
+  });
+
+});
+
+// ============================
+// 📍 GEO
+// ============================
+
+navigator.geolocation.getCurrentPosition(pos=>{
+  L.marker([pos.coords.latitude,pos.coords.longitude])
+    .addTo(map)
+    .bindPopup("📍 Você está aqui");
+});
+
+</script>
