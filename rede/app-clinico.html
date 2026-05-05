@@ -93,67 +93,6 @@ font-weight:700;
 <div id="sidebar-container"></div>
 
 <main class="main">
-
-<div class="page-title mb-4">
-  <h1>Painel Clínico</h1>
-  <p>Visão integrada do ciclo assistencial e de atenção em saúde</p>
-</div>
-
-<div class="row g-4">
-
-  <!-- DASHBOARD -->
-  <div class="col-lg-9">
-    <div class="module-card">
-      <i class="bi bi-speedometer2"></i>
-      <h3>Status geral das RAM</h3>
-
-      <div class="row g-3" id="ramDashboard"></div>
-    </div>
-  </div>
-
-
-</div>
-  <!-- TIMELINE -->
-  <div class="col-lg-3">
-    <div class="module-card">
-      <i class="bi bi-clock-history"></i>
-      <h3>Linha evolutiva</h3>
-      <div id="ramTimeline"></div>
-    </div>
-  </div>
-
-  <!-- RESUMO -->
-  <div class="col-lg-12">
-    <div class="module-card">
-      <i class="bi bi-clipboard-data"></i>
-      <h3>Síntese clínica</h3>
-
-      <div id="ramSummary" class="ram-summary"></div>
-
-      <i class="bi bi-table"></i>
-    <h3>Painel de Dados</h3>
-
-    <!-- Abas simuladas -->
-    <div class="mb-3">
-      <button class="btn btn-outline-primary btn-sm" onclick="carregarAba('Paciente')">Paciente</button>
-      <button class="btn btn-outline-primary btn-sm" onclick="carregarAba('Evolucao')">Evolução</button>
-      <button class="btn btn-outline-primary btn-sm" onclick="carregarAba('Indicadores')">Indicadores</button>
-    </div>
-
-    <!-- Tabela dinâmica -->
-    <div id="tabelaSheet"></div>
-          <iframe src="https://docs.google.com/spreadsheets/d/e/1XvH2dBXdsex3uFvem_kqz4x0hCmCb97-__N4BXoulVA/pubhtml?widget=true&headers=false" width="100%" height="600"></iframe>
-      
-  </div>
-</div>
-
-</div>
-
-
-
-
-
-  
   <div class="page-title mb-4">
     <h1>DADOS</h1>
     <p><strong>Núcleo Operacional</strong></p>
@@ -182,20 +121,6 @@ font-weight:700;
       </div>
     </div>
 
-
-    <div class="col-lg-12">
-      <div class="module-card">
-        <i class="bi bi-table"></i> <h3>Painel de Dados</h3>
-        <p>1. Embed padrão (visualização com abas)</p>
-        <!-- TABELA -->
-        <div id="tabelaSheet">
-          <p class="text-muted">Selecione uma aba.</p>
-
-          <iframe src="https://docs.google.com/spreadsheets/d/e/1XvH2dBXdsex3uFvem_kqz4x0hCmCb97-__N4BXoulVA/pubhtml?widget=true&headers=false" width="100%" height="600"></iframe>
-          
-        </div>
-      </div>
-    </div>
     
 
     <div class="col-lg-12">
