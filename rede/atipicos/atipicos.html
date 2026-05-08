@@ -49,7 +49,24 @@
 padding-bottom:140px;
 }
 
-/* filtros */
+
+
+  /* categorias */
+
+.cat-emocional{
+border-left:4px solid #7c3aed;
+}
+
+.cat-relacoes{
+border-left:4px solid #2563eb;
+}
+
+.cat-identidade{
+border-left:4px solid #16a34a;
+}
+
+  
+/* filtros do famularium padrão */
 
 .fabularium-filters{
 display:flex;
@@ -295,7 +312,7 @@ opacity:.9;
 
 <h1 class="d-flex align-items-center gap-2">
 
-FABULARIUM
+BANDA ATÍPICOS
 
 <a href="memo.html" class="text-decoration-none">
 <i class="bi bi-house-fill"></i>
@@ -308,35 +325,62 @@ FABULARIUM
 </div>
 
 <p>
-Mais do que um simples conjunto de audiobooks, o <strong>FABULARIUM</strong>
-une imaginação, afeto e conhecimento em uma biblioteca de histórias narradas.
+A <strong>Banda ATÍPICOS</strong> é um projeto de autenticidade neurodivergente focado em música autoral.
+
+Traduzimos em registros sonoros honestos a experiência autista sem a necessidade de masking, transformando hiperfocos, emoções, desafios sociais e regulação emocional em música.
+
+Somos uma banda virtual criada para preservar conforto sensorial, autenticidade artística e expressão real.
+
+Nossas músicas são um enorme abraço musical.
 </p>
 
 <div class="fabularium-filters">
 
-<button class="filter-btn active" data-filter="all">Todos</button>
-<button class="filter-btn nerd" data-filter="cat-nerd">Mundo Nerd</button>
-<button class="filter-btn astronomia" data-filter="cat-astronomia">Astronomia</button>
-<button class="filter-btn ciencia" data-filter="cat-ciencia">Ciência</button>
+<button class="filter-btn active" data-filter="all">Todas</button>
+<button class="filter-btn nerd" data-filter="cat-emocional">Emocional</button>
+<button class="filter-btn astronomia" data-filter="cat-relacoes">Relações</button>
+<button class="filter-btn ciencia" data-filter="cat-identidade">Identidade</button>
 
 </div>
 
 <div class="fabularium-library">
 
-<!-- BATMOVEL -->
+<!-- ERA UMA VEZ -->
 
-<div class="story-item cat-nerd"
-data-audio="fabularium/audios/pixacao-do-batmovel.mp3"
-data-icon="bi-film">
+<div class="story-item cat-identidade"
+data-audio="atipicos/audios/banda-atipicos-era-uma-vez.mp3"
+data-icon="bi-music-note-beamed">
+
+<div class="story-icon icon-ciencia">
+<i class="bi bi-music-note-beamed"></i>
+</div>
+
+<div class="story-info">
+<div class="badge-cat badge-ciencia">IDENTIDADE</div>
+<div class="story-title">Era Uma Vez</div>
+<div class="story-meta">Banda ATÍPICOS</div>
+</div>
+
+<button class="play-btn">
+<i class="bi bi-play-fill"></i>
+</button>
+
+</div>
+
+<!-- GIRASSÓIS NOTURNOS -->
+
+<div class="story-item cat-emocional"
+data-audio="atipicos/audios/banda-atipicos-girassois-noturnos.mp3"
+data-icon="bi-moon-stars-fill">
 
 <div class="story-icon icon-nerd">
-<i class="bi bi-film"></i>
+<i class="bi bi-moon-stars-fill"></i>
 </div>
 
 <div class="story-info">
-<div class="badge-cat badge-nerd">MUNDO NERD</div>
-<div class="story-title">Banda Atípicos - Girassóis Noturnos</div>
-<div class="story-meta">Aventuras Nerd</div>
+<div class="badge-cat badge-nerd">EMOCIONAL</div>
+<div class="story-title">Girassóis Noturnos</div>
+<div class="story-meta">Banda ATÍPICOS</div>
 </div>
 
 <button class="play-btn">
@@ -345,20 +389,64 @@ data-icon="bi-film">
 
 </div>
 
-<!-- WEBB 1 -->
+<!-- JORNADA MUSICAL -->
 
-<div class="story-item cat-astronomia"
-data-audio="fabularium/audios/james-webb-e-as-lrd_ep01.mp3"
-data-icon="bi-moon-stars">
+<div class="story-item cat-identidade"
+data-audio="atipicos/audios/banda-atipicos-jornada-musical.mp3"
+data-icon="bi-stars">
+
+<div class="story-icon icon-ciencia">
+<i class="bi bi-stars"></i>
+</div>
+
+<div class="story-info">
+<div class="badge-cat badge-ciencia">IDENTIDADE</div>
+<div class="story-title">Jornada Musical</div>
+<div class="story-meta">Banda ATÍPICOS</div>
+</div>
+
+<button class="play-btn">
+<i class="bi bi-play-fill"></i>
+</button>
+
+</div>
+
+<!-- MINHA LIÇÃO -->
+
+<div class="story-item cat-emocional"
+data-audio="atipicos/audios/banda-atipicos-minha-licao.mp3"
+data-icon="bi-heart-fill">
+
+<div class="story-icon icon-nerd">
+<i class="bi bi-heart-fill"></i>
+</div>
+
+<div class="story-info">
+<div class="badge-cat badge-nerd">EMOCIONAL</div>
+<div class="story-title">Minha Lição</div>
+<div class="story-meta">Banda ATÍPICOS</div>
+</div>
+
+<button class="play-btn">
+<i class="bi bi-play-fill"></i>
+</button>
+
+</div>
+
+<!-- NO CAMINHO DO AMOR -->
+
+<div class="story-item cat-relacoes"
+data-audio="atipicos/audios/banda-atipicos-no-caminho-do-amor.mp3"
+data-icon="bi-arrow-through-heart-fill">
 
 <div class="story-icon icon-astronomia">
-<i class="bi bi-moon-stars"></i>
+<i class="bi bi-arrow-through-heart-fill"></i>
 </div>
 
 <div class="story-info">
-<div class="badge-cat badge-astronomia">ASTRONOMIA</div>
-<div class="story-title">Banda Atípicos - Minha Lição</div>
-<div class="story-meta">Cosmologia e Astronomia</div>
+<div class="badge-cat badge-astronomia">RELAÇÕES</div>
+<div class="story-title">No Caminho do Amor</div>
+<div class="story-meta">Banda ATÍPICOS</div>
 </div>
 
 <button class="play-btn">
@@ -367,108 +455,20 @@ data-icon="bi-moon-stars">
 
 </div>
 
-<!-- WEBB 2 -->
+<!-- QUEM É MEU AMOR -->
 
-<div class="story-item cat-astronomia"
-data-audio="fabularium/audios/james-webb-e-as-lrd_ep02.mp3"
-data-icon="bi-moon-stars">
+<div class="story-item cat-relacoes"
+data-audio="atipicos/audios/banda-atipicos-quem-e-meu-amor.mp3"
+data-icon="bi-heart">
 
 <div class="story-icon icon-astronomia">
-<i class="bi bi-moon-stars"></i>
+<i class="bi bi-heart"></i>
 </div>
 
 <div class="story-info">
-<div class="badge-cat badge-astronomia">ASTRONOMIA</div>
-<div class="story-title">Banda Atípicos - Era uma vez</div>
-<div class="story-meta">Cosmologia e Astronomia</div>
-</div>
-
-<button class="play-btn">
-<i class="bi bi-play-fill"></i>
-</button>
-
-</div>
-
-<!-- SOL -->
-
-<div class="story-item cat-ciencia"
-data-audio="fabularium/audios/missao-espacial-rumo-ao-sol_ep01.mp3"
-data-icon="bi-sun">
-
-<div class="story-icon icon-ciencia">
-<i class="bi bi-sun"></i>
-</div>
-
-<div class="story-info">
-<div class="badge-cat badge-ciencia">CIÊNCIA</div>
-<div class="story-title">Missão Espacial Rumo ao Sol</div>
-<div class="story-meta">Exploração espacial</div>
-</div>
-
-<button class="play-btn">
-<i class="bi bi-play-fill"></i>
-</button>
-
-</div>
-
-<!-- GUARANI -->
-
-<div class="story-item cat-ciencia"
-data-audio="fabularium/audios/peri-ceci_o-guarani_ep1.mp3"
-data-icon="bi-book">
-
-<div class="story-icon icon-ciencia">
-<i class="bi bi-book"></i>
-</div>
-
-<div class="story-info">
-<div class="badge-cat badge-ciencia">LITERATURA</div>
-<div class="story-title">Peri e Ceci — O Guarani</div>
-<div class="story-meta">Clássicos brasileiros</div>
-</div>
-
-<button class="play-btn">
-<i class="bi bi-play-fill"></i>
-</button>
-
-</div>
-
-<!-- YOGANANDA 1 -->
-
-<div class="story-item cat-ciencia"
-data-audio="fabularium/audios/yogananda_ep1.mp3"
-data-icon="bi-flower1">
-
-<div class="story-icon icon-ciencia">
-<i class="bi bi-flower1"></i>
-</div>
-
-<div class="story-info">
-<div class="badge-cat badge-ciencia">AUTOCONHECIMENTO</div>
-<div class="story-title">Yogananda — Episódio 1</div>
-<div class="story-meta">Espiritualidade</div>
-</div>
-
-<button class="play-btn">
-<i class="bi bi-play-fill"></i>
-</button>
-
-</div>
-
-<!-- YOGANANDA 2 -->
-
-<div class="story-item cat-ciencia"
-data-audio="fabularium/audios/yogananda_ep2.mp3"
-data-icon="bi-flower1">
-
-<div class="story-icon icon-ciencia">
-<i class="bi bi-flower1"></i>
-</div>
-
-<div class="story-info">
-<div class="badge-cat badge-ciencia">AUTOCONHECIMENTO</div>
-<div class="story-title">Yogananda — Episódio 2</div>
-<div class="story-meta">Espiritualidade</div>
+<div class="badge-cat badge-astronomia">RELAÇÕES</div>
+<div class="story-title">Quem É Meu Amor</div>
+<div class="story-meta">Banda ATÍPICOS</div>
 </div>
 
 <button class="play-btn">
@@ -480,7 +480,7 @@ data-icon="bi-flower1">
 </div>
 
 <div class="fabularium-logo-container">
-<img src="../assets/img/fabularium-logo.png" class="fabularium-logo img-fluid">
+<img src="../assets/img/atipicos-logo.png" class="fabularium-logo img-fluid">
 </div>
 
 </main>
