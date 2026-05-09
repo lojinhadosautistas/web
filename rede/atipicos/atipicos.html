@@ -295,6 +295,95 @@ margin-top:60px;
 .fabularium-logo{
 max-width:260px;
 opacity:.9;
+
+
+
+
+  /* CAPA HERO DO ÁLBUM */
+
+.album-hero{
+display:flex;
+align-items:center;
+gap:24px;
+background:#0f172a;
+padding:24px;
+border-radius:24px;
+margin:30px 0;
+color:white;
+overflow:hidden;
+box-shadow:0 12px 40px rgba(0,0,0,.18);
+}
+
+/* capa */
+
+.album-cover{
+width:260px;
+max-width:100%;
+border-radius:20px;
+object-fit:cover;
+box-shadow:0 10px 30px rgba(0,0,0,.35);
+transition:.3s;
+}
+
+.album-cover:hover{
+transform:scale(1.02);
+}
+
+/* CAPA texto */
+
+.album-info{
+flex:1;
+}
+
+.album-badge{
+display:inline-block;
+background:#f59e0b;
+color:#111827;
+font-size:12px;
+font-weight:700;
+padding:6px 10px;
+border-radius:999px;
+margin-bottom:12px;
+}
+
+.album-info h2{
+font-size:38px;
+font-weight:700;
+margin-bottom:12px;
+}
+
+.album-info p{
+font-size:16px;
+line-height:1.6;
+opacity:.9;
+max-width:600px;
+}
+
+/* CAPA RESPONSIVO MOBILE */
+
+@media(max-width:768px){
+
+.album-hero{
+flex-direction:column;
+text-align:center;
+padding:20px;
+}
+
+.album-cover{
+width:100%;
+max-width:320px;
+}
+
+.album-info h2{
+font-size:30px;
+}
+
+.album-info p{
+font-size:15px;
+}
+
+}
+  
 }
 
 </style>
@@ -309,7 +398,33 @@ opacity:.9;
 <main class="main">
 
 <div class="page-title mb-4">
+<!-- CAPA DO ÁLBUM -->
 
+<div class="album-hero">
+
+<img 
+src="../assets/img/girassois-noturnos-capa.png" 
+alt="Capa do álbum Girassóis Noturnos"
+class="album-cover"
+/>
+
+<div class="album-info">
+
+<span class="album-badge">
+NOVO ÁLBUM
+</span>
+
+<h2>Girassóis Noturnos</h2>
+
+<p>
+Canções sobre afeto, autenticidade e conexão neurodivergente.
+</p>
+
+</div>
+
+</div>
+
+  
 <h1 class="d-flex align-items-center gap-2">
 
 BANDA ATÍPICOS
