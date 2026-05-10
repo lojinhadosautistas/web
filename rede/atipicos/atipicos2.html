@@ -10,127 +10,48 @@
 
 <meta name="description" content="Um projeto de autoconexão e autenticidade Neurodivergente, focado em músicas autorais."/>
 
-  <!-- Open Graph (WhatsApp, Facebook, LinkedIn) -->
-  <meta property="og:title" content="Banda ATÍPICOS | 100% Neurodivergentes! 💙 Lojinha dos Autistas" />
-  <meta property="og:description" content="Tecnologia aplicada ao desenvolvimento humano com foco na regulação emocional, autonomia e melhoria da qualidade de vida." />
-  <meta property="og:image" content="https://www.autistas.net/assets/img/img-share-atipicos.jpg" />
-  <meta property="og:url" content="https://www.autistas.net/rede/atipicos/atipicos.html" />
-  <meta property="og:type" content="website" />
-  <meta property="og:image:width" content="1200" />
-  <meta property="og:image:height" content="630" />
+<!-- Open Graph -->
+<meta property="og:title" content="Banda ATÍPICOS | 100% Neurodivergentes! 💙 Lojinha dos Autistas" />
+<meta property="og:description" content="Tecnologia aplicada ao desenvolvimento humano com foco na regulação emocional, autonomia e melhoria da qualidade de vida." />
+<meta property="og:image" content="https://www.autistas.net/assets/img/img-share-atipicos.jpg" />
+<meta property="og:url" content="https://www.autistas.net/rede/atipicos/atipicos.html" />
+<meta property="og:type" content="website" />
 
-  <!-- Twitter Card (melhora compatibilidade geral) -->
-  <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="Lojinha dos Autistas 💙 Tecnologia com Propósito" />
-  <meta name="twitter:description" content="Tecnologia aplicada ao desenvolvimento humano com foco na regulação emocional, autonomia e melhoria da qualidade de vida." />
-  <meta name="twitter:image" content="https://www.autistas.net/assets/img/img-share-atipicos.jpg" />
-  
+<!-- Twitter -->
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="Lojinha dos Autistas 💙 Tecnologia com Propósito" />
+<meta name="twitter:description" content="Tecnologia aplicada ao desenvolvimento humano com foco na regulação emocional, autonomia e melhoria da qualidade de vida." />
+<meta name="twitter:image" content="https://www.autistas.net/assets/img/img-share-atipicos.jpg" />
+
 <base href="../">
-  
-  <!-- Favicons -->
-  <link href="../assets/img/favicon.png" rel="icon">
-  <link href="../assets/img/apple-touch-icon.png" rel="apple-touch-icon">
-  
-  <!-- Bootstrap + Icons -->
+
+<!-- Favicons -->
+<link href="../assets/img/favicon.png" rel="icon">
+<link href="../assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+
+<!-- Bootstrap -->
 <link rel="stylesheet" href="../assets/vendor/bootstrap/css/bootstrap.min.css">
 <link rel="stylesheet" href="../assets/vendor/bootstrap-icons/bootstrap-icons.css">
 
-    <!-- CSS -->
+<!-- CSS -->
 <link rel="stylesheet" href="../assets/css/hub.css">
 
-    <!-- Google Fonts -->
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<!-- Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
 <style>
 
-  /* =========================
-   LINKS DE CIFRA
+/* =========================
+   BASE
 ========================= */
-
-.story-actions{
-margin-top:10px;
-display:flex;
-gap:8px;
-flex-wrap:wrap;
-}
-
-.chord-link{
-display:inline-flex;
-align-items:center;
-gap:6px;
-
-padding:7px 13px;
-border-radius:999px;
-
-font-size:12px;
-font-weight:700;
-
-text-decoration:none;
-
-background:rgba(255,255,255,.75);
-
-backdrop-filter:blur(10px);
-
-border:1px solid rgba(148,163,184,.18);
-
-color:#334155;
-
-transition:all .25s ease;
-}
-
-.chord-link:hover{
-transform:translateY(-2px) scale(1.03);
-
-color:#fff;
-
-box-shadow:0 10px 24px rgba(15,23,42,.18);
-}
-
-/* hover contextual */
-
-.cat-emocional .chord-link:hover{
-background:#7c3aed;
-}
-
-.cat-relacoes .chord-link:hover{
-background:#2563eb;
-}
-
-.cat-identidade .chord-link:hover{
-background:#16a34a;
-}
-
-.chord-link i{
-font-size:13px;
-}
-
-/* mobile */
-
-@media(max-width:768px){
-
-.story-actions{
-justify-content:flex-start;
-}
-
-.chord-link{
-font-size:11px;
-padding:6px 11px;
-}
-
-}
-
-
-  
-
-/* espaço para player */
 
 .main{
 padding-bottom:140px;
 }
 
-
-
-  /* categorias */
+/* =========================
+   CATEGORIAS
+========================= */
 
 .cat-emocional{
 border-left:4px solid #7c3aed;
@@ -144,8 +65,9 @@ border-left:4px solid #2563eb;
 border-left:4px solid #16a34a;
 }
 
-  
-/* filtros do famularium padrão */
+/* =========================
+   FILTROS
+========================= */
 
 .fabularium-filters{
 display:flex;
@@ -162,6 +84,7 @@ font-size:13px;
 font-weight:600;
 cursor:pointer;
 background:#e5e7eb;
+transition:.25s;
 }
 
 .filter-btn.nerd{
@@ -183,7 +106,9 @@ color:#166534;
 outline:2px solid #0f172a;
 }
 
-/* biblioteca */
+/* =========================
+   LISTA
+========================= */
 
 .fabularium-library{
 display:flex;
@@ -192,7 +117,9 @@ gap:14px;
 margin-top:20px;
 }
 
-/* card */
+/* =========================
+   CARD
+========================= */
 
 .story-item{
 display:flex;
@@ -200,7 +127,7 @@ align-items:center;
 gap:16px;
 background:#fff;
 padding:14px;
-border-radius:14px;
+border-radius:16px;
 box-shadow:0 6px 18px rgba(0,0,0,.05);
 cursor:pointer;
 transition:.25s;
@@ -213,106 +140,34 @@ transform:translateY(-3px);
 box-shadow:0 10px 28px rgba(0,0,0,.08);
 }
 
-  .story-item::before{
+.story-item::before{
 content:"";
-
 position:absolute;
 top:0;
 left:-120%;
-
 width:80%;
 height:100%;
-
 background:linear-gradient(
 90deg,
 transparent,
-rgba(255,255,255,.18),
+rgba(255,255,255,.16),
 transparent
 );
-
 transition:.7s;
 }
 
 .story-item:hover::before{
 left:140%;
 }
-  
+
 .story-item.playing{
 background:#f1f5f9;
 border-left:4px solid #2563eb;
 }
 
-
 /* =========================
-   TITLE + CIFRA INLINE
+   PROGRESSO
 ========================= */
-
-.title-row{
-display:flex;
-align-items:center;
-justify-content:space-between;
-gap:10px;
-}
-
-.story-title{
-font-weight:700;
-font-size:15px;
-line-height:1.2;
-}
-
-/* botão mini */
-
-.mini-chord-link{
-width:32px;
-height:32px;
-
-border-radius:10px;
-
-display:flex;
-align-items:center;
-justify-content:center;
-
-text-decoration:none;
-
-background:rgba(255,255,255,.72);
-
-border:1px solid rgba(148,163,184,.18);
-
-color:#475569;
-
-transition:all .25s ease;
-
-flex-shrink:0;
-}
-
-.mini-chord-link:hover{
-transform:translateY(-2px) scale(1.06);
-
-color:#fff;
-}
-
-/* cores contextuais */
-
-.cat-emocional .mini-chord-link:hover{
-background:#7c3aed;
-}
-
-.cat-relacoes .mini-chord-link:hover{
-background:#2563eb;
-}
-
-.cat-identidade .mini-chord-link:hover{
-background:#16a34a;
-}
-
-.mini-chord-link i{
-font-size:14px;
-}
-
-  
-
-  
-/* progresso */
 
 .card-progress{
 position:absolute;
@@ -323,26 +178,14 @@ width:0%;
 background:#38bdf8;
 }
 
-/* categorias */
-
-.cat-nerd{
-border-left:4px solid #7c3aed;
-}
-
-.cat-astronomia{
-border-left:4px solid #2563eb;
-}
-
-.cat-ciencia{
-border-left:4px solid #16a34a;
-}
-
-/* ícones */
+/* =========================
+   ÍCONES
+========================= */
 
 .story-icon{
 width:54px;
 height:54px;
-border-radius:12px;
+border-radius:14px;
 display:flex;
 align-items:center;
 justify-content:center;
@@ -365,26 +208,22 @@ background:#dcfce7;
 color:#166534;
 }
 
-/* info */
+/* =========================
+   INFO
+========================= */
 
 .story-info{
 flex:1;
+min-width:0;
 }
-
-.story-title{
-font-weight:600;
-font-size:15px;
-}
-
-/* badge */
 
 .badge-cat{
 font-size:11px;
 padding:3px 8px;
 border-radius:6px;
 display:inline-block;
-margin-bottom:4px;
-font-weight:600;
+margin-bottom:6px;
+font-weight:700;
 }
 
 .badge-nerd{
@@ -402,12 +241,85 @@ background:#dcfce7;
 color:#166534;
 }
 
+/* =========================
+   TÍTULO + CIFRA
+========================= */
+
+.title-row{
+display:flex;
+align-items:center;
+justify-content:space-between;
+gap:10px;
+}
+
+.story-title{
+font-weight:700;
+font-size:15px;
+line-height:1.2;
+}
+
+/* botão cifra inline */
+
+.mini-chord-link{
+width:34px;
+height:34px;
+border-radius:10px;
+
+display:flex;
+align-items:center;
+justify-content:center;
+
+text-decoration:none;
+
+background:rgba(255,255,255,.85);
+
+border:1px solid rgba(148,163,184,.18);
+
+color:#475569;
+
+transition:all .25s ease;
+
+flex-shrink:0;
+position:relative;
+z-index:5;
+}
+
+.mini-chord-link:hover{
+transform:translateY(-2px) scale(1.06);
+color:#fff;
+box-shadow:0 10px 24px rgba(15,23,42,.18);
+}
+
+.cat-emocional .mini-chord-link:hover{
+background:#7c3aed;
+}
+
+.cat-relacoes .mini-chord-link:hover{
+background:#2563eb;
+}
+
+.cat-identidade .mini-chord-link:hover{
+background:#16a34a;
+}
+
+.mini-chord-link i{
+font-size:14px;
+pointer-events:none;
+}
+
+/* =========================
+   META
+========================= */
+
 .story-meta{
 font-size:13px;
 color:#64748b;
+margin-top:4px;
 }
 
-/* play */
+/* =========================
+   PLAY
+========================= */
 
 .play-btn{
 border:none;
@@ -420,9 +332,14 @@ display:flex;
 align-items:center;
 justify-content:center;
 font-size:20px;
+flex-shrink:0;
+position:relative;
+z-index:5;
 }
 
-/* player */
+/* =========================
+   PLAYER
+========================= */
 
 .audio-player{
 position:fixed;
@@ -458,7 +375,9 @@ font-size:14px;
 height:34px;
 }
 
-/* logo */
+/* =========================
+   LOGO
+========================= */
 
 .fabularium-logo-container{
 display:flex;
@@ -471,10 +390,8 @@ max-width:260px;
 opacity:.9;
 }
 
-
-
 /* =========================
-   HERO DO ÁLBUM
+   HERO
 ========================= */
 
 .album-hero{
@@ -490,8 +407,6 @@ overflow:hidden;
 box-shadow:0 10px 30px rgba(0,0,0,.12);
 }
 
-/* imagem da capa */
-
 .album-cover{
 width:180px;
 height:180px;
@@ -501,8 +416,6 @@ flex-shrink:0;
 display:block;
 box-shadow:0 8px 24px rgba(0,0,0,.25);
 }
-
-/* informações */
 
 .album-info{
 flex:1;
@@ -519,7 +432,8 @@ padding:5px 10px;
 border-radius:999px;
 margin-bottom:10px;
 }
-  .album-description{
+
+.album-description{
 color:#cbd5e1;
 }
 
@@ -546,7 +460,6 @@ margin:0;
 .album-hero{
 flex-direction:column;
 text-align:center;
-padding:18px;
 }
 
 .album-cover{
@@ -559,11 +472,15 @@ height:auto;
 font-size:24px;
 }
 
-.album-info p{
+.story-title{
 font-size:14px;
 }
 
+.mini-chord-link{
+width:32px;
+height:32px;
 }
+
 }
 
 </style>
@@ -579,29 +496,31 @@ font-size:14px;
 
 <div class="page-title mb-4">
 
-  
-  
 <h1 class="d-flex align-items-center gap-2">
 
 BANDA ATÍPICOS
 
-<a href="https://www.instagram.com/atipicos_banda/" 
-   target="_blank" 
-   rel="noopener noreferrer"
-   class="text-decoration-none" target="_blank">
+<a href="https://www.instagram.com/atipicos_banda/"
+target="_blank"
+rel="noopener noreferrer"
+class="text-decoration-none">
+
 <i class="bi bi-instagram"></i>
+
 </a>
+
 </h1>
 
 <p><strong>Artistas 100% Neurodivergentes!</strong></p>
-<!-- CAPA DO ÁLBUM -->
+
+<!-- HERO -->
 
 <div class="album-hero">
 
-<img 
-src="../assets/img/girassois-noturnos-capa.png" 
+<img
+src="../assets/img/girassois-noturnos-capa.png"
 alt="Capa do álbum Girassóis Noturnos"
-class="album-cover" img-fluid"
+class="album-cover img-fluid"
 />
 
 <div class="album-info">
@@ -613,13 +532,14 @@ NOVO ÁLBUM
 <h2>Girassóis Noturnos</h2>
 
 <p class="album-description">
-A <strong>Banda ATÍPICOS</strong> é um projeto de autenticidade neurodivergente focado em música autoral. Somos uma banda virtual criada para preservar conforto sensorial, apoiar nossa autenticidade artística e promover expressões musicais profundamente reais!
+A <strong>Banda ATÍPICOS</strong> é um projeto de autenticidade neurodivergente focado em música autoral.
 </p>
 
 </div>
 
 </div>
 
+<!-- FILTROS -->
 
 <div class="fabularium-filters">
 
@@ -630,300 +550,242 @@ A <strong>Banda ATÍPICOS</strong> é um projeto de autenticidade neurodivergent
 
 </div>
 
+<!-- LISTA -->
+
 <div class="fabularium-library">
 
-<!-- =========================
-     ERA UMA VEZ
-========================= -->
+<!-- ERA UMA VEZ -->
 
-<div 
+<div
 class="story-item cat-identidade"
 data-audio="atipicos/audios/banda-atipicos-era-uma-vez.mp3"
 data-icon="bi-music-note-beamed">
 
-  <div class="story-icon icon-ciencia">
-    <i class="bi bi-music-note-beamed"></i>
-  </div>
+<div class="story-icon icon-ciencia">
+<i class="bi bi-music-note-beamed"></i>
+</div>
 
-  <div class="story-info">
+<div class="story-info">
 
-    <div class="badge-cat badge-ciencia">
-      IDENTIDADE
-    </div>
+<div class="badge-cat badge-ciencia">
+IDENTIDADE
+</div>
 
 <div class="title-row">
 
-  <div class="story-title">
-    Era Uma Vez
-  </div>
+<div class="story-title">
+Era Uma Vez
+</div>
 
-  <a 
-  href="rede/atipicos/cifras/CIFRA-banda-atipicos-era-uma-vez.png"
-  target="_blank"
-  class="mini-chord-link">
+<a
+href="rede/atipicos/cifras/CIFRA-banda-atipicos-era-uma-vez.png"
+target="_blank"
+class="mini-chord-link"
+title="Ver cifra">
 
-    <i class="bi bi-music-note-list"></i>
+<i class="bi bi-music-note-list"></i>
 
-  </a>
+</a>
 
 </div>
 
-    <div class="story-meta">
-      Banda ATÍPICOS
-    </div>
-
-    <!-- NOVOS BOTÕES -->
-
-    <div class="story-actions">
-
-      <a 
-      href="cifras/CIFRA-banda-atipicos-era-uma-vez.png"
-      target="_blank"
-      class="chord-link">
-
-        <i class="bi bi-music-note-list"></i>
-        Ver Cifra
-
-      </a>
-
-    </div>
-
-  </div>
-
-  <button class="play-btn">
-    <i class="bi bi-play-fill"></i>
-  </button>
+<div class="story-meta">
+Banda ATÍPICOS
+</div>
 
 </div>
 
-<!-- =========================
-     GIRASSÓIS NOTURNOS
-========================= -->
+<button class="play-btn">
+<i class="bi bi-play-fill"></i>
+</button>
 
-<div 
+</div>
+
+<!-- GIRASSÓIS -->
+
+<div
 class="story-item cat-emocional"
 data-audio="atipicos/audios/banda-atipicos-girassois-noturnos.mp3"
 data-icon="bi-moon-stars-fill">
 
-  <div class="story-icon icon-nerd">
-    <i class="bi bi-moon-stars-fill"></i>
-  </div>
+<div class="story-icon icon-nerd">
+<i class="bi bi-moon-stars-fill"></i>
+</div>
 
-  <div class="story-info">
+<div class="story-info">
 
-    <div class="badge-cat badge-nerd">
-      EMOCIONAL
-    </div>
+<div class="badge-cat badge-nerd">
+EMOCIONAL
+</div>
 
-    <div class="story-title">
-      Girassóis Noturnos
-    </div>
+<div class="title-row">
 
-    <div class="story-meta">
-      Banda ATÍPICOS
-    </div>
+<div class="story-title">
+Girassóis Noturnos
+</div>
 
-    <div class="story-actions">
+<a
+href="rede/atipicos/cifras/CIFRA-banda-atipicos-girassois-noturnos.png"
+target="_blank"
+class="mini-chord-link"
+title="Ver cifra">
 
-      <a 
-      href="cifras/CIFRA-banda-atipicos-girassois-noturnos.png"
-      target="_blank"
-      class="chord-link">
+<i class="bi bi-music-note-list"></i>
 
-        <i class="bi bi-music-note-list"></i>
-        Ver Cifra
-
-      </a>
-
-    </div>
-
-  </div>
-
-  <button class="play-btn">
-    <i class="bi bi-play-fill"></i>
-  </button>
+</a>
 
 </div>
 
-<!-- =========================
-     JORNADA MUSICAL
-========================= -->
-
-<div 
-class="story-item cat-identidade"
-data-audio="atipicos/audios/banda-atipicos-jornada-musical.mp3"
-data-icon="bi-stars">
-
-  <div class="story-icon icon-ciencia">
-    <i class="bi bi-stars"></i>
-  </div>
-
-  <div class="story-info">
-
-    <div class="badge-cat badge-ciencia">
-      IDENTIDADE
-    </div>
-
-    <div class="story-title">
-      Jornada Musical
-    </div>
-
-    <div class="story-meta">
-      Banda ATÍPICOS
-    </div>
-
-  </div>
-
-  <button class="play-btn">
-    <i class="bi bi-play-fill"></i>
-  </button>
+<div class="story-meta">
+Banda ATÍPICOS
+</div>
 
 </div>
 
-<!-- =========================
-     MINHA LIÇÃO
-========================= -->
+<button class="play-btn">
+<i class="bi bi-play-fill"></i>
+</button>
 
-<div 
+</div>
+
+<!-- MINHA LIÇÃO -->
+
+<div
 class="story-item cat-emocional"
 data-audio="atipicos/audios/banda-atipicos-minha-licao.mp3"
 data-icon="bi-heart-fill">
 
-  <div class="story-icon icon-nerd">
-    <i class="bi bi-heart-fill"></i>
-  </div>
+<div class="story-icon icon-nerd">
+<i class="bi bi-heart-fill"></i>
+</div>
 
-  <div class="story-info">
+<div class="story-info">
 
-    <div class="badge-cat badge-nerd">
-      EMOCIONAL
-    </div>
+<div class="badge-cat badge-nerd">
+EMOCIONAL
+</div>
 
-    <div class="story-title">
-      Minha Lição
-    </div>
+<div class="title-row">
 
-    <div class="story-meta">
-      Banda ATÍPICOS
-    </div>
+<div class="story-title">
+Minha Lição
+</div>
 
-    <div class="story-actions">
+<a
+href="rede/atipicos/cifras/CIFRA-banda-atipicos-minha-licao.png"
+target="_blank"
+class="mini-chord-link"
+title="Ver cifra">
 
-      <a 
-      href="rede/atipicos/cifras/CIFRA-banda-atipicos-minha-licao.png"
-      target="_blank"
-      class="chord-link">
+<i class="bi bi-music-note-list"></i>
 
-        <i class="bi bi-music-note-list"></i>
-        Ver Cifra
-
-      </a>
-
-    </div>
-
-  </div>
-
-  <button class="play-btn">
-    <i class="bi bi-play-fill"></i>
-  </button>
+</a>
 
 </div>
 
-<!-- =========================
-     NO CAMINHO DO AMOR
-========================= -->
+<div class="story-meta">
+Banda ATÍPICOS
+</div>
 
-<div 
+</div>
+
+<button class="play-btn">
+<i class="bi bi-play-fill"></i>
+</button>
+
+</div>
+
+<!-- NO CAMINHO -->
+
+<div
 class="story-item cat-relacoes"
 data-audio="atipicos/audios/banda-atipicos-no-caminho-do-amor.mp3"
 data-icon="bi-arrow-through-heart-fill">
 
-  <div class="story-icon icon-astronomia">
-    <i class="bi bi-arrow-through-heart-fill"></i>
-  </div>
+<div class="story-icon icon-astronomia">
+<i class="bi bi-arrow-through-heart-fill"></i>
+</div>
 
-  <div class="story-info">
+<div class="story-info">
 
-    <div class="badge-cat badge-astronomia">
-      RELAÇÕES
-    </div>
+<div class="badge-cat badge-astronomia">
+RELAÇÕES
+</div>
 
-    <div class="story-title">
-      No Caminho do Amor
-    </div>
+<div class="title-row">
 
-    <div class="story-meta">
-      Banda ATÍPICOS
-    </div>
+<div class="story-title">
+No Caminho do Amor
+</div>
 
-    <div class="story-actions">
+<a
+href="rede/atipicos/cifras/CIFRA-banda-atipicos-no-caminho-do-amor.png"
+target="_blank"
+class="mini-chord-link"
+title="Ver cifra">
 
-      <a 
-      href="rede/atipicos/cifras/CIFRA-banda-atipicos-no-caminho-do-amor.png"
-      target="_blank"
-      class="chord-link">
+<i class="bi bi-music-note-list"></i>
 
-        <i class="bi bi-music-note-list"></i>
-        Ver Cifra
-
-      </a>
-
-    </div>
-
-  </div>
-
-  <button class="play-btn">
-    <i class="bi bi-play-fill"></i>
-  </button>
+</a>
 
 </div>
 
-<!-- =========================
-     QUEM É MEU AMOR
-========================= -->
+<div class="story-meta">
+Banda ATÍPICOS
+</div>
 
-<div 
-class="story-item cat-relacoes cat-emocional"
+</div>
+
+<button class="play-btn">
+<i class="bi bi-play-fill"></i>
+</button>
+
+</div>
+
+<!-- QUEM É MEU AMOR -->
+
+<div
+class="story-item cat-relacoes"
 data-audio="atipicos/audios/banda-atipicos-quem-e-meu-amor.mp3"
 data-icon="bi-heart">
 
-  <div class="story-icon icon-astronomia">
-    <i class="bi bi-heart"></i>
-  </div>
+<div class="story-icon icon-astronomia">
+<i class="bi bi-heart"></i>
+</div>
 
-  <div class="story-info">
+<div class="story-info">
 
-    <div class="badge-cat badge-astronomia">
-      RELAÇÕES
-    </div>
+<div class="badge-cat badge-astronomia">
+RELAÇÕES
+</div>
 
-    <div class="story-title">
-      Quem É Meu Amor
-    </div>
+<div class="title-row">
 
-    <div class="story-meta">
-      Banda ATÍPICOS
-    </div>
+<div class="story-title">
+Quem É Meu Amor
+</div>
 
-    <div class="story-actions">
+<a
+href="rede/atipicos/cifras/CIFRA-banda-atipicos-quem-e-meu-amor.png"
+target="_blank"
+class="mini-chord-link"
+title="Ver cifra">
 
-      <a 
-      href="rede/atipicos/cifras/CIFRA-banda-atipicos-quem-e-meu-amor.png"
-      target="_blank"
-      class="chord-link">
+<i class="bi bi-music-note-list"></i>
 
-        <i class="bi bi-music-note-list"></i>
-        Ver Cifra
+</a>
 
-      </a>
+</div>
 
-    </div>
+<div class="story-meta">
+Banda ATÍPICOS
+</div>
 
-  </div>
+</div>
 
-  <button class="play-btn">
-    <i class="bi bi-play-fill"></i>
-  </button>
+<button class="play-btn">
+<i class="bi bi-play-fill"></i>
+</button>
 
 </div>
 
@@ -934,6 +796,8 @@ data-icon="bi-heart">
 </div>
 
 </main>
+
+<!-- PLAYER -->
 
 <div class="audio-player">
 
@@ -971,18 +835,25 @@ const icon = document.getElementById("playerIcon");
 const nextBtn = document.getElementById("nextBtn");
 const prevBtn = document.getElementById("prevBtn");
 
-let playlist=[];
-let currentIndex=-1;
+let playlist = [];
+let currentIndex = -1;
 
 items.forEach((item,index)=>{
 
 playlist.push(item);
 
-let progress=document.createElement("div");
-progress.className="card-progress";
+let progress = document.createElement("div");
+progress.className = "card-progress";
 item.appendChild(progress);
 
-item.addEventListener("click",()=>{
+item.addEventListener("click",(e)=>{
+
+if(
+e.target.closest(".mini-chord-link") ||
+e.target.closest(".play-btn")
+){
+return;
+}
 
 currentIndex=index;
 playStory(item);
