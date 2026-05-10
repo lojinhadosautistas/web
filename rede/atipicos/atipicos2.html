@@ -242,6 +242,76 @@ background:#f1f5f9;
 border-left:4px solid #2563eb;
 }
 
+
+/* =========================
+   TITLE + CIFRA INLINE
+========================= */
+
+.title-row{
+display:flex;
+align-items:center;
+justify-content:space-between;
+gap:10px;
+}
+
+.story-title{
+font-weight:700;
+font-size:15px;
+line-height:1.2;
+}
+
+/* botão mini */
+
+.mini-chord-link{
+width:32px;
+height:32px;
+
+border-radius:10px;
+
+display:flex;
+align-items:center;
+justify-content:center;
+
+text-decoration:none;
+
+background:rgba(255,255,255,.72);
+
+border:1px solid rgba(148,163,184,.18);
+
+color:#475569;
+
+transition:all .25s ease;
+
+flex-shrink:0;
+}
+
+.mini-chord-link:hover{
+transform:translateY(-2px) scale(1.06);
+
+color:#fff;
+}
+
+/* cores contextuais */
+
+.cat-emocional .mini-chord-link:hover{
+background:#7c3aed;
+}
+
+.cat-relacoes .mini-chord-link:hover{
+background:#2563eb;
+}
+
+.cat-identidade .mini-chord-link:hover{
+background:#16a34a;
+}
+
+.mini-chord-link i{
+font-size:14px;
+}
+
+  
+
+  
 /* progresso */
 
 .card-progress{
@@ -581,9 +651,22 @@ data-icon="bi-music-note-beamed">
       IDENTIDADE
     </div>
 
-    <div class="story-title">
-      Era Uma Vez
-    </div>
+<div class="title-row">
+
+  <div class="story-title">
+    Era Uma Vez
+  </div>
+
+  <a 
+  href="rede/atipicos/cifras/CIFRA-banda-atipicos-era-uma-vez.png"
+  target="_blank"
+  class="mini-chord-link">
+
+    <i class="bi bi-music-note-list"></i>
+
+  </a>
+
+</div>
 
     <div class="story-meta">
       Banda ATÍPICOS
@@ -594,7 +677,7 @@ data-icon="bi-music-note-beamed">
     <div class="story-actions">
 
       <a 
-      href="rede/atipicos/cifras/CIFRA-banda-atipicos-era-uma-vez.png"
+      href="cifras/CIFRA-banda-atipicos-era-uma-vez.png"
       target="_blank"
       class="chord-link">
 
@@ -643,7 +726,7 @@ data-icon="bi-moon-stars-fill">
     <div class="story-actions">
 
       <a 
-      href="rede/atipicos/cifras/CIFRA-banda-atipicos-girassois-noturnos.png"
+      href="cifras/CIFRA-banda-atipicos-girassois-noturnos.png"
       target="_blank"
       class="chord-link">
 
