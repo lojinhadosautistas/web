@@ -265,6 +265,7 @@ line-height:1.2;
 .mini-chord-link{
 display:inline-flex;
 align-items:center;
+justify-content:center;
 gap:6px;
 
 padding:6px 12px;
@@ -273,7 +274,7 @@ border-radius:999px;
 
 text-decoration:none;
 
-background:rgba(255,255,255,.85);
+background:rgba(255,255,255,.88);
 
 border:1px solid rgba(148,163,184,.18);
 
@@ -281,12 +282,15 @@ color:#475569;
 
 font-size:12px;
 font-weight:700;
+line-height:1;
 
 transition:all .25s ease;
 
 flex-shrink:0;
 position:relative;
 z-index:5;
+
+white-space:nowrap;
 }
 
 .mini-chord-link:hover{
@@ -313,6 +317,11 @@ background:#16a34a;
 
 .mini-chord-link i{
 font-size:13px;
+pointer-events:none;
+}
+
+.mini-chord-link span{
+pointer-events:none;
 }
 
 /* mobile */
@@ -322,6 +331,7 @@ font-size:13px;
 .mini-chord-link{
 padding:5px 10px;
 font-size:11px;
+gap:5px;
 }
 
 }
@@ -577,7 +587,7 @@ A <strong>Banda ATÍPICOS</strong> é um projeto de autenticidade neurodivergent
 
 <div
 class="story-item cat-identidade"
-data-audio="atipicos/audios/banda-atipicos-era-uma-vez.mp3"
+data-audio="audios/banda-atipicos-era-uma-vez.mp3"
 data-icon="bi-music-note-beamed">
 
 <div class="story-icon icon-ciencia">
@@ -628,7 +638,7 @@ Banda ATÍPICOS
 
 <div
 class="story-item cat-emocional"
-data-audio="atipicos/audios/banda-atipicos-girassois-noturnos.mp3"
+data-audio="audios/banda-atipicos-girassois-noturnos.mp3"
 data-icon="bi-moon-stars-fill">
 
 <div class="story-icon icon-nerd">
@@ -648,7 +658,7 @@ Girassóis Noturnos
 </div>
 
 <a
-href="rede/atipicos/cifras/CIFRA-banda-atipicos-girassois-noturnos.png"
+href="cifras/CIFRA-banda-atipicos-girassois-noturnos.png"
 target="_blank"
 class="mini-chord-link"
 title="Ver cifra">
@@ -675,7 +685,7 @@ Banda ATÍPICOS
 
 <div
 class="story-item cat-emocional"
-data-audio="atipicos/audios/banda-atipicos-minha-licao.mp3"
+data-audio="audios/banda-atipicos-minha-licao.mp3"
 data-icon="bi-heart-fill">
 
 <div class="story-icon icon-nerd">
@@ -695,7 +705,7 @@ Minha Lição
 </div>
 
 <a
-href="rede/atipicos/cifras/CIFRA-banda-atipicos-minha-licao.png"
+href="cifras/CIFRA-banda-atipicos-minha-licao.png"
 target="_blank"
 class="mini-chord-link"
 title="Ver cifra">
@@ -722,7 +732,7 @@ Banda ATÍPICOS
 
 <div
 class="story-item cat-relacoes"
-data-audio="atipicos/audios/banda-atipicos-no-caminho-do-amor.mp3"
+data-audio="audios/banda-atipicos-no-caminho-do-amor.mp3"
 data-icon="bi-arrow-through-heart-fill">
 
 <div class="story-icon icon-astronomia">
@@ -742,7 +752,7 @@ No Caminho do Amor
 </div>
 
 <a
-href="rede/atipicos/cifras/CIFRA-banda-atipicos-no-caminho-do-amor.png"
+href="cifras/CIFRA-banda-atipicos-no-caminho-do-amor.png"
 target="_blank"
 class="mini-chord-link"
 title="Ver cifra">
@@ -769,7 +779,7 @@ Banda ATÍPICOS
 
 <div
 class="story-item cat-relacoes"
-data-audio="atipicos/audios/banda-atipicos-quem-e-meu-amor.mp3"
+data-audio="audios/banda-atipicos-quem-e-meu-amor.mp3"
 data-icon="bi-heart">
 
 <div class="story-icon icon-astronomia">
@@ -789,7 +799,7 @@ Quem É Meu Amor
 </div>
 
 <a
-href="rede/atipicos/cifras/CIFRA-banda-atipicos-quem-e-meu-amor.png"
+href="cifras/CIFRA-banda-atipicos-quem-e-meu-amor.png"
 target="_blank"
 class="mini-chord-link"
 title="Ver cifra">
@@ -869,19 +879,21 @@ let progress = document.createElement("div");
 progress.className = "card-progress";
 item.appendChild(progress);
 
-item.addEventListener("click",(e)=>{
-
-if(
-e.target.closest(".mini-chord-link") ||
-e.target.closest(".play-btn")
-){
-return;
-}
-
+const playBtn = item.querySelector(".play-btn");
+playBtn.addEventListener("click",(e)=>{
+e.stopPropagation();
 currentIndex=index;
 playStory(item);
-
 });
+
+const playBtn = item.querySelector(".play-btn");
+playBtn.addEventListener("click",(e)=>{
+e.stopPropagation();
+currentIndex=index;
+playStory(item);
+});
+
+   
 
 });
 
