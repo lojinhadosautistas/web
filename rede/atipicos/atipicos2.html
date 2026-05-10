@@ -258,16 +258,18 @@ font-size:15px;
 line-height:1.2;
 }
 
-/* botão cifra inline */
+/* =========================
+   BOTÃO INLINE CIFRA
+========================= */
 
 .mini-chord-link{
-width:34px;
-height:34px;
-border-radius:10px;
-
-display:flex;
+display:inline-flex;
 align-items:center;
-justify-content:center;
+gap:6px;
+
+padding:6px 12px;
+
+border-radius:999px;
 
 text-decoration:none;
 
@@ -277,6 +279,9 @@ border:1px solid rgba(148,163,184,.18);
 
 color:#475569;
 
+font-size:12px;
+font-weight:700;
+
 transition:all .25s ease;
 
 flex-shrink:0;
@@ -285,10 +290,14 @@ z-index:5;
 }
 
 .mini-chord-link:hover{
-transform:translateY(-2px) scale(1.06);
+transform:translateY(-2px);
+
 color:#fff;
+
 box-shadow:0 10px 24px rgba(15,23,42,.18);
 }
+
+/* hover contextual */
 
 .cat-emocional .mini-chord-link:hover{
 background:#7c3aed;
@@ -303,8 +312,18 @@ background:#16a34a;
 }
 
 .mini-chord-link i{
-font-size:14px;
-pointer-events:none;
+font-size:13px;
+}
+
+/* mobile */
+
+@media(max-width:768px){
+
+.mini-chord-link{
+padding:5px 10px;
+font-size:11px;
+}
+
 }
 
 /* =========================
