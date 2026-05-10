@@ -587,7 +587,7 @@ A <strong>Banda ATÍPICOS</strong> é um projeto de autenticidade neurodivergent
 
 <div
 class="story-item cat-identidade"
-data-audio="atipicos/audios/banda-atipicos-era-uma-vez.mp3"
+data-audio="../atipicos/audios/banda-atipicos-era-uma-vez.mp3"
 data-icon="bi-music-note-beamed">
 
 <div class="story-icon icon-ciencia">
@@ -607,7 +607,7 @@ IDENTIDADE
   </div>
 
   <a
-  href="atipicos/cifras/CIFRA-banda-atipicos-era-uma-vez.png"
+  href="../atipicos/cifras/CIFRA-banda-atipicos-era-uma-vez.png"
   target="_blank"
   class="mini-chord-link"
   title="Ver cifra">
@@ -638,7 +638,7 @@ Banda ATÍPICOS
 
 <div
 class="story-item cat-emocional"
-data-audio="atipicos/audios/banda-atipicos-girassois-noturnos.mp3"
+data-audio="../atipicos/audios/banda-atipicos-girassois-noturnos.mp3"
 data-icon="bi-moon-stars-fill">
 
 <div class="story-icon icon-nerd">
@@ -658,7 +658,7 @@ Girassóis Noturnos
 </div>
 
 <a
-href="atipicos/cifras/CIFRA-banda-atipicos-girassois-noturnos.png"
+href="../atipicos/cifras/CIFRA-banda-atipicos-girassois-noturnos.png"
 target="_blank"
 class="mini-chord-link"
 title="Ver cifra">
@@ -689,7 +689,7 @@ Banda ATÍPICOS
 
 <div
 class="story-item cat-emocional"
-data-audio="atipicos/audios/banda-atipicos-minha-licao.mp3"
+data-audio="../atipicos/audios/banda-atipicos-minha-licao.mp3"
 data-icon="bi-heart-fill">
 
 <div class="story-icon icon-nerd">
@@ -709,7 +709,7 @@ Minha Lição
 </div>
 
 <a
-href="atipicos/cifras/CIFRA-banda-atipicos-minha-licao.png"
+href="../atipicos/cifras/CIFRA-banda-atipicos-minha-licao.png"
 target="_blank"
 class="mini-chord-link"
 title="Ver cifra">
@@ -740,7 +740,7 @@ Banda ATÍPICOS
 
 <div
 class="story-item cat-relacoes"
-data-audio="atipicos/audios/banda-atipicos-no-caminho-do-amor.mp3"
+data-audio="../atipicos/audios/banda-atipicos-no-caminho-do-amor.mp3"
 data-icon="bi-arrow-through-heart-fill">
 
 <div class="story-icon icon-astronomia">
@@ -760,7 +760,7 @@ No Caminho do Amor
 </div>
 
 <a
-href="atipicos/cifras/CIFRA-banda-atipicos-no-caminho-do-amor.png"
+href="../atipicos/cifras/CIFRA-banda-atipicos-no-caminho-do-amor.png"
 target="_blank"
 class="mini-chord-link"
 title="Ver cifra">
@@ -791,7 +791,7 @@ Banda ATÍPICOS
 
 <div
 class="story-item cat-relacoes"
-data-audio="atipicos/audios/banda-atipicos-quem-e-meu-amor.mp3"
+data-audio="../atipicos/audios/banda-atipicos-quem-e-meu-amor.mp3"
 data-icon="bi-heart">
 
 <div class="story-icon icon-astronomia">
@@ -811,7 +811,7 @@ Quem É Meu Amor
 </div>
 
 <a
-href="atipicos/cifras/CIFRA-banda-atipicos-quem-e-meu-amor.png"
+href="../atipicos/cifras/CIFRA-banda-atipicos-quem-e-meu-amor.png"
 target="_blank"
 class="mini-chord-link"
 title="Ver cifra">
@@ -887,111 +887,181 @@ const prevBtn = document.getElementById("prevBtn");
 let playlist = [];
 let currentIndex = -1;
 
+/* =========================
+   MONTAR PLAYLIST
+========================= */
+
 items.forEach((item,index)=>{
 
 playlist.push(item);
+
+/* barra de progresso */
 
 let progress = document.createElement("div");
 progress.className = "card-progress";
 item.appendChild(progress);
 
-const playBtn = item.querySelector(".play-btn");
-playBtn.addEventListener("click",(e)=>{
-e.stopPropagation();
-currentIndex=index;
-playStory(item);
-});
+/* botão PLAY */
 
 const playBtn = item.querySelector(".play-btn");
+
 playBtn.addEventListener("click",(e)=>{
+
 e.stopPropagation();
-currentIndex=index;
+
+currentIndex = index;
+
 playStory(item);
-});
-
-   
 
 });
+
+});
+
+/* =========================
+   TOCAR MÚSICA
+========================= */
 
 function playStory(item){
 
-const src=item.getAttribute("data-audio");
-const storyTitle=item.querySelector(".story-title").innerText;
-const iconClass=item.getAttribute("data-icon");
+const src = item.getAttribute("data-audio");
 
-audio.src=src;
+const storyTitle = item.querySelector(".story-title").innerText;
+
+const iconClass = item.getAttribute("data-icon");
+
+/* carregar áudio */
+
+audio.src = src;
+
 audio.load();
 
-title.textContent=storyTitle;
+/* atualizar player */
 
-icon.innerHTML=`<i class="bi ${iconClass}"></i>`;
+title.textContent = storyTitle;
 
-audio.play().catch(()=>{});
+icon.innerHTML = `<i class="bi ${iconClass}"></i>`;
+
+/* tocar */
+
+audio.play().catch(err=>{
+console.log(err);
+});
+
+/* destacar card */
 
 items.forEach(el=>el.classList.remove("playing"));
+
 item.classList.add("playing");
 
 }
 
-nextBtn.onclick=()=>{
+/* =========================
+   PRÓXIMA
+========================= */
 
-if(currentIndex<playlist.length-1){
+nextBtn.onclick = ()=>{
+
+if(currentIndex < playlist.length - 1){
+
 currentIndex++;
+
 playStory(playlist[currentIndex]);
-}
 
 }
 
-prevBtn.onclick=()=>{
+}
 
-if(currentIndex>0){
+/* =========================
+   ANTERIOR
+========================= */
+
+prevBtn.onclick = ()=>{
+
+if(currentIndex > 0){
+
 currentIndex--;
+
 playStory(playlist[currentIndex]);
+
 }
 
 }
+
+/* =========================
+   AUTO NEXT
+========================= */
 
 audio.addEventListener("ended",()=>{
 
-if(currentIndex<playlist.length-1){
+if(currentIndex < playlist.length - 1){
+
 currentIndex++;
+
 playStory(playlist[currentIndex]);
+
 }
 
 });
 
+/* =========================
+   PROGRESSO
+========================= */
+
 audio.addEventListener("timeupdate",()=>{
 
-if(currentIndex===-1 || !audio.duration) return;
+if(currentIndex === -1 || !audio.duration) return;
 
-const progress=(audio.currentTime/audio.duration)*100;
-const bar=playlist[currentIndex].querySelector(".card-progress");
+const progress =
+(audio.currentTime / audio.duration) * 100;
 
-if(bar) bar.style.width=progress+"%";
+const bar =
+playlist[currentIndex].querySelector(".card-progress");
+
+if(bar){
+
+bar.style.width = progress + "%";
+
+}
 
 });
 
-/* filtros */
+/* =========================
+   FILTROS
+========================= */
 
-const filters=document.querySelectorAll(".filter-btn");
+const filters =
+document.querySelectorAll(".filter-btn");
 
 filters.forEach(btn=>{
 
-btn.onclick=()=>{
+btn.onclick = ()=>{
 
-filters.forEach(b=>b.classList.remove("active"));
+filters.forEach(b=>
+b.classList.remove("active")
+);
+
 btn.classList.add("active");
 
-const filter=btn.dataset.filter;
+const filter = btn.dataset.filter;
 
 items.forEach(item=>{
 
-if(filter==="all"){
-item.style.display="flex";
-}else if(item.classList.contains(filter)){
-item.style.display="flex";
-}else{
-item.style.display="none";
+if(filter === "all"){
+
+item.style.display = "flex";
+
+}
+
+else if(item.classList.contains(filter)){
+
+item.style.display = "flex";
+
+}
+
+else{
+
+item.style.display = "none";
+
 }
 
 });
