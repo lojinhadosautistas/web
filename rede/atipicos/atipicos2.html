@@ -43,6 +43,85 @@
 
 <style>
 
+  /* =========================
+   LINKS DE CIFRA
+========================= */
+
+.story-actions{
+margin-top:10px;
+display:flex;
+gap:8px;
+flex-wrap:wrap;
+}
+
+.chord-link{
+display:inline-flex;
+align-items:center;
+gap:6px;
+
+padding:7px 13px;
+border-radius:999px;
+
+font-size:12px;
+font-weight:700;
+
+text-decoration:none;
+
+background:rgba(255,255,255,.75);
+
+backdrop-filter:blur(10px);
+
+border:1px solid rgba(148,163,184,.18);
+
+color:#334155;
+
+transition:all .25s ease;
+}
+
+.chord-link:hover{
+transform:translateY(-2px) scale(1.03);
+
+color:#fff;
+
+box-shadow:0 10px 24px rgba(15,23,42,.18);
+}
+
+/* hover contextual */
+
+.cat-emocional .chord-link:hover{
+background:#7c3aed;
+}
+
+.cat-relacoes .chord-link:hover{
+background:#2563eb;
+}
+
+.cat-identidade .chord-link:hover{
+background:#16a34a;
+}
+
+.chord-link i{
+font-size:13px;
+}
+
+/* mobile */
+
+@media(max-width:768px){
+
+.story-actions{
+justify-content:flex-start;
+}
+
+.chord-link{
+font-size:11px;
+padding:6px 11px;
+}
+
+}
+
+
+  
+
 /* espaço para player */
 
 .main{
@@ -126,6 +205,7 @@ box-shadow:0 6px 18px rgba(0,0,0,.05);
 cursor:pointer;
 transition:.25s;
 position:relative;
+overflow:hidden;
 }
 
 .story-item:hover{
@@ -133,6 +213,30 @@ transform:translateY(-3px);
 box-shadow:0 10px 28px rgba(0,0,0,.08);
 }
 
+  .story-item::before{
+content:"";
+
+position:absolute;
+top:0;
+left:-120%;
+
+width:80%;
+height:100%;
+
+background:linear-gradient(
+90deg,
+transparent,
+rgba(255,255,255,.18),
+transparent
+);
+
+transition:.7s;
+}
+
+.story-item:hover::before{
+left:140%;
+}
+  
 .story-item.playing{
 background:#f1f5f9;
 border-left:4px solid #2563eb;
@@ -485,6 +589,22 @@ data-icon="bi-music-note-beamed">
       Banda ATÍPICOS
     </div>
 
+    <!-- NOVOS BOTÕES -->
+
+    <div class="story-actions">
+
+      <a 
+      href="rede/atipicos/cifras/CIFRA-banda-atipicos-era-uma-vez.png"
+      target="_blank"
+      class="chord-link">
+
+        <i class="bi bi-music-note-list"></i>
+        Ver Cifra
+
+      </a>
+
+    </div>
+
   </div>
 
   <button class="play-btn">
@@ -518,6 +638,20 @@ data-icon="bi-moon-stars-fill">
 
     <div class="story-meta">
       Banda ATÍPICOS
+    </div>
+
+    <div class="story-actions">
+
+      <a 
+      href="rede/atipicos/cifras/CIFRA-banda-atipicos-girassois-noturnos.png"
+      target="_blank"
+      class="chord-link">
+
+        <i class="bi bi-music-note-list"></i>
+        Ver Cifra
+
+      </a>
+
     </div>
 
   </div>
@@ -590,6 +724,20 @@ data-icon="bi-heart-fill">
       Banda ATÍPICOS
     </div>
 
+    <div class="story-actions">
+
+      <a 
+      href="rede/atipicos/cifras/CIFRA-banda-atipicos-minha-licao.png"
+      target="_blank"
+      class="chord-link">
+
+        <i class="bi bi-music-note-list"></i>
+        Ver Cifra
+
+      </a>
+
+    </div>
+
   </div>
 
   <button class="play-btn">
@@ -625,6 +773,20 @@ data-icon="bi-arrow-through-heart-fill">
       Banda ATÍPICOS
     </div>
 
+    <div class="story-actions">
+
+      <a 
+      href="rede/atipicos/cifras/CIFRA-banda-atipicos-no-caminho-do-amor.png"
+      target="_blank"
+      class="chord-link">
+
+        <i class="bi bi-music-note-list"></i>
+        Ver Cifra
+
+      </a>
+
+    </div>
+
   </div>
 
   <button class="play-btn">
@@ -658,6 +820,20 @@ data-icon="bi-heart">
 
     <div class="story-meta">
       Banda ATÍPICOS
+    </div>
+
+    <div class="story-actions">
+
+      <a 
+      href="rede/atipicos/cifras/CIFRA-banda-atipicos-quem-e-meu-amor.png"
+      target="_blank"
+      class="chord-link">
+
+        <i class="bi bi-music-note-list"></i>
+        Ver Cifra
+
+      </a>
+
     </div>
 
   </div>
