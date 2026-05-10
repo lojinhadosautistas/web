@@ -250,6 +250,8 @@ display:flex;
 align-items:center;
 justify-content:space-between;
 gap:10px;
+width:100%;
+flex-wrap:nowrap;
 }
 
 .story-title{
@@ -505,9 +507,41 @@ font-size:24px;
 font-size:14px;
 }
 
+.title-row{
+align-items:flex-start;
+gap:8px;
+}
+
 .mini-chord-link{
-width:32px;
-height:32px;
+
+display:inline-flex;
+align-items:center;
+justify-content:center;
+
+width:auto;
+height:auto;
+
+min-height:34px;
+
+padding:6px 10px;
+
+font-size:11px;
+
+gap:5px;
+
+flex-shrink:0;
+
+white-space:nowrap;
+
+}
+
+.mini-chord-link i{
+font-size:12px;
+}
+
+.story-title{
+font-size:14px;
+line-height:1.25;
 }
 
 }
