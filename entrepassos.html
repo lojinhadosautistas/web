@@ -1,0 +1,799 @@
+# entrepassos.html
+
+```html
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>Entre Passos e Afetos | Lojinha dos Autistas</title>
+
+  <meta name="description"
+    content="Entre Passos e Afetos — ciclo de diálogos com mães de autistas adultos. Um espaço online de acolhimento, escuta e fortalecimento emocional." />
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="Entre Passos e Afetos 💚" />
+  <meta property="og:description"
+    content="Compartilhar experiências, acolher histórias e fortalecer caminhos para a vida adulta." />
+  <meta property="og:image" content="https://www.autistas.net/assets/eventos/Passos-e-Afetos_2026.png" />
+  <meta property="og:url" content="https://www.autistas.net/entrepassos.html" />
+  <meta property="og:type" content="website" />
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Entre Passos e Afetos" />
+  <meta name="twitter:description"
+    content="Ciclo de diálogos com mães de autistas adultos." />
+  <meta name="twitter:image" content="https://www.autistas.net/assets/eventos/Passos-e-Afetos_2026.png" />
+
+  <!-- Favicons -->
+  <link href="assets/img/favicon.png" rel="icon">
+  <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com" rel="preconnect">
+  <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap"
+    rel="stylesheet">
+
+  <!-- Vendor CSS -->
+  <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+  <link href="assets/vendor/aos/aos.css" rel="stylesheet">
+
+  <!-- Main CSS -->
+  <link href="assets/css/main.css" rel="stylesheet">
+
+  <style>
+    body {
+      background: #f8f4ec;
+      color: #444;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    h1,
+    h2,
+    h3,
+    h4 {
+      font-family: 'Poppins', sans-serif;
+    }
+
+    .header {
+      background: rgba(248, 244, 236, 0.95);
+      backdrop-filter: blur(8px);
+    }
+
+    .sitename {
+      color: #1f3c66;
+    }
+
+    .navmenu a {
+      color: #445;
+      font-weight: 500;
+    }
+
+    .navmenu .active {
+      color: #c96d44 !important;
+    }
+
+    .btn-getstarted {
+      background: #d97a4f;
+      border-radius: 50px;
+      padding: 10px 22px;
+      color: #fff;
+      border: none;
+      transition: .3s;
+    }
+
+    .btn-getstarted:hover {
+      background: #c2643d;
+      color: #fff;
+    }
+
+    .hero-passos {
+      padding: 160px 0 100px;
+      background:
+        linear-gradient(to right, rgba(248, 244, 236, .97), rgba(248, 244, 236, .82)),
+        url('assets/eventos/Passos-e-Afetos_2026.png') center center;
+
+      background-size: cover;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-badge {
+      background: #d97a4f;
+      color: #fff;
+      display: inline-block;
+      padding: 10px 20px;
+      border-radius: 50px;
+      margin-bottom: 25px;
+      font-size: 0.95rem;
+      font-weight: 600;
+    }
+
+    .hero-passos h1 {
+      font-size: 4rem;
+      line-height: 1.05;
+      font-weight: 700;
+      color: #1f3c66;
+      margin-bottom: 25px;
+    }
+
+    .hero-passos h1 span {
+      color: #d49a3a;
+    }
+
+    .hero-passos p {
+      font-size: 1.2rem;
+      line-height: 1.8;
+      color: #556b4f;
+      max-width: 650px;
+    }
+
+    .hero-info {
+      margin-top: 35px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 18px;
+    }
+
+    .hero-info div {
+      background: rgba(255, 255, 255, .7);
+      border-radius: 18px;
+      padding: 14px 20px;
+      color: #445;
+      font-weight: 500;
+    }
+
+    .hero-info i {
+      color: #d49a3a;
+      margin-right: 8px;
+    }
+
+    .btn-passos {
+      margin-top: 40px;
+      display: inline-block;
+      background: #d97a4f;
+      color: #fff;
+      padding: 16px 34px;
+      border-radius: 50px;
+      text-decoration: none;
+      font-weight: 600;
+      transition: .3s;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+    }
+
+    .btn-passos:hover {
+      background: #c2643d;
+      transform: translateY(-3px);
+      color: #fff;
+    }
+
+    .section-soft {
+      padding: 90px 0;
+    }
+
+    .section-title-passos {
+      text-align: center;
+      margin-bottom: 60px;
+    }
+
+    .section-title-passos h2 {
+      color: #1f3c66;
+      font-size: 2.7rem;
+      margin-bottom: 20px;
+      font-weight: 700;
+    }
+
+    .section-title-passos p {
+      max-width: 800px;
+      margin: auto;
+      color: #556b4f;
+      font-size: 1.1rem;
+      line-height: 1.9;
+    }
+
+    .feature-card {
+      background: #fff;
+      border-radius: 28px;
+      padding: 40px 30px;
+      height: 100%;
+      transition: .3s;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.04);
+      text-align: center;
+    }
+
+    .feature-card:hover {
+      transform: translateY(-6px);
+    }
+
+    .feature-icon {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: auto auto 25px;
+      font-size: 2rem;
+      color: #fff;
+    }
+
+    .bg-blue {
+      background: #1f3c66;
+    }
+
+    .bg-green {
+      background: #6b7c5c;
+    }
+
+    .bg-orange {
+      background: #d97a4f;
+    }
+
+    .bg-gold {
+      background: #d49a3a;
+    }
+
+    .feature-card h4 {
+      color: #1f3c66;
+      margin-bottom: 15px;
+      font-weight: 600;
+    }
+
+    .feature-card p {
+      color: #666;
+      line-height: 1.8;
+    }
+
+    .about-box {
+      background: #fff;
+      border-radius: 35px;
+      padding: 60px;
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.04);
+    }
+
+    .about-box h2 {
+      color: #1f3c66;
+      font-size: 2.5rem;
+      margin-bottom: 25px;
+      font-weight: 700;
+    }
+
+    .about-box p {
+      line-height: 2;
+      color: #555;
+      margin-bottom: 20px;
+    }
+
+    .about-box ul {
+      list-style: none;
+      padding: 0;
+      margin-top: 30px;
+    }
+
+    .about-box li {
+      margin-bottom: 16px;
+      color: #445;
+      font-size: 1.05rem;
+    }
+
+    .about-box i {
+      color: #d49a3a;
+      margin-right: 10px;
+    }
+
+    .info-strip {
+      background: linear-gradient(135deg, #f1e8dc, #f8f4ec);
+      border-radius: 30px;
+      padding: 50px;
+      text-align: center;
+    }
+
+    .info-strip h3 {
+      color: #1f3c66;
+      margin-bottom: 15px;
+      font-size: 2rem;
+      font-weight: 700;
+    }
+
+    .info-strip p {
+      color: #556b4f;
+      font-size: 1.1rem;
+    }
+
+    .facilitadora-card {
+      background: #fff;
+      border-radius: 28px;
+      padding: 35px;
+      text-align: center;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.04);
+      height: 100%;
+    }
+
+    .facilitadora-card i {
+      font-size: 3rem;
+      color: #d97a4f;
+      margin-bottom: 20px;
+    }
+
+    .facilitadora-card h4 {
+      color: #1f3c66;
+      margin-bottom: 15px;
+    }
+
+    .facilitadora-card p {
+      color: #666;
+      line-height: 1.8;
+    }
+
+    .cta-section {
+      padding: 100px 0;
+    }
+
+    .cta-box {
+      background: linear-gradient(135deg, #fff, #f4eee5);
+      border-radius: 40px;
+      padding: 70px 50px;
+      text-align: center;
+      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.05);
+    }
+
+    .cta-box h2 {
+      color: #1f3c66;
+      font-size: 3rem;
+      margin-bottom: 20px;
+      font-weight: 700;
+    }
+
+    .cta-box p {
+      color: #556b4f;
+      font-size: 1.15rem;
+      margin-bottom: 30px;
+    }
+
+    .footer {
+      background: #1f3c66;
+      color: #fff;
+    }
+
+    .footer .sitename {
+      color: #fff;
+    }
+
+    @media (max-width: 991px) {
+      .hero-passos {
+        padding: 140px 0 80px;
+      }
+
+      .hero-passos h1 {
+        font-size: 2.8rem;
+      }
+
+      .about-box {
+        padding: 35px;
+      }
+
+      .cta-box {
+        padding: 50px 25px;
+      }
+
+      .cta-box h2 {
+        font-size: 2.2rem;
+      }
+    }
+  </style>
+
+</head>
+
+<body class="index-page">
+
+  <!-- HEADER -->
+  <header id="header" class="header d-flex align-items-center fixed-top">
+
+    <div class="container-fluid container-xl position-relative d-flex align-items-center">
+
+      <a href="index.html" class="logo d-flex align-items-center me-auto">
+        <h1 class="sitename">Lojinha dos Autistas</h1>
+      </a>
+
+      <nav id="navmenu" class="navmenu">
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="index.html#about">Sobre</a></li>
+          <li><a href="index.html#produtos">Cursos</a></li>
+          <li><a href="index.html#featured-services">Conteúdo</a></li>
+          <li><a href="#" class="active">Entre Passos e Afetos</a></li>
+          <li><a href="rede/login.html">Login</a></li>
+        </ul>
+
+        <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
+      </nav>
+
+      <a class="btn-getstarted" href="#inscricao">
+        Participar
+      </a>
+
+    </div>
+  </header>
+
+
+  <!-- HERO -->
+  <section class="hero-passos">
+
+    <div class="container">
+
+      <div class="row align-items-center">
+
+        <div class="col-lg-8" data-aos="fade-right">
+
+          <div class="hero-badge">
+            Evento online • Gratuito
+          </div>
+
+          <h1>
+            Entre <br>
+            Passos <br>
+            e <span>Afetos</span>
+          </h1>
+
+          <p>
+            Um espaço de escuta, acolhimento e troca para mães que caminham ao lado
+            de seus filhos autistas na vida adulta.
+          </p>
+
+          <div class="hero-info">
+
+            <div>
+              <i class="bi bi-calendar-event"></i>
+              20 de Maio de 2026
+            </div>
+
+            <div>
+              <i class="bi bi-clock"></i>
+              19h30
+            </div>
+
+            <div>
+              <i class="bi bi-camera-video"></i>
+              Google Meet
+            </div>
+
+          </div>
+
+          <a href="#inscricao" class="btn-passos">
+            Quero Participar
+          </a>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- SOBRE -->
+  <section class="section-soft">
+
+    <div class="container">
+
+      <div class="about-box" data-aos="fade-up">
+
+        <div class="row align-items-center gy-5">
+
+          <div class="col-lg-7">
+
+            <h2>
+              Porque cada passo importa.
+            </h2>
+
+            <p>
+              O “Entre Passos e Afetos” nasce da necessidade de criar um espaço humano,
+              seguro e acolhedor para mães que acompanham seus filhos autistas na vida adulta.
+            </p>
+
+            <p>
+              Muitas vezes, os desafios emocionais, sociais e familiares são vividos em silêncio.
+              Este encontro é um convite para compartilhar vivências reais, fortalecer vínculos
+              e construir caminhos possíveis juntas.
+            </p>
+
+            <ul>
+              <li><i class="bi bi-check-circle-fill"></i> Encontro online e gratuito</li>
+              <li><i class="bi bi-check-circle-fill"></i> Espaço acolhedor e respeitoso</li>
+              <li><i class="bi bi-check-circle-fill"></i> Troca de experiências reais</li>
+              <li><i class="bi bi-check-circle-fill"></i> Reflexões sobre cuidado e vida adulta</li>
+              <li><i class="bi bi-check-circle-fill"></i> Comunidade, apoio e pertencimento</li>
+            </ul>
+
+          </div>
+
+          <div class="col-lg-5 text-center">
+            <img src="assets/eventos/Post_Entre-PASSOS.png"
+              class="img-fluid rounded-4 shadow"
+              alt="Entre Passos e Afetos">
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- CARDS -->
+  <section class="section-soft pt-0">
+
+    <div class="container">
+
+      <div class="section-title-passos" data-aos="fade-up">
+        <h2>O que você encontrará</h2>
+
+        <p>
+          Um ambiente construído com sensibilidade, escuta e acolhimento emocional.
+        </p>
+      </div>
+
+      <div class="row gy-4">
+
+        <div class="col-lg-3 col-md-6" data-aos="zoom-in">
+          <div class="feature-card">
+
+            <div class="feature-icon bg-blue">
+              <i class="bi bi-chat-dots"></i>
+            </div>
+
+            <h4>Diálogos</h4>
+
+            <p>
+              Compartilhar experiências reais e construir pontes através da escuta.
+            </p>
+
+          </div>
+        </div>
+
+        <div class="col-lg-3 col-md-6" data-aos="zoom-in" data-aos-delay="100">
+          <div class="feature-card">
+
+            <div class="feature-icon bg-green">
+              <i class="bi bi-heart"></i>
+            </div>
+
+            <h4>Acolhimento</h4>
+
+            <p>
+              Um espaço seguro, respeitoso e humano para mães de autistas adultos.
+            </p>
+
+          </div>
+        </div>
+
+        <div class="col-lg-3 col-md-6" data-aos="zoom-in" data-aos-delay="200">
+          <div class="feature-card">
+
+            <div class="feature-icon bg-orange">
+              <i class="bi bi-lightbulb"></i>
+            </div>
+
+            <h4>Informação</h4>
+
+            <p>
+              Reflexões e caminhos possíveis sobre cuidado, bem-estar e vida adulta.
+            </p>
+
+          </div>
+        </div>
+
+        <div class="col-lg-3 col-md-6" data-aos="zoom-in" data-aos-delay="300">
+          <div class="feature-card">
+
+            <div class="feature-icon bg-gold">
+              <i class="bi bi-stars"></i>
+            </div>
+
+            <h4>Esperança</h4>
+
+            <p>
+              Fortalecer vínculos e seguir juntas com mais leveza e pertencimento.
+            </p>
+
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- INFO -->
+  <section class="section-soft pt-0">
+
+    <div class="container">
+
+      <div class="info-strip" data-aos="fade-up">
+
+        <h3>
+          Encontro Online • Gratuito
+        </h3>
+
+        <p>
+          Vagas limitadas • Acesso simples pelo Google Meet
+        </p>
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- FACILITADORAS -->
+  <section class="section-soft">
+
+    <div class="container">
+
+      <div class="section-title-passos" data-aos="fade-up">
+        <h2>Facilitadoras</h2>
+
+        <p>
+          Mulheres comprometidas com escuta, acolhimento e desenvolvimento humano.
+        </p>
+      </div>
+
+      <div class="row gy-4 justify-content-center">
+
+        <div class="col-lg-5" data-aos="fade-up">
+
+          <div class="facilitadora-card">
+
+            <i class="bi bi-person-heart"></i>
+
+            <h4>Nina Lourdes de Queiroz</h4>
+
+            <p>
+              Arteterapeuta e facilitadora de diálogos sobre desenvolvimento humano,
+              acolhimento emocional e neurodivergência.
+            </p>
+
+            <a href="https://www.instagram.com/ninaqueiroz.arteterapia/"
+              target="_blank"
+              style="color:#d97a4f; text-decoration:none; font-weight:600;">
+              <i class="bi bi-instagram"></i> Instagram
+            </a>
+
+          </div>
+
+        </div>
+
+        <div class="col-lg-5" data-aos="fade-up" data-aos-delay="100">
+
+          <div class="facilitadora-card">
+
+            <i class="bi bi-person-heart"></i>
+
+            <h4>Sylvia Helena Damasceno</h4>
+
+            <p>
+              Educadora e participante ativa em projetos de apoio, acolhimento e escuta
+              para famílias neurodivergentes.
+            </p>
+
+            <a href="https://www.instagram.com/helena_damaasceno/"
+              target="_blank"
+              style="color:#d97a4f; text-decoration:none; font-weight:600;">
+              <i class="bi bi-instagram"></i> Instagram
+            </a>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- CTA -->
+  <section id="inscricao" class="cta-section">
+
+    <div class="container">
+
+      <div class="cta-box" data-aos="zoom-in">
+
+        <h2>
+          Juntas somos mais fortes.
+        </h2>
+
+        <p>
+          Participe do encontro e faça parte desta rede de acolhimento,
+          escuta e fortalecimento emocional.
+        </p>
+
+        <a href="https://forms.gle/SEULINK"
+          target="_blank"
+          class="btn-passos">
+          Fazer inscrição
+        </a>
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- FOOTER -->
+  <footer id="footer" class="footer py-5">
+
+    <div class="container text-center">
+
+      <h3 class="sitename mb-3">
+        Lojinha dos Autistas
+      </h3>
+
+      <p>
+        Hub de inovação social e inclusão.
+      </p>
+
+      <div class="social-links d-flex justify-content-center gap-3 mt-4">
+
+        <a href="https://www.instagram.com/lojinhadosautistas"
+          target="_blank"
+          style="color:#fff; font-size:1.5rem;">
+          <i class="bi bi-instagram"></i>
+        </a>
+
+        <a href="https://www.youtube.com/channel/UCRW72C8GafilJKJT2_uwyYQ"
+          target="_blank"
+          style="color:#fff; font-size:1.5rem;">
+          <i class="bi bi-youtube"></i>
+        </a>
+
+      </div>
+
+      <div class="mt-4">
+        © 2026 Lojinha dos Autistas
+      </div>
+
+    </div>
+
+  </footer>
+
+
+  <!-- Scroll Top -->
+  <a href="#" id="scroll-top" class="scroll-top d-flex align-items-center justify-content-center">
+    <i class="bi bi-arrow-up-short"></i>
+  </a>
+
+
+  <!-- Vendor JS -->
+  <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="assets/vendor/aos/aos.js"></script>
+
+  <!-- Main JS -->
+  <script src="assets/js/main.js"></script>
+
+  <script>
+    AOS.init({
+      duration: 900,
+      once: true
+    });
+  </script>
+
+</body>
+
+</html>
+```
