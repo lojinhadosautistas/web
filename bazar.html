@@ -1,0 +1,621 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>Bazar da Natureza</title>
+
+  <meta name="description"
+    content="Videoteca natural, hortoterapia, plantas medicinais, oficinas comunitárias e cultivo afetivo." />
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="Bazar da Natureza 🌿" />
+  <meta property="og:description"
+    content="Cultivo, hortoterapia, plantas medicinais e saberes naturais." />
+  <meta property="og:image" content="assets/img/bazar-da-natureza.png" />
+  <meta property="og:type" content="website" />
+
+  <!-- Favicons -->
+  <link href="assets/img/favicon.png" rel="icon">
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+    rel="stylesheet">
+
+  <!-- Vendor CSS -->
+  <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+  <link href="assets/vendor/aos/aos.css" rel="stylesheet">
+  <link href="assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
+  <link href="assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
+
+  <!-- Main CSS -->
+  <link href="assets/css/main.css" rel="stylesheet">
+
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: #f4efe4;
+      color: #4a3b2b;
+    }
+
+    .header {
+      background: rgba(244, 239, 228, 0.95);
+      backdrop-filter: blur(10px);
+    }
+
+    .sitename {
+      color: #5c7c4f;
+      font-weight: 700;
+    }
+
+    .navmenu a {
+      color: #4a3b2b;
+    }
+
+    .btn-getstarted,
+    .btn-get-started {
+      background: #5c7c4f;
+      color: white;
+      border-radius: 40px;
+      padding: 12px 24px;
+      border: none;
+      transition: 0.3s;
+      text-decoration: none;
+    }
+
+    .btn-getstarted:hover,
+    .btn-get-started:hover {
+      background: #47613d;
+      color: white;
+    }
+
+    .hero {
+      padding-top: 140px;
+      background: #f4efe4;
+    }
+
+    .hero h1 {
+      font-size: 52px;
+      font-weight: 700;
+      color: #4a3b2b;
+    }
+
+    .hero p {
+      font-size: 20px;
+      margin: 25px 0;
+    }
+
+    .section-title h2 {
+      color: #5c7c4f;
+      font-weight: 700;
+    }
+
+    .portfolio-content {
+      background: white;
+      border-radius: 18px;
+      overflow: hidden;
+      transition: 0.3s;
+      box-shadow: 0 4px 18px rgba(0, 0, 0, 0.08);
+    }
+
+    .portfolio-content:hover {
+      transform: translateY(-6px);
+    }
+
+    .portfolio-thumb {
+      width: 100%;
+      height: 240px;
+      object-fit: cover;
+    }
+
+    .badge-custom {
+      display: inline-block;
+      padding: 6px 12px;
+      border-radius: 20px;
+      background: #5c7c4f;
+      color: white;
+      font-size: 12px;
+      margin-top: 8px;
+    }
+
+    .service-item {
+      background: white;
+      padding: 40px;
+      border-radius: 20px;
+      box-shadow: 0 4px 18px rgba(0, 0, 0, 0.08);
+      height: 100%;
+    }
+
+    .service-item h3 {
+      margin-top: 20px;
+      color: #5c7c4f;
+    }
+
+    .icon-box {
+      font-size: 40px;
+    }
+
+    .footer {
+      background: #4a3b2b;
+      color: white;
+      padding: 60px 0;
+    }
+
+    .footer a {
+      color: #cfe4c4;
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- HEADER -->
+  <header id="header" class="header fixed-top">
+
+    <div class="container-fluid container-xl d-flex align-items-center justify-content-between">
+
+      <a href="#" class="logo d-flex align-items-center">
+        <h1 class="sitename">Bazar da Natureza</h1>
+      </a>
+
+      <nav id="navmenu" class="navmenu">
+
+        <ul>
+          <li><a href="#hero" class="active">Início</a></li>
+          <li><a href="#sobre">Sobre</a></li>
+          <li><a href="#videoteca">Videoteca</a></li>
+          <li><a href="#mudas">Mudas</a></li>
+          <li><a href="#hortoterapia">Terapia da Enxada</a></li>
+        </ul>
+
+        <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
+
+      </nav>
+
+    </div>
+
+  </header>
+
+  <main>
+
+    <!-- HERO -->
+    <section id="hero" class="hero">
+
+      <div class="container">
+
+        <div class="row align-items-center gy-5">
+
+          <div class="col-lg-6">
+
+            <h1>
+              Cultivo, cuidado e conhecimento natural.
+            </h1>
+
+            <p>
+              Videoteca natural, hortoterapia, oficinas comunitárias,
+              doação de mudas e saberes ancestrais.
+            </p>
+
+            <div class="d-flex gap-3">
+
+              <a href="#videoteca" class="btn-get-started">
+                Assistir Conteúdos
+              </a>
+
+              <a href="#mudas" class="btn-get-started">
+                Receber Mudas
+              </a>
+
+            </div>
+
+          </div>
+
+          <div class="col-lg-6 text-center">
+
+            <img src="assets/img/bazar-da-natureza.png"
+              class="img-fluid"
+              alt="Bazar da Natureza">
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+    <!-- SOBRE -->
+    <section id="sobre" class="about section">
+
+      <div class="container">
+
+        <div class="section-title text-center mb-5">
+          <h2>Sobre o Projeto</h2>
+        </div>
+
+        <div class="row align-items-center gy-5">
+
+          <div class="col-lg-6">
+
+            <img src="assets/img/bazar-da-natureza.png"
+              class="img-fluid rounded-4">
+
+          </div>
+
+          <div class="col-lg-6">
+
+            <h3>
+              Cultivar é também cuidar da mente.
+            </h3>
+
+            <p>
+              O Bazar da Natureza é um espaço de troca,
+              cultivo, aprendizado e bem-estar através da terra.
+            </p>
+
+            <p>
+              Atuamos com hortoterapia, oficinas de jardinagem,
+              videoteca natural e distribuição solidária
+              de plantas medicinais.
+            </p>
+
+            <ul>
+              <li>🌿 Plantas medicinais</li>
+              <li>🍵 Chás naturais</li>
+              <li>🪴 Hortoterapia</li>
+              <li>🌱 Doação de mudas</li>
+              <li>🥬 Alimentação funcional</li>
+            </ul>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+    <!-- VIDEOTECA -->
+    <section id="videoteca" class="portfolio section">
+
+      <div class="container section-title text-center">
+
+        <h2>Videoteca Natural</h2>
+
+        <p>
+          Biblioteca audiovisual sobre plantas medicinais,
+          receitas naturais e hortoterapia.
+        </p>
+
+      </div>
+
+      <div class="container">
+
+        <!-- FILTROS -->
+        <ul class="portfolio-filters isotope-filters text-center mb-5">
+
+          <li class="filter-active" data-filter="*">TODOS</li>
+          <li data-filter=".filter-chas">CHÁS</li>
+          <li data-filter=".filter-plantas">PLANTAS</li>
+          <li data-filter=".filter-receitas">RECEITAS</li>
+          <li data-filter=".filter-horta">HORTA</li>
+
+        </ul>
+
+        <!-- GALERIA -->
+        <div class="row gy-4 isotope-container">
+
+          <!-- VIDEO 1 -->
+          <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-chas">
+
+            <div class="portfolio-content h-100">
+
+              <div class="position-relative">
+
+                <img
+                  src="https://img.youtube.com/vi/Gde9oHzLrQ4/hqdefault.jpg"
+                  class="img-fluid portfolio-thumb"
+                  alt="Chás Medicinais">
+
+                <a href="https://www.youtube.com/watch?v=Gde9oHzLrQ4"
+                  class="glightbox pulsating-play-btn"
+                  data-type="video">
+                </a>
+
+              </div>
+
+              <div class="p-4">
+
+                <h4>Chás Medicinais</h4>
+
+                <p>
+                  Conheça ervas naturais e preparos terapêuticos.
+                </p>
+
+                <span class="badge-custom">
+                  Fitoterapia
+                </span>
+
+              </div>
+
+            </div>
+
+          </div>
+
+          <!-- VIDEO 2 -->
+          <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-plantas">
+
+            <div class="portfolio-content h-100">
+
+              <div class="position-relative">
+
+                <img
+                  src="https://img.youtube.com/vi/AOHf2JbpNMA/hqdefault.jpg"
+                  class="img-fluid portfolio-thumb"
+                  alt="Plantas Medicinais">
+
+                <a href="https://www.youtube.com/watch?v=AOHf2JbpNMA"
+                  class="glightbox pulsating-play-btn"
+                  data-type="video">
+                </a>
+
+              </div>
+
+              <div class="p-4">
+
+                <h4>Plantas Medicinais</h4>
+
+                <p>
+                  Saberes populares sobre ervas e cultivo natural.
+                </p>
+
+                <span class="badge-custom">
+                  Plantas
+                </span>
+
+              </div>
+
+            </div>
+
+          </div>
+
+          <!-- VIDEO 3 -->
+          <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-receitas">
+
+            <div class="portfolio-content h-100">
+
+              <div class="position-relative">
+
+                <img
+                  src="https://img.youtube.com/vi/q5tcFYU92SU/hqdefault.jpg"
+                  class="img-fluid portfolio-thumb"
+                  alt="Receitas Naturais">
+
+                <a href="https://www.youtube.com/watch?v=q5tcFYU92SU"
+                  class="glightbox pulsating-play-btn"
+                  data-type="video">
+                </a>
+
+              </div>
+
+              <div class="p-4">
+
+                <h4>Receitas Naturais</h4>
+
+                <p>
+                  Preparos funcionais com ora-pro-nóbis,
+                  taioba e folhas naturais.
+                </p>
+
+                <span class="badge-custom">
+                  Alimentação Natural
+                </span>
+
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+    <!-- MUDAS -->
+    <section id="mudas" class="featured-services section">
+
+      <div class="container section-title text-center">
+
+        <h2>Doação de Mudas</h2>
+
+        <p>
+          Distribuição solidária de plantas medicinais
+          e espécies alimentícias.
+        </p>
+
+      </div>
+
+      <div class="container">
+
+        <div class="row gy-4">
+
+          <div class="col-lg-4">
+
+            <div class="service-item">
+
+              <div class="icon-box">
+                🌿
+              </div>
+
+              <h3>Medicinais</h3>
+
+              <p>
+                Hortelã, boldo, erva-cidreira,
+                capim santo e muito mais.
+              </p>
+
+            </div>
+
+          </div>
+
+          <div class="col-lg-4">
+
+            <div class="service-item">
+
+              <div class="icon-box">
+                🥬
+              </div>
+
+              <h3>PANCs</h3>
+
+              <p>
+                Ora-pro-nóbis, taioba,
+                amora e alimentos funcionais.
+              </p>
+
+            </div>
+
+          </div>
+
+          <div class="col-lg-4">
+
+            <div class="service-item">
+
+              <div class="icon-box">
+                🌳
+              </div>
+
+              <h3>Reflorestamento</h3>
+
+              <p>
+                Árvores para cultivo urbano
+                e recuperação ambiental.
+              </p>
+
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+    <!-- TERAPIA DA ENXADA -->
+    <section id="hortoterapia" class="about section">
+
+      <div class="container">
+
+        <div class="section-title text-center">
+
+          <h2>Terapia da Enxada</h2>
+
+        </div>
+
+        <div class="row align-items-center gy-5">
+
+          <div class="col-lg-6">
+
+            <img
+              src="assets/img/bazar-da-natureza.png"
+              class="img-fluid rounded-4">
+
+          </div>
+
+          <div class="col-lg-6">
+
+            <h3>
+              Hortoterapia e reconexão com a terra.
+            </h3>
+
+            <p>
+              O projeto Terapia da Enxada utiliza jardinagem,
+              cultivo e manejo da terra como ferramenta terapêutica.
+            </p>
+
+            <p>
+              A prática auxilia no bem-estar emocional,
+              socialização, autonomia e redução da ansiedade.
+            </p>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer id="footer" class="footer">
+
+    <div class="container text-center">
+
+      <h3>Bazar da Natureza</h3>
+
+      <p>
+        Cultivo, cuidado e conhecimento natural.
+      </p>
+
+      <div class="social-links d-flex justify-content-center gap-4 mt-4">
+
+        <a href="#">
+          <i class="bi bi-instagram"></i>
+        </a>
+
+        <a href="#">
+          <i class="bi bi-youtube"></i>
+        </a>
+
+      </div>
+
+      <div class="mt-4">
+        © Bazar da Natureza
+      </div>
+
+    </div>
+
+  </footer>
+
+  <!-- Scroll Top -->
+  <a href="#"
+    id="scroll-top"
+    class="scroll-top d-flex align-items-center justify-content-center">
+
+    <i class="bi bi-arrow-up-short"></i>
+
+  </a>
+
+  <!-- Vendor JS -->
+  <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="assets/vendor/aos/aos.js"></script>
+  <script src="assets/vendor/glightbox/js/glightbox.min.js"></script>
+  <script src="assets/vendor/swiper/swiper-bundle.min.js"></script>
+  <script src="assets/vendor/imagesloaded/imagesloaded.pkgd.min.js"></script>
+  <script src="assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
+
+  <!-- Main JS -->
+  <script src="assets/js/main.js"></script>
+
+  <script>
+    AOS.init();
+
+    const lightbox = GLightbox({
+      selector: '.glightbox'
+    });
+  </script>
+
+</body>
+
+</html>
