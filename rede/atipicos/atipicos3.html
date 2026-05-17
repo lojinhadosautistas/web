@@ -581,6 +581,8 @@ position:absolute;
 right:28px;
 bottom:24px;
 z-index:5;
+
+max-width:320px;
 }
 
 .universe-divider{
@@ -630,10 +632,11 @@ box-shadow:
 0 6px 18px rgba(0,0,0,.35);
 }
 
-.universe-info{
-display:flex;
-flex-direction:column;
-gap:4px;
+.album-info{
+position:relative;
+z-index:2;
+
+padding-right:340px;
 }
 
 .universe-label{
@@ -678,10 +681,11 @@ position:relative;
 right:auto;
 bottom:auto;
 margin-top:24px;
+max-width:100%;
 }
 
 .album-info{
-padding-bottom:0;
+padding-right:0;
 }
 
 }
