@@ -1,0 +1,1116 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+<title>Banda ATÍPICOS | Artistas 100% Neurodivergentes!</title>
+
+<meta name="description" content="Um projeto de autoconexão e autenticidade Neurodivergente, focado em músicas autorais."/>
+
+<!-- Open Graph -->
+<meta property="og:title" content="Banda ATÍPICOS | 100% Neurodivergentes! 💙 Lojinha dos Autistas" />
+<meta property="og:description" content="Tecnologia aplicada ao desenvolvimento humano com foco na regulação emocional, autonomia e melhoria da qualidade de vida." />
+<meta property="og:image" content="https://www.autistas.net/assets/img/img-share-atipicos.jpg" />
+<meta property="og:url" content="https://www.autistas.net/rede/atipicos/atipicos.html" />
+<meta property="og:type" content="website" />
+
+<!-- Twitter -->
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="Lojinha dos Autistas 💙 Tecnologia com Propósito" />
+<meta name="twitter:description" content="Tecnologia aplicada ao desenvolvimento humano com foco na regulação emocional, autonomia e melhoria da qualidade de vida." />
+<meta name="twitter:image" content="https://www.autistas.net/assets/img/img-share-atipicos.jpg" />
+
+<base href="../">
+
+<!-- Favicons -->
+<link href="../assets/img/favicon.png" rel="icon">
+<link href="../assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+
+<!-- Bootstrap -->
+<link rel="stylesheet" href="../assets/vendor/bootstrap/css/bootstrap.min.css">
+<link rel="stylesheet" href="../assets/vendor/bootstrap-icons/bootstrap-icons.css">
+
+<!-- CSS -->
+<link rel="stylesheet" href="../assets/css/hub.css">
+
+<!-- Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+
+/* =========================
+   BASE
+========================= */
+
+.main{
+padding-bottom:140px;
+}
+
+/* =========================
+   CATEGORIAS
+========================= */
+
+.cat-emocional{
+border-left:4px solid #7c3aed;
+}
+
+.cat-relacoes{
+border-left:4px solid #2563eb;
+}
+
+.cat-identidade{
+border-left:4px solid #16a34a;
+}
+
+/* =========================
+   FILTROS
+========================= */
+
+.fabularium-filters{
+display:flex;
+gap:10px;
+flex-wrap:wrap;
+margin-top:20px;
+}
+
+.filter-btn{
+border:none;
+padding:6px 12px;
+border-radius:8px;
+font-size:13px;
+font-weight:600;
+cursor:pointer;
+background:#e5e7eb;
+transition:.25s;
+}
+
+.filter-btn.nerd{
+background:#ede9fe;
+color:#6d28d9;
+}
+
+.filter-btn.astronomia{
+background:#dbeafe;
+color:#1e3a8a;
+}
+
+.filter-btn.ciencia{
+background:#dcfce7;
+color:#166534;
+}
+
+.filter-btn.active{
+outline:2px solid #0f172a;
+}
+
+/* =========================
+   LISTA
+========================= */
+
+.fabularium-library{
+display:flex;
+flex-direction:column;
+gap:14px;
+margin-top:20px;
+}
+
+/* =========================
+   CARD
+========================= */
+
+.story-item{
+display:flex;
+align-items:center;
+gap:16px;
+background:#fff;
+padding:14px;
+border-radius:16px;
+box-shadow:0 6px 18px rgba(0,0,0,.05);
+cursor:pointer;
+transition:.25s;
+position:relative;
+overflow:hidden;
+}
+
+.story-item:hover{
+transform:translateY(-3px);
+box-shadow:0 10px 28px rgba(0,0,0,.08);
+}
+
+.story-item::before{
+content:"";
+position:absolute;
+top:0;
+left:-120%;
+width:80%;
+height:100%;
+background:linear-gradient(
+90deg,
+transparent,
+rgba(255,255,255,.16),
+transparent
+);
+transition:.7s;
+}
+
+.story-item:hover::before{
+left:140%;
+}
+
+.story-item.playing{
+background:#f1f5f9;
+border-left:4px solid #2563eb;
+}
+
+/* =========================
+   PROGRESSO
+========================= */
+
+.card-progress{
+position:absolute;
+bottom:0;
+left:0;
+height:3px;
+width:0%;
+background:#38bdf8;
+}
+
+/* =========================
+   ÍCONES
+========================= */
+
+.story-icon{
+width:54px;
+height:54px;
+border-radius:14px;
+display:flex;
+align-items:center;
+justify-content:center;
+font-size:26px;
+flex-shrink:0;
+}
+
+.icon-nerd{
+background:#ede9fe;
+color:#6d28d9;
+}
+
+.icon-astronomia{
+background:#dbeafe;
+color:#1e3a8a;
+}
+
+.icon-ciencia{
+background:#dcfce7;
+color:#166534;
+}
+
+/* =========================
+   INFO
+========================= */
+
+.story-info{
+flex:1;
+min-width:0;
+}
+
+.badge-cat{
+font-size:11px;
+padding:3px 8px;
+border-radius:6px;
+display:inline-block;
+margin-bottom:6px;
+font-weight:700;
+}
+
+.badge-nerd{
+background:#ede9fe;
+color:#6d28d9;
+}
+
+.badge-astronomia{
+background:#dbeafe;
+color:#1e3a8a;
+}
+
+.badge-ciencia{
+background:#dcfce7;
+color:#166534;
+}
+
+/* =========================
+   TÍTULO + CIFRA
+========================= */
+
+.title-row{
+display:flex;
+align-items:center;
+justify-content:space-between;
+gap:10px;
+width:100%;
+flex-wrap:nowrap;
+}
+
+.story-title{
+font-weight:700;
+font-size:15px;
+line-height:1.2;
+}
+
+/* =========================
+   BOTÃO INLINE CIFRA
+========================= */
+
+.mini-chord-link{
+display:inline-flex;
+align-items:center;
+justify-content:center;
+gap:6px;
+
+padding:6px 12px;
+
+border-radius:999px;
+
+text-decoration:none;
+
+background:rgba(255,255,255,.88);
+
+border:1px solid rgba(148,163,184,.18);
+
+color:#475569;
+
+font-size:12px;
+font-weight:700;
+line-height:1;
+
+transition:all .25s ease;
+
+flex-shrink:0;
+position:relative;
+z-index:5;
+
+white-space:nowrap;
+}
+
+.mini-chord-link:hover{
+transform:translateY(-2px);
+
+color:#fff;
+
+box-shadow:0 10px 24px rgba(15,23,42,.18);
+}
+
+/* hover contextual */
+
+.cat-emocional .mini-chord-link:hover{
+background:#7c3aed;
+}
+
+.cat-relacoes .mini-chord-link:hover{
+background:#2563eb;
+}
+
+.cat-identidade .mini-chord-link:hover{
+background:#16a34a;
+}
+
+.mini-chord-link i{
+font-size:13px;
+pointer-events:none;
+}
+
+.mini-chord-link span{
+pointer-events:none;
+}
+
+/* mobile */
+
+@media(max-width:768px){
+
+.mini-chord-link{
+padding:5px 10px;
+font-size:11px;
+gap:5px;
+}
+
+}
+
+/* =========================
+   META
+========================= */
+
+.story-meta{
+font-size:13px;
+color:#64748b;
+margin-top:4px;
+}
+
+/* =========================
+   PLAY
+========================= */
+
+.play-btn{
+border:none;
+background:#2563eb;
+color:#fff;
+width:42px;
+height:42px;
+border-radius:50%;
+display:flex;
+align-items:center;
+justify-content:center;
+font-size:20px;
+flex-shrink:0;
+position:relative;
+z-index:5;
+}
+
+/* =========================
+   PLAYER
+========================= */
+
+.audio-player{
+position:fixed;
+bottom:0;
+left:0;
+right:0;
+background:#0f172a;
+color:white;
+display:flex;
+align-items:center;
+gap:16px;
+padding:12px 20px;
+z-index:999;
+}
+
+.player-icon{
+width:42px;
+height:42px;
+border-radius:10px;
+display:flex;
+align-items:center;
+justify-content:center;
+font-size:22px;
+background:#1e293b;
+}
+
+.player-info{
+flex:1;
+font-size:14px;
+}
+
+.audio-player audio{
+height:34px;
+}
+
+/* =========================
+   LOGO
+========================= */
+
+.fabularium-logo-container{
+display:flex;
+justify-content:center;
+margin-top:60px;
+}
+
+.fabularium-logo{
+max-width:260px;
+opacity:.9;
+}
+
+/* =========================
+   HERO
+========================= */
+
+.album-hero{
+display:flex;
+align-items:center;
+gap:20px;
+background:#0f172a;
+padding:18px;
+border-radius:22px;
+margin:20px 0 30px;
+color:#fff;
+overflow:hidden;
+box-shadow:0 10px 30px rgba(0,0,0,.12);
+}
+
+.album-cover{
+width:180px;
+height:180px;
+object-fit:cover;
+border-radius:18px;
+flex-shrink:0;
+display:block;
+box-shadow:0 8px 24px rgba(0,0,0,.25);
+}
+
+.album-info{
+flex:1;
+min-width:0;
+}
+
+.album-badge{
+display:inline-block;
+background:#f59e0b;
+color:#111827;
+font-size:11px;
+font-weight:700;
+padding:5px 10px;
+border-radius:999px;
+margin-bottom:10px;
+}
+
+.album-description{
+color:#cbd5e1;
+}
+
+.album-info h2{
+font-size:28px;
+font-weight:700;
+margin-bottom:10px;
+line-height:1.1;
+}
+
+.album-info p{
+font-size:15px;
+line-height:1.5;
+opacity:.9;
+margin:0;
+}
+
+/* =========================
+   MOBILE
+========================= */
+
+@media(max-width:768px){
+
+.album-hero{
+flex-direction:column;
+text-align:center;
+}
+
+.album-cover{
+width:100%;
+max-width:240px;
+height:auto;
+}
+
+.album-info h2{
+font-size:24px;
+}
+
+.story-title{
+font-size:14px;
+}
+
+.title-row{
+align-items:flex-start;
+gap:8px;
+}
+
+.mini-chord-link{
+
+display:inline-flex;
+align-items:center;
+justify-content:center;
+
+width:auto;
+height:auto;
+
+min-height:34px;
+
+padding:6px 10px;
+
+font-size:11px;
+
+gap:5px;
+
+flex-shrink:0;
+
+white-space:nowrap;
+
+}
+
+.mini-chord-link i{
+font-size:12px;
+}
+
+.story-title{
+font-size:14px;
+line-height:1.25;
+}
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div id="header-container"></div>
+<div id="sidebar-container"></div>
+
+<main class="main">
+
+<div class="page-title mb-4">
+
+<h1 class="d-flex align-items-center gap-2">
+
+BANDA ATÍPICOS
+
+<a href="https://www.instagram.com/atipicos_banda/"
+target="_blank"
+rel="noopener noreferrer"
+class="text-decoration-none">
+
+<i class="bi bi-instagram"></i>
+
+</a>
+
+</h1>
+
+<p><strong>Artistas 100% Neurodivergentes!</strong></p>
+
+<!-- HERO -->
+
+<div class="album-hero">
+
+<img
+src="../assets/img/girassois-noturnos-capa.png"
+alt="Capa do álbum Girassóis Noturnos"
+class="album-cover img-fluid"
+/>
+
+<div class="album-info">
+
+<span class="album-badge">
+NOVO ÁLBUM
+</span>
+
+<h2>Girassóis Noturnos</h2>
+
+<p class="album-description">
+A <strong>Banda ATÍPICOS</strong> é um projeto de autenticidade neurodivergente focado em música autoral.
+</p>
+
+</div>
+
+</div>
+
+<!-- FILTROS -->
+
+<div class="fabularium-filters">
+
+<button class="filter-btn active" data-filter="all">Todas</button>
+<button class="filter-btn nerd" data-filter="cat-emocional">Emocional</button>
+<button class="filter-btn astronomia" data-filter="cat-relacoes">Relações</button>
+<button class="filter-btn ciencia" data-filter="cat-identidade">Identidade</button>
+
+</div>
+
+<!-- LISTA -->
+
+<div class="fabularium-library">
+
+<!-- ERA UMA VEZ -->
+
+<div
+class="story-item cat-identidade"
+data-audio="atipicos/audios/banda-atipicos-era-uma-vez.mp3"
+data-icon="bi-music-note-beamed">
+
+<div class="story-icon icon-ciencia">
+<i class="bi bi-music-note-beamed"></i>
+</div>
+
+<div class="story-info">
+
+<div class="badge-cat badge-ciencia">
+IDENTIDADE
+</div>
+
+<div class="title-row">
+
+  <div class="story-title">
+    Era Uma Vez
+  </div>
+
+  <a
+  href="atipicos/cifras/CIFRA-banda-atipicos-era-uma-vez.png"
+  target="_blank"
+  class="mini-chord-link"
+  title="Ver cifra">
+
+    <i class="bi bi-music-note-list"></i>
+
+    <span>
+      Cifra
+    </span>
+
+  </a>
+
+</div>
+
+<div class="story-meta">
+Banda ATÍPICOS
+</div>
+
+</div>
+
+<button class="play-btn">
+<i class="bi bi-play-fill"></i>
+</button>
+
+</div>
+
+<!-- GIRASSÓIS -->
+
+<div
+class="story-item cat-emocional"
+data-audio="atipicos/audios/banda-atipicos-girassois-noturnos.mp3"
+data-icon="bi-moon-stars-fill">
+
+<div class="story-icon icon-nerd">
+<i class="bi bi-moon-stars-fill"></i>
+</div>
+
+<div class="story-info">
+
+<div class="badge-cat badge-nerd">
+EMOCIONAL
+</div>
+
+<div class="title-row">
+
+<div class="story-title">
+Girassóis Noturnos
+</div>
+
+<a
+href="#"
+target="_blank"
+class="mini-chord-link"
+title="Ver cifra">
+
+   <!--<a
+href="atipicos/cifras/CIFRA-banda-atipicos-girassois-noturnos.png"
+target="_blank"
+class="mini-chord-link"
+title="Ver cifra">-->
+
+<i class="bi bi-music-note-list"></i>
+
+    <span>
+      Cifra
+    </span>
+
+</a>
+
+</div>
+
+<div class="story-meta">
+Banda ATÍPICOS
+</div>
+
+</div>
+
+<button class="play-btn">
+<i class="bi bi-play-fill"></i>
+</button>
+
+</div>
+
+<!-- MINHA LIÇÃO -->
+
+<div
+class="story-item cat-emocional"
+data-audio="atipicos/audios/banda-atipicos-minha-licao.mp3"
+data-icon="bi-heart-fill">
+
+<div class="story-icon icon-nerd">
+<i class="bi bi-heart-fill"></i>
+</div>
+
+<div class="story-info">
+
+<div class="badge-cat badge-nerd">
+EMOCIONAL
+</div>
+
+<div class="title-row">
+
+<div class="story-title">
+Minha Lição
+</div>
+
+<a
+href="atipicos/cifras/CIFRA-banda-atipicos-minha-licao.png"
+target="_blank"
+class="mini-chord-link"
+title="Ver cifra">
+
+<i class="bi bi-music-note-list"></i>
+
+    <span>
+      Cifra
+    </span>
+
+</a>
+
+</div>
+
+<div class="story-meta">
+Banda ATÍPICOS
+</div>
+
+</div>
+
+<button class="play-btn">
+<i class="bi bi-play-fill"></i>
+</button>
+
+</div>
+
+<!-- NO CAMINHO -->
+
+<div
+class="story-item cat-relacoes"
+data-audio="atipicos/audios/banda-atipicos-no-caminho-do-amor.mp3"
+data-icon="bi-arrow-through-heart-fill">
+
+<div class="story-icon icon-astronomia">
+<i class="bi bi-arrow-through-heart-fill"></i>
+</div>
+
+<div class="story-info">
+
+<div class="badge-cat badge-astronomia">
+RELAÇÕES
+</div>
+
+<div class="title-row">
+
+<div class="story-title">
+No Caminho do Amor
+</div>
+
+<a
+href="atipicos/cifras/CIFRA-banda-atipicos-no-caminho-do-amor.png"
+target="_blank"
+class="mini-chord-link"
+title="Ver cifra">
+
+<i class="bi bi-music-note-list"></i>
+
+    <span>
+      Cifra
+    </span>
+
+</a>
+
+</div>
+
+<div class="story-meta">
+Banda ATÍPICOS
+</div>
+
+</div>
+
+<button class="play-btn">
+<i class="bi bi-play-fill"></i>
+</button>
+
+</div>
+
+<!-- QUEM É MEU AMOR -->
+
+<div
+class="story-item cat-relacoes"
+data-audio="atipicos/audios/banda-atipicos-quem-e-meu-amor.mp3"
+data-icon="bi-heart">
+
+<div class="story-icon icon-astronomia">
+<i class="bi bi-heart"></i>
+</div>
+
+<div class="story-info">
+
+<div class="badge-cat badge-astronomia">
+RELAÇÕES
+</div>
+
+<div class="title-row">
+
+<div class="story-title">
+Quem É Meu Amor
+</div>
+
+<a
+href="atipicos/cifras/CIFRA-banda-atipicos-quem-e-meu-amor.png"
+target="_blank"
+class="mini-chord-link"
+title="Ver cifra">
+
+<i class="bi bi-music-note-list"></i>
+
+    <span>
+      Cifra
+    </span>
+
+</a>
+
+</div>
+
+<div class="story-meta">
+Banda ATÍPICOS
+</div>
+
+</div>
+
+<button class="play-btn">
+<i class="bi bi-play-fill"></i>
+</button>
+
+</div>
+
+</div>
+
+<div class="fabularium-logo-container">
+<a href="https://www.instagram.com/atipicos_banda/" target="_blank"><img src="../assets/img/atipicos-logo.png" class="fabularium-logo img-fluid"></a>
+</div>
+
+</main>
+
+<!-- PLAYER -->
+
+<div class="audio-player">
+
+<div id="playerIcon" class="player-icon">
+<i class="bi bi-music-note"></i>
+</div>
+
+<div class="player-info">
+<div id="playerTitle">Escolha um abraço musical!</div>
+</div>
+
+<button id="prevBtn" class="play-btn">
+<i class="bi bi-skip-start-fill"></i>
+</button>
+
+<audio id="audioControl" controls></audio>
+
+<button id="nextBtn" class="play-btn">
+<i class="bi bi-skip-end-fill"></i>
+</button>
+
+</div>
+
+<script src="../assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="js/components.js"></script>
+
+<script>
+
+const items = document.querySelectorAll(".story-item");
+
+const audio = document.getElementById("audioControl");
+const title = document.getElementById("playerTitle");
+const icon = document.getElementById("playerIcon");
+
+const nextBtn = document.getElementById("nextBtn");
+const prevBtn = document.getElementById("prevBtn");
+
+let playlist = [];
+let currentIndex = -1;
+
+/* =========================
+   MONTAR PLAYLIST
+========================= */
+
+items.forEach((item,index)=>{
+
+playlist.push(item);
+
+/* barra de progresso */
+
+let progress = document.createElement("div");
+progress.className = "card-progress";
+item.appendChild(progress);
+
+/* botão PLAY */
+
+const playBtn = item.querySelector(".play-btn");
+
+playBtn.addEventListener("click",(e)=>{
+
+e.stopPropagation();
+
+currentIndex = index;
+
+playStory(item);
+
+});
+
+});
+
+/* =========================
+   TOCAR MÚSICA
+========================= */
+
+function playStory(item){
+
+const src = item.getAttribute("data-audio");
+
+const storyTitle = item.querySelector(".story-title").innerText;
+
+const iconClass = item.getAttribute("data-icon");
+
+/* carregar áudio */
+
+audio.src = src;
+
+audio.load();
+
+/* atualizar player */
+
+title.textContent = storyTitle;
+
+icon.innerHTML = `<i class="bi ${iconClass}"></i>`;
+
+/* tocar */
+
+audio.play().catch(err=>{
+console.log(err);
+});
+
+/* destacar card */
+
+items.forEach(el=>el.classList.remove("playing"));
+
+item.classList.add("playing");
+
+}
+
+/* =========================
+   PRÓXIMA
+========================= */
+
+nextBtn.onclick = ()=>{
+
+if(currentIndex < playlist.length - 1){
+
+currentIndex++;
+
+playStory(playlist[currentIndex]);
+
+}
+
+}
+
+/* =========================
+   ANTERIOR
+========================= */
+
+prevBtn.onclick = ()=>{
+
+if(currentIndex > 0){
+
+currentIndex--;
+
+playStory(playlist[currentIndex]);
+
+}
+
+}
+
+/* =========================
+   AUTO NEXT
+========================= */
+
+audio.addEventListener("ended",()=>{
+
+if(currentIndex < playlist.length - 1){
+
+currentIndex++;
+
+playStory(playlist[currentIndex]);
+
+}
+
+});
+
+/* =========================
+   PROGRESSO
+========================= */
+
+audio.addEventListener("timeupdate",()=>{
+
+if(currentIndex === -1 || !audio.duration) return;
+
+const progress =
+(audio.currentTime / audio.duration) * 100;
+
+const bar =
+playlist[currentIndex].querySelector(".card-progress");
+
+if(bar){
+
+bar.style.width = progress + "%";
+
+}
+
+});
+
+/* =========================
+   FILTROS
+========================= */
+
+const filters =
+document.querySelectorAll(".filter-btn");
+
+filters.forEach(btn=>{
+
+btn.onclick = ()=>{
+
+filters.forEach(b=>
+b.classList.remove("active")
+);
+
+btn.classList.add("active");
+
+const filter = btn.dataset.filter;
+
+items.forEach(item=>{
+
+if(filter === "all"){
+
+item.style.display = "flex";
+
+}
+
+else if(item.classList.contains(filter)){
+
+item.style.display = "flex";
+
+}
+
+else{
+
+item.style.display = "none";
+
+}
+
+});
+
+};
+
+});
+
+</script>
+
+</body>
+</html>
