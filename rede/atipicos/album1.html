@@ -1,0 +1,1278 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+<title>Banda ATÍPICOS | Girassóis Noturnos</title>
+
+<meta name="description" content="Um álbum sobre acolhimento emocional, pertencimento e autenticidade neurodivergente."/>
+
+<!-- Open Graph -->
+<meta property="og:title" content="Banda ATÍPICOS | Girassóis Noturnos" />
+<meta property="og:description" content="Uma jornada sonora sobre acolhimento emocional e pertencimento neurodivergente." />
+<meta property="og:image" content="https://www.autistas.net/assets/img/girassois-noturnos-capa.png" />
+<meta property="og:url" content="https://www.autistas.net/rede/atipicos/girassois-noturnos.html" />
+<meta property="og:type" content="website" />
+
+<!-- Twitter -->
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="Banda ATÍPICOS | Girassóis Noturnos" />
+<meta name="twitter:description" content="Uma jornada sonora sobre acolhimento emocional e pertencimento neurodivergente." />
+<meta name="twitter:image" content="https://www.autistas.net/assets/img/girassois-noturnos-capa.png" />
+
+<base href="../">
+
+<!-- Favicons -->
+<link href="../assets/img/favicon.png" rel="icon">
+<link href="../assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+
+<!-- Bootstrap -->
+<link rel="stylesheet" href="../assets/vendor/bootstrap/css/bootstrap.min.css">
+<link rel="stylesheet" href="../assets/vendor/bootstrap-icons/bootstrap-icons.css">
+
+<!-- CSS -->
+<link rel="stylesheet" href="../assets/css/hub.css">
+
+<!-- Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+
+/* =========================
+BASE
+========================= */
+
+body{
+background:#070707;
+color:#f8fafc;
+}
+
+.main{
+padding-bottom:140px;
+}
+
+/* =========================
+HERO
+========================= */
+
+.album-hero{
+position:relative;
+display:flex;
+align-items:center;
+gap:24px;
+padding:24px;
+border-radius:28px;
+overflow:hidden;
+
+background:
+radial-gradient(circle at top right,#7c3aed22,transparent 30%),
+radial-gradient(circle at bottom left,#2563eb22,transparent 30%),
+linear-gradient(145deg,#111827,#020617);
+
+border:1px solid rgba(255,255,255,.06);
+
+box-shadow:
+0 20px 60px rgba(0,0,0,.45),
+inset 0 0 80px rgba(255,255,255,.02);
+
+margin:24px 0 34px;
+}
+
+.album-hero::before{
+content:"";
+position:absolute;
+inset:0;
+background-image:
+radial-gradient(rgba(255,255,255,.08) 1px, transparent 1px);
+background-size:22px 22px;
+opacity:.18;
+pointer-events:none;
+}
+
+.album-cover{
+width:220px;
+height:220px;
+object-fit:cover;
+border-radius:22px;
+flex-shrink:0;
+
+box-shadow:
+0 14px 40px rgba(0,0,0,.55),
+0 0 0 1px rgba(255,255,255,.08);
+}
+
+.album-info{
+position:relative;
+z-index:2;
+}
+
+.album-badge{
+display:inline-flex;
+align-items:center;
+gap:8px;
+
+background:linear-gradient(90deg,#7c3aed,#8b5cf6);
+
+color:#fff;
+
+font-size:11px;
+font-weight:800;
+
+padding:6px 12px;
+
+border-radius:999px;
+
+margin-bottom:14px;
+
+letter-spacing:.08em;
+}
+
+.album-info h2{
+font-size:42px;
+font-weight:800;
+line-height:1;
+margin-bottom:16px;
+}
+
+.album-description{
+font-size:15px;
+line-height:1.7;
+max-width:700px;
+color:#cbd5e1;
+}
+
+.album-quote{
+margin-top:18px;
+
+padding-left:18px;
+
+border-left:3px solid #8b5cf6;
+
+font-style:italic;
+
+color:#c4b5fd;
+}
+
+/* =========================
+FILTROS
+========================= */
+
+.fabularium-filters{
+display:flex;
+gap:10px;
+flex-wrap:wrap;
+margin-bottom:22px;
+}
+
+.filter-btn{
+border:none;
+padding:8px 14px;
+border-radius:999px;
+font-size:13px;
+font-weight:700;
+cursor:pointer;
+
+background:#111827;
+color:#cbd5e1;
+
+transition:.25s;
+}
+
+.filter-btn.active{
+background:#8b5cf6;
+color:#fff;
+}
+
+/* =========================
+LISTA
+========================= */
+
+.fabularium-library{
+display:flex;
+flex-direction:column;
+gap:16px;
+}
+
+/* =========================
+CARD
+========================= */
+
+.story-item{
+position:relative;
+
+display:flex;
+align-items:center;
+gap:16px;
+
+padding:18px;
+
+border-radius:22px;
+
+background:
+linear-gradient(145deg,#111827,#0f172a);
+
+border:1px solid rgba(255,255,255,.05);
+
+overflow:hidden;
+
+transition:.3s;
+
+cursor:pointer;
+}
+
+.story-item:hover{
+transform:translateY(-4px);
+
+box-shadow:
+0 14px 34px rgba(0,0,0,.35);
+}
+
+.story-item.playing{
+border-left:4px solid #8b5cf6;
+background:
+linear-gradient(145deg,#1e293b,#0f172a);
+}
+
+/* =========================
+CATEGORIAS
+========================= */
+
+.cat-emocional{
+border-left:4px solid #7c3aed;
+}
+
+.cat-relacoes{
+border-left:4px solid #2563eb;
+}
+
+.cat-identidade{
+border-left:4px solid #16a34a;
+}
+
+/* =========================
+ÍCONE
+========================= */
+
+.story-icon{
+width:60px;
+height:60px;
+border-radius:18px;
+
+display:flex;
+align-items:center;
+justify-content:center;
+
+font-size:26px;
+
+flex-shrink:0;
+}
+
+.icon-emocional{
+background:#7c3aed22;
+color:#c4b5fd;
+}
+
+.icon-relacoes{
+background:#2563eb22;
+color:#93c5fd;
+}
+
+.icon-identidade{
+background:#16a34a22;
+color:#86efac;
+}
+
+/* =========================
+INFO
+========================= */
+
+.story-info{
+flex:1;
+min-width:0;
+}
+
+.badge-cat{
+display:inline-block;
+
+font-size:11px;
+font-weight:800;
+
+padding:4px 10px;
+
+border-radius:999px;
+
+margin-bottom:8px;
+
+letter-spacing:.05em;
+}
+
+.badge-emocional{
+background:#7c3aed22;
+color:#c4b5fd;
+}
+
+.badge-relacoes{
+background:#2563eb22;
+color:#93c5fd;
+}
+
+.badge-identidade{
+background:#16a34a22;
+color:#86efac;
+}
+
+.title-row{
+display:flex;
+align-items:center;
+justify-content:space-between;
+gap:12px;
+}
+
+.story-title{
+font-size:17px;
+font-weight:700;
+}
+
+.story-meta{
+margin-top:4px;
+font-size:13px;
+color:#94a3b8;
+}
+
+/* =========================
+CIFRA
+========================= */
+
+.mini-chord-link{
+display:inline-flex;
+align-items:center;
+gap:6px;
+
+padding:7px 12px;
+
+border-radius:999px;
+
+text-decoration:none;
+
+background:#ffffff10;
+
+border:1px solid rgba(255,255,255,.08);
+
+color:#f8fafc;
+
+font-size:12px;
+font-weight:700;
+
+transition:.25s;
+}
+
+.mini-chord-link:hover{
+transform:translateY(-2px);
+
+background:#8b5cf6;
+color:#fff;
+}
+
+/* =========================
+PLAY
+========================= */
+
+.play-btn{
+border:none;
+
+width:46px;
+height:46px;
+
+border-radius:50%;
+
+display:flex;
+align-items:center;
+justify-content:center;
+
+background:#8b5cf6;
+color:#fff;
+
+font-size:22px;
+
+flex-shrink:0;
+}
+
+/* =========================
+PROGRESSO
+========================= */
+
+.card-progress{
+position:absolute;
+left:0;
+bottom:0;
+
+height:3px;
+width:0%;
+
+background:#8b5cf6;
+}
+
+/* =========================
+PLAYER
+========================= */
+
+.audio-player{
+position:fixed;
+left:0;
+right:0;
+bottom:0;
+
+display:flex;
+align-items:center;
+gap:14px;
+
+padding:12px 20px;
+
+background:#020617;
+
+border-top:1px solid rgba(255,255,255,.06);
+
+z-index:999;
+}
+
+.player-icon{
+width:44px;
+height:44px;
+
+border-radius:12px;
+
+display:flex;
+align-items:center;
+justify-content:center;
+
+font-size:22px;
+
+background:#111827;
+color:#c4b5fd;
+}
+
+.player-info{
+flex:1;
+font-size:14px;
+}
+
+.audio-player audio{
+height:36px;
+}
+
+/* =========================
+LOGO
+========================= */
+
+.fabularium-logo-container{
+display:flex;
+justify-content:center;
+margin-top:60px;
+}
+
+.fabularium-logo{
+max-width:240px;
+opacity:.9;
+}
+
+/* =========================
+RESPONSIVO
+========================= */
+
+@media(max-width:768px){
+
+.album-hero{
+flex-direction:column;
+text-align:center;
+}
+
+.album-cover{
+width:100%;
+max-width:280px;
+height:auto;
+}
+
+.album-info h2{
+font-size:32px;
+}
+
+.story-title{
+font-size:15px;
+}
+
+.title-row{
+align-items:flex-start;
+flex-direction:column;
+}
+
+.audio-player{
+flex-wrap:wrap;
+}
+
+}
+
+/* =========================
+TÍTULO
+========================= */
+
+.page-title h1{
+color:#f8fafc;
+text-shadow:0 0 12px rgba(139,92,246,.18);
+}
+
+.page-title p{
+color:#cbd5e1;
+}
+
+.page-title .bi-instagram{
+color:#c4b5fd;
+}
+
+/* =========================
+TOPMENU
+========================= */
+
+#header-container,
+#header-container .navbar{
+background:#020617 !important;
+border-bottom:1px solid rgba(255,255,255,.05);
+}
+
+#header-container a{
+color:#f8fafc !important;
+}
+
+#header-container a:hover{
+color:#c4b5fd !important;
+}
+
+/* =========================
+FORÇA COR NATURAL
+========================= */
+
+#header-container .navbar-brand,
+#header-container .navbar-brand span,
+#header-container .logo,
+#header-container .logo span,
+#header-container img{
+color:inherit !important;
+filter:none !important;
+opacity:1 !important;
+mix-blend-mode:normal !important;
+text-shadow:none !important;
+}
+
+#header-container .navbar-brand:hover,
+#header-container .logo:hover{
+color:inherit !important;
+}
+
+/* =========================
+UNIVERSO
+========================= */
+
+.album-universe-link{
+margin-top:24px;
+
+display:flex;
+align-items:center;
+gap:12px;
+
+flex-wrap:wrap;
+}
+
+.universe-label{
+font-size:13px;
+color:#94a3b8;
+letter-spacing:.04em;
+}
+
+.universe-album-link{
+display:inline-flex;
+align-items:center;
+gap:10px;
+
+padding:10px 16px;
+
+border-radius:999px;
+
+text-decoration:none;
+
+background:rgba(255,255,255,.06);
+
+border:1px solid rgba(255,255,255,.08);
+
+color:#f8fafc;
+
+font-weight:600;
+font-size:14px;
+
+transition:.25s ease;
+}
+
+.universe-album-link:hover{
+transform:translateY(-2px);
+
+background:rgba(139,92,246,.12);
+
+border-color:rgba(139,92,246,.28);
+
+color:#c4b5fd;
+
+box-shadow:
+0 10px 30px rgba(0,0,0,.22);
+}
+
+.universe-album-link i{
+font-size:16px;
+}
+
+@media(max-width:768px){
+
+.album-universe-link{
+justify-content:center;
+}
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div id="header-container"></div>
+<div id="sidebar-container"></div>
+
+<main class="main">
+
+<div class="page-title mb-4">
+
+<h1 class="d-flex align-items-center gap-2">
+
+BANDA ATÍPICOS
+
+<a href="https://www.instagram.com/atipicos_banda/"
+target="_blank"
+rel="noopener noreferrer"
+class="text-decoration-none text-light">
+
+<i class="bi bi-instagram"></i>
+
+</a>
+
+</h1>
+
+<p>
+<strong>
+Abraços musicais para noites emocionais.
+</strong>
+</p>
+
+<!-- HERO -->
+
+<div class="album-hero">
+
+<img
+src="../assets/img/girassois-noturnos-capa.png"
+alt="Capa do álbum Girassóis Noturnos"
+class="album-cover img-fluid"
+/>
+
+<div class="album-info">
+
+<span class="album-badge">ÁLBUM OFICIAL</span>
+
+<h2>Girassóis Noturnos</h2>
+
+<p class="album-description">
+
+Um álbum sobre acolhimento emocional,
+amor neurodivergente e pertencimento.
+
+Enquanto o mundo exige pressa,
+Girassóis Noturnos floresce devagar —
+como quem aprende a existir sem esconder a própria sensibilidade.
+
+Cada faixa é um abraço:
+às vezes melancólico,
+às vezes esperançoso,
+mas sempre profundamente humano.
+
+</p>
+
+<div class="album-quote">
+
+“Mesmo durante a noite,
+alguns girassóis continuam procurando luz.”
+
+</div>
+
+<div class="album-universe-link">
+
+<span class="universe-label">
+Continue a jornada em
+</span>
+
+<a href="atipicos/album2.html"
+class="universe-album-link">
+
+<i class="bi bi-stars"></i>
+
+<span>
+Aqueles que se Atrevem a Ser
+</span>
+
+</a>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- FILTROS -->
+
+<div class="fabularium-filters">
+
+<button class="filter-btn active" data-filter="all">
+Todas
+</button>
+
+<button class="filter-btn" data-filter="cat-emocional">
+Emocional
+</button>
+
+<button class="filter-btn" data-filter="cat-relacoes">
+Relações
+</button>
+
+<button class="filter-btn" data-filter="cat-identidade">
+Identidade
+</button>
+
+</div>
+
+<!-- LISTA -->
+
+<div class="fabularium-library">
+
+<!-- ERA UMA VEZ -->
+
+<div
+class="story-item cat-identidade"
+data-audio="atipicos/audios/banda-atipicos-era-uma-vez.mp3"
+data-icon="bi-music-note-beamed">
+
+<div class="story-icon icon-identidade">
+<i class="bi bi-music-note-beamed"></i>
+</div>
+
+<div class="story-info">
+
+<div class="badge-cat badge-identidade">
+IDENTIDADE
+</div>
+
+<div class="title-row">
+
+<div class="story-title">
+Era Uma Vez
+</div>
+
+<a
+href="atipicos/cifras/CIFRA-banda-atipicos-era-uma-vez.png"
+target="_blank"
+class="mini-chord-link">
+
+<i class="bi bi-music-note-list"></i>
+
+<span>Cifra</span>
+
+</a>
+
+</div>
+
+<div class="story-meta">
+Pertencimento • Banda ATÍPICOS
+</div>
+
+</div>
+
+<button class="play-btn">
+<i class="bi bi-play-fill"></i>
+</button>
+
+</div>
+
+<!-- GIRASSÓIS -->
+
+<div
+class="story-item cat-emocional"
+data-audio="atipicos/audios/banda-atipicos-girassois-noturnos.mp3"
+data-icon="bi-moon-stars-fill">
+
+<div class="story-icon icon-emocional">
+<i class="bi bi-moon-stars-fill"></i>
+</div>
+
+<div class="story-info">
+
+<div class="badge-cat badge-emocional">
+EMOCIONAL
+</div>
+
+<div class="title-row">
+
+<div class="story-title">
+Girassóis Noturnos
+</div>
+
+<a
+href="#"
+target="_blank"
+class="mini-chord-link">
+
+<i class="bi bi-music-note-list"></i>
+
+<span>Cifra</span>
+
+</a>
+
+</div>
+
+<div class="story-meta">
+Acolhimento emocional • Banda ATÍPICOS
+</div>
+
+</div>
+
+<button class="play-btn">
+<i class="bi bi-play-fill"></i>
+</button>
+
+</div>
+
+  <!-- VOZES ATÍPICAS -->
+
+<div
+class="story-item cat-identidade"
+data-audio="atipicos/audios/banda-atipicos-vozes-atipicas.mp3"
+data-icon="bi-stars">
+
+<div class="story-icon icon-identidade">
+<i class="bi bi-stars"></i>
+</div>
+
+<div class="story-info">
+
+<div class="badge-cat badge-identidade">
+IDENTIDADE
+</div>
+
+<div class="title-row">
+
+<div class="story-title">
+Vozes Atípicas
+</div>
+
+<a
+href="#"
+target="_blank"
+class="mini-chord-link">
+
+<i class="bi bi-music-note-list"></i>
+
+<span>Cifra</span>
+
+</a>
+
+</div>
+
+<div class="story-meta">
+Expressão neurodivergente • Banda ATÍPICOS
+</div>
+
+</div>
+
+<button class="play-btn">
+<i class="bi bi-play-fill"></i>
+</button>
+
+</div>
+  
+
+<!-- MINHA LIÇÃO -->
+
+<div
+class="story-item cat-emocional"
+data-audio="atipicos/audios/banda-atipicos-minha-licao.mp3"
+data-icon="bi-heart-fill">
+
+<div class="story-icon icon-emocional">
+<i class="bi bi-heart-fill"></i>
+</div>
+
+<div class="story-info">
+
+<div class="badge-cat badge-emocional">
+EMOCIONAL
+</div>
+
+<div class="title-row">
+
+<div class="story-title">
+Minha Lição
+</div>
+
+<a
+href="atipicos/cifras/CIFRA-banda-atipicos-minha-licao.png"
+target="_blank"
+class="mini-chord-link">
+
+<i class="bi bi-music-note-list"></i>
+
+<span>Cifra</span>
+
+</a>
+
+</div>
+
+<div class="story-meta">
+Regulação emocional • Banda ATÍPICOS
+</div>
+
+</div>
+
+<button class="play-btn">
+<i class="bi bi-play-fill"></i>
+</button>
+
+</div>
+
+<!-- NO CAMINHO -->
+
+<div
+class="story-item cat-relacoes"
+data-audio="atipicos/audios/banda-atipicos-no-caminho-do-amor.mp3"
+data-icon="bi-arrow-through-heart-fill">
+
+<div class="story-icon icon-relacoes">
+<i class="bi bi-arrow-through-heart-fill"></i>
+</div>
+
+<div class="story-info">
+
+<div class="badge-cat badge-relacoes">
+RELAÇÕES
+</div>
+
+<div class="title-row">
+
+<div class="story-title">
+No Caminho do Amor
+</div>
+
+<a
+href="atipicos/cifras/CIFRA-banda-atipicos-no-caminho-do-amor.png"
+target="_blank"
+class="mini-chord-link">
+
+<i class="bi bi-music-note-list"></i>
+
+<span>Cifra</span>
+
+</a>
+
+</div>
+
+<div class="story-meta">
+Afeto • Relações • Banda ATÍPICOS
+</div>
+
+</div>
+
+<button class="play-btn">
+<i class="bi bi-play-fill"></i>
+</button>
+
+</div>
+
+<!-- QUEM É MEU AMOR -->
+
+<div
+class="story-item cat-relacoes"
+data-audio="atipicos/audios/banda-atipicos-quem-e-meu-amor.mp3"
+data-icon="bi-heart">
+
+<div class="story-icon icon-relacoes">
+<i class="bi bi-heart"></i>
+</div>
+
+<div class="story-info">
+
+<div class="badge-cat badge-relacoes">
+RELAÇÕES
+</div>
+
+<div class="title-row">
+
+<div class="story-title">
+Quem É Meu Amor
+</div>
+
+<a
+href="atipicos/cifras/CIFRA-banda-atipicos-quem-e-meu-amor.png"
+target="_blank"
+class="mini-chord-link">
+
+<i class="bi bi-music-note-list"></i>
+
+<span>Cifra</span>
+
+</a>
+
+</div>
+
+<div class="story-meta">
+Conexão emocional • Banda ATÍPICOS
+</div>
+
+</div>
+
+<button class="play-btn">
+<i class="bi bi-play-fill"></i>
+</button>
+
+</div>
+
+</div>
+
+<div class="fabularium-logo-container">
+
+<a href="https://www.instagram.com/atipicos_banda/" target="_blank">
+
+<img
+src="../assets/img/atipicos-logo.png"
+class="fabularium-logo img-fluid">
+
+</a>
+
+</div>
+
+</main>
+
+<!-- PLAYER -->
+
+<div class="audio-player">
+
+<div id="playerIcon" class="player-icon">
+<i class="bi bi-music-note"></i>
+</div>
+
+<div class="player-info">
+<div id="playerTitle">
+Escolha um abraço musical.
+</div>
+</div>
+
+<button id="prevBtn" class="play-btn">
+<i class="bi bi-skip-start-fill"></i>
+</button>
+
+<audio id="audioControl" controls></audio>
+
+<button id="nextBtn" class="play-btn">
+<i class="bi bi-skip-end-fill"></i>
+</button>
+
+</div>
+
+<script src="../assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="js/components.js"></script>
+
+<script>
+
+const items = document.querySelectorAll(".story-item");
+
+const audio = document.getElementById("audioControl");
+const title = document.getElementById("playerTitle");
+const icon = document.getElementById("playerIcon");
+
+const nextBtn = document.getElementById("nextBtn");
+const prevBtn = document.getElementById("prevBtn");
+
+let playlist = [];
+let currentIndex = -1;
+
+/* playlist */
+
+items.forEach((item,index)=>{
+
+playlist.push(item);
+
+let progress = document.createElement("div");
+progress.className = "card-progress";
+item.appendChild(progress);
+
+const playBtn = item.querySelector(".play-btn");
+
+playBtn.addEventListener("click",(e)=>{
+
+e.stopPropagation();
+
+currentIndex = index;
+
+playStory(item);
+
+});
+
+});
+
+/* tocar */
+
+function playStory(item){
+
+const src = item.getAttribute("data-audio");
+
+const storyTitle =
+item.querySelector(".story-title").innerText;
+
+const iconClass =
+item.getAttribute("data-icon");
+
+audio.src = src;
+
+audio.load();
+
+title.textContent = storyTitle;
+
+icon.innerHTML =
+`<i class="bi ${iconClass}"></i>`;
+
+audio.play().catch(err=>{
+console.log(err);
+});
+
+items.forEach(el=>
+el.classList.remove("playing")
+);
+
+item.classList.add("playing");
+
+}
+
+/* next */
+
+nextBtn.onclick = ()=>{
+
+if(currentIndex < playlist.length - 1){
+
+currentIndex++;
+
+playStory(playlist[currentIndex]);
+
+}
+
+}
+
+/* prev */
+
+prevBtn.onclick = ()=>{
+
+if(currentIndex > 0){
+
+currentIndex--;
+
+playStory(playlist[currentIndex]);
+
+}
+
+}
+
+/* auto next */
+
+audio.addEventListener("ended",()=>{
+
+if(currentIndex < playlist.length - 1){
+
+currentIndex++;
+
+playStory(playlist[currentIndex]);
+
+}
+
+});
+
+/* progresso */
+
+audio.addEventListener("timeupdate",()=>{
+
+if(currentIndex === -1 || !audio.duration)
+return;
+
+const progress =
+(audio.currentTime / audio.duration) * 100;
+
+const bar =
+playlist[currentIndex]
+.querySelector(".card-progress");
+
+if(bar){
+
+bar.style.width = progress + "%";
+
+}
+
+});
+
+/* filtros */
+
+const filters =
+document.querySelectorAll(".filter-btn");
+
+filters.forEach(btn=>{
+
+btn.onclick = ()=>{
+
+filters.forEach(b=>
+b.classList.remove("active")
+);
+
+btn.classList.add("active");
+
+const filter = btn.dataset.filter;
+
+items.forEach(item=>{
+
+if(filter === "all"){
+
+item.style.display = "flex";
+
+}
+
+else if(item.classList.contains(filter)){
+
+item.style.display = "flex";
+
+}
+
+else{
+
+item.style.display = "none";
+
+}
+
+});
+
+};
+
+});
+
+</script>
+
+</body>
+</html>
