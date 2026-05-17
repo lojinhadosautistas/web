@@ -1,0 +1,1190 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>Bazar da Natureza 🌿</title>
+
+  <meta name="description"
+    content="Videoteca natural, hortoterapia, oficinas de jardinagem, doação de mudas e saberes ancestrais." />
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="Bazar da Natureza 🌿" />
+  <meta property="og:description"
+    content="Cultivo, cuidado, plantas medicinais e hortoterapia." />
+
+  <meta property="og:image"
+    content="assets/img/bazar-da-natureza.png" />
+
+  <meta property="og:type" content="website" />
+
+  <!-- Favicons -->
+  <link href="assets/img/favicon.png" rel="icon">
+
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com" rel="preconnect">
+  <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap"
+    rel="stylesheet">
+
+  <!-- Vendor CSS -->
+  <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+  <link href="assets/vendor/aos/aos.css" rel="stylesheet">
+  <link href="assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
+
+  <!-- Main CSS -->
+  <link href="assets/css/main.css" rel="stylesheet">
+
+  <style>
+
+    body {
+      background: #f5efe3;
+      color: #4d463c;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    h1,
+    h2,
+    h3,
+    h4 {
+      font-family: 'Playfair Display', serif;
+    }
+
+    .header {
+      background: rgba(255,255,255,0.94) !important;
+      backdrop-filter: blur(10px);
+      box-shadow: 0 2px 15px rgba(0,0,0,0.06);
+    }
+
+    .header .sitename {
+      color: #5f6b3d !important;
+      font-weight: 700;
+    }
+
+    .header .navmenu a {
+      color: #555 !important;
+    }
+
+    .header .navmenu a:hover,
+    .header .navmenu .active {
+      color: #7c8b52 !important;
+    }
+
+    .btn-getstarted {
+      background: #7c8b52;
+      border-radius: 50px;
+      padding: 12px 24px;
+      color: #fff;
+      transition: .3s;
+      border: none;
+    }
+
+    .btn-getstarted:hover {
+      background: #64703f;
+      color: #fff;
+    }
+
+    /* HERO */
+
+    .hero-bazar {
+
+      padding: 170px 0 120px;
+
+      background:
+      linear-gradient(to right,
+      rgba(245,239,227,.96),
+      rgba(245,239,227,.82)),
+
+      url('assets/img/bg-folhas.jpg') center center;
+
+      background-size: cover;
+
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-badge {
+
+      background: #7c8b52;
+      color: #fff;
+
+      display: inline-block;
+
+      padding: 10px 20px;
+
+      border-radius: 50px;
+
+      margin-bottom: 25px;
+
+      font-size: .95rem;
+      font-weight: 600;
+    }
+
+    .hero-bazar h1 {
+
+      font-size: 4.4rem;
+      line-height: 1.05;
+
+      color: #4b3d2d;
+
+      margin-bottom: 25px;
+
+      font-weight: 700;
+    }
+
+    .hero-bazar h1 span {
+      color: #7c8b52;
+    }
+
+    .hero-bazar p {
+
+      font-size: 1.2rem;
+
+      line-height: 1.9;
+
+      color: #5b6651;
+
+      max-width: 650px;
+    }
+
+    .hero-info {
+
+      margin-top: 35px;
+
+      display: flex;
+      flex-wrap: wrap;
+      gap: 18px;
+    }
+
+    .hero-info div {
+
+      background: rgba(255,255,255,.7);
+
+      border-radius: 18px;
+
+      padding: 14px 20px;
+
+      color: #555;
+
+      font-weight: 500;
+    }
+
+    .hero-info i {
+      color: #7c8b52;
+      margin-right: 8px;
+    }
+
+    .btn-bazar {
+
+      margin-top: 40px;
+
+      display: inline-block;
+
+      background: #7c8b52;
+
+      color: #fff;
+
+      padding: 16px 34px;
+
+      border-radius: 50px;
+
+      text-decoration: none;
+
+      font-weight: 600;
+
+      transition: .3s;
+
+      box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+    }
+
+    .btn-bazar:hover {
+
+      background: #64703f;
+
+      transform: translateY(-3px);
+
+      color: #fff;
+    }
+
+    /* SECTIONS */
+
+    .section-soft {
+      padding: 100px 0;
+    }
+
+    .section-title-bazar {
+
+      text-align: center;
+
+      margin-bottom: 60px;
+    }
+
+    .section-title-bazar h2 {
+
+      color: #4b3d2d;
+
+      font-size: 2.8rem;
+
+      margin-bottom: 20px;
+
+      font-weight: 700;
+    }
+
+    .section-title-bazar p {
+
+      max-width: 850px;
+
+      margin: auto;
+
+      color: #6b6b5d;
+
+      line-height: 1.9;
+
+      font-size: 1.1rem;
+    }
+
+    /* CARDS */
+
+    .feature-card {
+
+      background: #fff;
+
+      border-radius: 28px;
+
+      padding: 40px 30px;
+
+      height: 100%;
+
+      transition: .3s;
+
+      box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+
+      text-align: center;
+    }
+
+    .feature-card:hover {
+      transform: translateY(-6px);
+    }
+
+    .feature-icon {
+
+      width: 82px;
+      height: 82px;
+
+      border-radius: 50%;
+
+      display: flex;
+
+      align-items: center;
+      justify-content: center;
+
+      margin: auto auto 25px;
+
+      font-size: 2rem;
+
+      color: #fff;
+    }
+
+    .bg-green {
+      background: #7c8b52;
+    }
+
+    .bg-earth {
+      background: #9b6b43;
+    }
+
+    .bg-leaf {
+      background: #5d7d5d;
+    }
+
+    .bg-gold {
+      background: #b38b4d;
+    }
+
+    .feature-card h4 {
+
+      color: #4b3d2d;
+
+      margin-bottom: 15px;
+
+      font-weight: 600;
+    }
+
+    .feature-card p {
+
+      color: #666;
+
+      line-height: 1.9;
+    }
+
+    /* ABOUT */
+
+    .about-box {
+
+      background: #fff;
+
+      border-radius: 35px;
+
+      padding: 60px;
+
+      box-shadow: 0 10px 40px rgba(0,0,0,0.05);
+    }
+
+    .about-box h2 {
+
+      color: #4b3d2d;
+
+      font-size: 2.7rem;
+
+      margin-bottom: 25px;
+
+      font-weight: 700;
+    }
+
+    .about-box p {
+
+      line-height: 2;
+
+      color: #555;
+
+      margin-bottom: 20px;
+    }
+
+    .about-box ul {
+
+      list-style: none;
+
+      padding: 0;
+
+      margin-top: 30px;
+    }
+
+    .about-box li {
+
+      margin-bottom: 16px;
+
+      color: #444;
+
+      font-size: 1.05rem;
+    }
+
+    .about-box i {
+
+      color: #7c8b52;
+
+      margin-right: 10px;
+    }
+
+    /* VIDEOTECA */
+
+    .video-card {
+
+      background: #fff;
+
+      border-radius: 25px;
+
+      overflow: hidden;
+
+      transition: .3s;
+
+      box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+
+      height: 100%;
+    }
+
+    .video-card:hover {
+      transform: translateY(-6px);
+    }
+
+    .video-thumb {
+
+      position: relative;
+    }
+
+    .video-thumb img {
+
+      width: 100%;
+      height: 250px;
+
+      object-fit: cover;
+    }
+
+    .video-content {
+      padding: 25px;
+    }
+
+    .video-content h4 {
+
+      color: #4b3d2d;
+
+      margin-bottom: 15px;
+    }
+
+    .video-content p {
+
+      color: #666;
+
+      line-height: 1.8;
+    }
+
+    .badge-video {
+
+      display: inline-block;
+
+      background: #eef3e5;
+
+      color: #64703f;
+
+      padding: 8px 14px;
+
+      border-radius: 50px;
+
+      font-size: .8rem;
+
+      margin-top: 10px;
+    }
+
+    /* INFO STRIP */
+
+    .info-strip {
+
+      background:
+      linear-gradient(135deg,
+      #f0e7d9,
+      #f8f4ec);
+
+      border-radius: 30px;
+
+      padding: 60px;
+
+      text-align: center;
+    }
+
+    .info-strip h3 {
+
+      color: #4b3d2d;
+
+      margin-bottom: 15px;
+
+      font-size: 2.2rem;
+
+      font-weight: 700;
+    }
+
+    .info-strip p {
+
+      color: #666;
+
+      font-size: 1.1rem;
+    }
+
+    /* CTA */
+
+    .cta-section {
+      padding: 110px 0;
+    }
+
+    .cta-box {
+
+      background:
+      linear-gradient(135deg,
+      #fff,
+      #f4eee3);
+
+      border-radius: 40px;
+
+      padding: 80px 50px;
+
+      text-align: center;
+
+      box-shadow: 0 15px 40px rgba(0,0,0,0.05);
+    }
+
+    .cta-box h2 {
+
+      color: #4b3d2d;
+
+      font-size: 3rem;
+
+      margin-bottom: 20px;
+
+      font-weight: 700;
+    }
+
+    .cta-box p {
+
+      color: #666;
+
+      font-size: 1.15rem;
+
+      margin-bottom: 30px;
+    }
+
+    /* FOOTER */
+
+    .footer {
+
+      background: #556b4f;
+
+      color: #fff;
+    }
+
+    .footer .sitename {
+      color: #fff;
+    }
+
+    /* MOBILE */
+
+    @media (max-width: 991px) {
+
+      .hero-bazar {
+        padding: 140px 0 90px;
+      }
+
+      .hero-bazar h1 {
+        font-size: 3rem;
+      }
+
+      .about-box {
+        padding: 35px;
+      }
+
+      .cta-box {
+        padding: 50px 25px;
+      }
+
+      .cta-box h2 {
+        font-size: 2.2rem;
+      }
+    }
+
+  </style>
+
+</head>
+
+<body class="index-page">
+
+  <!-- HEADER -->
+  <header id="header" class="header d-flex align-items-center fixed-top">
+
+    <div class="container-fluid container-xl position-relative d-flex align-items-center">
+
+      <a href="index.html" class="logo d-flex align-items-center me-auto">
+
+        <h1 class="sitename">
+          Bazar da Natureza
+        </h1>
+
+      </a>
+
+      <nav id="navmenu" class="navmenu">
+
+        <ul>
+          <li><a href="#hero">Início</a></li>
+          <li><a href="#sobre">Sobre</a></li>
+          <li><a href="#videoteca">Videoteca</a></li>
+          <li><a href="#mudas">Mudas</a></li>
+          <li><a href="#hortoterapia">Hortoterapia</a></li>
+        </ul>
+
+        <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
+
+      </nav>
+
+      <a class="btn-getstarted" href="#videoteca">
+        Explorar Conteúdo
+      </a>
+
+    </div>
+
+  </header>
+
+  <!-- HERO -->
+  <section id="hero" class="hero-bazar">
+
+    <div class="container">
+
+      <div class="row align-items-center">
+
+        <div class="col-lg-7" data-aos="fade-right">
+
+          <div class="hero-badge">
+            🌿 Cultivo • Bem-estar • Natureza
+          </div>
+
+          <h1>
+            Bazar da <br>
+            <span>Natureza</span>
+          </h1>
+
+          <p>
+            Videoteca natural, hortoterapia, oficinas comunitárias,
+            doação de mudas e saberes ancestrais voltados ao cuidado,
+            reconexão emocional e cultivo afetivo.
+          </p>
+
+          <div class="hero-info">
+
+            <div>
+              <i class="bi bi-flower1"></i>
+              Plantas Medicinais
+            </div>
+
+            <div>
+              <i class="bi bi-tree"></i>
+              Terapia da Enxada
+            </div>
+
+            <div>
+              <i class="bi bi-camera-video"></i>
+              Videoteca Natural
+            </div>
+
+          </div>
+
+          <a href="#videoteca" class="btn-bazar">
+            Assistir Conteúdos
+          </a>
+
+        </div>
+
+        <div class="col-lg-5 text-center" data-aos="fade-left">
+
+          <img
+            src="assets/img/bazar-da-natureza.png"
+            class="img-fluid"
+            alt="Bazar da Natureza">
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </section>
+
+  <!-- SOBRE -->
+  <section id="sobre" class="section-soft">
+
+    <div class="container">
+
+      <div class="about-box" data-aos="fade-up">
+
+        <div class="row align-items-center gy-5">
+
+          <div class="col-lg-7">
+
+            <h2>
+              Cultivar também é cuidar.
+            </h2>
+
+            <p>
+              O Bazar da Natureza nasce como um espaço afetivo de troca,
+              cultivo, aprendizado e bem-estar através da terra.
+            </p>
+
+            <p>
+              Atuamos com hortoterapia, oficinas de jardinagem,
+              doação de mudas medicinais e produção de conteúdo
+              audiovisual sobre plantas, alimentação funcional
+              e saberes naturais.
+            </p>
+
+            <ul>
+
+              <li>
+                <i class="bi bi-check-circle-fill"></i>
+                Videoteca Natural
+              </li>
+
+              <li>
+                <i class="bi bi-check-circle-fill"></i>
+                Terapia da Enxada
+              </li>
+
+              <li>
+                <i class="bi bi-check-circle-fill"></i>
+                Hortoterapia Comunitária
+              </li>
+
+              <li>
+                <i class="bi bi-check-circle-fill"></i>
+                Oficinas de Jardinagem
+              </li>
+
+              <li>
+                <i class="bi bi-check-circle-fill"></i>
+                Doação de Mudas
+              </li>
+
+            </ul>
+
+          </div>
+
+          <div class="col-lg-5 text-center">
+
+            <img
+              src="assets/img/bazar-da-natureza.png"
+              class="img-fluid rounded-4 shadow"
+              alt="Bazar da Natureza">
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </section>
+
+  <!-- CARDS -->
+  <section class="section-soft pt-0">
+
+    <div class="container">
+
+      <div class="section-title-bazar" data-aos="fade-up">
+
+        <h2>
+          O que você encontrará
+        </h2>
+
+        <p>
+          Conhecimento natural, cultivo afetivo e práticas de cuidado através da terra.
+        </p>
+
+      </div>
+
+      <div class="row gy-4">
+
+        <div class="col-lg-3 col-md-6" data-aos="zoom-in">
+
+          <div class="feature-card">
+
+            <div class="feature-icon bg-green">
+              <i class="bi bi-cup-hot"></i>
+            </div>
+
+            <h4>Chás Medicinais</h4>
+
+            <p>
+              Preparo tradicional de ervas e receitas terapêuticas naturais.
+            </p>
+
+          </div>
+
+        </div>
+
+        <div class="col-lg-3 col-md-6" data-aos="zoom-in" data-aos-delay="100">
+
+          <div class="feature-card">
+
+            <div class="feature-icon bg-earth">
+              <i class="bi bi-flower2"></i>
+            </div>
+
+            <h4>Plantas Medicinais</h4>
+
+            <p>
+              Saberes populares sobre cultivo, uso e propriedades naturais.
+            </p>
+
+          </div>
+
+        </div>
+
+        <div class="col-lg-3 col-md-6" data-aos="zoom-in" data-aos-delay="200">
+
+          <div class="feature-card">
+
+            <div class="feature-icon bg-leaf">
+              <i class="bi bi-tree"></i>
+            </div>
+
+            <h4>Hortoterapia</h4>
+
+            <p>
+              Reconexão emocional através da jardinagem e manejo da terra.
+            </p>
+
+          </div>
+
+        </div>
+
+        <div class="col-lg-3 col-md-6" data-aos="zoom-in" data-aos-delay="300">
+
+          <div class="feature-card">
+
+            <div class="feature-icon bg-gold">
+              <i class="bi bi-basket"></i>
+            </div>
+
+            <h4>Receitas Naturais</h4>
+
+            <p>
+              Alimentação funcional com PANCs e ingredientes naturais.
+            </p>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </section>
+
+  <!-- VIDEOTECA -->
+  <section id="videoteca" class="section-soft pt-0">
+
+    <div class="container">
+
+      <div class="section-title-bazar" data-aos="fade-up">
+
+        <h2>
+          Videoteca Natural
+        </h2>
+
+        <p>
+          Biblioteca audiovisual sobre plantas medicinais, cultivo,
+          receitas naturais e hortoterapia.
+        </p>
+
+      </div>
+
+      <div class="row gy-4">
+
+        <!-- VIDEO 1 -->
+        <div class="col-lg-4" data-aos="fade-up">
+
+          <div class="video-card">
+
+            <div class="video-thumb">
+
+              <img
+                src="https://img.youtube.com/vi/Gde9oHzLrQ4/hqdefault.jpg"
+                alt="Chás Medicinais">
+
+              <a href="https://www.youtube.com/watch?v=Gde9oHzLrQ4"
+                class="glightbox pulsating-play-btn"
+                data-type="video">
+              </a>
+
+            </div>
+
+            <div class="video-content">
+
+              <h4>
+                Chás Medicinais
+              </h4>
+
+              <p>
+                Conheça ervas naturais e preparos terapêuticos populares.
+              </p>
+
+              <span class="badge-video">
+                Fitoterapia
+              </span>
+
+            </div>
+
+          </div>
+
+        </div>
+
+        <!-- VIDEO 2 -->
+        <div class="col-lg-4" data-aos="fade-up" data-aos-delay="100">
+
+          <div class="video-card">
+
+            <div class="video-thumb">
+
+              <img
+                src="https://img.youtube.com/vi/AOHf2JbpNMA/hqdefault.jpg"
+                alt="Plantas Medicinais">
+
+              <a href="https://www.youtube.com/watch?v=AOHf2JbpNMA"
+                class="glightbox pulsating-play-btn"
+                data-type="video">
+              </a>
+
+            </div>
+
+            <div class="video-content">
+
+              <h4>
+                Plantas Medicinais
+              </h4>
+
+              <p>
+                Propriedades naturais e cultivo de espécies terapêuticas.
+              </p>
+
+              <span class="badge-video">
+                Natureza
+              </span>
+
+            </div>
+
+          </div>
+
+        </div>
+
+        <!-- VIDEO 3 -->
+        <div class="col-lg-4" data-aos="fade-up" data-aos-delay="200">
+
+          <div class="video-card">
+
+            <div class="video-thumb">
+
+              <img
+                src="https://img.youtube.com/vi/q5tcFYU92SU/hqdefault.jpg"
+                alt="Receitas Naturais">
+
+              <a href="https://www.youtube.com/watch?v=q5tcFYU92SU"
+                class="glightbox pulsating-play-btn"
+                data-type="video">
+              </a>
+
+            </div>
+
+            <div class="video-content">
+
+              <h4>
+                Receitas Naturais
+              </h4>
+
+              <p>
+                Ora-pro-nóbis, taioba e receitas funcionais ancestrais.
+              </p>
+
+              <span class="badge-video">
+                Alimentação Funcional
+              </span>
+
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </section>
+
+  <!-- INFO -->
+  <section class="section-soft pt-0">
+
+    <div class="container">
+
+      <div class="info-strip" data-aos="fade-up">
+
+        <h3>
+          Terapia da Enxada 🌱
+        </h3>
+
+        <p>
+          Jardinagem, cultivo e manejo da terra como ferramenta terapêutica e emocional.
+        </p>
+
+      </div>
+
+    </div>
+
+  </section>
+
+  <!-- MUDAS -->
+  <section id="mudas" class="section-soft">
+
+    <div class="container">
+
+      <div class="section-title-bazar" data-aos="fade-up">
+
+        <h2>
+          Doação de Mudas
+        </h2>
+
+        <p>
+          Distribuição solidária de plantas medicinais, alimentícias e ornamentais.
+        </p>
+
+      </div>
+
+      <div class="row gy-4 justify-content-center">
+
+        <div class="col-lg-4" data-aos="fade-up">
+
+          <div class="feature-card">
+
+            <div class="feature-icon bg-green">
+              🌿
+            </div>
+
+            <h4>
+              Medicinais
+            </h4>
+
+            <p>
+              Hortelã, boldo, erva-cidreira,
+              capim santo, mastruz e mais.
+            </p>
+
+          </div>
+
+        </div>
+
+        <div class="col-lg-4" data-aos="fade-up" data-aos-delay="100">
+
+          <div class="feature-card">
+
+            <div class="feature-icon bg-earth">
+              🥬
+            </div>
+
+            <h4>
+              PANCs
+            </h4>
+
+            <p>
+              Ora-pro-nóbis, taioba,
+              folha de uva e alimentos funcionais.
+            </p>
+
+          </div>
+
+        </div>
+
+        <div class="col-lg-4" data-aos="fade-up" data-aos-delay="200">
+
+          <div class="feature-card">
+
+            <div class="feature-icon bg-leaf">
+              🌳
+            </div>
+
+            <h4>
+              Reflorestamento
+            </h4>
+
+            <p>
+              Árvores destinadas ao cultivo urbano e recuperação ambiental.
+            </p>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </section>
+
+  <!-- CTA -->
+  <section class="cta-section">
+
+    <div class="container">
+
+      <div class="cta-box" data-aos="zoom-in">
+
+        <h2>
+          Cultivar também é resistir.
+        </h2>
+
+        <p>
+          Faça parte desta rede de cuidado, natureza, hortoterapia e saberes ancestrais.
+        </p>
+
+        <a href="#videoteca" class="btn-bazar">
+          Explorar Videoteca
+        </a>
+
+      </div>
+
+    </div>
+
+  </section>
+
+  <!-- FOOTER -->
+  <footer id="footer" class="footer py-5">
+
+    <div class="container text-center">
+
+      <h3 class="sitename mb-3">
+        Bazar da Natureza
+      </h3>
+
+      <p>
+        Cultivo • Cuidado • Conhecimento Natural
+      </p>
+
+      <div class="social-links d-flex justify-content-center gap-3 mt-4">
+
+        <a href="#"
+          style="color:#fff; font-size:1.5rem;">
+
+          <i class="bi bi-instagram"></i>
+
+        </a>
+
+        <a href="#"
+          style="color:#fff; font-size:1.5rem;">
+
+          <i class="bi bi-youtube"></i>
+
+        </a>
+
+      </div>
+
+      <div class="mt-4">
+        © 2026 Bazar da Natureza
+      </div>
+
+    </div>
+
+  </footer>
+
+  <!-- Scroll Top -->
+  <a href="#"
+    id="scroll-top"
+    class="scroll-top d-flex align-items-center justify-content-center">
+
+    <i class="bi bi-arrow-up-short"></i>
+
+  </a>
+
+  <!-- Vendor JS -->
+  <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+  <script src="assets/vendor/aos/aos.js"></script>
+
+  <script src="assets/vendor/glightbox/js/glightbox.min.js"></script>
+
+  <!-- Main JS -->
+  <script src="assets/js/main.js"></script>
+
+  <script>
+
+    AOS.init({
+      duration: 900,
+      once: true
+    });
+
+    const lightbox = GLightbox({
+      selector: '.glightbox'
+    });
+
+  </script>
+
+</body>
+
+</html>
