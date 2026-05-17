@@ -510,6 +510,10 @@ height:auto;
 }
 
 .album-info h2{
+flex:1;
+min-width:0;
+position:relative;
+padding-bottom:90px;
 font-size:32px;
 }
 
@@ -573,7 +577,10 @@ UNIVERSO ATÍPICOS
 ========================= */
 
 .album-universe-link{
-margin-top:28px;
+position:absolute;
+right:28px;
+bottom:24px;
+z-index:5;
 }
 
 .universe-divider{
@@ -595,30 +602,20 @@ margin-bottom:18px;
 display:flex;
 align-items:center;
 gap:14px;
-
 width:fit-content;
 max-width:100%;
-
 padding:10px 14px;
-
 border-radius:18px;
-
 text-decoration:none;
-
 background:rgba(255,255,255,.04);
-
 border:1px solid rgba(255,255,255,.06);
-
 transition:.28s ease;
 }
 
 .universe-card:hover{
 transform:translateY(-3px);
-
 background:rgba(255,255,255,.07);
-
 border-color:rgba(251,191,36,.22);
-
 box-shadow:
 0 12px 32px rgba(0,0,0,.25);
 }
@@ -626,13 +623,9 @@ box-shadow:
 .universe-cover{
 width:62px;
 height:62px;
-
 object-fit:cover;
-
 border-radius:14px;
-
 flex-shrink:0;
-
 box-shadow:
 0 6px 18px rgba(0,0,0,.35);
 }
@@ -678,6 +671,17 @@ color:#fbbf24;
 .universe-card{
 width:100%;
 justify-content:flex-start;
+}
+
+.album-universe-link{
+position:relative;
+right:auto;
+bottom:auto;
+margin-top:24px;
+}
+
+.album-info{
+padding-bottom:0;
 }
 
 }
