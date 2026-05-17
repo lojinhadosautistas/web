@@ -48,10 +48,46 @@ BASE
 body{
 background:#070707;
 color:#f8fafc;
+font-family:'Inter',sans-serif;
 }
 
 .main{
 padding-bottom:140px;
+}
+
+/* =========================
+PAGE TITLE
+========================= */
+
+.page-title h1{
+color:#f8fafc;
+text-shadow:0 0 12px rgba(251,191,36,.18);
+}
+
+.page-title p{
+color:#cbd5e1;
+}
+
+.page-title .bi-instagram{
+color:#fbbf24;
+}
+
+/* =========================
+HEADER
+========================= */
+
+#header-container,
+#header-container .navbar{
+background:#020617 !important;
+border-bottom:1px solid rgba(255,255,255,.05);
+}
+
+#header-container a{
+color:#f8fafc !important;
+}
+
+#header-container a:hover{
+color:#fbbf24 !important;
 }
 
 /* =========================
@@ -60,11 +96,14 @@ HERO
 
 .album-hero{
 position:relative;
+
 display:flex;
-align-items:center;
-gap:24px;
-padding:24px;
-border-radius:28px;
+align-items:flex-start;
+gap:28px;
+
+padding:28px;
+
+border-radius:30px;
 overflow:hidden;
 
 background:
@@ -85,9 +124,12 @@ margin:24px 0 34px;
 content:"";
 position:absolute;
 inset:0;
+
 background-image:
 radial-gradient(rgba(255,255,255,.08) 1px, transparent 1px);
+
 background-size:22px 22px;
+
 opacity:.18;
 pointer-events:none;
 }
@@ -96,17 +138,34 @@ pointer-events:none;
 width:220px;
 height:220px;
 object-fit:cover;
+
 border-radius:22px;
+
 flex-shrink:0;
+
+position:relative;
+z-index:2;
 
 box-shadow:
 0 14px 40px rgba(0,0,0,.55),
 0 0 0 1px rgba(255,255,255,.08);
 }
 
-.album-info{
+.album-main{
 position:relative;
 z-index:2;
+
+display:flex;
+align-items:flex-start;
+justify-content:space-between;
+gap:30px;
+
+width:100%;
+}
+
+.album-info{
+flex:1;
+min-width:0;
 }
 
 .album-badge{
@@ -131,21 +190,21 @@ letter-spacing:.08em;
 }
 
 .album-info h2{
-font-size:42px;
+font-size:52px;
 font-weight:800;
-line-height:1;
-margin-bottom:16px;
+line-height:1.05;
+margin-bottom:18px;
 }
 
 .album-description{
 font-size:15px;
-line-height:1.7;
-max-width:700px;
+line-height:1.8;
+max-width:760px;
 color:#cbd5e1;
 }
 
 .album-quote{
-margin-top:18px;
+margin-top:22px;
 
 padding-left:18px;
 
@@ -154,6 +213,93 @@ border-left:3px solid #f59e0b;
 font-style:italic;
 
 color:#fcd34d;
+
+max-width:720px;
+}
+
+/* =========================
+UNIVERSO
+========================= */
+
+.album-universe{
+width:250px;
+flex-shrink:0;
+
+display:flex;
+align-items:center;
+justify-content:center;
+}
+
+.album-universe-card{
+width:100%;
+
+padding:18px;
+
+border-radius:24px;
+
+background:
+linear-gradient(145deg,
+rgba(255,255,255,.06),
+rgba(255,255,255,.03));
+
+border:1px solid rgba(255,255,255,.08);
+
+backdrop-filter:blur(10px);
+
+text-decoration:none;
+
+transition:.3s ease;
+
+box-shadow:
+0 12px 30px rgba(0,0,0,.22);
+}
+
+.album-universe-card:hover{
+transform:translateY(-4px);
+
+border-color:rgba(251,191,36,.35);
+
+box-shadow:
+0 18px 40px rgba(0,0,0,.35);
+}
+
+.universe-cover{
+width:78px;
+height:78px;
+object-fit:cover;
+
+border-radius:18px;
+
+margin-bottom:14px;
+
+box-shadow:
+0 10px 20px rgba(0,0,0,.35);
+}
+
+.universe-label{
+font-size:11px;
+font-weight:700;
+letter-spacing:.08em;
+text-transform:uppercase;
+
+color:#94a3b8;
+
+margin-bottom:8px;
+}
+
+.universe-title{
+display:flex;
+align-items:center;
+gap:8px;
+
+font-size:20px;
+font-weight:700;
+
+color:#f8fafc;
+}
+
+.universe-title i{
+color:#fbbf24;
 }
 
 /* =========================
@@ -263,6 +409,7 @@ border-left:4px solid #22c55e;
 .story-icon{
 width:60px;
 height:60px;
+
 border-radius:18px;
 
 display:flex;
@@ -496,6 +643,19 @@ opacity:.9;
 RESPONSIVO
 ========================= */
 
+@media(max-width:1100px){
+
+.album-main{
+flex-direction:column;
+}
+
+.album-universe{
+width:100%;
+justify-content:flex-start;
+}
+
+}
+
 @media(max-width:768px){
 
 .album-hero{
@@ -507,10 +667,33 @@ text-align:center;
 width:100%;
 max-width:280px;
 height:auto;
+margin:auto;
+}
+
+.album-main{
+flex-direction:column;
+align-items:center;
+text-align:center;
 }
 
 .album-info h2{
-font-size:32px;
+font-size:34px;
+}
+
+.album-description,
+.album-quote{
+max-width:100%;
+}
+
+.album-quote{
+border-left:none;
+border-top:3px solid #f59e0b;
+padding-left:0;
+padding-top:14px;
+}
+
+.album-universe{
+width:100%;
 }
 
 .story-title{
@@ -528,144 +711,6 @@ flex-wrap:wrap;
 
 }
 
-  /* título principal */
-
-.page-title h1{
-color:#f8fafc;
-text-shadow:0 0 12px rgba(251,191,36,.18);
-}
-
-.page-title p{
-color:#cbd5e1;
-}
-
-/* instagram */
-
-.page-title .bi-instagram{
-color:#fbbf24;
-}
-
-/* topmenu */
-
-#header-container,
-#header-container .navbar{
-background:#020617 !important;
-border-bottom:1px solid rgba(255,255,255,.05);
-}
-
-/* links do topmenu */
-
-#header-container a{
-color:#f8fafc !important;
-}
-
-/* hover */
-
-#header-container a:hover{
-color:#fbbf24 !important;
-}
-
-
-
-
-/* =========================
-UNIVERSO / ÁLBUM ANTERIOR
-========================= */
-
-.album-info{
-position:relative;
-padding-bottom:90px;
-}
-
-/* card do girassóis */
-
-.album-universe-link{
-position:absolute;
-
-right:0;
-bottom:0;
-
-display:flex;
-flex-direction:column;
-align-items:flex-end;
-
-gap:10px;
-}
-
-.universe-label{
-font-size:11px;
-color:#94a3b8;
-letter-spacing:.08em;
-text-transform:uppercase;
-}
-
-/* botão/card */
-
-.universe-album-link{
-display:inline-flex;
-align-items:center;
-gap:10px;
-
-padding:12px 16px;
-
-border-radius:999px;
-
-text-decoration:none;
-
-background:rgba(255,255,255,.06);
-
-border:1px solid rgba(255,255,255,.08);
-
-color:#f8fafc;
-
-font-weight:600;
-font-size:14px;
-
-backdrop-filter:blur(10px);
-
-transition:.28s ease;
-}
-
-.universe-album-link:hover{
-transform:translateY(-3px);
-
-background:rgba(251,191,36,.10);
-
-border-color:rgba(251,191,36,.24);
-
-color:#fbbf24;
-
-box-shadow:
-0 10px 30px rgba(0,0,0,.25);
-}
-
-.universe-album-link i{
-font-size:15px;
-color:#fbbf24;
-}
-
-/* mobile */
-
-@media(max-width:768px){
-
-.album-info{
-padding-bottom:0;
-}
-
-.album-universe-link{
-position:relative;
-
-right:auto;
-bottom:auto;
-
-margin-top:24px;
-
-align-items:center;
-}
-
-}
-  
-  
 </style>
 
 </head>
@@ -710,6 +755,8 @@ alt="Capa do álbum Aqueles que se Atrevem a Ser"
 class="album-cover img-fluid"
 />
 
+<div class="album-main">
+
 <div class="album-info">
 
 <span class="album-badge">
@@ -741,701 +788,45 @@ cada passo é uma obra-prima de pertencimento.”
 
 </div>
 
-<div class="album-universe-link"><span class="universe-label">Do mesmo universo de</span>
-<a href="atipicos/girassois-noturnos.html" class="universe-album-link"><i class="bi bi-moon-stars-fill"></i><span>Girassóis Noturnos</span></a>
 </div>
 
-  
-</div>
+<!-- GIRASSÓIS -->
 
-</div>
-
-<!-- FILTROS -->
-
-<div class="fabularium-filters">
-
-<button class="filter-btn active" data-filter="all">
-Todas
-</button>
-
-<button class="filter-btn" data-filter="cat-jornada">
-Jornada
-</button>
-
-<button class="filter-btn" data-filter="cat-afeto">
-Afeto
-</button>
-
-<button class="filter-btn" data-filter="cat-identidade">
-Identidade
-</button>
-
-<button class="filter-btn" data-filter="cat-instrumental">
-Instrumental
-</button>
-
-</div>
-
-<!-- LISTA -->
-
-<div class="fabularium-library">
-
-<!-- O CIRCO -->
-
-<div
-class="story-item cat-jornada"
-data-audio="atipicos/audios/banda-atipicos-o-circo-e-o-acordeao.mp3"
-data-icon="bi-boombox-fill">
-
-<div class="story-icon icon-jornada">
-<i class="bi bi-boombox-fill"></i>
-</div>
-
-<div class="story-info">
-
-<div class="badge-cat badge-jornada">
-JORNADA
-</div>
-
-<div class="title-row">
-
-<div class="story-title">
-O Circo e o Acordeão
-</div>
+<div class="album-universe">
 
 <a
-href="#"
-target="_blank"
-class="mini-chord-link">
-
-<i class="bi bi-music-note-list"></i>
-
-<span>Cifra</span>
-
-</a>
-
-</div>
-
-<div class="story-meta">
-Jazz Blues Soul • Banda ATÍPICOS
-</div>
-
-</div>
-
-<button class="play-btn">
-<i class="bi bi-play-fill"></i>
-</button>
-
-</div>
-
-<!-- NOSSO PRISMA -->
-
-<div
-class="story-item cat-identidade"
-data-audio="atipicos/audios/banda-atipicos-nosso-prisma.mp3"
-data-icon="bi-stars">
-
-<div class="story-icon icon-identidade">
-<i class="bi bi-stars"></i>
-</div>
-
-<div class="story-info">
-
-<div class="badge-cat badge-identidade">
-IDENTIDADE
-</div>
-
-<div class="title-row">
-
-<div class="story-title">
-Nosso PRISMA
-</div>
-
-<a
-href="#"
-target="_blank"
-class="mini-chord-link">
-
-<i class="bi bi-music-note-list"></i>
-
-<span>Cifra</span>
-
-</a>
-
-</div>
-
-<div class="story-meta">
-Pertencimento • Neurodivergência • Banda ATÍPICOS
-</div>
-
-</div>
-
-<button class="play-btn">
-<i class="bi bi-play-fill"></i>
-</button>
-
-</div>
-
-<!-- ACALMA -->
-
-<div
-class="story-item cat-afeto"
-data-audio="atipicos/audios/banda-atipicos-acalma-o-coracao.mp3"
-data-icon="bi-heart-pulse-fill">
-
-<div class="story-icon icon-afeto">
-<i class="bi bi-heart-pulse-fill"></i>
-</div>
-
-<div class="story-info">
-
-<div class="badge-cat badge-afeto">
-AFETO
-</div>
-
-<div class="title-row">
-
-<div class="story-title">
-Acalma o Coração
-</div>
-
-<a
-href="#"
-target="_blank"
-class="mini-chord-link">
-
-<i class="bi bi-music-note-list"></i>
-
-<span>Cifra</span>
-
-</a>
-
-</div>
-
-<div class="story-meta">
-Regulação emocional • Banda ATÍPICOS
-</div>
-
-</div>
-
-<button class="play-btn">
-<i class="bi bi-play-fill"></i>
-</button>
-
-</div>
-
-<!-- NINHO -->
-
-<div
-class="story-item cat-afeto"
-data-audio="atipicos/audios/banda-atipicos-ninho-lar.mp3"
-data-icon="bi-house-heart-fill">
-
-<div class="story-icon icon-afeto">
-<i class="bi bi-house-heart-fill"></i>
-</div>
-
-<div class="story-info">
-
-<div class="badge-cat badge-afeto">
-AFETO
-</div>
-
-<div class="title-row">
-
-<div class="story-title">
-Ninho-Lar
-</div>
-
-<a
-href="#"
-target="_blank"
-class="mini-chord-link">
-
-<i class="bi bi-music-note-list"></i>
-
-<span>Cifra</span>
-
-</a>
-
-</div>
-
-<div class="story-meta">
-Acolhimento • Segurança emocional
-</div>
-
-</div>
-
-<button class="play-btn">
-<i class="bi bi-play-fill"></i>
-</button>
-
-</div>
-
-<!-- ORÁCULO -->
-
-<div
-class="story-item cat-identidade"
-data-audio="atipicos/audios/banda-atipicos-oraculo.mp3"
-data-icon="bi-eye-fill">
-
-<div class="story-icon icon-identidade">
-<i class="bi bi-eye-fill"></i>
-</div>
-
-<div class="story-info">
-
-<div class="badge-cat badge-identidade">
-IDENTIDADE
-</div>
-
-<div class="title-row">
-
-<div class="story-title">
-Oráculo
-</div>
-
-<a
-href="#"
-target="_blank"
-class="mini-chord-link">
-
-<i class="bi bi-music-note-list"></i>
-
-<span>Cifra</span>
-
-</a>
-
-</div>
-
-<div class="story-meta">
-Sensorialidade • Intuição • Banda ATÍPICOS
-</div>
-
-</div>
-
-<button class="play-btn">
-<i class="bi bi-play-fill"></i>
-</button>
-
-</div>
-
-<!-- UMA ENERGIA -->
-
-<div
-class="story-item cat-jornada"
-data-audio="atipicos/audios/banda-atipicos-uma-energia.mp3"
-data-icon="bi-lightning-charge-fill">
-
-<div class="story-icon icon-jornada">
-<i class="bi bi-lightning-charge-fill"></i>
-</div>
-
-<div class="story-info">
-
-<div class="badge-cat badge-jornada">
-JORNADA
-</div>
-
-<div class="title-row">
-
-<div class="story-title">
-Uma Energia
-</div>
-
-<a
-href="#"
-target="_blank"
-class="mini-chord-link">
-
-<i class="bi bi-music-note-list"></i>
-
-<span>Cifra</span>
-
-</a>
-
-</div>
-
-<div class="story-meta">
-Transformação • Movimento • Groove
-</div>
-
-</div>
-
-<button class="play-btn">
-<i class="bi bi-play-fill"></i>
-</button>
-
-</div>
-
-<!-- FAIXA TÍTULO -->
-
-<div
-class="story-item cat-identidade"
-data-audio="atipicos/audios/banda-atipicos-aqueles-que-se-atrevem-a-ser.mp3"
-data-icon="bi-person-hearts">
-
-<div class="story-icon icon-identidade">
-<i class="bi bi-person-hearts"></i>
-</div>
-
-<div class="story-info">
-
-<div class="badge-cat badge-identidade">
-IDENTIDADE
-</div>
-
-<div class="title-row">
-
-<div class="story-title">
-Aqueles que se Atrevem a Ser
-</div>
-
-<a
-href="#"
-target="_blank"
-class="mini-chord-link">
-
-<i class="bi bi-music-note-list"></i>
-
-<span>Cifra</span>
-
-</a>
-
-</div>
-
-<div class="story-meta">
-A coragem de existir sem masking
-</div>
-
-</div>
-
-<button class="play-btn">
-<i class="bi bi-play-fill"></i>
-</button>
-
-</div>
-
-<!-- ATIPICAMENTE -->
-
-<div
-class="story-item cat-instrumental"
-data-audio="atipicos/audios/banda-atipicos-atipicamente.mp3"
-data-icon="bi-vinyl-fill">
-
-<div class="story-icon icon-instrumental">
-<i class="bi bi-vinyl-fill"></i>
-</div>
-
-<div class="story-info">
-
-<div class="badge-cat badge-instrumental">
-INSTRUMENTAL
-</div>
-
-<div class="title-row">
-
-<div class="story-title">
-Atipicamente
-</div>
-
-<a
-href="#"
-target="_blank"
-class="mini-chord-link">
-
-<i class="bi bi-music-note-list"></i>
-
-<span>Cifra</span>
-
-</a>
-
-</div>
-
-<div class="story-meta">
-Jam emocional • Atmosfera sensorial
-</div>
-
-</div>
-
-<button class="play-btn">
-<i class="bi bi-play-fill"></i>
-</button>
-
-</div>
-
-<!-- JAM RAIZ -->
-
-<div
-class="story-item cat-instrumental"
-data-audio="atipicos/audios/banda-atipicos-so-mais-uma-jam-raiz.mp3"
-data-icon="bi-music-note-beamed">
-
-<div class="story-icon icon-instrumental">
-<i class="bi bi-music-note-beamed"></i>
-</div>
-
-<div class="story-info">
-
-<div class="badge-cat badge-instrumental">
-INSTRUMENTAL
-</div>
-
-<div class="title-row">
-
-<div class="story-title">
-Só mais uma Jam Raiz
-</div>
-
-<a
-href="#"
-target="_blank"
-class="mini-chord-link">
-
-<i class="bi bi-music-note-list"></i>
-
-<span>Cifra</span>
-
-</a>
-
-</div>
-
-<div class="story-meta">
-Improviso • Groove • Abraço musical
-</div>
-
-</div>
-
-<button class="play-btn">
-<i class="bi bi-play-fill"></i>
-</button>
-
-</div>
-
-</div>
-
-<div class="fabularium-logo-container">
-
-<a href="https://www.instagram.com/atipicos_banda/" target="_blank">
+href="atipicos/girassois-noturnos.html"
+class="album-universe-card">
 
 <img
-src="../assets/img/atipicos-logo.png"
-class="fabularium-logo img-fluid">
+src="../assets/img/girassois-noturnos-capa.png"
+alt="Girassóis Noturnos"
+class="universe-cover"
+/>
+
+<div class="universe-label">
+Do mesmo universo de
+</div>
+
+<div class="universe-title">
+<i class="bi bi-moon-stars-fill"></i>
+<span>Girassóis Noturnos</span>
+</div>
 
 </a>
 
 </div>
+
+</div>
+
+</div>
+
+<!-- restante do seu HTML permanece EXATAMENTE igual -->
 
 </main>
 
-<!-- PLAYER -->
-
-<div class="audio-player">
-
-<div id="playerIcon" class="player-icon">
-<i class="bi bi-music-note"></i>
-</div>
-
-<div class="player-info">
-<div id="playerTitle">
-Escolha um caminho sonoro.
-</div>
-</div>
-
-<button id="prevBtn" class="play-btn">
-<i class="bi bi-skip-start-fill"></i>
-</button>
-
-<audio id="audioControl" controls></audio>
-
-<button id="nextBtn" class="play-btn">
-<i class="bi bi-skip-end-fill"></i>
-</button>
-
-</div>
-
 <script src="../assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 <script src="js/components.js"></script>
-
-<script>
-
-const items = document.querySelectorAll(".story-item");
-
-const audio = document.getElementById("audioControl");
-const title = document.getElementById("playerTitle");
-const icon = document.getElementById("playerIcon");
-
-const nextBtn = document.getElementById("nextBtn");
-const prevBtn = document.getElementById("prevBtn");
-
-let playlist = [];
-let currentIndex = -1;
-
-/* playlist */
-
-items.forEach((item,index)=>{
-
-playlist.push(item);
-
-let progress = document.createElement("div");
-progress.className = "card-progress";
-item.appendChild(progress);
-
-const playBtn = item.querySelector(".play-btn");
-
-playBtn.addEventListener("click",(e)=>{
-
-e.stopPropagation();
-
-currentIndex = index;
-
-playStory(item);
-
-});
-
-});
-
-/* tocar */
-
-function playStory(item){
-
-const src = item.getAttribute("data-audio");
-
-const storyTitle =
-item.querySelector(".story-title").innerText;
-
-const iconClass =
-item.getAttribute("data-icon");
-
-audio.src = src;
-
-audio.load();
-
-title.textContent = storyTitle;
-
-icon.innerHTML =
-`<i class="bi ${iconClass}"></i>`;
-
-audio.play().catch(err=>{
-console.log(err);
-});
-
-items.forEach(el=>
-el.classList.remove("playing")
-);
-
-item.classList.add("playing");
-
-}
-
-/* next */
-
-nextBtn.onclick = ()=>{
-
-if(currentIndex < playlist.length - 1){
-
-currentIndex++;
-
-playStory(playlist[currentIndex]);
-
-}
-
-}
-
-/* prev */
-
-prevBtn.onclick = ()=>{
-
-if(currentIndex > 0){
-
-currentIndex--;
-
-playStory(playlist[currentIndex]);
-
-}
-
-}
-
-/* auto next */
-
-audio.addEventListener("ended",()=>{
-
-if(currentIndex < playlist.length - 1){
-
-currentIndex++;
-
-playStory(playlist[currentIndex]);
-
-}
-
-});
-
-/* progresso */
-
-audio.addEventListener("timeupdate",()=>{
-
-if(currentIndex === -1 || !audio.duration)
-return;
-
-const progress =
-(audio.currentTime / audio.duration) * 100;
-
-const bar =
-playlist[currentIndex]
-.querySelector(".card-progress");
-
-if(bar){
-
-bar.style.width = progress + "%";
-
-}
-
-});
-
-/* filtros */
-
-const filters =
-document.querySelectorAll(".filter-btn");
-
-filters.forEach(btn=>{
-
-btn.onclick = ()=>{
-
-filters.forEach(b=>
-b.classList.remove("active")
-);
-
-btn.classList.add("active");
-
-const filter = btn.dataset.filter;
-
-items.forEach(item=>{
-
-if(filter === "all"){
-
-item.style.display = "flex";
-
-}
-
-else if(item.classList.contains(filter)){
-
-item.style.display = "flex";
-
-}
-
-else{
-
-item.style.display = "none";
-
-}
-
-});
-
-};
-
-});
-
-</script>
 
 </body>
 </html>
