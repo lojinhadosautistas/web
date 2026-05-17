@@ -510,10 +510,6 @@ height:auto;
 }
 
 .album-info h2{
-flex:1;
-min-width:0;
-position:relative;
-padding-bottom:90px;
 font-size:32px;
 }
 
@@ -573,94 +569,78 @@ color:#fbbf24 !important;
 
 
 /* =========================
-UNIVERSO ATÍPICOS
+UNIVERSO / ÁLBUM ANTERIOR
 ========================= */
 
+.album-info{
+position:relative;
+padding-bottom:90px;
+}
+
+/* card do girassóis */
+
 .album-universe-link{
-margin-top:26px;
-display:flex;
-justify-content:flex-end;
-}
+position:absolute;
 
-.universe-divider{
-display:none;
-}
+right:0;
+bottom:0;
 
-.universe-card{
-display:flex;
-align-items:center;
-gap:14px;
-
-padding:10px 14px;
-
-border-radius:18px;
-
-text-decoration:none;
-
-background:rgba(255,255,255,.04);
-
-border:1px solid rgba(255,255,255,.06);
-
-transition:.28s ease;
-
-max-width:320px;
-}
-
-.universe-card:hover{
-transform:translateY(-3px);
-
-background:rgba(255,255,255,.07);
-
-border-color:rgba(251,191,36,.22);
-
-box-shadow:
-0 12px 32px rgba(0,0,0,.25);
-}
-
-.universe-cover{
-width:62px;
-height:62px;
-
-object-fit:cover;
-
-border-radius:14px;
-
-flex-shrink:0;
-
-box-shadow:
-0 6px 18px rgba(0,0,0,.35);
-}
-
-.universe-info{
 display:flex;
 flex-direction:column;
-gap:4px;
+align-items:flex-end;
+
+gap:10px;
 }
 
 .universe-label{
 font-size:11px;
-letter-spacing:.06em;
-text-transform:uppercase;
 color:#94a3b8;
+letter-spacing:.08em;
+text-transform:uppercase;
 }
 
-.universe-title{
-display:flex;
-align-items:center;
-gap:8px;
+/* botão/card */
 
-font-size:15px;
-font-weight:700;
+.universe-album-link{
+display:inline-flex;
+align-items:center;
+gap:10px;
+
+padding:12px 16px;
+
+border-radius:999px;
+
+text-decoration:none;
+
+background:rgba(255,255,255,.06);
+
+border:1px solid rgba(255,255,255,.08);
 
 color:#f8fafc;
+
+font-weight:600;
+font-size:14px;
+
+backdrop-filter:blur(10px);
+
+transition:.28s ease;
 }
 
-.universe-title i{
+.universe-album-link:hover{
+transform:translateY(-3px);
+
+background:rgba(251,191,36,.10);
+
+border-color:rgba(251,191,36,.24);
+
 color:#fbbf24;
-font-size:15px;
+
+box-shadow:
+0 10px 30px rgba(0,0,0,.25);
 }
 
-.universe-card:hover .universe-title{
+.universe-album-link i{
+font-size:15px;
 color:#fbbf24;
 }
 
@@ -668,13 +648,19 @@ color:#fbbf24;
 
 @media(max-width:768px){
 
-.album-universe-link{
-justify-content:center;
+.album-info{
+padding-bottom:0;
 }
 
-.universe-card{
-max-width:100%;
-width:100%;
+.album-universe-link{
+position:relative;
+
+right:auto;
+bottom:auto;
+
+margin-top:24px;
+
+align-items:center;
 }
 
 }
@@ -755,35 +741,11 @@ cada passo é uma obra-prima de pertencimento.”
 
 </div>
 
-<div class="album-universe-link">
-
-<div class="universe-divider"></div>
-
-<a
-href="atipicos/girassois-noturnos.html"
-class="universe-card">
-
-<img
-src="../assets/img/girassois-noturnos-capa.png"
-alt="Girassóis Noturnos"
-class="universe-cover"
-/>
-
-<div class="universe-info">
-
-<span class="universe-label">
-Do mesmo universo de
-</span>
-
-<div class="universe-title">
-<i class="bi bi-moon-stars-fill"></i>
-Girassóis Noturnos
+<div class="album-universe-link"><span class="universe-label">Do mesmo universo de</span>
+<a href="atipicos/girassois-noturnos.html" class="universe-album-link"><i class="bi bi-moon-stars-fill"></i><span>Girassóis Noturnos</span></a>
 </div>
 
-</div>
-
-</a>
-
+  
 </div>
 
 </div>
