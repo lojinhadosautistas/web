@@ -1,0 +1,1041 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Pac-Man</title>
+
+<style>
+
+/* =========================================
+   RESET
+========================================= */
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    min-height:100vh;
+    background:#020617;
+    color:#f8fafc;
+
+    font-family:
+        Arial,
+        Helvetica,
+        sans-serif;
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+    padding:20px;
+}
+
+/* =========================================
+   LAYOUT
+========================================= */
+
+.container{
+    width:100%;
+    max-width:1300px;
+
+    display:grid;
+    grid-template-columns:1fr 340px;
+    gap:30px;
+}
+
+.game-panel{
+    background:#0f172a;
+    border:2px solid #1e293b;
+
+    border-radius:30px;
+
+    padding:25px;
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+}
+
+.side-panel{
+    display:flex;
+    flex-direction:column;
+    gap:20px;
+}
+
+/* =========================================
+   CANVAS
+========================================= */
+
+canvas{
+    background:black;
+    border-radius:20px;
+
+    border:4px solid #1d4ed8;
+
+    max-width:100%;
+}
+
+/* =========================================
+   TITLE
+========================================= */
+
+.logo{
+    text-align:center;
+}
+
+.logo h1{
+    font-size:68px;
+    line-height:1;
+
+    margin-bottom:12px;
+
+    font-weight:900;
+}
+
+.logo span:nth-child(1){
+    color:#facc15;
+}
+
+.logo span:nth-child(2){
+    color:#38bdf8;
+}
+
+.logo span:nth-child(3){
+    color:#ef4444;
+}
+
+.logo span:nth-child(4){
+    color:#22c55e;
+}
+
+.logo span:nth-child(5){
+    color:#e879f9;
+}
+
+.subtitle{
+    color:#cbd5e1;
+    line-height:1.7;
+}
+
+/* =========================================
+   CARDS
+========================================= */
+
+.card{
+    background:#0f172a;
+    border:1px solid #1e293b;
+
+    border-radius:24px;
+
+    padding:24px;
+}
+
+.card-title{
+    color:#94a3b8;
+    margin-bottom:10px;
+}
+
+.card-value{
+    font-size:42px;
+    font-weight:900;
+}
+
+/* =========================================
+   BUTTONS
+========================================= */
+
+.buttons{
+    display:flex;
+    flex-direction:column;
+    gap:15px;
+}
+
+button{
+    border:none;
+
+    padding:18px;
+
+    border-radius:18px;
+
+    font-size:18px;
+    font-weight:900;
+
+    cursor:pointer;
+
+    transition:.15s;
+}
+
+button:hover{
+    transform:translateY(-2px);
+}
+
+.start{
+    background:#22c55e;
+    color:white;
+}
+
+.pause{
+    background:#f59e0b;
+    color:white;
+}
+
+.reset{
+    background:#ef4444;
+    color:white;
+}
+
+/* =========================================
+   CONTROLS
+========================================= */
+
+.controls{
+    color:#cbd5e1;
+    line-height:2;
+}
+
+.controls strong{
+    color:white;
+}
+
+/* =========================================
+   OVERLAY
+========================================= */
+
+.overlay{
+    position:fixed;
+    inset:0;
+
+    background:rgba(0,0,0,.85);
+
+    display:none;
+
+    justify-content:center;
+    align-items:center;
+
+    z-index:999;
+}
+
+.overlay-content{
+    background:#0f172a;
+    border:1px solid #1e293b;
+
+    border-radius:30px;
+
+    padding:40px;
+
+    width:90%;
+    max-width:500px;
+
+    text-align:center;
+}
+
+.overlay h2{
+    font-size:52px;
+    margin-bottom:15px;
+}
+
+.overlay p{
+    font-size:22px;
+    color:#cbd5e1;
+
+    margin-bottom:25px;
+}
+
+/* =========================================
+   RESPONSIVO
+========================================= */
+
+@media(max-width:980px){
+
+    .container{
+        grid-template-columns:1fr;
+    }
+
+}
+
+@media(max-width:768px){
+
+    .logo h1{
+        font-size:46px;
+    }
+
+    .card-value{
+        font-size:30px;
+    }
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+    <!-- GAME -->
+
+    <div class="game-panel">
+
+        <canvas
+            id="game"
+            width="560"
+            height="620">
+        </canvas>
+
+    </div>
+
+    <!-- SIDE -->
+
+    <div class="side-panel">
+
+        <div class="logo">
+
+            <h1>
+
+                <span>P</span>
+                <span>A</span>
+                <span>C</span>
+                <span>M</span>
+                <span>A</span>
+                <span>N</span>
+
+            </h1>
+
+            <div class="subtitle">
+
+                Desvie dos fantasmas,
+                colete pontos e
+                desenvolva foco,
+                estratégia e atenção.
+
+            </div>
+
+        </div>
+
+        <div class="card">
+
+            <div class="card-title">
+                Pontuação
+            </div>
+
+            <div
+                class="card-value"
+                id="score">
+                0
+            </div>
+
+        </div>
+
+        <div class="card">
+
+            <div class="card-title">
+                Vidas
+            </div>
+
+            <div
+                class="card-value"
+                id="lives">
+                3
+            </div>
+
+        </div>
+
+        <div class="card">
+
+            <div class="card-title">
+                Nível
+            </div>
+
+            <div
+                class="card-value"
+                id="level">
+                1
+            </div>
+
+        </div>
+
+        <div class="buttons">
+
+            <button
+                class="start"
+                onclick="startGame()">
+
+                ▶ Iniciar
+
+            </button>
+
+            <button
+                class="pause"
+                onclick="togglePause()">
+
+                ⏸ Pausar
+
+            </button>
+
+            <button
+                class="reset"
+                onclick="resetGame()">
+
+                ↺ Reiniciar
+
+            </button>
+
+        </div>
+
+        <div class="card">
+
+            <div class="card-title">
+                Controles
+            </div>
+
+            <div class="controls">
+
+                <strong>↑ ↓ ← →</strong>
+                mover personagem
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<!-- OVERLAY -->
+
+<div
+    class="overlay"
+    id="gameOver">
+
+    <div class="overlay-content">
+
+        <h2>
+            Game Over
+        </h2>
+
+        <p>
+
+            Pontuação:
+            <strong id="finalScore">
+                0
+            </strong>
+
+        </p>
+
+        <button
+            class="start"
+            onclick="resetGame()">
+
+            Jogar Novamente
+
+        </button>
+
+    </div>
+
+</div>
+
+<script>
+
+/* =========================================
+   CONFIG
+========================================= */
+
+const canvas =
+document.getElementById("game");
+
+const ctx =
+canvas.getContext("2d");
+
+const tileSize = 28;
+
+const rows = 22;
+const cols = 20;
+
+let score = 0;
+let lives = 3;
+let level = 1;
+
+let running = false;
+let paused = false;
+
+/* =========================================
+   MAP
+========================================= */
+
+const map = [
+
+"####################",
+"#........##........#",
+"#.####.#.##.#.####.#",
+"#o####.#.##.#.####o#",
+"#..................#",
+"#.####.######.####.#",
+"#..................#",
+"######.##  ##.######",
+"######.##  ##.######",
+"#..................#",
+"#.####.######.####.#",
+"#o................o#",
+"####################"
+
+];
+
+let pellets = [];
+
+/* =========================================
+   PACMAN
+========================================= */
+
+const pacman = {
+
+    x:1,
+    y:1,
+
+    dx:0,
+    dy:0,
+
+    nextDx:0,
+    nextDy:0,
+
+    radius:11
+
+};
+
+/* =========================================
+   GHOSTS
+========================================= */
+
+const ghosts = [
+
+{
+    x:10,
+    y:6,
+    color:"#ef4444"
+},
+
+{
+    x:9,
+    y:6,
+    color:"#38bdf8"
+},
+
+{
+    x:11,
+    y:6,
+    color:"#e879f9"
+}
+
+];
+
+/* =========================================
+   INIT PELLETS
+========================================= */
+
+function createPellets(){
+
+    pellets = [];
+
+    map.forEach((row,y)=>{
+
+        row.split("").forEach((cell,x)=>{
+
+            if(cell === "." || cell === "o"){
+
+                pellets.push({
+                    x,
+                    y,
+                    power:cell === "o"
+                });
+
+            }
+
+        });
+
+    });
+
+}
+
+/* =========================================
+   DRAW MAP
+========================================= */
+
+function drawMap(){
+
+    map.forEach((row,y)=>{
+
+        row.split("").forEach((cell,x)=>{
+
+            if(cell === "#"){
+
+                ctx.fillStyle =
+                "#1d4ed8";
+
+                ctx.fillRect(
+                    x*tileSize,
+                    y*tileSize,
+                    tileSize,
+                    tileSize
+                );
+
+            }
+
+        });
+
+    });
+
+}
+
+/* =========================================
+   DRAW PELLETS
+========================================= */
+
+function drawPellets(){
+
+    pellets.forEach(p=>{
+
+        ctx.beginPath();
+
+        ctx.fillStyle =
+        p.power
+            ? "#facc15"
+            : "#f8fafc";
+
+        ctx.arc(
+            p.x*tileSize + tileSize/2,
+            p.y*tileSize + tileSize/2,
+            p.power ? 6 : 3,
+            0,
+            Math.PI*2
+        );
+
+        ctx.fill();
+
+    });
+
+}
+
+/* =========================================
+   DRAW PACMAN
+========================================= */
+
+function drawPacman(){
+
+    ctx.beginPath();
+
+    ctx.fillStyle =
+    "#facc15";
+
+    ctx.arc(
+        pacman.x*tileSize + tileSize/2,
+        pacman.y*tileSize + tileSize/2,
+        pacman.radius,
+        0.2*Math.PI,
+        1.8*Math.PI
+    );
+
+    ctx.lineTo(
+        pacman.x*tileSize + tileSize/2,
+        pacman.y*tileSize + tileSize/2
+    );
+
+    ctx.fill();
+
+}
+
+/* =========================================
+   DRAW GHOSTS
+========================================= */
+
+function drawGhosts(){
+
+    ghosts.forEach(g=>{
+
+        ctx.beginPath();
+
+        ctx.fillStyle =
+        g.color;
+
+        ctx.arc(
+            g.x*tileSize + tileSize/2,
+            g.y*tileSize + tileSize/2,
+            11,
+            Math.PI,
+            0
+        );
+
+        ctx.rect(
+            g.x*tileSize + 3,
+            g.y*tileSize + tileSize/2,
+            22,
+            11
+        );
+
+        ctx.fill();
+
+    });
+
+}
+
+/* =========================================
+   COLLISION
+========================================= */
+
+function wall(x,y){
+
+    return (
+        map[y] &&
+        map[y][x] === "#"
+    );
+
+}
+
+/* =========================================
+   MOVE PACMAN
+========================================= */
+
+function movePacman(){
+
+    const nextX =
+    pacman.x + pacman.nextDx;
+
+    const nextY =
+    pacman.y + pacman.nextDy;
+
+    if(!wall(nextX,nextY)){
+
+        pacman.dx =
+        pacman.nextDx;
+
+        pacman.dy =
+        pacman.nextDy;
+
+    }
+
+    const futureX =
+    pacman.x + pacman.dx;
+
+    const futureY =
+    pacman.y + pacman.dy;
+
+    if(!wall(futureX,futureY)){
+
+        pacman.x = futureX;
+        pacman.y = futureY;
+
+    }
+
+}
+
+/* =========================================
+   EAT PELLETS
+========================================= */
+
+function eatPellets(){
+
+    pellets =
+    pellets.filter(p=>{
+
+        if(
+            p.x === pacman.x &&
+            p.y === pacman.y
+        ){
+
+            score += p.power ? 50 : 10;
+
+            updateStats();
+
+            return false;
+
+        }
+
+        return true;
+
+    });
+
+    if(pellets.length === 0){
+
+        level++;
+
+        createPellets();
+
+        updateStats();
+
+    }
+
+}
+
+/* =========================================
+   MOVE GHOSTS
+========================================= */
+
+function moveGhosts(){
+
+    ghosts.forEach(g=>{
+
+        const dirs = [
+
+            {x:1,y:0},
+            {x:-1,y:0},
+            {x:0,y:1},
+            {x:0,y:-1}
+
+        ];
+
+        const dir =
+        dirs[
+            Math.floor(
+                Math.random()*dirs.length
+            )
+        ];
+
+        const nx = g.x + dir.x;
+        const ny = g.y + dir.y;
+
+        if(!wall(nx,ny)){
+
+            g.x = nx;
+            g.y = ny;
+
+        }
+
+    });
+
+}
+
+/* =========================================
+   COLLIDE GHOST
+========================================= */
+
+function checkGhostCollision(){
+
+    ghosts.forEach(g=>{
+
+        if(
+            g.x === pacman.x &&
+            g.y === pacman.y
+        ){
+
+            lives--;
+
+            updateStats();
+
+            pacman.x = 1;
+            pacman.y = 1;
+
+            if(lives <= 0){
+
+                gameOver();
+
+            }
+
+        }
+
+    });
+
+}
+
+/* =========================================
+   DRAW
+========================================= */
+
+function draw(){
+
+    ctx.clearRect(
+        0,
+        0,
+        canvas.width,
+        canvas.height
+    );
+
+    drawMap();
+    drawPellets();
+    drawPacman();
+    drawGhosts();
+
+}
+
+/* =========================================
+   LOOP
+========================================= */
+
+function update(){
+
+    if(!running) return;
+
+    if(paused){
+
+        requestAnimationFrame(update);
+
+        return;
+
+    }
+
+    movePacman();
+
+    eatPellets();
+
+    moveGhosts();
+
+    checkGhostCollision();
+
+    draw();
+
+    requestAnimationFrame(update);
+
+}
+
+/* =========================================
+   STATS
+========================================= */
+
+function updateStats(){
+
+    document.getElementById(
+        "score"
+    ).innerText = score;
+
+    document.getElementById(
+        "lives"
+    ).innerText = lives;
+
+    document.getElementById(
+        "level"
+    ).innerText = level;
+
+}
+
+/* =========================================
+   GAME
+========================================= */
+
+function startGame(){
+
+    if(running) return;
+
+    running = true;
+
+    document.getElementById(
+        "gameOver"
+    ).style.display = "none";
+
+    update();
+
+}
+
+function togglePause(){
+
+    paused = !paused;
+
+}
+
+function resetGame(){
+
+    score = 0;
+    lives = 3;
+    level = 1;
+
+    pacman.x = 1;
+    pacman.y = 1;
+
+    ghosts[0].x = 10;
+    ghosts[0].y = 6;
+
+    ghosts[1].x = 9;
+    ghosts[1].y = 6;
+
+    ghosts[2].x = 11;
+    ghosts[2].y = 6;
+
+    running = true;
+    paused = false;
+
+    createPellets();
+
+    updateStats();
+
+    document.getElementById(
+        "gameOver"
+    ).style.display = "none";
+
+    update();
+
+}
+
+function gameOver(){
+
+    running = false;
+
+    document.getElementById(
+        "finalScore"
+    ).innerText = score;
+
+    document.getElementById(
+        "gameOver"
+    ).style.display = "flex";
+
+}
+
+/* =========================================
+   CONTROLS
+========================================= */
+
+document.addEventListener(
+    "keydown",
+    e=>{
+
+        if(e.key === "ArrowLeft"){
+
+            pacman.nextDx = -1;
+            pacman.nextDy = 0;
+
+        }
+
+        else if(
+            e.key === "ArrowRight"
+        ){
+
+            pacman.nextDx = 1;
+            pacman.nextDy = 0;
+
+        }
+
+        else if(
+            e.key === "ArrowUp"
+        ){
+
+            pacman.nextDx = 0;
+            pacman.nextDy = -1;
+
+        }
+
+        else if(
+            e.key === "ArrowDown"
+        ){
+
+            pacman.nextDx = 0;
+            pacman.nextDy = 1;
+
+        }
+
+    }
+);
+
+/* =========================================
+   INIT
+========================================= */
+
+createPellets();
+
+draw();
+
+</script>
+
+</body>
+</html>
