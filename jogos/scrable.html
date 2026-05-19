@@ -1,0 +1,564 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Scrabble Português</title>
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    min-height:100vh;
+    background:
+        radial-gradient(circle at top,#312e81,#0f172a);
+    font-family:Arial, Helvetica, sans-serif;
+    color:white;
+    padding:30px;
+    display:flex;
+    justify-content:center;
+}
+
+.container{
+    width:100%;
+    max-width:1400px;
+}
+
+header{
+    text-align:center;
+    margin-bottom:30px;
+}
+
+h1{
+    font-size:64px;
+    font-weight:900;
+    margin-bottom:10px;
+}
+
+.subtitle{
+    opacity:.8;
+    font-size:18px;
+}
+
+.topbar{
+    display:flex;
+    justify-content:center;
+    gap:20px;
+    flex-wrap:wrap;
+    margin-bottom:30px;
+}
+
+.card{
+    background:rgba(255,255,255,0.08);
+    border:1px solid rgba(255,255,255,0.08);
+    padding:18px 24px;
+    border-radius:18px;
+    min-width:180px;
+    text-align:center;
+    backdrop-filter:blur(10px);
+}
+
+.card span{
+    display:block;
+    opacity:.7;
+    margin-bottom:8px;
+    font-size:14px;
+}
+
+.card strong{
+    font-size:28px;
+}
+
+.game-layout{
+    display:grid;
+    grid-template-columns:1fr 340px;
+    gap:30px;
+}
+
+.board-section{
+    background:rgba(255,255,255,0.05);
+    border-radius:24px;
+    padding:25px;
+    backdrop-filter:blur(12px);
+}
+
+#board{
+    display:grid;
+    grid-template-columns:repeat(15,1fr);
+    gap:4px;
+}
+
+.cell{
+    aspect-ratio:1;
+    background:#f8fafc;
+    border-radius:8px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    color:#0f172a;
+    font-weight:bold;
+    font-size:18px;
+    position:relative;
+    border:1px solid #cbd5e1;
+}
+
+.cell.special{
+    background:#dbeafe;
+}
+
+.cell.word2{
+    background:#fecaca;
+}
+
+.cell.word3{
+    background:#fca5a5;
+}
+
+.cell.letter2{
+    background:#bfdbfe;
+}
+
+.cell.letter3{
+    background:#93c5fd;
+}
+
+.cell input{
+    width:100%;
+    height:100%;
+    border:none;
+    text-align:center;
+    background:transparent;
+    font-size:20px;
+    font-weight:bold;
+    text-transform:uppercase;
+    outline:none;
+}
+
+.side-panel{
+    background:rgba(255,255,255,0.05);
+    border-radius:24px;
+    padding:25px;
+    backdrop-filter:blur(12px);
+}
+
+h2{
+    margin-bottom:15px;
+}
+
+.letters{
+    display:flex;
+    gap:10px;
+    flex-wrap:wrap;
+    margin-bottom:30px;
+}
+
+.tile{
+    width:52px;
+    height:52px;
+    border-radius:12px;
+    background:
+        linear-gradient(145deg,#fde68a,#f59e0b);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:24px;
+    font-weight:bold;
+    color:#78350f;
+    box-shadow:
+        0 5px 10px rgba(0,0,0,0.2);
+}
+
+.controls{
+    display:flex;
+    flex-direction:column;
+    gap:15px;
+    margin-bottom:30px;
+}
+
+button{
+    border:none;
+    padding:16px;
+    border-radius:14px;
+    font-size:16px;
+    font-weight:bold;
+    cursor:pointer;
+    transition:0.2s;
+}
+
+button:hover{
+    transform:translateY(-2px);
+}
+
+.play{
+    background:#10b981;
+    color:white;
+}
+
+.shuffle{
+    background:#3b82f6;
+    color:white;
+}
+
+.reset{
+    background:#ef4444;
+    color:white;
+}
+
+.dictionary{
+    background:rgba(255,255,255,0.06);
+    border-radius:18px;
+    padding:18px;
+    line-height:1.8;
+}
+
+.dictionary ul{
+    padding-left:20px;
+}
+
+.message{
+    margin-top:20px;
+    padding:18px;
+    border-radius:16px;
+    background:rgba(255,255,255,0.08);
+    display:none;
+}
+
+@media(max-width:1100px){
+
+    .game-layout{
+        grid-template-columns:1fr;
+    }
+
+}
+
+@media(max-width:768px){
+
+    h1{
+        font-size:42px;
+    }
+
+    .cell{
+        font-size:12px;
+    }
+
+    .cell input{
+        font-size:14px;
+    }
+
+}
+
+</style>
+</head>
+<body>
+
+<div class="container">
+
+<header>
+
+    <h1>Scrabble</h1>
+
+    <div class="subtitle">
+        Forme palavras em português e acumule pontos
+    </div>
+
+</header>
+
+<div class="topbar">
+
+    <div class="card">
+        <span>Pontuação</span>
+        <strong id="score">0</strong>
+    </div>
+
+    <div class="card">
+        <span>Palavras</span>
+        <strong id="words">0</strong>
+    </div>
+
+</div>
+
+<div class="game-layout">
+
+    <div class="board-section">
+
+        <div id="board"></div>
+
+    </div>
+
+    <div class="side-panel">
+
+        <h2>Suas Letras</h2>
+
+        <div class="letters" id="letters"></div>
+
+        <div class="controls">
+
+            <button class="play" onclick="playWord()">
+                Confirmar Palavra
+            </button>
+
+            <button class="shuffle" onclick="shuffleLetters()">
+                Embaralhar Letras
+            </button>
+
+            <button class="reset" onclick="resetGame()">
+                Novo Jogo
+            </button>
+
+        </div>
+
+        <div class="dictionary">
+
+            <h2>Como Jogar</h2>
+
+            <ul>
+                <li>Forme palavras em português</li>
+                <li>Use as letras disponíveis</li>
+                <li>Palavras maiores valem mais pontos</li>
+                <li>Casas especiais multiplicam pontuação</li>
+                <li>Use estratégia e criatividade</li>
+            </ul>
+
+        </div>
+
+        <div class="message" id="message"></div>
+
+    </div>
+
+</div>
+
+</div>
+
+<script>
+
+const board =
+document.getElementById("board");
+
+const lettersContainer =
+document.getElementById("letters");
+
+const scoreElement =
+document.getElementById("score");
+
+const wordsElement =
+document.getElementById("words");
+
+const message =
+document.getElementById("message");
+
+const alphabet =
+"ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+
+const dictionary = [
+
+"CASA","SOL","LUZ","MAR","FLOR",
+"VIDA","PAZ","TEMPO","AMOR",
+"SOM","VENTO","LUA","TERRA",
+"JARDIM","MENTE","PONTE",
+"ESTRELA","CANTO","MUNDO"
+
+];
+
+let currentLetters = [];
+let score = 0;
+let words = 0;
+
+function createBoard(){
+
+    board.innerHTML = "";
+
+    for(let i=0;i<225;i++){
+
+        const cell =
+        document.createElement("div");
+
+        cell.classList.add("cell");
+
+        if(i % 7 === 0){
+            cell.classList.add("word2");
+        }
+
+        if(i % 11 === 0){
+            cell.classList.add("letter2");
+        }
+
+        if(i === 112){
+            cell.classList.add("word3");
+            cell.innerHTML = "★";
+        }
+
+        const input =
+        document.createElement("input");
+
+        input.maxLength = 1;
+
+        input.addEventListener(
+            "input",
+            ()=>{
+                input.value =
+                input.value.toUpperCase();
+            }
+        );
+
+        cell.appendChild(input);
+
+        board.appendChild(cell);
+
+    }
+
+}
+
+function generateLetters(){
+
+    currentLetters = [];
+
+    for(let i=0;i<7;i++){
+
+        const random =
+        alphabet[
+            Math.floor(
+                Math.random() *
+                alphabet.length
+            )
+        ];
+
+        currentLetters.push(random);
+
+    }
+
+    renderLetters();
+
+}
+
+function renderLetters(){
+
+    lettersContainer.innerHTML = "";
+
+    currentLetters.forEach(letter=>{
+
+        const tile =
+        document.createElement("div");
+
+        tile.classList.add("tile");
+
+        tile.innerText = letter;
+
+        lettersContainer.appendChild(tile);
+
+    });
+
+}
+
+function shuffleLetters(){
+
+    currentLetters.sort(
+        ()=>Math.random()-0.5
+    );
+
+    renderLetters();
+
+}
+
+function playWord(){
+
+    const inputs =
+    document.querySelectorAll("input");
+
+    let formedWord = "";
+
+    inputs.forEach(input=>{
+
+        if(input.value !== ""){
+
+            formedWord +=
+            input.value;
+
+        }
+
+    });
+
+    formedWord =
+    formedWord.toUpperCase();
+
+    if(formedWord.length < 2){
+
+        showMessage(
+            "Digite uma palavra válida."
+        );
+
+        return;
+    }
+
+    if(
+        dictionary.includes(formedWord)
+    ){
+
+        const points =
+        formedWord.length * 10;
+
+        score += points;
+
+        words++;
+
+        scoreElement.innerText =
+        score;
+
+        wordsElement.innerText =
+        words;
+
+        showMessage(
+            `✅ Palavra aceita: ${formedWord} (+${points} pts)`
+        );
+
+        generateLetters();
+
+    }else{
+
+        showMessage(
+            `❌ Palavra não encontrada: ${formedWord}`
+        );
+
+    }
+
+}
+
+function showMessage(text){
+
+    message.style.display = "block";
+
+    message.innerHTML = text;
+
+}
+
+function resetGame(){
+
+    score = 0;
+    words = 0;
+
+    scoreElement.innerText = score;
+    wordsElement.innerText = words;
+
+    createBoard();
+
+    generateLetters();
+
+    showMessage(
+        "🎮 Novo jogo iniciado!"
+    );
+
+}
+
+createBoard();
+
+generateLetters();
+
+</script>
+
+</body>
+</html>
