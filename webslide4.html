@@ -1,0 +1,917 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>Atlas Cognitivo | 4 Eixos</title>
+
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com" rel="preconnect">
+  <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
+    rel="stylesheet">
+
+  <!-- Bootstrap -->
+  <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+
+  <style>
+    :root {
+      --glass: rgba(255, 255, 255, 0.08);
+      --border: rgba(255, 255, 255, 0.12);
+
+      --blue: #3fa2ff;
+      --green: #7ce58d;
+      --orange: #ffb24c;
+      --purple: #b87cff;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: #020612;
+      color: #fff;
+      overflow-x: hidden;
+    }
+
+    /* BG */
+
+    .immersive-bg {
+      position: fixed;
+      inset: 0;
+      background:
+        linear-gradient(rgba(2, 6, 18, 0.55),
+          rgba(2, 6, 18, 0.75)),
+        url('assets/img/bg-4-eixos.png') center center;
+      background-size: cover;
+      z-index: -3;
+      transform: scale(1.02);
+    }
+
+    .overlay-noise {
+      position: fixed;
+      inset: 0;
+      background-image:
+        radial-gradient(rgba(255, 255, 255, 0.03) 1px,
+          transparent 1px);
+      background-size: 4px 4px;
+      opacity: .2;
+      z-index: -2;
+      pointer-events: none;
+    }
+
+    .glow-center {
+      position: fixed;
+      width: 420px;
+      height: 420px;
+      border-radius: 50%;
+      background:
+        radial-gradient(circle,
+          rgba(255, 255, 255, .14),
+          transparent 70%);
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      z-index: -1;
+      filter: blur(40px);
+      animation: pulse 6s infinite ease-in-out;
+    }
+
+    @keyframes pulse {
+
+      0%,
+      100% {
+        transform: translate(-50%, -50%) scale(1);
+      }
+
+      50% {
+        transform: translate(-50%, -50%) scale(1.08);
+      }
+    }
+
+    /* NAV */
+
+    .topbar {
+      position: fixed;
+      width: 100%;
+      top: 0;
+      left: 0;
+      z-index: 999;
+      backdrop-filter: blur(18px);
+      background: rgba(2, 8, 20, 0.55);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .topbar-inner {
+      max-width: 1450px;
+      margin: auto;
+      padding: 18px 30px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .brand {
+      font-size: 1.1rem;
+      font-weight: 700;
+      letter-spacing: 1px;
+    }
+
+    .brand span {
+      color: #ffc76d;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 30px;
+    }
+
+    .nav-links a {
+      color: rgba(255, 255, 255, .75);
+      text-decoration: none;
+      transition: .3s;
+      font-size: .95rem;
+    }
+
+    .nav-links a:hover {
+      color: #fff;
+    }
+
+    /* HERO */
+
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      position: relative;
+      padding: 140px 0 80px;
+    }
+
+    .hero-content {
+      max-width: 760px;
+      margin: auto;
+      text-align: center;
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 12px 22px;
+      border-radius: 100px;
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      backdrop-filter: blur(15px);
+      margin-bottom: 30px;
+      font-size: .92rem;
+      color: rgba(255, 255, 255, .85);
+    }
+
+    .hero h1 {
+      font-size: 5rem;
+      line-height: 1;
+      font-weight: 800;
+      margin-bottom: 30px;
+      text-shadow: 0 10px 40px rgba(0, 0, 0, .45);
+    }
+
+    .hero h1 span {
+      background: linear-gradient(90deg,
+          #79b8ff,
+          #9effc0,
+          #ffc76d,
+          #c78cff);
+
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .hero p {
+      font-size: 1.18rem;
+      line-height: 2;
+      color: rgba(255, 255, 255, .82);
+    }
+
+    .hero-buttons {
+      margin-top: 45px;
+      display: flex;
+      gap: 18px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .btn-main {
+      padding: 16px 34px;
+      border-radius: 100px;
+      background: linear-gradient(135deg,
+          #ffb24c,
+          #ff8f66);
+
+      color: #fff;
+      text-decoration: none;
+      font-weight: 600;
+      transition: .35s;
+      box-shadow: 0 20px 40px rgba(255, 153, 0, 0.25);
+    }
+
+    .btn-main:hover {
+      transform: translateY(-4px);
+      color: #fff;
+    }
+
+    .btn-outline-glass {
+      padding: 16px 34px;
+      border-radius: 100px;
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      background: rgba(255, 255, 255, 0.05);
+      color: #fff;
+      text-decoration: none;
+      backdrop-filter: blur(18px);
+      transition: .3s;
+    }
+
+    .btn-outline-glass:hover {
+      background: rgba(255, 255, 255, .12);
+      color: #fff;
+    }
+
+    /* SECTION */
+
+    .section {
+      position: relative;
+      padding: 100px 0;
+    }
+
+    .container-xl2 {
+      width: min(1450px, 92%);
+      margin: auto;
+    }
+
+    .section-title {
+      text-align: center;
+      margin-bottom: 70px;
+    }
+
+    .section-title h2 {
+      font-size: 3rem;
+      font-weight: 800;
+      margin-bottom: 20px;
+    }
+
+    .section-title p {
+      max-width: 900px;
+      margin: auto;
+      color: rgba(255, 255, 255, .75);
+      line-height: 2;
+      font-size: 1.05rem;
+    }
+
+    /* 4 EIXOS GRID */
+
+    .eixos-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 35px;
+      align-items: stretch;
+    }
+
+    .eixo-card {
+      position: relative;
+      min-height: 420px;
+      border-radius: 34px;
+      overflow: hidden;
+      backdrop-filter: blur(18px);
+      background: rgba(10, 18, 30, .45);
+      border: 1px solid rgba(255, 255, 255, .08);
+      transition: .45s ease;
+      cursor: pointer;
+    }
+
+    .eixo-card:hover {
+      transform: translateY(-10px) scale(1.015);
+      box-shadow: 0 30px 70px rgba(0, 0, 0, .35);
+    }
+
+    .eixo-bg {
+      position: absolute;
+      inset: 0;
+      opacity: .18;
+      background-size: cover;
+      background-position: center;
+      transition: .45s;
+    }
+
+    .eixo-card:hover .eixo-bg {
+      transform: scale(1.08);
+      opacity: .28;
+    }
+
+    .eixo-inner {
+      position: relative;
+      z-index: 2;
+      padding: 40px;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .eixo-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 25px;
+    }
+
+    .eixo-icon {
+      width: 74px;
+      height: 74px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.9rem;
+      border: 1px solid rgba(255, 255, 255, .14);
+      backdrop-filter: blur(10px);
+    }
+
+    .blue .eixo-icon {
+      background: rgba(63, 162, 255, .16);
+      color: var(--blue);
+    }
+
+    .green .eixo-icon {
+      background: rgba(124, 229, 141, .16);
+      color: var(--green);
+    }
+
+    .orange .eixo-icon {
+      background: rgba(255, 178, 76, .16);
+      color: var(--orange);
+    }
+
+    .purple .eixo-icon {
+      background: rgba(184, 124, 255, .16);
+      color: var(--purple);
+    }
+
+    .eixo-card h3 {
+      font-size: 2rem;
+      font-weight: 700;
+      margin-bottom: 12px;
+    }
+
+    .eixo-card p {
+      color: rgba(255, 255, 255, .78);
+      line-height: 1.9;
+      margin-bottom: 30px;
+    }
+
+    .eixo-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: auto;
+    }
+
+    .eixo-tags span {
+      padding: 12px 16px;
+      border-radius: 100px;
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, .08);
+      font-size: .88rem;
+      color: rgba(255, 255, 255, .88);
+      transition: .3s;
+    }
+
+    .eixo-card:hover .eixo-tags span {
+      transform: translateY(-2px);
+    }
+
+    /* INTEGRATION */
+
+    .integration-box {
+      margin-top: 90px;
+      padding: 70px;
+      border-radius: 40px;
+      background:
+        linear-gradient(135deg,
+          rgba(255, 255, 255, .06),
+          rgba(255, 255, 255, .03));
+
+      border: 1px solid rgba(255, 255, 255, .08);
+      backdrop-filter: blur(18px);
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .integration-box::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(circle at center,
+          rgba(255, 255, 255, .09),
+          transparent 60%);
+      pointer-events: none;
+    }
+
+    .integration-box h2 {
+      font-size: 3rem;
+      font-weight: 800;
+      margin-bottom: 20px;
+    }
+
+    .integration-box p {
+      max-width: 900px;
+      margin: auto;
+      line-height: 2;
+      color: rgba(255, 255, 255, .78);
+      font-size: 1.08rem;
+    }
+
+    .integration-pillars {
+      margin-top: 45px;
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+
+    .integration-pillars div {
+      padding: 16px 22px;
+      border-radius: 18px;
+      background: rgba(255, 255, 255, 0.07);
+      border: 1px solid rgba(255, 255, 255, .08);
+      min-width: 180px;
+      font-weight: 500;
+    }
+
+    /* CTA */
+
+    .final-cta {
+      padding: 120px 0;
+      text-align: center;
+    }
+
+    .final-cta h2 {
+      font-size: 3.5rem;
+      font-weight: 800;
+      margin-bottom: 20px;
+    }
+
+    .final-cta p {
+      max-width: 900px;
+      margin: auto auto 40px;
+      line-height: 2;
+      color: rgba(255, 255, 255, .78);
+      font-size: 1.08rem;
+    }
+
+    /* FLOAT ANIMATION */
+
+    .floating {
+      animation: floating 5s ease-in-out infinite;
+    }
+
+    @keyframes floating {
+
+      0%,
+      100% {
+        transform: translateY(0px);
+      }
+
+      50% {
+        transform: translateY(-10px);
+      }
+    }
+
+    /* MOBILE */
+
+    @media(max-width: 991px) {
+
+      .hero {
+        padding-top: 150px;
+      }
+
+      .hero h1 {
+        font-size: 3rem;
+      }
+
+      .section-title h2,
+      .integration-box h2,
+      .final-cta h2 {
+        font-size: 2.2rem;
+      }
+
+      .eixos-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .integration-box {
+        padding: 40px 25px;
+      }
+
+      .nav-links {
+        display: none;
+      }
+    }
+  </style>
+
+</head>
+
+<body>
+
+  <!-- BG -->
+  <div class="immersive-bg"></div>
+  <div class="overlay-noise"></div>
+  <div class="glow-center"></div>
+
+  <!-- NAV -->
+  <div class="topbar">
+
+    <div class="topbar-inner">
+
+      <div class="brand">
+        ATLAS <span>COGNITIVO</span>
+      </div>
+
+      <div class="nav-links">
+        <a href="#eixos">4 Eixos</a>
+        <a href="#integracao">Integração</a>
+        <a href="#reflexao">Reflexão</a>
+      </div>
+
+    </div>
+
+  </div>
+
+  <!-- HERO -->
+  <section class="hero">
+
+    <div class="container-xl2">
+
+      <div class="hero-content floating">
+
+        <div class="hero-badge">
+          <i class="bi bi-stars"></i>
+          Experiência Imersiva
+        </div>
+
+        <h1>
+          Os <span>4 Eixos</span> do <br>
+          Atlas Cognitivo
+        </h1>
+
+        <p>
+          Uma experiência visual, sistêmica e integrada para compreender
+          como comportamento, ambiente, vínculos e biologia interagem
+          na construção da experiência humana.
+        </p>
+
+        <div class="hero-buttons">
+
+          <a href="#eixos" class="btn-main">
+            Explorar Eixos
+          </a>
+
+          <a href="#integracao" class="btn-outline-glass">
+            Navegar na Jornada
+          </a>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </section>
+
+  <!-- EIXOS -->
+  <section id="eixos" class="section">
+
+    <div class="container-xl2">
+
+      <div class="section-title">
+
+        <h2>
+          4 Eixos • 1 Sistema
+        </h2>
+
+        <p>
+          Nenhum comportamento surge isoladamente.
+          Cada eixo influencia a experiência e participa
+          da construção da estabilidade, previsibilidade
+          e possibilidade de regulação.
+        </p>
+
+      </div>
+
+      <div class="eixos-grid">
+
+        <!-- TERAPÊUTICO -->
+        <div class="eixo-card blue">
+
+          <div class="eixo-bg"
+            style="background-image:url('assets/img/bg-4-eixos.png')"></div>
+
+          <div class="eixo-inner">
+
+            <div class="eixo-top">
+
+              <div>
+                <small style="color:var(--blue); letter-spacing:2px;">
+                  EIXO 01
+                </small>
+
+                <h3>
+                  Terapêutico
+                </h3>
+              </div>
+
+              <div class="eixo-icon">
+                <i class="bi bi-brain"></i>
+              </div>
+
+            </div>
+
+            <p>
+              Organização interna da experiência,
+              desenvolvimento de repertório,
+              memória autobiográfica,
+              regulação emocional e construção
+              de previsibilidade subjetiva.
+            </p>
+
+            <div class="eixo-tags">
+              <span>Antecipação</span>
+              <span>Regulação</span>
+              <span>Memória</span>
+              <span>Integração Narrativa</span>
+            </div>
+
+          </div>
+
+        </div>
+
+        <!-- AMBIENTAL -->
+        <div class="eixo-card green">
+
+          <div class="eixo-bg"
+            style="background-image:url('assets/img/bg-4-eixos.png')"></div>
+
+          <div class="eixo-inner">
+
+            <div class="eixo-top">
+
+              <div>
+                <small style="color:var(--green); letter-spacing:2px;">
+                  EIXO 02
+                </small>
+
+                <h3>
+                  Ambiental
+                </h3>
+              </div>
+
+              <div class="eixo-icon">
+                <i class="bi bi-tree"></i>
+              </div>
+
+            </div>
+
+            <p>
+              Ambientes organizam ou desorganizam experiência.
+              Estrutura, previsibilidade, clareza
+              e suporte sensorial influenciam diretamente
+              a estabilidade emocional.
+            </p>
+
+            <div class="eixo-tags">
+              <span>Previsibilidade</span>
+              <span>Rotina</span>
+              <span>Estrutura</span>
+              <span>Segurança</span>
+            </div>
+
+          </div>
+
+        </div>
+
+        <!-- FAMILIAR -->
+        <div class="eixo-card orange">
+
+          <div class="eixo-bg"
+            style="background-image:url('assets/img/bg-4-eixos.png')"></div>
+
+          <div class="eixo-inner">
+
+            <div class="eixo-top">
+
+              <div>
+                <small style="color:var(--orange); letter-spacing:2px;">
+                  EIXO 03
+                </small>
+
+                <h3>
+                  Familiar
+                </h3>
+              </div>
+
+              <div class="eixo-icon">
+                <i class="bi bi-people"></i>
+              </div>
+
+            </div>
+
+            <p>
+              Comunicação funcional,
+              mediação afetiva,
+              construção de vínculos,
+              linguagem compartilhada
+              e participação segura.
+            </p>
+
+            <div class="eixo-tags">
+              <span>Mediação</span>
+              <span>Vínculos</span>
+              <span>Comunicação</span>
+              <span>Participação</span>
+            </div>
+
+          </div>
+
+        </div>
+
+        <!-- BIOLOGICO -->
+        <div class="eixo-card purple">
+
+          <div class="eixo-bg"
+            style="background-image:url('assets/img/bg-4-eixos.png')"></div>
+
+          <div class="eixo-inner">
+
+            <div class="eixo-top">
+
+              <div>
+                <small style="color:var(--purple); letter-spacing:2px;">
+                  EIXO 04
+                </small>
+
+                <h3>
+                  Biológico
+                </h3>
+              </div>
+
+              <div class="eixo-icon">
+                <i class="bi bi-heart-pulse"></i>
+              </div>
+
+            </div>
+
+            <p>
+              Corpo, sono, alimentação,
+              energia disponível e estabilidade fisiológica
+              sustentam capacidade adaptativa,
+              tolerância às demandas e engajamento.
+            </p>
+
+            <div class="eixo-tags">
+              <span>Sono</span>
+              <span>Energia</span>
+              <span>Regulação</span>
+              <span>Estabilidade</span>
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+      <!-- INTEGRACAO -->
+
+      <div id="integracao" class="integration-box">
+
+        <h2>
+          Integração Sistêmica
+        </h2>
+
+        <p>
+          Quando múltiplos eixos entram simultaneamente em tensão,
+          o sistema pode perder estabilidade.
+          O comportamento deixa de ser apenas reação isolada
+          e passa a ser compreendido como expressão
+          de um sistema vivo em funcionamento.
+        </p>
+
+        <div class="integration-pillars">
+
+          <div>
+            Previsibilidade
+          </div>
+
+          <div>
+            Autorregulação
+          </div>
+
+          <div>
+            Participação Segura
+          </div>
+
+          <div>
+            Coerência Sistêmica
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </section>
+
+  <!-- FINAL -->
+  <section id="reflexao" class="final-cta">
+
+    <div class="container-xl2">
+
+      <h2>
+        Navegar muda a jornada.
+      </h2>
+
+      <p>
+        O objetivo não é eliminar toda tempestade.
+        O objetivo é construir leitura,
+        compreensão e instrumentos
+        para navegar contextos complexos
+        com mais humanidade,
+        clareza e possibilidade de regulação.
+      </p>
+
+      <a href="webslide5.html" class="btn-main">
+        Continuar Apresentação
+      </a>
+
+    </div>
+
+  </section>
+
+  <!-- JS -->
+  <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+  <script>
+
+    // hover parallax
+    const cards = document.querySelectorAll('.eixo-card');
+
+    cards.forEach(card => {
+
+      card.addEventListener('mousemove', e => {
+
+        const rect = card.getBoundingClientRect();
+
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+
+        const centerX = rect.width / 2;
+        const centerY = rect.height / 2;
+
+        const rotateX = ((y - centerY) / centerY) * -5;
+        const rotateY = ((x - centerX) / centerX) * 5;
+
+        card.style.transform =
+          `perspective(1200px)
+           rotateX(${rotateX}deg)
+           rotateY(${rotateY}deg)
+           translateY(-10px)`;
+
+      });
+
+      card.addEventListener('mouseleave', () => {
+
+        card.style.transform =
+          'perspective(1200px) rotateX(0) rotateY(0) translateY(0)';
+
+      });
+
+    });
+
+  </script>
+
+</body>
+
+</html>
