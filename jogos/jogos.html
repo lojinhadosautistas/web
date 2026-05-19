@@ -1,0 +1,613 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Espaço de Jogos | Lojinha dos Autistas</title>
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    min-height:100vh;
+    font-family:Arial, Helvetica, sans-serif;
+    background:
+        radial-gradient(circle at top,#1e3a8a,#020617 70%);
+    color:white;
+    overflow-x:hidden;
+}
+
+.container{
+    width:100%;
+    max-width:1400px;
+    margin:auto;
+    padding:30px;
+}
+
+.hero{
+    text-align:center;
+    padding:40px 20px 60px;
+}
+
+.hero h1{
+    font-size:78px;
+    line-height:1;
+    margin-bottom:20px;
+    font-weight:900;
+}
+
+.hero h1 span:nth-child(1){
+    color:#facc15;
+}
+
+.hero h1 span:nth-child(2){
+    color:#60a5fa;
+}
+
+.hero h1 span:nth-child(3){
+    color:#22c55e;
+}
+
+.hero p{
+    max-width:850px;
+    margin:auto;
+    font-size:22px;
+    line-height:1.7;
+    opacity:.9;
+}
+
+.games-grid{
+    display:grid;
+    grid-template-columns:
+    repeat(auto-fit,minmax(320px,1fr));
+    gap:28px;
+}
+
+.game-card{
+    position:relative;
+    overflow:hidden;
+    border-radius:30px;
+    padding:30px;
+    min-height:420px;
+    display:flex;
+    flex-direction:column;
+    justify-content:space-between;
+    transition:.35s;
+    border:1px solid rgba(255,255,255,.08);
+    backdrop-filter:blur(12px);
+    box-shadow:
+        0 15px 35px rgba(0,0,0,.25);
+}
+
+.game-card:hover{
+    transform:
+        translateY(-8px)
+        scale(1.02);
+}
+
+.card-top{
+    display:flex;
+    justify-content:space-between;
+    align-items:flex-start;
+    margin-bottom:20px;
+}
+
+.icon{
+    width:90px;
+    height:90px;
+    border-radius:24px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:46px;
+    background:rgba(255,255,255,.12);
+}
+
+.badge{
+    padding:10px 16px;
+    border-radius:999px;
+    font-size:14px;
+    font-weight:bold;
+    background:rgba(255,255,255,.12);
+}
+
+.game-title{
+    font-size:42px;
+    font-weight:900;
+    margin-bottom:16px;
+}
+
+.game-description{
+    font-size:18px;
+    line-height:1.7;
+    opacity:.92;
+    margin-bottom:25px;
+}
+
+.features{
+    display:flex;
+    flex-wrap:wrap;
+    gap:10px;
+    margin-bottom:25px;
+}
+
+.feature{
+    background:rgba(255,255,255,.12);
+    padding:10px 14px;
+    border-radius:14px;
+    font-size:14px;
+}
+
+.play-button{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:12px;
+    width:100%;
+    padding:18px;
+    border-radius:18px;
+    text-decoration:none;
+    font-size:20px;
+    font-weight:900;
+    color:white;
+    transition:.25s;
+}
+
+.play-button:hover{
+    transform:scale(1.03);
+}
+
+.routine{
+    background:
+        linear-gradient(145deg,#7c3aed,#312e81);
+}
+
+.mahjong{
+    background:
+        linear-gradient(145deg,#0f766e,#164e63);
+}
+
+.resta1{
+    background:
+        linear-gradient(145deg,#ea580c,#9a3412);
+}
+
+.scrable{
+    background:
+        linear-gradient(145deg,#2563eb,#1e40af);
+}
+
+.sudoku{
+    background:
+        linear-gradient(145deg,#15803d,#166534);
+}
+
+.routine .play-button{
+    background:#22c55e;
+}
+
+.mahjong .play-button{
+    background:#14b8a6;
+}
+
+.resta1 .play-button{
+    background:#f97316;
+}
+
+.scrable .play-button{
+    background:#3b82f6;
+}
+
+.sudoku .play-button{
+    background:#22c55e;
+}
+
+.footer{
+    text-align:center;
+    padding:60px 20px 20px;
+    opacity:.7;
+    font-size:16px;
+}
+
+.stars{
+    position:fixed;
+    inset:0;
+    pointer-events:none;
+    overflow:hidden;
+}
+
+.star{
+    position:absolute;
+    color:white;
+    opacity:.15;
+    animation:float 10s linear infinite;
+}
+
+@keyframes float{
+
+    from{
+        transform:
+            translateY(100vh)
+            rotate(0deg);
+    }
+
+    to{
+        transform:
+            translateY(-120vh)
+            rotate(360deg);
+    }
+
+}
+
+@media(max-width:768px){
+
+    .hero h1{
+        font-size:52px;
+    }
+
+    .hero p{
+        font-size:18px;
+    }
+
+    .game-title{
+        font-size:34px;
+    }
+
+}
+
+</style>
+</head>
+<body>
+
+<div class="stars" id="stars"></div>
+
+<div class="container">
+
+    <section class="hero">
+
+        <h1>
+            <span>Portal</span>
+            <span>de</span>
+            <span>Jogos</span>
+        </h1>
+
+        <p>
+            Jogos terapêuticos, cognitivos e educativos
+            para estimular foco, autonomia, memória,
+            lógica, organização e bem-estar emocional.
+        </p>
+
+    </section>
+
+    <section class="games-grid">
+
+        <!-- JOGO DA ROTINA -->
+
+        <div class="game-card routine">
+
+            <div>
+
+                <div class="card-top">
+
+                    <div class="icon">
+                        🌈
+                    </div>
+
+                    <div class="badge">
+                        Terapêutico
+                    </div>
+
+                </div>
+
+                <div class="game-title">
+                    Jogo da Rotina
+                </div>
+
+                <div class="game-description">
+                    Transforme a rotina diária em uma
+                    jornada divertida de conquistas,
+                    recompensas e autonomia.
+                </div>
+
+                <div class="features">
+
+                    <div class="feature">
+                        ⭐ Recompensas
+                    </div>
+
+                    <div class="feature">
+                        🧠 Organização
+                    </div>
+
+                    <div class="feature">
+                        ❤️ Autonomia
+                    </div>
+
+                </div>
+
+            </div>
+
+            <a
+                href="jogos/jogodarotina.html"
+                class="play-button">
+
+                ▶ Jogar Agora
+
+            </a>
+
+        </div>
+
+        <!-- MAHJONG -->
+
+        <div class="game-card mahjong">
+
+            <div>
+
+                <div class="card-top">
+
+                    <div class="icon">
+                        🀄
+                    </div>
+
+                    <div class="badge">
+                        Relaxante
+                    </div>
+
+                </div>
+
+                <div class="game-title">
+                    Mahjong
+                </div>
+
+                <div class="game-description">
+                    Encontre pares e desenvolva
+                    atenção, memória visual
+                    e percepção espacial.
+                </div>
+
+                <div class="features">
+
+                    <div class="feature">
+                        🧘 Relaxamento
+                    </div>
+
+                    <div class="feature">
+                        👀 Atenção
+                    </div>
+
+                    <div class="feature">
+                        🧠 Memória
+                    </div>
+
+                </div>
+
+            </div>
+
+            <a
+                href="jogos/mahjong.html"
+                class="play-button">
+
+                ▶ Jogar Agora
+
+            </a>
+
+        </div>
+
+        <!-- RESTA 1 -->
+
+        <div class="game-card resta1">
+
+            <div>
+
+                <div class="card-top">
+
+                    <div class="icon">
+                        🔵
+                    </div>
+
+                    <div class="badge">
+                        Estratégia
+                    </div>
+
+                </div>
+
+                <div class="game-title">
+                    Resta 1
+                </div>
+
+                <div class="game-description">
+                    Planeje movimentos com lógica
+                    e estratégia até restar
+                    apenas uma peça.
+                </div>
+
+                <div class="features">
+
+                    <div class="feature">
+                        ♟ Estratégia
+                    </div>
+
+                    <div class="feature">
+                        🧠 Planejamento
+                    </div>
+
+                    <div class="feature">
+                        🎯 Foco
+                    </div>
+
+                </div>
+
+            </div>
+
+            <a
+                href="jogos/resta1.html"
+                class="play-button">
+
+                ▶ Jogar Agora
+
+            </a>
+
+        </div>
+
+        <!-- SCRABBLE -->
+
+        <div class="game-card scrable">
+
+            <div>
+
+                <div class="card-top">
+
+                    <div class="icon">
+                        🔤
+                    </div>
+
+                    <div class="badge">
+                        Linguagem
+                    </div>
+
+                </div>
+
+                <div class="game-title">
+                    Scrabble
+                </div>
+
+                <div class="game-description">
+                    Forme palavras, aumente
+                    o vocabulário e desenvolva
+                    criatividade linguística.
+                </div>
+
+                <div class="features">
+
+                    <div class="feature">
+                        📚 Vocabulário
+                    </div>
+
+                    <div class="feature">
+                        ✍ Linguagem
+                    </div>
+
+                    <div class="feature">
+                        💡 Criatividade
+                    </div>
+
+                </div>
+
+            </div>
+
+            <a
+                href="jogos/scrable.html"
+                class="play-button">
+
+                ▶ Jogar Agora
+
+            </a>
+
+        </div>
+
+        <!-- SUDOKU -->
+
+        <div class="game-card sudoku">
+
+            <div>
+
+                <div class="card-top">
+
+                    <div class="icon">
+                        🔢
+                    </div>
+
+                    <div class="badge">
+                        Lógica
+                    </div>
+
+                </div>
+
+                <div class="game-title">
+                    Sudoku
+                </div>
+
+                <div class="game-description">
+                    Exercite raciocínio lógico,
+                    concentração e memória
+                    através dos números.
+                </div>
+
+                <div class="features">
+
+                    <div class="feature">
+                        🧠 Lógica
+                    </div>
+
+                    <div class="feature">
+                        🎯 Concentração
+                    </div>
+
+                    <div class="feature">
+                        🔍 Percepção
+                    </div>
+
+                </div>
+
+            </div>
+
+            <a
+                href="jogos/sudoku.html"
+                class="play-button">
+
+                ▶ Jogar Agora
+
+            </a>
+
+        </div>
+
+    </section>
+
+    <div class="footer">
+        Portal de Jogos Cognitivos • Desenvolvimento,
+        bem-estar e diversão 🌟
+    </div>
+
+</div>
+
+<script>
+
+const stars =
+document.getElementById("stars");
+
+for(let i=0;i<40;i++){
+
+    const star =
+    document.createElement("div");
+
+    star.className = "star";
+
+    star.innerHTML =
+    ["⭐","✨","🌟"][Math.floor(Math.random()*3)];
+
+    star.style.left =
+    Math.random()*100 + "vw";
+
+    star.style.animationDuration =
+    (5 + Math.random()*10) + "s";
+
+    star.style.fontSize =
+    (12 + Math.random()*28) + "px";
+
+    star.style.animationDelay =
+    Math.random()*5 + "s";
+
+    stars.appendChild(star);
+
+}
+
+</script>
+
+</body>
+</html>
