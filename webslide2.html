@@ -1,0 +1,735 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>Atlas Cognitivo | Entre Passos e Afetos</title>
+
+  <meta name="description"
+    content="Atlas Cognitivo — Navegando na Tempestade. Uma leitura sistêmica sobre comportamento, contexto e rede de apoio no autismo adulto." />
+
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com" rel="preconnect">
+  <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+    rel="stylesheet">
+
+  <!-- Vendor CSS -->
+  <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+  <link href="assets/vendor/aos/aos.css" rel="stylesheet">
+
+  <style>
+    body {
+      background: #f8f4ec;
+      color: #444;
+      font-family: 'Poppins', sans-serif;
+      overflow-x: hidden;
+    }
+
+    h1,
+    h2,
+    h3,
+    h4 {
+      font-weight: 700;
+      color: #1f3c66;
+    }
+
+    .header {
+      background: rgba(255, 255, 255, 0.96);
+      backdrop-filter: blur(8px);
+      box-shadow: 0 2px 18px rgba(0, 0, 0, 0.06);
+      padding: 18px 0;
+    }
+
+    .logo {
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: #1f3c66;
+      text-decoration: none;
+    }
+
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      background:
+        linear-gradient(to right, rgba(248, 244, 236, .96), rgba(248, 244, 236, .84)),
+        url('assets/eventos/BG2_Entre-PASSOS.png') center center;
+      background-size: cover;
+      padding: 160px 0 100px;
+    }
+
+    .badge-soft {
+      display: inline-block;
+      background: #d97a4f;
+      color: #fff;
+      padding: 10px 22px;
+      border-radius: 50px;
+      margin-bottom: 25px;
+      font-size: .95rem;
+      font-weight: 600;
+    }
+
+    .hero h1 {
+      font-size: 4.3rem;
+      line-height: 1.05;
+      margin-bottom: 28px;
+    }
+
+    .hero h1 span {
+      color: #d49a3a;
+    }
+
+    .hero p {
+      font-size: 1.15rem;
+      line-height: 2;
+      color: #556b4f;
+      max-width: 820px;
+    }
+
+    .section-soft {
+      padding: 110px 0;
+    }
+
+    .slide-card {
+      background: #fff;
+      border-radius: 35px;
+      padding: 60px;
+      box-shadow: 0 10px 35px rgba(0, 0, 0, 0.04);
+    }
+
+    .slide-card p {
+      line-height: 2;
+      color: #555;
+      font-size: 1.06rem;
+    }
+
+    .highlight {
+      color: #d97a4f;
+      font-weight: 600;
+    }
+
+    .storm-box {
+      background: linear-gradient(135deg, #1f3c66, #2d4f82);
+      border-radius: 35px;
+      padding: 70px;
+      color: #fff;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .storm-box h2,
+    .storm-box p {
+      color: #fff;
+    }
+
+    .storm-box p {
+      opacity: .92;
+      line-height: 2;
+    }
+
+    .axis-card {
+      background: #fff;
+      border-radius: 28px;
+      padding: 40px 30px;
+      height: 100%;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.04);
+      transition: .3s;
+    }
+
+    .axis-card:hover {
+      transform: translateY(-5px);
+    }
+
+    .axis-icon {
+      width: 78px;
+      height: 78px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 25px;
+      color: #fff;
+      font-size: 2rem;
+    }
+
+    .bg-blue {
+      background: #1f3c66;
+    }
+
+    .bg-green {
+      background: #6b7c5c;
+    }
+
+    .bg-orange {
+      background: #d97a4f;
+    }
+
+    .bg-gold {
+      background: #d49a3a;
+    }
+
+    .axis-card p {
+      color: #666;
+      line-height: 1.9;
+    }
+
+    .mini-course {
+      background: linear-gradient(135deg, #fff, #f2ebe1);
+      border-radius: 35px;
+      padding: 60px;
+      box-shadow: 0 10px 35px rgba(0, 0, 0, 0.04);
+    }
+
+    .mini-course .course-tag {
+      background: #1f3c66;
+      color: #fff;
+      display: inline-block;
+      padding: 8px 18px;
+      border-radius: 50px;
+      margin-bottom: 20px;
+      font-size: .9rem;
+      font-weight: 600;
+    }
+
+    .mini-course p {
+      line-height: 2;
+      color: #555;
+    }
+
+    .prisma-card {
+      background: linear-gradient(135deg, #556b4f, #738467);
+      border-radius: 35px;
+      padding: 55px;
+      color: #fff;
+      height: 100%;
+    }
+
+    .prisma-card h3,
+    .prisma-card p {
+      color: #fff;
+    }
+
+    .prisma-card p {
+      line-height: 2;
+      opacity: .94;
+    }
+
+    .gift-box {
+      background: linear-gradient(135deg, #fff, #f6efe7);
+      border-radius: 35px;
+      padding: 60px;
+      text-align: center;
+      box-shadow: 0 12px 35px rgba(0, 0, 0, 0.04);
+    }
+
+    .gift-box h2 {
+      font-size: 3rem;
+      margin-bottom: 20px;
+    }
+
+    .gift-box p {
+      font-size: 1.08rem;
+      line-height: 2;
+      color: #556b4f;
+      max-width: 850px;
+      margin: auto;
+    }
+
+    .btn-main {
+      display: inline-block;
+      margin-top: 35px;
+      background: #d97a4f;
+      color: #fff;
+      text-decoration: none;
+      padding: 16px 34px;
+      border-radius: 50px;
+      font-weight: 600;
+      transition: .3s;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+    }
+
+    .btn-main:hover {
+      background: #c2643d;
+      color: #fff;
+      transform: translateY(-3px);
+    }
+
+    .footer {
+      background: #556b4f;
+      color: #fff;
+      padding: 60px 0;
+      text-align: center;
+    }
+
+    .footer p {
+      margin-top: 10px;
+      opacity: .9;
+    }
+
+    @media (max-width: 991px) {
+
+      .hero {
+        padding: 140px 0 90px;
+      }
+
+      .hero h1 {
+        font-size: 2.8rem;
+      }
+
+      .slide-card,
+      .storm-box,
+      .mini-course,
+      .gift-box,
+      .prisma-card {
+        padding: 35px;
+      }
+
+      .gift-box h2 {
+        font-size: 2.2rem;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- HEADER -->
+  <header class="header fixed-top">
+
+    <div class="container d-flex justify-content-between align-items-center">
+
+      <a href="#" class="logo">
+        Entre Passos e Afetos
+      </a>
+
+      <a href="#sorteio" class="btn-main" style="margin-top:0;">
+        Participar do Sorteio
+      </a>
+
+    </div>
+
+  </header>
+
+  <!-- HERO -->
+  <section class="hero">
+
+    <div class="container">
+
+      <div class="row">
+
+        <div class="col-lg-10" data-aos="fade-right">
+
+          <div class="badge-soft">
+            Atlas Cognitivo • Navegando na Tempestade
+          </div>
+
+          <h1>
+            Quando o comportamento <br>
+            deixa de ser apenas reação <br>
+            e passa a revelar um <span>sistema</span>
+          </h1>
+
+          <p>
+            Uma proposta de leitura sistêmica da experiência humana,
+            construída a partir da escuta, da prática,
+            da neurodivergência e da necessidade de compreender
+            contextos complexos com mais profundidade,
+            humanidade e aplicabilidade.
+          </p>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </section>
+
+  <!-- ABERTURA -->
+  <section class="section-soft">
+
+    <div class="container">
+
+      <div class="slide-card" data-aos="fade-up">
+
+        <h2>
+          A pergunta nem sempre é “o que aconteceu?”
+        </h2>
+
+        <p>
+          Um filho autista adulto entra em sofrimento.
+          Algo aparentemente pequeno acontece:
+          uma mudança de plano,
+          um ambiente imprevisível,
+          uma conversa difícil,
+          uma demanda emocional inesperada.
+        </p>
+
+        <p>
+          E então surgem respostas que muitas famílias conhecem:
+          silêncio,
+          isolamento,
+          irritabilidade,
+          explosões,
+          rigidez,
+          recusa
+          ou um aparente desligamento do mundo.
+        </p>
+
+        <p>
+          Muitas vezes, toda atenção vai para o comportamento visível.
+          Mas o comportamento raramente conta a história inteira.
+          Ele é apenas a parte que conseguimos enxergar.
+        </p>
+
+        <p class="highlight">
+          Como a ponta de um iceberg.
+        </p>
+
+      </div>
+
+    </div>
+
+  </section>
+
+  <!-- TEMPESTADE -->
+  <section class="section-soft pt-0">
+
+    <div class="container">
+
+      <div class="storm-box" data-aos="zoom-in">
+
+        <h2>
+          Navegar melhor pela tempestade
+        </h2>
+
+        <p>
+          O objetivo não é eliminar toda dificuldade da vida.
+        </p>
+
+        <p>
+          O objetivo é construir instrumentos de leitura.
+          Desenvolver compreensão.
+          Criar possibilidades de navegação.
+        </p>
+
+        <p>
+          Algumas famílias atravessam desafios intensos sem qualquer mapa.
+          Apenas tentando reagir ao que aparece.
+        </p>
+
+        <p>
+          Outras começam a construir formas de compreender
+          o que o sistema está produzindo.
+        </p>
+
+        <p class="highlight" style="color:#ffd89a;">
+          É nesse ponto que nasce o Atlas Cognitivo.
+        </p>
+
+      </div>
+
+    </div>
+
+  </section>
+
+  <!-- EIXOS -->
+  <section class="section-soft pt-0">
+
+    <div class="container">
+
+      <div class="text-center mb-5" data-aos="fade-up">
+
+        <h2>
+          Os quatro eixos do Atlas Cognitivo
+        </h2>
+
+        <p style="max-width:850px; margin:auto; color:#556b4f; line-height:2;">
+          O comportamento não surge isoladamente.
+          Ele emerge da interação entre múltiplas camadas de experiência.
+        </p>
+
+      </div>
+
+      <div class="row gy-4">
+
+        <div class="col-lg-3 col-md-6">
+
+          <div class="axis-card" data-aos="fade-up">
+
+            <div class="axis-icon bg-blue">
+              <i class="bi bi-heart-pulse"></i>
+            </div>
+
+            <h4>Terapêutico</h4>
+
+            <p>
+              Como experiências são registradas,
+              organizadas emocionalmente
+              e processadas internamente.
+            </p>
+
+          </div>
+
+        </div>
+
+        <div class="col-lg-3 col-md-6">
+
+          <div class="axis-card" data-aos="fade-up" data-aos-delay="100">
+
+            <div class="axis-icon bg-green">
+              <i class="bi bi-people"></i>
+            </div>
+
+            <h4>Familiar</h4>
+
+            <p>
+              Relações, vínculos,
+              comunicação,
+              mediação emocional
+              e linguagem compartilhada.
+            </p>
+
+          </div>
+
+        </div>
+
+        <div class="col-lg-3 col-md-6">
+
+          <div class="axis-card" data-aos="fade-up" data-aos-delay="200">
+
+            <div class="axis-icon bg-orange">
+              <i class="bi bi-building"></i>
+            </div>
+
+            <h4>Ambiental</h4>
+
+            <p>
+              Rotina,
+              previsibilidade,
+              organização,
+              estímulos
+              e compatibilidade contextual.
+            </p>
+
+          </div>
+
+        </div>
+
+        <div class="col-lg-3 col-md-6">
+
+          <div class="axis-card" data-aos="fade-up" data-aos-delay="300">
+
+            <div class="axis-icon bg-gold">
+              <i class="bi bi-activity"></i>
+            </div>
+
+            <h4>Biológico</h4>
+
+            <p>
+              Sono,
+              alimentação,
+              fadiga,
+              sobrecarga sensorial
+              e energia adaptativa disponível.
+            </p>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </section>
+
+  <!-- MINICURSO + PRISMA -->
+  <section class="section-soft pt-0">
+
+    <div class="container">
+
+      <div class="row gy-4 align-items-stretch">
+
+        <div class="col-lg-7">
+
+          <div class="mini-course h-100" data-aos="fade-right">
+
+            <div class="course-tag">
+              Minicurso
+            </div>
+
+            <h2>
+              Autismo e Comportamento
+            </h2>
+
+            <p>
+              Um percurso introdutório voltado para famílias,
+              profissionais e pessoas interessadas em compreender
+              comportamento através de uma perspectiva mais integrada,
+              humanizada e sistêmica.
+            </p>
+
+            <p>
+              O minicurso busca transformar teoria em leitura prática,
+              ampliando compreensão sobre contexto,
+              regulação emocional,
+              acessibilidade,
+              vínculo e funcionamento sistêmico.
+            </p>
+
+            <a href="#sorteio" class="btn-main">
+              Participar do Minicurso
+            </a>
+
+          </div>
+
+        </div>
+
+        <div class="col-lg-5">
+
+          <div class="prisma-card" data-aos="fade-left">
+
+            <h3>
+              Parecer Prisma
+            </h3>
+
+            <p>
+              O Parecer Prisma é um infoproduto de leitura sistêmica
+              que organiza observações,
+              padrões,
+              contexto emocional,
+              funcionamento adaptativo
+              e possíveis pontos de intervenção.
+            </p>
+
+            <p>
+              Mais do que um relatório,
+              trata-se de uma ferramenta de interpretação aplicada,
+              construída para ampliar compreensão
+              sobre sistemas humanos complexos.
+            </p>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </section>
+
+  <!-- SORTEIO -->
+  <section id="sorteio" class="section-soft pt-0">
+
+    <div class="container">
+
+      <div class="gift-box" data-aos="zoom-in">
+
+        <h2>
+          🎁 Sorteio Especial
+        </h2>
+
+        <p>
+          Durante o minicurso,
+          sortearemos <strong>3 Pareceres Prisma</strong>
+          para participantes da comunidade.
+        </p>
+
+        <p>
+          As pessoas selecionadas poderão participar
+          de uma experiência de leitura sistêmica aplicada,
+          organizada a partir dos princípios do Atlas Cognitivo.
+        </p>
+
+        <p>
+          Para participar do sorteio,
+          basta preencher o formulário abaixo.
+        </p>
+
+        <a href="https://forms.gle/"
+          target="_blank"
+          class="btn-main">
+          Preencher Formulário
+        </a>
+
+      </div>
+
+    </div>
+
+  </section>
+
+  <!-- FECHAMENTO -->
+  <section class="section-soft pt-0">
+
+    <div class="container">
+
+      <div class="slide-card text-center" data-aos="fade-up">
+
+        <h2>
+          Quando o olhar muda, a intervenção muda.
+        </h2>
+
+        <p style="max-width:850px; margin:auto;">
+          Uma tempestade continuará sendo tempestade.
+          Mas navegar com mapa e bússola transforma completamente a jornada.
+        </p>
+
+        <p style="max-width:850px; margin:auto;">
+          O Atlas Cognitivo nasce da tentativa de tornar visível
+          aquilo que normalmente permanece invisível:
+          contexto,
+          sistema,
+          necessidade,
+          vínculo
+          e estrutura.
+        </p>
+
+        <a href="mentoria.html" class="btn-main">
+          Conhecer a Rede de Mentorias
+        </a>
+
+      </div>
+
+    </div>
+
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+
+    <div class="container">
+
+      <h3>
+        Lojinha dos Autistas
+      </h3>
+
+      <p>
+        Hub de inovação social, acolhimento e aplicabilidade.
+      </p>
+
+    </div>
+
+  </footer>
+
+  <!-- Vendor JS -->
+  <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="assets/vendor/aos/aos.js"></script>
+
+  <script>
+    AOS.init({
+      duration: 900,
+      once: true
+    });
+  </script>
+
+</body>
+
+</html>
