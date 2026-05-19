@@ -1,0 +1,702 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>Mentoria Entre Passos e Afetos | Lojinha dos Autistas</title>
+
+  <meta name="description"
+    content="Mentoria acolhedora para famílias, profissionais e instituições que convivem com os desafios do autismo adulto e da construção de redes de apoio reais." />
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="Mentoria Entre Passos e Afetos 💚" />
+  <meta property="og:description"
+    content="Rede de apoio, acolhimento, aplicabilidade e caminhos possíveis para famílias neurodivergentes." />
+  <meta property="og:image" content="https://www.autistas.net/assets/eventos/Passos-e-Afetos_2026.png" />
+  <meta property="og:url" content="https://www.autistas.net/mentoria.html" />
+  <meta property="og:type" content="website" />
+
+  <!-- Favicons -->
+  <link href="assets/img/favicon.png" rel="icon">
+  <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com" rel="preconnect">
+  <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap"
+    rel="stylesheet">
+
+  <!-- Vendor CSS -->
+  <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+  <link href="assets/vendor/aos/aos.css" rel="stylesheet">
+
+  <!-- Main CSS -->
+  <link href="assets/css/main.css" rel="stylesheet">
+
+  <style>
+    body {
+      background: #f8f4ec;
+      color: #444;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    h1,
+    h2,
+    h3,
+    h4 {
+      font-family: 'Poppins', sans-serif;
+    }
+
+    .btn-getstarted {
+      background: #d97a4f;
+      border-radius: 50px;
+      padding: 10px 22px;
+      color: #fff;
+      border: none;
+      transition: .3s;
+    }
+
+    .btn-getstarted:hover {
+      background: #c2643d;
+      color: #fff;
+    }
+
+    .hero-mentoria {
+      padding: 170px 0 110px;
+      background:
+        linear-gradient(to right, rgba(248, 244, 236, .96), rgba(248, 244, 236, .82)),
+        url('assets/eventos/BG2_Entre-PASSOS.png') center center;
+      background-size: cover;
+    }
+
+    .hero-badge {
+      background: #d97a4f;
+      color: #fff;
+      display: inline-block;
+      padding: 10px 20px;
+      border-radius: 50px;
+      margin-bottom: 25px;
+      font-size: 0.95rem;
+      font-weight: 600;
+    }
+
+    .hero-mentoria h1 {
+      font-size: 4rem;
+      line-height: 1.05;
+      font-weight: 700;
+      color: #1f3c66;
+      margin-bottom: 25px;
+    }
+
+    .hero-mentoria h1 span {
+      color: #d49a3a;
+    }
+
+    .hero-mentoria p {
+      font-size: 1.2rem;
+      line-height: 1.9;
+      color: #556b4f;
+      max-width: 760px;
+    }
+
+    .btn-mentoria {
+      margin-top: 40px;
+      display: inline-block;
+      background: #d97a4f;
+      color: #fff;
+      padding: 16px 34px;
+      border-radius: 50px;
+      text-decoration: none;
+      font-weight: 600;
+      transition: .3s;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+    }
+
+    .btn-mentoria:hover {
+      background: #c2643d;
+      transform: translateY(-3px);
+      color: #fff;
+    }
+
+    .section-soft {
+      padding: 90px 0;
+    }
+
+    .section-title {
+      text-align: center;
+      margin-bottom: 60px;
+    }
+
+    .section-title h2 {
+      color: #1f3c66;
+      font-size: 2.7rem;
+      margin-bottom: 20px;
+      font-weight: 700;
+    }
+
+    .section-title p {
+      max-width: 850px;
+      margin: auto;
+      color: #556b4f;
+      font-size: 1.1rem;
+      line-height: 1.9;
+    }
+
+    .feature-card {
+      background: #fff;
+      border-radius: 28px;
+      padding: 40px 30px;
+      height: 100%;
+      transition: .3s;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.04);
+      text-align: center;
+    }
+
+    .feature-card:hover {
+      transform: translateY(-6px);
+    }
+
+    .feature-icon {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: auto auto 25px;
+      font-size: 2rem;
+      color: #fff;
+    }
+
+    .bg-blue {
+      background: #1f3c66;
+    }
+
+    .bg-green {
+      background: #6b7c5c;
+    }
+
+    .bg-orange {
+      background: #d97a4f;
+    }
+
+    .bg-gold {
+      background: #d49a3a;
+    }
+
+    .feature-card h4 {
+      color: #1f3c66;
+      margin-bottom: 15px;
+      font-weight: 600;
+    }
+
+    .feature-card p {
+      color: #666;
+      line-height: 1.8;
+    }
+
+    .about-box {
+      background: #fff;
+      border-radius: 35px;
+      padding: 60px;
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.04);
+    }
+
+    .about-box h2 {
+      color: #1f3c66;
+      font-size: 2.5rem;
+      margin-bottom: 25px;
+      font-weight: 700;
+    }
+
+    .about-box p {
+      line-height: 2;
+      color: #555;
+      margin-bottom: 20px;
+    }
+
+    .about-box ul {
+      list-style: none;
+      padding: 0;
+      margin-top: 30px;
+    }
+
+    .about-box li {
+      margin-bottom: 16px;
+      color: #445;
+      font-size: 1.05rem;
+    }
+
+    .about-box i {
+      color: #d49a3a;
+      margin-right: 10px;
+    }
+
+    .timeline-box {
+      background: linear-gradient(135deg, #fff, #f3ece2);
+      border-radius: 35px;
+      padding: 60px;
+    }
+
+    .timeline-item {
+      margin-bottom: 40px;
+      padding-left: 25px;
+      border-left: 3px solid #d49a3a;
+    }
+
+    .timeline-item h4 {
+      color: #1f3c66;
+      margin-bottom: 12px;
+      font-weight: 600;
+    }
+
+    .timeline-item p {
+      color: #666;
+      line-height: 1.8;
+    }
+
+    .cta-box {
+      background: linear-gradient(135deg, #fff, #f4eee5);
+      border-radius: 40px;
+      padding: 70px 50px;
+      text-align: center;
+      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.05);
+    }
+
+    .cta-box h2 {
+      color: #1f3c66;
+      font-size: 3rem;
+      margin-bottom: 20px;
+      font-weight: 700;
+    }
+
+    .cta-box p {
+      color: #556b4f;
+      font-size: 1.15rem;
+      margin-bottom: 30px;
+      line-height: 1.9;
+    }
+
+    .footer {
+      background: #556b4f;
+      color: #fff;
+    }
+
+    .header {
+      background: rgba(255, 255, 255, 0.95) !important;
+      box-shadow: 0 2px 15px rgba(0, 0, 0, 0.08);
+    }
+
+    .header .sitename {
+      color: #3a4b5c !important;
+    }
+
+    .header .navmenu a {
+      color: #4f5f6f !important;
+    }
+
+    @media (max-width: 991px) {
+
+      .hero-mentoria {
+        padding: 140px 0 90px;
+      }
+
+      .hero-mentoria h1 {
+        font-size: 2.8rem;
+      }
+
+      .about-box,
+      .timeline-box {
+        padding: 35px;
+      }
+
+      .cta-box {
+        padding: 50px 25px;
+      }
+
+      .cta-box h2 {
+        font-size: 2.2rem;
+      }
+    }
+  </style>
+
+</head>
+
+<body>
+
+  <!-- HEADER -->
+  <header id="header" class="header d-flex align-items-center fixed-top">
+
+    <div class="container-fluid container-xl position-relative d-flex align-items-center">
+
+      <a href="index.html" class="logo d-flex align-items-center me-auto">
+        <h1 class="sitename">Lojinha dos Autistas</h1>
+      </a>
+
+      <nav id="navmenu" class="navmenu">
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="#sobre">Sobre</a></li>
+          <li><a href="#mentoria">Mentoria</a></li>
+          <li><a href="#rede">Rede de Apoio</a></li>
+        </ul>
+
+        <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
+      </nav>
+
+      <a class="btn-getstarted" href="#inscricao">
+        Participar
+      </a>
+
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <section class="hero-mentoria">
+
+    <div class="container">
+
+      <div class="row">
+
+        <div class="col-lg-9" data-aos="fade-right">
+
+          <div class="hero-badge">
+            Mentoria • Escuta • Aplicabilidade
+          </div>
+
+          <h1>
+            Quando o cuidado <br>
+            envelhece, a <span>rede</span> <br>
+            precisa crescer.
+          </h1>
+
+          <p>
+            Uma mentoria construída para famílias, profissionais e instituições
+            que desejam transformar acolhimento em caminhos possíveis.
+            Um espaço humano para refletir sobre autismo adulto,
+            rede de apoio, acessibilidade, rotina, sobrecarga,
+            aplicabilidade prática e desenvolvimento de soluções reais.
+          </p>
+
+          <a href="#inscricao" class="btn-mentoria">
+            Quero conhecer a Mentoria
+          </a>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </section>
+
+  <!-- SOBRE -->
+  <section id="sobre" class="section-soft">
+
+    <div class="container">
+
+      <div class="about-box" data-aos="fade-up">
+
+        <div class="row align-items-center gy-5">
+
+          <div class="col-lg-7">
+
+            <h2>
+              Não é apenas sobre diagnóstico.
+            </h2>
+
+            <p>
+              O autista cresce. A família cresce junto. E muitas vezes,
+              quem cuida também começa a precisar de cuidado.
+            </p>
+
+            <p>
+              Esta mentoria nasce da necessidade de olhar para aquilo que quase nunca é discutido:
+              o futuro do autista adulto, a vulnerabilidade familiar,
+              os desafios da rotina, a sobrecarga emocional e a construção
+              de redes de apoio verdadeiramente funcionais.
+            </p>
+
+            <p>
+              Mais do que teoria, buscamos aplicabilidade.
+              Mais do que discursos, buscamos soluções possíveis.
+            </p>
+
+            <ul>
+              <li><i class="bi bi-check-circle-fill"></i> Rede de apoio para famílias neurodivergentes</li>
+              <li><i class="bi bi-check-circle-fill"></i> Reflexões sobre autismo adulto</li>
+              <li><i class="bi bi-check-circle-fill"></i> Acessibilidade e inclusão prática</li>
+              <li><i class="bi bi-check-circle-fill"></i> Escuta acolhedora e humanizada</li>
+              <li><i class="bi bi-check-circle-fill"></i> Mentoria para profissionais e instituições</li>
+            </ul>
+
+          </div>
+
+          <div class="col-lg-5">
+
+            <img src="assets/eventos/Post_Entre-PASSOS.png"
+              class="img-fluid rounded-4 shadow"
+              alt="Mentoria Entre Passos e Afetos">
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </section>
+
+  <!-- CARDS -->
+  <section id="mentoria" class="section-soft pt-0">
+
+    <div class="container">
+
+      <div class="section-title" data-aos="fade-up">
+
+        <h2>
+          O que será desenvolvido
+        </h2>
+
+        <p>
+          Um ecossistema de apoio, formação e aplicabilidade
+          pensado para famílias, profissionais e ambientes institucionais.
+        </p>
+
+      </div>
+
+      <div class="row gy-4">
+
+        <div class="col-lg-3 col-md-6">
+          <div class="feature-card">
+
+            <div class="feature-icon bg-blue">
+              <i class="bi bi-people"></i>
+            </div>
+
+            <h4>Rede de Apoio</h4>
+
+            <p>
+              Construção de caminhos possíveis para famílias,
+              cuidadores e autistas adultos.
+            </p>
+
+          </div>
+        </div>
+
+        <div class="col-lg-3 col-md-6">
+          <div class="feature-card">
+
+            <div class="feature-icon bg-green">
+              <i class="bi bi-book"></i>
+            </div>
+
+            <h4>Materiais Aplicáveis</h4>
+
+            <p>
+              Ebooks, cadernos de rotina, orientações práticas
+              e conteúdos acessíveis.
+            </p>
+
+          </div>
+        </div>
+
+        <div class="col-lg-3 col-md-6">
+          <div class="feature-card">
+
+            <div class="feature-icon bg-orange">
+              <i class="bi bi-lightbulb"></i>
+            </div>
+
+            <h4>Mentoria</h4>
+
+            <p>
+              Apoio para escolas, famílias, profissionais
+              e instituições que desejam aplicabilidade real.
+            </p>
+
+          </div>
+        </div>
+
+        <div class="col-lg-3 col-md-6">
+          <div class="feature-card">
+
+            <div class="feature-icon bg-gold">
+              <i class="bi bi-ear"></i>
+            </div>
+
+            <h4>Escuta e Soluções</h4>
+
+            <p>
+              Ouvir demandas reais e construir soluções
+              humanizadas e acessíveis.
+            </p>
+
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
+  </section>
+
+  <!-- TIMELINE -->
+  <section id="rede" class="section-soft pt-0">
+
+    <div class="container">
+
+      <div class="timeline-box" data-aos="fade-up">
+
+        <div class="section-title">
+
+          <h2>
+            Reflexões que movem esta jornada
+          </h2>
+
+        </div>
+
+        <div class="timeline-item">
+          <h4>
+            Quando os pais envelhecem
+          </h4>
+
+          <p>
+            Quem estará preparado para cuidar?
+            Como criar continuidade, suporte e dignidade?
+          </p>
+        </div>
+
+        <div class="timeline-item">
+          <h4>
+            A teoria precisa virar prática
+          </h4>
+
+          <p>
+            Muitas famílias e profissionais não precisam apenas de informação.
+            Precisam de orientação aplicável, acessível e possível.
+          </p>
+        </div>
+
+        <div class="timeline-item">
+          <h4>
+            Nem toda família consegue pedir ajuda
+          </h4>
+
+          <p>
+            Existem famílias invisibilizadas, sobrecarregadas,
+            isoladas e emocionalmente exaustas.
+          </p>
+        </div>
+
+        <div class="timeline-item">
+          <h4>
+            Inclusão também é acessibilidade emocional
+          </h4>
+
+          <p>
+            Ambientes escolares, clínicos e profissionais precisam aprender
+            a acolher neurodivergências com humanidade.
+          </p>
+        </div>
+
+      </div>
+
+    </div>
+
+  </section>
+
+  <!-- CTA -->
+  <section id="inscricao" class="section-soft">
+
+    <div class="container">
+
+      <div class="cta-box" data-aos="zoom-in">
+
+        <h2>
+          Construindo caminhos possíveis.
+        </h2>
+
+        <p>
+          Este projeto nasce da união entre experiência prática,
+          escuta sensível, vivências familiares e desejo genuíno
+          de criar soluções reais para pessoas reais.
+        </p>
+
+        <a href="https://www.instagram.com/lojinhadosautistas"
+          target="_blank"
+          class="btn-mentoria">
+          Participar da Rede
+        </a>
+
+      </div>
+
+    </div>
+
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer py-5">
+
+    <div class="container text-center">
+
+      <h3 class="sitename mb-3">
+        Lojinha dos Autistas
+      </h3>
+
+      <p>
+        Hub de inovação social, acolhimento e inclusão.
+      </p>
+
+      <div class="social-links d-flex justify-content-center gap-3 mt-4">
+
+        <a href="https://www.instagram.com/lojinhadosautistas"
+          target="_blank"
+          style="color:#fff; font-size:1.5rem;">
+          <i class="bi bi-instagram"></i>
+        </a>
+
+        <a href="https://www.youtube.com/channel/UCRW72C8GafilJKJT2_uwyYQ"
+          target="_blank"
+          style="color:#fff; font-size:1.5rem;">
+          <i class="bi bi-youtube"></i>
+        </a>
+
+      </div>
+
+      <div class="mt-4">
+        © 2026 Lojinha dos Autistas
+      </div>
+
+    </div>
+
+  </footer>
+
+  <!-- Scroll Top -->
+  <a href="#" id="scroll-top" class="scroll-top d-flex align-items-center justify-content-center">
+    <i class="bi bi-arrow-up-short"></i>
+  </a>
+
+  <!-- Vendor JS -->
+  <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="assets/vendor/aos/aos.js"></script>
+
+  <!-- Main JS -->
+  <script src="assets/js/main.js"></script>
+
+  <script>
+    AOS.init({
+      duration: 900,
+      once: true
+    });
+  </script>
+
+</body>
+
+</html>
