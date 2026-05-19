@@ -1,0 +1,860 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Labirinto</title>
+
+<style>
+
+/* =========================================
+   RESET
+========================================= */
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    min-height:100vh;
+    background:#020617;
+    color:#f8fafc;
+
+    font-family:
+        Arial,
+        Helvetica,
+        sans-serif;
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+    padding:20px;
+}
+
+/* =========================================
+   LAYOUT
+========================================= */
+
+.container{
+    width:100%;
+    max-width:1300px;
+
+    display:grid;
+    grid-template-columns:1fr 340px;
+    gap:30px;
+}
+
+.game-panel{
+    background:#0f172a;
+    border:2px solid #1e293b;
+
+    border-radius:30px;
+
+    padding:25px;
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+}
+
+.side-panel{
+    display:flex;
+    flex-direction:column;
+    gap:20px;
+}
+
+/* =========================================
+   CANVAS
+========================================= */
+
+canvas{
+    background:#020617;
+    border-radius:20px;
+    border:4px solid #2563eb;
+
+    max-width:100%;
+}
+
+/* =========================================
+   TITLE
+========================================= */
+
+.logo{
+    text-align:center;
+}
+
+.logo h1{
+    font-size:58px;
+    line-height:1;
+
+    margin-bottom:14px;
+
+    font-weight:900;
+}
+
+.logo span:nth-child(1){
+    color:#38bdf8;
+}
+
+.logo span:nth-child(2){
+    color:#22c55e;
+}
+
+.logo span:nth-child(3){
+    color:#facc15;
+}
+
+.logo span:nth-child(4){
+    color:#f97316;
+}
+
+.logo span:nth-child(5){
+    color:#e879f9;
+}
+
+.subtitle{
+    color:#cbd5e1;
+    line-height:1.7;
+}
+
+/* =========================================
+   CARDS
+========================================= */
+
+.card{
+    background:#0f172a;
+    border:1px solid #1e293b;
+
+    border-radius:24px;
+
+    padding:24px;
+}
+
+.card-title{
+    color:#94a3b8;
+    margin-bottom:10px;
+}
+
+.card-value{
+    font-size:40px;
+    font-weight:900;
+}
+
+/* =========================================
+   BUTTONS
+========================================= */
+
+.buttons{
+    display:flex;
+    flex-direction:column;
+    gap:15px;
+}
+
+button{
+    border:none;
+
+    padding:18px;
+
+    border-radius:18px;
+
+    font-size:18px;
+    font-weight:900;
+
+    cursor:pointer;
+
+    transition:.15s;
+}
+
+button:hover{
+    transform:translateY(-2px);
+}
+
+.start{
+    background:#22c55e;
+    color:white;
+}
+
+.pause{
+    background:#f59e0b;
+    color:white;
+}
+
+.reset{
+    background:#ef4444;
+    color:white;
+}
+
+/* =========================================
+   CONTROLS
+========================================= */
+
+.controls{
+    color:#cbd5e1;
+    line-height:2;
+}
+
+.controls strong{
+    color:white;
+}
+
+/* =========================================
+   OVERLAY
+========================================= */
+
+.overlay{
+    position:fixed;
+    inset:0;
+
+    background:rgba(0,0,0,.85);
+
+    display:none;
+
+    justify-content:center;
+    align-items:center;
+
+    z-index:999;
+}
+
+.overlay-content{
+    background:#0f172a;
+    border:1px solid #1e293b;
+
+    border-radius:30px;
+
+    padding:40px;
+
+    width:90%;
+    max-width:500px;
+
+    text-align:center;
+}
+
+.overlay h2{
+    font-size:52px;
+    margin-bottom:15px;
+}
+
+.overlay p{
+    font-size:22px;
+    color:#cbd5e1;
+
+    margin-bottom:25px;
+}
+
+/* =========================================
+   RESPONSIVO
+========================================= */
+
+@media(max-width:980px){
+
+    .container{
+        grid-template-columns:1fr;
+    }
+
+}
+
+@media(max-width:768px){
+
+    .logo h1{
+        font-size:42px;
+    }
+
+    .card-value{
+        font-size:30px;
+    }
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+    <!-- GAME -->
+
+    <div class="game-panel">
+
+        <canvas
+            id="maze"
+            width="600"
+            height="600">
+        </canvas>
+
+    </div>
+
+    <!-- SIDE -->
+
+    <div class="side-panel">
+
+        <div class="logo">
+
+            <h1>
+
+                <span>L</span>
+                <span>A</span>
+                <span>B</span>
+                <span>I</span>
+                <span>R</span>
+                <span>I</span>
+                <span>N</span>
+                <span>T</span>
+                <span>O</span>
+
+            </h1>
+
+            <div class="subtitle">
+
+                Explore caminhos,
+                desenvolva percepção espacial,
+                planejamento e concentração.
+
+            </div>
+
+        </div>
+
+        <div class="card">
+
+            <div class="card-title">
+                Nível
+            </div>
+
+            <div
+                class="card-value"
+                id="level">
+                1
+            </div>
+
+        </div>
+
+        <div class="card">
+
+            <div class="card-title">
+                Tempo
+            </div>
+
+            <div
+                class="card-value"
+                id="timer">
+                0s
+            </div>
+
+        </div>
+
+        <div class="card">
+
+            <div class="card-title">
+                Movimentos
+            </div>
+
+            <div
+                class="card-value"
+                id="moves">
+                0
+            </div>
+
+        </div>
+
+        <div class="buttons">
+
+            <button
+                class="start"
+                onclick="startGame()">
+
+                ▶ Iniciar
+
+            </button>
+
+            <button
+                class="pause"
+                onclick="togglePause()">
+
+                ⏸ Pausar
+
+            </button>
+
+            <button
+                class="reset"
+                onclick="resetGame()">
+
+                ↺ Reiniciar
+
+            </button>
+
+        </div>
+
+        <div class="card">
+
+            <div class="card-title">
+                Controles
+            </div>
+
+            <div class="controls">
+
+                <strong>↑ ↓ ← →</strong>
+                mover personagem
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<!-- OVERLAY -->
+
+<div
+    class="overlay"
+    id="winOverlay">
+
+    <div class="overlay-content">
+
+        <h2>
+            Você Venceu!
+        </h2>
+
+        <p>
+
+            Labirinto concluído com sucesso 🎉
+
+        </p>
+
+        <button
+            class="start"
+            onclick="nextLevel()">
+
+            Próximo Nível
+
+        </button>
+
+    </div>
+
+</div>
+
+<script>
+
+/* =========================================
+   CONFIG
+========================================= */
+
+const canvas =
+document.getElementById("maze");
+
+const ctx =
+canvas.getContext("2d");
+
+const tileSize = 40;
+
+const rows = 15;
+const cols = 15;
+
+let running = false;
+let paused = false;
+
+let level = 1;
+let moves = 0;
+let seconds = 0;
+
+let timerInterval;
+
+/* =========================================
+   MAZE
+========================================= */
+
+let maze = [];
+
+function generateMaze(){
+
+    maze = [];
+
+    for(let y=0;y<rows;y++){
+
+        maze[y] = [];
+
+        for(let x=0;x<cols;x++){
+
+            if(
+                x === 0 ||
+                y === 0 ||
+                x === cols-1 ||
+                y === rows-1
+            ){
+
+                maze[y][x] = 1;
+
+            }else{
+
+                maze[y][x] =
+                Math.random() > 0.72
+                    ? 1
+                    : 0;
+
+            }
+
+        }
+
+    }
+
+    maze[1][1] = 0;
+    maze[rows-2][cols-2] = 0;
+
+}
+
+/* =========================================
+   PLAYER
+========================================= */
+
+const player = {
+
+    x:1,
+    y:1,
+
+    color:"#22c55e"
+
+};
+
+/* =========================================
+   EXIT
+========================================= */
+
+const exit = {
+
+    x:cols-2,
+    y:rows-2,
+
+    color:"#facc15"
+
+};
+
+/* =========================================
+   DRAW
+========================================= */
+
+function draw(){
+
+    ctx.clearRect(
+        0,
+        0,
+        canvas.width,
+        canvas.height
+    );
+
+    drawMaze();
+    drawExit();
+    drawPlayer();
+
+}
+
+function drawMaze(){
+
+    for(let y=0;y<rows;y++){
+
+        for(let x=0;x<cols;x++){
+
+            if(maze[y][x] === 1){
+
+                ctx.fillStyle =
+                "#2563eb";
+
+            }else{
+
+                ctx.fillStyle =
+                "#0f172a";
+
+            }
+
+            ctx.fillRect(
+                x*tileSize,
+                y*tileSize,
+                tileSize,
+                tileSize
+            );
+
+            ctx.strokeStyle =
+            "#020617";
+
+            ctx.strokeRect(
+                x*tileSize,
+                y*tileSize,
+                tileSize,
+                tileSize
+            );
+
+        }
+
+    }
+
+}
+
+function drawPlayer(){
+
+    ctx.beginPath();
+
+    ctx.fillStyle =
+    player.color;
+
+    ctx.arc(
+        player.x*tileSize + tileSize/2,
+        player.y*tileSize + tileSize/2,
+        14,
+        0,
+        Math.PI*2
+    );
+
+    ctx.fill();
+
+}
+
+function drawExit(){
+
+    ctx.fillStyle =
+    exit.color;
+
+    ctx.fillRect(
+        exit.x*tileSize + 8,
+        exit.y*tileSize + 8,
+        tileSize - 16,
+        tileSize - 16
+    );
+
+}
+
+/* =========================================
+   MOVE
+========================================= */
+
+function move(dx,dy){
+
+    if(!running || paused) return;
+
+    const nx =
+    player.x + dx;
+
+    const ny =
+    player.y + dy;
+
+    if(
+        maze[ny][nx] === 0
+    ){
+
+        player.x = nx;
+        player.y = ny;
+
+        moves++;
+
+        updateStats();
+
+        checkWin();
+
+        draw();
+
+    }
+
+}
+
+/* =========================================
+   WIN
+========================================= */
+
+function checkWin(){
+
+    if(
+        player.x === exit.x &&
+        player.y === exit.y
+    ){
+
+        running = false;
+
+        clearInterval(timerInterval);
+
+        document.getElementById(
+            "winOverlay"
+        ).style.display = "flex";
+
+    }
+
+}
+
+/* =========================================
+   STATS
+========================================= */
+
+function updateStats(){
+
+    document.getElementById(
+        "level"
+    ).innerText = level;
+
+    document.getElementById(
+        "moves"
+    ).innerText = moves;
+
+    document.getElementById(
+        "timer"
+    ).innerText =
+    seconds + "s";
+
+}
+
+/* =========================================
+   TIMER
+========================================= */
+
+function startTimer(){
+
+    clearInterval(timerInterval);
+
+    timerInterval =
+    setInterval(()=>{
+
+        if(running && !paused){
+
+            seconds++;
+
+            updateStats();
+
+        }
+
+    },1000);
+
+}
+
+/* =========================================
+   GAME
+========================================= */
+
+function startGame(){
+
+    running = true;
+    paused = false;
+
+    document.getElementById(
+        "winOverlay"
+    ).style.display = "none";
+
+    startTimer();
+
+    draw();
+
+}
+
+function togglePause(){
+
+    paused = !paused;
+
+}
+
+function resetGame(){
+
+    player.x = 1;
+    player.y = 1;
+
+    moves = 0;
+    seconds = 0;
+
+    generateMaze();
+
+    running = true;
+    paused = false;
+
+    document.getElementById(
+        "winOverlay"
+    ).style.display = "none";
+
+    updateStats();
+
+    startTimer();
+
+    draw();
+
+}
+
+function nextLevel(){
+
+    level++;
+
+    player.x = 1;
+    player.y = 1;
+
+    moves = 0;
+    seconds = 0;
+
+    generateMaze();
+
+    running = true;
+
+    document.getElementById(
+        "winOverlay"
+    ).style.display = "none";
+
+    updateStats();
+
+    startTimer();
+
+    draw();
+
+}
+
+/* =========================================
+   CONTROLS
+========================================= */
+
+document.addEventListener(
+    "keydown",
+    e=>{
+
+        if(e.key === "ArrowUp"){
+
+            move(0,-1);
+
+        }
+
+        else if(
+            e.key === "ArrowDown"
+        ){
+
+            move(0,1);
+
+        }
+
+        else if(
+            e.key === "ArrowLeft"
+        ){
+
+            move(-1,0);
+
+        }
+
+        else if(
+            e.key === "ArrowRight"
+        ){
+
+            move(1,0);
+
+        }
+
+    }
+);
+
+/* =========================================
+   INIT
+========================================= */
+
+generateMaze();
+
+draw();
+
+updateStats();
+
+</script>
+
+</body>
+</html>
