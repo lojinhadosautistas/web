@@ -1,0 +1,1276 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Jogo dos Eixos • Atlas Cognitivo</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+<style>
+
+:root{
+
+    --blue:#4ea8ff;
+    --green:#74f0a7;
+    --orange:#ffbe63;
+    --purple:#c58cff;
+
+    --glass:rgba(255,255,255,.08);
+    --border:rgba(255,255,255,.10);
+
+}
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+
+    font-family:'Poppins',sans-serif;
+    background:
+        radial-gradient(circle at top,#12203f,#050816 70%);
+    color:white;
+    overflow-x:hidden;
+    min-height:100vh;
+
+}
+
+.bg-glow{
+
+    position:fixed;
+    inset:0;
+    background:
+    radial-gradient(circle at center,
+    rgba(255,255,255,.08),
+    transparent 60%);
+    pointer-events:none;
+    z-index:0;
+
+}
+
+.container{
+
+    width:min(1500px,94%);
+    margin:auto;
+    position:relative;
+    z-index:2;
+
+}
+
+header{
+
+    padding:40px 0 30px;
+    text-align:center;
+
+}
+
+.badge{
+
+    display:inline-flex;
+    gap:10px;
+    align-items:center;
+
+    background:rgba(255,255,255,.08);
+    border:1px solid rgba(255,255,255,.08);
+
+    padding:12px 22px;
+    border-radius:999px;
+
+    margin-bottom:25px;
+
+    backdrop-filter:blur(10px);
+
+}
+
+h1{
+
+    font-size:4.5rem;
+    line-height:1;
+    font-weight:800;
+    margin-bottom:25px;
+
+}
+
+h1 span{
+
+    background:linear-gradient(
+        90deg,
+        var(--blue),
+        var(--green),
+        var(--orange),
+        var(--purple)
+    );
+
+    -webkit-background-clip:text;
+    -webkit-text-fill-color:transparent;
+
+}
+
+.subtitle{
+
+    max-width:950px;
+    margin:auto;
+    line-height:2;
+    opacity:.88;
+    font-size:1.05rem;
+
+}
+
+.dashboard{
+
+    margin-top:35px;
+
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+    gap:20px;
+
+}
+
+.stat{
+
+    background:var(--glass);
+    border:1px solid var(--border);
+
+    border-radius:26px;
+    padding:28px;
+
+    backdrop-filter:blur(14px);
+
+    box-shadow:
+        0 10px 30px rgba(0,0,0,.2);
+
+}
+
+.stat-title{
+
+    opacity:.7;
+    margin-bottom:10px;
+
+}
+
+.stat-value{
+
+    font-size:2.5rem;
+    font-weight:800;
+
+}
+
+.main-grid{
+
+    display:grid;
+    grid-template-columns:1.3fr .7fr;
+    gap:28px;
+
+    margin-top:35px;
+
+}
+
+.board{
+
+    background:rgba(255,255,255,.05);
+
+    border-radius:36px;
+    padding:30px;
+
+    border:1px solid rgba(255,255,255,.08);
+
+    backdrop-filter:blur(18px);
+
+}
+
+.section-title{
+
+    font-size:2rem;
+    font-weight:800;
+    margin-bottom:25px;
+
+}
+
+.eixos-grid{
+
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:22px;
+
+}
+
+.eixo-card{
+
+    position:relative;
+
+    min-height:360px;
+
+    border-radius:30px;
+    overflow:hidden;
+
+    border:1px solid rgba(255,255,255,.08);
+
+    background:rgba(255,255,255,.06);
+
+    transition:.4s;
+
+    cursor:pointer;
+
+}
+
+.eixo-card:hover{
+
+    transform:translateY(-8px) scale(1.01);
+
+}
+
+.eixo-inner{
+
+    padding:28px;
+    height:100%;
+
+    display:flex;
+    flex-direction:column;
+
+}
+
+.eixo-top{
+
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+
+    margin-bottom:25px;
+
+}
+
+.eixo-icon{
+
+    width:75px;
+    height:75px;
+
+    border-radius:24px;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    font-size:2rem;
+
+    background:rgba(255,255,255,.08);
+
+}
+
+.blue .eixo-icon{
+    color:var(--blue);
+}
+
+.green .eixo-icon{
+    color:var(--green);
+}
+
+.orange .eixo-icon{
+    color:var(--orange);
+}
+
+.purple .eixo-icon{
+    color:var(--purple);
+}
+
+.eixo-card h3{
+
+    font-size:2rem;
+    margin-bottom:12px;
+
+}
+
+.eixo-card p{
+
+    line-height:1.8;
+    opacity:.85;
+    margin-bottom:25px;
+
+}
+
+.tags{
+
+    display:flex;
+    flex-wrap:wrap;
+    gap:10px;
+    margin-top:auto;
+
+}
+
+.tags span{
+
+    padding:10px 15px;
+    border-radius:999px;
+    background:rgba(255,255,255,.08);
+
+    font-size:.85rem;
+
+}
+
+.challenge-box{
+
+    margin-top:22px;
+
+    background:rgba(255,255,255,.06);
+    border-radius:20px;
+
+    padding:18px;
+
+}
+
+.challenge-title{
+
+    font-weight:700;
+    margin-bottom:10px;
+
+}
+
+.challenge{
+
+    line-height:1.7;
+    opacity:.88;
+
+}
+
+.action-btn{
+
+    margin-top:18px;
+
+    border:none;
+    width:100%;
+    padding:16px;
+
+    border-radius:18px;
+
+    font-size:1rem;
+    font-weight:700;
+
+    cursor:pointer;
+
+    transition:.3s;
+
+    color:white;
+
+}
+
+.blue .action-btn{
+    background:linear-gradient(135deg,#3b82f6,#2563eb);
+}
+
+.green .action-btn{
+    background:linear-gradient(135deg,#10b981,#059669);
+}
+
+.orange .action-btn{
+    background:linear-gradient(135deg,#f59e0b,#ea580c);
+}
+
+.purple .action-btn{
+    background:linear-gradient(135deg,#a855f7,#7e22ce);
+}
+
+.action-btn:hover{
+
+    transform:scale(1.03);
+
+}
+
+.action-btn.done{
+
+    background:#22c55e !important;
+
+}
+
+.side-panel{
+
+    display:flex;
+    flex-direction:column;
+    gap:24px;
+
+}
+
+.panel{
+
+    background:rgba(255,255,255,.05);
+
+    border-radius:30px;
+
+    padding:28px;
+
+    border:1px solid rgba(255,255,255,.08);
+
+    backdrop-filter:blur(18px);
+
+}
+
+.avatar{
+
+    text-align:center;
+
+}
+
+.avatar-icon{
+
+    font-size:120px;
+    margin-bottom:12px;
+
+}
+
+.avatar h2{
+
+    font-size:2rem;
+    margin-bottom:15px;
+
+}
+
+.level-bar{
+
+    width:100%;
+    height:22px;
+
+    border-radius:999px;
+
+    background:rgba(255,255,255,.08);
+
+    overflow:hidden;
+
+}
+
+.level-progress{
+
+    height:100%;
+    width:0%;
+
+    background:
+    linear-gradient(90deg,
+    #facc15,
+    #f59e0b);
+
+    transition:.5s;
+
+}
+
+.skills{
+
+    display:flex;
+    flex-direction:column;
+    gap:14px;
+
+}
+
+.skill{
+
+    background:rgba(255,255,255,.06);
+    padding:16px;
+    border-radius:18px;
+
+}
+
+.skill strong{
+
+    display:block;
+    margin-bottom:6px;
+
+}
+
+.rewards{
+
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:12px;
+
+    margin-top:20px;
+
+}
+
+.reward{
+
+    height:70px;
+
+    border-radius:18px;
+
+    background:rgba(255,255,255,.06);
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    font-size:1.8rem;
+
+    transition:.3s;
+
+}
+
+.reward.active{
+
+    background:#facc15;
+    color:#78350f;
+
+    transform:scale(1.05);
+
+}
+
+.integration{
+
+    margin-top:35px;
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(255,255,255,.07),
+            rgba(255,255,255,.03)
+        );
+
+    border-radius:38px;
+
+    padding:50px;
+
+    text-align:center;
+
+    border:1px solid rgba(255,255,255,.08);
+
+}
+
+.integration h2{
+
+    font-size:3rem;
+    margin-bottom:20px;
+
+}
+
+.integration p{
+
+    max-width:900px;
+    margin:auto;
+
+    line-height:2;
+    opacity:.82;
+
+}
+
+.system-bar{
+
+    margin-top:30px;
+
+    display:flex;
+    gap:18px;
+    flex-wrap:wrap;
+    justify-content:center;
+
+}
+
+.system-pill{
+
+    padding:15px 22px;
+
+    border-radius:20px;
+
+    background:rgba(255,255,255,.08);
+
+}
+
+.message-box{
+
+    margin-top:30px;
+
+    background:
+    linear-gradient(145deg,#6d28d9,#312e81);
+
+    border-radius:28px;
+
+    padding:35px;
+
+    text-align:center;
+
+}
+
+.message-box h2{
+
+    font-size:2rem;
+    margin-bottom:14px;
+
+}
+
+.message-box p{
+
+    line-height:1.9;
+    opacity:.9;
+
+}
+
+.footer{
+
+    padding:45px 0;
+    text-align:center;
+    opacity:.65;
+
+}
+
+.confetti{
+
+    position:fixed;
+    z-index:9999;
+    pointer-events:none;
+    animation:fall 3s linear forwards;
+
+}
+
+@keyframes fall{
+
+    from{
+        transform:translateY(-100px) rotate(0deg);
+        opacity:1;
+    }
+
+    to{
+        transform:translateY(100vh) rotate(720deg);
+        opacity:0;
+    }
+
+}
+
+@media(max-width:1100px){
+
+    .main-grid{
+        grid-template-columns:1fr;
+    }
+
+}
+
+@media(max-width:900px){
+
+    h1{
+        font-size:3rem;
+    }
+
+    .eixos-grid{
+        grid-template-columns:1fr;
+    }
+
+    .integration h2{
+        font-size:2rem;
+    }
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="bg-glow"></div>
+
+<div class="container">
+
+<header>
+
+<div class="badge">
+✨ Experiência Gamificada
+</div>
+
+<h1>
+Jogo dos <span>4 Eixos</span>
+</h1>
+
+<div class="subtitle">
+
+Explore como ambiente, corpo, vínculos e organização interna
+interagem para construir estabilidade, previsibilidade
+e possibilidade de navegação emocional.
+
+</div>
+
+</header>
+
+<div class="dashboard">
+
+<div class="stat">
+
+<div class="stat-title">
+Pontuação Sistêmica
+</div>
+
+<div class="stat-value" id="score">
+0 XP
+</div>
+
+</div>
+
+<div class="stat">
+
+<div class="stat-title">
+Nível Cognitivo
+</div>
+
+<div class="stat-value" id="level">
+1
+</div>
+
+</div>
+
+<div class="stat">
+
+<div class="stat-title">
+Missões Concluídas
+</div>
+
+<div class="stat-value" id="missions">
+0/4
+</div>
+
+</div>
+
+<div class="stat">
+
+<div class="stat-title">
+Integração do Sistema
+</div>
+
+<div class="stat-value" id="integrationScore">
+0%
+</div>
+
+</div>
+
+</div>
+
+<div class="main-grid">
+
+<div class="board">
+
+<div class="section-title">
+🌌 Jornada dos Eixos
+</div>
+
+<div class="eixos-grid">
+
+<!-- TERAPÊUTICO -->
+<div class="eixo-card blue">
+
+<div class="eixo-inner">
+
+<div class="eixo-top">
+
+<div>
+<small>EIXO 01</small>
+<h3>Terapêutico</h3>
+</div>
+
+<div class="eixo-icon">
+🧠
+</div>
+
+</div>
+
+<p>
+
+Organização interna da experiência,
+regulação emocional,
+antecipação,
+memória autobiográfica
+e integração narrativa.
+
+</p>
+
+<div class="tags">
+
+<span>Regulação</span>
+<span>Antecipação</span>
+<span>Narrativa</span>
+<span>Memória</span>
+
+</div>
+
+<div class="challenge-box">
+
+<div class="challenge-title">
+🎯 Missão
+</div>
+
+<div class="challenge">
+Criar um mapa emocional do dia
+e identificar momentos de estabilidade.
+</div>
+
+<button
+class="action-btn"
+onclick="completeMission(this,'terapeutico')">
+
+Concluir Missão
+
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- AMBIENTAL -->
+<div class="eixo-card green">
+
+<div class="eixo-inner">
+
+<div class="eixo-top">
+
+<div>
+<small>EIXO 02</small>
+<h3>Ambiental</h3>
+</div>
+
+<div class="eixo-icon">
+🌿
+</div>
+
+</div>
+
+<p>
+
+Ambientes influenciam diretamente
+segurança emocional,
+previsibilidade,
+estrutura
+e estabilidade sensorial.
+
+</p>
+
+<div class="tags">
+
+<span>Rotina</span>
+<span>Estrutura</span>
+<span>Previsibilidade</span>
+<span>Segurança</span>
+
+</div>
+
+<div class="challenge-box">
+
+<div class="challenge-title">
+🎯 Missão
+</div>
+
+<div class="challenge">
+Organizar um espaço previsível
+com menos estímulos e mais clareza.
+</div>
+
+<button
+class="action-btn"
+onclick="completeMission(this,'ambiental')">
+
+Concluir Missão
+
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- FAMILIAR -->
+<div class="eixo-card orange">
+
+<div class="eixo-inner">
+
+<div class="eixo-top">
+
+<div>
+<small>EIXO 03</small>
+<h3>Familiar</h3>
+</div>
+
+<div class="eixo-icon">
+👨‍👩‍👧
+</div>
+
+</div>
+
+<p>
+
+Comunicação funcional,
+mediação afetiva,
+participação segura,
+vínculos
+e construção de linguagem compartilhada.
+
+</p>
+
+<div class="tags">
+
+<span>Comunicação</span>
+<span>Vínculos</span>
+<span>Mediação</span>
+<span>Participação</span>
+
+</div>
+
+<div class="challenge-box">
+
+<div class="challenge-title">
+🎯 Missão
+</div>
+
+<div class="challenge">
+Construir um momento de conversa segura
+sem pressão ou sobrecarga.
+</div>
+
+<button
+class="action-btn"
+onclick="completeMission(this,'familiar')">
+
+Concluir Missão
+
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- BIOLOGICO -->
+<div class="eixo-card purple">
+
+<div class="eixo-inner">
+
+<div class="eixo-top">
+
+<div>
+<small>EIXO 04</small>
+<h3>Biológico</h3>
+</div>
+
+<div class="eixo-icon">
+💜
+</div>
+
+</div>
+
+<p>
+
+Sono,
+alimentação,
+energia disponível,
+regulação fisiológica
+e estabilidade corporal.
+
+</p>
+
+<div class="tags">
+
+<span>Sono</span>
+<span>Energia</span>
+<span>Corpo</span>
+<span>Estabilidade</span>
+
+</div>
+
+<div class="challenge-box">
+
+<div class="challenge-title">
+🎯 Missão
+</div>
+
+<div class="challenge">
+Monitorar sinais do corpo
+e organizar momentos de recuperação.
+</div>
+
+<button
+class="action-btn"
+onclick="completeMission(this,'biologico')">
+
+Concluir Missão
+
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<div class="integration">
+
+<h2>
+Integração Sistêmica
+</h2>
+
+<p>
+
+Quando múltiplos eixos entram em tensão,
+o sistema perde previsibilidade.
+A navegação muda quando conseguimos
+observar relações entre ambiente,
+corpo, vínculos e organização interna.
+
+</p>
+
+<div class="system-bar">
+
+<div class="system-pill">
+🌿 Previsibilidade
+</div>
+
+<div class="system-pill">
+🧠 Autorregulação
+</div>
+
+<div class="system-pill">
+💜 Estabilidade
+</div>
+
+<div class="system-pill">
+👨‍👩‍👧 Participação Segura
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<div class="side-panel">
+
+<div class="panel avatar">
+
+<div class="avatar-icon">
+🧭
+</div>
+
+<h2>
+Navegador Cognitivo
+</h2>
+
+<div class="level-bar">
+
+<div
+class="level-progress"
+id="levelBar">
+</div>
+
+</div>
+
+</div>
+
+<div class="panel">
+
+<div class="section-title">
+🏆 Conquistas
+</div>
+
+<div class="rewards" id="rewards"></div>
+
+</div>
+
+<div class="panel">
+
+<div class="section-title">
+📘 Aprendizados
+</div>
+
+<div class="skills">
+
+<div class="skill">
+<strong>🌌 Visão Sistêmica</strong>
+Compreender interações entre múltiplos fatores.
+</div>
+
+<div class="skill">
+<strong>🧠 Regulação</strong>
+Construir estratégias antes da crise.
+</div>
+
+<div class="skill">
+<strong>🌿 Organização Ambiental</strong>
+Ambientes podem proteger ou sobrecarregar.
+</div>
+
+<div class="skill">
+<strong>💜 Estabilidade Biológica</strong>
+O corpo influencia diretamente a experiência.
+</div>
+
+</div>
+
+</div>
+
+<div class="message-box">
+
+<h2>
+Cada eixo influencia os demais.
+</h2>
+
+<p>
+
+O objetivo não é controlar tudo.
+O objetivo é ampliar leitura,
+previsibilidade,
+participação segura
+e possibilidades de navegação.
+
+</p>
+
+</div>
+
+</div>
+
+</div>
+
+<div class="footer">
+
+Jogo dos Eixos • Atlas Cognitivo • Navegar muda a jornada
+
+</div>
+
+</div>
+
+<script>
+
+let xp = 0;
+let completed = 0;
+
+const score =
+document.getElementById("score");
+
+const level =
+document.getElementById("level");
+
+const missions =
+document.getElementById("missions");
+
+const integrationScore =
+document.getElementById("integrationScore");
+
+const levelBar =
+document.getElementById("levelBar");
+
+const rewards =
+document.getElementById("rewards");
+
+function completeMission(button,eixo){
+
+    if(button.classList.contains("done")){
+        return;
+    }
+
+    button.classList.add("done");
+
+    button.innerHTML = "✓ Missão Concluída";
+
+    xp += 25;
+    completed++;
+
+    updateStats();
+
+    generateConfetti();
+
+    renderRewards();
+
+}
+
+function updateStats(){
+
+    score.innerHTML =
+    xp + " XP";
+
+    missions.innerHTML =
+    completed + "/4";
+
+    integrationScore.innerHTML =
+    (completed * 25) + "%";
+
+    const currentLevel =
+    Math.floor(xp / 40) + 1;
+
+    level.innerHTML =
+    currentLevel;
+
+    const progress =
+    (xp % 40) / 40 * 100;
+
+    levelBar.style.width =
+    progress + "%";
+
+}
+
+function renderRewards(){
+
+    rewards.innerHTML = "";
+
+    for(let i=0;i<8;i++){
+
+        const div =
+        document.createElement("div");
+
+        div.className = "reward";
+
+        if(i < completed * 2){
+
+            div.classList.add("active");
+
+            div.innerHTML =
+            ["⭐","✨","🧠","🌿","💜","🧭","🏆","🌈"][i];
+
+        }else{
+
+            div.innerHTML = "•";
+
+        }
+
+        rewards.appendChild(div);
+
+    }
+
+}
+
+function generateConfetti(){
+
+    const emojis =
+    ["✨","⭐","🌿","💜","🧠","🌈"];
+
+    for(let i=0;i<30;i++){
+
+        const confetti =
+        document.createElement("div");
+
+        confetti.className =
+        "confetti";
+
+        confetti.innerHTML =
+        emojis[Math.floor(Math.random()*emojis.length)];
+
+        confetti.style.left =
+        Math.random()*100 + "vw";
+
+        confetti.style.top =
+        "-50px";
+
+        confetti.style.fontSize =
+        (20 + Math.random()*25) + "px";
+
+        document.body.appendChild(confetti);
+
+        setTimeout(()=>{
+            confetti.remove();
+        },3000);
+
+    }
+
+}
+
+renderRewards();
+
+</script>
+
+</body>
+</html>
