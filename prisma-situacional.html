@@ -1,0 +1,903 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>PRISMA Situacional | Lojinha dos Autistas</title>
+
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com" rel="preconnect">
+  <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
+    rel="stylesheet">
+
+  <!-- Bootstrap -->
+  <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+
+  <style>
+    :root {
+      --glass: rgba(255, 255, 255, 0.08);
+      --border: rgba(255, 255, 255, 0.12);
+
+      --blue: #65b3ff;
+      --green: #7ce58d;
+      --orange: #ffb24c;
+      --purple: #c38cff;
+      --red: #ff7b7b;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: #020612;
+      color: #fff;
+      overflow-x: hidden;
+    }
+
+    .immersive-bg {
+      position: fixed;
+      inset: 0;
+      background:
+        linear-gradient(rgba(2, 6, 18, 0.75),
+          rgba(2, 6, 18, 0.92)),
+        url('assets/img/bg-4-eixos.png') center center;
+      background-size: cover;
+      z-index: -3;
+      transform: scale(1.03);
+    }
+
+    .overlay-noise {
+      position: fixed;
+      inset: 0;
+      background-image:
+        radial-gradient(rgba(255, 255, 255, 0.03) 1px,
+          transparent 1px);
+      background-size: 4px 4px;
+      opacity: .2;
+      z-index: -2;
+      pointer-events: none;
+    }
+
+    .glow-center {
+      position: fixed;
+      width: 520px;
+      height: 520px;
+      border-radius: 50%;
+      background:
+        radial-gradient(circle,
+          rgba(133, 188, 255, .18),
+          transparent 70%);
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      z-index: -1;
+      filter: blur(50px);
+      animation: pulse 7s infinite ease-in-out;
+    }
+
+    @keyframes pulse {
+
+      0%,
+      100% {
+        transform: translate(-50%, -50%) scale(1);
+      }
+
+      50% {
+        transform: translate(-50%, -50%) scale(1.08);
+      }
+    }
+
+    .topbar {
+      position: fixed;
+      width: 100%;
+      top: 0;
+      left: 0;
+      z-index: 999;
+      backdrop-filter: blur(18px);
+      background: rgba(2, 8, 20, 0.55);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .topbar-inner {
+      max-width: 1450px;
+      margin: auto;
+      padding: 18px 30px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .brand {
+      font-size: 1.1rem;
+      font-weight: 700;
+      letter-spacing: 1px;
+    }
+
+    .brand span {
+      color: #ffc76d;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 30px;
+    }
+
+    .nav-links a {
+      color: rgba(255, 255, 255, .75);
+      text-decoration: none;
+      transition: .3s;
+      font-size: .95rem;
+    }
+
+    .nav-links a:hover {
+      color: #fff;
+    }
+
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      position: relative;
+      padding: 150px 0 80px;
+    }
+
+    .container-xl2 {
+      width: min(1450px, 92%);
+      margin: auto;
+    }
+
+    .hero-content {
+      max-width: 920px;
+      margin: auto;
+      text-align: center;
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 12px 22px;
+      border-radius: 100px;
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      backdrop-filter: blur(15px);
+      margin-bottom: 30px;
+      font-size: .92rem;
+      color: rgba(255, 255, 255, .85);
+    }
+
+    .hero h1 {
+      font-size: 5rem;
+      line-height: 1;
+      font-weight: 800;
+      margin-bottom: 35px;
+      text-shadow: 0 10px 40px rgba(0, 0, 0, .45);
+    }
+
+    .hero h1 span {
+      background: linear-gradient(90deg,
+          #79b8ff,
+          #9effc0,
+          #ffc76d,
+          #c78cff);
+
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .hero p {
+      font-size: 1.18rem;
+      line-height: 2;
+      color: rgba(255, 255, 255, .82);
+    }
+
+    .hero-buttons {
+      margin-top: 45px;
+      display: flex;
+      gap: 18px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .btn-main {
+      padding: 16px 34px;
+      border-radius: 100px;
+      background: linear-gradient(135deg,
+          #ffb24c,
+          #ff8f66);
+
+      color: #fff;
+      text-decoration: none;
+      font-weight: 600;
+      transition: .35s;
+      box-shadow: 0 20px 40px rgba(255, 153, 0, 0.25);
+    }
+
+    .btn-main:hover {
+      transform: translateY(-4px);
+      color: #fff;
+    }
+
+    .btn-outline-glass {
+      padding: 16px 34px;
+      border-radius: 100px;
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      background: rgba(255, 255, 255, 0.05);
+      color: #fff;
+      text-decoration: none;
+      backdrop-filter: blur(18px);
+      transition: .3s;
+    }
+
+    .btn-outline-glass:hover {
+      background: rgba(255, 255, 255, .12);
+      color: #fff;
+    }
+
+    .section {
+      position: relative;
+      padding: 110px 0;
+    }
+
+    .section-title {
+      text-align: center;
+      margin-bottom: 70px;
+    }
+
+    .section-title h2 {
+      font-size: 3rem;
+      font-weight: 800;
+      margin-bottom: 20px;
+    }
+
+    .section-title p {
+      max-width: 980px;
+      margin: auto;
+      color: rgba(255, 255, 255, .75);
+      line-height: 2;
+      font-size: 1.05rem;
+    }
+
+    .cards-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 30px;
+    }
+
+    .glass-card {
+      position: relative;
+      border-radius: 34px;
+      overflow: hidden;
+      backdrop-filter: blur(18px);
+      background: rgba(10, 18, 30, .45);
+      border: 1px solid rgba(255, 255, 255, .08);
+      transition: .45s ease;
+      min-height: 420px;
+    }
+
+    .glass-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 30px 70px rgba(0, 0, 0, .35);
+    }
+
+    .glass-inner {
+      padding: 42px;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .card-icon {
+      width: 78px;
+      height: 78px;
+      border-radius: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2rem;
+      margin-bottom: 28px;
+      border: 1px solid rgba(255,255,255,.1);
+    }
+
+    .blue .card-icon {
+      background: rgba(101, 179, 255, .14);
+      color: var(--blue);
+    }
+
+    .green .card-icon {
+      background: rgba(124, 229, 141, .14);
+      color: var(--green);
+    }
+
+    .purple .card-icon {
+      background: rgba(195, 140, 255, .14);
+      color: var(--purple);
+    }
+
+    .orange .card-icon {
+      background: rgba(255, 178, 76, .14);
+      color: var(--orange);
+    }
+
+    .red .card-icon {
+      background: rgba(255, 123, 123, .14);
+      color: var(--red);
+    }
+
+    .glass-card h3 {
+      font-size: 2rem;
+      font-weight: 700;
+      margin-bottom: 18px;
+    }
+
+    .glass-card p {
+      line-height: 2;
+      color: rgba(255,255,255,.78);
+    }
+
+    .tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: auto;
+      padding-top: 30px;
+    }
+
+    .tags span {
+      padding: 10px 16px;
+      border-radius: 100px;
+      background: rgba(255,255,255,.06);
+      border: 1px solid rgba(255,255,255,.08);
+      font-size: .85rem;
+    }
+
+    .flow-box {
+      margin-top: 90px;
+      padding: 70px;
+      border-radius: 40px;
+      background:
+        linear-gradient(135deg,
+          rgba(255, 255, 255, .06),
+          rgba(255, 255, 255, .03));
+
+      border: 1px solid rgba(255, 255, 255, .08);
+      backdrop-filter: blur(18px);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .flow-box::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(circle at center,
+          rgba(255, 255, 255, .08),
+          transparent 60%);
+      pointer-events: none;
+    }
+
+    .flow-box h2 {
+      text-align: center;
+      font-size: 3rem;
+      font-weight: 800;
+      margin-bottom: 20px;
+    }
+
+    .flow-box p {
+      text-align: center;
+      max-width: 900px;
+      margin: auto;
+      line-height: 2;
+      color: rgba(255,255,255,.78);
+    }
+
+    .flow-steps {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 30px;
+      margin-top: 60px;
+    }
+
+    .step {
+      padding: 35px;
+      border-radius: 28px;
+      background: rgba(255,255,255,.05);
+      border: 1px solid rgba(255,255,255,.08);
+    }
+
+    .step small {
+      display: inline-block;
+      margin-bottom: 15px;
+      letter-spacing: 2px;
+      color: #ffc76d;
+      font-weight: 600;
+    }
+
+    .step h4 {
+      font-size: 1.5rem;
+      margin-bottom: 18px;
+      font-weight: 700;
+    }
+
+    .step ul {
+      padding-left: 18px;
+      color: rgba(255,255,255,.78);
+      line-height: 2;
+    }
+
+    .disclaimer-box {
+      margin-top: 90px;
+      border-radius: 34px;
+      padding: 55px;
+      background: rgba(255, 163, 71, .08);
+      border: 1px solid rgba(255, 196, 118, .16);
+      backdrop-filter: blur(18px);
+    }
+
+    .disclaimer-box h3 {
+      font-size: 2rem;
+      margin-bottom: 25px;
+      font-weight: 800;
+    }
+
+    .disclaimer-list {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 22px;
+    }
+
+    .disclaimer-item {
+      padding: 22px;
+      border-radius: 20px;
+      background: rgba(255,255,255,.05);
+      border: 1px solid rgba(255,255,255,.06);
+      line-height: 1.9;
+      color: rgba(255,255,255,.82);
+    }
+
+    .final-cta {
+      padding: 130px 0;
+      text-align: center;
+    }
+
+    .final-cta h2 {
+      font-size: 3.6rem;
+      font-weight: 800;
+      margin-bottom: 25px;
+    }
+
+    .final-cta p {
+      max-width: 920px;
+      margin: auto auto 45px;
+      line-height: 2;
+      color: rgba(255,255,255,.78);
+      font-size: 1.08rem;
+    }
+
+    .floating {
+      animation: floating 5s ease-in-out infinite;
+    }
+
+    @keyframes floating {
+
+      0%,
+      100% {
+        transform: translateY(0px);
+      }
+
+      50% {
+        transform: translateY(-10px);
+      }
+    }
+
+    @media(max-width: 1100px) {
+
+      .cards-grid,
+      .flow-steps,
+      .disclaimer-list {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media(max-width: 991px) {
+
+      .hero {
+        padding-top: 150px;
+      }
+
+      .hero h1 {
+        font-size: 3rem;
+      }
+
+      .section-title h2,
+      .flow-box h2,
+      .final-cta h2 {
+        font-size: 2.2rem;
+      }
+
+      .flow-box,
+      .disclaimer-box {
+        padding: 35px 24px;
+      }
+
+      .nav-links {
+        display: none;
+      }
+    }
+  </style>
+
+</head>
+
+<body>
+
+  <div class="immersive-bg"></div>
+  <div class="overlay-noise"></div>
+  <div class="glow-center"></div>
+
+  <div class="topbar">
+
+    <div class="topbar-inner">
+
+      <div class="brand">
+        PRISMA <span>SITUACIONAL</span>
+      </div>
+
+      <div class="nav-links">
+        <a href="#proposta">Proposta</a>
+        <a href="#camadas">Camadas</a>
+        <a href="#etica">Ética</a>
+        <a href="#reflexao">Reflexão</a>
+      </div>
+
+    </div>
+
+  </div>
+
+  <section class="hero">
+
+    <div class="container-xl2">
+
+      <div class="hero-content floating">
+
+        <div class="hero-badge">
+          <i class="bi bi-stars"></i>
+          Tecnologia de Leitura Contextual
+        </div>
+
+        <h1>
+          O <span>PRISMA Situacional</span><br>
+          não interpreta pessoas.<br>
+          Interpreta contextos.
+        </h1>
+
+        <p>
+          Um instrumento de leitura contextual desenvolvido para transformar
+          experiências narradas em mapas estruturados de compreensão.
+          O objetivo não é diagnosticar, concluir ou rotular.
+          O objetivo é organizar experiência, revelar dinâmicas,
+          traduzir sobrecarga e construir linguagem para reflexão.
+        </p>
+
+        <div class="hero-buttons">
+
+          <a href="#proposta" class="btn-main">
+            Explorar Estrutura
+          </a>
+
+          <a href="#etica" class="btn-outline-glass">
+            Compreender Limites
+          </a>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </section>
+
+  <section id="proposta" class="section">
+
+    <div class="container-xl2">
+
+      <div class="section-title">
+
+        <h2>
+          Uma leitura contextual aplicada a experiências narradas
+        </h2>
+
+        <p>
+          O PRISMA Situacional foi desenvolvido para atuar sobre episódios,
+          experiências relatadas e recortes contextuais específicos.
+          Diferente de modelos baseados em acompanhamento longitudinal,
+          o PRISMA Situacional assume explicitamente a natureza situacional
+          da análise e transforma relatos subjetivos em estruturas interpretativas organizadas.
+        </p>
+
+      </div>
+
+      <div class="cards-grid">
+
+        <div class="glass-card blue">
+
+          <div class="glass-inner">
+
+            <div class="card-icon">
+              <i class="bi bi-diagram-3"></i>
+            </div>
+
+            <h3>
+              Organização do Caos
+            </h3>
+
+            <p>
+              Relatos emocionais, fragmentados ou difíceis de explicar
+              são reorganizados em uma estrutura compreensível,
+              permitindo visualizar relações entre ambiente,
+              sobrecarga, resposta emocional e adaptação.
+            </p>
+
+            <div class="tags">
+              <span>Mapa Semântico</span>
+              <span>Estrutura</span>
+              <span>Compreensão</span>
+            </div>
+
+          </div>
+
+        </div>
+
+        <div class="glass-card green">
+
+          <div class="glass-inner">
+
+            <div class="card-icon">
+              <i class="bi bi-search-heart"></i>
+            </div>
+
+            <h3>
+              Leitura Prudente
+            </h3>
+
+            <p>
+              O sistema não produz diagnósticos,
+              laudos ou definições sobre identidade clínica.
+              A interpretação é contextual, situacional e construída
+              a partir da dinâmica narrada pela própria pessoa.
+            </p>
+
+            <div class="tags">
+              <span>Ética</span>
+              <span>Contexto</span>
+              <span>Reflexão</span>
+            </div>
+
+          </div>
+
+        </div>
+
+        <div class="glass-card purple">
+
+          <div class="glass-inner">
+
+            <div class="card-icon">
+              <i class="bi bi-chat-heart"></i>
+            </div>
+
+            <h3>
+              Experiência de Reconhecimento
+            </h3>
+
+            <p>
+              Muitas famílias nunca tiveram linguagem para explicar
+              determinadas experiências.
+              O PRISMA busca oferecer clareza,
+              validação contextual e construção de sentido.
+            </p>
+
+            <div class="tags">
+              <span>Validação</span>
+              <span>Linguagem</span>
+              <span>Sentido</span>
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+      <div id="camadas" class="flow-box">
+
+        <h2>
+          As 3 Camadas do PRISMA Situacional
+        </h2>
+
+        <p>
+          O processo interpretativo do PRISMA foi estruturado em três camadas complementares,
+          permitindo transformar experiências subjetivas em leitura contextual organizada,
+          prudente e humanizada.
+        </p>
+
+        <div class="flow-steps">
+
+          <div class="step">
+
+            <small>CAMADA 01</small>
+
+            <h4>
+              Extração Estrutural
+            </h4>
+
+            <ul>
+              <li>Gatilhos contextuais</li>
+              <li>Carga sensorial</li>
+              <li>Carga social</li>
+              <li>Carga executiva</li>
+              <li>Estratégias adaptativas</li>
+              <li>Pós-esgotamento</li>
+              <li>Peso subjetivo</li>
+            </ul>
+
+          </div>
+
+          <div class="step">
+
+            <small>CAMADA 02</small>
+
+            <h4>
+              Interpretação Prudente
+            </h4>
+
+            <ul>
+              <li>"O relato sugere..."</li>
+              <li>"Há indícios de..."</li>
+              <li>"A dinâmica observada aponta para..."</li>
+              <li>"O padrão descrito pode indicar..."</li>
+              <li>Sem conclusões diagnósticas</li>
+              <li>Sem definição identitária</li>
+            </ul>
+
+          </div>
+
+          <div class="step">
+
+            <small>CAMADA 03</small>
+
+            <h4>
+              Entrega Humanizada
+            </h4>
+
+            <ul>
+              <li>Relatório contextual</li>
+              <li>Infográfico interpretativo</li>
+              <li>Áudio explicativo</li>
+              <li>Construção de linguagem</li>
+              <li>Reconhecimento experiencial</li>
+              <li>Reflexão estruturada</li>
+            </ul>
+
+          </div>
+
+        </div>
+
+      </div>
+
+      <div id="etica" class="disclaimer-box">
+
+        <h3>
+          Limites Metodológicos e Éticos
+        </h3>
+
+        <div class="disclaimer-list">
+
+          <div class="disclaimer-item">
+            O PRISMA Situacional realiza análise contextual de uma experiência narrada,
+            episódio específico ou recorte situacional.
+          </div>
+
+          <div class="disclaimer-item">
+            O parecer possui caráter interpretativo e reflexivo,
+            não substituindo acompanhamento clínico ou avaliação profissional longitudinal.
+          </div>
+
+          <div class="disclaimer-item">
+            O sistema não produz diagnóstico,
+            laudo clínico ou definição identitária.
+          </div>
+
+          <div class="disclaimer-item">
+            O objetivo do PRISMA é apoiar compreensão,
+            organização de experiência e construção de linguagem contextual.
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </section>
+
+  <section id="reflexao" class="final-cta">
+
+    <div class="container-xl2">
+
+      <h2>
+        Interpretar é conectar.
+      </h2>
+
+      <p>
+        O PRISMA Situacional nasce da compreensão de que experiências humanas
+        não podem ser reduzidas a respostas rápidas, rótulos ou simplificações.
+        Ao organizar contexto, revelar relações invisíveis e traduzir dinâmicas de sobrecarga,
+        o sistema transforma narrativa em possibilidade de compreensão.
+      </p>
+
+      <a href="https://pay.kiwify.com.br/Yk52HNr" class="btn-main" target="_blank">
+        <i class="bi bi-stars"></i>
+        Conhecer o PRISMA
+      </a>
+
+    </div>
+
+  </section>
+
+  <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+  <script>
+
+    const cards = document.querySelectorAll('.glass-card');
+
+    cards.forEach(card => {
+
+      card.addEventListener('mousemove', e => {
+
+        const rect = card.getBoundingClientRect();
+
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+
+        const centerX = rect.width / 2;
+        const centerY = rect.height / 2;
+
+        const rotateX = ((y - centerY) / centerY) * -5;
+        const rotateY = ((x - centerX) / centerX) * 5;
+
+        card.style.transform =
+          `perspective(1200px)
+           rotateX(${rotateX}deg)
+           rotateY(${rotateY}deg)
+           translateY(-10px)`;
+
+      });
+
+      card.addEventListener('mouseleave', () => {
+
+        card.style.transform =
+          'perspective(1200px) rotateX(0) rotateY(0) translateY(0)';
+
+      });
+
+    });
+
+  </script>
+
+</body>
+
+</html>
