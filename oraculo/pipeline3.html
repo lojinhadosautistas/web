@@ -1,0 +1,1281 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+<title>
+PIPELINE • ORÁCULO | Sistema REDE
+</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Orbitron:wght@500;700;800&display=swap" rel="stylesheet">
+
+<style>
+
+/* =========================================================
+RESET
+========================================================= */
+
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
+
+html{
+  scroll-behavior:smooth;
+}
+
+body{
+  font-family:'Inter',sans-serif;
+  background:
+  radial-gradient(circle at top,#11203d 0%,#08101d 45%,#04070d 100%);
+  color:white;
+  overflow-x:hidden;
+  position:relative;
+}
+
+/* =========================================================
+BACKGROUND FX
+========================================================= */
+
+body::before{
+  content:"";
+  position:fixed;
+  inset:0;
+
+  background:
+  radial-gradient(circle at top right,
+  rgba(255,174,0,.15),
+  transparent 30%),
+
+  radial-gradient(circle at bottom left,
+  rgba(0,170,255,.12),
+  transparent 35%);
+
+  z-index:-3;
+}
+
+.grid-bg{
+  position:fixed;
+  inset:0;
+
+  background-image:
+  linear-gradient(rgba(255,255,255,.03) 1px, transparent 1px),
+  linear-gradient(90deg, rgba(255,255,255,.03) 1px, transparent 1px);
+
+  background-size:70px 70px;
+
+  z-index:-2;
+
+  mask-image:radial-gradient(circle at center,
+  black 35%,
+  transparent 85%);
+}
+
+.noise{
+  position:fixed;
+  inset:0;
+  opacity:.04;
+  pointer-events:none;
+  z-index:-1;
+
+  background-image:url("https://grainy-gradients.vercel.app/noise.svg");
+}
+
+.glow{
+  position:fixed;
+  border-radius:50%;
+  filter:blur(140px);
+  z-index:-1;
+  opacity:.28;
+}
+
+.glow-1{
+  width:500px;
+  height:500px;
+  background:#ffb300;
+  top:-180px;
+  right:-180px;
+}
+
+.glow-2{
+  width:450px;
+  height:450px;
+  background:#00aaff;
+  bottom:-180px;
+  left:-180px;
+}
+
+/* =========================================================
+PARTICLES
+========================================================= */
+
+.particles{
+  position:fixed;
+  inset:0;
+  overflow:hidden;
+  z-index:-1;
+}
+
+.particle{
+  position:absolute;
+  width:4px;
+  height:4px;
+  border-radius:50%;
+  background:white;
+  opacity:.2;
+  animation:float linear infinite;
+}
+
+@keyframes float{
+
+  from{
+    transform:translateY(100vh);
+  }
+
+  to{
+    transform:translateY(-120vh);
+  }
+
+}
+
+/* =========================================================
+CONTAINER
+========================================================= */
+
+.container{
+  width:min(1450px,92%);
+  margin:auto;
+}
+
+/* =========================================================
+HERO
+========================================================= */
+
+.hero{
+  min-height:100vh;
+  display:flex;
+  align-items:center;
+  position:relative;
+  overflow:hidden;
+}
+
+.hero::before{
+  content:"";
+  position:absolute;
+  inset:0;
+
+  background:
+  linear-gradient(
+    to bottom,
+    rgba(4,7,13,.4),
+    rgba(4,7,13,.88)
+  );
+}
+
+.hero-content{
+  position:relative;
+  z-index:2;
+  max-width:950px;
+}
+
+.hero-mini{
+  font-size:.85rem;
+  letter-spacing:4px;
+  text-transform:uppercase;
+  color:#ffbf47;
+  margin-bottom:30px;
+}
+
+.hero-title{
+  font-family:'Orbitron',sans-serif;
+  font-size:clamp(4rem,9vw,8rem);
+  line-height:.9;
+  margin-bottom:35px;
+
+  text-shadow:
+  0 0 40px rgba(255,174,0,.15);
+}
+
+.hero-text{
+  font-size:1.2rem;
+  line-height:2;
+  max-width:800px;
+  color:rgba(255,255,255,.74);
+}
+
+.hero-actions{
+  display:flex;
+  gap:18px;
+  flex-wrap:wrap;
+  margin-top:50px;
+}
+
+.btn{
+  padding:18px 34px;
+  border-radius:999px;
+  font-weight:700;
+  text-decoration:none;
+  transition:.35s ease;
+}
+
+.btn-primary{
+  background:
+  linear-gradient(135deg,#ffb300,#ff7a00);
+  color:black;
+
+  box-shadow:
+  0 0 40px rgba(255,179,0,.25);
+}
+
+.btn-primary:hover{
+  transform:translateY(-4px);
+}
+
+.btn-secondary{
+  border:1px solid rgba(255,255,255,.12);
+  background:rgba(255,255,255,.05);
+  backdrop-filter:blur(16px);
+  color:white;
+}
+
+.btn-secondary:hover{
+  background:rgba(255,255,255,.08);
+}
+
+/* =========================================================
+PIPELINE SECTION
+========================================================= */
+
+.pipeline-section{
+  padding:120px 0 180px;
+  position:relative;
+}
+
+.section-header{
+  text-align:center;
+  margin-bottom:100px;
+}
+
+.section-mini{
+  color:#ffbf47;
+  letter-spacing:4px;
+  text-transform:uppercase;
+  margin-bottom:18px;
+}
+
+.section-header h2{
+  font-family:'Orbitron',sans-serif;
+  font-size:clamp(2.8rem,6vw,5rem);
+  margin-bottom:25px;
+}
+
+.section-header p{
+  max-width:900px;
+  margin:auto;
+  line-height:2;
+  color:rgba(255,255,255,.72);
+}
+
+/* =========================================================
+PIPELINE LAYOUT
+========================================================= */
+
+.pipeline-layout{
+  display:grid;
+  grid-template-columns:1fr 370px;
+  gap:40px;
+  align-items:start;
+}
+
+/* =========================================================
+PIPELINE
+========================================================= */
+
+.pipeline{
+  position:relative;
+}
+
+.pipeline::before{
+  content:"";
+  position:absolute;
+  left:50%;
+  top:0;
+  bottom:0;
+  width:4px;
+
+  background:
+  linear-gradient(
+    to bottom,
+    rgba(255,179,0,.7),
+    rgba(0,170,255,.6)
+  );
+
+  transform:translateX(-50%);
+
+  box-shadow:
+  0 0 30px rgba(255,179,0,.35);
+}
+
+.step{
+  position:relative;
+  display:grid;
+  grid-template-columns:1fr 140px 1fr;
+  gap:40px;
+  margin-bottom:120px;
+  align-items:center;
+}
+
+.step:nth-child(even) .step-card{
+  grid-column:3;
+}
+
+.step:nth-child(even) .step-visual{
+  order:2;
+}
+
+.step-card{
+  position:relative;
+  padding:36px;
+  border-radius:30px;
+
+  background:
+  rgba(255,255,255,.05);
+
+  border:
+  1px solid rgba(255,255,255,.08);
+
+  backdrop-filter:blur(16px);
+
+  overflow:hidden;
+
+  transition:.4s ease;
+}
+
+.step-card:hover{
+  transform:translateY(-8px);
+  border-color:rgba(255,179,0,.35);
+}
+
+.step-card::before{
+  content:"";
+  position:absolute;
+  inset:0;
+
+  background:
+  linear-gradient(
+    135deg,
+    rgba(255,179,0,.08),
+    transparent 50%
+  );
+
+  pointer-events:none;
+}
+
+.step-number{
+  font-family:'Orbitron',sans-serif;
+  font-size:4rem;
+  opacity:.08;
+  margin-bottom:10px;
+}
+
+.step-title{
+  font-size:2rem;
+  font-weight:800;
+  margin-bottom:18px;
+}
+
+.step-desc{
+  line-height:1.9;
+  color:rgba(255,255,255,.74);
+}
+
+.step-tags{
+  display:flex;
+  flex-wrap:wrap;
+  gap:12px;
+  margin-top:24px;
+}
+
+.step-tag{
+  padding:10px 16px;
+  border-radius:999px;
+
+  background:
+  rgba(255,255,255,.06);
+
+  border:
+  1px solid rgba(255,255,255,.08);
+
+  font-size:.82rem;
+}
+
+/* =========================================================
+VISUAL CORE
+========================================================= */
+
+.step-visual{
+  position:relative;
+  width:140px;
+  height:140px;
+  border-radius:50%;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  background:
+  radial-gradient(circle,
+  rgba(255,179,0,.18),
+  rgba(255,255,255,.03));
+
+  border:
+  1px solid rgba(255,255,255,.08);
+
+  backdrop-filter:blur(20px);
+
+  margin:auto;
+
+  box-shadow:
+  0 0 60px rgba(255,179,0,.18);
+
+  overflow:hidden;
+}
+
+.step-visual::before{
+  content:"";
+  position:absolute;
+  width:180px;
+  height:180px;
+  border-radius:50%;
+  border:1px solid rgba(255,255,255,.08);
+
+  animation:rotate 10s linear infinite;
+}
+
+.step-visual::after{
+  content:"";
+  position:absolute;
+  width:220px;
+  height:220px;
+  border-radius:50%;
+  border:1px dashed rgba(255,179,0,.12);
+
+  animation:rotateReverse 16s linear infinite;
+}
+
+.visual-letter{
+  font-family:'Orbitron',sans-serif;
+  font-size:4rem;
+  font-weight:900;
+
+  background:
+  linear-gradient(135deg,#ffffff,#ffbf47);
+
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+
+  z-index:2;
+}
+
+@keyframes rotate{
+
+  from{
+    transform:rotate(0deg);
+  }
+
+  to{
+    transform:rotate(360deg);
+  }
+
+}
+
+@keyframes rotateReverse{
+
+  from{
+    transform:rotate(360deg);
+  }
+
+  to{
+    transform:rotate(0deg);
+  }
+
+}
+
+/* =========================================================
+HUD
+========================================================= */
+
+.hud{
+  position:sticky;
+  top:40px;
+
+  display:flex;
+  flex-direction:column;
+  gap:22px;
+}
+
+.hud-card{
+  padding:28px;
+  border-radius:28px;
+
+  background:
+  rgba(255,255,255,.05);
+
+  border:
+  1px solid rgba(255,255,255,.08);
+
+  backdrop-filter:blur(18px);
+}
+
+.hud-title{
+  font-size:.9rem;
+  letter-spacing:2px;
+  text-transform:uppercase;
+  color:#ffbf47;
+  margin-bottom:18px;
+}
+
+.hud-value{
+  font-size:2rem;
+  font-weight:900;
+}
+
+.hud-list{
+  display:flex;
+  flex-direction:column;
+  gap:14px;
+}
+
+.hud-item{
+  display:flex;
+  justify-content:space-between;
+  gap:12px;
+
+  padding:14px 0;
+
+  border-bottom:
+  1px solid rgba(255,255,255,.06);
+
+  color:rgba(255,255,255,.72);
+}
+
+.status-dot{
+  width:12px;
+  height:12px;
+  border-radius:50%;
+  background:#00ff99;
+
+  box-shadow:
+  0 0 18px rgba(0,255,153,.6);
+}
+
+/* =========================================================
+FINAL
+========================================================= */
+
+.final-section{
+  padding:0 0 180px;
+}
+
+.final-box{
+  position:relative;
+  overflow:hidden;
+
+  border-radius:40px;
+
+  padding:100px 60px;
+
+  background:
+  linear-gradient(
+    145deg,
+    rgba(255,179,0,.12),
+    rgba(0,170,255,.08)
+  );
+
+  border:
+  1px solid rgba(255,255,255,.08);
+
+  backdrop-filter:blur(24px);
+
+  text-align:center;
+}
+
+.final-box::before{
+  content:"";
+  position:absolute;
+  inset:0;
+
+  background:
+  radial-gradient(circle at center,
+  rgba(255,255,255,.06),
+  transparent 70%);
+}
+
+.final-box h2{
+  position:relative;
+  z-index:2;
+
+  font-family:'Orbitron',sans-serif;
+
+  font-size:clamp(2.8rem,6vw,5rem);
+
+  margin-bottom:28px;
+}
+
+.final-box p{
+  position:relative;
+  z-index:2;
+
+  max-width:900px;
+  margin:auto;
+
+  line-height:2;
+
+  color:rgba(255,255,255,.72);
+}
+
+.final-actions{
+  position:relative;
+  z-index:2;
+
+  margin-top:50px;
+
+  display:flex;
+  justify-content:center;
+  gap:18px;
+  flex-wrap:wrap;
+}
+
+/* =========================================================
+RESPONSIVE
+========================================================= */
+
+@media(max-width:1200px){
+
+  .pipeline-layout{
+    grid-template-columns:1fr;
+  }
+
+  .hud{
+    position:relative;
+    top:auto;
+  }
+
+}
+
+@media(max-width:900px){
+
+  .step{
+    grid-template-columns:1fr;
+    text-align:center;
+  }
+
+  .step:nth-child(even) .step-card{
+    grid-column:auto;
+  }
+
+  .pipeline::before{
+    display:none;
+  }
+
+}
+
+@media(max-width:768px){
+
+  .hero-title{
+    font-size:3.5rem;
+  }
+
+  .step-card{
+    padding:28px;
+  }
+
+  .final-box{
+    padding:70px 30px;
+  }
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="grid-bg"></div>
+<div class="noise"></div>
+
+<div class="glow glow-1"></div>
+<div class="glow glow-2"></div>
+
+<div class="particles" id="particles"></div>
+
+<!-- HERO -->
+
+<section class="hero">
+
+  <div class="container">
+
+    <div class="hero-content">
+
+      <div class="hero-mini">
+        ORÁCULO • PIPELINE COGNITIVO
+      </div>
+
+      <h1 class="hero-title">
+        DO CONTEXTO<br>
+        À DECISÃO<br>
+        CONSCIENTE
+      </h1>
+
+      <p class="hero-text">
+        O Pipeline do ORÁCULO organiza trajetórias
+        progressivas de leitura, integração e condução
+        reflexiva, transformando complexidade em
+        inteligência operacional estruturada.
+      </p>
+
+      <div class="hero-actions">
+
+        <a href="#pipeline" class="btn btn-primary">
+          Explorar Pipeline
+        </a>
+
+        <a href="oraculo.html" class="btn btn-secondary">
+          Voltar ao ORÁCULO
+        </a>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+<!-- PIPELINE -->
+
+<section id="pipeline" class="pipeline-section">
+
+<div class="container">
+
+<div class="section-header">
+
+<div class="section-mini">
+ARQUITETURA OPERACIONAL
+</div>
+
+<h2>
+As 7 Camadas Progressivas
+do ORÁCULO
+</h2>
+
+<p>
+Cada camada do pipeline reorganiza o raciocínio,
+reduz a fragmentação cognitiva e conduz o operador
+por percursos estruturados de análise.
+</p>
+
+</div>
+
+<div class="pipeline-layout">
+
+<!-- PIPELINE -->
+
+<div class="pipeline">
+
+<!-- STEP -->
+
+<div class="step">
+
+<div class="step-card">
+
+<div class="step-number">01</div>
+
+<div class="step-title">
+Observação Contextual
+</div>
+
+<div class="step-desc">
+Leitura inicial do cenário, identificação
+de sinais críticos, contexto operacional,
+eixos emocionais e variáveis sistêmicas.
+</div>
+
+<div class="step-tags">
+
+<div class="step-tag">
+Leitura Contextual
+</div>
+
+<div class="step-tag">
+Complexidade
+</div>
+
+<div class="step-tag">
+Contexto Inicial
+</div>
+
+</div>
+
+</div>
+
+<div class="step-visual">
+<div class="visual-letter">O</div>
+</div>
+
+</div>
+
+<!-- STEP -->
+
+<div class="step">
+
+<div class="step-card">
+
+<div class="step-number">02</div>
+
+<div class="step-title">
+Reconhecimento de Padrões
+</div>
+
+<div class="step-desc">
+Conexões emergem entre dados,
+comportamentos, recorrências
+e estruturas previamente registradas.
+</div>
+
+<div class="step-tags">
+
+<div class="step-tag">
+Clusters
+</div>
+
+<div class="step-tag">
+Recorrências
+</div>
+
+<div class="step-tag">
+Mapeamento
+</div>
+
+</div>
+
+</div>
+
+<div class="step-visual">
+<div class="visual-letter">R</div>
+</div>
+
+</div>
+
+<!-- STEP -->
+
+<div class="step">
+
+<div class="step-card">
+
+<div class="step-number">03</div>
+
+<div class="step-title">
+Ativação de BPs
+</div>
+
+<div class="step-desc">
+Blocos Programáticos são ativados
+para estruturar percursos reflexivos
+e organizar trajetórias de condução.
+</div>
+
+<div class="step-tags">
+
+<div class="step-tag">
+BPs
+</div>
+
+<div class="step-tag">
+Estruturação
+</div>
+
+<div class="step-tag">
+Condução
+</div>
+
+</div>
+
+</div>
+
+<div class="step-visual">
+<div class="visual-letter">A</div>
+</div>
+
+</div>
+
+<!-- STEP -->
+
+<div class="step">
+
+<div class="step-card">
+
+<div class="step-number">04</div>
+
+<div class="step-title">
+Configuração Estratégica
+</div>
+
+<div class="step-desc">
+O sistema organiza prioridades,
+restrições, recursos e objetivos
+dentro do contexto operacional.
+</div>
+
+<div class="step-tags">
+
+<div class="step-tag">
+Estratégia
+</div>
+
+<div class="step-tag">
+Planejamento
+</div>
+
+<div class="step-tag">
+Ajustes
+</div>
+
+</div>
+
+</div>
+
+<div class="step-visual">
+<div class="visual-letter">C</div>
+</div>
+
+</div>
+
+<!-- STEP -->
+
+<div class="step">
+
+<div class="step-card">
+
+<div class="step-number">05</div>
+
+<div class="step-title">
+Unidade Integrada
+</div>
+
+<div class="step-desc">
+Múltiplas dimensões passam
+a operar como um sistema único,
+reduzindo dispersão cognitiva.
+</div>
+
+<div class="step-tags">
+
+<div class="step-tag">
+Integração
+</div>
+
+<div class="step-tag">
+Coerência
+</div>
+
+<div class="step-tag">
+Síntese
+</div>
+
+</div>
+
+</div>
+
+<div class="step-visual">
+<div class="visual-letter">U</div>
+</div>
+
+</div>
+
+<!-- STEP -->
+
+<div class="step">
+
+<div class="step-card">
+
+<div class="step-number">06</div>
+
+<div class="step-title">
+Leitura Dinâmica
+</div>
+
+<div class="step-desc">
+O ORÁCULO acompanha alterações
+contextuais em tempo real,
+ajustando o percurso reflexivo.
+</div>
+
+<div class="step-tags">
+
+<div class="step-tag">
+Monitoramento
+</div>
+
+<div class="step-tag">
+Tempo Real
+</div>
+
+<div class="step-tag">
+Adaptação
+</div>
+
+</div>
+
+</div>
+
+<div class="step-visual">
+<div class="visual-letter">L</div>
+</div>
+
+</div>
+
+<!-- STEP -->
+
+<div class="step">
+
+<div class="step-card">
+
+<div class="step-number">07</div>
+
+<div class="step-title">
+Output Programático
+</div>
+
+<div class="step-desc">
+A condução culmina em diretrizes,
+possibilidades de ação e organização
+estratégica da tomada de decisão.
+</div>
+
+<div class="step-tags">
+
+<div class="step-tag">
+Direcionamento
+</div>
+
+<div class="step-tag">
+Ação
+</div>
+
+<div class="step-tag">
+Planejamento
+</div>
+
+</div>
+
+</div>
+
+<div class="step-visual">
+<div class="visual-letter">O</div>
+</div>
+
+</div>
+
+</div>
+
+<!-- HUD -->
+
+<div class="hud">
+
+<div class="hud-card">
+
+<div class="hud-title">
+Status do Sistema
+</div>
+
+<div class="hud-value">
+ONLINE
+</div>
+
+</div>
+
+<div class="hud-card">
+
+<div class="hud-title">
+Leitura Operacional
+</div>
+
+<div class="hud-list">
+
+<div class="hud-item">
+<span>Complexidade</span>
+<span>Alta</span>
+</div>
+
+<div class="hud-item">
+<span>BPs Ativos</span>
+<span>14</span>
+</div>
+
+<div class="hud-item">
+<span>Coerência</span>
+<span>96%</span>
+</div>
+
+<div class="hud-item">
+<span>Integração</span>
+<span>Sincronizada</span>
+</div>
+
+</div>
+
+</div>
+
+<div class="hud-card">
+
+<div class="hud-title">
+Componentes Ativos
+</div>
+
+<div class="hud-list">
+
+<div class="hud-item">
+<span>PRISMA</span>
+<div class="status-dot"></div>
+</div>
+
+<div class="hud-item">
+<span>MEMO</span>
+<div class="status-dot"></div>
+</div>
+
+<div class="hud-item">
+<span>ATLAS</span>
+<div class="status-dot"></div>
+</div>
+
+<div class="hud-item">
+<span>REDE</span>
+<div class="status-dot"></div>
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- FINAL -->
+
+<section class="final-section">
+
+<div class="container">
+
+<div class="final-box">
+
+<h2>
+O ORÁCULO transforma
+complexidade em clareza.
+</h2>
+
+<p>
+Mais do que respostas automáticas,
+o Pipeline organiza trajetórias
+reflexivas capazes de sustentar
+decisões mais consistentes,
+integradas e contextualizadas.
+</p>
+
+<div class="final-actions">
+
+<a href="oraculo.html" class="btn btn-primary">
+Explorar o ORÁCULO
+</a>
+
+<a href="#" class="btn btn-secondary">
+Ativar Sistema REDE
+</a>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+<script>
+
+/* =========================================================
+PARTICLES
+========================================================= */
+
+const particles =
+document.getElementById("particles");
+
+for(let i=0;i<80;i++){
+
+  const p =
+  document.createElement("div");
+
+  p.classList.add("particle");
+
+  p.style.left =
+  Math.random()*100 + "vw";
+
+  p.style.animationDuration =
+  (15 + Math.random()*30) + "s";
+
+  p.style.animationDelay =
+  Math.random()*-30 + "s";
+
+  p.style.opacity =
+  Math.random()*.4;
+
+  p.style.transform =
+  `scale(${Math.random()*2})`;
+
+  particles.appendChild(p);
+
+}
+
+/* =========================================================
+SCROLL FX
+========================================================= */
+
+const cards =
+document.querySelectorAll(".step-card");
+
+window.addEventListener("scroll",()=>{
+
+  cards.forEach(card=>{
+
+    const rect =
+    card.getBoundingClientRect();
+
+    if(rect.top < window.innerHeight * .8){
+
+      card.style.opacity = "1";
+      card.style.transform =
+      "translateY(0px)";
+
+    }
+
+  });
+
+});
+
+</script>
+
+</body>
+</html>
