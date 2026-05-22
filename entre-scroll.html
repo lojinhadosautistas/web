@@ -1,0 +1,718 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>ENTRELAÇOS — Scroll Experience</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Cormorant+Garamond:wght@400;500;600;700&display=swap"
+    rel="stylesheet">
+
+  <style>
+    :root {
+
+      --bg: #07111f;
+      --bg-soft: #0f1f34;
+
+      --navy: #10253d;
+      --blue: #7cb4ff;
+      --gold: #e0b670;
+      --green: #8eb49b;
+      --white: #f5f3ef;
+
+      --text: rgba(255, 255, 255, 0.92);
+      --soft: rgba(255, 255, 255, 0.52);
+
+      --glass:
+        linear-gradient(145deg,
+          rgba(255, 255, 255, 0.08),
+          rgba(255, 255, 255, 0.02));
+
+      --line:
+        rgba(255, 255, 255, 0.08);
+
+      --shadow:
+        0 40px 120px rgba(0, 0, 0, 0.45);
+
+      --blur: blur(24px);
+
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      background:
+        radial-gradient(circle at top left,
+          rgba(124, 180, 255, 0.08),
+          transparent 30%),
+
+        radial-gradient(circle at bottom right,
+          rgba(224, 182, 112, 0.08),
+          transparent 30%),
+
+        linear-gradient(180deg,
+          #07111f 0%,
+          #081523 20%,
+          #09182b 50%,
+          #081320 100%);
+
+      font-family: 'Inter', sans-serif;
+      overflow-x: hidden;
+      color: var(--text);
+    }
+
+    /* BG PARTICLES */
+
+    .particles {
+      position: fixed;
+      inset: 0;
+      overflow: hidden;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .particle {
+      position: absolute;
+      border-radius: 50%;
+      background:
+        radial-gradient(circle,
+          rgba(255, 255, 255, 0.45),
+          transparent);
+
+      animation:
+        float 16s infinite ease-in-out;
+    }
+
+    .particle:nth-child(1) {
+      width: 420px;
+      height: 420px;
+      top: 8%;
+      left: -10%;
+      animation-duration: 20s;
+    }
+
+    .particle:nth-child(2) {
+      width: 300px;
+      height: 300px;
+      right: -8%;
+      top: 35%;
+      animation-duration: 24s;
+    }
+
+    .particle:nth-child(3) {
+      width: 240px;
+      height: 240px;
+      bottom: 12%;
+      left: 15%;
+      animation-duration: 18s;
+    }
+
+    @keyframes float {
+
+      0%,
+      100% {
+        transform:
+          translateY(0px)
+          translateX(0px);
+      }
+
+      50% {
+        transform:
+          translateY(-40px)
+          translateX(20px);
+      }
+    }
+
+    /* GLOBAL */
+
+    .container {
+      width: min(1400px, 92%);
+      margin: auto;
+      position: relative;
+      z-index: 2;
+    }
+
+    section {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      position: relative;
+      padding: 120px 0;
+    }
+
+    /* TYPO */
+
+    .eyebrow {
+      text-transform: uppercase;
+      letter-spacing: 6px;
+      color: var(--gold);
+      font-size: 0.75rem;
+      margin-bottom: 30px;
+    }
+
+    .display {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(4rem, 9vw, 9rem);
+      line-height: 0.92;
+      font-weight: 500;
+      letter-spacing: 2px;
+    }
+
+    .display-sm {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(3rem, 5vw, 5rem);
+      line-height: 1;
+      font-weight: 500;
+    }
+
+    .body {
+      font-size: 1.1rem;
+      line-height: 1.9;
+      color: var(--soft);
+      max-width: 700px;
+    }
+
+    /* HERO */
+
+    .hero {
+      text-align: center;
+      justify-content: center;
+    }
+
+    .hero-content {
+      max-width: 1200px;
+      margin: auto;
+      position: relative;
+    }
+
+    .hero-content p {
+      margin: 40px auto 0;
+    }
+
+    /* FLOW MAP */
+
+    .map-section {
+      overflow: hidden;
+    }
+
+    .map-wrapper {
+      position: relative;
+      width: 100%;
+      min-height: 1200px;
+    }
+
+    .flow-line {
+      position: absolute;
+      inset: 0;
+      opacity: 0.35;
+      pointer-events: none;
+    }
+
+    .node {
+      position: absolute;
+      width: 320px;
+      padding: 34px;
+      border-radius: 36px;
+
+      background: var(--glass);
+      backdrop-filter: var(--blur);
+
+      border: 1px solid var(--line);
+
+      box-shadow: var(--shadow);
+
+      transition:
+        transform .6s ease,
+        border .6s ease,
+        background .6s ease;
+    }
+
+    .node:hover {
+      transform:
+        translateY(-12px)
+        scale(1.02);
+
+      border-color:
+        rgba(255, 255, 255, 0.22);
+
+      background:
+        linear-gradient(145deg,
+          rgba(255, 255, 255, 0.12),
+          rgba(255, 255, 255, 0.04));
+    }
+
+    .node-number {
+      width: 52px;
+      height: 52px;
+
+      border-radius: 50%;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      margin-bottom: 22px;
+
+      background:
+        linear-gradient(145deg,
+          rgba(255, 255, 255, 0.18),
+          rgba(255, 255, 255, 0.04));
+
+      color: var(--gold);
+
+      font-weight: 700;
+    }
+
+    .node h3 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2.1rem;
+      margin-bottom: 18px;
+      font-weight: 500;
+    }
+
+    .node p {
+      color: var(--soft);
+      line-height: 1.8;
+    }
+
+    /* NODE POSITIONS */
+
+    .n1 {
+      top: 0;
+      left: 8%;
+    }
+
+    .n2 {
+      top: 220px;
+      right: 8%;
+    }
+
+    .n3 {
+      top: 480px;
+      left: 16%;
+    }
+
+    .n4 {
+      top: 720px;
+      right: 14%;
+    }
+
+    .n5 {
+      top: 980px;
+      left: 24%;
+    }
+
+    /* FLOATING THOUGHTS */
+
+    .thought {
+      position: absolute;
+      padding: 16px 22px;
+
+      border-radius: 999px;
+
+      background:
+        rgba(255, 255, 255, 0.04);
+
+      border:
+        1px solid rgba(255, 255, 255, 0.06);
+
+      backdrop-filter: blur(20px);
+
+      font-size: 0.92rem;
+      color: rgba(255, 255, 255, 0.55);
+
+      animation:
+        drift 14s infinite ease-in-out;
+    }
+
+    @keyframes drift {
+
+      0%,
+      100% {
+        transform:
+          translateY(0px);
+      }
+
+      50% {
+        transform:
+          translateY(-18px);
+      }
+    }
+
+    .t1 {
+      top: 120px;
+      left: 45%;
+    }
+
+    .t2 {
+      top: 420px;
+      left: 38%;
+    }
+
+    .t3 {
+      top: 860px;
+      left: 52%;
+    }
+
+    .t4 {
+      top: 1180px;
+      left: 62%;
+    }
+
+    /* IMMERSIVE BLOCK */
+
+    .immersive {
+      text-align: center;
+    }
+
+    .immersive-panel {
+
+      padding:
+        120px 80px;
+
+      border-radius: 48px;
+
+      background:
+        linear-gradient(145deg,
+          rgba(255, 255, 255, 0.08),
+          rgba(255, 255, 255, 0.02));
+
+      backdrop-filter: blur(30px);
+
+      border:
+        1px solid rgba(255, 255, 255, 0.08);
+
+      position: relative;
+
+      overflow: hidden;
+    }
+
+    .immersive-panel::before {
+      content: '';
+
+      position: absolute;
+
+      width: 800px;
+      height: 800px;
+
+      background:
+        radial-gradient(circle,
+          rgba(124, 180, 255, 0.08),
+          transparent 60%);
+
+      top: -300px;
+      left: 50%;
+
+      transform: translateX(-50%);
+    }
+
+    .immersive p {
+      margin:
+        40px auto 0;
+    }
+
+    /* CONTINUITY */
+
+    .continuity {
+      text-align: center;
+    }
+
+    .continuity-line {
+      width: 1px;
+      height: 240px;
+
+      background:
+        linear-gradient(to bottom,
+          rgba(255, 255, 255, 0),
+          rgba(255, 255, 255, 0.4),
+          rgba(255, 255, 255, 0));
+
+      margin:
+        60px auto;
+    }
+
+    /* RESPONSIVE */
+
+    @media(max-width: 1100px) {
+
+      .map-wrapper {
+        display: flex;
+        flex-direction: column;
+        gap: 40px;
+        min-height: auto;
+      }
+
+      .node {
+        position: relative;
+        width: 100%;
+        top: auto;
+        left: auto;
+        right: auto;
+      }
+
+      .thought,
+      .flow-line {
+        display: none;
+      }
+
+    }
+
+    @media(max-width: 768px) {
+
+      section {
+        padding: 80px 0;
+      }
+
+      .immersive-panel {
+        padding: 70px 30px;
+      }
+
+      .display {
+        font-size: 4rem;
+      }
+
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- PARTICLES -->
+
+  <div class="particles">
+
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+
+  </div>
+
+  <!-- HERO -->
+
+  <section class="hero">
+
+    <div class="container">
+
+      <div class="hero-content">
+
+        <div class="eyebrow">
+          ENTRELAÇOS
+        </div>
+
+        <h1 class="display">
+          Toda compreensão
+          começa antes
+          da interpretação.
+        </h1>
+
+        <p class="body">
+          Algumas relações aparecem devagar.
+          Pequenos fragmentos começam a permanecer.
+          O que parecia disperso lentamente encontra continuidade.
+        </p>
+
+      </div>
+
+    </div>
+
+  </section>
+
+  <!-- FLOW MAP -->
+
+  <section class="map-section">
+
+    <div class="container">
+
+      <div class="map-wrapper">
+
+        <!-- SVG FLOW -->
+
+        <svg class="flow-line" viewBox="0 0 1600 1400">
+
+          <path d="
+            M 260 120
+            C 700 120, 760 300, 1220 340
+
+            S 1180 680, 540 620
+
+            S 460 980, 1100 940
+
+            S 1200 1220, 760 1200"
+
+            fill="none"
+            stroke="rgba(255,255,255,0.10)"
+            stroke-width="3"
+            stroke-linecap="round"
+            stroke-dasharray="10 18" />
+
+        </svg>
+
+        <!-- FLOATING THOUGHTS -->
+
+        <div class="thought t1">
+          “algumas coisas começam a reaparecer”
+        </div>
+
+        <div class="thought t2">
+          “o que antes parecia distante…”
+        </div>
+
+        <div class="thought t3">
+          “pequenos padrões permanecem”
+        </div>
+
+        <div class="thought t4">
+          “nem tudo termina quando sai da tela”
+        </div>
+
+        <!-- NODES -->
+
+        <div class="node n1">
+
+          <div class="node-number">01</div>
+
+          <h3>Experiência Vivida</h3>
+
+          <p>
+            Antes da organização existe a experiência.
+            Pequenos acontecimentos permanecem espalhados,
+            ainda sem forma, ainda sem nome.
+          </p>
+
+        </div>
+
+        <div class="node n2">
+
+          <div class="node-number">02</div>
+
+          <h3>Leitura</h3>
+
+          <p>
+            Algumas relações começam a surgir lentamente.
+            O olhar deixa de observar apenas partes isoladas.
+          </p>
+
+        </div>
+
+        <div class="node n3">
+
+          <div class="node-number">03</div>
+
+          <h3>Registro</h3>
+
+          <p>
+            O que antes desaparecia agora pode permanecer.
+            Pequenos detalhes começam a construir continuidade.
+          </p>
+
+        </div>
+
+        <div class="node n4">
+
+          <div class="node-number">04</div>
+
+          <h3>Interpretação</h3>
+
+          <p>
+            O sistema deixa de parecer fragmentado.
+            Algumas conexões começam a revelar profundidade.
+          </p>
+
+        </div>
+
+        <div class="node n5">
+
+          <div class="node-number">05</div>
+
+          <h3>Continuidade</h3>
+
+          <p>
+            Nem tudo precisa ser resolvido rapidamente.
+            Algumas compreensões amadurecem com permanência.
+          </p>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </section>
+
+  <!-- IMMERSIVE -->
+
+  <section class="immersive">
+
+    <div class="container">
+
+      <div class="immersive-panel">
+
+        <div class="eyebrow">
+          ACESSIBILIDADE COGNITIVA CINEMATOGRÁFICA
+        </div>
+
+        <h2 class="display-sm">
+          A tecnologia não precisa acelerar
+          a experiência humana.
+        </h2>
+
+        <p class="body">
+          O ENTRELAÇOS organiza fluxos vivos de observação,
+          continuidade e interpretação progressiva.
+          Não exige adaptação.
+          Acompanha o tempo necessário para perceber.
+        </p>
+
+      </div>
+
+    </div>
+
+  </section>
+
+  <!-- CONTINUITY -->
+
+  <section class="continuity">
+
+    <div class="container">
+
+      <div class="eyebrow">
+        CONTINUIDADE OPERACIONAL
+      </div>
+
+      <h2 class="display-sm">
+        Algumas jornadas continuam
+        mesmo depois do scroll.
+      </h2>
+
+      <div class="continuity-line"></div>
+
+      <p class="body" style="margin:auto;">
+        O conhecimento não termina na tela.
+        Ele continua nas relações,
+        nos registros,
+        nas conversas,
+        nas observações cotidianas,
+        na permanência humana.
+      </p>
+
+    </div>
+
+  </section>
+
+</body>
+
+</html>
