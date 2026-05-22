@@ -1,0 +1,1739 @@
+# oraculo.html
+
+```html
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+<title>ORÁCULO • Arquitetura de Suporte à Decisão</title>
+
+<meta name="description" content="ORÁCULO — Arquitetura de suporte à decisão em contextos complexos. Interfaces de condução reflexiva para organização do raciocínio, integração de evidências e qualificação da tomada de decisão." />
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="../js/vendors/aos/aos.css">
+
+<style>
+
+/* =========================================================
+RESET
+========================================================= */
+
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
+
+html{
+  scroll-behavior:smooth;
+}
+
+body{
+  font-family:'Inter',sans-serif;
+
+  background:
+  linear-gradient(
+    to bottom,
+    rgba(248,246,241,.98),
+    rgba(244,240,232,.98)
+  );
+
+  color:#102041;
+
+  overflow-x:hidden;
+
+  position:relative;
+}
+
+a{
+  text-decoration:none;
+}
+
+img{
+  max-width:100%;
+  display:block;
+}
+
+.container{
+  width:min(1280px,92%);
+  margin:auto;
+  position:relative;
+  z-index:2;
+}
+
+/* =========================================================
+BACKGROUND
+========================================================= */
+
+body::before{
+  content:"";
+  position:fixed;
+  inset:0;
+
+  background:
+
+  radial-gradient(
+    circle at top right,
+    rgba(212,148,43,.10),
+    transparent 30%
+  ),
+
+  radial-gradient(
+    circle at bottom left,
+    rgba(12,36,78,.10),
+    transparent 40%
+  );
+
+  z-index:-3;
+}
+
+.grid-overlay{
+  position:fixed;
+  inset:0;
+
+  background-image:
+  linear-gradient(rgba(16,32,65,.03) 1px, transparent 1px),
+  linear-gradient(90deg, rgba(16,32,65,.03) 1px, transparent 1px);
+
+  background-size:80px 80px;
+
+  z-index:-2;
+
+  mask-image:radial-gradient(circle at center, black 40%, transparent 100%);
+}
+
+.ambient-glow{
+  position:fixed;
+  border-radius:50%;
+  filter:blur(120px);
+  pointer-events:none;
+  z-index:-1;
+  opacity:.25;
+}
+
+.glow-1{
+  width:500px;
+  height:500px;
+  background:#d4942b;
+  top:-120px;
+  right:-120px;
+}
+
+.glow-2{
+  width:420px;
+  height:420px;
+  background:#0d2453;
+  bottom:-120px;
+  left:-120px;
+}
+
+/* =========================================================
+HEADER
+========================================================= */
+
+.header{
+  position:fixed;
+  top:0;
+  left:0;
+  width:100%;
+
+  z-index:1000;
+
+  backdrop-filter:blur(18px);
+
+  background:rgba(255,255,255,.65);
+
+  border-bottom:1px solid rgba(255,255,255,.7);
+}
+
+.header-inner{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+
+  min-height:82px;
+}
+
+.logo{
+  display:flex;
+  align-items:center;
+  gap:14px;
+
+  color:#102041;
+}
+
+.logo-symbol{
+  width:48px;
+  height:48px;
+
+  border-radius:50%;
+
+  border:1px solid rgba(212,148,43,.35);
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  color:#d4942b;
+
+  font-size:1.2rem;
+
+  background:rgba(255,255,255,.7);
+}
+
+.logo h1{
+  font-family:'Cormorant Garamond',serif;
+  font-size:2rem;
+  letter-spacing:4px;
+}
+
+.nav{
+  display:flex;
+  gap:36px;
+}
+
+.nav a{
+  color:#102041;
+  font-size:.92rem;
+  letter-spacing:1px;
+
+  transition:.3s ease;
+}
+
+.nav a:hover{
+  color:#d4942b;
+}
+
+.header-btn{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+
+  padding:14px 24px;
+
+  border-radius:999px;
+
+  background:#102041;
+
+  color:white;
+
+  font-weight:600;
+
+  transition:.35s ease;
+}
+
+.header-btn:hover{
+  transform:translateY(-3px);
+}
+
+/* =========================================================
+HERO
+========================================================= */
+
+.hero{
+  min-height:100vh;
+
+  display:flex;
+  align-items:center;
+
+  position:relative;
+
+  overflow:hidden;
+
+  padding:160px 0 120px;
+}
+
+.hero-bg{
+  position:absolute;
+  inset:0;
+
+  background:
+  linear-gradient(
+    to bottom,
+    rgba(248,246,241,.90),
+    rgba(248,246,241,.82)
+  ),
+
+  url('img/bg-oraculo.png');
+
+  background-size:cover;
+  background-position:center;
+
+  z-index:0;
+}
+
+.hero::after{
+  content:"";
+  position:absolute;
+  inset:0;
+
+  background:
+  radial-gradient(circle at center,
+  rgba(255,255,255,.12),
+  transparent 70%);
+
+  z-index:1;
+}
+
+.hero-content{
+  position:relative;
+  z-index:2;
+
+  max-width:980px;
+
+  margin:auto;
+
+  text-align:center;
+}
+
+.hero-badge{
+  display:inline-flex;
+  align-items:center;
+  gap:10px;
+
+  padding:14px 24px;
+
+  border-radius:999px;
+
+  background:rgba(255,255,255,.68);
+
+  border:1px solid rgba(255,255,255,.8);
+
+  backdrop-filter:blur(18px);
+
+  color:#d4942b;
+
+  letter-spacing:2px;
+  text-transform:uppercase;
+
+  font-size:.78rem;
+
+  margin-bottom:32px;
+
+  box-shadow:0 12px 30px rgba(0,0,0,.05);
+}
+
+.hero-title{
+  font-family:'Cormorant Garamond',serif;
+
+  font-size:clamp(4rem,10vw,8rem);
+
+  line-height:.92;
+
+  letter-spacing:12px;
+
+  margin-bottom:28px;
+
+  color:#0d2453;
+}
+
+.hero-subtitle{
+  font-size:clamp(1.3rem,3vw,2rem);
+
+  font-weight:700;
+
+  line-height:1.4;
+
+  color:#1d315d;
+
+  max-width:980px;
+
+  margin:0 auto 34px;
+}
+
+.hero-text{
+  max-width:860px;
+
+  margin:auto;
+
+  line-height:2;
+
+  font-size:1.08rem;
+
+  color:rgba(16,32,65,.75);
+}
+
+.hero-actions{
+  display:flex;
+  justify-content:center;
+  gap:18px;
+  flex-wrap:wrap;
+
+  margin-top:46px;
+}
+
+.btn-primary,
+.btn-secondary{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+
+  min-width:240px;
+
+  padding:18px 32px;
+
+  border-radius:999px;
+
+  font-weight:600;
+
+  transition:.35s ease;
+}
+
+.btn-primary{
+  background:
+  linear-gradient(
+    135deg,
+    #d4942b,
+    #b87a1a
+  );
+
+  color:white;
+
+  box-shadow:
+  0 18px 40px rgba(212,148,43,.22);
+}
+
+.btn-primary:hover{
+  transform:translateY(-5px);
+}
+
+.btn-secondary{
+  background:rgba(255,255,255,.72);
+
+  border:1px solid rgba(255,255,255,.8);
+
+  backdrop-filter:blur(18px);
+
+  color:#102041;
+}
+
+.btn-secondary:hover{
+  background:white;
+}
+
+/* =========================================================
+SECTION BASE
+========================================================= */
+
+section{
+  position:relative;
+}
+
+.section-space{
+  padding:140px 0;
+}
+
+.section-header{
+  max-width:920px;
+  margin:0 auto 90px;
+
+  text-align:center;
+}
+
+.section-tag{
+  display:inline-block;
+
+  margin-bottom:18px;
+
+  color:#d4942b;
+
+  letter-spacing:4px;
+  text-transform:uppercase;
+
+  font-size:.82rem;
+}
+
+.section-header h2{
+  font-family:'Cormorant Garamond',serif;
+
+  font-size:clamp(3rem,6vw,5.6rem);
+
+  line-height:1;
+
+  margin-bottom:28px;
+
+  color:#102041;
+}
+
+.section-header p{
+  font-size:1.08rem;
+
+  line-height:2;
+
+  color:rgba(16,32,65,.74);
+}
+
+/* =========================================================
+CONCEPT GRID
+========================================================= */
+
+.concept-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:30px;
+}
+
+.concept-card{
+  position:relative;
+
+  padding:42px;
+
+  border-radius:34px;
+
+  background:rgba(255,255,255,.68);
+
+  border:1px solid rgba(255,255,255,.85);
+
+  backdrop-filter:blur(20px);
+
+  overflow:hidden;
+
+  transition:.45s ease;
+
+  box-shadow:
+  0 20px 50px rgba(0,0,0,.05);
+}
+
+.concept-card:hover{
+  transform:translateY(-10px);
+}
+
+.concept-icon{
+  width:74px;
+  height:74px;
+
+  border-radius:24px;
+
+  background:rgba(212,148,43,.10);
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  font-size:1.7rem;
+
+  color:#d4942b;
+
+  margin-bottom:28px;
+}
+
+.concept-card h3{
+  font-family:'Cormorant Garamond',serif;
+
+  font-size:2rem;
+
+  margin-bottom:18px;
+
+  color:#102041;
+}
+
+.concept-card p{
+  line-height:1.9;
+
+  color:rgba(16,32,65,.72);
+}
+
+/* =========================================================
+PIPELINE
+========================================================= */
+
+.pipeline-wrapper{
+  position:relative;
+
+  max-width:1100px;
+
+  margin:auto;
+}
+
+.pipeline-line{
+  position:absolute;
+  top:0;
+  bottom:0;
+  left:72px;
+
+  width:2px;
+
+  background:
+  linear-gradient(
+    to bottom,
+    rgba(212,148,43,.4),
+    rgba(13,36,83,.3)
+  );
+}
+
+.pipeline-step{
+  position:relative;
+
+  display:grid;
+  grid-template-columns:120px 1fr;
+  gap:40px;
+
+  margin-bottom:70px;
+}
+
+.pipeline-marker{
+  position:relative;
+  z-index:2;
+
+  width:120px;
+}
+
+.pipeline-circle{
+  width:72px;
+  height:72px;
+
+  border-radius:50%;
+
+  background:white;
+
+  border:2px solid rgba(212,148,43,.35);
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  font-size:1.8rem;
+
+  font-weight:700;
+
+  color:#0d2453;
+
+  box-shadow:
+  0 15px 35px rgba(0,0,0,.08);
+}
+
+.pipeline-letter{
+  font-family:'Cormorant Garamond',serif;
+
+  font-size:5rem;
+
+  line-height:1;
+
+  margin-top:10px;
+
+  color:rgba(212,148,43,.18);
+}
+
+.pipeline-card{
+  padding:48px;
+
+  border-radius:36px;
+
+  background:rgba(255,255,255,.72);
+
+  border:1px solid rgba(255,255,255,.9);
+
+  backdrop-filter:blur(18px);
+
+  box-shadow:
+  0 20px 50px rgba(0,0,0,.05);
+}
+
+.pipeline-card h3{
+  font-family:'Cormorant Garamond',serif;
+
+  font-size:2.3rem;
+
+  margin-bottom:18px;
+
+  color:#102041;
+}
+
+.pipeline-card p{
+  line-height:2;
+
+  color:rgba(16,32,65,.74);
+
+  margin-bottom:26px;
+}
+
+.pipeline-list{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:16px;
+}
+
+.pipeline-list div{
+  padding:18px 22px;
+
+  border-radius:18px;
+
+  background:rgba(212,148,43,.06);
+
+  border:1px solid rgba(212,148,43,.12);
+
+  color:#102041;
+
+  line-height:1.7;
+
+  font-size:.95rem;
+}
+
+/* =========================================================
+ARCHITECTURE
+========================================================= */
+
+.architecture-grid{
+  display:grid;
+  grid-template-columns:repeat(5,1fr);
+  gap:24px;
+}
+
+.arch-card{
+  position:relative;
+
+  padding:40px 28px;
+
+  border-radius:30px;
+
+  background:
+  linear-gradient(
+    to bottom,
+    rgba(255,255,255,.78),
+    rgba(255,255,255,.55)
+  );
+
+  border:1px solid rgba(255,255,255,.9);
+
+  backdrop-filter:blur(20px);
+
+  text-align:center;
+
+  overflow:hidden;
+}
+
+.arch-number{
+  font-size:4rem;
+
+  font-family:'Cormorant Garamond',serif;
+
+  opacity:.08;
+
+  margin-bottom:18px;
+
+  color:#d4942b;
+}
+
+.arch-card h3{
+  font-family:'Cormorant Garamond',serif;
+
+  font-size:1.6rem;
+
+  margin-bottom:18px;
+}
+
+.arch-card p{
+  line-height:1.8;
+
+  font-size:.95rem;
+
+  color:rgba(16,32,65,.72);
+}
+
+/* =========================================================
+ECOSYSTEM
+========================================================= */
+
+.ecosystem-area{
+  position:relative;
+
+  min-height:700px;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+
+.core-node{
+  position:relative;
+
+  width:280px;
+  height:280px;
+
+  border-radius:50%;
+
+  background:
+  radial-gradient(circle,
+  rgba(13,36,83,1),
+  rgba(7,18,40,1));
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  color:white;
+
+  text-align:center;
+
+  box-shadow:
+  0 30px 80px rgba(13,36,83,.30);
+}
+
+.core-node::before{
+  content:"";
+  position:absolute;
+  inset:-30px;
+
+  border-radius:50%;
+
+  border:1px dashed rgba(212,148,43,.35);
+
+  animation:spin 18s linear infinite;
+}
+
+.core-node h3{
+  font-family:'Cormorant Garamond',serif;
+
+  font-size:3rem;
+
+  letter-spacing:4px;
+
+  margin-bottom:10px;
+}
+
+.orbit{
+  position:absolute;
+
+  width:220px;
+
+  padding:24px;
+
+  border-radius:24px;
+
+  background:rgba(255,255,255,.72);
+
+  border:1px solid rgba(255,255,255,.9);
+
+  backdrop-filter:blur(18px);
+
+  text-align:center;
+
+  box-shadow:
+  0 18px 40px rgba(0,0,0,.05);
+}
+
+.orbit h4{
+  font-family:'Cormorant Garamond',serif;
+
+  font-size:1.8rem;
+
+  margin-bottom:10px;
+
+  color:#102041;
+}
+
+.orbit p{
+  font-size:.92rem;
+
+  line-height:1.7;
+
+  color:rgba(16,32,65,.70);
+}
+
+.orbit-1{top:0;left:10%;}
+.orbit-2{top:15%;right:6%;}
+.orbit-3{bottom:16%;left:5%;}
+.orbit-4{bottom:0;right:12%;}
+
+/* =========================================================
+PRINCIPLES
+========================================================= */
+
+.principles-grid{
+  display:grid;
+  grid-template-columns:repeat(6,1fr);
+  gap:20px;
+}
+
+.principle-card{
+  padding:32px 22px;
+
+  border-radius:24px;
+
+  background:rgba(255,255,255,.68);
+
+  border:1px solid rgba(255,255,255,.9);
+
+  backdrop-filter:blur(16px);
+
+  text-align:center;
+}
+
+.principle-icon{
+  font-size:2rem;
+
+  margin-bottom:18px;
+
+  color:#d4942b;
+}
+
+.principle-card h4{
+  font-size:1rem;
+
+  margin-bottom:12px;
+
+  color:#102041;
+}
+
+.principle-card p{
+  font-size:.88rem;
+
+  line-height:1.7;
+
+  color:rgba(16,32,65,.68);
+}
+
+/* =========================================================
+FINAL
+========================================================= */
+
+.final-box{
+  position:relative;
+
+  padding:120px 70px;
+
+  border-radius:42px;
+
+  overflow:hidden;
+
+  background:
+  linear-gradient(
+    135deg,
+    rgba(13,36,83,.98),
+    rgba(6,18,45,.98)
+  );
+
+  text-align:center;
+
+  box-shadow:
+  0 30px 80px rgba(13,36,83,.25);
+}
+
+.final-box::before{
+  content:"";
+  position:absolute;
+  inset:0;
+
+  background:
+  radial-gradient(circle at top right,
+  rgba(212,148,43,.20),
+  transparent 35%);
+}
+
+.final-mini{
+  color:#d4942b;
+
+  letter-spacing:4px;
+  text-transform:uppercase;
+
+  margin-bottom:20px;
+
+  position:relative;
+  z-index:2;
+}
+
+.final-box h2{
+  position:relative;
+  z-index:2;
+
+  font-family:'Cormorant Garamond',serif;
+
+  font-size:clamp(3rem,6vw,6rem);
+
+  line-height:1;
+
+  margin-bottom:28px;
+
+  color:white;
+}
+
+.final-box p{
+  position:relative;
+  z-index:2;
+
+  max-width:860px;
+
+  margin:auto;
+
+  line-height:2;
+
+  color:rgba(255,255,255,.75);
+}
+
+.final-actions{
+  display:flex;
+  justify-content:center;
+  gap:18px;
+  flex-wrap:wrap;
+
+  margin-top:42px;
+
+  position:relative;
+  z-index:2;
+}
+
+/* =========================================================
+FOOTER
+========================================================= */
+
+footer{
+  padding:60px 0 80px;
+
+  text-align:center;
+}
+
+footer p{
+  line-height:1.8;
+
+  color:rgba(16,32,65,.45);
+}
+
+/* =========================================================
+ANIMATION
+========================================================= */
+
+@keyframes spin{
+  from{
+    transform:rotate(0deg);
+  }
+
+  to{
+    transform:rotate(360deg);
+  }
+}
+
+/* =========================================================
+RESPONSIVE
+========================================================= */
+
+@media(max-width:1200px){
+
+  .concept-grid,
+  .architecture-grid,
+  .principles-grid{
+    grid-template-columns:repeat(2,1fr);
+  }
+
+}
+
+@media(max-width:992px){
+
+  .nav{
+    display:none;
+  }
+
+  .pipeline-step{
+    grid-template-columns:1fr;
+  }
+
+  .pipeline-line{
+    display:none;
+  }
+
+  .pipeline-marker{
+    display:flex;
+    align-items:center;
+    gap:24px;
+  }
+
+  .ecosystem-area{
+    min-height:auto;
+
+    display:grid;
+    gap:30px;
+  }
+
+  .orbit{
+    position:relative;
+    inset:auto;
+    width:100%;
+  }
+
+}
+
+@media(max-width:768px){
+
+  .hero{
+    padding:140px 0 100px;
+  }
+
+  .hero-title{
+    letter-spacing:4px;
+  }
+
+  .hero-actions,
+  .final-actions{
+    flex-direction:column;
+  }
+
+  .btn-primary,
+  .btn-secondary{
+    width:100%;
+  }
+
+  .concept-grid,
+  .architecture-grid,
+  .principles-grid,
+  .pipeline-list{
+    grid-template-columns:1fr;
+  }
+
+  .section-space{
+    padding:100px 0;
+  }
+
+  .pipeline-card,
+  .concept-card,
+  .final-box{
+    padding:36px 28px;
+  }
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="grid-overlay"></div>
+
+<div class="ambient-glow glow-1"></div>
+<div class="ambient-glow glow-2"></div>
+
+<!-- HEADER -->
+
+<header class="header">
+
+  <div class="container">
+
+    <div class="header-inner">
+
+      <a href="#" class="logo">
+
+        <div class="logo-symbol">✦</div>
+
+        <h1>ORÁCULO</h1>
+
+      </a>
+
+      <nav class="nav">
+        <a href="#conceito">Conceito</a>
+        <a href="#pipeline">Pipeline</a>
+        <a href="#arquitetura">Arquitetura</a>
+        <a href="#ecosistema">Ecossistema</a>
+      </nav>
+
+      <a href="#pipeline" class="header-btn">
+        Explorar Sistema
+      </a>
+
+    </div>
+
+  </div>
+
+</header>
+
+<!-- HERO -->
+
+<section class="hero">
+
+  <div class="hero-bg"></div>
+
+  <div class="container">
+
+    <div class="hero-content" data-aos="fade-up">
+
+      <div class="hero-badge">
+        Sistema REDE • Arquitetura Cognitiva
+      </div>
+
+      <h1 class="hero-title">
+        ORÁCULO
+      </h1>
+
+      <div class="hero-subtitle">
+        Arquitetura de suporte à decisão em contextos complexos.
+      </div>
+
+      <p class="hero-text">
+        Interfaces de condução reflexiva voltadas à organização do raciocínio,
+        integração de evidências e qualificação da tomada de decisão.
+        O ORÁCULO não substitui o pensamento humano — ele estrutura o percurso cognitivo
+        que sustenta decisões mais coerentes, rastreáveis e contextualizadas.
+      </p>
+
+      <div class="hero-actions">
+
+        <a href="#pipeline" class="btn-primary">
+          Explorar Pipeline Cognitivo
+        </a>
+
+        <a href="#conceito" class="btn-secondary">
+          Conhecer Arquitetura
+        </a>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+<!-- CONCEITO -->
+
+<section id="conceito" class="section-space">
+
+  <div class="container">
+
+    <div class="section-header" data-aos="fade-up">
+
+      <div class="section-tag">
+        CONDUÇÃO REFLEXIVA
+      </div>
+
+      <h2>
+        O ORÁCULO não produz respostas automáticas.
+      </h2>
+
+      <p>
+        Sua função é organizar trajetórias interpretativas a partir de evidências estruturadas,
+        reduzindo dispersão cognitiva e qualificando o processo decisório em contextos de alta complexidade.
+      </p>
+
+    </div>
+
+    <div class="concept-grid">
+
+      <div class="concept-card" data-aos="fade-up">
+
+        <div class="concept-icon">◎</div>
+
+        <h3>
+          Organização do raciocínio
+        </h3>
+
+        <p>
+          Estrutura percursos cognitivos progressivos para apoiar análise, integração de dados e tomada de decisão.
+        </p>
+
+      </div>
+
+      <div class="concept-card" data-aos="fade-up" data-aos-delay="100">
+
+        <div class="concept-icon">◌</div>
+
+        <h3>
+          Condução baseada em evidências
+        </h3>
+
+        <p>
+          Todo o percurso interpretativo é sustentado por registros, dossiês, relatórios e informações previamente estruturadas.
+        </p>
+
+      </div>
+
+      <div class="concept-card" data-aos="fade-up" data-aos-delay="200">
+
+        <div class="concept-icon">✦</div>
+
+        <h3>
+          Integração sistêmica
+        </h3>
+
+        <p>
+          Articula múltiplas dimensões do contexto em uma arquitetura única de leitura, planejamento e direcionamento.
+        </p>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+<!-- PIPELINE -->
+
+<section id="pipeline" class="section-space">
+
+  <div class="container">
+
+    <div class="section-header" data-aos="fade-up">
+
+      <div class="section-tag">
+        PIPELINE COGNITIVO
+      </div>
+
+      <h2>
+        Da observação contextual ao plano programático integrado.
+      </h2>
+
+      <p>
+        O ORÁCULO organiza o raciocínio em camadas progressivas,
+        permitindo transformar dados em direção estratégica coerente.
+      </p>
+
+    </div>
+
+    <div class="pipeline-wrapper">
+
+      <div class="pipeline-line"></div>
+
+      <div class="pipeline-step" data-aos="fade-up">
+
+        <div class="pipeline-marker">
+          <div class="pipeline-circle">1</div>
+          <div class="pipeline-letter">O</div>
+        </div>
+
+        <div class="pipeline-card">
+
+          <h3>Observação Contextual</h3>
+
+          <p>
+            Captura do contexto real antes de qualquer intervenção.
+            Organização inicial do cenário para compreensão qualificada.
+          </p>
+
+          <div class="pipeline-list">
+            <div>Tipo de situação e cenário real.</div>
+            <div>Nível de complexidade e sinais iniciais.</div>
+            <div>Mapeamento de recursos disponíveis.</div>
+            <div>Compreensão clara do contexto.</div>
+          </div>
+
+        </div>
+
+      </div>
+
+      <div class="pipeline-step" data-aos="fade-up">
+
+        <div class="pipeline-marker">
+          <div class="pipeline-circle">2</div>
+          <div class="pipeline-letter">R</div>
+        </div>
+
+        <div class="pipeline-card">
+
+          <h3>Reconhecimento de Padrões</h3>
+
+          <p>
+            Leitura estruturada para identificação de padrões relevantes,
+            interações sistêmicas e eixos dominantes.
+          </p>
+
+          <div class="pipeline-list">
+            <div>Leitura integrada dos eixos do sistema.</div>
+            <div>Padrões recorrentes e significativos.</div>
+            <div>Interações e influências contextuais.</div>
+            <div>Diagnóstico funcional integrado.</div>
+          </div>
+
+        </div>
+
+      </div>
+
+      <div class="pipeline-step" data-aos="fade-up">
+
+        <div class="pipeline-marker">
+          <div class="pipeline-circle">3</div>
+          <div class="pipeline-letter">A</div>
+        </div>
+
+        <div class="pipeline-card">
+
+          <h3>Ativação de Blocos Programáticos</h3>
+
+          <p>
+            Seleção operacional dos BPs relevantes ao contexto,
+            priorizando foco, coerência e estratégia integrada.
+          </p>
+
+          <div class="pipeline-list">
+            <div>Escolha dos eixos ativos.</div>
+            <div>Priorização estratégica de foco.</div>
+            <div>Combinação operacional entre BPs.</div>
+            <div>Conjunto de blocos prontos para configuração.</div>
+          </div>
+
+        </div>
+
+      </div>
+
+      <div class="pipeline-step" data-aos="fade-up">
+
+        <div class="pipeline-marker">
+          <div class="pipeline-circle">4</div>
+          <div class="pipeline-letter">C</div>
+        </div>
+
+        <div class="pipeline-card">
+
+          <h3>Configuração Estratégica</h3>
+
+          <p>
+            Tradução do raciocínio em estratégias práticas,
+            ações orientadas e definições operacionais.
+          </p>
+
+          <div class="pipeline-list">
+            <div>Definição do que observar.</div>
+            <div>Definição do que ajustar.</div>
+            <div>Mapeamento do que evitar.</div>
+            <div>Estratégias personalizadas por eixo.</div>
+          </div>
+
+        </div>
+
+      </div>
+
+      <div class="pipeline-step" data-aos="fade-up">
+
+        <div class="pipeline-marker">
+          <div class="pipeline-circle">5</div>
+          <div class="pipeline-letter">U</div>
+        </div>
+
+        <div class="pipeline-card">
+
+          <h3>Unidade Integrada de Intervenção</h3>
+
+          <p>
+            Integração sistêmica entre eixos e estratégias,
+            garantindo coerência operacional e sustentabilidade.
+          </p>
+
+          <div class="pipeline-list">
+            <div>Coerência entre os eixos ativos.</div>
+            <div>Integração das estratégias.</div>
+            <div>Plano alinhado ao contexto real.</div>
+            <div>Intervenção integrada e sustentável.</div>
+          </div>
+
+        </div>
+
+      </div>
+
+      <div class="pipeline-step" data-aos="fade-up">
+
+        <div class="pipeline-marker">
+          <div class="pipeline-circle">6</div>
+          <div class="pipeline-letter">L</div>
+        </div>
+
+        <div class="pipeline-card">
+
+          <h3>Leitura Dinâmica e Ajuste</h3>
+
+          <p>
+            Monitoramento contínuo do percurso cognitivo e operacional,
+            permitindo adaptação em tempo real.
+          </p>
+
+          <div class="pipeline-list">
+            <div>Indicadores positivos e avanços.</div>
+            <div>Sinais de alerta e riscos.</div>
+            <div>Revisão adaptativa das estratégias.</div>
+            <div>Plano vivo e responsivo.</div>
+          </div>
+
+        </div>
+
+      </div>
+
+      <div class="pipeline-step" data-aos="fade-up">
+
+        <div class="pipeline-marker">
+          <div class="pipeline-circle">7</div>
+          <div class="pipeline-letter">O</div>
+        </div>
+
+        <div class="pipeline-card">
+
+          <h3>Output Programático</h3>
+
+          <p>
+            Consolidação do percurso em plano programático estruturado,
+            rastreável e operacionalizável.
+          </p>
+
+          <div class="pipeline-list">
+            <div>Plano Programático consolidado.</div>
+            <div>Registro e documentação.</div>
+            <div>Compartilhamento operacional.</div>
+            <div>Rastreabilidade e impressão.</div>
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+<!-- ARQUITETURA -->
+
+<section id="arquitetura" class="section-space">
+
+  <div class="container">
+
+    <div class="section-header" data-aos="fade-up">
+
+      <div class="section-tag">
+        ARQUITETURA OPERACIONAL
+      </div>
+
+      <h2>
+        Estrutura modular de condução cognitiva.
+      </h2>
+
+      <p>
+        Cada camada do ORÁCULO desempenha uma função específica dentro da organização do raciocínio,
+        operando de forma integrada e adaptativa.
+      </p>
+
+    </div>
+
+    <div class="architecture-grid">
+
+      <div class="arch-card" data-aos="fade-up">
+        <div class="arch-number">01</div>
+        <h3>Ativação</h3>
+        <p>Definição do ponto de entrada do processo reflexivo.</p>
+      </div>
+
+      <div class="arch-card" data-aos="fade-up" data-aos-delay="100">
+        <div class="arch-number">02</div>
+        <h3>Contextualização</h3>
+        <p>Organização das evidências e leitura inicial do cenário.</p>
+      </div>
+
+      <div class="arch-card" data-aos="fade-up" data-aos-delay="200">
+        <div class="arch-number">03</div>
+        <h3>Condução</h3>
+        <p>Estruturação progressiva do percurso cognitivo.</p>
+      </div>
+
+      <div class="arch-card" data-aos="fade-up" data-aos-delay="300">
+        <div class="arch-number">04</div>
+        <h3>Integração</h3>
+        <p>Articulação entre múltiplas fontes e camadas do sistema.</p>
+      </div>
+
+      <div class="arch-card" data-aos="fade-up" data-aos-delay="400">
+        <div class="arch-number">05</div>
+        <h3>Direcionamento</h3>
+        <p>Organização das possibilidades de ação e decisão.</p>
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+<!-- ECOSSISTEMA -->
+
+<section id="ecosistema" class="section-space">
+
+  <div class="container">
+
+    <div class="section-header" data-aos="fade-up">
+
+      <div class="section-tag">
+        ECOSSISTEMA REDE
+      </div>
+
+      <h2>
+        Integração com estruturas cognitivas complementares.
+      </h2>
+
+      <p>
+        O ORÁCULO opera integrado ao ecossistema do Sistema REDE,
+        articulando leitura contextual, memória organizacional,
+        visualização sistêmica e documentação técnica.
+      </p>
+
+    </div>
+
+    <div class="ecosystem-area">
+
+      <div class="core-node" data-aos="zoom-in">
+
+        <div>
+          <h3>ORÁCULO</h3>
+          <p>Arquitetura de suporte à decisão.</p>
+        </div>
+
+      </div>
+
+      <div class="orbit orbit-1" data-aos="fade-right">
+        <h4>PRISMA</h4>
+        <p>Leitura contextual ampliada e análise integrada de eixos.</p>
+      </div>
+
+      <div class="orbit orbit-2" data-aos="fade-left">
+        <h4>MEMO</h4>
+        <p>Memória organizacional, registros e continuidade sistêmica.</p>
+      </div>
+
+      <div class="orbit orbit-3" data-aos="fade-right">
+        <h4>Atlas Cognitivos</h4>
+        <p>Visualização estrutural de relações complexas e dinâmicas.</p>
+      </div>
+
+      <div class="orbit orbit-4" data-aos="fade-left">
+        <h4>Dossiês e Planos</h4>
+        <p>Base documental estruturada para sustentação das evidências.</p>
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+<!-- PRINCIPIOS -->
+
+<section class="section-space">
+
+  <div class="container">
+
+    <div class="section-header" data-aos="fade-up">
+
+      <div class="section-tag">
+        PRINCÍPIOS
+      </div>
+
+      <h2>
+        Fundamentos que sustentam o ORÁCULO.
+      </h2>
+
+    </div>
+
+    <div class="principles-grid">
+
+      <div class="principle-card" data-aos="fade-up">
+        <div class="principle-icon">◎</div>
+        <h4>Centrado na Pessoa</h4>
+        <p>Respeito à singularidade e à história de cada indivíduo.</p>
+      </div>
+
+      <div class="principle-card" data-aos="fade-up" data-aos-delay="50">
+        <div class="principle-icon">✦</div>
+        <h4>Baseado em Evidências</h4>
+        <p>Condução ancorada em informação estruturada e rastreável.</p>
+      </div>
+
+      <div class="principle-card" data-aos="fade-up" data-aos-delay="100">
+        <div class="principle-icon">◌</div>
+        <h4>Integrado e Sistêmico</h4>
+        <p>Articulação entre múltiplas dimensões e relações contextuais.</p>
+      </div>
+
+      <div class="principle-card" data-aos="fade-up" data-aos-delay="150">
+        <div class="principle-icon">↺</div>
+        <h4>Adaptativo</h4>
+        <p>Capacidade contínua de revisão, ajuste e evolução.</p>
+      </div>
+
+      <div class="principle-card" data-aos="fade-up" data-aos-delay="200">
+        <div class="principle-icon">⬡</div>
+        <h4>Ético</h4>
+        <p>Decisões conscientes, transparentes e responsáveis.</p>
+      </div>
+
+      <div class="principle-card" data-aos="fade-up" data-aos-delay="250">
+        <div class="principle-icon">♡</div>
+        <h4>Humano</h4>
+        <p>Tecnologia orientada ao cuidado, autonomia e qualidade de vida.</p>
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+<!-- FINAL -->
+
+<section class="section-space">
+
+  <div class="container">
+
+    <div class="final-box" data-aos="zoom-in">
+
+      <div class="final-mini">
+        SISTEMA REDE
+      </div>
+
+      <h2>
+        O ORÁCULO transforma dados em sabedoria aplicada.
+      </h2>
+
+      <p>
+        Mais do que uma ferramenta, o ORÁCULO constitui uma arquitetura de condução reflexiva
+        voltada à organização do pensamento em contextos complexos.
+        Sua força reside na articulação entre evidência, integração sistêmica,
+        rastreabilidade e mediação humana.
+      </p>
+
+      <div class="final-actions">
+
+        <a href="#" class="btn-primary">
+          Explorar Ecossistema
+        </a>
+
+        <a href="#" class="btn-secondary">
+          Documentação Técnica
+        </a>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+<!-- FOOTER -->
+
+<footer>
+
+  <div class="container">
+
+    <p>
+      ORÁCULO • Arquitetura de Suporte à Decisão em Contextos Complexos<br>
+      Sistema REDE • Interfaces de Condução Reflexiva
+    </p>
+
+  </div>
+
+</footer>
+
+<script src="../js/vendors/aos/aos.js"></script>
+
+<script>
+
+AOS.init({
+  duration:1200,
+  once:true
+});
+
+</script>
+
+</body>
+</html>
+```
