@@ -1,0 +1,1006 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>ENTRELAÇOS — Caminhos Possíveis</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Cormorant+Garamond:wght@400;500;600;700&display=swap"
+    rel="stylesheet">
+
+  <style>
+    :root {
+
+      --bg:
+        #f5f1e8;
+
+      --text:
+        rgba(18, 30, 46, 0.96);
+
+      --soft:
+        rgba(18, 30, 46, 0.74);
+
+      --muted:
+        rgba(18, 30, 46, 0.50);
+
+      --line:
+        rgba(18, 30, 46, 0.08);
+
+      --glass:
+        rgba(255, 255, 255, 0.52);
+
+      --gold:
+        #c79c59;
+
+      --blue:
+        #244a73;
+
+      --green:
+        #68816d;
+
+      --shadow:
+        0 30px 90px rgba(0, 0, 0, 0.08);
+
+      --radius:
+        36px;
+
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+
+      font-family: 'Inter', sans-serif;
+
+      color: var(--text);
+
+      overflow-x: hidden;
+
+      background:
+
+        linear-gradient(
+          rgba(247,243,236,0.84),
+          rgba(244,240,233,0.92)
+        ),
+
+        url('assets/img/bg-entrelacos2.png');
+
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      background-attachment: fixed;
+
+      background-blend-mode: screen;
+
+    }
+
+    /* ATMOSPHERE */
+
+    body::before {
+
+      content: '';
+
+      position: fixed;
+      inset: 0;
+
+      background:
+
+        radial-gradient(circle at top,
+          rgba(255,255,255,0.58),
+          transparent 34%),
+
+        radial-gradient(circle at bottom,
+          rgba(199,156,89,0.08),
+          transparent 44%);
+
+      pointer-events: none;
+
+      z-index: 0;
+
+    }
+
+    /* PARTICLES */
+
+    .particles {
+
+      position: fixed;
+      inset: 0;
+
+      overflow: hidden;
+
+      pointer-events: none;
+
+      z-index: 1;
+
+    }
+
+    .particle {
+
+      position: absolute;
+
+      width: 4px;
+      height: 4px;
+
+      border-radius: 50%;
+
+      background:
+        rgba(255,255,255,0.72);
+
+      box-shadow:
+        0 0 18px rgba(255,255,255,0.9);
+
+      animation:
+        breathe 8s infinite ease-in-out;
+
+    }
+
+    @keyframes breathe {
+
+      0%,100% {
+
+        opacity: .2;
+
+        transform:
+          translateY(0px)
+          scale(1);
+
+      }
+
+      50% {
+
+        opacity: 1;
+
+        transform:
+          translateY(-16px)
+          scale(1.4);
+
+      }
+
+    }
+
+    /* FRAME */
+
+    .focus-frame {
+
+      position: fixed;
+
+      inset: 34px;
+
+      border:
+        1px solid rgba(18,30,46,0.06);
+
+      border-radius: 30px;
+
+      pointer-events: none;
+
+      z-index: 2;
+
+    }
+
+    /* GLOBAL */
+
+    .container {
+
+      width:
+        min(1320px, 92%);
+
+      margin: auto;
+
+      position: relative;
+
+      z-index: 3;
+
+    }
+
+    section {
+
+      min-height: 100vh;
+
+      display: flex;
+      align-items: center;
+
+      position: relative;
+
+      padding:
+        120px 0;
+
+    }
+
+    /* TYPOGRAPHY */
+
+    .eyebrow {
+
+      text-transform: uppercase;
+
+      letter-spacing: 8px;
+
+      color: var(--gold);
+
+      font-size: .74rem;
+
+      margin-bottom: 28px;
+
+    }
+
+    .display {
+
+      font-family:
+        'Cormorant Garamond', serif;
+
+      font-size:
+        clamp(4.4rem, 10vw, 9rem);
+
+      line-height: .9;
+
+      font-weight: 500;
+
+      letter-spacing: 1px;
+
+    }
+
+    .display-md {
+
+      font-family:
+        'Cormorant Garamond', serif;
+
+      font-size:
+        clamp(2.8rem, 5vw, 5rem);
+
+      line-height: 1;
+
+      font-weight: 500;
+
+    }
+
+    .body {
+
+      max-width: 760px;
+
+      font-size: 1.08rem;
+
+      line-height: 2;
+
+      color: var(--soft);
+
+    }
+
+    /* HERO */
+
+    .hero {
+
+      justify-content: center;
+
+      text-align: center;
+
+    }
+
+    .hero-content {
+
+      max-width: 1100px;
+
+      margin: auto;
+
+    }
+
+    .hero p {
+
+      margin:
+        50px auto 0;
+
+    }
+
+    /* SCROLL INDICATOR */
+
+    .scroll {
+
+      position: absolute;
+
+      bottom: 60px;
+      left: 50%;
+
+      transform: translateX(-50%);
+
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 14px;
+
+      color: var(--muted);
+
+      font-size: .8rem;
+
+      letter-spacing: 2px;
+
+    }
+
+    .scroll-line {
+
+      width: 1px;
+      height: 80px;
+
+      background:
+        linear-gradient(to bottom,
+          rgba(18,30,46,0),
+          rgba(18,30,46,0.32));
+
+      animation:
+        scrollMove 2s infinite ease-in-out;
+
+    }
+
+    @keyframes scrollMove {
+
+      0%,100% {
+        transform:
+          scaleY(.5);
+      }
+
+      50% {
+        transform:
+          scaleY(1);
+      }
+
+    }
+
+    /* JOURNEY */
+
+    .journey {
+
+      position: relative;
+
+      max-width: 1080px;
+
+      margin:
+        120px auto;
+
+    }
+
+    .journey-line {
+
+      position: absolute;
+
+      left: 50%;
+      top: 0;
+
+      transform: translateX(-50%);
+
+      width: 2px;
+      height: 100%;
+
+      background:
+        linear-gradient(to bottom,
+
+          rgba(18,30,46,0),
+
+          rgba(18,30,46,0.18),
+
+          rgba(18,30,46,0));
+
+    }
+
+    /* STEP */
+
+    .step {
+
+      position: relative;
+
+      display: flex;
+
+      margin-bottom: 240px;
+
+    }
+
+    .step.left {
+      justify-content: flex-start;
+    }
+
+    .step.right {
+      justify-content: flex-end;
+    }
+
+    /* CARD */
+
+    .card {
+
+      width:
+        min(540px, 100%);
+
+      padding:
+        56px;
+
+      border-radius:
+        var(--radius);
+
+      background:
+        rgba(255,255,255,0.50);
+
+      backdrop-filter:
+        blur(28px);
+
+      border:
+        1px solid rgba(18,30,46,0.08);
+
+      box-shadow:
+        var(--shadow);
+
+      position: relative;
+
+      overflow: hidden;
+
+      transition:
+        .6s ease;
+
+    }
+
+    .card:hover {
+
+      transform:
+        translateY(-10px);
+
+      background:
+        rgba(255,255,255,0.64);
+
+      border:
+        1px solid rgba(18,30,46,0.14);
+
+    }
+
+    .card::before {
+
+      content: '';
+
+      position: absolute;
+      inset: 0;
+
+      background:
+        linear-gradient(145deg,
+
+          rgba(255,255,255,0.22),
+
+          transparent);
+
+      pointer-events: none;
+
+    }
+
+    /* NUMBER */
+
+    .number {
+
+      width: 70px;
+      height: 70px;
+
+      border-radius: 50%;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      margin-bottom: 32px;
+
+      font-weight: 700;
+
+      color: var(--gold);
+
+      background:
+        rgba(255,255,255,0.76);
+
+      border:
+        1px solid rgba(18,30,46,0.08);
+
+      backdrop-filter:
+        blur(20px);
+
+    }
+
+    /* TITLES */
+
+    .card h2 {
+
+      font-family:
+        'Cormorant Garamond', serif;
+
+      font-size:
+        3.2rem;
+
+      line-height: .95;
+
+      font-weight: 500;
+
+      margin-bottom: 26px;
+
+    }
+
+    .card p {
+
+      color: var(--soft);
+
+      line-height: 2;
+
+      font-size: 1rem;
+
+    }
+
+    /* THOUGHTS */
+
+    .thought {
+
+      position: absolute;
+
+      padding:
+        14px 22px;
+
+      border-radius: 999px;
+
+      background:
+        rgba(255,255,255,0.42);
+
+      backdrop-filter:
+        blur(20px);
+
+      border:
+        1px solid rgba(18,30,46,0.06);
+
+      color:
+        rgba(18,30,46,0.52);
+
+      font-size: .84rem;
+
+      animation:
+        float 10s infinite ease-in-out;
+
+    }
+
+    .thought:nth-child(even) {
+      animation-duration: 14s;
+    }
+
+    @keyframes float {
+
+      0%,100% {
+
+        transform:
+          translateY(0px);
+
+      }
+
+      50% {
+
+        transform:
+          translateY(-18px);
+
+      }
+
+    }
+
+    /* FINAL */
+
+    .final {
+
+      text-align: center;
+
+    }
+
+    .final-box {
+
+      padding:
+        140px 90px;
+
+      border-radius:
+        50px;
+
+      background:
+        rgba(255,255,255,0.54);
+
+      backdrop-filter:
+        blur(34px);
+
+      border:
+        1px solid rgba(18,30,46,0.08);
+
+      box-shadow:
+        var(--shadow);
+
+      position: relative;
+
+      overflow: hidden;
+
+    }
+
+    .final-box::before {
+
+      content: '';
+
+      position: absolute;
+
+      width: 1000px;
+      height: 1000px;
+
+      border-radius: 50%;
+
+      background:
+        radial-gradient(circle,
+
+          rgba(199,156,89,0.08),
+
+          transparent 65%);
+
+      top: -600px;
+      left: 50%;
+
+      transform: translateX(-50%);
+
+    }
+
+    .final p {
+
+      margin:
+        44px auto 0;
+
+    }
+
+    /* RESPONSIVE */
+
+    @media(max-width: 980px) {
+
+      body {
+
+        background-attachment: scroll;
+
+      }
+
+      .journey-line {
+
+        left: 24px;
+
+      }
+
+      .step {
+
+        justify-content: flex-start !important;
+
+      }
+
+      .card {
+
+        width: 100%;
+
+        margin-left: 60px;
+
+      }
+
+    }
+
+    @media(max-width: 768px) {
+
+      section {
+
+        padding:
+          90px 0;
+
+      }
+
+      .display {
+
+        font-size:
+          4.4rem;
+
+      }
+
+      .display-md {
+
+        font-size:
+          3rem;
+
+      }
+
+      .card {
+
+        padding:
+          38px;
+
+      }
+
+      .card h2 {
+
+        font-size:
+          2.4rem;
+
+      }
+
+      .thought {
+
+        display: none;
+
+      }
+
+      .focus-frame {
+
+        display: none;
+
+      }
+
+      .final-box {
+
+        padding:
+          90px 34px;
+
+      }
+
+    }
+
+  </style>
+
+</head>
+
+<body>
+
+  <!-- PARTICLES -->
+
+  <div class="particles">
+
+    <div class="particle" style="top:12%; left:18%;"></div>
+    <div class="particle" style="top:24%; left:72%;"></div>
+    <div class="particle" style="top:36%; left:28%;"></div>
+    <div class="particle" style="top:52%; left:82%;"></div>
+    <div class="particle" style="top:66%; left:44%;"></div>
+    <div class="particle" style="top:78%; left:16%;"></div>
+    <div class="particle" style="top:88%; left:74%;"></div>
+
+  </div>
+
+  <!-- FRAME -->
+
+  <div class="focus-frame"></div>
+
+  <!-- HERO -->
+
+  <section class="hero">
+
+    <div class="container">
+
+      <div class="hero-content">
+
+        <div class="eyebrow">
+          ENTRELAÇOS
+        </div>
+
+        <h1 class="display">
+          Existem caminhos possíveis.
+        </h1>
+
+        <p class="body">
+          Algumas compreensões não surgem de uma vez.
+          Pequenos sinais começam a permanecer.
+          O que parecia disperso pode encontrar continuidade.
+          O conhecimento não precisa pressionar.
+          Ele pode acolher.
+        </p>
+
+      </div>
+
+      <div class="scroll">
+
+        <span>CONTINUE</span>
+
+        <div class="scroll-line"></div>
+
+      </div>
+
+    </div>
+
+  </section>
+
+  <!-- JOURNEY -->
+
+  <section>
+
+    <div class="container">
+
+      <div class="journey">
+
+        <div class="journey-line"></div>
+
+        <!-- STEP 1 -->
+
+        <div class="step left">
+
+          <div class="thought"
+            style="top:-30px; left:58%;">
+            “algumas coisas começam a reaparecer”
+          </div>
+
+          <div class="card">
+
+            <div class="number">
+              01
+            </div>
+
+            <h2>
+              Experiência Vivida
+            </h2>
+
+            <p>
+              Antes da organização existe a vivência.
+              Pequenos acontecimentos permanecem espalhados.
+              Ainda sem direção clara.
+              Ainda sem linguagem.
+              Ainda sem continuidade.
+            </p>
+
+          </div>
+
+        </div>
+
+        <!-- STEP 2 -->
+
+        <div class="step right">
+
+          <div class="thought"
+            style="top:10px; left:20%;">
+            “o olhar começa a permanecer”
+          </div>
+
+          <div class="card">
+
+            <div class="number">
+              02
+            </div>
+
+            <h2>
+              Leitura
+            </h2>
+
+            <p>
+              Algumas relações começam a surgir lentamente.
+              O olhar deixa de perceber apenas partes isoladas.
+              Pequenos padrões começam a existir.
+            </p>
+
+          </div>
+
+        </div>
+
+        <!-- STEP 3 -->
+
+        <div class="step left">
+
+          <div class="thought"
+            style="top:-10px; left:60%;">
+            “agora isso pode permanecer”
+          </div>
+
+          <div class="card">
+
+            <div class="number">
+              03
+            </div>
+
+            <h2>
+              Registro
+            </h2>
+
+            <p>
+              O que antes desaparecia rapidamente
+              agora pode ser observado novamente.
+              Pequenos detalhes começam a construir continuidade.
+            </p>
+
+          </div>
+
+        </div>
+
+        <!-- STEP 4 -->
+
+        <div class="step right">
+
+          <div class="thought"
+            style="top:20px; left:18%;">
+            “as conexões começam a surgir”
+          </div>
+
+          <div class="card">
+
+            <div class="number">
+              04
+            </div>
+
+            <h2>
+              Organização
+            </h2>
+
+            <p>
+              As experiências deixam de parecer isoladas.
+              Pequenas relações começam a formar caminhos.
+              O sistema ganha profundidade emocional.
+            </p>
+
+          </div>
+
+        </div>
+
+        <!-- STEP 5 -->
+
+        <div class="step left">
+
+          <div class="thought"
+            style="top:30px; left:56%;">
+            “existem caminhos possíveis”
+          </div>
+
+          <div class="card">
+
+            <div class="number">
+              05
+            </div>
+
+            <h2>
+              Continuidade
+            </h2>
+
+            <p>
+              Nem tudo precisa ser resolvido imediatamente.
+              Algumas compreensões amadurecem lentamente.
+              A continuidade também é cuidado.
+            </p>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </section>
+
+  <!-- FINAL -->
+
+  <section class="final">
+
+    <div class="container">
+
+      <div class="final-box">
+
+        <div class="eyebrow">
+          TECNOLOGIA SOCIAL DE MEDIAÇÃO COGNITIVA
+        </div>
+
+        <h2 class="display-md">
+          Organizar para compreender.
+        </h2>
+
+        <p class="body">
+          O ENTRELAÇOS transforma observação,
+          presença e continuidade
+          em caminhos possíveis de compreensão humana.
+          A tecnologia não substitui vínculos.
+          Ela cria espaço para acolhimento,
+          percepção
+          e esperança.
+        </p>
+
+      </div>
+
+    </div>
+
+  </section>
+
+</body>
+
+</html>
