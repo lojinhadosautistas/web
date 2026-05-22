@@ -302,6 +302,35 @@
       opacity: .92;
     }
 
+    /* COLLECTIONS */
+    
+.collection-section{
+  margin: 40px 24px;
+  border-radius: 42px;
+  background:
+    linear-gradient(
+      to bottom,
+      rgba(255,255,255,.22),
+      rgba(255,255,255,.10)
+    );
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255,255,255,.25);
+  box-shadow: 0 10px 40px rgba(0,0,0,.05);
+}
+.collection-section::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  border-radius:42px;
+  background:
+    linear-gradient(
+      135deg,
+      rgba(255,255,255,.18),
+      rgba(255,255,255,0)
+    );
+  pointer-events:none;
+}
+    
     /* BOOK CARDS */
 
     .book-card {
@@ -723,7 +752,7 @@
 
     <!-- COLEÇÃO -->
 
-    <section id="colecao" class="section-space">
+    <section id="colecao" class="section-space collection-section">
 
       <div class="container">
 
