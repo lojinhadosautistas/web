@@ -13,7 +13,7 @@ PIPELINE • ORÁCULO | Sistema REDE
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Orbitron:wght@500;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Orbitron:wght@500;700;800;900&display=swap" rel="stylesheet">
 
 <style>
 
@@ -33,15 +33,20 @@ html{
 
 body{
   font-family:'Inter',sans-serif;
+
   background:
-  radial-gradient(circle at top,#11203d 0%,#08101d 45%,#04070d 100%);
+  radial-gradient(circle at top,
+  #11203d 0%,
+  #08101d 40%,
+  #04070d 100%);
+
   color:white;
   overflow-x:hidden;
   position:relative;
 }
 
 /* =========================================================
-BACKGROUND FX
+BACKGROUND
 ========================================================= */
 
 body::before{
@@ -51,14 +56,14 @@ body::before{
 
   background:
   radial-gradient(circle at top right,
-  rgba(255,174,0,.15),
-  transparent 30%),
+  rgba(255,174,0,.12),
+  transparent 28%),
 
   radial-gradient(circle at bottom left,
-  rgba(0,170,255,.12),
-  transparent 35%);
+  rgba(0,170,255,.10),
+  transparent 32%);
 
-  z-index:-3;
+  z-index:-5;
 }
 
 .grid-bg{
@@ -71,9 +76,10 @@ body::before{
 
   background-size:70px 70px;
 
-  z-index:-2;
+  z-index:-4;
 
-  mask-image:radial-gradient(circle at center,
+  mask-image:
+  radial-gradient(circle at center,
   black 35%,
   transparent 85%);
 }
@@ -82,18 +88,19 @@ body::before{
   position:fixed;
   inset:0;
   opacity:.04;
+  z-index:-3;
   pointer-events:none;
-  z-index:-1;
 
-  background-image:url("https://grainy-gradients.vercel.app/noise.svg");
+  background-image:
+  url("https://grainy-gradients.vercel.app/noise.svg");
 }
 
 .glow{
   position:fixed;
   border-radius:50%;
-  filter:blur(140px);
-  z-index:-1;
-  opacity:.28;
+  filter:blur(150px);
+  opacity:.22;
+  z-index:-2;
 }
 
 .glow-1{
@@ -125,18 +132,18 @@ PARTICLES
 
 .particle{
   position:absolute;
-  width:4px;
-  height:4px;
+  width:3px;
+  height:3px;
   border-radius:50%;
   background:white;
-  opacity:.2;
+  opacity:.18;
   animation:float linear infinite;
 }
 
 @keyframes float{
 
   from{
-    transform:translateY(100vh);
+    transform:translateY(110vh);
   }
 
   to{
@@ -163,7 +170,6 @@ HERO
   display:flex;
   align-items:center;
   position:relative;
-  overflow:hidden;
 }
 
 .hero::before{
@@ -174,19 +180,19 @@ HERO
   background:
   linear-gradient(
     to bottom,
-    rgba(4,7,13,.4),
-    rgba(4,7,13,.88)
+    rgba(4,7,13,.35),
+    rgba(4,7,13,.92)
   );
 }
 
 .hero-content{
   position:relative;
   z-index:2;
-  max-width:950px;
+  max-width:980px;
 }
 
 .hero-mini{
-  font-size:.85rem;
+  font-size:.9rem;
   letter-spacing:4px;
   text-transform:uppercase;
   color:#ffbf47;
@@ -196,18 +202,18 @@ HERO
 .hero-title{
   font-family:'Orbitron',sans-serif;
   font-size:clamp(4rem,9vw,8rem);
-  line-height:.9;
+  line-height:.92;
   margin-bottom:35px;
 
   text-shadow:
-  0 0 40px rgba(255,174,0,.15);
+  0 0 50px rgba(255,179,0,.14);
 }
 
 .hero-text{
-  font-size:1.2rem;
+  max-width:860px;
+  font-size:1.15rem;
   line-height:2;
-  max-width:800px;
-  color:rgba(255,255,255,.74);
+  color:rgba(255,255,255,.72);
 }
 
 .hero-actions{
@@ -228,6 +234,7 @@ HERO
 .btn-primary{
   background:
   linear-gradient(135deg,#ffb300,#ff7a00);
+
   color:black;
 
   box-shadow:
@@ -239,10 +246,10 @@ HERO
 }
 
 .btn-secondary{
-  border:1px solid rgba(255,255,255,.12);
   background:rgba(255,255,255,.05);
-  backdrop-filter:blur(16px);
+  border:1px solid rgba(255,255,255,.10);
   color:white;
+  backdrop-filter:blur(16px);
 }
 
 .btn-secondary:hover{
@@ -250,17 +257,16 @@ HERO
 }
 
 /* =========================================================
-PIPELINE SECTION
+SECTION
 ========================================================= */
 
 .pipeline-section{
   padding:120px 0 180px;
-  position:relative;
 }
 
 .section-header{
   text-align:center;
-  margin-bottom:100px;
+  margin-bottom:120px;
 }
 
 .section-mini{
@@ -284,12 +290,12 @@ PIPELINE SECTION
 }
 
 /* =========================================================
-PIPELINE LAYOUT
+LAYOUT
 ========================================================= */
 
 .pipeline-layout{
   display:grid;
-  grid-template-columns:1fr 370px;
+  grid-template-columns:1fr 390px;
   gap:40px;
   align-items:start;
 }
@@ -302,8 +308,7 @@ PIPELINE
   position:relative;
 }
 
-.pipeline::before{
-  content:"";
+.pipeline-line{
   position:absolute;
   left:50%;
   top:0;
@@ -313,37 +318,38 @@ PIPELINE
   background:
   linear-gradient(
     to bottom,
-    rgba(255,179,0,.7),
-    rgba(0,170,255,.6)
+    rgba(255,179,0,.85),
+    rgba(0,170,255,.7)
   );
 
   transform:translateX(-50%);
 
   box-shadow:
-  0 0 30px rgba(255,179,0,.35);
+  0 0 35px rgba(255,179,0,.28);
 }
+
+/* =========================================================
+STEP
+========================================================= */
 
 .step{
   position:relative;
+
   display:grid;
-  grid-template-columns:1fr 140px 1fr;
+  grid-template-columns:1fr 180px 1fr;
   gap:40px;
-  margin-bottom:120px;
+
   align-items:center;
+
+  margin-bottom:120px;
 }
 
 .step:nth-child(even) .step-card{
   grid-column:3;
 }
 
-.step:nth-child(even) .step-visual{
-  order:2;
-}
-
 .step-card{
   position:relative;
-  padding:36px;
-  border-radius:30px;
 
   background:
   rgba(255,255,255,.05);
@@ -351,7 +357,11 @@ PIPELINE
   border:
   1px solid rgba(255,255,255,.08);
 
-  backdrop-filter:blur(16px);
+  border-radius:32px;
+
+  padding:38px;
+
+  backdrop-filter:blur(18px);
 
   overflow:hidden;
 
@@ -360,7 +370,7 @@ PIPELINE
 
 .step-card:hover{
   transform:translateY(-8px);
-  border-color:rgba(255,179,0,.35);
+  border-color:rgba(255,179,0,.25);
 }
 
 .step-card::before{
@@ -370,37 +380,48 @@ PIPELINE
 
   background:
   linear-gradient(
-    135deg,
+    145deg,
     rgba(255,179,0,.08),
-    transparent 50%
+    transparent 55%
   );
-
-  pointer-events:none;
 }
 
 .step-number{
+  position:relative;
+  z-index:2;
+
   font-family:'Orbitron',sans-serif;
   font-size:4rem;
   opacity:.08;
-  margin-bottom:10px;
+  margin-bottom:8px;
 }
 
 .step-title{
+  position:relative;
+  z-index:2;
+
   font-size:2rem;
   font-weight:800;
   margin-bottom:18px;
 }
 
 .step-desc{
-  line-height:1.9;
+  position:relative;
+  z-index:2;
+
+  line-height:1.95;
   color:rgba(255,255,255,.74);
 }
 
 .step-tags{
+  position:relative;
+  z-index:2;
+
   display:flex;
   flex-wrap:wrap;
   gap:12px;
-  margin-top:24px;
+
+  margin-top:26px;
 }
 
 .step-tag{
@@ -414,6 +435,15 @@ PIPELINE
   1px solid rgba(255,255,255,.08);
 
   font-size:.82rem;
+
+  cursor:pointer;
+
+  transition:.3s ease;
+}
+
+.step-tag:hover{
+  background:rgba(255,179,0,.14);
+  border-color:rgba(255,179,0,.35);
 }
 
 /* =========================================================
@@ -422,57 +452,69 @@ VISUAL CORE
 
 .step-visual{
   position:relative;
-  width:140px;
-  height:140px;
-  border-radius:50%;
+
+  width:180px;
+  height:180px;
+
+  margin:auto;
 
   display:flex;
   align-items:center;
   justify-content:center;
+}
+
+.core-line{
+  position:absolute;
+  width:4px;
+  height:220px;
 
   background:
-  radial-gradient(circle,
-  rgba(255,179,0,.18),
-  rgba(255,255,255,.03));
+  linear-gradient(
+    to bottom,
+    rgba(255,179,0,.9),
+    rgba(0,170,255,.7)
+  );
+
+  box-shadow:
+  0 0 30px rgba(255,179,0,.28);
+}
+
+.visual-ring{
+  position:absolute;
+  width:170px;
+  height:170px;
+  border-radius:50%;
 
   border:
   1px solid rgba(255,255,255,.08);
 
-  backdrop-filter:blur(20px);
+  background:
+  radial-gradient(circle,
+  rgba(255,179,0,.14),
+  rgba(255,255,255,.02));
 
-  margin:auto;
+  backdrop-filter:blur(16px);
 
-  box-shadow:
-  0 0 60px rgba(255,179,0,.18);
-
-  overflow:hidden;
+  animation:rotate 12s linear infinite;
 }
 
-.step-visual::before{
+.visual-ring::before{
   content:"";
   position:absolute;
-  width:180px;
-  height:180px;
-  border-radius:50%;
-  border:1px solid rgba(255,255,255,.08);
+  inset:-14px;
 
-  animation:rotate 10s linear infinite;
-}
-
-.step-visual::after{
-  content:"";
-  position:absolute;
-  width:220px;
-  height:220px;
   border-radius:50%;
-  border:1px dashed rgba(255,179,0,.12);
+  border:1px dashed rgba(255,179,0,.14);
 
   animation:rotateReverse 16s linear infinite;
 }
 
 .visual-letter{
+  position:relative;
+  z-index:4;
+
   font-family:'Orbitron',sans-serif;
-  font-size:4rem;
+  font-size:5rem;
   font-weight:900;
 
   background:
@@ -481,7 +523,8 @@ VISUAL CORE
   -webkit-background-clip:text;
   -webkit-text-fill-color:transparent;
 
-  z-index:2;
+  text-shadow:
+  0 0 40px rgba(255,179,0,.25);
 }
 
 @keyframes rotate{
@@ -522,58 +565,113 @@ HUD
 }
 
 .hud-card{
-  padding:28px;
-  border-radius:28px;
-
   background:
   rgba(255,255,255,.05);
 
   border:
   1px solid rgba(255,255,255,.08);
 
-  backdrop-filter:blur(18px);
+  border-radius:30px;
+
+  padding:30px;
+
+  backdrop-filter:blur(20px);
+
+  overflow:hidden;
+
+  position:relative;
+}
+
+.hud-card::before{
+  content:"";
+  position:absolute;
+  inset:0;
+
+  background:
+  linear-gradient(
+    145deg,
+    rgba(255,179,0,.05),
+    transparent 60%
+  );
 }
 
 .hud-title{
-  font-size:.9rem;
-  letter-spacing:2px;
+  position:relative;
+  z-index:2;
+
+  font-size:.88rem;
+  letter-spacing:3px;
   text-transform:uppercase;
   color:#ffbf47;
+
   margin-bottom:18px;
 }
 
 .hud-value{
+  position:relative;
+  z-index:2;
+
   font-size:2rem;
   font-weight:900;
 }
 
-.hud-list{
+.operational-title{
+  position:relative;
+  z-index:2;
+
+  font-size:1.5rem;
+  font-weight:800;
+
+  margin-bottom:14px;
+}
+
+.operational-text{
+  position:relative;
+  z-index:2;
+
+  line-height:1.9;
+  color:rgba(255,255,255,.74);
+}
+
+.pipeline-cognitive{
   display:flex;
   flex-direction:column;
   gap:14px;
 }
 
-.hud-item{
-  display:flex;
-  justify-content:space-between;
-  gap:12px;
+.cognitive-item{
+  position:relative;
+  z-index:2;
 
-  padding:14px 0;
+  padding:16px 18px;
 
-  border-bottom:
+  border-radius:18px;
+
+  background:
+  rgba(255,255,255,.04);
+
+  border:
   1px solid rgba(255,255,255,.06);
 
-  color:rgba(255,255,255,.72);
+  transition:.3s ease;
 }
 
-.status-dot{
-  width:12px;
-  height:12px;
-  border-radius:50%;
-  background:#00ff99;
+.cognitive-item:hover{
+  transform:translateX(6px);
 
-  box-shadow:
-  0 0 18px rgba(0,255,153,.6);
+  border-color:
+  rgba(255,179,0,.22);
+}
+
+.cognitive-name{
+  font-weight:700;
+  margin-bottom:8px;
+}
+
+.cognitive-desc{
+  font-size:.92rem;
+  line-height:1.7;
+  color:rgba(255,255,255,.68);
 }
 
 /* =========================================================
@@ -588,14 +686,16 @@ FINAL
   position:relative;
   overflow:hidden;
 
-  border-radius:40px;
+  border-radius:42px;
 
   padding:100px 60px;
+
+  text-align:center;
 
   background:
   linear-gradient(
     145deg,
-    rgba(255,179,0,.12),
+    rgba(255,179,0,.10),
     rgba(0,170,255,.08)
   );
 
@@ -603,8 +703,6 @@ FINAL
   1px solid rgba(255,255,255,.08);
 
   backdrop-filter:blur(24px);
-
-  text-align:center;
 }
 
 .final-box::before{
@@ -614,7 +712,7 @@ FINAL
 
   background:
   radial-gradient(circle at center,
-  rgba(255,255,255,.06),
+  rgba(255,255,255,.05),
   transparent 70%);
 }
 
@@ -624,7 +722,7 @@ FINAL
 
   font-family:'Orbitron',sans-serif;
 
-  font-size:clamp(2.8rem,6vw,5rem);
+  font-size:clamp(2.6rem,6vw,5rem);
 
   margin-bottom:28px;
 }
@@ -637,7 +735,6 @@ FINAL
   margin:auto;
 
   line-height:2;
-
   color:rgba(255,255,255,.72);
 }
 
@@ -677,11 +774,7 @@ RESPONSIVE
     text-align:center;
   }
 
-  .step:nth-child(even) .step-card{
-    grid-column:auto;
-  }
-
-  .pipeline::before{
+  .pipeline-line{
     display:none;
   }
 
@@ -721,42 +814,42 @@ RESPONSIVE
 
 <section class="hero">
 
-  <div class="container">
+<div class="container">
 
-    <div class="hero-content">
+<div class="hero-content">
 
-      <div class="hero-mini">
-        ORÁCULO • PIPELINE COGNITIVO
-      </div>
+<div class="hero-mini">
+ORÁCULO • PIPELINE COGNITIVO
+</div>
 
-      <h1 class="hero-title">
-        DO CONTEXTO<br>
-        À DECISÃO<br>
-        CONSCIENTE
-      </h1>
+<h1 class="hero-title">
+DO CONTEXTO<br>
+À DECISÃO<br>
+CONSCIENTE
+</h1>
 
-      <p class="hero-text">
-        O Pipeline do ORÁCULO organiza trajetórias
-        progressivas de leitura, integração e condução
-        reflexiva, transformando complexidade em
-        inteligência operacional estruturada.
-      </p>
+<p class="hero-text">
+O Pipeline do ORÁCULO organiza trajetórias
+progressivas de leitura, integração e condução
+reflexiva, transformando complexidade em
+inteligência operacional estruturada.
+</p>
 
-      <div class="hero-actions">
+<div class="hero-actions">
 
-        <a href="#pipeline" class="btn btn-primary">
-          Explorar Pipeline
-        </a>
+<a href="#pipeline" class="btn btn-primary">
+Explorar Pipeline
+</a>
 
-        <a href="oraculo.html" class="btn btn-secondary">
-          Voltar ao ORÁCULO
-        </a>
+<a href="oraculo.html" class="btn btn-secondary">
+Voltar ao ORÁCULO
+</a>
 
-      </div>
+</div>
 
-    </div>
+</div>
 
-  </div>
+</div>
 
 </section>
 
@@ -778,9 +871,9 @@ do ORÁCULO
 </h2>
 
 <p>
-Cada camada do pipeline reorganiza o raciocínio,
-reduz a fragmentação cognitiva e conduz o operador
-por percursos estruturados de análise.
+Cada camada reorganiza o raciocínio,
+integra estruturas cognitivas e conduz
+trajetórias reflexivas progressivas.
 </p>
 
 </div>
@@ -791,9 +884,19 @@ por percursos estruturados de análise.
 
 <div class="pipeline">
 
+<div class="pipeline-line"></div>
+
 <!-- STEP -->
 
-<div class="step">
+<div class="step"
+data-title="Observação Contextual"
+data-text="A camada inicial amplia a percepção do cenário, permitindo identificar sinais críticos, tensões sistêmicas e variáveis contextuais que sustentam o restante da condução reflexiva."
+
+data-cognitive='[
+{"name":"Leitura Contextual","desc":"Organiza sinais, cenários e padrões emergentes."},
+{"name":"Complexidade","desc":"Reconhece múltiplas variáveis simultâneas."},
+{"name":"Contexto Inicial","desc":"Estrutura a entrada cognitiva do sistema."}
+]'>
 
 <div class="step-card">
 
@@ -804,8 +907,8 @@ Observação Contextual
 </div>
 
 <div class="step-desc">
-Leitura inicial do cenário, identificação
-de sinais críticos, contexto operacional,
+Leitura inicial do cenário,
+identificação de sinais críticos,
 eixos emocionais e variáveis sistêmicas.
 </div>
 
@@ -828,14 +931,30 @@ Contexto Inicial
 </div>
 
 <div class="step-visual">
-<div class="visual-letter">O</div>
+
+<div class="core-line"></div>
+
+<div class="visual-ring"></div>
+
+<div class="visual-letter">
+O
+</div>
+
 </div>
 
 </div>
 
 <!-- STEP -->
 
-<div class="step">
+<div class="step"
+data-title="Reconhecimento de Padrões"
+data-text="A leitura deixa de ser apenas observacional e passa a reconhecer recorrências, clusters e conexões entre elementos anteriormente dispersos."
+
+data-cognitive='[
+{"name":"Clusters","desc":"Agrupamentos conceituais emergentes."},
+{"name":"Recorrências","desc":"Identificação de ciclos e repetições."},
+{"name":"Mapeamento","desc":"Estruturação das relações sistêmicas."}
+]'>
 
 <div class="step-card">
 
@@ -847,8 +966,8 @@ Reconhecimento de Padrões
 
 <div class="step-desc">
 Conexões emergem entre dados,
-comportamentos, recorrências
-e estruturas previamente registradas.
+comportamentos e estruturas
+previamente registradas.
 </div>
 
 <div class="step-tags">
@@ -870,14 +989,30 @@ Mapeamento
 </div>
 
 <div class="step-visual">
-<div class="visual-letter">R</div>
+
+<div class="core-line"></div>
+
+<div class="visual-ring"></div>
+
+<div class="visual-letter">
+R
+</div>
+
 </div>
 
 </div>
 
 <!-- STEP -->
 
-<div class="step">
+<div class="step"
+data-title="Ativação de BPs"
+data-text="Os Blocos Programáticos são acionados para organizar percursos interpretativos, perguntas estruturadas e estratégias de condução."
+
+data-cognitive='[
+{"name":"BPs","desc":"Bibliotecas de condução reflexiva estruturada."},
+{"name":"Estruturação","desc":"Organização progressiva do raciocínio."},
+{"name":"Condução","desc":"Direcionamento cognitivo operacional."}
+]'>
 
 <div class="step-card">
 
@@ -888,9 +1023,9 @@ Ativação de BPs
 </div>
 
 <div class="step-desc">
-Blocos Programáticos são ativados
-para estruturar percursos reflexivos
-e organizar trajetórias de condução.
+Blocos Programáticos organizam
+trajetórias reflexivas progressivas
+e percursos de condução.
 </div>
 
 <div class="step-tags">
@@ -912,14 +1047,30 @@ Condução
 </div>
 
 <div class="step-visual">
-<div class="visual-letter">A</div>
+
+<div class="core-line"></div>
+
+<div class="visual-ring"></div>
+
+<div class="visual-letter">
+A
+</div>
+
 </div>
 
 </div>
 
 <!-- STEP -->
 
-<div class="step">
+<div class="step"
+data-title="Configuração Estratégica"
+data-text="O sistema reorganiza prioridades, restrições, objetivos e recursos, consolidando um cenário operacional coerente."
+
+data-cognitive='[
+{"name":"Estratégia","desc":"Definição de prioridades operacionais."},
+{"name":"Planejamento","desc":"Estruturação das possibilidades de ação."},
+{"name":"Ajustes","desc":"Adaptação contextual contínua."}
+]'>
 
 <div class="step-card">
 
@@ -954,14 +1105,30 @@ Ajustes
 </div>
 
 <div class="step-visual">
-<div class="visual-letter">C</div>
+
+<div class="core-line"></div>
+
+<div class="visual-ring"></div>
+
+<div class="visual-letter">
+C
+</div>
+
 </div>
 
 </div>
 
 <!-- STEP -->
 
-<div class="step">
+<div class="step"
+data-title="Unidade Integrada"
+data-text="As múltiplas dimensões anteriormente fragmentadas passam a operar como uma estrutura única e sincronizada."
+
+data-cognitive='[
+{"name":"Integração","desc":"Convergência das múltiplas dimensões."},
+{"name":"Coerência","desc":"Alinhamento estrutural do sistema."},
+{"name":"Síntese","desc":"Transformação da complexidade em clareza."}
+]'>
 
 <div class="step-card">
 
@@ -996,14 +1163,30 @@ Síntese
 </div>
 
 <div class="step-visual">
-<div class="visual-letter">U</div>
+
+<div class="core-line"></div>
+
+<div class="visual-ring"></div>
+
+<div class="visual-letter">
+U
+</div>
+
 </div>
 
 </div>
 
 <!-- STEP -->
 
-<div class="step">
+<div class="step"
+data-title="Leitura Dinâmica"
+data-text="O ORÁCULO monitora alterações contextuais e reorganiza continuamente o percurso reflexivo."
+
+data-cognitive='[
+{"name":"Monitoramento","desc":"Acompanhamento contextual contínuo."},
+{"name":"Tempo Real","desc":"Atualização dinâmica da leitura."},
+{"name":"Adaptação","desc":"Reconfiguração do percurso cognitivo."}
+]'>
 
 <div class="step-card">
 
@@ -1038,14 +1221,30 @@ Adaptação
 </div>
 
 <div class="step-visual">
-<div class="visual-letter">L</div>
+
+<div class="core-line"></div>
+
+<div class="visual-ring"></div>
+
+<div class="visual-letter">
+L
+</div>
+
 </div>
 
 </div>
 
 <!-- STEP -->
 
-<div class="step">
+<div class="step"
+data-title="Output Programático"
+data-text="A condução culmina em diretrizes, organização estratégica e possibilidades de ação sustentadas por evidências."
+
+data-cognitive='[
+{"name":"Direcionamento","desc":"Consolidação de possibilidades de ação."},
+{"name":"Ação","desc":"Transformação da análise em execução."},
+{"name":"Planejamento","desc":"Estruturação final da decisão."}
+]'>
 
 <div class="step-card">
 
@@ -1080,7 +1279,15 @@ Planejamento
 </div>
 
 <div class="step-visual">
-<div class="visual-letter">O</div>
+
+<div class="core-line"></div>
+
+<div class="visual-ring"></div>
+
+<div class="visual-letter">
+O
+</div>
+
 </div>
 
 </div>
@@ -1094,7 +1301,7 @@ Planejamento
 <div class="hud-card">
 
 <div class="hud-title">
-Status do Sistema
+STATUS DO SISTEMA
 </div>
 
 <div class="hud-value">
@@ -1106,31 +1313,15 @@ ONLINE
 <div class="hud-card">
 
 <div class="hud-title">
-Leitura Operacional
+LEITURA OPERACIONAL
 </div>
 
-<div class="hud-list">
-
-<div class="hud-item">
-<span>Complexidade</span>
-<span>Alta</span>
+<div class="operational-title" id="opTitle">
+Observação Contextual
 </div>
 
-<div class="hud-item">
-<span>BPs Ativos</span>
-<span>14</span>
-</div>
-
-<div class="hud-item">
-<span>Coerência</span>
-<span>96%</span>
-</div>
-
-<div class="hud-item">
-<span>Integração</span>
-<span>Sincronizada</span>
-</div>
-
+<div class="operational-text" id="opText">
+A camada inicial amplia a percepção do cenário.
 </div>
 
 </div>
@@ -1138,30 +1329,10 @@ Leitura Operacional
 <div class="hud-card">
 
 <div class="hud-title">
-Componentes Ativos
+PIPELINE COGNITIVO
 </div>
 
-<div class="hud-list">
-
-<div class="hud-item">
-<span>PRISMA</span>
-<div class="status-dot"></div>
-</div>
-
-<div class="hud-item">
-<span>MEMO</span>
-<div class="status-dot"></div>
-</div>
-
-<div class="hud-item">
-<span>ATLAS</span>
-<div class="status-dot"></div>
-</div>
-
-<div class="hud-item">
-<span>REDE</span>
-<div class="status-dot"></div>
-</div>
+<div class="pipeline-cognitive" id="cognitiveContainer">
 
 </div>
 
@@ -1242,38 +1413,93 @@ for(let i=0;i<80;i++){
   p.style.opacity =
   Math.random()*.4;
 
-  p.style.transform =
-  `scale(${Math.random()*2})`;
-
   particles.appendChild(p);
 
 }
 
 /* =========================================================
-SCROLL FX
+HUD INTERACTION
 ========================================================= */
 
-const cards =
-document.querySelectorAll(".step-card");
+const steps =
+document.querySelectorAll(".step");
 
-window.addEventListener("scroll",()=>{
+const opTitle =
+document.getElementById("opTitle");
 
-  cards.forEach(card=>{
+const opText =
+document.getElementById("opText");
 
-    const rect =
-    card.getBoundingClientRect();
+const cognitiveContainer =
+document.getElementById("cognitiveContainer");
 
-    if(rect.top < window.innerHeight * .8){
+function updateHUD(step){
 
-      card.style.opacity = "1";
-      card.style.transform =
-      "translateY(0px)";
+  const title =
+  step.dataset.title;
 
-    }
+  const text =
+  step.dataset.text;
+
+  const cognitive =
+  JSON.parse(step.dataset.cognitive);
+
+  opTitle.innerHTML =
+  title;
+
+  opText.innerHTML =
+  text;
+
+  cognitiveContainer.innerHTML =
+  "";
+
+  cognitive.forEach(item=>{
+
+    const div =
+    document.createElement("div");
+
+    div.className =
+    "cognitive-item";
+
+    div.innerHTML = `
+
+      <div class="cognitive-name">
+        ${item.name}
+      </div>
+
+      <div class="cognitive-desc">
+        ${item.desc}
+      </div>
+
+    `;
+
+    cognitiveContainer.appendChild(div);
+
+  });
+
+}
+
+steps.forEach(step=>{
+
+  step.addEventListener("mouseenter",()=>{
+
+    updateHUD(step);
+
+  });
+
+  step.addEventListener("click",()=>{
+
+    updateHUD(step);
 
   });
 
 });
+
+/* =========================================================
+INITIAL LOAD
+========================================================= */
+
+updateHUD(steps[0]);
 
 </script>
 
