@@ -393,6 +393,56 @@
 .header .navmenu .active {
   color: #0d83fd !important;
 }
+
+
+
+
+
+    .video-wrapper {
+  position: relative;
+  width: 100%;
+  padding-bottom: 56.25%;
+  height: 0;
+  overflow: hidden;
+  border-radius: 28px;
+  box-shadow: 0 15px 40px rgba(0,0,0,0.08);
+}
+
+.video-wrapper iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+
+.video-section {
+  padding: 90px 0;
+}
+
+.video-box {
+  background: #fff;
+  border-radius: 35px;
+  padding: 40px;
+  box-shadow: 0 10px 40px rgba(0,0,0,0.04);
+}
+
+.video-box h2 {
+  color: #1f3c66;
+  font-size: 2.4rem;
+  margin-bottom: 20px;
+  font-weight: 700;
+}
+
+.video-box p {
+  color: #556b4f;
+  line-height: 1.9;
+  margin-bottom: 30px;
+}
+
+    
+
     
   </style>
 
@@ -535,7 +585,61 @@
     </div>
 
   </section>
+<!-- REPLAY DA LIVE -->
+<section class="video-section">
 
+  <div class="container">
+
+    <div class="video-box" data-aos="fade-up">
+
+      <div class="row align-items-center gy-5">
+
+        <div class="col-lg-5">
+
+          <h2>
+            Replay da Live
+          </h2>
+
+          <p>
+            Reviva os diálogos, afetos e reflexões compartilhadas no encontro
+            “Entre Passos e Afetos”.
+          </p>
+
+          <p>
+            Um espaço de acolhimento, escuta e fortalecimento emocional para mães
+            que acompanham seus filhos autistas na vida adulta.
+          </p>
+
+          <a href="https://www.youtube.com/watch?v=v2TQcI_MzJU"
+             target="_blank"
+             class="btn-passos">
+            Assistir no YouTube
+          </a>
+
+        </div>
+
+        <div class="col-lg-7">
+
+          <div class="video-wrapper">
+
+            <iframe
+              src="https://www.youtube.com/embed/v2TQcI_MzJU"
+              title="Entre Passos e Afetos"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowfullscreen>
+            </iframe>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
 
   <!-- CARDS -->
   <section class="section-soft pt-0">
