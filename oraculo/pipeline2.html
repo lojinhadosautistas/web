@@ -1,0 +1,1233 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+<title>Pipeline Cognitivo • ORÁCULO</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+<style>
+
+/* =========================================================
+RESET
+========================================================= */
+
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
+
+html{
+  scroll-behavior:smooth;
+}
+
+body{
+
+  font-family:'Inter',sans-serif;
+
+  background:
+  radial-gradient(circle at top,#132133 0%,#071019 55%),
+  linear-gradient(to bottom,#071019,#0b1522);
+
+  color:#f5efe6;
+
+  overflow-x:hidden;
+  position:relative;
+
+}
+
+/* =========================================================
+BACKGROUND
+========================================================= */
+
+body::before{
+  content:"";
+  position:fixed;
+  inset:0;
+
+  background:
+  radial-gradient(circle at top right,
+  rgba(214,160,95,.16),
+  transparent 35%),
+
+  radial-gradient(circle at bottom left,
+  rgba(110,168,255,.12),
+  transparent 40%);
+
+  z-index:-2;
+}
+
+body::after{
+  content:"";
+  position:fixed;
+  inset:0;
+
+  background-image:
+  linear-gradient(rgba(255,255,255,.02) 1px,transparent 1px),
+  linear-gradient(90deg,rgba(255,255,255,.02) 1px,transparent 1px);
+
+  background-size:80px 80px;
+
+  z-index:-1;
+  opacity:.35;
+}
+
+/* =========================================================
+PARTICLES
+========================================================= */
+
+.particle{
+  position:fixed;
+  border-radius:50%;
+  background:rgba(255,255,255,.08);
+  pointer-events:none;
+  animation:floatParticle linear infinite;
+}
+
+@keyframes floatParticle{
+
+  from{
+    transform:translateY(100vh);
+    opacity:0;
+  }
+
+  20%{
+    opacity:1;
+  }
+
+  to{
+    transform:translateY(-120vh);
+    opacity:0;
+  }
+
+}
+
+/* =========================================================
+CONTAINER
+========================================================= */
+
+.container{
+  width:min(1320px,92%);
+  margin:auto;
+  position:relative;
+  z-index:2;
+}
+
+/* =========================================================
+HEADER
+========================================================= */
+
+header{
+
+  min-height:100vh;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  text-align:center;
+  position:relative;
+
+  overflow:hidden;
+
+}
+
+.hero-glow{
+  position:absolute;
+
+  width:700px;
+  height:700px;
+
+  border-radius:50%;
+
+  background:
+  radial-gradient(circle,
+  rgba(214,160,95,.18),
+  transparent 70%);
+
+  filter:blur(40px);
+}
+
+.hero-content{
+  position:relative;
+  z-index:2;
+}
+
+.hero-mini{
+
+  letter-spacing:6px;
+  text-transform:uppercase;
+
+  color:#d6a05f;
+
+  font-size:.9rem;
+
+  margin-bottom:24px;
+
+}
+
+.hero-title{
+
+  font-family:'Cormorant Garamond',serif;
+
+  font-size:clamp(4rem,9vw,9rem);
+
+  line-height:.9;
+
+  margin-bottom:30px;
+
+  letter-spacing:-4px;
+
+}
+
+.hero-text{
+
+  max-width:900px;
+  margin:auto;
+
+  font-size:1.15rem;
+  line-height:2;
+
+  color:rgba(245,239,230,.72);
+
+}
+
+.hero-scroll{
+
+  margin-top:60px;
+
+  font-size:.85rem;
+
+  letter-spacing:3px;
+  text-transform:uppercase;
+
+  color:rgba(245,239,230,.45);
+
+}
+
+/* =========================================================
+MAIN
+========================================================= */
+
+.pipeline-section{
+  padding:120px 0 160px;
+}
+
+.pipeline-grid{
+
+  display:grid;
+  grid-template-columns:1.05fr .95fr;
+  gap:70px;
+  align-items:start;
+
+}
+
+/* =========================================================
+PIPELINE
+========================================================= */
+
+.pipeline-column{
+  position:relative;
+}
+
+.pipeline-line{
+
+  position:absolute;
+
+  left:42px;
+  top:0;
+  bottom:0;
+
+  width:2px;
+
+  background:
+  linear-gradient(
+    to bottom,
+    rgba(214,160,95,.0),
+    rgba(214,160,95,.55),
+    rgba(214,160,95,.0)
+  );
+
+}
+
+.pipeline-card{
+
+  position:relative;
+
+  margin-bottom:40px;
+
+  padding:40px;
+
+  padding-left:100px;
+
+  border-radius:34px;
+
+  background:
+  rgba(255,255,255,.05);
+
+  border:
+  1px solid rgba(255,255,255,.08);
+
+  backdrop-filter:blur(18px);
+
+  overflow:hidden;
+
+  transition:.5s ease;
+
+  box-shadow:
+  0 20px 50px rgba(0,0,0,.25);
+
+}
+
+.pipeline-card:hover{
+
+  transform:translateY(-8px);
+
+  border-color:
+  rgba(214,160,95,.35);
+
+  box-shadow:
+  0 25px 70px rgba(214,160,95,.10);
+
+}
+
+.pipeline-card::before{
+
+  content:"";
+
+  position:absolute;
+
+  inset:0;
+
+  background:
+  linear-gradient(
+    145deg,
+    rgba(214,160,95,.08),
+    transparent 60%
+  );
+
+  opacity:0;
+
+  transition:.4s;
+
+}
+
+.pipeline-card:hover::before{
+  opacity:1;
+}
+
+.pipeline-number{
+
+  position:absolute;
+
+  left:18px;
+  top:36px;
+
+  width:48px;
+  height:48px;
+
+  border-radius:50%;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  font-weight:700;
+
+  background:
+  linear-gradient(
+    145deg,
+    #d6a05f,
+    #9f6d31
+  );
+
+  color:#071019;
+
+  box-shadow:
+  0 0 25px rgba(214,160,95,.45);
+
+}
+
+.pipeline-label{
+
+  font-size:.8rem;
+
+  letter-spacing:3px;
+  text-transform:uppercase;
+
+  color:#d6a05f;
+
+  margin-bottom:14px;
+
+}
+
+.pipeline-card h2{
+
+  font-family:'Cormorant Garamond',serif;
+
+  font-size:2.4rem;
+
+  line-height:1;
+
+  margin-bottom:20px;
+
+}
+
+.pipeline-card p{
+
+  line-height:1.9;
+
+  color:rgba(245,239,230,.72);
+
+  margin-bottom:26px;
+
+}
+
+.pipeline-meta{
+
+  display:flex;
+  flex-wrap:wrap;
+  gap:14px;
+
+}
+
+.meta-item{
+
+  padding:12px 18px;
+
+  border-radius:999px;
+
+  background:
+  rgba(255,255,255,.06);
+
+  border:
+  1px solid rgba(255,255,255,.08);
+
+  font-size:.85rem;
+
+  color:rgba(245,239,230,.78);
+
+}
+
+/* =========================================================
+MAPA SISTÊMICO
+========================================================= */
+
+.system-map{
+
+  position:sticky;
+  top:40px;
+
+  min-height:900px;
+
+  border-radius:40px;
+
+  background:
+  rgba(255,255,255,.04);
+
+  border:
+  1px solid rgba(255,255,255,.08);
+
+  backdrop-filter:blur(18px);
+
+  overflow:hidden;
+
+  box-shadow:
+  0 20px 60px rgba(0,0,0,.3);
+
+}
+
+.map-header{
+
+  padding:40px;
+
+  border-bottom:
+  1px solid rgba(255,255,255,.06);
+
+}
+
+.map-mini{
+
+  font-size:.8rem;
+
+  letter-spacing:3px;
+  text-transform:uppercase;
+
+  color:#d6a05f;
+
+  margin-bottom:12px;
+
+}
+
+.map-header h2{
+
+  font-family:'Cormorant Garamond',serif;
+
+  font-size:3rem;
+
+  line-height:1;
+
+  margin-bottom:18px;
+
+}
+
+.map-header p{
+
+  line-height:1.9;
+
+  color:rgba(245,239,230,.7);
+
+}
+
+.map-core{
+
+  position:relative;
+
+  height:760px;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+}
+
+.orbit{
+
+  position:absolute;
+
+  border:
+  1px dashed rgba(255,255,255,.08);
+
+  border-radius:50%;
+
+  animation:rotateOrbit linear infinite;
+
+}
+
+.orbit-1{
+  width:240px;
+  height:240px;
+  animation-duration:24s;
+}
+
+.orbit-2{
+  width:420px;
+  height:420px;
+  animation-duration:38s;
+}
+
+.orbit-3{
+  width:620px;
+  height:620px;
+  animation-duration:54s;
+}
+
+@keyframes rotateOrbit{
+
+  from{
+    transform:rotate(0deg);
+  }
+
+  to{
+    transform:rotate(360deg);
+  }
+
+}
+
+.center-core{
+
+  width:170px;
+  height:170px;
+
+  border-radius:50%;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  text-align:center;
+
+  padding:20px;
+
+  background:
+  radial-gradient(circle,
+  rgba(214,160,95,.35),
+  rgba(214,160,95,.12));
+
+  border:
+  1px solid rgba(214,160,95,.35);
+
+  box-shadow:
+  0 0 60px rgba(214,160,95,.35);
+
+  position:relative;
+  z-index:5;
+
+}
+
+.center-core h3{
+
+  font-family:'Cormorant Garamond',serif;
+
+  font-size:2rem;
+
+  line-height:1;
+
+}
+
+.node{
+
+  position:absolute;
+
+  width:130px;
+  height:130px;
+
+  border-radius:50%;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  text-align:center;
+
+  padding:18px;
+
+  background:
+  rgba(255,255,255,.06);
+
+  border:
+  1px solid rgba(255,255,255,.08);
+
+  backdrop-filter:blur(16px);
+
+  color:#f5efe6;
+
+  line-height:1.4;
+
+  font-size:.92rem;
+
+  transition:.4s ease;
+
+}
+
+.node:hover{
+
+  transform:scale(1.08);
+
+  border-color:
+  rgba(214,160,95,.45);
+
+  box-shadow:
+  0 0 35px rgba(214,160,95,.2);
+
+}
+
+.node strong{
+  display:block;
+  margin-bottom:6px;
+  color:#d6a05f;
+}
+
+/* =========================================================
+POSITIONS
+========================================================= */
+
+.node-1{
+  top:120px;
+  left:50%;
+  transform:translateX(-50%);
+}
+
+.node-2{
+  top:50%;
+  left:70px;
+  transform:translateY(-50%);
+}
+
+.node-3{
+  top:50%;
+  right:70px;
+  transform:translateY(-50%);
+}
+
+.node-4{
+  bottom:120px;
+  left:50%;
+  transform:translateX(-50%);
+}
+
+.node-5{
+  top:180px;
+  left:130px;
+}
+
+.node-6{
+  top:180px;
+  right:130px;
+}
+
+.node-7{
+  bottom:180px;
+  left:130px;
+}
+
+/* =========================================================
+FOOTER
+========================================================= */
+
+.footer{
+  text-align:center;
+  padding:80px 0;
+}
+
+.footer p{
+
+  color:rgba(245,239,230,.45);
+
+  line-height:2;
+
+}
+
+/* =========================================================
+RESPONSIVE
+========================================================= */
+
+@media(max-width:1200px){
+
+  .pipeline-grid{
+    grid-template-columns:1fr;
+  }
+
+  .system-map{
+    position:relative;
+    min-height:auto;
+  }
+
+}
+
+@media(max-width:768px){
+
+  .hero-title{
+    font-size:4rem;
+  }
+
+  .pipeline-card{
+    padding:34px;
+    padding-left:34px;
+  }
+
+  .pipeline-number{
+    position:relative;
+    left:auto;
+    top:auto;
+    margin-bottom:24px;
+  }
+
+  .pipeline-line{
+    display:none;
+  }
+
+  .map-core{
+    height:900px;
+  }
+
+  .orbit{
+    display:none;
+  }
+
+  .node{
+    position:relative;
+    margin:20px auto;
+    top:auto;
+    left:auto;
+    right:auto;
+    bottom:auto;
+    transform:none !important;
+  }
+
+  .center-core{
+    margin:40px auto;
+  }
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<!-- PARTICLES -->
+
+<script>
+
+for(let i=0;i<40;i++){
+
+  const particle =
+  document.createElement("div");
+
+  particle.className =
+  "particle";
+
+  const size =
+  Math.random()*4+1;
+
+  particle.style.width =
+  size+"px";
+
+  particle.style.height =
+  size+"px";
+
+  particle.style.left =
+  Math.random()*100+"vw";
+
+  particle.style.animationDuration =
+  (15 + Math.random()*30)+"s";
+
+  particle.style.animationDelay =
+  Math.random()*10+"s";
+
+  document.body.appendChild(particle);
+
+}
+
+</script>
+
+<!-- HERO -->
+
+<header>
+
+  <div class="hero-glow"></div>
+
+  <div class="container">
+
+    <div class="hero-content">
+
+      <div class="hero-mini">
+        ORÁCULO • PIPELINE COGNITIVO
+      </div>
+
+      <h1 class="hero-title">
+        Estrutura Progressiva<br>
+        de Condução Reflexiva
+      </h1>
+
+      <p class="hero-text">
+        O Pipeline Cognitivo organiza o raciocínio em camadas progressivas,
+        transformando informação dispersa em percursos interpretativos
+        estruturados, coerentes e operacionalizáveis.
+      </p>
+
+      <div class="hero-scroll">
+        ↓ explorar arquitetura ↓
+      </div>
+
+    </div>
+
+  </div>
+
+</header>
+
+<!-- MAIN -->
+
+<section class="pipeline-section">
+
+  <div class="container">
+
+    <div class="pipeline-grid">
+
+      <!-- PIPELINE -->
+
+      <div class="pipeline-column">
+
+        <div class="pipeline-line"></div>
+
+        <!-- 1 -->
+
+        <div class="pipeline-card">
+
+          <div class="pipeline-number">01</div>
+
+          <div class="pipeline-label">
+            Camada Inicial
+          </div>
+
+          <h2>
+            Ativação
+          </h2>
+
+          <p>
+            Define o ponto de entrada do processo reflexivo,
+            acionando o sistema a partir de eventos,
+            padrões, dúvidas ou demandas estratégicas.
+          </p>
+
+          <div class="pipeline-meta">
+
+            <div class="meta-item">
+              Evento Crítico
+            </div>
+
+            <div class="meta-item">
+              Padrões Emergentes
+            </div>
+
+            <div class="meta-item">
+              Gatilhos Sistêmicos
+            </div>
+
+          </div>
+
+        </div>
+
+        <!-- 2 -->
+
+        <div class="pipeline-card">
+
+          <div class="pipeline-number">02</div>
+
+          <div class="pipeline-label">
+            Organização Contextual
+          </div>
+
+          <h2>
+            Contextualização
+          </h2>
+
+          <p>
+            Estrutura os dados disponíveis,
+            organiza evidências e delimita
+            o cenário inicial de análise.
+          </p>
+
+          <div class="pipeline-meta">
+
+            <div class="meta-item">
+              Registros
+            </div>
+
+            <div class="meta-item">
+              Relatórios
+            </div>
+
+            <div class="meta-item">
+              Dossiês
+            </div>
+
+          </div>
+
+        </div>
+
+        <!-- 3 -->
+
+        <div class="pipeline-card">
+
+          <div class="pipeline-number">03</div>
+
+          <div class="pipeline-label">
+            Navegação Cognitiva
+          </div>
+
+          <h2>
+            Condução Reflexiva
+          </h2>
+
+          <p>
+            Organiza sequências interpretativas
+            que orientam o raciocínio sem impor respostas,
+            preservando autonomia analítica.
+          </p>
+
+          <div class="pipeline-meta">
+
+            <div class="meta-item">
+              Perguntas Estruturantes
+            </div>
+
+            <div class="meta-item">
+              Sequências Cognitivas
+            </div>
+
+            <div class="meta-item">
+              Percursos Interpretativos
+            </div>
+
+          </div>
+
+        </div>
+
+        <!-- 4 -->
+
+        <div class="pipeline-card">
+
+          <div class="pipeline-number">04</div>
+
+          <div class="pipeline-label">
+            Articulação Sistêmica
+          </div>
+
+          <h2>
+            Integração
+          </h2>
+
+          <p>
+            Conecta múltiplas fontes do sistema,
+            garantindo coerência entre análise,
+            contexto e evidências disponíveis.
+          </p>
+
+          <div class="pipeline-meta">
+
+            <div class="meta-item">
+              PRISMA
+            </div>
+
+            <div class="meta-item">
+              MEMO
+            </div>
+
+            <div class="meta-item">
+              Atlas Cognitivo
+            </div>
+
+          </div>
+
+        </div>
+
+        <!-- 5 -->
+
+        <div class="pipeline-card">
+
+          <div class="pipeline-number">05</div>
+
+          <div class="pipeline-label">
+            Estruturação
+          </div>
+
+          <h2>
+            Organização
+          </h2>
+
+          <p>
+            Consolida os elementos do raciocínio
+            em estruturas compreensíveis,
+            reduzindo dispersão cognitiva.
+          </p>
+
+          <div class="pipeline-meta">
+
+            <div class="meta-item">
+              Clareza
+            </div>
+
+            <div class="meta-item">
+              Coerência
+            </div>
+
+            <div class="meta-item">
+              Síntese
+            </div>
+
+          </div>
+
+        </div>
+
+        <!-- 6 -->
+
+        <div class="pipeline-card">
+
+          <div class="pipeline-number">06</div>
+
+          <div class="pipeline-label">
+            Possibilidades Operacionais
+          </div>
+
+          <h2>
+            Direcionamento
+          </h2>
+
+          <p>
+            Estrutura caminhos possíveis de ação,
+            qualificando decisões sem automatizar
+            a condução humana.
+          </p>
+
+          <div class="pipeline-meta">
+
+            <div class="meta-item">
+              Planejamento
+            </div>
+
+            <div class="meta-item">
+              Estratégia
+            </div>
+
+            <div class="meta-item">
+              Tomada de Decisão
+            </div>
+
+          </div>
+
+        </div>
+
+        <!-- 7 -->
+
+        <div class="pipeline-card">
+
+          <div class="pipeline-number">07</div>
+
+          <div class="pipeline-label">
+            Aprendizado Sistêmico
+          </div>
+
+          <h2>
+            Retroalimentação
+          </h2>
+
+          <p>
+            O sistema retorna ao processo,
+            refinando padrões, fortalecendo
+            memória organizacional e ampliando
+            inteligência operacional.
+          </p>
+
+          <div class="pipeline-meta">
+
+            <div class="meta-item">
+              Evolução Contínua
+            </div>
+
+            <div class="meta-item">
+              Aprendizado
+            </div>
+
+            <div class="meta-item">
+              Refinamento
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+      <!-- MAPA -->
+
+      <div class="system-map">
+
+        <div class="map-header">
+
+          <div class="map-mini">
+            VISUALIZAÇÃO SISTÊMICA
+          </div>
+
+          <h2>
+            Mapa Vivo
+          </h2>
+
+          <p>
+            Estrutura relacional dinâmica que demonstra
+            a interação contínua entre evidências,
+            operadores, bibliotecas cognitivas e condução reflexiva.
+          </p>
+
+        </div>
+
+        <div class="map-core">
+
+          <div class="orbit orbit-1"></div>
+          <div class="orbit orbit-2"></div>
+          <div class="orbit orbit-3"></div>
+
+          <div class="center-core">
+
+            <h3>
+              ORÁCULO
+            </h3>
+
+          </div>
+
+          <div class="node node-1">
+            <div>
+              <strong>Operador</strong>
+              Mediação Humana
+            </div>
+          </div>
+
+          <div class="node node-2">
+            <div>
+              <strong>MEMO</strong>
+              Memória Organizacional
+            </div>
+          </div>
+
+          <div class="node node-3">
+            <div>
+              <strong>PRISMA</strong>
+              Leitura Contextual
+            </div>
+          </div>
+
+          <div class="node node-4">
+            <div>
+              <strong>Decisão</strong>
+              Direcionamento Estratégico
+            </div>
+          </div>
+
+          <div class="node node-5">
+            <div>
+              <strong>Atlas</strong>
+              Visualização Sistêmica
+            </div>
+          </div>
+
+          <div class="node node-6">
+            <div>
+              <strong>BPs</strong>
+              Blocos Programáticos
+            </div>
+          </div>
+
+          <div class="node node-7">
+            <div>
+              <strong>Evidências</strong>
+              Registros Estruturados
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+<!-- FOOTER -->
+
+<div class="footer">
+
+  <div class="container">
+
+    <p>
+      ORÁCULO • Interfaces de Condução Reflexiva<br>
+      Sistema REDE • Arquitetura Cognitiva Estruturada
+    </p>
+
+  </div>
+
+</div>
+
+</body>
+</html>
