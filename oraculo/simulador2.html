@@ -1,0 +1,1294 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+<title>
+ORÁCULO • Interface de Simulação Reflexiva
+</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Orbitron:wght@500;700;800&display=swap" rel="stylesheet">
+
+<style>
+
+/* =====================================================
+RESET
+===================================================== */
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+}
+
+html{
+scroll-behavior:smooth;
+}
+
+body{
+
+font-family:'Inter',sans-serif;
+
+background:
+radial-gradient(circle at top,#13203b 0%,#08111d 45%,#04070d 100%);
+
+color:white;
+overflow-x:hidden;
+position:relative;
+
+}
+
+/* =====================================================
+BACKGROUND
+===================================================== */
+
+body::before{
+
+content:"";
+position:fixed;
+inset:0;
+
+background:
+
+radial-gradient(circle at top right,
+rgba(255,179,0,.15),
+transparent 30%),
+
+radial-gradient(circle at bottom left,
+rgba(0,170,255,.15),
+transparent 35%);
+
+z-index:-3;
+
+}
+
+.grid-bg{
+
+position:fixed;
+inset:0;
+
+background-image:
+linear-gradient(rgba(255,255,255,.03) 1px, transparent 1px),
+linear-gradient(90deg, rgba(255,255,255,.03) 1px, transparent 1px);
+
+background-size:70px 70px;
+
+mask-image:
+radial-gradient(circle at center,
+black 35%,
+transparent 85%);
+
+z-index:-2;
+
+}
+
+.glow{
+position:fixed;
+border-radius:50%;
+filter:blur(140px);
+opacity:.25;
+z-index:-1;
+}
+
+.glow-1{
+width:500px;
+height:500px;
+background:#ffb300;
+top:-180px;
+right:-180px;
+}
+
+.glow-2{
+width:450px;
+height:450px;
+background:#00aaff;
+bottom:-180px;
+left:-180px;
+}
+
+/* =====================================================
+PARTICLES
+===================================================== */
+
+.particles{
+position:fixed;
+inset:0;
+overflow:hidden;
+z-index:-1;
+pointer-events:none;
+}
+
+.particle{
+
+position:absolute;
+width:3px;
+height:3px;
+border-radius:50%;
+background:white;
+opacity:.25;
+
+animation:float linear infinite;
+
+}
+
+@keyframes float{
+
+from{
+transform:translateY(100vh);
+}
+
+to{
+transform:translateY(-120vh);
+}
+
+}
+
+/* =====================================================
+CONTAINER
+===================================================== */
+
+.container{
+width:min(1500px,92%);
+margin:auto;
+}
+
+/* =====================================================
+HERO
+===================================================== */
+
+.hero{
+
+padding:100px 0 60px;
+text-align:center;
+position:relative;
+
+}
+
+.hero-mini{
+
+font-size:.85rem;
+letter-spacing:5px;
+text-transform:uppercase;
+color:#ffbf47;
+margin-bottom:25px;
+
+}
+
+.hero-title{
+
+font-family:'Orbitron',sans-serif;
+font-size:clamp(3rem,8vw,7rem);
+line-height:.9;
+margin-bottom:30px;
+
+text-shadow:
+0 0 40px rgba(255,179,0,.18);
+
+}
+
+.hero-sub{
+
+max-width:950px;
+margin:auto;
+
+font-size:1.15rem;
+line-height:2;
+
+color:rgba(255,255,255,.72);
+
+}
+
+/* =====================================================
+TOP ORBIT
+===================================================== */
+
+.orbit-wrapper{
+
+position:relative;
+width:420px;
+height:420px;
+margin:70px auto 40px;
+
+}
+
+.orbit-ring{
+
+position:absolute;
+inset:0;
+border-radius:50%;
+
+border:
+1px solid rgba(255,255,255,.08);
+
+animation:spin 20s linear infinite;
+
+}
+
+.orbit-ring::before{
+
+content:"";
+position:absolute;
+inset:20px;
+border-radius:50%;
+
+border:
+1px dashed rgba(255,179,0,.15);
+
+}
+
+.orbit-center{
+
+position:absolute;
+top:50%;
+left:50%;
+
+transform:translate(-50%,-50%);
+
+width:140px;
+height:140px;
+border-radius:50%;
+
+display:flex;
+align-items:center;
+justify-content:center;
+
+font-family:'Orbitron',sans-serif;
+font-size:2rem;
+font-weight:800;
+
+background:
+radial-gradient(circle,
+rgba(255,179,0,.25),
+rgba(255,255,255,.05));
+
+border:
+1px solid rgba(255,255,255,.08);
+
+backdrop-filter:blur(20px);
+
+box-shadow:
+0 0 50px rgba(255,179,0,.25);
+
+}
+
+.orbit-letter{
+
+position:absolute;
+top:50%;
+left:50%;
+
+width:90px;
+height:90px;
+margin:-45px;
+
+border-radius:50%;
+
+display:flex;
+align-items:center;
+justify-content:center;
+
+font-family:'Orbitron',sans-serif;
+font-size:2rem;
+font-weight:900;
+
+background:
+rgba(255,255,255,.05);
+
+border:
+1px solid rgba(255,255,255,.08);
+
+backdrop-filter:blur(16px);
+
+box-shadow:
+0 0 30px rgba(255,179,0,.12);
+
+}
+
+.orbit-letter span{
+
+background:
+linear-gradient(135deg,#ffffff,#ffbf47);
+
+-webkit-background-clip:text;
+-webkit-text-fill-color:transparent;
+
+}
+
+@keyframes spin{
+
+from{
+transform:rotate(0deg);
+}
+
+to{
+transform:rotate(360deg);
+}
+
+}
+
+/* =====================================================
+LAYOUT
+===================================================== */
+
+.main-grid{
+
+display:grid;
+grid-template-columns:1fr 380px;
+gap:40px;
+padding-bottom:120px;
+
+}
+
+/* =====================================================
+SIMULATOR
+===================================================== */
+
+.simulator{
+
+display:flex;
+flex-direction:column;
+gap:40px;
+
+}
+
+.layer{
+
+position:relative;
+
+padding:38px;
+border-radius:34px;
+
+background:
+rgba(255,255,255,.05);
+
+border:
+1px solid rgba(255,255,255,.08);
+
+backdrop-filter:blur(18px);
+
+overflow:hidden;
+
+transition:.4s ease;
+
+}
+
+.layer:hover{
+
+transform:translateY(-6px);
+
+border-color:
+rgba(255,179,0,.35);
+
+}
+
+.layer::before{
+
+content:"";
+position:absolute;
+inset:0;
+
+background:
+linear-gradient(
+135deg,
+rgba(255,179,0,.08),
+transparent 50%
+);
+
+pointer-events:none;
+
+}
+
+.layer-number{
+
+font-family:'Orbitron',sans-serif;
+font-size:4rem;
+opacity:.08;
+margin-bottom:10px;
+
+}
+
+.layer-title{
+
+font-size:2rem;
+font-weight:800;
+margin-bottom:18px;
+
+}
+
+.layer-question{
+
+font-size:1.08rem;
+line-height:1.9;
+
+color:rgba(255,255,255,.74);
+
+margin-bottom:25px;
+
+}
+
+.layer textarea{
+
+width:100%;
+min-height:140px;
+
+padding:24px;
+border-radius:24px;
+
+border:
+1px solid rgba(255,255,255,.08);
+
+background:
+rgba(0,0,0,.28);
+
+color:white;
+
+font-size:1rem;
+font-family:'Inter',sans-serif;
+
+resize:vertical;
+outline:none;
+
+transition:.3s;
+
+}
+
+.layer textarea:focus{
+
+border-color:
+rgba(255,179,0,.45);
+
+box-shadow:
+0 0 30px rgba(255,179,0,.12);
+
+}
+
+.layer-actions{
+
+display:flex;
+gap:16px;
+margin-top:25px;
+flex-wrap:wrap;
+
+}
+
+.btn{
+
+padding:16px 28px;
+border-radius:999px;
+border:none;
+
+font-weight:700;
+cursor:pointer;
+
+transition:.3s ease;
+
+}
+
+.btn-primary{
+
+background:
+linear-gradient(135deg,#ffb300,#ff7a00);
+
+color:black;
+
+box-shadow:
+0 0 35px rgba(255,179,0,.22);
+
+}
+
+.btn-primary:hover{
+
+transform:translateY(-3px);
+
+}
+
+.btn-secondary{
+
+background:
+rgba(255,255,255,.05);
+
+border:
+1px solid rgba(255,255,255,.08);
+
+color:white;
+
+}
+
+.oracle-response{
+
+margin-top:30px;
+
+padding:28px;
+border-radius:24px;
+
+background:
+rgba(255,255,255,.04);
+
+border:
+1px solid rgba(255,255,255,.08);
+
+display:none;
+
+line-height:1.9;
+
+color:rgba(255,255,255,.78);
+
+animation:fadeIn .5s ease;
+
+}
+
+.oracle-response.active{
+display:block;
+}
+
+@keyframes fadeIn{
+
+from{
+opacity:0;
+transform:translateY(10px);
+}
+
+to{
+opacity:1;
+transform:translateY(0px);
+}
+
+}
+
+/* =====================================================
+HUD
+===================================================== */
+
+.hud{
+
+position:sticky;
+top:40px;
+
+display:flex;
+flex-direction:column;
+gap:24px;
+
+height:fit-content;
+
+}
+
+.hud-card{
+
+padding:30px;
+border-radius:30px;
+
+background:
+rgba(255,255,255,.05);
+
+border:
+1px solid rgba(255,255,255,.08);
+
+backdrop-filter:blur(20px);
+
+}
+
+.hud-title{
+
+font-size:.85rem;
+letter-spacing:3px;
+text-transform:uppercase;
+
+color:#ffbf47;
+
+margin-bottom:18px;
+
+}
+
+.hud-big{
+
+font-size:2rem;
+font-weight:900;
+
+}
+
+.hud-list{
+
+display:flex;
+flex-direction:column;
+gap:15px;
+
+}
+
+.hud-item{
+
+display:flex;
+justify-content:space-between;
+gap:12px;
+
+padding:14px 0;
+
+border-bottom:
+1px solid rgba(255,255,255,.06);
+
+color:rgba(255,255,255,.75);
+
+}
+
+.progress-bar{
+
+width:100%;
+height:18px;
+border-radius:999px;
+
+background:
+rgba(255,255,255,.08);
+
+overflow:hidden;
+
+margin-top:18px;
+
+}
+
+.progress-fill{
+
+height:100%;
+width:0%;
+
+background:
+linear-gradient(90deg,#ffb300,#00aaff);
+
+transition:.5s ease;
+
+}
+
+.score{
+
+font-size:4rem;
+font-weight:900;
+
+background:
+linear-gradient(135deg,#ffffff,#ffbf47);
+
+-webkit-background-clip:text;
+-webkit-text-fill-color:transparent;
+
+}
+
+.status{
+
+display:flex;
+align-items:center;
+gap:14px;
+
+font-weight:700;
+
+}
+
+.status-dot{
+
+width:14px;
+height:14px;
+border-radius:50%;
+
+background:#00ff99;
+
+box-shadow:
+0 0 20px rgba(0,255,153,.7);
+
+}
+
+/* =====================================================
+RESPONSIVE
+===================================================== */
+
+@media(max-width:1200px){
+
+.main-grid{
+grid-template-columns:1fr;
+}
+
+.hud{
+position:relative;
+top:auto;
+}
+
+}
+
+@media(max-width:768px){
+
+.orbit-wrapper{
+width:320px;
+height:320px;
+}
+
+.orbit-letter{
+width:70px;
+height:70px;
+margin:-35px;
+font-size:1.4rem;
+}
+
+.hero-title{
+font-size:3rem;
+}
+
+.layer{
+padding:28px;
+}
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="grid-bg"></div>
+
+<div class="glow glow-1"></div>
+<div class="glow glow-2"></div>
+
+<div class="particles" id="particles"></div>
+
+<!-- HERO -->
+
+<section class="hero">
+
+<div class="container">
+
+<div class="hero-mini">
+ORÁCULO • INTERFACE DE SIMULAÇÃO REFLEXIVA
+</div>
+
+<h1 class="hero-title">
+SIMULADOR<br>
+ORÁCULO
+</h1>
+
+<p class="hero-sub">
+Uma experiência reflexiva gamificada baseada
+nas 7 camadas progressivas do ORÁCULO.
+Cada reflexão ativa trajetórias cognitivas,
+estimula leituras sistêmicas e reorganiza
+a percepção do operador diante da complexidade.
+</p>
+
+<!-- ORBIT -->
+
+<div class="orbit-wrapper">
+
+<div class="orbit-ring"></div>
+
+<div class="orbit-center">
+REDE
+</div>
+
+<div class="orbit-letter" style="transform:translate(-50%,-50%) rotate(0deg) translateY(-190px) rotate(0deg)">
+<span>O</span>
+</div>
+
+<div class="orbit-letter" style="transform:translate(-50%,-50%) rotate(51deg) translateY(-190px) rotate(-51deg)">
+<span>R</span>
+</div>
+
+<div class="orbit-letter" style="transform:translate(-50%,-50%) rotate(102deg) translateY(-190px) rotate(-102deg)">
+<span>A</span>
+</div>
+
+<div class="orbit-letter" style="transform:translate(-50%,-50%) rotate(153deg) translateY(-190px) rotate(-153deg)">
+<span>C</span>
+</div>
+
+<div class="orbit-letter" style="transform:translate(-50%,-50%) rotate(204deg) translateY(-190px) rotate(-204deg)">
+<span>U</span>
+</div>
+
+<div class="orbit-letter" style="transform:translate(-50%,-50%) rotate(255deg) translateY(-190px) rotate(-255deg)">
+<span>L</span>
+</div>
+
+<div class="orbit-letter" style="transform:translate(-50%,-50%) rotate(306deg) translateY(-190px) rotate(-306deg)">
+<span>O</span>
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- MAIN -->
+
+<section>
+
+<div class="container">
+
+<div class="main-grid">
+
+<!-- SIMULADOR -->
+
+<div class="simulator" id="simulator">
+
+</div>
+
+<!-- HUD -->
+
+<div class="hud">
+
+<div class="hud-card">
+
+<div class="hud-title">
+STATUS DO SISTEMA
+</div>
+
+<div class="status">
+<div class="status-dot"></div>
+ORÁCULO ONLINE
+</div>
+
+</div>
+
+<div class="hud-card">
+
+<div class="hud-title">
+PROGRESSÃO REFLEXIVA
+</div>
+
+<div class="hud-big" id="progressText">
+0 / 7
+</div>
+
+<div class="progress-bar">
+<div class="progress-fill" id="progressFill"></div>
+</div>
+
+</div>
+
+<div class="hud-card">
+
+<div class="hud-title">
+SCORE DE COERÊNCIA
+</div>
+
+<div class="score" id="score">
+0%
+</div>
+
+</div>
+
+<div class="hud-card">
+
+<div class="hud-title">
+MAPA SISTÊMICO VIVO
+</div>
+
+<div class="hud-list">
+
+<div class="hud-item">
+<span>Contexto</span>
+<span id="mapa1">Inativo</span>
+</div>
+
+<div class="hud-item">
+<span>Padrões</span>
+<span id="mapa2">Inativo</span>
+</div>
+
+<div class="hud-item">
+<span>BPs</span>
+<span id="mapa3">Inativo</span>
+</div>
+
+<div class="hud-item">
+<span>Estratégia</span>
+<span id="mapa4">Inativo</span>
+</div>
+
+<div class="hud-item">
+<span>Integração</span>
+<span id="mapa5">Inativo</span>
+</div>
+
+<div class="hud-item">
+<span>Leitura</span>
+<span id="mapa6">Inativo</span>
+</div>
+
+<div class="hud-item">
+<span>Direcionamento</span>
+<span id="mapa7">Inativo</span>
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+<script>
+
+/* =====================================================
+PARTICLES
+===================================================== */
+
+const particles =
+document.getElementById("particles");
+
+for(let i=0;i<80;i++){
+
+const p =
+document.createElement("div");
+
+p.classList.add("particle");
+
+p.style.left =
+Math.random()*100 + "vw";
+
+p.style.animationDuration =
+(15 + Math.random()*30) + "s";
+
+p.style.animationDelay =
+Math.random()*-30 + "s";
+
+p.style.opacity =
+Math.random()*.4;
+
+particles.appendChild(p);
+
+}
+
+/* =====================================================
+LAYERS
+===================================================== */
+
+const reflections = [
+
+{
+title:"Observação Contextual",
+question:"O que neste contexto parece invisível para a maioria das pessoas, mas chama sua atenção intuitivamente?"
+},
+
+{
+title:"Reconhecimento de Padrões",
+question:"Quais recorrências emocionais, operacionais ou comportamentais parecem emergir neste cenário?"
+},
+
+{
+title:"Ativação de BPs",
+question:"Que estruturas, caminhos ou estratégias você acredita que precisam ser ativadas agora?"
+},
+
+{
+title:"Configuração Estratégica",
+question:"Quais prioridades, riscos e recursos precisam ser reorganizados neste momento?"
+},
+
+{
+title:"Unidade Integrada",
+question:"Como diferentes dimensões deste contexto poderiam operar de forma integrada?"
+},
+
+{
+title:"Leitura Dinâmica",
+question:"Quais mudanças contextuais podem alterar completamente a interpretação atual?"
+},
+
+{
+title:"Output Programático",
+question:"Qual direção prática parece mais coerente diante da leitura construída até aqui?"
+}
+
+];
+
+/* =====================================================
+100 RESPOSTAS DO ORÁCULO
+===================================================== */
+
+const oracleResponses = [
+
+"A clareza raramente surge antes da travessia.",
+"O sistema reage melhor quando o operador reduz a fragmentação.",
+"O contexto ainda guarda variáveis não observadas.",
+"A percepção amadurece quando o julgamento desacelera.",
+"O silêncio estrutural também comunica padrões.",
+"Nem toda incoerência é um erro; algumas são sinais de transição.",
+"O ORÁCULO detecta convergência reflexiva.",
+"Existe uma camada mais profunda abaixo da primeira leitura.",
+"Alguns caminhos só se revelam após integração contextual.",
+"A repetição frequentemente denuncia estruturas invisíveis.",
+
+"A complexidade pede observação antes de resposta.",
+"Seu raciocínio começou a formar coerência sistêmica.",
+"Decisões reativas tendem a ocultar padrões relevantes.",
+"A direção correta nem sempre é a mais imediata.",
+"O sistema identifica aumento de clareza operacional.",
+"A integração reduz ruído cognitivo.",
+"O excesso de certeza pode bloquear leitura contextual.",
+"A leitura estratégica exige tolerância à ambiguidade.",
+"Você está aproximando contexto e significado.",
+"Nem toda resposta precisa encerrar a reflexão.",
+
+"O ORÁCULO reconhece deslocamento perceptivo.",
+"Há elementos ainda desconectados no sistema.",
+"A observação sustentada altera a qualidade da análise.",
+"Alguns padrões se repetem até serem compreendidos.",
+"A coerência nasce da integração entre múltiplas dimensões.",
+"Uma leitura madura evita simplificações prematuras.",
+"O sistema detecta potencial de reorganização cognitiva.",
+"A profundidade da análise depende da qualidade da escuta.",
+"Os sinais mais importantes raramente são os mais ruidosos.",
+"O percurso reflexivo continua se expandindo.",
+
+"A clareza operacional está aumentando.",
+"Seu raciocínio demonstra articulação sistêmica.",
+"O sistema sugere ampliar a leitura contextual.",
+"Há relações invisíveis emergindo entre os elementos.",
+"O ORÁCULO detecta redução de dispersão cognitiva.",
+"A condução reflexiva favorece decisões mais consistentes.",
+"A percepção contextual amadurece em camadas.",
+"O sentido estratégico surge da integração progressiva.",
+"A resposta talvez esteja na relação entre os elementos.",
+"O sistema identifica coerência emergente.",
+
+"Cada reflexão altera o mapa sistêmico.",
+"O operador influencia a leitura ao observar.",
+"Há caminhos ainda não ativados no sistema.",
+"O contexto parece solicitar reorganização estratégica.",
+"A percepção integrada reduz ruídos emocionais.",
+"O ORÁCULO reconhece ampliação de consciência contextual.",
+"Nem toda dúvida representa fragilidade.",
+"A observação consistente fortalece o direcionamento.",
+"Os padrões começam a formar unidade operacional.",
+"O sistema detecta estabilidade reflexiva.",
+
+"A interpretação continua em construção.",
+"A complexidade exige profundidade antes de ação.",
+"O percurso cognitivo permanece ativo.",
+"A clareza nasce da integração e não da velocidade.",
+"O sistema percebe expansão de coerência.",
+"Algumas respostas só surgem após reorganização interna.",
+"A leitura contextual alcançou nova profundidade.",
+"Os sinais críticos parecem mais visíveis agora.",
+"O ORÁCULO identifica potencial estratégico crescente.",
+"O raciocínio demonstra alinhamento progressivo.",
+
+"A condução continua aberta.",
+"A estrutura do pensamento começou a se consolidar.",
+"O sistema detecta maior aderência contextual.",
+"Os elementos dispersos começaram a convergir.",
+"A reflexão permanece em movimento.",
+"O ORÁCULO sugere continuar aprofundando a leitura.",
+"Seu percurso demonstra ampliação sistêmica.",
+"O significado emerge da relação entre camadas.",
+"A integração contextual continua evoluindo.",
+"O sistema reconhece expansão interpretativa.",
+
+"A coerência não elimina complexidade; ela organiza.",
+"Os sinais silenciosos parecem ganhar relevância.",
+"O ORÁCULO detecta estabilidade cognitiva parcial.",
+"A profundidade da análise influencia o direcionamento.",
+"O contexto sugere necessidade de adaptação.",
+"A leitura operacional alcançou novo estágio.",
+"A percepção integrada continua amadurecendo.",
+"O sistema sugere revisar conexões ocultas.",
+"O raciocínio demonstra maior consistência.",
+"A estrutura reflexiva permanece ativa.",
+
+"A interpretação sistêmica continua se refinando.",
+"O operador parece mais conectado ao contexto.",
+"O sistema reconhece aumento de integração.",
+"A leitura contextual segue em expansão.",
+"Nem toda clareza é imediata.",
+"A coerência surge quando as camadas convergem.",
+"O ORÁCULO identifica estabilidade operacional crescente.",
+"A observação profunda altera a direção do pensamento.",
+"A reflexão continua reorganizando o sistema.",
+"O percurso permanece aberto à descoberta."
+
+];
+
+/* =====================================================
+RENDER
+===================================================== */
+
+const simulator =
+document.getElementById("simulator");
+
+let completed = 0;
+
+reflections.forEach((item,index)=>{
+
+const layer =
+document.createElement("div");
+
+layer.className = "layer";
+
+layer.innerHTML = `
+
+<div class="layer-number">
+0${index+1}
+</div>
+
+<div class="layer-title">
+${item.title}
+</div>
+
+<div class="layer-question">
+${item.question}
+</div>
+
+<textarea
+placeholder="Escreva sua reflexão..."
+id="input-${index}">
+</textarea>
+
+<div class="layer-actions">
+
+<button
+class="btn btn-primary"
+onclick="submitReflection(${index})">
+
+Enviar Reflexão
+
+</button>
+
+<button
+class="btn btn-secondary">
+
+Camada ${index+1}
+
+</button>
+
+</div>
+
+<div
+class="oracle-response"
+id="response-${index}">
+</div>
+
+`;
+
+simulator.appendChild(layer);
+
+});
+
+/* =====================================================
+SUBMIT
+===================================================== */
+
+function submitReflection(index){
+
+const input =
+document.getElementById(`input-${index}`);
+
+const response =
+document.getElementById(`response-${index}`);
+
+if(input.value.trim() === ""){
+
+response.classList.add("active");
+
+response.innerHTML =
+"⚠️ O ORÁCULO requer uma reflexão antes da progressão.";
+
+return;
+
+}
+
+const randomResponse =
+oracleResponses[
+Math.floor(Math.random()*oracleResponses.length)
+];
+
+response.classList.add("active");
+
+response.innerHTML =
+`<strong>ORÁCULO:</strong><br><br>${randomResponse}`;
+
+if(!input.dataset.completed){
+
+input.dataset.completed = "true";
+
+completed++;
+
+updateHud(index);
+
+}
+
+}
+
+/* =====================================================
+HUD
+===================================================== */
+
+function updateHud(index){
+
+const progress =
+(completed / reflections.length) * 100;
+
+document.getElementById("progressFill")
+.style.width =
+progress + "%";
+
+document.getElementById("progressText")
+.innerHTML =
+`${completed} / ${reflections.length}`;
+
+document.getElementById("score")
+.innerHTML =
+Math.floor(progress) + "%";
+
+document.getElementById(`mapa${index+1}`)
+.innerHTML =
+"ATIVO";
+
+}
+
+/* =====================================================
+SCROLL FX
+===================================================== */
+
+const observer =
+new IntersectionObserver(entries=>{
+
+entries.forEach(entry=>{
+
+if(entry.isIntersecting){
+
+entry.target.style.opacity = 1;
+entry.target.style.transform =
+"translateY(0px)";
+
+}
+
+});
+
+},{
+threshold:.15
+});
+
+document.querySelectorAll(".layer").forEach(layer=>{
+
+layer.style.opacity = 0;
+layer.style.transform =
+"translateY(40px)";
+
+layer.style.transition =
+".8s ease";
+
+observer.observe(layer);
+
+});
+
+</script>
+
+</body>
+</html>
