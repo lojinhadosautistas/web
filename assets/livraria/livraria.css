@@ -397,14 +397,26 @@ body{
    ========================================================= */
 
 .hero-stack-mobile{
-  margin:10px 0 40px;
+
+  display:flex;
+  justify-content:center;
+
+  margin:
+    10px auto
+    40px auto;
 }
 
 .hero-stack-mobile .hero-stack{
 
-  min-height:420px;
+  min-height:360px;
 
-  max-width:340px;
+  max-width:320px;
+
+  width:100%;
+}
+
+.hero-stack-mobile .hero-book{
+  width:180px;
 }
 
 
