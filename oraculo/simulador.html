@@ -1,0 +1,1352 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+<title>
+ORÁCULO • Interface de Simulação Reflexiva
+</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Orbitron:wght@500;700;800;900&display=swap" rel="stylesheet">
+
+<style>
+
+/* =========================================================
+RESET
+========================================================= */
+
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
+
+html{
+  scroll-behavior:smooth;
+}
+
+body{
+  font-family:'Inter',sans-serif;
+  background:
+  radial-gradient(circle at top,#11203d 0%,#08101d 45%,#04070d 100%);
+  color:white;
+  overflow-x:hidden;
+  min-height:100vh;
+  position:relative;
+}
+
+/* =========================================================
+BACKGROUND
+========================================================= */
+
+body::before{
+  content:"";
+  position:fixed;
+  inset:0;
+
+  background:
+  radial-gradient(circle at top right,
+  rgba(255,179,0,.14),
+  transparent 30%),
+
+  radial-gradient(circle at bottom left,
+  rgba(0,170,255,.14),
+  transparent 35%);
+
+  z-index:-4;
+}
+
+.grid-bg{
+  position:fixed;
+  inset:0;
+
+  background-image:
+  linear-gradient(rgba(255,255,255,.03) 1px, transparent 1px),
+  linear-gradient(90deg, rgba(255,255,255,.03) 1px, transparent 1px);
+
+  background-size:70px 70px;
+
+  mask-image:
+  radial-gradient(circle at center,
+  black 30%,
+  transparent 85%);
+
+  z-index:-3;
+}
+
+.glow{
+  position:fixed;
+  border-radius:50%;
+  filter:blur(140px);
+  opacity:.25;
+  z-index:-2;
+}
+
+.glow-1{
+  width:450px;
+  height:450px;
+  background:#ffb300;
+  top:-180px;
+  right:-180px;
+}
+
+.glow-2{
+  width:450px;
+  height:450px;
+  background:#00aaff;
+  bottom:-180px;
+  left:-180px;
+}
+
+.particles{
+  position:fixed;
+  inset:0;
+  z-index:-1;
+  overflow:hidden;
+}
+
+.particle{
+  position:absolute;
+  width:4px;
+  height:4px;
+  border-radius:50%;
+  background:white;
+  opacity:.2;
+  animation:float linear infinite;
+}
+
+@keyframes float{
+
+  from{
+    transform:translateY(100vh);
+  }
+
+  to{
+    transform:translateY(-120vh);
+  }
+
+}
+
+/* =========================================================
+LAYOUT
+========================================================= */
+
+.container{
+  width:min(1500px,92%);
+  margin:auto;
+}
+
+/* =========================================================
+HERO
+========================================================= */
+
+.hero{
+  padding:90px 0 50px;
+  position:relative;
+}
+
+.hero-grid{
+  display:grid;
+  grid-template-columns:1.1fr .9fr;
+  gap:40px;
+  align-items:center;
+}
+
+.hero-mini{
+  letter-spacing:4px;
+  text-transform:uppercase;
+  color:#ffbf47;
+  margin-bottom:25px;
+  font-size:.85rem;
+}
+
+.hero h1{
+  font-family:'Orbitron',sans-serif;
+  font-size:clamp(3.8rem,9vw,7rem);
+  line-height:.9;
+  margin-bottom:20px;
+}
+
+.hero h2{
+  font-size:1.5rem;
+  color:rgba(255,255,255,.78);
+  margin-bottom:30px;
+}
+
+.hero p{
+  line-height:2;
+  color:rgba(255,255,255,.72);
+  max-width:760px;
+  font-size:1.05rem;
+}
+
+.hero-stats{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:20px;
+  margin-top:45px;
+}
+
+.stat-card{
+  background:rgba(255,255,255,.05);
+  border:1px solid rgba(255,255,255,.08);
+  border-radius:28px;
+  padding:26px;
+  backdrop-filter:blur(18px);
+}
+
+.stat-title{
+  opacity:.65;
+  margin-bottom:12px;
+}
+
+.stat-value{
+  font-size:2.4rem;
+  font-weight:900;
+}
+
+.hero-visual{
+  position:relative;
+  min-height:540px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+
+.core{
+  width:360px;
+  height:360px;
+  border-radius:50%;
+  position:relative;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  background:
+  radial-gradient(circle,
+  rgba(255,179,0,.18),
+  rgba(255,255,255,.02));
+
+  border:
+  1px solid rgba(255,255,255,.08);
+
+  box-shadow:
+  0 0 120px rgba(255,179,0,.18);
+}
+
+.core::before{
+  content:"";
+  position:absolute;
+  width:450px;
+  height:450px;
+  border-radius:50%;
+  border:1px solid rgba(255,255,255,.08);
+  animation:rotate 18s linear infinite;
+}
+
+.core::after{
+  content:"";
+  position:absolute;
+  width:560px;
+  height:560px;
+  border-radius:50%;
+  border:1px dashed rgba(255,179,0,.12);
+  animation:rotateReverse 26s linear infinite;
+}
+
+.core-title{
+  text-align:center;
+  z-index:2;
+}
+
+.core-title h3{
+  font-family:'Orbitron',sans-serif;
+  font-size:4rem;
+}
+
+.core-title p{
+  margin-top:12px;
+  opacity:.7;
+}
+
+.orbit{
+  position:absolute;
+  width:100%;
+  height:100%;
+  animation:rotate 14s linear infinite;
+}
+
+.orbit-item{
+  position:absolute;
+  width:82px;
+  height:82px;
+  border-radius:50%;
+  background:rgba(255,255,255,.06);
+
+  border:1px solid rgba(255,255,255,.08);
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  backdrop-filter:blur(14px);
+
+  font-weight:800;
+}
+
+.orbit-item:nth-child(1){
+  top:-40px;
+  left:50%;
+  transform:translateX(-50%);
+}
+
+.orbit-item:nth-child(2){
+  right:-40px;
+  top:50%;
+  transform:translateY(-50%);
+}
+
+.orbit-item:nth-child(3){
+  bottom:-40px;
+  left:50%;
+  transform:translateX(-50%);
+}
+
+.orbit-item:nth-child(4){
+  left:-40px;
+  top:50%;
+  transform:translateY(-50%);
+}
+
+@keyframes rotate{
+
+  from{
+    transform:rotate(0deg);
+  }
+
+  to{
+    transform:rotate(360deg);
+  }
+
+}
+
+@keyframes rotateReverse{
+
+  from{
+    transform:rotate(360deg);
+  }
+
+  to{
+    transform:rotate(0deg);
+  }
+
+}
+
+/* =========================================================
+SIMULATOR
+========================================================= */
+
+.simulator{
+  padding:40px 0 140px;
+}
+
+.sim-grid{
+  display:grid;
+  grid-template-columns:1fr 390px;
+  gap:35px;
+}
+
+/* =========================================================
+MISSION
+========================================================= */
+
+.mission-card{
+  position:relative;
+  overflow:hidden;
+
+  background:rgba(255,255,255,.05);
+  border:1px solid rgba(255,255,255,.08);
+
+  border-radius:36px;
+
+  padding:45px;
+
+  backdrop-filter:blur(18px);
+}
+
+.layer-counter{
+  display:inline-flex;
+  align-items:center;
+  gap:12px;
+
+  padding:12px 18px;
+  border-radius:999px;
+
+  background:rgba(255,179,0,.12);
+
+  border:1px solid rgba(255,179,0,.18);
+
+  margin-bottom:30px;
+}
+
+.layer-counter span{
+  font-weight:800;
+}
+
+.layer-title{
+  font-family:'Orbitron',sans-serif;
+  font-size:clamp(2.2rem,5vw,4rem);
+  margin-bottom:20px;
+}
+
+.layer-desc{
+  line-height:2;
+  color:rgba(255,255,255,.72);
+  margin-bottom:40px;
+  max-width:900px;
+}
+
+.checklist{
+  display:flex;
+  flex-direction:column;
+  gap:18px;
+}
+
+.check-item{
+  display:flex;
+  gap:20px;
+  align-items:flex-start;
+
+  padding:24px;
+  border-radius:24px;
+
+  background:rgba(255,255,255,.04);
+
+  border:1px solid rgba(255,255,255,.06);
+
+  transition:.35s ease;
+}
+
+.check-item:hover{
+  transform:translateY(-3px);
+  border-color:rgba(255,179,0,.22);
+}
+
+.check-item.completed{
+  border-color:rgba(0,255,153,.4);
+  background:rgba(0,255,153,.08);
+}
+
+.check-button{
+  width:60px;
+  height:60px;
+  border:none;
+  border-radius:18px;
+
+  background:
+  linear-gradient(135deg,#ffb300,#ff7a00);
+
+  color:black;
+  font-size:1.6rem;
+  font-weight:900;
+
+  cursor:pointer;
+  flex-shrink:0;
+
+  transition:.3s;
+}
+
+.check-button:hover{
+  transform:scale(1.08);
+}
+
+.check-content{
+  flex:1;
+}
+
+.check-title{
+  font-size:1.2rem;
+  font-weight:800;
+  margin-bottom:10px;
+}
+
+.check-desc{
+  line-height:1.7;
+  color:rgba(255,255,255,.7);
+}
+
+.progress-area{
+  margin-top:40px;
+}
+
+.progress-label{
+  display:flex;
+  justify-content:space-between;
+  margin-bottom:14px;
+}
+
+.progress-bar{
+  width:100%;
+  height:18px;
+  border-radius:999px;
+  overflow:hidden;
+  background:rgba(255,255,255,.08);
+}
+
+.progress-fill{
+  height:100%;
+  width:0%;
+  background:
+  linear-gradient(90deg,#ffb300,#00aaff);
+
+  transition:.5s ease;
+}
+
+/* =========================================================
+HUD
+========================================================= */
+
+.hud{
+  position:sticky;
+  top:30px;
+
+  display:flex;
+  flex-direction:column;
+  gap:24px;
+}
+
+.hud-card{
+  background:rgba(255,255,255,.05);
+  border:1px solid rgba(255,255,255,.08);
+
+  border-radius:28px;
+  padding:28px;
+
+  backdrop-filter:blur(18px);
+}
+
+.hud-title{
+  color:#ffbf47;
+  letter-spacing:2px;
+  text-transform:uppercase;
+  font-size:.85rem;
+  margin-bottom:18px;
+}
+
+.hud-big{
+  font-size:2.6rem;
+  font-weight:900;
+}
+
+.hud-list{
+  display:flex;
+  flex-direction:column;
+  gap:16px;
+}
+
+.hud-item{
+  display:flex;
+  justify-content:space-between;
+  gap:10px;
+
+  padding-bottom:12px;
+
+  border-bottom:
+  1px solid rgba(255,255,255,.06);
+}
+
+.status-dot{
+  width:12px;
+  height:12px;
+  border-radius:50%;
+  background:#00ff99;
+
+  box-shadow:
+  0 0 16px rgba(0,255,153,.6);
+}
+
+.map{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:12px;
+}
+
+.map-node{
+  aspect-ratio:1;
+  border-radius:18px;
+
+  background:rgba(255,255,255,.05);
+
+  border:1px solid rgba(255,255,255,.08);
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  font-weight:800;
+
+  transition:.35s ease;
+}
+
+.map-node.active{
+  background:
+  linear-gradient(135deg,#ffb300,#ff7a00);
+
+  color:black;
+
+  transform:scale(1.08);
+
+  box-shadow:
+  0 0 30px rgba(255,179,0,.35);
+}
+
+/* =========================================================
+BUTTONS
+========================================================= */
+
+.actions{
+  display:flex;
+  gap:18px;
+  flex-wrap:wrap;
+  margin-top:45px;
+}
+
+.btn{
+  padding:18px 30px;
+  border-radius:999px;
+  text-decoration:none;
+  font-weight:800;
+  transition:.35s ease;
+}
+
+.btn-primary{
+  background:
+  linear-gradient(135deg,#ffb300,#ff7a00);
+
+  color:black;
+
+  box-shadow:
+  0 0 40px rgba(255,179,0,.25);
+}
+
+.btn-primary:hover{
+  transform:translateY(-4px);
+}
+
+.btn-secondary{
+  background:rgba(255,255,255,.05);
+
+  border:1px solid rgba(255,255,255,.08);
+
+  color:white;
+}
+
+.btn-secondary:hover{
+  background:rgba(255,255,255,.08);
+}
+
+/* =========================================================
+RESPONSIVE
+========================================================= */
+
+@media(max-width:1200px){
+
+  .hero-grid{
+    grid-template-columns:1fr;
+  }
+
+  .sim-grid{
+    grid-template-columns:1fr;
+  }
+
+  .hud{
+    position:relative;
+    top:auto;
+  }
+
+}
+
+@media(max-width:768px){
+
+  .hero h1{
+    font-size:3.5rem;
+  }
+
+  .mission-card{
+    padding:28px;
+  }
+
+  .check-item{
+    flex-direction:column;
+  }
+
+  .map{
+    grid-template-columns:repeat(2,1fr);
+  }
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="grid-bg"></div>
+
+<div class="glow glow-1"></div>
+<div class="glow glow-2"></div>
+
+<div class="particles" id="particles"></div>
+
+<!-- HERO -->
+
+<section class="hero">
+
+<div class="container">
+
+<div class="hero-grid">
+
+<div>
+
+<div class="hero-mini">
+ORÁCULO • Interface de Simulação Reflexiva
+</div>
+
+<h1>
+SIMULADOR<br>
+ORÁCULO
+</h1>
+
+<h2>
+Pipeline Cognitivo Operacional
+</h2>
+
+<p>
+Uma experiência gamificada de condução reflexiva.
+Cada camada reorganiza o raciocínio, reduz
+fragmentação cognitiva e conduz o operador
+por percursos progressivos de análise,
+integração e tomada de decisão consciente.
+</p>
+
+<div class="hero-stats">
+
+<div class="stat-card">
+
+<div class="stat-title">
+Camadas
+</div>
+
+<div class="stat-value">
+7
+</div>
+
+</div>
+
+<div class="stat-card">
+
+<div class="stat-title">
+Missões
+</div>
+
+<div class="stat-value">
+35
+</div>
+
+</div>
+
+<div class="stat-card">
+
+<div class="stat-title">
+Coerência
+</div>
+
+<div class="stat-value" id="coherence">
+0%
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<div class="hero-visual">
+
+<div class="core">
+
+<div class="orbit">
+
+<div class="orbit-item">O</div>
+<div class="orbit-item">R</div>
+<div class="orbit-item">Á</div>
+<div class="orbit-item">C</div>
+
+</div>
+
+<div class="core-title">
+
+<h3>ORÁCULO</h3>
+
+<p>
+Sistema Cognitivo Online
+</p>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- SIMULATOR -->
+
+<section class="simulator">
+
+<div class="container">
+
+<div class="sim-grid">
+
+<!-- MAIN -->
+
+<div class="mission-card">
+
+<div class="layer-counter">
+<span id="layerCounter">
+CAMADA 1 DE 7
+</span>
+</div>
+
+<h2 class="layer-title" id="layerTitle">
+Observação Contextual
+</h2>
+
+<p class="layer-desc" id="layerDesc">
+Leitura inicial do cenário, identificação de sinais críticos,
+contexto operacional e variáveis sistêmicas.
+</p>
+
+<div class="checklist" id="checklist"></div>
+
+<div class="progress-area">
+
+<div class="progress-label">
+
+<div>
+Progresso da Camada
+</div>
+
+<div id="progressText">
+0%
+</div>
+
+</div>
+
+<div class="progress-bar">
+<div class="progress-fill" id="progressFill"></div>
+</div>
+
+</div>
+
+<div class="actions">
+
+<button class="btn btn-primary" id="nextBtn">
+Próxima Camada
+</button>
+
+<a href="pipeline.html" class="btn btn-secondary">
+Voltar ao Pipeline
+</a>
+
+</div>
+
+</div>
+
+<!-- HUD -->
+
+<div class="hud">
+
+<div class="hud-card">
+
+<div class="hud-title">
+Status do Sistema
+</div>
+
+<div class="hud-big">
+ONLINE
+</div>
+
+</div>
+
+<div class="hud-card">
+
+<div class="hud-title">
+HUD Operacional
+</div>
+
+<div class="hud-list">
+
+<div class="hud-item">
+<span>Camada Atual</span>
+<span id="hudLayer">
+01
+</span>
+</div>
+
+<div class="hud-item">
+<span>Missões</span>
+<span id="hudTasks">
+0/5
+</span>
+</div>
+
+<div class="hud-item">
+<span>Score</span>
+<span id="hudScore">
+0
+</span>
+</div>
+
+<div class="hud-item">
+<span>Coerência</span>
+<span id="hudCoherence">
+0%
+</span>
+</div>
+
+</div>
+
+</div>
+
+<div class="hud-card">
+
+<div class="hud-title">
+Mapa Sistêmico Vivo
+</div>
+
+<div class="map" id="map"></div>
+
+</div>
+
+<div class="hud-card">
+
+<div class="hud-title">
+Componentes Ativos
+</div>
+
+<div class="hud-list">
+
+<div class="hud-item">
+<span>PRISMA</span>
+<div class="status-dot"></div>
+</div>
+
+<div class="hud-item">
+<span>MEMO</span>
+<div class="status-dot"></div>
+</div>
+
+<div class="hud-item">
+<span>ATLAS</span>
+<div class="status-dot"></div>
+</div>
+
+<div class="hud-item">
+<span>REDE</span>
+<div class="status-dot"></div>
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+<script>
+
+/* =========================================================
+PARTICLES
+========================================================= */
+
+const particles =
+document.getElementById("particles");
+
+for(let i=0;i<80;i++){
+
+  const p =
+  document.createElement("div");
+
+  p.classList.add("particle");
+
+  p.style.left =
+  Math.random()*100 + "vw";
+
+  p.style.animationDuration =
+  (15 + Math.random()*30) + "s";
+
+  p.style.animationDelay =
+  Math.random()*-30 + "s";
+
+  p.style.opacity =
+  Math.random()*.4;
+
+  particles.appendChild(p);
+
+}
+
+/* =========================================================
+LAYERS
+========================================================= */
+
+const layers = [
+
+{
+title:"Observação Contextual",
+desc:"Leitura inicial do cenário, identificação de sinais críticos, contexto operacional e variáveis sistêmicas.",
+
+tasks:[
+"Você identificou os principais sinais do contexto?",
+"As variáveis emocionais foram consideradas?",
+"Há fatores externos influenciando a leitura?",
+"O cenário apresenta instabilidade?",
+"Os elementos críticos foram priorizados?"
+]
+},
+
+{
+title:"Reconhecimento de Padrões",
+desc:"Conexões emergem entre dados, recorrências e estruturas previamente registradas.",
+
+tasks:[
+"Existem recorrências identificáveis?",
+"Há padrões comportamentais ativos?",
+"Os registros anteriores foram cruzados?",
+"O sistema detectou similaridades?",
+"Há clusters relevantes?"
+]
+},
+
+{
+title:"Ativação de BPs",
+desc:"Blocos Programáticos estruturam trajetórias reflexivas progressivas.",
+
+tasks:[
+"Qual BP foi ativado?",
+"O BP corresponde ao contexto?",
+"Existe sobreposição entre blocos?",
+"O percurso está coerente?",
+"O operador compreendeu a condução?"
+]
+},
+
+{
+title:"Configuração Estratégica",
+desc:"Organização de prioridades, restrições e objetivos.",
+
+tasks:[
+"As prioridades estão claras?",
+"Os recursos foram mapeados?",
+"Há restrições críticas?",
+"O objetivo central está definido?",
+"O sistema está alinhado?"
+]
+},
+
+{
+title:"Unidade Integrada",
+desc:"Integração das múltiplas dimensões do sistema.",
+
+tasks:[
+"As áreas estão sincronizadas?",
+"Existe coerência entre dados?",
+"O sistema opera como unidade?",
+"Há fragmentações ativas?",
+"As conexões foram estabilizadas?"
+]
+},
+
+{
+title:"Leitura Dinâmica",
+desc:"Monitoramento contínuo e adaptação contextual.",
+
+tasks:[
+"O cenário sofreu alterações?",
+"O ORÁCULO adaptou a leitura?",
+"Há sinais emergentes?",
+"O fluxo continua coerente?",
+"O monitoramento está ativo?"
+]
+},
+
+{
+title:"Output Programático",
+desc:"Direcionamento estratégico e organização da ação.",
+
+tasks:[
+"As diretrizes foram definidas?",
+"O plano está operacional?",
+"Existe clareza decisória?",
+"O sistema validou coerência?",
+"A condução foi concluída?"
+]
+}
+
+];
+
+/* =========================================================
+STATE
+========================================================= */
+
+let currentLayer = 0;
+let completedTasks = 0;
+let score = 0;
+
+const layerTitle =
+document.getElementById("layerTitle");
+
+const layerDesc =
+document.getElementById("layerDesc");
+
+const checklist =
+document.getElementById("checklist");
+
+const progressFill =
+document.getElementById("progressFill");
+
+const progressText =
+document.getElementById("progressText");
+
+const coherence =
+document.getElementById("coherence");
+
+const hudScore =
+document.getElementById("hudScore");
+
+const hudTasks =
+document.getElementById("hudTasks");
+
+const hudCoherence =
+document.getElementById("hudCoherence");
+
+const hudLayer =
+document.getElementById("hudLayer");
+
+const layerCounter =
+document.getElementById("layerCounter");
+
+const map =
+document.getElementById("map");
+
+const nextBtn =
+document.getElementById("nextBtn");
+
+/* =========================================================
+RENDER MAP
+========================================================= */
+
+function renderMap(){
+
+  map.innerHTML = "";
+
+  for(let i=0;i<7;i++){
+
+    const node =
+    document.createElement("div");
+
+    node.className = "map-node";
+
+    if(i <= currentLayer){
+
+      node.classList.add("active");
+
+    }
+
+    node.innerHTML =
+    i + 1;
+
+    map.appendChild(node);
+
+  }
+
+}
+
+/* =========================================================
+RENDER
+========================================================= */
+
+function renderLayer(){
+
+  const layer =
+  layers[currentLayer];
+
+  layerTitle.innerHTML =
+  layer.title;
+
+  layerDesc.innerHTML =
+  layer.desc;
+
+  layerCounter.innerHTML =
+  `CAMADA ${currentLayer+1} DE 7`;
+
+  hudLayer.innerHTML =
+  `0${currentLayer+1}`;
+
+  checklist.innerHTML = "";
+
+  completedTasks = 0;
+
+  updateProgress();
+
+  layer.tasks.forEach((task,index)=>{
+
+    const div =
+    document.createElement("div");
+
+    div.className =
+    "check-item";
+
+    div.innerHTML = `
+
+      <button
+      class="check-button"
+      onclick="completeTask(this)">
+      ✓
+      </button>
+
+      <div class="check-content">
+
+        <div class="check-title">
+        Missão ${index+1}
+        </div>
+
+        <div class="check-desc">
+        ${task}
+        </div>
+
+      </div>
+
+    `;
+
+    checklist.appendChild(div);
+
+  });
+
+  renderMap();
+
+}
+
+/* =========================================================
+COMPLETE
+========================================================= */
+
+function completeTask(button){
+
+  const item =
+  button.parentElement;
+
+  if(item.classList.contains("completed")){
+    return;
+  }
+
+  item.classList.add("completed");
+
+  button.innerHTML = "⭐";
+
+  completedTasks++;
+
+  score += 10;
+
+  updateProgress();
+
+}
+
+/* =========================================================
+UPDATE
+========================================================= */
+
+function updateProgress(){
+
+  const progress =
+  (completedTasks / 5) * 100;
+
+  progressFill.style.width =
+  progress + "%";
+
+  progressText.innerHTML =
+  `${progress}%`;
+
+  hudTasks.innerHTML =
+  `${completedTasks}/5`;
+
+  hudScore.innerHTML =
+  score;
+
+  coherence.innerHTML =
+  `${Math.floor((score/350)*100)}%`;
+
+  hudCoherence.innerHTML =
+  `${Math.floor((score/350)*100)}%`;
+
+}
+
+/* =========================================================
+NEXT
+========================================================= */
+
+nextBtn.addEventListener("click",()=>{
+
+  if(completedTasks < 5){
+
+    alert(
+    "Complete todas as missões da camada atual."
+    );
+
+    return;
+
+  }
+
+  if(currentLayer < layers.length - 1){
+
+    currentLayer++;
+
+    renderLayer();
+
+  }else{
+
+    alert(
+    "SIMULAÇÃO REFLEXIVA CONCLUÍDA."
+    );
+
+  }
+
+});
+
+/* =========================================================
+INIT
+========================================================= */
+
+renderLayer();
+
+</script>
+
+</body>
+</html>
