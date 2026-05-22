@@ -1,0 +1,679 @@
+/* =========================================================
+   COLEÇÃO 1
+   CADA PASSO, UMA JORNADA
+   UNIVERSO VISUAL DOS VOLUMES 1 → 6
+========================================================= */
+
+
+/* =========================================================
+   ROOT
+========================================================= */
+
+:root{
+
+  --col1-paper:#f7e4cf;
+  --col1-paper-soft:#fff7ef;
+
+  --col1-navy:#1d2b44;
+
+  --col1-gold:#d88a3c;
+  --col1-gold-dark:#b96d23;
+
+  --col1-white:#ffffff;
+
+  --col1-glass:
+  rgba(255,255,255,.08);
+
+  --col1-border:
+  rgba(255,255,255,.12);
+
+  --col1-shadow:
+  0 20px 60px rgba(0,0,0,.18);
+
+  --col1-text-soft:
+  rgba(255,255,255,.78);
+
+}
+
+
+/* =========================================================
+   BASE
+========================================================= */
+
+.book1-page{
+  background:#0f1728;
+  color:white;
+  overflow-x:hidden;
+  position:relative;
+}
+
+.book1-page::before{
+  content:"";
+  position:fixed;
+  inset:0;
+
+  background:
+  linear-gradient(
+    to bottom,
+    rgba(5,8,15,.88),
+    rgba(8,12,22,.94)
+  );
+
+  z-index:-2;
+}
+
+.book1-page::after{
+  content:"";
+  position:fixed;
+  inset:0;
+
+  background:
+  radial-gradient(circle at top right,
+  rgba(216,138,60,.14),
+  transparent 30%),
+
+  radial-gradient(circle at bottom left,
+  rgba(255,180,120,.08),
+  transparent 35%);
+
+  z-index:-1;
+  pointer-events:none;
+}
+
+
+/* =========================================================
+   AMBIENT GLOW
+========================================================= */
+
+.ambient-glow{
+  position:fixed;
+  border-radius:50%;
+  filter:blur(120px);
+  opacity:.35;
+  z-index:-1;
+  pointer-events:none;
+}
+
+.glow-1{
+  width:500px;
+  height:500px;
+  background:#d88a3c;
+  top:-180px;
+  right:-180px;
+}
+
+.glow-2{
+  width:400px;
+  height:400px;
+  background:#ffd7a0;
+  bottom:-180px;
+  left:-180px;
+}
+
+
+/* =========================================================
+   HERO
+========================================================= */
+
+.book-hero{
+  min-height:100vh;
+  display:flex;
+  align-items:center;
+  position:relative;
+  padding:140px 0 100px;
+  overflow:hidden;
+}
+
+.hero-overlay{
+  position:absolute;
+  inset:0;
+
+  background:
+  linear-gradient(
+    to bottom,
+    rgba(10,14,25,.35),
+    rgba(10,14,25,.72)
+  );
+
+  z-index:0;
+}
+
+.hero-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:90px;
+  align-items:center;
+  position:relative;
+  z-index:2;
+}
+
+
+/* =========================================================
+   HERO CONTENT
+========================================================= */
+
+.hero-content{
+  position:relative;
+  z-index:2;
+}
+
+.hero-badge{
+  display:inline-flex;
+  align-items:center;
+  gap:10px;
+
+  padding:12px 24px;
+
+  border-radius:999px;
+
+  background:
+  rgba(255,255,255,.08);
+
+  border:
+  1px solid rgba(255,255,255,.12);
+
+  backdrop-filter:blur(12px);
+
+  font-size:.9rem;
+  letter-spacing:1px;
+  text-transform:uppercase;
+
+  margin-bottom:24px;
+}
+
+.hero-mini{
+  font-size:1rem;
+  letter-spacing:3px;
+  text-transform:uppercase;
+  color:var(--col1-text-soft);
+
+  margin-bottom:22px;
+}
+
+.hero-title{
+  font-size:clamp(3.8rem, 7vw, 7rem);
+  line-height:.88;
+  letter-spacing:-3px;
+
+  margin-bottom:34px;
+
+  font-family:"Cormorant Garamond", serif;
+}
+
+.hero-text{
+  font-size:1.12rem;
+  line-height:2;
+
+  max-width:620px;
+
+  color:var(--col1-text-soft);
+
+  margin-bottom:24px;
+}
+
+
+/* =========================================================
+   BUTTONS
+========================================================= */
+
+.hero-actions,
+.final-actions{
+  display:flex;
+  flex-wrap:wrap;
+  gap:18px;
+
+  margin-top:40px;
+}
+
+.btn-primary,
+.btn-secondary{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+
+  padding:16px 30px;
+
+  border-radius:999px;
+
+  text-decoration:none;
+
+  transition:.35s ease;
+}
+
+.btn-primary{
+  background:
+  linear-gradient(
+    135deg,
+    var(--col1-gold),
+    var(--col1-gold-dark)
+  );
+
+  color:white;
+
+  box-shadow:
+  0 12px 35px rgba(216,138,60,.35);
+}
+
+.btn-primary:hover{
+  transform:translateY(-4px);
+}
+
+.btn-secondary{
+  background:
+  rgba(255,255,255,.06);
+
+  border:
+  1px solid rgba(255,255,255,.1);
+
+  color:white;
+
+  backdrop-filter:blur(10px);
+}
+
+.btn-secondary:hover{
+  background:
+  rgba(255,255,255,.12);
+}
+
+
+/* =========================================================
+   HERO VISUAL
+========================================================= */
+
+.hero-visual{
+  position:relative;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+}
+
+.book-glow{
+  position:absolute;
+
+  width:420px;
+  height:420px;
+
+  border-radius:50%;
+
+  background:
+  radial-gradient(circle,
+  rgba(216,138,60,.35),
+  transparent 70%);
+
+  filter:blur(20px);
+}
+
+.floating-book{
+  position:relative;
+
+  width:min(100%, 430px);
+
+  animation:bookFloat 7s ease-in-out infinite;
+}
+
+.floating-book img{
+  width:100%;
+  display:block;
+
+  border-radius:22px;
+
+  box-shadow:var(--col1-shadow);
+}
+
+
+/* =========================================================
+   QUOTE
+========================================================= */
+
+.quote-section{
+  padding:40px 0 140px;
+}
+
+.quote-box{
+  position:relative;
+
+  padding:90px 70px;
+
+  border-radius:40px;
+
+  background:
+  linear-gradient(
+    145deg,
+    rgba(255,255,255,.08),
+    rgba(255,255,255,.03)
+  );
+
+  border:
+  1px solid rgba(255,255,255,.08);
+
+  backdrop-filter:blur(20px);
+
+  text-align:center;
+
+  overflow:hidden;
+}
+
+.quote-mark{
+  position:absolute;
+
+  top:10px;
+  left:50px;
+
+  font-size:10rem;
+
+  opacity:.08;
+
+  font-family:serif;
+}
+
+.quote-box h2{
+  font-size:clamp(2rem,4vw,4rem);
+  line-height:1.3;
+
+  font-family:"Cormorant Garamond", serif;
+}
+
+
+/* =========================================================
+   SECTIONS
+========================================================= */
+
+.immersive-section,
+.journey-section,
+.final-section{
+  padding:140px 0;
+}
+
+.section-header{
+  text-align:center;
+  max-width:850px;
+  margin:0 auto 90px;
+}
+
+.section-tag{
+  display:inline-block;
+
+  margin-bottom:18px;
+
+  color:var(--col1-gold);
+
+  letter-spacing:2px;
+  text-transform:uppercase;
+
+  font-size:.9rem;
+}
+
+.section-header h2,
+.journey-content h2,
+.final-box h2{
+  font-size:clamp(2.6rem,5vw,5rem);
+  line-height:1;
+
+  margin-bottom:24px;
+
+  font-family:"Cormorant Garamond", serif;
+}
+
+.section-header p,
+.journey-content p,
+.final-box p{
+  color:var(--col1-text-soft);
+  line-height:2;
+  font-size:1.08rem;
+}
+
+
+/* =========================================================
+   IMMERSIVE GRID
+========================================================= */
+
+.immersive-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:30px;
+}
+
+.immersive-card{
+  position:relative;
+
+  padding:42px;
+
+  border-radius:30px;
+
+  background:
+  rgba(255,255,255,.05);
+
+  border:
+  1px solid rgba(255,255,255,.08);
+
+  backdrop-filter:blur(18px);
+
+  transition:.35s ease;
+}
+
+.immersive-card:hover{
+  transform:translateY(-10px);
+}
+
+.immersive-number{
+  font-size:4rem;
+  opacity:.08;
+
+  margin-bottom:18px;
+
+  font-family:"Cormorant Garamond", serif;
+}
+
+.immersive-card h3{
+  font-size:1.6rem;
+  margin-bottom:18px;
+
+  font-family:"Cormorant Garamond", serif;
+}
+
+.immersive-card p{
+  color:var(--col1-text-soft);
+  line-height:1.9;
+}
+
+
+/* =========================================================
+   JOURNEY
+========================================================= */
+
+.journey-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:80px;
+  align-items:start;
+}
+
+.journey-timeline{
+  position:relative;
+}
+
+.timeline-item{
+  position:relative;
+
+  display:flex;
+  gap:24px;
+
+  margin-bottom:50px;
+}
+
+.timeline-item span{
+  width:14px;
+  height:14px;
+
+  border-radius:50%;
+
+  background:var(--col1-gold);
+
+  margin-top:12px;
+
+  flex-shrink:0;
+}
+
+.timeline-item h3{
+  font-size:1.4rem;
+  margin-bottom:12px;
+
+  font-family:"Cormorant Garamond", serif;
+}
+
+.timeline-item p{
+  color:var(--col1-text-soft);
+  line-height:1.9;
+}
+
+
+/* =========================================================
+   FINAL
+========================================================= */
+
+.final-box{
+  position:relative;
+
+  text-align:center;
+
+  padding:90px 70px;
+
+  border-radius:40px;
+
+  overflow:hidden;
+
+  background:
+  linear-gradient(
+    145deg,
+    rgba(255,255,255,.08),
+    rgba(255,255,255,.03)
+  );
+
+  border:
+  1px solid rgba(255,255,255,.08);
+
+  backdrop-filter:blur(20px);
+}
+
+.final-mini{
+  letter-spacing:4px;
+  text-transform:uppercase;
+
+  color:var(--col1-gold);
+
+  margin-bottom:20px;
+}
+
+
+/* =========================================================
+   FOOTER
+========================================================= */
+
+.book-footer{
+  padding:50px 0;
+
+  text-align:center;
+
+  border-top:
+  1px solid rgba(255,255,255,.06);
+}
+
+.book-footer p{
+  color:rgba(255,255,255,.45);
+}
+
+
+/* =========================================================
+   ANIMATIONS
+========================================================= */
+
+@keyframes bookFloat{
+
+  0%{
+    transform:translateY(0px);
+  }
+
+  50%{
+    transform:translateY(-18px);
+  }
+
+  100%{
+    transform:translateY(0px);
+  }
+
+}
+
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+
+@media(max-width:992px){
+
+  .hero-grid,
+  .journey-grid,
+  .immersive-grid{
+    grid-template-columns:1fr;
+  }
+
+  .hero-visual{
+    order:-1;
+  }
+
+  .floating-book{
+    max-width:320px;
+  }
+
+  .hero-title{
+    font-size:4rem;
+  }
+
+  .quote-box,
+  .final-box{
+    padding:60px 30px;
+  }
+
+}
+
+
+@media(max-width:768px){
+
+  .book-hero{
+    padding-top:120px;
+  }
+
+  .hero-title{
+    font-size:3.2rem;
+    letter-spacing:-2px;
+  }
+
+  .hero-text{
+    font-size:1rem;
+    line-height:1.9;
+  }
+
+  .hero-actions,
+  .final-actions{
+    flex-direction:column;
+  }
+
+  .btn-primary,
+  .btn-secondary{
+    width:100%;
+  }
+
+  .quote-box h2{
+    font-size:2rem;
+  }
+
+  .section-header h2,
+  .journey-content h2,
+  .final-box h2{
+    font-size:2.4rem;
+  }
+
+  .immersive-card{
+    padding:34px;
+  }
+
+}
