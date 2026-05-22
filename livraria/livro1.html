@@ -428,6 +428,69 @@ section{
   color:rgba(36,50,74,.72);
 }
 
+
+/* =========================================================
+   IMMERSIVE BANNER
+========================================================= */
+
+
+    .immersive-banner-section{
+  padding:0 0 140px;
+}
+
+.immersive-banner{
+  position:relative;
+
+  border-radius:36px;
+  overflow:hidden;
+
+  min-height:420px;
+
+  box-shadow:
+  0 30px 70px rgba(0,0,0,.10);
+}
+
+.immersive-banner img{
+  width:100%;
+  height:420px;
+  object-fit:cover;
+}
+
+.banner-overlay{
+  position:absolute;
+  inset:0;
+
+  background:
+  linear-gradient(
+    to top,
+    rgba(15,20,35,.50),
+    rgba(15,20,35,.08)
+  );
+
+  z-index:1;
+}
+
+.banner-content{
+  position:absolute;
+
+  left:50px;
+  bottom:50px;
+
+  z-index:2;
+
+  max-width:540px;
+}
+
+.banner-content span{
+  font-family:'Cormorant Garamond', serif;
+
+  font-size:clamp(2rem,4vw,4rem);
+
+  line-height:1.05;
+
+  color:white;
+}
+    
 /* =========================================================
    IMMERSIVE GRID
 ========================================================= */
@@ -829,6 +892,35 @@ footer p{
 
   </section>
 
+    <!-- BANNER1 -->
+
+<section class="immersive-banner-section">
+
+  <div class="container">
+
+    <div class="immersive-banner">
+
+      <div class="banner-overlay"></div>
+
+      <img
+        src="img/banner-entrelacos.png"
+        alt="Entre Laços e Afetos">
+
+      <div class="banner-content">
+
+        <span>
+          Entre Laços e Afetos - Evento Online 100% Gratuito
+        </span>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+  
   <!-- IMERSÃO -->
 
   <section id="imersao" class="section-space">
@@ -1031,6 +1123,35 @@ footer p{
     </div>
 
   </section>
+
+
+      <!-- BANNER2 -->
+
+<section class="immersive-banner-section">
+
+  <div class="container">
+
+    <div class="immersive-banner">
+
+      <div class="banner-overlay"></div>
+
+      <img
+        src="img/banner-entrelacos.png"
+        alt="Entre Laços e Afetos">
+
+      <div class="banner-content">
+
+        <span>
+          Entre Laços e Afetos - Evento Online 100% Gratuito
+        </span>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
 
   <!-- FINAL -->
 
