@@ -8,73 +8,64 @@
   <title>Livraria • Cada Passo, uma Jornada</title>
 
   <meta name="description"
-    content="Uma livraria construída para acolher, compreender e transformar a experiência do autismo na vida adulta.">
+    content="Livraria oficial da coleção Cada Passo, uma Jornada. Livros sobre autismo adulto, rotina, previsibilidade, sobrecarga e autonomia.">
 
   <!-- Favicons -->
   <link href="assets/img/favicon.png" rel="icon">
-  <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
 
   <!-- Fonts -->
   <link href="https://fonts.googleapis.com" rel="preconnect">
   <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
 
   <link
-    href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Roboto:wght@300;400;500;700&display=swap"
+    href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap"
     rel="stylesheet">
 
-  <!-- Vendor CSS -->
+  <!-- Vendor CSS Files -->
   <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
   <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
   <link href="assets/vendor/aos/aos.css" rel="stylesheet">
-  <link href="assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
-  <link href="assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
 
   <!-- Main CSS -->
   <link href="assets/css/main.css" rel="stylesheet">
 
   <style>
     :root {
-
-      --liv-bg: #f5e2cd;
-      --liv-soft: #fff7ef;
-      --liv-card: rgba(255, 255, 255, .58);
-
-      --liv-text: #1f2f4d;
-
+      --liv-bg: #f7e4cf;
+      --liv-soft: #fff5ea;
+      --liv-paper: #fff8f1;
+      --liv-text: #1f2d44;
       --liv-accent: #d88a3c;
-      --liv-accent-dark: #b66d25;
+      --liv-accent-dark: #b96820;
+      --liv-shadow: 0 18px 55px rgba(0, 0, 0, .12);
+    }
 
-      --liv-gold: #ffd28e;
-
-      --liv-shadow:
-        0 10px 40px rgba(0, 0, 0, .12);
-
+    * {
+      box-sizing: border-box;
     }
 
     body {
       background:
         linear-gradient(to bottom,
-          rgba(245, 226, 205, .96),
-          rgba(244, 220, 190, .98)),
+          rgba(247, 228, 207, .97),
+          rgba(244, 219, 190, .96)),
         url('assets/img/paper-texture.jpg');
 
       background-size: cover;
       color: var(--liv-text);
       overflow-x: hidden;
+      font-family: 'Inter', sans-serif;
     }
 
     .header {
-      background: rgba(255, 247, 239, .88);
-      backdrop-filter: blur(12px);
-      box-shadow: 0 5px 25px rgba(0, 0, 0, .04);
+      background: rgba(255, 248, 240, .82);
+      backdrop-filter: blur(14px);
+      box-shadow: 0 1px 0 rgba(0, 0, 0, .04);
     }
 
-    .sitename {
-      color: var(--liv-text);
-    }
-
+    .sitename,
     .navmenu a {
-      color: var(--liv-text);
+      color: var(--liv-text) !important;
     }
 
     .btn-getstarted {
@@ -83,512 +74,413 @@
           var(--liv-accent),
           var(--liv-accent-dark));
 
-      border-radius: 999px;
+      border: none;
+      color: white !important;
     }
 
-    .livraria-hero {
-
+    .hero {
       min-height: 100vh;
-
       display: flex;
       align-items: center;
-
       position: relative;
       overflow: hidden;
-
-      padding: 120px 0 80px;
-
+      padding: 150px 0 110px;
     }
 
-    .livraria-hero::before {
-
+    .hero::before {
       content: "";
-
       position: absolute;
-
-      width: 850px;
-      height: 850px;
+      width: 900px;
+      height: 900px;
+      border-radius: 50%;
 
       background:
         radial-gradient(circle,
-          rgba(255, 211, 145, .45) 0%,
-          rgba(255, 211, 145, 0) 70%);
+          rgba(255, 213, 143, .35) 0%,
+          rgba(255, 213, 143, 0) 72%);
 
-      right: -250px;
-      top: -200px;
-
-      z-index: 0;
-
+      right: -260px;
+      top: -260px;
     }
 
-    .hero-grid {
-
-      display: grid;
-
-      grid-template-columns: 1fr 1fr;
-
-      gap: 70px;
-      align-items: center;
-
-      position: relative;
-      z-index: 2;
-
+    .hero-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(3.5rem, 8vw, 7rem);
+      line-height: .82;
+      letter-spacing: -2px;
+      margin-bottom: 28px;
+      font-weight: 700;
+      color: var(--liv-text);
     }
 
-    .hero-cover {
-
-      position: relative;
-
+    .hero-subtitle {
+      font-size: clamp(1.2rem, 2vw, 2rem);
+      line-height: 1.5;
+      margin-bottom: 28px;
+      font-weight: 600;
+      opacity: .9;
     }
 
-    .hero-cover img {
-
-      width: 100%;
-      max-width: 520px;
-
-      border-radius: 30px;
-
-      display: block;
-
-      margin: auto;
-
-      box-shadow: var(--liv-shadow);
-
-      border: 8px solid rgba(255, 255, 255, .35);
-
+    .hero p {
+      line-height: 1.95;
+      font-size: 1.1rem;
+      margin-bottom: 20px;
+      max-width: 720px;
     }
 
-    .book-badge {
-
+    .hero-badge {
       display: inline-flex;
       align-items: center;
       gap: 10px;
-
-      padding: 12px 22px;
 
       background: rgba(216, 138, 60, .12);
 
       border: 1px solid rgba(216, 138, 60, .2);
 
+      padding: 12px 20px;
       border-radius: 999px;
 
-      margin-bottom: 28px;
-
-      font-size: .95rem;
-      font-weight: 600;
+      margin-bottom: 26px;
 
       color: var(--liv-accent-dark);
-
-    }
-
-    .hero-title {
-
-      font-family: "Cormorant Garamond", serif;
-
-      font-size: clamp(3.2rem, 7vw, 7rem);
-
-      line-height: .88;
-
-      letter-spacing: -2px;
-
-      margin-bottom: 22px;
-
-      color: var(--liv-text);
-
-    }
-
-    .hero-subtitle {
-
-      font-size: clamp(1.1rem, 2vw, 1.8rem);
-
-      font-weight: 500;
-
-      margin-bottom: 30px;
-
-    }
-
-    .hero-description {
-
-      font-size: 1.15rem;
-
-      line-height: 1.9;
-
-      opacity: .95;
-
-      margin-bottom: 20px;
-
-      max-width: 700px;
-
+      font-weight: 700;
+      font-size: .92rem;
     }
 
     .hero-buttons {
-
       display: flex;
-      gap: 18px;
       flex-wrap: wrap;
-
-      margin-top: 38px;
-
+      gap: 18px;
+      margin-top: 42px;
     }
 
-    .btn-livro {
-
+    .btn-livraria {
       padding: 16px 30px;
-
       border-radius: 999px;
-
       text-decoration: none;
-
       transition: .35s ease;
-
-      font-weight: 600;
+      font-weight: 700;
 
       display: inline-flex;
       align-items: center;
       justify-content: center;
-
+      gap: 10px;
     }
 
-    .btn-livro-primary {
-
+    .btn-primary-liv {
       background:
         linear-gradient(135deg,
           var(--liv-accent),
           var(--liv-accent-dark));
 
       color: white;
-
-      box-shadow:
-        0 8px 30px rgba(216, 138, 60, .35);
-
+      box-shadow: 0 12px 28px rgba(216, 138, 60, .35);
     }
 
-    .btn-livro-primary:hover {
-
+    .btn-primary-liv:hover {
       transform: translateY(-4px);
-
       color: white;
-
     }
 
-    .btn-livro-outline {
-
+    .btn-secondary-liv {
       background: rgba(255, 255, 255, .5);
-
-      backdrop-filter: blur(10px);
-
       border: 1px solid rgba(0, 0, 0, .08);
-
+      backdrop-filter: blur(12px);
       color: var(--liv-text);
-
     }
 
-    .btn-livro-outline:hover {
-
+    .btn-secondary-liv:hover {
       background: white;
       color: var(--liv-text);
-
     }
 
-    .section-padding {
-      padding: 110px 0;
-    }
-
-    .section-heading {
-
-      text-align: center;
-
-      margin-bottom: 70px;
-
-    }
-
-    .section-heading h2 {
-
-      font-family: "Cormorant Garamond", serif;
-
-      font-size: clamp(2.8rem, 5vw, 5rem);
-
-      margin-bottom: 20px;
-
-      color: var(--liv-text);
-
-    }
-
-    .section-heading p {
-
-      max-width: 850px;
-
+    .hero-stack {
+      position: relative;
+      width: 100%;
+      max-width: 560px;
       margin: auto;
-
-      font-size: 1.1rem;
-
-      line-height: 1.9;
-
-      opacity: .9;
-
+      min-height: 700px;
     }
 
-    .livro-card {
-
-      background: var(--liv-card);
-
-      border-radius: 28px;
-
+    .hero-book {
+      position: absolute;
+      width: 340px;
+      border-radius: 26px;
       overflow: hidden;
-
-      backdrop-filter: blur(14px);
 
       box-shadow: var(--liv-shadow);
 
-      border: 1px solid rgba(255, 255, 255, .4);
+      border: 8px solid rgba(255, 255, 255, .35);
+
+      transition: .4s ease;
+    }
+
+    .hero-book img {
+      width: 100%;
+      display: block;
+    }
+
+    .hero-book:hover {
+      transform: translateY(-10px) scale(1.02);
+    }
+
+    .book-1 {
+      left: 0;
+      top: 100px;
+      transform: rotate(-8deg);
+      z-index: 1;
+    }
+
+    .book-2 {
+      right: 0;
+      top: 0;
+      transform: rotate(6deg);
+      z-index: 3;
+    }
+
+    .book-3 {
+      right: 70px;
+      bottom: 0;
+      transform: rotate(-4deg);
+      z-index: 2;
+    }
+
+    .section-space {
+      padding: 120px 0;
+    }
+
+    .section-title {
+      text-align: center;
+      margin-bottom: 70px;
+    }
+
+    .section-title h2 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2.6rem, 5vw, 4.8rem);
+      margin-bottom: 20px;
+      font-weight: 700;
+    }
+
+    .section-title p {
+      max-width: 860px;
+      margin: auto;
+      line-height: 1.9;
+      font-size: 1.1rem;
+      opacity: .92;
+    }
+
+    .book-card {
+      background: rgba(255, 255, 255, .55);
+      backdrop-filter: blur(14px);
+
+      border-radius: 30px;
+      overflow: hidden;
+
+      border: 1px solid rgba(255, 255, 255, .35);
+
+      box-shadow: var(--liv-shadow);
 
       transition: .35s ease;
 
       height: 100%;
-
     }
 
-    .livro-card:hover {
-
-      transform:
-        translateY(-10px);
-
+    .book-card:hover {
+      transform: translateY(-10px);
     }
 
-    .livro-thumb {
-
-      position: relative;
-
-      overflow: hidden;
-
-    }
-
-    .livro-thumb img {
-
+    .book-card img {
       width: 100%;
-      height: 420px;
-
+      height: 500px;
       object-fit: cover;
-
-      transition: .6s ease;
-
     }
 
-    .livro-card:hover .livro-thumb img {
-
-      transform: scale(1.05);
-
-    }
-
-    .livro-body {
-
+    .book-body {
       padding: 34px;
-
     }
 
-    .livro-volume {
-
+    .book-tag {
       display: inline-block;
-
-      padding: 8px 18px;
-
+      padding: 8px 16px;
       border-radius: 999px;
 
       background: rgba(216, 138, 60, .1);
 
       color: var(--liv-accent-dark);
 
-      font-size: .85rem;
+      font-size: .82rem;
       font-weight: 700;
 
+      margin-bottom: 20px;
+    }
+
+    .book-body h3 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2.2rem;
+      line-height: 1;
       margin-bottom: 18px;
-
+      font-weight: 700;
     }
 
-    .livro-body h3 {
-
-      font-family: "Cormorant Garamond", serif;
-
-      font-size: 2rem;
-
-      margin-bottom: 16px;
-
-    }
-
-    .livro-body p {
-
+    .book-body p {
       line-height: 1.9;
-      opacity: .92;
+      margin-bottom: 28px;
+    }
 
+    .quote-section {
+      padding-top: 0;
     }
 
     .quote-box {
-
       background:
         linear-gradient(135deg,
           #d88a3c,
-          #bb6c23);
+          #b96820);
 
       color: white;
 
-      border-radius: 36px;
+      border-radius: 40px;
 
       padding: 80px 50px;
 
       text-align: center;
 
       box-shadow: var(--liv-shadow);
-
     }
 
     .quote-box p {
-
-      font-family: "Cormorant Garamond", serif;
-
-      font-size: clamp(2rem, 4vw, 3.5rem);
-
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2rem, 4vw, 3.4rem);
       line-height: 1.4;
-
       margin: 0;
-
+      font-weight: 700;
     }
 
-    .journey-box {
+    .ecosystem-card {
+      background: rgba(255, 255, 255, .55);
+      backdrop-filter: blur(14px);
 
-      background:
-        rgba(255, 255, 255, .55);
-
-      border-radius: 28px;
+      border-radius: 30px;
 
       padding: 40px;
 
-      backdrop-filter: blur(12px);
-
       box-shadow: var(--liv-shadow);
 
-      height: 100%;
+      border: 1px solid rgba(255, 255, 255, .4);
 
+      height: 100%;
     }
 
-    .journey-icon {
+    .ecosystem-icon {
+      width: 78px;
+      height: 78px;
 
-      width: 72px;
-      height: 72px;
+      border-radius: 24px;
 
-      border-radius: 20px;
+      background: rgba(255, 255, 255, .5);
 
       display: flex;
       align-items: center;
       justify-content: center;
 
-      background:
-        rgba(255, 255, 255, .6);
-
       font-size: 2rem;
 
-      margin-bottom: 25px;
-
+      margin-bottom: 24px;
     }
 
-    .journey-box h3 {
-
+    .ecosystem-card h3 {
       font-size: 1.6rem;
-
       margin-bottom: 18px;
-
-      font-family: "Cormorant Garamond", serif;
-
+      font-weight: 700;
     }
 
-    .journey-box p {
-
+    .ecosystem-card p {
       line-height: 1.9;
-
       opacity: .92;
-
     }
 
-    .cta-livraria {
-
+    .cta-box {
       background:
         linear-gradient(145deg,
-          #fff6ec,
+          #fff7ef,
           #ffe3c2);
 
       border-radius: 40px;
 
-      padding: 90px 50px;
+      padding: 90px 40px;
 
       text-align: center;
 
       box-shadow: var(--liv-shadow);
-
-      border: 1px solid rgba(255, 255, 255, .5);
-
     }
 
-    .cta-livraria h2 {
-
-      font-family: "Cormorant Garamond", serif;
-
-      font-size: clamp(2.8rem, 5vw, 5rem);
-
-      margin-bottom: 20px;
-
+    .cta-box h2 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(3rem, 5vw, 5.5rem);
+      line-height: .9;
+      margin-bottom: 24px;
+      font-weight: 700;
     }
 
-    .cta-livraria p {
-
-      max-width: 800px;
-
-      margin: auto auto 35px;
-
-      line-height: 1.9;
-
+    .cta-box p {
+      max-width: 760px;
+      margin: auto auto 36px auto;
+      line-height: 1.95;
       font-size: 1.1rem;
-
     }
 
     .footer {
-      background: rgba(255, 247, 239, .65);
+      background: rgba(255, 248, 241, .8);
+      backdrop-filter: blur(10px);
       color: var(--liv-text);
     }
 
-    .footer .sitename,
-    .footer p,
-    .footer span,
-    .footer a {
-      color: var(--liv-text);
+    .footer * {
+      color: var(--liv-text) !important;
     }
 
-    @media(max-width:991px) {
+    @media(max-width:992px) {
 
-      .hero-grid {
-        grid-template-columns: 1fr;
-      }
-
-      .hero-content {
+      .hero {
         text-align: center;
+        padding-top: 150px;
       }
 
       .hero-buttons {
         justify-content: center;
       }
 
-      .hero-cover {
-        order: -1;
+      .hero-stack {
+        min-height: 540px;
+        margin-top: 60px;
       }
 
-      .livraria-hero {
-        padding-top: 150px;
+      .hero-book {
+        width: 240px;
+      }
+
+      .book-3 {
+        right: 20px;
       }
 
       .quote-box {
-        padding: 50px 25px;
+        padding: 50px 24px;
       }
 
-      .cta-livraria {
-        padding: 70px 25px;
+    }
+
+    @media(max-width:768px) {
+
+      .hero-stack {
+        min-height: 480px;
+      }
+
+      .hero-book {
+        width: 190px;
+      }
+
+      .book-3 {
+        right: 0;
       }
 
     }
@@ -605,10 +497,13 @@
     <div class="container-fluid container-xl position-relative d-flex align-items-center">
 
       <a href="index.html" class="logo d-flex align-items-center me-auto">
+
         <h1 class="sitename">
           Lojinha dos Autistas
         </h1>
+
         <span>.</span>
+
       </a>
 
       <nav id="navmenu" class="navmenu">
@@ -616,7 +511,7 @@
         <ul>
 
           <li>
-            <a href="#hero" class="active">
+            <a href="#inicio" class="active">
               Início
             </a>
           </li>
@@ -628,14 +523,14 @@
           </li>
 
           <li>
-            <a href="#jornada">
-              Jornada
+            <a href="#ecosistema">
+              Ecossistema
             </a>
           </li>
 
           <li>
-            <a href="#destaque">
-              Destaque
+            <a href="#contato">
+              Contato
             </a>
           </li>
 
@@ -657,58 +552,87 @@
 
     <!-- HERO -->
 
-    <section id="hero" class="livraria-hero">
+    <section id="inicio" class="hero">
 
       <div class="container">
 
-        <div class="hero-grid">
+        <div class="row align-items-center gy-5">
 
-          <div class="hero-content" data-aos="fade-right">
+          <div class="col-lg-6" data-aos="fade-up">
 
-            <div class="book-badge">
-              <i class="bi bi-book-half"></i>
-              Biblioteca Sensorial • Sistema REDE
+            <div class="hero-badge">
+
+              <i class="bi bi-stars"></i>
+
+              Coleção 1 • Cada Passo, uma Jornada
+
             </div>
 
             <h1 class="hero-title">
-              Cada Passo,<br>
-              uma Jornada
+              Livraria<br>
+              Sensorial
             </h1>
 
             <div class="hero-subtitle">
-              Uma livraria construída para acolher,
-              compreender e reorganizar a experiência humana.
+
+              uma biblioteca construída para acolher
+              diferentes formas de funcionamento humano.
+
             </div>
 
-            <p class="hero-description">
-              Mais do que livros sobre autismo:
-              uma coleção de caminhos possíveis.
+            <p>
+              Livros sobre autismo adulto,
+              rotina, previsibilidade, sobrecarga,
+              regulação emocional, autonomia
+              e construção de caminhos possíveis.
             </p>
 
-            <p class="hero-description">
-              Obras que unem sensibilidade, estrutura,
-              funcionamento, previsibilidade,
-              autonomia e linguagem acessível —
-              respeitando a complexidade da vida adulta.
+            <p>
+              Um projeto editorial que une
+              sensibilidade, profundidade técnica
+              e linguagem acessível para transformar
+              experiências invisíveis em compreensão.
             </p>
 
             <div class="hero-buttons">
 
-              <a href="#colecao" class="btn-livro btn-livro-primary">
+              <a href="#colecao" class="btn-livraria btn-primary-liv">
+
+                <i class="bi bi-book"></i>
+
                 Explorar Coleção
+
               </a>
 
-              <a href="#destaque" class="btn-livro btn-livro-outline">
-                Conhecer Volume 1
+              <a href="#ecosistema" class="btn-livraria btn-secondary-liv">
+
+                Conhecer o Projeto
+
               </a>
 
             </div>
 
           </div>
 
-          <div class="hero-cover" data-aos="zoom-out" data-aos-delay="200">
+          <!-- STACK -->
 
-            <img src="assets/img/livro1.png" alt="Livro Cada Passo, uma Jornada">
+          <div class="col-lg-6" data-aos="zoom-out">
+
+            <div class="hero-stack">
+
+              <div class="hero-book book-1">
+                <img src="assets/livraria/livro1.png" alt="">
+              </div>
+
+              <div class="hero-book book-2">
+                <img src="assets/livraria/livro2.png" alt="">
+              </div>
+
+              <div class="hero-book book-3">
+                <img src="assets/livraria/livro3.png" alt="">
+              </div>
+
+            </div>
 
           </div>
 
@@ -720,54 +644,58 @@
 
     <!-- COLEÇÃO -->
 
-    <section id="colecao" class="section-padding">
+    <section id="colecao" class="section-space">
 
       <div class="container">
 
-        <div class="section-heading" data-aos="fade-up">
+        <div class="section-title" data-aos="fade-up">
 
           <h2>
-            A Coleção
+            Coleção 1
           </h2>
 
           <p>
-            Uma biblioteca emocional e técnica sobre rotina,
-            previsibilidade, funcionamento, sobrecarga,
-            regulação e autonomia no autismo adulto.
+            Uma trilogia construída para compreender
+            como rotina, previsibilidade, sobrecarga
+            e estrutura influenciam diretamente
+            a experiência do autismo na vida adulta.
           </p>
 
         </div>
 
-        <div class="row gy-4">
+        <div class="row gy-5">
 
           <!-- LIVRO 1 -->
 
-          <div class="col-lg-4 col-md-6" data-aos="fade-up">
+          <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="100">
 
-            <div class="livro-card">
+            <div class="book-card">
 
-              <div class="livro-thumb">
+              <img src="assets/livraria/livro1.png" alt="">
 
-                <img src="assets/img/livro1.png" alt="Volume 1">
+              <div class="book-body">
 
-              </div>
-
-              <div class="livro-body">
-
-                <div class="livro-volume">
+                <div class="book-tag">
                   Volume 1
                 </div>
 
                 <h3>
-                  Rotina e Previsibilidade
+                  Rotina e<br>
+                  Previsibilidade
                 </h3>
 
                 <p>
-                  Um olhar profundo sobre estrutura,
-                  ansiedade, procrastinação,
-                  previsibilidade e funcionamento
-                  no autismo adulto.
+                  Um mergulho sensível sobre
+                  organização, funcionamento,
+                  ansiedade e estrutura no autismo adulto.
                 </p>
+
+                <a href="livro-vol1.html"
+                  class="btn-livraria btn-primary-liv">
+
+                  Ler Obra
+
+                </a>
 
               </div>
 
@@ -777,31 +705,36 @@
 
           <!-- LIVRO 2 -->
 
-          <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="150">
+          <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="200">
 
-            <div class="livro-card">
+            <div class="book-card">
 
-              <div class="livro-thumb">
+              <img src="assets/livraria/livro2.png" alt="">
 
-                <img src="assets/img/c1-vol2.png" alt="Volume 2">
+              <div class="book-body">
 
-              </div>
-
-              <div class="livro-body">
-
-                <div class="livro-volume">
+                <div class="book-tag">
                   Volume 2
                 </div>
 
                 <h3>
-                  Sobrecarregamento e Caos Interno
+                  Sobrecarga<br>
+                  Invisível
                 </h3>
 
                 <p>
-                  Uma investigação sensível sobre
-                  exaustão invisível, processamento,
-                  colapso emocional e sobrevivência cotidiana.
+                  Exaustão silenciosa,
+                  masking, esforço constante
+                  e o impacto invisível
+                  da adaptação contínua.
                 </p>
+
+                <a href="livro-vol2.html"
+                  class="btn-livraria btn-primary-liv">
+
+                  Conhecer Livro
+
+                </a>
 
               </div>
 
@@ -813,29 +746,34 @@
 
           <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="300">
 
-            <div class="livro-card">
+            <div class="book-card">
 
-              <div class="livro-thumb">
+              <img src="assets/livraria/livro3.png" alt="">
 
-                <img src="assets/img/c1-vol3.png" alt="Volume 3">
+              <div class="book-body">
 
-              </div>
-
-              <div class="livro-body">
-
-                <div class="livro-volume">
+                <div class="book-tag">
                   Volume 3
                 </div>
 
                 <h3>
-                  Caminhos de Regulação
+                  Estrutura e<br>
+                  Autonomia
                 </h3>
 
                 <p>
-                  Estratégias sustentáveis para
-                  organização da vida, adaptação do ambiente
-                  e construção de autonomia possível.
+                  Estratégias sustentáveis
+                  para reduzir desgaste,
+                  ampliar funcionamento
+                  e construir caminhos possíveis.
                 </p>
+
+                <a href="livro-vol3.html"
+                  class="btn-livraria btn-primary-liv">
+
+                  Ver Volume
+
+                </a>
 
               </div>
 
@@ -851,7 +789,7 @@
 
     <!-- QUOTE -->
 
-    <section class="section-padding">
+    <section class="section-space quote-section">
 
       <div class="container">
 
@@ -868,172 +806,90 @@
 
     </section>
 
-    <!-- JORNADA -->
+    <!-- ECOSSISTEMA -->
 
-    <section id="jornada" class="section-padding">
+    <section id="ecosistema" class="section-space">
 
       <div class="container">
 
-        <div class="section-heading" data-aos="fade-up">
+        <div class="section-title" data-aos="fade-up">
 
           <h2>
-            Uma Jornada em 4 Eixos
+            Um Ecossistema Editorial
           </h2>
 
           <p>
-            Cada obra foi construída como parte
-            de uma arquitetura maior:
-            terapêutica, educacional, sensorial e humana.
+            A Livraria Sensorial faz parte
+            de um projeto maior de acolhimento,
+            linguagem, autonomia e transformação social.
           </p>
 
         </div>
 
         <div class="row gy-4">
 
-          <div class="col-lg-3 col-md-6" data-aos="fade-up">
+          <div class="col-lg-4" data-aos="fade-up" data-aos-delay="100">
 
-            <div class="journey-box">
+            <div class="ecosystem-card">
 
-              <div class="journey-icon">
-                🌿
-              </div>
-
-              <h3>
-                Terapêutico
-              </h3>
-
-              <p>
-                Compreensão profunda da experiência interna,
-                ansiedade, regulação e funcionamento cotidiano.
-              </p>
-
-            </div>
-
-          </div>
-
-          <div class="col-lg-3 col-md-6" data-aos="fade-up" data-aos-delay="100">
-
-            <div class="journey-box">
-
-              <div class="journey-icon">
+              <div class="ecosystem-icon">
                 🧠
               </div>
 
               <h3>
-                Educacional
+                Autismo Adulto
               </h3>
 
               <p>
-                Linguagem clara e acessível
-                para autistas, famílias,
-                educadores e profissionais.
+                Obras voltadas às experiências reais
+                do funcionamento autista na vida adulta:
+                sobrecarga, regulação, rotina e autonomia.
               </p>
 
             </div>
 
           </div>
 
-          <div class="col-lg-3 col-md-6" data-aos="fade-up" data-aos-delay="200">
+          <div class="col-lg-4" data-aos="fade-up" data-aos-delay="200">
 
-            <div class="journey-box">
+            <div class="ecosystem-card">
 
-              <div class="journey-icon">
-                🧩
+              <div class="ecosystem-icon">
+                🌿
               </div>
 
               <h3>
-                Estrutural
+                Linguagem Acessível
               </h3>
 
               <p>
-                Organização do ambiente,
-                previsibilidade,
-                rotina e redução da carga cognitiva.
+                Profundidade técnica traduzida
+                em leitura acolhedora,
+                emocionalmente respeitosa
+                e humanizada.
               </p>
 
             </div>
 
           </div>
 
-          <div class="col-lg-3 col-md-6" data-aos="fade-up" data-aos-delay="300">
+          <div class="col-lg-4" data-aos="fade-up" data-aos-delay="300">
 
-            <div class="journey-box">
+            <div class="ecosystem-card">
 
-              <div class="journey-icon">
+              <div class="ecosystem-icon">
                 ✨
               </div>
 
               <h3>
-                Humano
+                Caminhos Possíveis
               </h3>
 
               <p>
-                Uma proposta construída com
-                acolhimento, profundidade
-                e respeito à individualidade.
+                O foco não é padronizar pessoas,
+                mas apoiar construção de autonomia,
+                estrutura e funcionamento sustentável.
               </p>
-
-            </div>
-
-          </div>
-
-        </div>
-
-      </div>
-
-    </section>
-
-    <!-- DESTAQUE -->
-
-    <section id="destaque" class="section-padding">
-
-      <div class="container">
-
-        <div class="hero-grid">
-
-          <div class="hero-cover" data-aos="fade-right">
-
-            <img src="assets/img/livro1.png" alt="Volume 1">
-
-          </div>
-
-          <div class="hero-content" data-aos="fade-left">
-
-            <div class="book-badge">
-              Volume 1 • Em destaque
-            </div>
-
-            <h2 class="hero-title" style="font-size: clamp(2.8rem, 5vw, 5rem);">
-              Rotina e<br>
-              Previsibilidade
-            </h2>
-
-            <p class="hero-description">
-              Uma obra sensível e técnica sobre
-              como previsibilidade, organização
-              e ambiente impactam diretamente
-              o funcionamento no autismo adulto.
-            </p>
-
-            <p class="hero-description">
-              O livro apresenta a rotina não como prisão,
-              mas como ferramenta de regulação,
-              segurança e autonomia.
-            </p>
-
-            <div class="hero-buttons">
-
-              <a href="livro-vol1.html" class="btn-livro btn-livro-primary">
-                Abrir Página do Livro
-              </a>
-
-              <a href="https://www.instagram.com/lojinhadosautistas"
-                target="_blank"
-                class="btn-livro btn-livro-outline">
-
-                Instagram
-
-              </a>
 
             </div>
 
@@ -1047,11 +903,11 @@
 
     <!-- CTA -->
 
-    <section class="section-padding">
+    <section id="contato" class="section-space">
 
       <div class="container">
 
-        <div class="cta-livraria" data-aos="zoom-in">
+        <div class="cta-box" data-aos="fade-up">
 
           <h2>
             Cada livro é também<br>
@@ -1059,19 +915,19 @@
           </h2>
 
           <p>
-            Uma biblioteca construída para autistas adultos,
-            familiares, profissionais, educadores
-            e todas as pessoas que desejam compreender
-            melhor o impacto da previsibilidade,
-            do ambiente e da estrutura
-            na experiência humana.
+            Acompanhe os próximos lançamentos,
+            materiais terapêuticos,
+            jornadas editoriais e o crescimento
+            da Livraria Sensorial.
           </p>
 
           <a href="https://www.instagram.com/lojinhadosautistas"
             target="_blank"
-            class="btn-livro btn-livro-primary">
+            class="btn-livraria btn-primary-liv">
 
-            Quero acompanhar os lançamentos
+            <i class="bi bi-instagram"></i>
+
+            Acompanhar Projeto
 
           </a>
 
@@ -1090,26 +946,31 @@
     <div class="container text-center">
 
       <h3 class="sitename">
-        Cada Passo, uma Jornada
+        Lojinha dos Autistas
       </h3>
 
       <p>
-        Uma biblioteca construída para acolher,
-        compreender e reorganizar caminhos possíveis.
+        Livraria Sensorial • Projeto Editorial
+        Cada Passo, uma Jornada
       </p>
 
       <div class="social-links d-flex justify-content-center mt-4">
 
-        <a href="https://instagram.com/lojinhadosautistas">
+        <a href="https://www.instagram.com/lojinhadosautistas"
+          target="_blank">
+
           <i class="bi bi-instagram"></i>
+
         </a>
 
       </div>
 
       <div class="copyright mt-4">
+
         <span>
-          © Lojinha dos Autistas
+          © 2026 • Todos os direitos reservados
         </span>
+
       </div>
 
     </div>
@@ -1130,12 +991,10 @@
 
   <div id="preloader"></div>
 
-  <!-- Vendor JS -->
+  <!-- Vendor JS Files -->
 
   <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
   <script src="assets/vendor/aos/aos.js"></script>
-  <script src="assets/vendor/glightbox/js/glightbox.min.js"></script>
-  <script src="assets/vendor/swiper/swiper-bundle.min.js"></script>
 
   <!-- Main JS -->
 
