@@ -1,0 +1,1007 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+  <title>Livraria • Lojinha dos Autistas</title>
+
+  <meta name="description"
+    content="Livraria oficial do projeto Cada Passo, uma Jornada. Livros, jornadas, materiais terapêuticos e conteúdos sobre autismo adulto.">
+
+  <!-- Favicons -->
+  <link href="assets/img/favicon.png" rel="icon">
+  <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com" rel="preconnect">
+  <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap"
+    rel="stylesheet">
+
+  <!-- Vendor CSS Files -->
+  <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+  <link href="assets/vendor/aos/aos.css" rel="stylesheet">
+  <link href="assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
+  <link href="assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
+
+  <!-- Main CSS -->
+  <link href="assets/css/main.css" rel="stylesheet">
+
+  <style>
+    :root {
+      --liv-bg: #f7e4cf;
+      --liv-soft: #fff5ea;
+      --liv-paper: #fff8f1;
+      --liv-text: #1f2d44;
+      --liv-accent: #d88a3c;
+      --liv-accent-dark: #ba6c23;
+      --liv-border: rgba(255, 255, 255, .35);
+      --liv-shadow: 0 15px 45px rgba(0, 0, 0, .12);
+    }
+
+    body {
+      background:
+        linear-gradient(to bottom, rgba(247, 228, 207, .96), rgba(245, 220, 190, .96)),
+        url('assets/img/paper-texture.jpg');
+      background-size: cover;
+      color: var(--liv-text);
+      overflow-x: hidden;
+      font-family: 'Inter', sans-serif;
+    }
+
+    .header {
+      background: rgba(255, 247, 239, .78);
+      backdrop-filter: blur(14px);
+      box-shadow: 0 1px 0 rgba(0, 0, 0, .05);
+    }
+
+    .sitename {
+      color: var(--liv-text) !important;
+    }
+
+    .navmenu a {
+      color: var(--liv-text) !important;
+    }
+
+    .btn-getstarted {
+      background: linear-gradient(135deg, var(--liv-accent), var(--liv-accent-dark));
+      border: none;
+    }
+
+    .livraria-hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      position: relative;
+      overflow: hidden;
+      padding: 140px 0 100px;
+    }
+
+    .livraria-hero::before {
+      content: "";
+      position: absolute;
+      width: 800px;
+      height: 800px;
+      border-radius: 50%;
+      background:
+        radial-gradient(circle,
+          rgba(255, 214, 143, .35) 0%,
+          rgba(255, 214, 143, 0) 70%);
+      right: -200px;
+      top: -220px;
+      z-index: 0;
+    }
+
+    .hero-grid {
+      position: relative;
+      z-index: 2;
+      align-items: center;
+    }
+
+    .book-frame {
+      position: relative;
+      max-width: 500px;
+      margin: auto;
+    }
+
+    .book-frame::before {
+      content: "";
+      position: absolute;
+      inset: -20px;
+      border-radius: 30px;
+      background:
+        linear-gradient(135deg,
+          rgba(255, 255, 255, .45),
+          rgba(255, 255, 255, .1));
+      z-index: -1;
+      filter: blur(12px);
+    }
+
+    .book-cover {
+      overflow: hidden;
+      border-radius: 28px;
+      box-shadow: var(--liv-shadow);
+      border: 8px solid rgba(255, 255, 255, .35);
+      background: white;
+      transform: rotate(-2deg);
+    }
+
+    .book-cover img {
+      width: 100%;
+      display: block;
+    }
+
+    .liv-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 12px 20px;
+      border-radius: 999px;
+      background: rgba(216, 138, 60, .12);
+      color: var(--liv-accent-dark);
+      border: 1px solid rgba(216, 138, 60, .22);
+      margin-bottom: 24px;
+      font-weight: 600;
+      font-size: .95rem;
+    }
+
+    .liv-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(3rem, 7vw, 6rem);
+      line-height: .85;
+      letter-spacing: -2px;
+      margin-bottom: 24px;
+      color: var(--liv-text);
+      font-weight: 700;
+    }
+
+    .liv-subtitle {
+      font-size: clamp(1.2rem, 2vw, 2rem);
+      margin-bottom: 28px;
+      font-weight: 600;
+      color: rgba(31, 45, 68, .85);
+    }
+
+    .hero-content p {
+      font-size: 1.12rem;
+      line-height: 1.9;
+      margin-bottom: 20px;
+      max-width: 680px;
+    }
+
+    .hero-buttons {
+      display: flex;
+      gap: 18px;
+      flex-wrap: wrap;
+      margin-top: 38px;
+    }
+
+    .btn-livro {
+      padding: 16px 28px;
+      border-radius: 999px;
+      text-decoration: none;
+      font-weight: 700;
+      transition: .35s ease;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+    }
+
+    .btn-livro-primary {
+      background: linear-gradient(135deg, var(--liv-accent), var(--liv-accent-dark));
+      color: white;
+      box-shadow: 0 10px 30px rgba(216, 138, 60, .35);
+    }
+
+    .btn-livro-primary:hover {
+      transform: translateY(-4px);
+      color: white;
+    }
+
+    .btn-livro-secondary {
+      background: rgba(255, 255, 255, .55);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(31, 45, 68, .1);
+      color: var(--liv-text);
+    }
+
+    .btn-livro-secondary:hover {
+      background: white;
+      color: var(--liv-text);
+    }
+
+    .section-spacing {
+      padding: 120px 0;
+      position: relative;
+    }
+
+    .section-heading {
+      text-align: center;
+      margin-bottom: 70px;
+    }
+
+    .section-heading h2 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2.5rem, 5vw, 4.5rem);
+      margin-bottom: 18px;
+      font-weight: 700;
+    }
+
+    .section-heading p {
+      max-width: 850px;
+      margin: auto;
+      line-height: 1.9;
+      font-size: 1.1rem;
+      opacity: .92;
+    }
+
+    .book-card {
+      background: rgba(255, 255, 255, .55);
+      backdrop-filter: blur(14px);
+      border-radius: 28px;
+      overflow: hidden;
+      box-shadow: var(--liv-shadow);
+      border: 1px solid rgba(255, 255, 255, .35);
+      transition: .35s ease;
+      height: 100%;
+    }
+
+    .book-card:hover {
+      transform: translateY(-10px);
+    }
+
+    .book-card img {
+      width: 100%;
+      height: 420px;
+      object-fit: cover;
+    }
+
+    .book-card-body {
+      padding: 30px;
+    }
+
+    .book-card h3 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2rem;
+      margin-bottom: 14px;
+      font-weight: 700;
+    }
+
+    .book-card p {
+      line-height: 1.8;
+      margin-bottom: 24px;
+    }
+
+    .mini-badge {
+      display: inline-block;
+      padding: 8px 14px;
+      border-radius: 999px;
+      background: rgba(216, 138, 60, .1);
+      color: var(--liv-accent-dark);
+      font-size: .82rem;
+      font-weight: 700;
+      margin-bottom: 18px;
+    }
+
+    .glass-card {
+      background: rgba(255, 255, 255, .55);
+      backdrop-filter: blur(14px);
+      border-radius: 28px;
+      padding: 38px;
+      box-shadow: var(--liv-shadow);
+      border: 1px solid rgba(255, 255, 255, .35);
+      height: 100%;
+    }
+
+    .glass-icon {
+      width: 72px;
+      height: 72px;
+      border-radius: 22px;
+      background: rgba(255, 255, 255, .5);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2rem;
+      margin-bottom: 24px;
+    }
+
+    .glass-card h3 {
+      font-size: 1.6rem;
+      margin-bottom: 18px;
+      font-weight: 700;
+    }
+
+    .glass-card p {
+      line-height: 1.9;
+      opacity: .92;
+    }
+
+    .quote-box {
+      background:
+        linear-gradient(135deg,
+          #d88a3c,
+          #b96820);
+      color: white;
+      border-radius: 36px;
+      padding: 70px;
+      text-align: center;
+      box-shadow: var(--liv-shadow);
+    }
+
+    .quote-box p {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2rem, 4vw, 3.2rem);
+      line-height: 1.4;
+      margin: 0;
+      font-weight: 700;
+    }
+
+    .journey-box {
+      background: rgba(255, 255, 255, .5);
+      border-radius: 30px;
+      padding: 45px;
+      border: 1px solid rgba(255, 255, 255, .4);
+      backdrop-filter: blur(12px);
+      box-shadow: var(--liv-shadow);
+      height: 100%;
+    }
+
+    .journey-number {
+      font-size: 4rem;
+      font-family: 'Cormorant Garamond', serif;
+      color: rgba(216, 138, 60, .35);
+      line-height: 1;
+      margin-bottom: 20px;
+      font-weight: 700;
+    }
+
+    .journey-box h3 {
+      font-size: 1.7rem;
+      margin-bottom: 16px;
+      font-weight: 700;
+    }
+
+    .journey-box p {
+      line-height: 1.9;
+    }
+
+    .cta-box {
+      background:
+        linear-gradient(145deg,
+          #fff7ef,
+          #ffe3c2);
+      border-radius: 36px;
+      padding: 80px 40px;
+      text-align: center;
+      box-shadow: var(--liv-shadow);
+      border: 1px solid rgba(255, 255, 255, .5);
+    }
+
+    .cta-box h2 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2.8rem, 5vw, 5rem);
+      line-height: .95;
+      margin-bottom: 24px;
+      font-weight: 700;
+    }
+
+    .cta-box p {
+      max-width: 760px;
+      margin: auto auto 36px auto;
+      line-height: 1.9;
+      font-size: 1.1rem;
+    }
+
+    .footer {
+      background: rgba(255, 247, 239, .8);
+      backdrop-filter: blur(12px);
+      color: var(--liv-text);
+    }
+
+    .footer .sitename,
+    .footer a,
+    .footer p,
+    .footer span {
+      color: var(--liv-text) !important;
+    }
+
+    @media(max-width:992px) {
+
+      .livraria-hero {
+        padding-top: 140px;
+        text-align: center;
+      }
+
+      .hero-buttons {
+        justify-content: center;
+      }
+
+      .book-frame {
+        margin-bottom: 50px;
+      }
+
+      .quote-box {
+        padding: 40px 24px;
+      }
+
+    }
+  </style>
+
+</head>
+
+<body class="index-page">
+
+  <!-- HEADER -->
+
+  <header id="header" class="header d-flex align-items-center fixed-top">
+
+    <div class="container-fluid container-xl position-relative d-flex align-items-center">
+
+      <a href="index.html" class="logo d-flex align-items-center me-auto">
+        <h1 class="sitename">
+          Lojinha dos Autistas
+        </h1>
+        <span>.</span>
+      </a>
+
+      <nav id="navmenu" class="navmenu">
+        <ul>
+          <li><a href="#inicio" class="active">Início</a></li>
+          <li><a href="#colecao">Coleção</a></li>
+          <li><a href="#sobre">Sobre</a></li>
+          <li><a href="#jornada">Jornada</a></li>
+          <li><a href="#contato">Contato</a></li>
+        </ul>
+
+        <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
+      </nav>
+
+      <a class="btn-getstarted" href="#colecao">
+        Explorar Livros
+      </a>
+
+    </div>
+
+  </header>
+
+  <main class="main">
+
+    <!-- HERO -->
+
+    <section id="inicio" class="livraria-hero">
+
+      <div class="container">
+
+        <div class="row hero-grid gy-5">
+
+          <div class="col-lg-6 order-2 order-lg-1">
+
+            <div class="hero-content" data-aos="fade-up">
+
+              <div class="liv-badge">
+                <i class="bi bi-book"></i>
+                Biblioteca • Cada Passo, uma Jornada
+              </div>
+
+              <h1 class="liv-title">
+                Livraria<br>
+                Sensorial
+              </h1>
+
+              <div class="liv-subtitle">
+                livros, jornadas e materiais construídos
+                para acolher diferentes formas de existir.
+              </div>
+
+              <p>
+                Um espaço editorial criado para transformar
+                experiências invisíveis em linguagem,
+                compreensão e caminhos possíveis.
+              </p>
+
+              <p>
+                Obras sobre autismo adulto, rotina,
+                previsibilidade, funcionamento, sobrecarga,
+                autonomia e construção de ambientes mais humanos.
+              </p>
+
+              <div class="hero-buttons">
+
+                <a href="#colecao" class="btn-livro btn-livro-primary">
+                  <i class="bi bi-stars"></i>
+                  Explorar Coleção
+                </a>
+
+                <a href="#sobre" class="btn-livro btn-livro-secondary">
+                  Conhecer o Projeto
+                </a>
+
+              </div>
+
+            </div>
+
+          </div>
+
+          <div class="col-lg-6 order-1 order-lg-2" data-aos="zoom-out">
+
+            <div class="book-frame">
+
+              <div class="book-cover">
+                <img src="assets/img/livro1.png" alt="">
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+    <!-- COLEÇÃO -->
+
+    <section id="colecao" class="section-spacing">
+
+      <div class="container">
+
+        <div class="section-heading" data-aos="fade-up">
+
+          <h2>
+            Coleção em Destaque
+          </h2>
+
+          <p>
+            Uma biblioteca construída para unir
+            sensibilidade, técnica, acolhimento
+            e compreensão da experiência autista
+            na vida adulta.
+          </p>
+
+        </div>
+
+        <div class="row gy-5">
+
+          <!-- LIVRO 1 -->
+
+          <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="100">
+
+            <div class="book-card">
+
+              <img src="assets/img/livro1.png" alt="">
+
+              <div class="book-card-body">
+
+                <div class="mini-badge">
+                  Volume 1
+                </div>
+
+                <h3>
+                  Cada Passo,<br>
+                  uma Jornada
+                </h3>
+
+                <p>
+                  Rotina, previsibilidade,
+                  ansiedade, sobrecarga e organização
+                  da vida cotidiana no autismo adulto.
+                </p>
+
+                <a href="livro-vol1.html" class="btn-livro btn-livro-primary">
+                  Ver Obra
+                </a>
+
+              </div>
+
+            </div>
+
+          </div>
+
+          <!-- LIVRO 2 -->
+
+          <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="200">
+
+            <div class="book-card">
+
+              <img src="assets/img/c1-vol2.png" alt="">
+
+              <div class="book-card-body">
+
+                <div class="mini-badge">
+                  Volume 2
+                </div>
+
+                <h3>
+                  Sobrecarga<br>
+                  Invisível
+                </h3>
+
+                <p>
+                  Um mergulho profundo
+                  na exaustão silenciosa,
+                  masking e funcionamento interno.
+                </p>
+
+                <a href="#" class="btn-livro btn-livro-primary">
+                  Em Breve
+                </a>
+
+              </div>
+
+            </div>
+
+          </div>
+
+          <!-- LIVRO 3 -->
+
+          <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="300">
+
+            <div class="book-card">
+
+              <img src="assets/img/c1-vol3.png" alt="">
+
+              <div class="book-card-body">
+
+                <div class="mini-badge">
+                  Volume 3
+                </div>
+
+                <h3>
+                  Estrutura<br>
+                  e Autonomia
+                </h3>
+
+                <p>
+                  Estratégias sustentáveis
+                  para construir caminhos
+                  possíveis de organização e vida.
+                </p>
+
+                <a href="#" class="btn-livro btn-livro-primary">
+                  Em Desenvolvimento
+                </a>
+
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+    <!-- SOBRE -->
+
+    <section id="sobre" class="section-spacing">
+
+      <div class="container">
+
+        <div class="section-heading" data-aos="fade-up">
+
+          <h2>
+            Mais que Livros
+          </h2>
+
+          <p>
+            Uma proposta editorial construída
+            para transformar conhecimento técnico
+            em acolhimento acessível e linguagem humana.
+          </p>
+
+        </div>
+
+        <div class="row gy-4">
+
+          <div class="col-lg-4" data-aos="fade-up" data-aos-delay="100">
+
+            <div class="glass-card">
+
+              <div class="glass-icon">
+                🧠
+              </div>
+
+              <h3>
+                Autismo Adulto
+              </h3>
+
+              <p>
+                Conteúdos voltados às experiências reais
+                do autismo na vida adulta:
+                rotina, ansiedade, sobrecarga,
+                paralisia e funcionamento interno.
+              </p>
+
+            </div>
+
+          </div>
+
+          <div class="col-lg-4" data-aos="fade-up" data-aos-delay="200">
+
+            <div class="glass-card">
+
+              <div class="glass-icon">
+                🌿
+              </div>
+
+              <h3>
+                Linguagem Acolhedora
+              </h3>
+
+              <p>
+                Materiais criados com profundidade técnica,
+                mas escritos de forma acessível,
+                humana e emocionalmente respeitosa.
+              </p>
+
+            </div>
+
+          </div>
+
+          <div class="col-lg-4" data-aos="fade-up" data-aos-delay="300">
+
+            <div class="glass-card">
+
+              <div class="glass-icon">
+                ✨
+              </div>
+
+              <h3>
+                Caminhos Possíveis
+              </h3>
+
+              <p>
+                O foco não é padronizar pessoas,
+                mas apoiar autonomia,
+                regulação e construção de ambientes sustentáveis.
+              </p>
+
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+    <!-- QUOTE -->
+
+    <section class="section-spacing pt-0">
+
+      <div class="container">
+
+        <div class="quote-box" data-aos="zoom-in">
+
+          <p>
+            “A rotina não deve ser entendida como repetição,
+            mas como organização do fluxo da vida cotidiana.”
+          </p>
+
+        </div>
+
+      </div>
+
+    </section>
+
+    <!-- JORNADA -->
+
+    <section id="jornada" class="section-spacing">
+
+      <div class="container">
+
+        <div class="section-heading" data-aos="fade-up">
+
+          <h2>
+            Uma Jornada em Construção
+          </h2>
+
+          <p>
+            Cada obra foi pensada como parte
+            de uma biblioteca viva sobre
+            funcionamento humano, regulação
+            e construção de autonomia.
+          </p>
+
+        </div>
+
+        <div class="row gy-4">
+
+          <div class="col-lg-3 col-md-6" data-aos="fade-up" data-aos-delay="100">
+
+            <div class="journey-box">
+
+              <div class="journey-number">
+                I
+              </div>
+
+              <h3>
+                Rotina
+              </h3>
+
+              <p>
+                Estrutura, previsibilidade
+                e organização da vida cotidiana.
+              </p>
+
+            </div>
+
+          </div>
+
+          <div class="col-lg-3 col-md-6" data-aos="fade-up" data-aos-delay="200">
+
+            <div class="journey-box">
+
+              <div class="journey-number">
+                II
+              </div>
+
+              <h3>
+                Sobrecarga
+              </h3>
+
+              <p>
+                O impacto invisível
+                da exaustão constante
+                e do masking.
+              </p>
+
+            </div>
+
+          </div>
+
+          <div class="col-lg-3 col-md-6" data-aos="fade-up" data-aos-delay="300">
+
+            <div class="journey-box">
+
+              <div class="journey-number">
+                III
+              </div>
+
+              <h3>
+                Regulação
+              </h3>
+
+              <p>
+                Estratégias práticas
+                para reduzir desgaste
+                e ampliar funcionamento.
+              </p>
+
+            </div>
+
+          </div>
+
+          <div class="col-lg-3 col-md-6" data-aos="fade-up" data-aos-delay="400">
+
+            <div class="journey-box">
+
+              <div class="journey-number">
+                IV
+              </div>
+
+              <h3>
+                Autonomia
+              </h3>
+
+              <p>
+                Construção de caminhos possíveis,
+                respeitando limites e singularidades.
+              </p>
+
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+    <!-- CTA -->
+
+    <section id="contato" class="section-spacing">
+
+      <div class="container">
+
+        <div class="cta-box" data-aos="fade-up">
+
+          <h2>
+            Cada livro é também<br>
+            um espaço de acolhimento.
+          </h2>
+
+          <p>
+            Acompanhe os lançamentos,
+            jornadas, materiais terapêuticos
+            e novos conteúdos da Livraria Sensorial.
+          </p>
+
+          <a href="https://www.instagram.com/lojinhadosautistas"
+            target="_blank"
+            class="btn-livro btn-livro-primary">
+
+            <i class="bi bi-instagram"></i>
+            Acompanhar no Instagram
+
+          </a>
+
+        </div>
+
+      </div>
+
+    </section>
+
+  </main>
+
+  <!-- FOOTER -->
+
+  <footer id="footer" class="footer">
+
+    <div class="container text-center">
+
+      <h3 class="sitename">
+        Lojinha dos Autistas
+      </h3>
+
+      <p>
+        Livraria Sensorial • Cada Passo, uma Jornada
+      </p>
+
+      <div class="social-links d-flex justify-content-center mt-4">
+
+        <a href="https://www.instagram.com/lojinhadosautistas" target="_blank">
+          <i class="bi bi-instagram"></i>
+        </a>
+
+      </div>
+
+      <div class="copyright mt-4">
+        <span>
+          © 2026 • Todos os direitos reservados
+        </span>
+      </div>
+
+    </div>
+
+  </footer>
+
+  <!-- Scroll Top -->
+
+  <a href="#"
+    id="scroll-top"
+    class="scroll-top d-flex align-items-center justify-content-center">
+
+    <i class="bi bi-arrow-up-short"></i>
+
+  </a>
+
+  <!-- Preloader -->
+
+  <div id="preloader"></div>
+
+  <!-- Vendor JS Files -->
+
+  <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="assets/vendor/aos/aos.js"></script>
+  <script src="assets/vendor/glightbox/js/glightbox.min.js"></script>
+  <script src="assets/vendor/swiper/swiper-bundle.min.js"></script>
+
+  <!-- Main JS -->
+
+  <script src="assets/js/main.js"></script>
+
+</body>
+
+</html>
