@@ -1,0 +1,923 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>ENTRELAÇOS — Caminhos Possíveis</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Cormorant+Garamond:wght@400;500;600;700&display=swap"
+    rel="stylesheet">
+
+  <style>
+    :root {
+
+      --bg:
+        #060b14;
+
+      --bg-soft:
+        #0c1727;
+
+      --blue:
+        #9bc4ff;
+
+      --gold:
+        #f2c777;
+
+      --green:
+        #9cc2a6;
+
+      --white:
+        rgba(255, 255, 255, 0.94);
+
+      --soft:
+        rgba(255, 255, 255, 0.58);
+
+      --line:
+        rgba(255, 255, 255, 0.08);
+
+      --glass:
+        linear-gradient(145deg,
+          rgba(255, 255, 255, 0.08),
+          rgba(255, 255, 255, 0.02));
+
+      --shadow:
+        0 40px 140px rgba(0, 0, 0, 0.45);
+
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+
+      background:
+        radial-gradient(circle at top,
+          rgba(155, 196, 255, 0.08),
+          transparent 25%),
+
+        radial-gradient(circle at bottom,
+          rgba(242, 199, 119, 0.06),
+          transparent 30%),
+
+        linear-gradient(180deg,
+          #050a12 0%,
+          #08111d 30%,
+          #091624 60%,
+          #050a12 100%);
+
+      font-family: 'Inter', sans-serif;
+      color: var(--white);
+
+      overflow-x: hidden;
+
+    }
+
+    /* ATMOSPHERE */
+
+    .atmosphere {
+
+      position: fixed;
+      inset: 0;
+      overflow: hidden;
+      pointer-events: none;
+      z-index: 0;
+
+    }
+
+    .mist {
+
+      position: absolute;
+      border-radius: 50%;
+
+      background:
+        radial-gradient(circle,
+          rgba(255, 255, 255, 0.10),
+          transparent 70%);
+
+      filter: blur(80px);
+
+      animation:
+        breathe 18s infinite ease-in-out;
+
+    }
+
+    .mist:nth-child(1) {
+      width: 900px;
+      height: 900px;
+      top: -20%;
+      left: -10%;
+    }
+
+    .mist:nth-child(2) {
+      width: 700px;
+      height: 700px;
+      right: -10%;
+      top: 40%;
+      animation-duration: 24s;
+    }
+
+    .mist:nth-child(3) {
+      width: 600px;
+      height: 600px;
+      left: 30%;
+      bottom: -20%;
+      animation-duration: 22s;
+    }
+
+    @keyframes breathe {
+
+      0%,
+      100% {
+        transform:
+          scale(1)
+          translateY(0px);
+      }
+
+      50% {
+        transform:
+          scale(1.08)
+          translateY(-20px);
+      }
+
+    }
+
+    /* LIGHT PATHS */
+
+    .light-paths {
+
+      position: fixed;
+      inset: 0;
+
+      opacity: 0.22;
+
+      pointer-events: none;
+
+      z-index: 1;
+
+    }
+
+    .light-paths svg {
+      width: 100%;
+      height: 100%;
+    }
+
+    /* GLOBAL */
+
+    .container {
+
+      width: min(1380px, 92%);
+      margin: auto;
+
+      position: relative;
+      z-index: 3;
+
+    }
+
+    section {
+
+      min-height: 100vh;
+
+      display: flex;
+      align-items: center;
+
+      position: relative;
+
+      padding: 120px 0;
+
+    }
+
+    /* TYPO */
+
+    .eyebrow {
+
+      text-transform: uppercase;
+      letter-spacing: 8px;
+
+      color: var(--gold);
+
+      font-size: 0.72rem;
+
+      margin-bottom: 34px;
+
+    }
+
+    .display {
+
+      font-family: 'Cormorant Garamond', serif;
+
+      font-size: clamp(4rem, 9vw, 9rem);
+
+      line-height: 0.9;
+
+      font-weight: 500;
+
+      letter-spacing: 1px;
+
+    }
+
+    .display-md {
+
+      font-family: 'Cormorant Garamond', serif;
+
+      font-size: clamp(2.8rem, 5vw, 5rem);
+
+      line-height: 1;
+
+      font-weight: 500;
+
+    }
+
+    .body {
+
+      font-size: 1.1rem;
+
+      line-height: 2;
+
+      color: var(--soft);
+
+      max-width: 760px;
+
+    }
+
+    /* HERO */
+
+    .hero {
+
+      justify-content: center;
+      text-align: center;
+
+    }
+
+    .hero-content {
+
+      max-width: 1200px;
+      margin: auto;
+
+    }
+
+    .hero p {
+
+      margin:
+        50px auto 0;
+
+    }
+
+    /* JOURNEY */
+
+    .journey {
+
+      position: relative;
+
+      min-height: 1800px;
+
+    }
+
+    .journey-line {
+
+      position: absolute;
+
+      left: 50%;
+      top: 0;
+
+      transform: translateX(-50%);
+
+      width: 2px;
+      height: 100%;
+
+      background:
+        linear-gradient(to bottom,
+
+          rgba(255, 255, 255, 0),
+
+          rgba(255, 255, 255, 0.22),
+
+          rgba(255, 255, 255, 0));
+
+    }
+
+    /* GLOW */
+
+    .glow {
+
+      position: absolute;
+
+      width: 340px;
+      height: 340px;
+
+      border-radius: 50%;
+
+      background:
+        radial-gradient(circle,
+          rgba(255, 255, 255, 0.12),
+          transparent 70%);
+
+      filter: blur(40px);
+
+      pointer-events: none;
+
+    }
+
+    /* STEP */
+
+    .step {
+
+      position: relative;
+
+      width: 100%;
+
+      margin-bottom: 260px;
+
+      display: flex;
+
+    }
+
+    .step.left {
+      justify-content: flex-start;
+    }
+
+    .step.right {
+      justify-content: flex-end;
+    }
+
+    .step-card {
+
+      width: min(520px, 100%);
+
+      padding: 48px;
+
+      border-radius: 38px;
+
+      background: var(--glass);
+
+      backdrop-filter: blur(24px);
+
+      border:
+        1px solid rgba(255, 255, 255, 0.08);
+
+      box-shadow: var(--shadow);
+
+      position: relative;
+
+      overflow: hidden;
+
+      transition:
+        transform .6s ease,
+        border .6s ease;
+
+    }
+
+    .step-card:hover {
+
+      transform:
+        translateY(-12px);
+
+      border:
+        1px solid rgba(255, 255, 255, 0.18);
+
+    }
+
+    .step-card::before {
+
+      content: '';
+
+      position: absolute;
+
+      inset: 0;
+
+      background:
+        linear-gradient(145deg,
+          rgba(255, 255, 255, 0.08),
+          transparent);
+
+      opacity: 0.6;
+
+      pointer-events: none;
+
+    }
+
+    .step-number {
+
+      width: 64px;
+      height: 64px;
+
+      border-radius: 50%;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      margin-bottom: 26px;
+
+      background:
+        linear-gradient(145deg,
+          rgba(255, 255, 255, 0.14),
+          rgba(255, 255, 255, 0.03));
+
+      color: var(--gold);
+
+      font-weight: 700;
+
+      border:
+        1px solid rgba(255, 255, 255, 0.08);
+
+    }
+
+    .step-card h2 {
+
+      font-family: 'Cormorant Garamond', serif;
+
+      font-size: 3rem;
+
+      line-height: 1;
+
+      font-weight: 500;
+
+      margin-bottom: 28px;
+
+    }
+
+    .step-card p {
+
+      color: var(--soft);
+
+      line-height: 2;
+
+      font-size: 1.02rem;
+
+    }
+
+    /* FLOATING FRAGMENTS */
+
+    .fragment {
+
+      position: absolute;
+
+      padding:
+        14px 20px;
+
+      border-radius: 999px;
+
+      background:
+        rgba(255, 255, 255, 0.04);
+
+      border:
+        1px solid rgba(255, 255, 255, 0.06);
+
+      backdrop-filter: blur(20px);
+
+      color:
+        rgba(255, 255, 255, 0.45);
+
+      font-size: 0.88rem;
+
+      animation:
+        float 10s infinite ease-in-out;
+
+    }
+
+    .fragment:nth-child(even) {
+      animation-duration: 14s;
+    }
+
+    @keyframes float {
+
+      0%,
+      100% {
+        transform:
+          translateY(0px);
+      }
+
+      50% {
+        transform:
+          translateY(-18px);
+      }
+
+    }
+
+    /* FINAL */
+
+    .final {
+
+      text-align: center;
+
+    }
+
+    .final-panel {
+
+      padding:
+        140px 90px;
+
+      border-radius: 50px;
+
+      background:
+        linear-gradient(145deg,
+          rgba(255, 255, 255, 0.08),
+          rgba(255, 255, 255, 0.02));
+
+      backdrop-filter: blur(28px);
+
+      border:
+        1px solid rgba(255, 255, 255, 0.08);
+
+      position: relative;
+
+      overflow: hidden;
+
+    }
+
+    .final-panel::before {
+
+      content: '';
+
+      position: absolute;
+
+      width: 900px;
+      height: 900px;
+
+      border-radius: 50%;
+
+      background:
+        radial-gradient(circle,
+          rgba(242, 199, 119, 0.08),
+          transparent 65%);
+
+      top: -500px;
+      left: 50%;
+
+      transform: translateX(-50%);
+
+    }
+
+    .final p {
+
+      margin:
+        50px auto 0;
+
+    }
+
+    /* MOBILE */
+
+    @media(max-width: 980px) {
+
+      .journey-line {
+        left: 24px;
+      }
+
+      .step {
+        justify-content: flex-start !important;
+      }
+
+      .step-card {
+
+        width: 100%;
+
+        margin-left: 60px;
+
+      }
+
+    }
+
+    @media(max-width: 768px) {
+
+      section {
+        padding: 90px 0;
+      }
+
+      .display {
+        font-size: 4.2rem;
+      }
+
+      .display-md {
+        font-size: 3rem;
+      }
+
+      .step-card {
+        padding: 36px;
+      }
+
+      .final-panel {
+        padding: 80px 34px;
+      }
+
+      .fragment {
+        display: none;
+      }
+
+    }
+  </style>
+
+</head>
+
+<body>
+
+  <!-- ATMOSPHERE -->
+
+  <div class="atmosphere">
+
+    <div class="mist"></div>
+    <div class="mist"></div>
+    <div class="mist"></div>
+
+  </div>
+
+  <!-- LIGHT PATHS -->
+
+  <div class="light-paths">
+
+    <svg viewBox="0 0 1920 1080" preserveAspectRatio="none">
+
+      <path
+        d="
+          M 0 520
+          C 300 300, 600 720, 960 520
+          S 1500 320, 1920 540"
+
+        fill="none"
+
+        stroke="rgba(255,255,255,0.14)"
+
+        stroke-width="2"
+
+        stroke-linecap="round"
+
+        stroke-dasharray="8 20" />
+
+      <path
+        d="
+          M 0 780
+          C 480 620, 760 940, 1200 720
+          S 1600 560, 1920 740"
+
+        fill="none"
+
+        stroke="rgba(242,199,119,0.12)"
+
+        stroke-width="2"
+
+        stroke-linecap="round"
+
+        stroke-dasharray="10 18" />
+
+    </svg>
+
+  </div>
+
+  <!-- HERO -->
+
+  <section class="hero">
+
+    <div class="container">
+
+      <div class="hero-content">
+
+        <div class="eyebrow">
+          ENTRELAÇOS
+        </div>
+
+        <h1 class="display">
+          Existem caminhos possíveis.
+        </h1>
+
+        <p class="body">
+          Algumas compreensões não surgem de uma vez.
+          Elas aparecem lentamente.
+          Pequenos sinais começam a permanecer.
+          O que parecia disperso pode encontrar continuidade.
+        </p>
+
+      </div>
+
+    </div>
+
+  </section>
+
+  <!-- JOURNEY -->
+
+  <section>
+
+    <div class="container">
+
+      <div class="journey">
+
+        <div class="journey-line"></div>
+
+        <!-- STEP 1 -->
+
+        <div class="step left">
+
+          <div class="glow"
+            style="top:-120px; left:-80px;">
+          </div>
+
+          <div class="fragment"
+            style="top:-40px; left:48%;">
+            “algumas coisas começam a reaparecer”
+          </div>
+
+          <div class="step-card">
+
+            <div class="step-number">
+              01
+            </div>
+
+            <h2>
+              Experiência Vivida
+            </h2>
+
+            <p>
+              Antes da organização existe a vivência.
+              Pequenos acontecimentos permanecem espalhados.
+              Ainda sem forma.
+              Ainda sem nome.
+              Ainda sem direção clara.
+            </p>
+
+          </div>
+
+        </div>
+
+        <!-- STEP 2 -->
+
+        <div class="step right">
+
+          <div class="glow"
+            style="top:-80px; right:-120px;">
+          </div>
+
+          <div class="fragment"
+            style="top:20px; left:22%;">
+            “o que parecia distante…”
+          </div>
+
+          <div class="step-card">
+
+            <div class="step-number">
+              02
+            </div>
+
+            <h2>
+              Leitura
+            </h2>
+
+            <p>
+              Algumas relações começam a surgir lentamente.
+              O olhar deixa de perceber apenas partes isoladas.
+              Pequenos padrões começam a permanecer.
+            </p>
+
+          </div>
+
+        </div>
+
+        <!-- STEP 3 -->
+
+        <div class="step left">
+
+          <div class="glow"
+            style="top:-60px; left:-120px;">
+          </div>
+
+          <div class="fragment"
+            style="top:-20px; left:58%;">
+            “agora isso pode permanecer”
+          </div>
+
+          <div class="step-card">
+
+            <div class="step-number">
+              03
+            </div>
+
+            <h2>
+              Registro
+            </h2>
+
+            <p>
+              O que antes desaparecia rapidamente
+              agora pode ser observado novamente.
+              Pequenos detalhes começam a construir continuidade.
+            </p>
+
+          </div>
+
+        </div>
+
+        <!-- STEP 4 -->
+
+        <div class="step right">
+
+          <div class="glow"
+            style="top:-80px; right:-100px;">
+          </div>
+
+          <div class="fragment"
+            style="top:-10px; left:30%;">
+            “as relações começam a aparecer”
+          </div>
+
+          <div class="step-card">
+
+            <div class="step-number">
+              04
+            </div>
+
+            <h2>
+              Interpretação
+            </h2>
+
+            <p>
+              Algumas conexões deixam de parecer invisíveis.
+              O sistema começa a revelar profundidade,
+              continuidade e possibilidade.
+            </p>
+
+          </div>
+
+        </div>
+
+        <!-- STEP 5 -->
+
+        <div class="step left">
+
+          <div class="glow"
+            style="top:-100px; left:-120px;">
+          </div>
+
+          <div class="fragment"
+            style="top:20px; left:54%;">
+            “existem caminhos possíveis”
+          </div>
+
+          <div class="step-card">
+
+            <div class="step-number">
+              05
+            </div>
+
+            <h2>
+              Continuidade
+            </h2>
+
+            <p>
+              Nem tudo precisa ser resolvido imediatamente.
+              Algumas compreensões amadurecem com presença,
+              permanência e continuidade humana.
+            </p>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </section>
+
+  <!-- FINAL -->
+
+  <section class="final">
+
+    <div class="container">
+
+      <div class="final-panel">
+
+        <div class="eyebrow">
+          ACESSIBILIDADE COGNITIVA CINEMATOGRÁFICA
+        </div>
+
+        <h2 class="display-md">
+          O conhecimento não precisa pressionar.
+        </h2>
+
+        <p class="body">
+          O ENTRELAÇOS organiza caminhos vivos de observação,
+          acolhimento e continuidade.
+          A tecnologia não substitui presença humana.
+          Ela cria espaço para percepção,
+          compreensão
+          e esperança.
+        </p>
+
+      </div>
+
+    </div>
+
+  </section>
+
+</body>
+
+</html>
