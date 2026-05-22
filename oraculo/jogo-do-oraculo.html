@@ -1,0 +1,1341 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+<title>
+Jogo do ORÁCULO • Sistema REDE
+</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Orbitron:wght@500;700;800;900&display=swap" rel="stylesheet">
+
+<style>
+
+/* =========================================================
+RESET
+========================================================= */
+
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
+
+body{
+  font-family:'Inter',sans-serif;
+
+  background:
+  radial-gradient(circle at top,
+  #11203d 0%,
+  #08101d 45%,
+  #04070d 100%);
+
+  color:white;
+  overflow-x:hidden;
+  position:relative;
+}
+
+/* =========================================================
+BACKGROUND
+========================================================= */
+
+body::before{
+  content:"";
+  position:fixed;
+  inset:0;
+
+  background:
+  radial-gradient(circle at top right,
+  rgba(255,179,0,.14),
+  transparent 30%),
+
+  radial-gradient(circle at bottom left,
+  rgba(0,170,255,.12),
+  transparent 35%);
+
+  z-index:-5;
+}
+
+.grid-bg{
+  position:fixed;
+  inset:0;
+
+  background-image:
+  linear-gradient(rgba(255,255,255,.03) 1px, transparent 1px),
+  linear-gradient(90deg, rgba(255,255,255,.03) 1px, transparent 1px);
+
+  background-size:70px 70px;
+
+  z-index:-4;
+
+  mask-image:
+  radial-gradient(circle at center,
+  black 35%,
+  transparent 85%);
+}
+
+.noise{
+  position:fixed;
+  inset:0;
+  opacity:.04;
+  z-index:-3;
+
+  background-image:
+  url("https://grainy-gradients.vercel.app/noise.svg");
+}
+
+.glow{
+  position:fixed;
+  border-radius:50%;
+  filter:blur(140px);
+  opacity:.24;
+  z-index:-2;
+}
+
+.glow-1{
+  width:500px;
+  height:500px;
+  background:#ffb300;
+  top:-180px;
+  right:-180px;
+}
+
+.glow-2{
+  width:450px;
+  height:450px;
+  background:#00aaff;
+  bottom:-180px;
+  left:-180px;
+}
+
+/* =========================================================
+PARTICLES
+========================================================= */
+
+.particles{
+  position:fixed;
+  inset:0;
+  overflow:hidden;
+  z-index:-1;
+}
+
+.particle{
+  position:absolute;
+  width:3px;
+  height:3px;
+  border-radius:50%;
+  background:white;
+  opacity:.15;
+  animation:float linear infinite;
+}
+
+@keyframes float{
+
+  from{
+    transform:translateY(100vh);
+  }
+
+  to{
+    transform:translateY(-120vh);
+  }
+
+}
+
+/* =========================================================
+LAYOUT
+========================================================= */
+
+.container{
+  width:min(1450px,92%);
+  margin:auto;
+}
+
+/* =========================================================
+HEADER
+========================================================= */
+
+.hero{
+  padding:100px 0 60px;
+  text-align:center;
+}
+
+.hero-mini{
+  color:#ffbf47;
+  letter-spacing:4px;
+  text-transform:uppercase;
+  margin-bottom:25px;
+}
+
+.hero h1{
+  font-family:'Orbitron',sans-serif;
+  font-size:clamp(3.5rem,8vw,7rem);
+  line-height:.95;
+  margin-bottom:30px;
+}
+
+.hero p{
+  max-width:900px;
+  margin:auto;
+  line-height:2;
+  color:rgba(255,255,255,.74);
+  font-size:1.1rem;
+}
+
+/* =========================================================
+TOP HUD
+========================================================= */
+
+.topbar{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
+  gap:22px;
+
+  margin:40px 0 80px;
+}
+
+.hud-card{
+  background:
+  rgba(255,255,255,.05);
+
+  border:
+  1px solid rgba(255,255,255,.08);
+
+  border-radius:28px;
+
+  padding:28px;
+
+  backdrop-filter:blur(18px);
+
+  position:relative;
+  overflow:hidden;
+}
+
+.hud-card::before{
+  content:"";
+  position:absolute;
+  inset:0;
+
+  background:
+  linear-gradient(
+    145deg,
+    rgba(255,179,0,.08),
+    transparent 55%
+  );
+}
+
+.hud-title{
+  position:relative;
+  z-index:2;
+
+  font-size:.88rem;
+  letter-spacing:3px;
+  text-transform:uppercase;
+
+  color:#ffbf47;
+
+  margin-bottom:16px;
+}
+
+.hud-value{
+  position:relative;
+  z-index:2;
+
+  font-size:2.5rem;
+  font-weight:900;
+}
+
+.progress-bar{
+  width:100%;
+  height:18px;
+
+  border-radius:999px;
+
+  background:
+  rgba(255,255,255,.08);
+
+  overflow:hidden;
+
+  margin-top:18px;
+}
+
+.progress-fill{
+  height:100%;
+  width:0%;
+
+  background:
+  linear-gradient(
+    90deg,
+    #ffb300,
+    #00aaff
+  );
+
+  transition:.5s ease;
+}
+
+/* =========================================================
+MAIN GRID
+========================================================= */
+
+.main-grid{
+  display:grid;
+  grid-template-columns:1fr 390px;
+  gap:35px;
+  align-items:start;
+}
+
+/* =========================================================
+GAME PANEL
+========================================================= */
+
+.game-panel{
+  position:relative;
+}
+
+.pipeline-line{
+  position:absolute;
+  left:70px;
+  top:0;
+  bottom:0;
+  width:4px;
+
+  background:
+  linear-gradient(
+    to bottom,
+    rgba(255,179,0,.9),
+    rgba(0,170,255,.7)
+  );
+
+  border-radius:999px;
+
+  box-shadow:
+  0 0 35px rgba(255,179,0,.28);
+}
+
+/* =========================================================
+LAYER
+========================================================= */
+
+.layer{
+  position:relative;
+
+  display:flex;
+  gap:30px;
+
+  margin-bottom:55px;
+}
+
+.layer-left{
+  width:140px;
+  display:flex;
+  justify-content:center;
+  position:relative;
+}
+
+.layer-core{
+  width:140px;
+  height:140px;
+
+  border-radius:50%;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  position:relative;
+
+  background:
+  radial-gradient(circle,
+  rgba(255,179,0,.18),
+  rgba(255,255,255,.03));
+
+  border:
+  1px solid rgba(255,255,255,.08);
+
+  backdrop-filter:blur(18px);
+
+  box-shadow:
+  0 0 50px rgba(255,179,0,.18);
+}
+
+.layer-core::before{
+  content:"";
+  position:absolute;
+
+  width:170px;
+  height:170px;
+
+  border-radius:50%;
+  border:1px dashed rgba(255,179,0,.18);
+
+  animation:rotate 12s linear infinite;
+}
+
+.layer-letter{
+  font-family:'Orbitron',sans-serif;
+  font-size:4rem;
+  font-weight:900;
+
+  background:
+  linear-gradient(135deg,#ffffff,#ffbf47);
+
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+
+  z-index:2;
+}
+
+@keyframes rotate{
+
+  from{
+    transform:rotate(0deg);
+  }
+
+  to{
+    transform:rotate(360deg);
+  }
+
+}
+
+.layer-card{
+  flex:1;
+
+  background:
+  rgba(255,255,255,.05);
+
+  border:
+  1px solid rgba(255,255,255,.08);
+
+  border-radius:34px;
+
+  padding:36px;
+
+  backdrop-filter:blur(18px);
+
+  position:relative;
+  overflow:hidden;
+
+  transition:.4s ease;
+}
+
+.layer-card::before{
+  content:"";
+  position:absolute;
+  inset:0;
+
+  background:
+  linear-gradient(
+    145deg,
+    rgba(255,179,0,.08),
+    transparent 55%
+  );
+}
+
+.layer-card.locked{
+  opacity:.45;
+  filter:grayscale(.3);
+}
+
+.layer-card.active{
+  border-color:rgba(255,179,0,.28);
+
+  box-shadow:
+  0 0 50px rgba(255,179,0,.12);
+}
+
+.layer-number{
+  position:relative;
+  z-index:2;
+
+  font-family:'Orbitron',sans-serif;
+  font-size:4rem;
+  opacity:.08;
+
+  margin-bottom:10px;
+}
+
+.layer-title{
+  position:relative;
+  z-index:2;
+
+  font-size:2rem;
+  font-weight:800;
+
+  margin-bottom:18px;
+}
+
+.layer-desc{
+  position:relative;
+  z-index:2;
+
+  line-height:1.9;
+  color:rgba(255,255,255,.74);
+
+  margin-bottom:30px;
+}
+
+/* =========================================================
+CHECKLIST
+========================================================= */
+
+.checklist{
+  position:relative;
+  z-index:2;
+
+  display:flex;
+  flex-direction:column;
+  gap:16px;
+}
+
+.check-item{
+  background:
+  rgba(255,255,255,.05);
+
+  border:
+  1px solid rgba(255,255,255,.08);
+
+  border-radius:22px;
+
+  padding:18px;
+
+  display:flex;
+  align-items:center;
+  gap:16px;
+
+  cursor:pointer;
+
+  transition:.3s ease;
+}
+
+.check-item:hover{
+  transform:translateX(6px);
+
+  border-color:
+  rgba(255,179,0,.28);
+}
+
+.check-item.completed{
+  background:
+  rgba(34,197,94,.12);
+
+  border-color:
+  rgba(34,197,94,.35);
+}
+
+.check-button{
+  width:56px;
+  height:56px;
+
+  border-radius:18px;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  font-size:1.4rem;
+  font-weight:900;
+
+  background:
+  rgba(255,255,255,.08);
+
+  flex-shrink:0;
+}
+
+.check-item.completed .check-button{
+  background:
+  linear-gradient(
+    135deg,
+    #22c55e,
+    #16a34a
+  );
+}
+
+.check-text{
+  line-height:1.7;
+  color:rgba(255,255,255,.78);
+}
+
+/* =========================================================
+SIDE PANEL
+========================================================= */
+
+.side-panel{
+  position:sticky;
+  top:30px;
+
+  display:flex;
+  flex-direction:column;
+  gap:22px;
+}
+
+.side-card{
+  background:
+  rgba(255,255,255,.05);
+
+  border:
+  1px solid rgba(255,255,255,.08);
+
+  border-radius:30px;
+
+  padding:30px;
+
+  backdrop-filter:blur(18px);
+
+  position:relative;
+  overflow:hidden;
+}
+
+.side-card::before{
+  content:"";
+  position:absolute;
+  inset:0;
+
+  background:
+  linear-gradient(
+    145deg,
+    rgba(255,179,0,.08),
+    transparent 60%
+  );
+}
+
+.side-title{
+  position:relative;
+  z-index:2;
+
+  font-size:.9rem;
+  letter-spacing:3px;
+  text-transform:uppercase;
+
+  color:#ffbf47;
+
+  margin-bottom:18px;
+}
+
+.avatar{
+  position:relative;
+  z-index:2;
+
+  font-size:7rem;
+  text-align:center;
+}
+
+.avatar-name{
+  position:relative;
+  z-index:2;
+
+  text-align:center;
+
+  font-size:1.8rem;
+  font-weight:800;
+
+  margin-top:10px;
+}
+
+.layer-status{
+  position:relative;
+  z-index:2;
+
+  font-size:1.4rem;
+  font-weight:700;
+
+  margin-bottom:16px;
+}
+
+.side-text{
+  position:relative;
+  z-index:2;
+
+  line-height:1.9;
+  color:rgba(255,255,255,.74);
+}
+
+.rewards{
+  display:flex;
+  flex-wrap:wrap;
+  gap:12px;
+
+  margin-top:20px;
+}
+
+.reward{
+  padding:12px 14px;
+
+  border-radius:16px;
+
+  background:
+  rgba(255,255,255,.05);
+
+  border:
+  1px solid rgba(255,255,255,.08);
+
+  font-size:.92rem;
+}
+
+.big-message{
+  position:relative;
+  z-index:2;
+
+  font-size:2rem;
+  font-weight:900;
+  line-height:1.4;
+}
+
+.small-message{
+  position:relative;
+  z-index:2;
+
+  margin-top:16px;
+
+  line-height:1.9;
+  color:rgba(255,255,255,.74);
+}
+
+/* =========================================================
+CONFETTI
+========================================================= */
+
+.confetti{
+  position:fixed;
+  pointer-events:none;
+  animation:fall 3s linear forwards;
+  z-index:999;
+}
+
+@keyframes fall{
+
+  from{
+    transform:translateY(-100px) rotate(0deg);
+    opacity:1;
+  }
+
+  to{
+    transform:translateY(100vh) rotate(720deg);
+    opacity:0;
+  }
+
+}
+
+/* =========================================================
+RESPONSIVE
+========================================================= */
+
+@media(max-width:1200px){
+
+  .main-grid{
+    grid-template-columns:1fr;
+  }
+
+  .side-panel{
+    position:relative;
+    top:auto;
+  }
+
+}
+
+@media(max-width:768px){
+
+  .layer{
+    flex-direction:column;
+  }
+
+  .layer-left{
+    width:100%;
+  }
+
+  .pipeline-line{
+    display:none;
+  }
+
+  .hero h1{
+    font-size:3.2rem;
+  }
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="grid-bg"></div>
+<div class="noise"></div>
+
+<div class="glow glow-1"></div>
+<div class="glow glow-2"></div>
+
+<div class="particles" id="particles"></div>
+
+<div class="container">
+
+<!-- HERO -->
+
+<section class="hero">
+
+<div class="hero-mini">
+SISTEMA REDE • JOGO DO ORÁCULO
+</div>
+
+<h1>
+AS 7 CAMADAS<br>
+DA CONDUÇÃO<br>
+REFLEXIVA
+</h1>
+
+<p>
+Complete cada camada progressiva do ORÁCULO.
+Responda perguntas, organize o raciocínio
+e avance até transformar complexidade
+em clareza operacional estruturada.
+</p>
+
+</section>
+
+<!-- TOPBAR -->
+
+<div class="topbar">
+
+<div class="hud-card">
+
+<div class="hud-title">
+Camadas Concluídas
+</div>
+
+<div class="hud-value" id="layersCompleted">
+0/7
+</div>
+
+</div>
+
+<div class="hud-card">
+
+<div class="hud-title">
+Progressão Cognitiva
+</div>
+
+<div class="hud-value" id="progressText">
+0%
+</div>
+
+<div class="progress-bar">
+<div class="progress-fill" id="progressFill"></div>
+</div>
+
+</div>
+
+<div class="hud-card">
+
+<div class="hud-title">
+Nível Operacional
+</div>
+
+<div class="hud-value" id="level">
+01
+</div>
+
+</div>
+
+</div>
+
+<!-- MAIN -->
+
+<div class="main-grid">
+
+<!-- GAME -->
+
+<div class="game-panel">
+
+<div class="pipeline-line"></div>
+
+<div id="layersContainer"></div>
+
+</div>
+
+<!-- SIDE -->
+
+<div class="side-panel">
+
+<div class="side-card">
+
+<div class="side-title">
+Operador
+</div>
+
+<div class="avatar">
+🜂
+</div>
+
+<div class="avatar-name">
+ORÁCULO
+</div>
+
+</div>
+
+<div class="side-card">
+
+<div class="side-title">
+Camada Atual
+</div>
+
+<div class="layer-status" id="currentLayer">
+Observação Contextual
+</div>
+
+<div class="side-text" id="currentDesc">
+Leitura inicial do cenário e identificação das variáveis críticas.
+</div>
+
+</div>
+
+<div class="side-card">
+
+<div class="side-title">
+Recompensas Cognitivas
+</div>
+
+<div class="rewards">
+
+<div class="reward">
+🧠 Clareza
+</div>
+
+<div class="reward">
+⚡ Integração
+</div>
+
+<div class="reward">
+🛰️ Contexto
+</div>
+
+<div class="reward">
+🔶 Estratégia
+</div>
+
+<div class="reward">
+🌌 Coerência
+</div>
+
+<div class="reward">
+📡 Leitura Sistêmica
+</div>
+
+</div>
+
+</div>
+
+<div class="side-card">
+
+<div class="big-message">
+Cada resposta reorganiza o percurso do pensamento.
+</div>
+
+<div class="small-message">
+O ORÁCULO não entrega respostas automáticas.
+Ele conduz trajetórias reflexivas progressivas.
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<script>
+
+/* =========================================================
+PARTICLES
+========================================================= */
+
+const particles =
+document.getElementById("particles");
+
+for(let i=0;i<80;i++){
+
+  const p =
+  document.createElement("div");
+
+  p.classList.add("particle");
+
+  p.style.left =
+  Math.random()*100 + "vw";
+
+  p.style.animationDuration =
+  (15 + Math.random()*30) + "s";
+
+  p.style.animationDelay =
+  Math.random()*-30 + "s";
+
+  particles.appendChild(p);
+
+}
+
+/* =========================================================
+DATA
+========================================================= */
+
+const layers = [
+
+{
+letter:"O",
+title:"Observação Contextual",
+desc:"Leitura inicial do cenário e identificação das variáveis críticas.",
+questions:[
+"O cenário foi compreendido de forma ampla?",
+"As variáveis emocionais foram identificadas?",
+"Existem sinais críticos relevantes?",
+"O contexto operacional está claro?",
+"Há fatores externos influenciando?",
+]
+},
+
+{
+letter:"R",
+title:"Reconhecimento de Padrões",
+desc:"Identificação de recorrências e conexões sistêmicas.",
+questions:[
+"Foram identificadas recorrências?",
+"Existem padrões comportamentais?",
+"Há conexões entre eventos?",
+"Os dados convergem?",
+"Os clusters foram organizados?"
+]
+},
+
+{
+letter:"A",
+title:"Ativação de BPs",
+desc:"Estruturação dos Blocos Programáticos.",
+questions:[
+"O BP correto foi ativado?",
+"As perguntas-chave foram definidas?",
+"O percurso reflexivo foi estruturado?",
+"Os gatilhos foram mapeados?",
+"A condução está coerente?"
+]
+},
+
+{
+letter:"C",
+title:"Configuração Estratégica",
+desc:"Organização de prioridades e objetivos.",
+questions:[
+"As prioridades foram organizadas?",
+"Os recursos foram identificados?",
+"As restrições estão claras?",
+"O planejamento foi estruturado?",
+"A estratégia está consistente?"
+]
+},
+
+{
+letter:"U",
+title:"Unidade Integrada",
+desc:"Integração sistêmica das múltiplas dimensões.",
+questions:[
+"As dimensões convergiram?",
+"A coerência aumentou?",
+"A dispersão foi reduzida?",
+"Os dados foram integrados?",
+"O sistema está sincronizado?"
+]
+},
+
+{
+letter:"L",
+title:"Leitura Dinâmica",
+desc:"Monitoramento contínuo e adaptação contextual.",
+questions:[
+"O contexto mudou?",
+"O sistema foi atualizado?",
+"As leituras permanecem válidas?",
+"O percurso foi ajustado?",
+"Há novas variáveis emergentes?"
+]
+},
+
+{
+letter:"O",
+title:"Output Programático",
+desc:"Direcionamento final da condução reflexiva.",
+questions:[
+"As possibilidades foram organizadas?",
+"A decisão está sustentada?",
+"O direcionamento está claro?",
+"O planejamento final foi definido?",
+"O output está coerente?"
+]
+}
+
+];
+
+/* =========================================================
+RENDER
+========================================================= */
+
+const container =
+document.getElementById("layersContainer");
+
+layers.forEach((layer,index)=>{
+
+  const div =
+  document.createElement("div");
+
+  div.className =
+  "layer";
+
+  const locked =
+  index === 0 ? "" : "locked";
+
+  div.innerHTML = `
+
+  <div class="layer-left">
+
+    <div class="layer-core">
+
+      <div class="layer-letter">
+        ${layer.letter}
+      </div>
+
+    </div>
+
+  </div>
+
+  <div class="layer-card ${locked}" data-layer="${index}">
+
+    <div class="layer-number">
+      0${index+1}
+    </div>
+
+    <div class="layer-title">
+      ${layer.title}
+    </div>
+
+    <div class="layer-desc">
+      ${layer.desc}
+    </div>
+
+    <div class="checklist">
+
+      ${layer.questions.map((q,qIndex)=>`
+
+      <div
+      class="check-item"
+      data-layer="${index}"
+      data-question="${qIndex}">
+
+        <div class="check-button">
+          ○
+        </div>
+
+        <div class="check-text">
+          ${q}
+        </div>
+
+      </div>
+
+      `).join("")}
+
+    </div>
+
+  </div>
+
+  `;
+
+  container.appendChild(div);
+
+});
+
+/* =========================================================
+GAME LOGIC
+========================================================= */
+
+const checkItems =
+document.querySelectorAll(".check-item");
+
+const cards =
+document.querySelectorAll(".layer-card");
+
+const layersCompleted =
+document.getElementById("layersCompleted");
+
+const progressFill =
+document.getElementById("progressFill");
+
+const progressText =
+document.getElementById("progressText");
+
+const level =
+document.getElementById("level");
+
+const currentLayer =
+document.getElementById("currentLayer");
+
+const currentDesc =
+document.getElementById("currentDesc");
+
+let completedQuestions = 0;
+
+checkItems.forEach(item=>{
+
+  item.addEventListener("click",()=>{
+
+    const layer =
+    parseInt(item.dataset.layer);
+
+    const card =
+    cards[layer];
+
+    if(card.classList.contains("locked")){
+      return;
+    }
+
+    if(item.classList.contains("completed")){
+      return;
+    }
+
+    item.classList.add("completed");
+
+    item.querySelector(".check-button").innerHTML =
+    "✓";
+
+    completedQuestions++;
+
+    createConfetti();
+
+    updateHUD();
+
+    checkLayerCompletion(layer);
+
+  });
+
+});
+
+function checkLayerCompletion(layerIndex){
+
+  const layerItems =
+  document.querySelectorAll(
+  `.check-item[data-layer="${layerIndex}"]`);
+
+  const completed =
+  [...layerItems].every(item=>
+  item.classList.contains("completed"));
+
+  if(completed){
+
+    const next =
+    cards[layerIndex + 1];
+
+    if(next){
+
+      next.classList.remove("locked");
+
+      next.classList.add("active");
+
+    }
+
+  }
+
+}
+
+function updateHUD(){
+
+  const total =
+  checkItems.length;
+
+  const progress =
+  Math.floor((completedQuestions / total) * 100);
+
+  progressFill.style.width =
+  progress + "%";
+
+  progressText.innerHTML =
+  progress + "%";
+
+  const completedLayers =
+  [...cards].filter(card=>{
+
+    const layer =
+    card.dataset.layer;
+
+    const items =
+    document.querySelectorAll(
+    `.check-item[data-layer="${layer}"]`);
+
+    return [...items].every(i=>
+    i.classList.contains("completed"));
+
+  }).length;
+
+  layersCompleted.innerHTML =
+  `${completedLayers}/7`;
+
+  level.innerHTML =
+  String(completedLayers + 1).padStart(2,"0");
+
+}
+
+/* =========================================================
+CURRENT LAYER
+========================================================= */
+
+cards.forEach((card,index)=>{
+
+  card.addEventListener("mouseenter",()=>{
+
+    currentLayer.innerHTML =
+    layers[index].title;
+
+    currentDesc.innerHTML =
+    layers[index].desc;
+
+  });
+
+});
+
+/* =========================================================
+CONFETTI
+========================================================= */
+
+function createConfetti(){
+
+  for(let i=0;i<20;i++){
+
+    const confetti =
+    document.createElement("div");
+
+    confetti.className =
+    "confetti";
+
+    confetti.innerHTML =
+    ["✦","◆","⬡","✧"][Math.floor(Math.random()*4)];
+
+    confetti.style.left =
+    Math.random()*100 + "vw";
+
+    confetti.style.top =
+    "-20px";
+
+    confetti.style.fontSize =
+    (16 + Math.random()*18)+"px";
+
+    document.body.appendChild(confetti);
+
+    setTimeout(()=>{
+      confetti.remove();
+    },3000);
+
+  }
+
+}
+
+</script>
+
+</body>
+</html>
