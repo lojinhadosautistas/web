@@ -1,49 +1,37 @@
+# livro2.html
+
+```html
 <!DOCTYPE html>
 <html lang="pt-BR">
 
 <head>
 
 <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-  <title>Livro 1 • Rotina e Previsibilidade | Cada Passo, uma Jornada</title>
-  <meta name="description" content="A Lojinha dos Autistas é um hub de inovação social com base tecnológica que conecta propósito, desenvolvimento humano e transformação real." />
+<title>
+  Volume 2 • Sobrecarga e Camuflagem | Cada Passo, uma Jornada
+</title>
 
-  <!-- Open Graph (WhatsApp, Facebook, LinkedIn) -->
-  <meta property="og:title" content="Livraria • Lojinha dos Autistas 💙 Tecnologia com Propósito" />
-  <meta property="og:description" content="Tecnologia aplicada ao desenvolvimento humano com foco na regulação emocional, autonomia e melhoria da qualidade de vida." />
-  <meta property="og:image" content="https://www.autistas.net/assets/img/img-share-autistas.jpg" />
-  <meta property="og:url" content="https://www.autistas.net/index.html" />
-  <meta property="og:type" content="website" />
-  <meta property="og:image:width" content="1200" />
-  <meta property="og:image:height" content="630" />
+<meta name="description" content="Volume 2 da coleção Cada Passo, uma Jornada — uma reflexão profunda sobre masking, exaustão emocional e sobrevivência no autismo adulto." />
 
-  <!-- Twitter Card (melhora compatibilidade geral) -->
-  <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="Livraria • Lojinha dos Autistas 💙 Tecnologia com Propósito" />
-  <meta name="twitter:description" content="Tecnologia aplicada ao desenvolvimento humano com foco na regulação emocional, autonomia e melhoria da qualidade de vida." />
-  <meta name="twitter:image" content="https://www.autistas.net/assets/img/img-share-autistas.jpg" />
+<!-- Open Graph -->
+<meta property="og:title" content="Volume 2 • Sobrecarga e Camuflagem" />
+<meta property="og:description" content="Um livro sobre exaustão invisível, adaptação constante e o peso de existir tentando parecer normal." />
+<meta property="og:image" content="https://www.autistas.net/assets/img/img-share-autistas.jpg" />
+<meta property="og:url" content="https://www.autistas.net/livro2.html" />
+<meta property="og:type" content="website" />
 
-  <!-- Favicons -->
-  <link href="assets/img/favicon.png" rel="icon">
-  <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+<!-- GOOGLE FONTS -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
-  <!-- GOOGLE FONTS -->
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<!-- AOS -->
+<link rel="stylesheet" href="../js/vendors/aos/aos.css">
 
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-
-  <!-- AOS -->
-
-  <link rel="stylesheet" href="../js/vendors/aos/aos.css">
-
-  <style>
-
-    /* =========================================================
-   RESET
-========================================================= */
+<style>
 
 *{
   margin:0;
@@ -61,11 +49,11 @@ body{
   background:
   linear-gradient(
     to bottom,
-    rgba(250,244,236,.96),
-    rgba(244,233,220,.98)
+    rgba(247,242,238,.96),
+    rgba(236,228,220,.98)
   ),
 
-  url('img/bg-col1.png');
+  url('img/bg-col2.png');
 
   background-size:cover;
   background-attachment:fixed;
@@ -92,10 +80,6 @@ img{
   z-index:2;
 }
 
-/* =========================================================
-   BACKGROUND
-========================================================= */
-
 body::before{
   content:"";
   position:fixed;
@@ -105,13 +89,13 @@ body::before{
 
   radial-gradient(
     circle at top right,
-    rgba(216,138,60,.10),
+    rgba(144,112,182,.10),
     transparent 30%
   ),
 
   radial-gradient(
     circle at bottom left,
-    rgba(255,214,163,.18),
+    rgba(255,214,163,.16),
     transparent 40%
   );
 
@@ -145,7 +129,7 @@ body::after{
 .glow-1{
   width:420px;
   height:420px;
-  background:#f0c28a;
+  background:#cdb4ea;
   top:-120px;
   right:-120px;
 }
@@ -153,14 +137,10 @@ body::after{
 .glow-2{
   width:320px;
   height:320px;
-  background:#fff2dc;
+  background:#ffe9d2;
   bottom:-120px;
   left:-120px;
 }
-
-/* =========================================================
-   HERO
-========================================================= */
 
 .book-hero{
   min-height:100vh;
@@ -196,7 +176,7 @@ body::after{
   letter-spacing:2px;
   text-transform:uppercase;
 
-  color:#b96d23;
+  color:#8f68b7;
 
   margin-bottom:28px;
 
@@ -267,14 +247,14 @@ body::after{
   background:
   linear-gradient(
     135deg,
-    #d88a3c,
-    #b96d23
+    #8f68b7,
+    #6c4d8d
   );
 
   color:white;
 
   box-shadow:
-  0 12px 35px rgba(216,138,60,.25);
+  0 12px 35px rgba(143,104,183,.25);
 }
 
 .btn-primary:hover{
@@ -299,10 +279,6 @@ body::after{
   background:white;
 }
 
-/* =========================================================
-   BOOK VISUAL
-========================================================= */
-
 .hero-visual{
   position:relative;
   display:flex;
@@ -320,7 +296,7 @@ body::after{
 
   background:
   radial-gradient(circle,
-  rgba(216,138,60,.18),
+  rgba(143,104,183,.18),
   transparent 70%);
 
   filter:blur(20px);
@@ -339,10 +315,6 @@ body::after{
   box-shadow:
   0 25px 70px rgba(0,0,0,.16);
 }
-
-/* =========================================================
-   QUOTE
-========================================================= */
 
 .quote-section{
   padding:40px 0 140px;
@@ -383,7 +355,7 @@ body::after{
 
   font-family:serif;
 
-  color:#b96d23;
+  color:#8f68b7;
 }
 
 .quote-box h2{
@@ -395,10 +367,6 @@ body::after{
 
   color:#1f2f48;
 }
-
-/* =========================================================
-   SECTION BASE
-========================================================= */
 
 section{
   position:relative;
@@ -419,7 +387,7 @@ section{
 
   margin-bottom:18px;
 
-  color:#b96d23;
+  color:#8f68b7;
 
   letter-spacing:3px;
   text-transform:uppercase;
@@ -445,73 +413,6 @@ section{
 
   color:rgba(36,50,74,.72);
 }
-
-
-/* =========================================================
-   IMMERSIVE BANNER
-========================================================= */
-
-
-    .immersive-banner-section{
-  padding:0 0 140px;
-}
-
-.immersive-banner{
-  position:relative;
-
-  border-radius:36px;
-  overflow:hidden;
-
-  min-height:420px;
-
-  box-shadow:
-  0 30px 70px rgba(0,0,0,.10);
-}
-
-.immersive-banner img{
-  width:100%;
-  height:420px;
-  object-fit:cover;
-}
-
-.banner-overlay{
-  position:absolute;
-  inset:0;
-
-  background:
-  linear-gradient(
-    to top,
-    rgba(15,20,35,.50),
-    rgba(15,20,35,.08)
-  );
-
-  z-index:1;
-}
-
-.banner-content{
-  position:absolute;
-
-  left:50px;
-  bottom:50px;
-
-  z-index:2;
-
-  max-width:540px;
-}
-
-.banner-content span{
-  font-family:'Cormorant Garamond', serif;
-
-  font-size:clamp(2rem,4vw,4rem);
-
-  line-height:1.05;
-
-  color:white;
-}
-    
-/* =========================================================
-   IMMERSIVE GRID
-========================================================= */
 
 .immersive-grid{
   display:grid;
@@ -552,7 +453,7 @@ section{
 
   margin-bottom:18px;
 
-  color:#b96d23;
+  color:#8f68b7;
 }
 
 .immersive-card h3{
@@ -570,10 +471,6 @@ section{
 
   color:rgba(36,50,74,.74);
 }
-
-/* =========================================================
-   TIMELINE
-========================================================= */
 
 .journey-grid{
   display:grid;
@@ -612,7 +509,7 @@ section{
 
   border-radius:50%;
 
-  background:#d88a3c;
+  background:#8f68b7;
 
   margin-top:10px;
 
@@ -633,10 +530,6 @@ section{
   line-height:1.9;
   color:rgba(36,50,74,.72);
 }
-
-/* =========================================================
-   FINAL
-========================================================= */
 
 .final-section{
   padding:120px 0 160px;
@@ -666,7 +559,7 @@ section{
 }
 
 .final-mini{
-  color:#b96d23;
+  color:#8f68b7;
 
   letter-spacing:4px;
   text-transform:uppercase;
@@ -704,10 +597,6 @@ section{
   margin-top:42px;
 }
 
-/* =========================================================
-   FOOTER
-========================================================= */
-
 footer{
   padding:40px 0 70px;
 
@@ -719,10 +608,6 @@ footer p{
 
   line-height:1.8;
 }
-
-/* =========================================================
-   ANIMATION
-========================================================= */
 
 @keyframes floatBook{
 
@@ -739,10 +624,6 @@ footer p{
   }
 
 }
-
-/* =========================================================
-   RESPONSIVE
-========================================================= */
 
 @media(max-width:992px){
 
@@ -801,410 +682,72 @@ footer p{
 
 }
 
-  </style>
+</style>
 
 </head>
 
-<body class="index-page">
+<body>
 
-    <!-- HEADER -->
+<div class="ambient-glow glow-1"></div>
+<div class="ambient-glow glow-2"></div>
 
-  <header id="header" class="header d-flex align-items-center fixed-top">
-
-    <div class="container-fluid container-xl position-relative d-flex align-items-center">
-
-      <a href="../index.html" class="logo d-flex align-items-center me-auto">
-        <h1 class="sitename">          Lojinha dos Autistas        </h1>        <span>.</span>
-      </a>
-
-      <nav id="navmenu" class="navmenu">
-        <ul>
-          <li>            <a href="#inicio" class="active">              Início            </a>          </li>
-          <li>            <a href="#colecao">              Coleção            </a>          </li>
-          <li><a href="#ecosistema">Ecossistema            </a>          </li>
-        </ul>
-        <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
-      </nav>
-
-      <a class="btn-getstarted" href="https://www.instagram.com/lojinhadosautistas" target="_blank">        Contato      </a>
-
-    </div>
-
-  </header>
-
-  
-  <!-- GLOW -->
-
-  <div class="ambient-glow glow-1"></div>
-  <div class="ambient-glow glow-2"></div>
-
-  <!-- HERO -->
-
-  <section class="book-hero">
-
-    <div class="container">
-
-      <div class="hero-grid">
-
-        <!-- CONTENT -->
-
-        <div class="hero-content" data-aos="fade-right">
-
-          <div class="hero-badge">
-            Coleção 1 • Volume 1
-          </div>
-
-          <div class="hero-mini">
-            Cada Passo, uma Jornada
-          </div>
-
-          <h1 class="hero-title">
-            Rotina e<br>
-            Previsibilidade<br>
-            no Autismo<br>
-            na Vida Adulta
-          </h1>
-
-          <p class="hero-text">
-            Algumas pessoas chamam de “rigidez”.
-            Outras chamam de exagero.
-          </p>
-
-          <p class="hero-text">
-            Mas quando o mundo parece imprevisível demais,
-            a rotina deixa de ser controle —
-            e passa a ser segurança emocional.
-          </p>
-
-          <div class="hero-actions">
-
-            <a href="#imersao" class="btn-primary">
-              Entrar na experiência
-            </a>
-
-            <a href="https://loja.uiclap.com/titulo/ua163815"
-              class="btn-secondary"
-              target="_blank">
-
-              Adquirir o livro
-
-            </a>
-
-          </div>
-
-        </div>
-
-        <!-- BOOK -->
-
-        <div class="hero-visual" data-aos="zoom-in" data-aos-delay="200">
-
-          <div class="book-glow"></div>
-
-          <div class="floating-book">
-
-            <img src="img/livro1.png" alt="Livro Volume 1">
-
-          </div>
-
-        </div>
-
-      </div>
-
-    </div>
-
-  </section>
-
-  <!-- QUOTE -->
-
-  <section class="quote-section">
-
-    <div class="container">
-
-      <div class="quote-box" data-aos="fade-up">
-
-        <span class="quote-mark">“</span>
-
-        <h2>
-          A rotina não é uma prisão.<br>
-          Muitas vezes, ela é o que impede
-          o caos de consumir tudo.
-        </h2>
-
-      </div>
-
-    </div>
-
-  </section>
-
-
-
-  
-  <!-- IMERSÃO -->
-
-  <section id="imersao" class="section-space">
-
-    <div class="container">
-
-      <div class="section-header" data-aos="fade-up">
-
-        <div class="section-tag">
-          EXPERIÊNCIA
-        </div>
-
-        <h2>
-          Este livro não fala apenas sobre rotina.
-        </h2>
-
-        <p>
-          Ele fala sobre o esforço invisível de existir
-          em um mundo imprevisível demais.
-        </p>
-
-      </div>
-
-      <div class="immersive-grid">
-
-        <div class="immersive-card" data-aos="fade-up">
-
-          <div class="immersive-number">
-            01
-          </div>
-
-          <h3>
-            O desgaste invisível
-          </h3>
-
-          <p>
-            Pequenas decisões, mudanças inesperadas
-            e excesso de demandas podem gerar
-            exaustão acumulativa.
-          </p>
-
-        </div>
-
-        <div class="immersive-card" data-aos="fade-up" data-aos-delay="100">
-
-          <div class="immersive-number">
-            02
-          </div>
-
-          <h3>
-            O caos interno
-          </h3>
-
-          <p>
-            Nem toda desorganização é visível.
-            Muitas vezes ela acontece primeiro
-            dentro da mente.
-          </p>
-
-        </div>
-
-        <div class="immersive-card" data-aos="fade-up" data-aos-delay="200">
-
-          <div class="immersive-number">
-            03
-          </div>
-
-          <h3>
-            Pequenas estruturas
-          </h3>
-
-          <p>
-            O foco não é criar uma vida perfeita,
-            mas construir apoios possíveis
-            para reduzir sofrimento.
-          </p>
-
-        </div>
-
-      </div>
-
-    </div>
-
-  </section>
-
-  <!-- JORNADA -->
-
-  <section class="section-space">
-
-    <div class="container">
-
-      <div class="journey-grid">
-
-        <!-- CONTENT -->
-
-        <div class="journey-content" data-aos="fade-right">
-
-          <div class="section-tag">
-            A JORNADA
-          </div>
-
-          <h2>
-            Uma leitura construída para funcionar no mundo real.
-          </h2>
-
-          <p>
-            O livro percorre ansiedade,
-            previsibilidade, procrastinação,
-            sobrecarga e autonomia —
-            sem transformar a rotina em rigidez.
-          </p>
-
-        </div>
-
-        <!-- TIMELINE -->
-
-        <div class="timeline">
-
-          <div class="timeline-item" data-aos="fade-left">
-
-            <div class="timeline-dot"></div>
-
-            <div>
-
-              <h3>
-                Entendendo previsibilidade
-              </h3>
-
-              <p>
-                Segurança, funcionamento,
-                padrões e processamento interno.
-              </p>
-
-            </div>
-
-          </div>
-
-          <div class="timeline-item" data-aos="fade-left" data-aos-delay="100">
-
-            <div class="timeline-dot"></div>
-
-            <div>
-
-              <h3>
-                Sobrecarga e caos interno
-              </h3>
-
-              <p>
-                O impacto invisível da ausência
-                de estrutura cotidiana.
-              </p>
-
-            </div>
-
-          </div>
-
-          <div class="timeline-item" data-aos="fade-left" data-aos-delay="200">
-
-            <div class="timeline-dot"></div>
-
-            <div>
-
-              <h3>
-                Construindo uma rotina possível
-              </h3>
-
-              <p>
-                Estratégias práticas, humanas
-                e sustentáveis.
-              </p>
-
-            </div>
-
-          </div>
-
-          <div class="timeline-item" data-aos="fade-left" data-aos-delay="300">
-
-            <div class="timeline-dot"></div>
-
-            <div>
-
-              <h3>
-                Rotina como autonomia
-              </h3>
-
-              <p>
-                Menos desgaste.
-                Mais clareza.
-                Mais liberdade.
-              </p>
-
-            </div>
-
-          </div>
-
-        </div>
-
-      </div>
-
-    </div>
-
-  </section>
-
-
-  <!-- FINAL -->
-
-  <section class="final-section">
-
-    <div class="container">
-
-      <div class="final-box" data-aos="zoom-in">
-
-        <div class="final-mini">
-          Volume 1
-        </div>
-
-        <h2>
-          Você não precisa organizar
-          toda a sua vida hoje.
-        </h2>
-
-        <p>
-          Às vezes, o primeiro passo é apenas
-          entender por que tudo parece tão difícil.
-        </p>
-
-        <div class="final-actions">
-
-          <a href="https://loja.uiclap.com/titulo/ua163815"
-            class="btn-primary"
-            target="_blank">
-
-            Comprar edição física
-
-          </a>
-
-          <a href="livraria.html"
-            class="btn-secondary">
-
-            Voltar à livraria
-
-          </a>
-
-        </div>
-
-      </div>
-
-    </div>
-
-  </section>
-
-    <!-- BANNER1 -->
-
-<section class="immersive-banner-section">
+<section class="book-hero">
 
   <div class="container">
 
-    <div class="immersive-banner">
+    <div class="hero-grid">
 
-      <div class="banner-overlay"></div>
+      <div class="hero-content" data-aos="fade-right">
 
-      <img
-        src="img/banner-entrepassos1.png"
-        alt="Entre Passos e Afetos - Evento Online e 100% Gratuito">
+        <div class="hero-badge">
+          Coleção 1 • Volume 2
+        </div>
 
-      <div class="banner-content"></div>
+        <div class="hero-mini">
+          Cada Passo, uma Jornada
+        </div>
+
+        <h1 class="hero-title">
+          Sobrecarga<br>
+          e Camuflagem<br>
+          no Autismo<br>
+          Adulto
+        </h1>
+
+        <p class="hero-text">
+          Algumas pessoas chamam de adaptação.
+          Outras chamam de maturidade.
+        </p>
+
+        <p class="hero-text">
+          Mas viver escondendo desconfortos,
+          mascarando sinais e tentando parecer funcional
+          também cobra um preço emocional profundo.
+        </p>
+
+        <div class="hero-actions">
+
+          <a href="#imersao" class="btn-primary">
+            Entrar na experiência
+          </a>
+
+          <a href="#" class="btn-secondary" target="_blank">
+            Adquirir o livro
+          </a>
+
+        </div>
+
+      </div>
+
+      <div class="hero-visual" data-aos="zoom-in" data-aos-delay="200">
+
+        <div class="book-glow"></div>
+
+        <div class="floating-book">
+          <img src="img/livro2.png" alt="Livro Volume 2">
+        </div>
+
+      </div>
 
     </div>
 
@@ -1212,34 +755,279 @@ footer p{
 
 </section>
 
-  
-  <!-- FOOTER -->
+<section class="quote-section">
 
-  <footer>
+  <div class="container">
 
-    <div class="container">
+    <div class="quote-box" data-aos="fade-up">
+
+      <span class="quote-mark">“</span>
+
+      <h2>
+        Sobreviver tentando parecer normal
+        também pode ser uma forma de exaustão.
+      </h2>
+
+    </div>
+
+  </div>
+
+</section>
+
+<section id="imersao" class="section-space">
+
+  <div class="container">
+
+    <div class="section-header" data-aos="fade-up">
+
+      <div class="section-tag">
+        EXPERIÊNCIA
+      </div>
+
+      <h2>
+        Este livro não fala apenas sobre adaptação.
+      </h2>
 
       <p>
-        Cada Passo, uma Jornada • Coleção 1 • Volume 1
+        Ele fala sobre o peso invisível de sustentar
+        personagens para sobreviver socialmente.
       </p>
 
     </div>
 
-  </footer>
+    <div class="immersive-grid">
 
-  <!-- AOS -->
+      <div class="immersive-card" data-aos="fade-up">
 
-  <script src="../js/vendors/aos/aos.js"></script>
+        <div class="immersive-number">
+          01
+        </div>
 
-  <script>
+        <h3>
+          O masking constante
+        </h3>
 
-    AOS.init({
-      duration:1200,
-      once:true
-    });
+        <p>
+          Ajustar expressões, tom de voz,
+          comportamento e reações pode gerar
+          desgaste emocional acumulativo.
+        </p>
 
-  </script>
+      </div>
+
+      <div class="immersive-card" data-aos="fade-up" data-aos-delay="100">
+
+        <div class="immersive-number">
+          02
+        </div>
+
+        <h3>
+          Exaustão invisível
+        </h3>
+
+        <p>
+          Muitas vezes o corpo continua funcionando,
+          mesmo quando a mente já está no limite.
+        </p>
+
+      </div>
+
+      <div class="immersive-card" data-aos="fade-up" data-aos-delay="200">
+
+        <div class="immersive-number">
+          03
+        </div>
+
+        <h3>
+          Reconstrução possível
+        </h3>
+
+        <p>
+          O foco não é abandonar toda adaptação,
+          mas encontrar maneiras mais humanas
+          de existir sem se apagar.
+        </p>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+<section class="section-space">
+
+  <div class="container">
+
+    <div class="journey-grid">
+
+      <div class="journey-content" data-aos="fade-right">
+
+        <div class="section-tag">
+          A JORNADA
+        </div>
+
+        <h2>
+          Uma leitura construída para acolher o invisível.
+        </h2>
+
+        <p>
+          O livro percorre masking, burnout autista,
+          sobrecarga social, exaustão emocional
+          e identidade.
+        </p>
+
+      </div>
+
+      <div class="timeline">
+
+        <div class="timeline-item" data-aos="fade-left">
+
+          <div class="timeline-dot"></div>
+
+          <div>
+
+            <h3>
+              Aprendendo a sobreviver
+            </h3>
+
+            <p>
+              As adaptações invisíveis desenvolvidas
+              ao longo da vida.
+            </p>
+
+          </div>
+
+        </div>
+
+        <div class="timeline-item" data-aos="fade-left" data-aos-delay="100">
+
+          <div class="timeline-dot"></div>
+
+          <div>
+
+            <h3>
+              O custo da camuflagem
+            </h3>
+
+            <p>
+              O impacto emocional de viver
+              constantemente em alerta.
+            </p>
+
+          </div>
+
+        </div>
+
+        <div class="timeline-item" data-aos="fade-left" data-aos-delay="200">
+
+          <div class="timeline-dot"></div>
+
+          <div>
+
+            <h3>
+              Burnout e exaustão
+            </h3>
+
+            <p>
+              Quando o esforço contínuo deixa
+              de ser sustentável.
+            </p>
+
+          </div>
+
+        </div>
+
+        <div class="timeline-item" data-aos="fade-left" data-aos-delay="300">
+
+          <div class="timeline-dot"></div>
+
+          <div>
+
+            <h3>
+              Reconstruindo autenticidade
+            </h3>
+
+            <p>
+              Menos personagens.
+              Mais presença.
+              Mais verdade.
+            </p>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+<section class="final-section">
+
+  <div class="container">
+
+    <div class="final-box" data-aos="zoom-in">
+
+      <div class="final-mini">
+        Volume 2
+      </div>
+
+      <h2>
+        Você não precisa parecer bem
+        o tempo inteiro.
+      </h2>
+
+      <p>
+        Às vezes, o começo da cura acontece
+        quando finalmente paramos de esconder o cansaço.
+      </p>
+
+      <div class="final-actions">
+
+        <a href="#" class="btn-primary" target="_blank">
+          Comprar edição física
+        </a>
+
+        <a href="livraria.html" class="btn-secondary">
+          Voltar à livraria
+        </a>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+<footer>
+
+  <div class="container">
+
+    <p>
+      Cada Passo, uma Jornada • Coleção 1 • Volume 2
+    </p>
+
+  </div>
+
+</footer>
+
+<script src="../js/vendors/aos/aos.js"></script>
+
+<script>
+
+AOS.init({
+  duration:1200,
+  once:true
+});
+
+</script>
 
 </body>
-
 </html>
+```
