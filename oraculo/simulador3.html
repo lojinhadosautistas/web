@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>ORÁCULO v2 • Motor Narrativo</title>
+
+<style>
+
+body{
+  margin:0;
+  font-family:Inter, sans-serif;
+  background:#050812;
+  color:white;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  min-height:100vh;
+  flex-direction:column;
+}
+
+.container{
+  width:min(900px,92%);
+}
+
+.card{
+  background:rgba(255,255,255,.05);
+  border:1px solid rgba(255,255,255,.08);
+  padding:30px;
+  border-radius:20px;
+  backdrop-filter:blur(12px);
+}
+
+h1{
+  font-size:2.2rem;
+  margin-bottom:10px;
+}
+
+button{
+  padding:14px 20px;
+  border:none;
+  border-radius:999px;
+  cursor:pointer;
+  font-weight:700;
+  margin:6px;
+}
+
+.btn{
+  background:#ffb300;
+  color:black;
+}
+
+.log{
+  margin-top:20px;
+  padding:20px;
+  background:rgba(0,0,0,.3);
+  border-radius:12px;
+  min-height:120px;
+  line-height:1.6;
+  opacity:.9;
+}
+
+.small{
+  opacity:.6;
+  font-size:.9rem;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+  <div class="card">
+
+    <h1>ORÁCULO v2</h1>
+    <div class="small">
+      Motor Narrativo de Simulação Cognitiva
+    </div>
+
+    <p>
+      Interaja com o sistema. Cada ação gera uma leitura contextual.
+    </p>
+
+    <button class="btn" onclick="acao('observar')">Observar</button>
+    <button class="btn" onclick="acao('analisar')">Analisar</button>
+    <button class="btn" onclick="acao('avancar')">Avançar</button>
+    <button class="btn" onclick="acao('fechar')">Fechar Camada</button>
+
+    <div class="log" id="log">
+      ORÁCULO aguardando interação...
+    </div>
+
+  </div>
+
+</div>
+
+<script>
+
+///////////////////////////////////////////////////////////
+// 🧠 ESTADO GLOBAL DO SISTEMA
+///////////////////////////////////////////////////////////
+
+const estado = {
+  camada: 1,
+  progresso: 0,
+  carga: 0, // densidade cognitiva
+  modo: "exploracao"
+};
+
+///////////////////////////////////////////////////////////
+// 🧠 NÚCLEOS NARRATIVOS (SEM BANCO MASSIVO)
+///////////////////////////////////////////////////////////
+
+const nucleos = {
+
+  exploracao: [
+    "há sinais ainda não organizados no sistema",
+    "o campo de leitura está em formação",
+    "existem variáveis ainda difusas na estrutura"
+  ],
+
+  organizacao: [
+    "os padrões começam a ganhar estrutura",
+    "há coerência emergindo entre os elementos",
+    "o sistema começa a estabilizar relações internas"
+  ],
+
+  fechamento: [
+    "a estrutura atingiu nível suficiente de coerência",
+    "o sistema reconhece consolidação parcial",
+    "há direção definida no campo interpretado"
+  ]
+
+};
+
+///////////////////////////////////////////////////////////
+// 🧠 DETERMINAÇÃO DO MODO
+///////////////////////////////////////////////////////////
+
+function calcularModo(){
+
+  const p = estado.progresso;
+
+  if(p < 0.3) return "exploracao";
+  if(p < 0.7) return "organizacao";
+  return "fechamento";
+
+}
+
+///////////////////////////////////////////////////////////
+// 🧠 ORÁCULO (CORAÇÃO DO SISTEMA)
+///////////////////////////////////////////////////////////
+
+function oraculo(acao){
+
+  estado.modo = calcularModo();
+
+  const pool = nucleos[estado.modo];
+
+  const base =
+    pool[Math.floor(Math.random() * pool.length)];
+
+  let prefixo = "ORÁCULO";
+
+  if(acao === "observar"){
+    estado.carga += 5;
+    estado.progresso += 0.05;
+    return `${prefixo}: observação registrada. ${base}`;
+  }
+
+  if(acao === "analisar"){
+    estado.carga += 10;
+    estado.progresso += 0.1;
+    return `${prefixo}: análise em processamento. ${base}`;
+  }
+
+  if(acao === "avancar"){
+    estado.progresso += 0.15;
+    return `${prefixo}: avanço reconhecido. ${base}`;
+  }
+
+  if(acao === "fechar"){
+
+    if(estado.progresso < 0.8){
+      return `${prefixo}: sistema ainda não está pronto para fechamento.`;
+    }
+
+    return `${prefixo}: ciclo concluído. estrutura consolidada.`;
+  }
+
+  return `${prefixo}: sem leitura definida.`;
+
+}
+
+///////////////////////////////////////////////////////////
+// 🧠 AÇÃO DO USUÁRIO
+///////////////////////////////////////////////////////////
+
+function acao(tipo){
+
+  const resposta = oraculo(tipo);
+
+  document.getElementById("log").innerText =
+    resposta +
+    "\n\n[estado] progresso: " +
+    estado.progresso.toFixed(2) +
+    " | modo: " +
+    estado.modo +
+    " | carga: " +
+    estado.carga;
+
+}
+
+</script>
+
+</body>
+</html>
