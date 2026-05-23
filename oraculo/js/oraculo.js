@@ -1,4 +1,4 @@
-function obterResposta(camada){
+function obterResposta(camada,textoUsuario){
 
   const bibliotecas = {
     1: respostasCamada1,
@@ -12,8 +12,41 @@ function obterResposta(camada){
 
   const lista = bibliotecas[camada];
 
-  return lista[
-    Math.floor(Math.random()*lista.length)
+  const texto =
+  textoUsuario.toLowerCase();
+
+  let respostasCompativeis = [];
+
+  lista.forEach(item=>{
+
+    item.tags.forEach(tag=>{
+
+      if(texto.includes(tag)){
+
+        respostasCompativeis.push(item);
+
+      }
+
+    });
+
+  });
+
+  /* fallback */
+
+  if(respostasCompativeis.length === 0){
+
+    respostasCompativeis = lista;
+
+  }
+
+  const respostaSelecionada =
+  respostasCompativeis[
+    Math.floor(
+      Math.random() *
+      respostasCompativeis.length
+    )
   ];
+
+  return respostaSelecionada.texto;
 
 }
