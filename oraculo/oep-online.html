@@ -1,0 +1,1092 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>OEP Online · ORÁCULO Interativo</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+<style>
+
+:root{
+  --bg:#040714;
+  --bg2:#0b1024;
+  --card:rgba(255,255,255,.05);
+  --border:rgba(255,255,255,.1);
+  --text:#f5f7ff;
+  --muted:#aab4d4;
+  --gold:#ffca5c;
+  --blue:#5eaaff;
+  --purple:#8c6cff;
+  --green:#37d39a;
+  --orange:#ff944d;
+  --shadow:0 30px 90px rgba(0,0,0,.45);
+}
+
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
+
+html{
+  scroll-behavior:smooth;
+}
+
+body{
+  background:
+  radial-gradient(circle at top left, rgba(94,170,255,.15), transparent 30%),
+  radial-gradient(circle at bottom right, rgba(140,108,255,.15), transparent 30%),
+  linear-gradient(180deg,#03050d,#050816 100%);
+  color:var(--text);
+  font-family:'Inter',sans-serif;
+  overflow-x:hidden;
+}
+
+.grid{
+  position:fixed;
+  inset:0;
+  background-image:
+  linear-gradient(rgba(255,255,255,.02) 1px, transparent 1px),
+  linear-gradient(90deg, rgba(255,255,255,.02) 1px, transparent 1px);
+  background-size:42px 42px;
+  mask-image:radial-gradient(circle at center, black, transparent 80%);
+  pointer-events:none;
+}
+
+.container{
+  width:min(1500px,92vw);
+  margin:auto;
+}
+
+.hero{
+  min-height:90vh;
+  display:flex;
+  align-items:center;
+  position:relative;
+  overflow:hidden;
+}
+
+.glow{
+  position:absolute;
+  border-radius:50%;
+  filter:blur(100px);
+  opacity:.35;
+}
+
+.glow.one{
+  width:450px;
+  height:450px;
+  background:var(--blue);
+  top:-100px;
+  left:-120px;
+}
+
+.glow.two{
+  width:420px;
+  height:420px;
+  background:var(--purple);
+  right:-100px;
+  bottom:-100px;
+}
+
+.hero-layout{
+  position:relative;
+  z-index:3;
+  display:grid;
+  grid-template-columns:1fr .9fr;
+  gap:70px;
+  align-items:center;
+}
+
+.badge{
+  display:inline-flex;
+  gap:10px;
+  align-items:center;
+  padding:12px 20px;
+  border-radius:999px;
+  background:rgba(255,255,255,.05);
+  border:1px solid rgba(255,255,255,.12);
+  backdrop-filter:blur(20px);
+  color:var(--gold);
+  letter-spacing:1px;
+  text-transform:uppercase;
+  font-size:.82rem;
+  margin-bottom:30px;
+}
+
+h1{
+  font-family:'Cinzel',serif;
+  font-size:clamp(4rem,8vw,8rem);
+  line-height:.9;
+  letter-spacing:-3px;
+  margin-bottom:30px;
+}
+
+.gradient{
+  background:linear-gradient(90deg,var(--gold),#fff,var(--blue));
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+}
+
+.hero p{
+  color:var(--muted);
+  font-size:1.12rem;
+  line-height:1.95;
+  max-width:760px;
+}
+
+.actions{
+  display:flex;
+  gap:18px;
+  margin-top:40px;
+  flex-wrap:wrap;
+}
+
+.btn{
+  padding:18px 28px;
+  border:none;
+  border-radius:18px;
+  cursor:pointer;
+  font-weight:700;
+  transition:.35s ease;
+}
+
+.btn-primary{
+  background:linear-gradient(135deg,var(--gold),#ff9800);
+  color:#111;
+  box-shadow:0 20px 40px rgba(255,202,92,.22);
+}
+
+.btn-secondary{
+  background:rgba(255,255,255,.05);
+  border:1px solid rgba(255,255,255,.12);
+  color:#fff;
+  backdrop-filter:blur(20px);
+}
+
+.btn:hover{
+  transform:translateY(-5px) scale(1.02);
+}
+
+.preview-card{
+  position:relative;
+  padding:34px;
+  border-radius:36px;
+  background:rgba(255,255,255,.05);
+  border:1px solid rgba(255,255,255,.12);
+  backdrop-filter:blur(30px);
+  overflow:hidden;
+  box-shadow:var(--shadow);
+}
+
+.preview-card::before{
+  content:'';
+  position:absolute;
+  inset:0;
+  background:linear-gradient(180deg,rgba(255,255,255,.08),transparent);
+  pointer-events:none;
+}
+
+.preview-top{
+  display:flex;
+  justify-content:space-between;
+  margin-bottom:24px;
+}
+
+.preview-top strong{
+  letter-spacing:1px;
+}
+
+.preview-top span{
+  color:var(--green);
+  text-transform:uppercase;
+  font-size:.8rem;
+}
+
+.preview-map{
+  position:relative;
+  height:460px;
+  border-radius:28px;
+  background:
+  radial-gradient(circle at center, rgba(94,170,255,.15), transparent 55%),
+  rgba(255,255,255,.03);
+  overflow:hidden;
+}
+
+.center-core{
+  position:absolute;
+  top:50%;
+  left:50%;
+  transform:translate(-50%,-50%);
+  width:150px;
+  height:150px;
+  border-radius:50%;
+  background:linear-gradient(135deg,var(--gold),#ff9a00);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  color:#111;
+  font-weight:800;
+  text-align:center;
+  box-shadow:0 25px 60px rgba(255,202,92,.3);
+  animation:pulse 6s infinite ease-in-out;
+}
+
+@keyframes pulse{
+  0%,100%{ transform:translate(-50%,-50%) scale(1); }
+  50%{ transform:translate(-50%,-50%) scale(1.06); }
+}
+
+.node{
+  position:absolute;
+  width:120px;
+  height:120px;
+  border-radius:50%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+  font-weight:700;
+  cursor:pointer;
+  transition:.35s ease;
+  border:1px solid rgba(255,255,255,.15);
+  backdrop-filter:blur(20px);
+  box-shadow:0 15px 40px rgba(0,0,0,.3);
+}
+
+.node:hover{
+  transform:scale(1.08);
+}
+
+.node.one{
+  top:40px;
+  left:50%;
+  transform:translateX(-50%);
+  background:rgba(94,170,255,.2);
+}
+
+.node.two{
+  left:40px;
+  top:180px;
+  background:rgba(140,108,255,.2);
+}
+
+.node.three{
+  right:40px;
+  top:180px;
+  background:rgba(55,211,154,.2);
+}
+
+.node.four{
+  bottom:40px;
+  left:50%;
+  transform:translateX(-50%);
+  background:rgba(255,148,77,.2);
+}
+
+.link{
+  position:absolute;
+  height:2px;
+  background:linear-gradient(90deg,transparent,rgba(255,255,255,.35),transparent);
+}
+
+.link.one{
+  width:180px;
+  top:150px;
+  left:200px;
+  transform:rotate(25deg);
+}
+
+.link.two{
+  width:180px;
+  top:150px;
+  right:200px;
+  transform:rotate(-25deg);
+}
+
+.link.three{
+  width:180px;
+  bottom:150px;
+  left:200px;
+  transform:rotate(-25deg);
+}
+
+.link.four{
+  width:180px;
+  bottom:150px;
+  right:200px;
+  transform:rotate(25deg);
+}
+
+section{
+  padding:130px 0;
+}
+
+.section-title{
+  text-align:center;
+  margin-bottom:80px;
+}
+
+.section-title span{
+  color:var(--gold);
+  text-transform:uppercase;
+  letter-spacing:2px;
+  font-size:.82rem;
+}
+
+.section-title h2{
+  font-size:clamp(2.8rem,6vw,5rem);
+  margin-top:18px;
+  line-height:1;
+}
+
+.section-title p{
+  max-width:900px;
+  margin:24px auto 0;
+  color:var(--muted);
+  line-height:1.95;
+  font-size:1.08rem;
+}
+
+.architecture{
+  display:grid;
+  grid-template-columns:1fr 420px;
+  gap:40px;
+  align-items:start;
+}
+
+.map-panel{
+  position:relative;
+  min-height:900px;
+  border-radius:40px;
+  padding:40px;
+  background:rgba(255,255,255,.05);
+  border:1px solid rgba(255,255,255,.12);
+  backdrop-filter:blur(30px);
+  overflow:hidden;
+  box-shadow:var(--shadow);
+}
+
+.map-panel::before{
+  content:'';
+  position:absolute;
+  inset:0;
+  background:linear-gradient(180deg,rgba(255,255,255,.08),transparent);
+  pointer-events:none;
+}
+
+.map-title{
+  display:flex;
+  justify-content:space-between;
+  margin-bottom:30px;
+}
+
+.map-title strong{
+  letter-spacing:1px;
+}
+
+.map-title span{
+  color:var(--green);
+  text-transform:uppercase;
+  font-size:.8rem;
+}
+
+.infographic-area{
+  position:relative;
+  height:760px;
+  border-radius:30px;
+  overflow:hidden;
+  background:
+  radial-gradient(circle at center, rgba(94,170,255,.08), transparent 55%),
+  rgba(255,255,255,.03);
+}
+
+.ring{
+  position:absolute;
+  top:50%;
+  left:50%;
+  transform:translate(-50%,-50%);
+  border-radius:50%;
+  border:1px solid rgba(255,255,255,.08);
+}
+
+.ring.one{ width:260px; height:260px; }
+.ring.two{ width:420px; height:420px; }
+.ring.three{ width:620px; height:620px; }
+
+.main-core{
+  position:absolute;
+  top:50%;
+  left:50%;
+  transform:translate(-50%,-50%);
+  width:190px;
+  height:190px;
+  border-radius:50%;
+  background:linear-gradient(135deg,var(--gold),#ff9c00);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+  color:#111;
+  font-weight:800;
+  font-size:1.1rem;
+  padding:20px;
+  box-shadow:0 30px 80px rgba(255,202,92,.25);
+}
+
+.orbit-node{
+  position:absolute;
+  width:160px;
+  height:160px;
+  border-radius:50%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+  padding:20px;
+  font-weight:700;
+  cursor:pointer;
+  transition:.35s ease;
+  border:1px solid rgba(255,255,255,.15);
+  backdrop-filter:blur(20px);
+}
+
+.orbit-node:hover{
+  transform:scale(1.08);
+}
+
+.orbit-node.terapeutico{
+  top:60px;
+  left:50%;
+  transform:translateX(-50%);
+  background:rgba(94,170,255,.18);
+}
+
+.orbit-node.sensorial{
+  left:40px;
+  top:260px;
+  background:rgba(140,108,255,.18);
+}
+
+.orbit-node.pedagogico{
+  right:40px;
+  top:260px;
+  background:rgba(55,211,154,.18);
+}
+
+.orbit-node.familiar{
+  bottom:60px;
+  left:50%;
+  transform:translateX(-50%);
+  background:rgba(255,148,77,.18);
+}
+
+.side-panel{
+  position:sticky;
+  top:40px;
+  display:grid;
+  gap:24px;
+}
+
+.info-card{
+  position:relative;
+  overflow:hidden;
+  padding:32px;
+  border-radius:32px;
+  background:rgba(255,255,255,.05);
+  border:1px solid rgba(255,255,255,.1);
+  backdrop-filter:blur(30px);
+  box-shadow:var(--shadow);
+}
+
+.info-card::before{
+  content:'';
+  position:absolute;
+  inset:0;
+  background:linear-gradient(180deg,rgba(255,255,255,.08),transparent);
+  pointer-events:none;
+}
+
+.info-card > *{
+  position:relative;
+  z-index:2;
+}
+
+.info-card small{
+  color:var(--gold);
+  text-transform:uppercase;
+  letter-spacing:1px;
+  display:block;
+  margin-bottom:14px;
+}
+
+.info-card h3{
+  font-size:2rem;
+  margin-bottom:18px;
+}
+
+.info-card p{
+  color:var(--muted);
+  line-height:1.9;
+}
+
+.reflection-list{
+  display:grid;
+  gap:14px;
+  margin-top:24px;
+}
+
+.reflection-item{
+  padding:18px;
+  border-radius:18px;
+  background:rgba(255,255,255,.04);
+  border:1px solid rgba(255,255,255,.06);
+  color:#dce7ff;
+  line-height:1.7;
+}
+
+.mock-image{
+  margin-top:24px;
+  height:220px;
+  border-radius:24px;
+  background:
+  linear-gradient(135deg,rgba(94,170,255,.15),rgba(140,108,255,.15)),
+  rgba(255,255,255,.04);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+  color:#dbe7ff;
+  padding:30px;
+  border:1px solid rgba(255,255,255,.08);
+}
+
+.flow-grid{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:24px;
+}
+
+.flow-card{
+  position:relative;
+  overflow:hidden;
+  padding:30px;
+  border-radius:28px;
+  background:rgba(255,255,255,.05);
+  border:1px solid rgba(255,255,255,.1);
+  backdrop-filter:blur(20px);
+  transition:.35s ease;
+}
+
+.flow-card:hover{
+  transform:translateY(-8px);
+}
+
+.flow-number{
+  width:60px;
+  height:60px;
+  border-radius:18px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background:linear-gradient(135deg,var(--gold),#ff9800);
+  color:#111;
+  font-weight:800;
+  margin-bottom:24px;
+}
+
+.flow-card h3{
+  font-size:1.5rem;
+  margin-bottom:16px;
+}
+
+.flow-card p{
+  color:var(--muted);
+  line-height:1.8;
+}
+
+.philosophy{
+  text-align:center;
+}
+
+.philosophy-card{
+  position:relative;
+  overflow:hidden;
+  padding:90px;
+  border-radius:40px;
+  background:
+  linear-gradient(135deg,rgba(94,170,255,.15),rgba(140,108,255,.15)),
+  rgba(255,255,255,.05);
+  border:1px solid rgba(255,255,255,.12);
+  backdrop-filter:blur(30px);
+  box-shadow:var(--shadow);
+}
+
+.philosophy-card::before{
+  content:'';
+  position:absolute;
+  inset:-120px;
+  background:radial-gradient(circle,rgba(255,255,255,.08),transparent 55%);
+  animation:rotate 20s linear infinite;
+}
+
+.philosophy-card > *{
+  position:relative;
+  z-index:2;
+}
+
+@keyframes rotate{
+  from{ transform:rotate(0deg); }
+  to{ transform:rotate(360deg); }
+}
+
+.philosophy h2{
+  font-size:clamp(3rem,7vw,6rem);
+  line-height:.95;
+  margin-bottom:28px;
+}
+
+.philosophy p{
+  max-width:980px;
+  margin:auto;
+  color:var(--muted);
+  line-height:2;
+  font-size:1.1rem;
+}
+
+footer{
+  padding:60px 0 90px;
+  text-align:center;
+  color:#7f8bb0;
+}
+
+@media(max-width:1200px){
+
+  .hero-layout,
+  .architecture,
+  .flow-grid{
+    grid-template-columns:1fr;
+  }
+
+  .side-panel{
+    position:relative;
+    top:auto;
+  }
+
+}
+
+@media(max-width:768px){
+
+  section{
+    padding:100px 0;
+  }
+
+  .actions{
+    flex-direction:column;
+  }
+
+  .btn{
+    width:100%;
+  }
+
+  .philosophy-card{
+    padding:50px 28px;
+  }
+
+  .map-panel,
+  .info-card,
+  .preview-card,
+  .flow-card{
+    padding:24px;
+  }
+
+  .infographic-area{
+    height:900px;
+  }
+
+  .orbit-node{
+    width:130px;
+    height:130px;
+    font-size:.9rem;
+  }
+
+}
+
+</style>
+</head>
+<body>
+
+<div class="grid"></div>
+
+<header class="hero">
+
+  <div class="glow one"></div>
+  <div class="glow two"></div>
+
+  <div class="container hero-layout">
+
+    <div>
+
+      <div class="badge">
+        ✦ OEP ONLINE · Infográfico Cognitivo Interativo
+      </div>
+
+      <h1>
+        O <span class="gradient">ORÁCULO</span><br>
+        COMO MAPA<br>
+        INTERATIVO
+      </h1>
+
+      <p>
+        Uma experiência experimental baseada no infográfico do ORÁCULO.
+        Cada eixo funciona como um ponto de entrada para reflexão contextual,
+        oferecendo orientações, imagens, provocações e leituras cognitivas
+        destinadas a apoiar compreensão, clareza e tomada de decisão.
+      </p>
+
+      <div class="actions">
+        <button class="btn btn-primary">
+          Explorar Infográfico
+        </button>
+
+        <button class="btn btn-secondary">
+          Simular Navegação
+        </button>
+      </div>
+
+    </div>
+
+    <div class="preview-card">
+
+      <div class="preview-top">
+        <strong>VISÃO ESTRATÉGICA</strong>
+        <span>sistema online</span>
+      </div>
+
+      <div class="preview-map">
+
+        <div class="link one"></div>
+        <div class="link two"></div>
+        <div class="link three"></div>
+        <div class="link four"></div>
+
+        <div class="center-core">
+          ORÁCULO
+          <br>
+          ENGINE
+        </div>
+
+        <div class="node one">Terapêutico</div>
+        <div class="node two">Sensorial</div>
+        <div class="node three">Pedagógico</div>
+        <div class="node four">Familiar</div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</header>
+
+<section>
+
+  <div class="container">
+
+    <div class="section-title">
+      <span>Infográfico Vivo</span>
+      <h2>Uma experiência de exploração contextual</h2>
+      <p>
+        A proposta do OEP Online é transformar o infográfico do ORÁCULO em uma experiência navegável.
+        Cada ponto da arquitetura pode revelar conteúdos reflexivos, imagens, orientações e conexões
+        cognitivas relacionadas ao contexto apresentado pelo usuário.
+      </p>
+    </div>
+
+    <div class="architecture">
+
+      <div class="map-panel">
+
+        <div class="map-title">
+          <strong>MAPA INTERATIVO DO ORÁCULO</strong>
+          <span>prototype mode</span>
+        </div>
+
+        <div class="infographic-area">
+
+          <div class="ring one"></div>
+          <div class="ring two"></div>
+          <div class="ring three"></div>
+
+          <div class="main-core">
+            SISTEMA
+            <br>
+            OPERACIONAL
+            <br>
+            COGNITIVO
+          </div>
+
+          <div class="orbit-node terapeutico" onclick="showPanel('terapeutico')">
+            EIXO
+            <br>
+            TERAPÊUTICO
+          </div>
+
+          <div class="orbit-node sensorial" onclick="showPanel('sensorial')">
+            EIXO
+            <br>
+            SENSORIAL
+          </div>
+
+          <div class="orbit-node pedagogico" onclick="showPanel('pedagogico')">
+            EIXO
+            <br>
+            PEDAGÓGICO
+          </div>
+
+          <div class="orbit-node familiar" onclick="showPanel('familiar')">
+            EIXO
+            <br>
+            FAMILIAR
+          </div>
+
+        </div>
+
+      </div>
+
+      <div class="side-panel">
+
+        <div class="info-card" id="dynamic-panel">
+
+          <small>Exploração Reflexiva</small>
+
+          <h3 id="panel-title">
+            Eixo Terapêutico
+          </h3>
+
+          <p id="panel-description">
+            Este eixo concentra leituras relacionadas à regulação emocional,
+            organização contextual, redução de sobrecarga e fortalecimento de estabilidade.
+          </p>
+
+          <div class="reflection-list" id="reflection-list">
+
+            <div class="reflection-item">
+              O ambiente atual favorece previsibilidade ou intensifica insegurança?
+            </div>
+
+            <div class="reflection-item">
+              Existem sinais de fadiga emocional acumulada?
+            </div>
+
+            <div class="reflection-item">
+              A comunicação atual reduz ou aumenta ansiedade contextual?
+            </div>
+
+          </div>
+
+          <div class="mock-image" id="mock-image">
+            IMAGEM REFLEXIVA · ROTINA VISUAL · REGULAÇÃO · ACOLHIMENTO
+          </div>
+
+        </div>
+
+        <div class="info-card">
+
+          <small>Objetivo do Experimento</small>
+
+          <h3>
+            Infográfico Navegável
+          </h3>
+
+          <p>
+            Este protótipo demonstra como o infográfico do ORÁCULO pode evoluir
+            para uma experiência online interativa, permitindo que usuários explorem
+            eixos, conexões, orientações e reflexões de maneira visual e contextual.
+          </p>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+<section>
+
+  <div class="container">
+
+    <div class="section-title">
+      <span>Possibilidades Futuras</span>
+      <h2>Como o sistema pode evoluir</h2>
+      <p>
+        O OEP Online pode funcionar inicialmente como experiência visual guiada,
+        evoluindo posteriormente para uma plataforma cognitiva adaptativa.
+      </p>
+    </div>
+
+    <div class="flow-grid">
+
+      <div class="flow-card">
+        <div class="flow-number">01</div>
+        <h3>Exploração</h3>
+        <p>
+          Usuário navega pelo mapa contextual e explora eixos de interesse.
+        </p>
+      </div>
+
+      <div class="flow-card">
+        <div class="flow-number">02</div>
+        <h3>Reflexão</h3>
+        <p>
+          O sistema apresenta provocações e leituras relacionadas ao contexto.
+        </p>
+      </div>
+
+      <div class="flow-card">
+        <div class="flow-number">03</div>
+        <h3>Orientação</h3>
+        <p>
+          BPs, imagens e estratégias passam a ser conectados aos eixos.
+        </p>
+      </div>
+
+      <div class="flow-card">
+        <div class="flow-number">04</div>
+        <h3>Síntese</h3>
+        <p>
+          O ORÁCULO poderá consolidar planos programáticos personalizados.
+        </p>
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+<section class="philosophy">
+
+  <div class="container">
+
+    <div class="philosophy-card">
+
+      <h2>
+        O INFOGRÁFICO DEIXA DE SER ILUSTRAÇÃO.<br>
+        ELE PASSA A SER EXPERIÊNCIA.
+      </h2>
+
+      <p>
+        A ideia central do OEP Online é transformar arquitetura cognitiva em navegação viva.
+        Em vez de apenas observar o sistema, o usuário passa a explorá-lo, criando relações,
+        compreendendo padrões e refletindo sobre o próprio contexto através de uma experiência
+        visual orientada.
+      </p>
+
+      <div class="actions" style="justify-content:center;margin-top:50px;">
+
+        <button class="btn btn-primary">
+          Explorar Arquitetura
+        </button>
+
+        <button class="btn btn-secondary">
+          Evoluir para MVP
+        </button>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+<footer>
+  OEP ONLINE · ORÁCULO Interativo · Sistema Cognitivo Navegável
+</footer>
+
+<script>
+
+const panels = {
+
+  terapeutico:{
+    title:'Eixo Terapêutico',
+    description:'Leituras relacionadas à regulação emocional, previsibilidade contextual, segurança cognitiva e estabilidade adaptativa.',
+    reflections:[
+      'O ambiente atual reduz ou amplia tensão emocional?',
+      'Existem sinais de sobrecarga acumulada?',
+      'Quais estratégias promovem estabilidade imediata?'
+    ],
+    image:'IMAGEM REFLEXIVA · ACOLHIMENTO · REGULAÇÃO · SEGURANÇA'
+  },
+
+  sensorial:{
+    title:'Eixo Sensorial',
+    description:'Observação de estímulos críticos, gatilhos ambientais, processamento sensorial e impacto contextual.',
+    reflections:[
+      'Quais estímulos estão consumindo energia cognitiva?',
+      'O espaço atual favorece recuperação sensorial?',
+      'Existem sinais de fadiga perceptiva?'
+    ],
+    image:'IMAGEM REFLEXIVA · RUÍDO · ILUMINAÇÃO · ESTABILIDADE'
+  },
+
+  pedagogico:{
+    title:'Eixo Pedagógico',
+    description:'Organização de aprendizagem, adaptação de comunicação, previsibilidade de tarefas e clareza operacional.',
+    reflections:[
+      'A comunicação está acessível?',
+      'Existe excesso de complexidade simultânea?',
+      'As demandas respeitam o estado atual?'
+    ],
+    image:'IMAGEM REFLEXIVA · APRENDIZAGEM · FLUXO · ORGANIZAÇÃO'
+  },
+
+  familiar:{
+    title:'Eixo Familiar',
+    description:'Leituras sobre suporte relacional, estabilidade afetiva, alinhamento contextual e dinâmica do ambiente social.',
+    reflections:[
+      'O contexto atual favorece sensação de apoio?',
+      'Existe clareza nas expectativas relacionais?',
+      'O ambiente promove segurança emocional?'
+    ],
+    image:'IMAGEM REFLEXIVA · VÍNCULO · APOIO · COMUNICAÇÃO'
+  }
+
+};
+
+function showPanel(type){
+
+  const panel = panels[type];
+
+  document.getElementById('panel-title').innerText = panel.title;
+  document.getElementById('panel-description').innerText = panel.description;
+  document.getElementById('mock-image').innerText = panel.image;
+
+  const reflectionList = document.getElementById('reflection-list');
+
+  reflectionList.innerHTML = '';
+
+  panel.reflections.forEach(item=>{
+
+    reflectionList.innerHTML += `
+      <div class="reflection-item">
+        ${item}
+      </div>
+    `;
+
+  });
+
+}
+
+</script>
+
+</body>
+</html>
