@@ -1,1 +1,1557 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 
+<title>Consultoria | Comunicação do Orçamento Público</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+<style>
+
+:root{
+
+  --bg:#f7f5f1;
+  --surface:#ffffff;
+  --text:#111111;
+  --muted:#6b7280;
+
+  --line:#e8e5df;
+
+  --primary:#0f172a;
+  --accent:#b28a52;
+
+  --shadow:0 20px 60px rgba(0,0,0,.06);
+
+  --radius:28px;
+
+}
+
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
+
+html{
+  scroll-behavior:smooth;
+}
+
+body{
+
+  font-family:'Inter',sans-serif;
+  background:var(--bg);
+  color:var(--text);
+  overflow-x:hidden;
+
+}
+
+img{
+  max-width:100%;
+  display:block;
+}
+
+a{
+  text-decoration:none;
+  color:inherit;
+}
+
+.container{
+  width:min(1180px,92%);
+  margin:auto;
+}
+
+/* =======================================================
+TOPBAR
+======================================================= */
+
+.topbar{
+
+  position:fixed;
+  top:0;
+  left:0;
+  width:100%;
+
+  z-index:999;
+
+  backdrop-filter:blur(14px);
+  background:rgba(247,245,241,.75);
+
+  border-bottom:1px solid rgba(0,0,0,.05);
+
+}
+
+.topbar-inner{
+
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+
+  padding:20px 0;
+
+}
+
+.logo{
+
+  font-size:.95rem;
+  letter-spacing:.12em;
+  font-weight:700;
+  text-transform:uppercase;
+
+}
+
+.nav{
+
+  display:flex;
+  gap:34px;
+
+}
+
+.nav a{
+
+  font-size:.92rem;
+  color:var(--muted);
+
+  transition:.3s;
+
+}
+
+.nav a:hover{
+  color:var(--text);
+}
+
+/* =======================================================
+HERO
+======================================================= */
+
+.hero{
+
+  min-height:100vh;
+
+  display:flex;
+  align-items:center;
+
+  position:relative;
+
+  overflow:hidden;
+
+}
+
+.hero::before{
+
+  content:"";
+
+  position:absolute;
+
+  width:900px;
+  height:900px;
+
+  border-radius:50%;
+
+  background:radial-gradient(circle, rgba(178,138,82,.14) 0%, rgba(178,138,82,0) 70%);
+
+  top:-300px;
+  right:-200px;
+
+}
+
+.hero-grid{
+
+  display:grid;
+  grid-template-columns:1.2fr .8fr;
+  gap:80px;
+  align-items:center;
+
+}
+
+.eyebrow{
+
+  display:inline-flex;
+  align-items:center;
+  gap:10px;
+
+  padding:10px 18px;
+
+  background:rgba(255,255,255,.7);
+
+  border:1px solid rgba(0,0,0,.06);
+
+  border-radius:999px;
+
+  font-size:.85rem;
+  color:var(--muted);
+
+  margin-bottom:28px;
+
+  backdrop-filter:blur(12px);
+
+}
+
+.hero h1{
+
+  font-size:clamp(3.5rem,8vw,7rem);
+  line-height:.9;
+
+  letter-spacing:-5px;
+
+  margin-bottom:32px;
+
+  max-width:900px;
+
+}
+
+.hero h1 span{
+  color:var(--accent);
+}
+
+.hero p{
+
+  font-size:1.15rem;
+  line-height:1.8;
+
+  color:var(--muted);
+
+  max-width:720px;
+
+}
+
+.hero-actions{
+
+  display:flex;
+  gap:18px;
+
+  margin-top:44px;
+
+  flex-wrap:wrap;
+
+}
+
+.btn{
+
+  padding:18px 28px;
+
+  border-radius:999px;
+
+  font-weight:600;
+
+  transition:.35s;
+
+  border:1px solid transparent;
+
+}
+
+.btn-primary{
+
+  background:var(--primary);
+  color:#fff;
+
+}
+
+.btn-primary:hover{
+
+  transform:translateY(-3px);
+
+  box-shadow:0 16px 40px rgba(15,23,42,.15);
+
+}
+
+.btn-secondary{
+
+  border:1px solid rgba(0,0,0,.08);
+  background:#fff;
+
+}
+
+.btn-secondary:hover{
+
+  transform:translateY(-3px);
+
+}
+
+.hero-card{
+
+  background:rgba(255,255,255,.7);
+
+  border:1px solid rgba(0,0,0,.05);
+
+  border-radius:36px;
+
+  padding:40px;
+
+  backdrop-filter:blur(16px);
+
+  box-shadow:var(--shadow);
+
+}
+
+.hero-card h3{
+
+  font-size:1rem;
+
+  margin-bottom:22px;
+
+  color:var(--muted);
+
+  font-weight:600;
+
+}
+
+.metric{
+
+  padding:22px 0;
+
+  border-bottom:1px solid var(--line);
+
+}
+
+.metric:last-child{
+  border-bottom:none;
+}
+
+.metric strong{
+
+  display:block;
+
+  font-size:2.6rem;
+
+  letter-spacing:-2px;
+
+  margin-bottom:8px;
+
+}
+
+.metric span{
+
+  color:var(--muted);
+  line-height:1.6;
+
+}
+
+/* =======================================================
+SECTION
+======================================================= */
+
+section{
+
+  padding:140px 0;
+  position:relative;
+
+}
+
+.section-head{
+
+  margin-bottom:70px;
+
+}
+
+.kicker{
+
+  font-size:.82rem;
+  text-transform:uppercase;
+  letter-spacing:.18em;
+
+  color:var(--accent);
+
+  font-weight:700;
+
+  margin-bottom:18px;
+
+}
+
+.section-head h2{
+
+  font-size:clamp(2.4rem,5vw,4.8rem);
+
+  line-height:1;
+
+  letter-spacing:-3px;
+
+  margin-bottom:26px;
+
+}
+
+.section-head p{
+
+  max-width:820px;
+
+  font-size:1.08rem;
+  line-height:1.9;
+
+  color:var(--muted);
+
+}
+
+/* =======================================================
+PROBLEMA
+======================================================= */
+
+.problem-grid{
+
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:24px;
+
+}
+
+.problem-card{
+
+  background:var(--surface);
+
+  border:1px solid rgba(0,0,0,.05);
+
+  border-radius:30px;
+
+  padding:38px;
+
+  transition:.4s;
+
+}
+
+.problem-card:hover{
+
+  transform:translateY(-8px);
+
+  box-shadow:var(--shadow);
+
+}
+
+.problem-number{
+
+  font-size:3rem;
+  color:rgba(178,138,82,.25);
+
+  font-weight:800;
+
+  margin-bottom:18px;
+
+}
+
+.problem-card h3{
+
+  font-size:1.2rem;
+  margin-bottom:16px;
+
+}
+
+.problem-card p{
+
+  color:var(--muted);
+  line-height:1.8;
+
+}
+
+/* =======================================================
+PREMISSA
+======================================================= */
+
+.premise{
+
+  background:#111827;
+  color:#fff;
+
+}
+
+.premise .section-head p{
+  color:rgba(255,255,255,.7);
+}
+
+.premise-grid{
+
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:24px;
+
+}
+
+.premise-card{
+
+  border:1px solid rgba(255,255,255,.08);
+
+  border-radius:28px;
+
+  padding:34px;
+
+  background:rgba(255,255,255,.03);
+
+  backdrop-filter:blur(8px);
+
+}
+
+.premise-card h4{
+
+  margin-bottom:18px;
+  font-size:1.1rem;
+
+}
+
+.premise-card p{
+
+  color:rgba(255,255,255,.7);
+  line-height:1.8;
+
+}
+
+/* =======================================================
+COMPONENTES
+======================================================= */
+
+.components-grid{
+
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:28px;
+
+}
+
+.component-card{
+
+  background:#fff;
+
+  border-radius:34px;
+
+  padding:48px;
+
+  border:1px solid rgba(0,0,0,.05);
+
+  transition:.4s;
+
+  position:relative;
+
+  overflow:hidden;
+
+}
+
+.component-card::before{
+
+  content:"";
+
+  position:absolute;
+
+  width:220px;
+  height:220px;
+
+  border-radius:50%;
+
+  background:rgba(178,138,82,.08);
+
+  top:-80px;
+  right:-80px;
+
+}
+
+.component-card:hover{
+
+  transform:translateY(-8px);
+
+  box-shadow:var(--shadow);
+
+}
+
+.component-card span{
+
+  font-size:.8rem;
+  text-transform:uppercase;
+  letter-spacing:.15em;
+
+  color:var(--accent);
+  font-weight:700;
+
+}
+
+.component-card h3{
+
+  font-size:2rem;
+  letter-spacing:-2px;
+
+  margin:20px 0;
+
+}
+
+.component-card p{
+
+  color:var(--muted);
+  line-height:1.9;
+
+}
+
+/* =======================================================
+PRODUTOS
+======================================================= */
+
+.products-grid{
+
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:28px;
+
+}
+
+.product-card{
+
+  background:#fff;
+
+  border-radius:34px;
+
+  padding:42px;
+
+  border:1px solid rgba(0,0,0,.05);
+
+  min-height:420px;
+
+  display:flex;
+  flex-direction:column;
+  justify-content:space-between;
+
+  transition:.4s;
+
+}
+
+.product-card:hover{
+
+  transform:translateY(-8px);
+
+  box-shadow:var(--shadow);
+
+}
+
+.product-top span{
+
+  color:var(--accent);
+  font-size:.85rem;
+  letter-spacing:.14em;
+  text-transform:uppercase;
+  font-weight:700;
+
+}
+
+.product-top h3{
+
+  font-size:2rem;
+  line-height:1.05;
+
+  letter-spacing:-2px;
+
+  margin:22px 0;
+
+}
+
+.product-top p{
+
+  line-height:1.9;
+  color:var(--muted);
+
+}
+
+.product-link{
+
+  margin-top:36px;
+
+  display:inline-flex;
+  align-items:center;
+  gap:10px;
+
+  font-weight:600;
+
+}
+
+/* =======================================================
+TIMELINE
+======================================================= */
+
+.timeline{
+
+  display:grid;
+  grid-template-columns:repeat(5,1fr);
+  gap:22px;
+
+}
+
+.timeline-step{
+
+  position:relative;
+
+  background:#fff;
+
+  border-radius:28px;
+
+  padding:34px;
+
+  border:1px solid rgba(0,0,0,.05);
+
+}
+
+.timeline-step strong{
+
+  display:block;
+
+  font-size:3rem;
+
+  color:rgba(178,138,82,.22);
+
+  margin-bottom:16px;
+
+}
+
+.timeline-step h4{
+
+  margin-bottom:14px;
+
+}
+
+.timeline-step p{
+
+  color:var(--muted);
+  line-height:1.7;
+  font-size:.96rem;
+
+}
+
+/* =======================================================
+QUOTE
+======================================================= */
+
+.quote{
+
+  background:linear-gradient(135deg,#0f172a 0%, #111827 100%);
+  color:#fff;
+
+  overflow:hidden;
+
+}
+
+.quote-box{
+
+  position:relative;
+
+  max-width:980px;
+
+}
+
+.quote-mark{
+
+  font-size:12rem;
+  opacity:.08;
+
+  position:absolute;
+
+  top:-80px;
+  left:-20px;
+
+}
+
+.quote-text{
+
+  font-size:clamp(2rem,4vw,4rem);
+
+  line-height:1.2;
+
+  letter-spacing:-2px;
+
+  position:relative;
+  z-index:2;
+
+}
+
+.quote-text span{
+  color:#d4b07a;
+}
+
+/* =======================================================
+FOOTER
+======================================================= */
+
+footer{
+
+  padding:60px 0;
+
+  border-top:1px solid rgba(0,0,0,.05);
+
+}
+
+.footer-inner{
+
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+
+  gap:20px;
+
+}
+
+.footer-inner p{
+
+  color:var(--muted);
+  line-height:1.7;
+
+}
+
+/* =======================================================
+RESPONSIVO
+======================================================= */
+
+@media(max-width:1100px){
+
+  .hero-grid,
+  .problem-grid,
+  .premise-grid,
+  .products-grid,
+  .timeline,
+  .components-grid{
+
+    grid-template-columns:1fr;
+
+  }
+
+  .hero{
+
+    padding-top:160px;
+    padding-bottom:120px;
+
+  }
+
+}
+
+@media(max-width:768px){
+
+  .topbar-inner{
+
+    flex-direction:column;
+    gap:18px;
+
+  }
+
+  .nav{
+    gap:18px;
+    flex-wrap:wrap;
+    justify-content:center;
+  }
+
+  .hero h1{
+
+    font-size:clamp(3rem,14vw,5rem);
+    letter-spacing:-3px;
+
+  }
+
+  .section-head h2{
+
+    letter-spacing:-2px;
+
+  }
+
+  .hero-card,
+  .problem-card,
+  .component-card,
+  .product-card,
+  .timeline-step{
+
+    border-radius:24px;
+
+  }
+
+}
+
+</style>
+</head>
+<body>
+
+<!-- =======================================================
+TOPBAR
+======================================================= -->
+
+<header class="topbar">
+
+  <div class="container topbar-inner">
+
+    <div class="logo">
+      Orçamento Público ao Cidadão
+    </div>
+
+    <nav class="nav">
+
+      <a href="#problema">Problema</a>
+      <a href="#componentes">Componentes</a>
+      <a href="#produtos">Produtos</a>
+      <a href="#metodologia">Metodologia</a>
+
+    </nav>
+
+  </div>
+
+</header>
+
+<!-- =======================================================
+HERO
+======================================================= -->
+
+<section class="hero">
+
+  <div class="container hero-grid">
+
+    <div>
+
+      <div class="eyebrow">
+        Estudo Técnico Aplicado • Transparência Fiscal • Governo Aberto
+      </div>
+
+      <h1>
+
+        Comunicação do
+        <span>Orçamento Público</span>
+        para o cidadão.
+
+      </h1>
+
+      <p>
+
+        Uma proposta estratégica para transformar transparência fiscal
+        em experiência cognitiva, acessível e acionável. O estudo integra
+        benchmarking internacional, diagnóstico analítico e roadmap de
+        implementação voltado à democratização das informações
+        gerenciais-contábeis.
+
+      </p>
+
+      <div class="hero-actions">
+
+        <a href="#produtos" class="btn btn-primary">
+          Explorar Produtos
+        </a>
+
+        <a href="#metodologia" class="btn btn-secondary">
+          Conhecer Metodologia
+        </a>
+
+      </div>
+
+    </div>
+
+    <div class="hero-card">
+
+      <h3>
+        Estrutura do Estudo
+      </h3>
+
+      <div class="metric">
+
+        <strong>4</strong>
+
+        <span>
+          Componentes integrados orientados à transformação da
+          comunicação fiscal.
+        </span>
+
+      </div>
+
+      <div class="metric">
+
+        <strong>16</strong>
+
+        <span>
+          Semanas estimadas de execução metodológica e consolidação analítica.
+        </span>
+
+      </div>
+
+      <div class="metric">
+
+        <strong>5</strong>
+
+        <span>
+          Eixos metodológicos estruturantes para diagnóstico,
+          benchmarking e roadmap.
+        </span>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+<!-- =======================================================
+PROBLEMA
+======================================================= -->
+
+<section id="problema">
+
+  <div class="container">
+
+    <div class="section-head">
+
+      <div class="kicker">
+        Contexto Analítico
+      </div>
+
+      <h2>
+        Transparência não garante compreensão.
+      </h2>
+
+      <p>
+
+        Apesar do avanço dos instrumentos de transparência fiscal,
+        persistem barreiras estruturais relacionadas à inteligibilidade,
+        acessibilidade e usabilidade das informações orçamentárias.
+        O desafio contemporâneo não é apenas publicar dados,
+        mas transformá-los em informação compreensível e socialmente utilizável.
+
+      </p>
+
+    </div>
+
+    <div class="problem-grid">
+
+      <div class="problem-card">
+
+        <div class="problem-number">
+          01
+        </div>
+
+        <h3>
+          Complexidade Técnica
+        </h3>
+
+        <p>
+          Linguagem excessivamente especializada dificulta o entendimento
+          por cidadãos não familiarizados com estruturas fiscais e contábeis.
+        </p>
+
+      </div>
+
+      <div class="problem-card">
+
+        <div class="problem-number">
+          02
+        </div>
+
+        <h3>
+          Fragmentação Informacional
+        </h3>
+
+        <p>
+          Sistemas desconectados e arquitetura dispersa dificultam
+          a navegação e a construção de sentido público.
+        </p>
+
+      </div>
+
+      <div class="problem-card">
+
+        <div class="problem-number">
+          03
+        </div>
+
+        <h3>
+          Baixa Usabilidade
+        </h3>
+
+        <p>
+          Interfaces pouco intuitivas reduzem o potencial de acesso,
+          engajamento e controle social das informações.
+        </p>
+
+      </div>
+
+      <div class="problem-card">
+
+        <div class="problem-number">
+          04
+        </div>
+
+        <h3>
+          Transparência Formal
+        </h3>
+
+        <p>
+          Disponibilidade de dados não implica necessariamente
+          compreensão efetiva ou apropriação democrática.
+        </p>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+<!-- =======================================================
+PREMISSA
+======================================================= -->
+
+<section class="premise">
+
+  <div class="container">
+
+    <div class="section-head">
+
+      <div class="kicker">
+        Nova Premissa
+      </div>
+
+      <h2>
+        Transparência como experiência cognitiva.
+      </h2>
+
+      <p>
+
+        O estudo propõe uma abordagem integrada de comunicação pública,
+        articulando linguagem simples, arquitetura da informação,
+        experiência do usuário e design centrado no cidadão.
+
+      </p>
+
+    </div>
+
+    <div class="premise-grid">
+
+      <div class="premise-card">
+
+        <h4>
+          Linguagem Simples
+        </h4>
+
+        <p>
+          Simplificação estratégica da comunicação fiscal
+          sem perda de rigor técnico.
+        </p>
+
+      </div>
+
+      <div class="premise-card">
+
+        <h4>
+          UX Pública
+        </h4>
+
+        <p>
+          Construção de jornadas de navegação orientadas
+          ao entendimento cidadão.
+        </p>
+
+      </div>
+
+      <div class="premise-card">
+
+        <h4>
+          Arquitetura Informacional
+        </h4>
+
+        <p>
+          Organização lógica e navegável das estruturas
+          orçamentárias e fiscais.
+        </p>
+
+      </div>
+
+      <div class="premise-card">
+
+        <h4>
+          Democracia Informacional
+        </h4>
+
+        <p>
+          Ampliação do uso social das informações públicas
+          como instrumento de participação democrática.
+        </p>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+<!-- =======================================================
+COMPONENTES
+======================================================= -->
+
+<section id="componentes">
+
+  <div class="container">
+
+    <div class="section-head">
+
+      <div class="kicker">
+        Estrutura do Estudo
+      </div>
+
+      <h2>
+        Quatro componentes integrados.
+      </h2>
+
+      <p>
+
+        A proposta organiza-se em uma estrutura metodológica
+        interdependente, conectando diagnóstico, benchmarking,
+        diretrizes estratégicas e implementação operacional.
+
+      </p>
+
+    </div>
+
+    <div class="components-grid">
+
+      <div class="component-card">
+
+        <span>
+          Componente 01
+        </span>
+
+        <h3>
+          Diagnóstico
+        </h3>
+
+        <p>
+          Avaliação estruturada da comunicação orçamentária brasileira
+          considerando linguagem, UX, acessibilidade,
+          arquitetura da informação e integração institucional.
+        </p>
+
+      </div>
+
+      <div class="component-card">
+
+        <span>
+          Componente 02
+        </span>
+
+        <h3>
+          Benchmark
+        </h3>
+
+        <p>
+          Identificação de experiências nacionais e internacionais
+          com foco em inovação, maturidade institucional
+          e replicabilidade das práticas.
+        </p>
+
+      </div>
+
+      <div class="component-card">
+
+        <span>
+          Componente 03
+        </span>
+
+        <h3>
+          Diretrizes Estratégicas
+        </h3>
+
+        <p>
+          Formulação de princípios e orientações para aprimoramento
+          da comunicação pública do orçamento.
+        </p>
+
+      </div>
+
+      <div class="component-card">
+
+        <span>
+          Componente 04
+        </span>
+
+        <h3>
+          Roadmap de Implementação
+        </h3>
+
+        <p>
+          Estruturação de plano operacional contendo ações,
+          governança, cronograma, indicadores e monitoramento.
+        </p>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+<!-- =======================================================
+PRODUTOS
+======================================================= -->
+
+<section id="produtos">
+
+  <div class="container">
+
+    <div class="section-head">
+
+      <div class="kicker">
+        Produtos Técnicos
+      </div>
+
+      <h2>
+        Estrutura documental do estudo.
+      </h2>
+
+      <p>
+
+        Os produtos organizam o amadurecimento analítico da pesquisa,
+        conectando metodologia, diagnóstico e implementação
+        em uma arquitetura progressiva de evidências.
+
+      </p>
+
+    </div>
+
+    <div class="products-grid">
+
+      <a href="produto1.html" class="product-card">
+
+        <div class="product-top">
+
+          <span>
+            Produto 1
+          </span>
+
+          <h3>
+            Plano de Trabalho
+          </h3>
+
+          <p>
+
+            Estrutura metodológica, framework analítico,
+            estratégia de coleta de dados e cronograma
+            integrado do estudo.
+
+          </p>
+
+        </div>
+
+        <div class="product-link">
+          Explorar →
+        </div>
+
+      </a>
+
+      <a href="produto2.html" class="product-card">
+
+        <div class="product-top">
+
+          <span>
+            Produto 2
+          </span>
+
+          <h3>
+            Diagnóstico e Benchmark
+          </h3>
+
+          <p>
+
+            Avaliação do cenário brasileiro e análise
+            comparativa de experiências internacionais
+            em comunicação fiscal.
+
+          </p>
+
+        </div>
+
+        <div class="product-link">
+          Explorar →
+        </div>
+
+      </a>
+
+      <a href="produto3.html" class="product-card">
+
+        <div class="product-top">
+
+          <span>
+            Produto 3
+          </span>
+
+          <h3>
+            Roadmap Estratégico
+          </h3>
+
+          <p>
+
+            Diretrizes, governança, priorização de iniciativas,
+            monitoramento e experiência interativa integrada ao Ícaro.
+
+          </p>
+
+        </div>
+
+        <div class="product-link">
+          Explorar →
+        </div>
+
+      </a>
+
+    </div>
+
+  </div>
+
+</section>
+
+<!-- =======================================================
+TIMELINE
+======================================================= -->
+
+<section id="metodologia">
+
+  <div class="container">
+
+    <div class="section-head">
+
+      <div class="kicker">
+        Metodologia
+      </div>
+
+      <h2>
+        Cinco eixos metodológicos.
+      </h2>
+
+      <p>
+
+        A pesquisa combina benchmarking comparativo,
+        diagnóstico analítico e consolidação estratégica
+        em uma estrutura metodológica híbrida e aplicada.
+
+      </p>
+
+    </div>
+
+    <div class="timeline">
+
+      <div class="timeline-step">
+
+        <strong>1</strong>
+
+        <h4>
+          Benchmarking
+        </h4>
+
+        <p>
+          Levantamento internacional de práticas avançadas
+          em comunicação orçamentária.
+        </p>
+
+      </div>
+
+      <div class="timeline-step">
+
+        <strong>2</strong>
+
+        <h4>
+          Diagnóstico Analítico
+        </h4>
+
+        <p>
+          Avaliação estruturada da realidade brasileira
+          e das interfaces públicas existentes.
+        </p>
+
+      </div>
+
+      <div class="timeline-step">
+
+        <strong>3</strong>
+
+        <h4>
+          Evidências Qualitativas
+        </h4>
+
+        <p>
+          Entrevistas e coleta interpretativa com especialistas,
+          instituições e sociedade civil.
+        </p>
+
+      </div>
+
+      <div class="timeline-step">
+
+        <strong>4</strong>
+
+        <h4>
+          Mensuração
+        </h4>
+
+        <p>
+          Construção de critérios e dimensões avaliativas
+          comparáveis de maturidade institucional.
+        </p>
+
+      </div>
+
+      <div class="timeline-step">
+
+        <strong>5</strong>
+
+        <h4>
+          Roadmap
+        </h4>
+
+        <p>
+          Consolidação estratégica e operacional
+          para implementação das diretrizes propostas.
+        </p>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+<!-- =======================================================
+QUOTE
+======================================================= -->
+
+<section class="quote">
+
+  <div class="container">
+
+    <div class="quote-box">
+
+      <div class="quote-mark">
+        ”
+      </div>
+
+      <div class="quote-text">
+
+        O futuro da transparência fiscal depende menos
+        da abertura dos dados e mais da capacidade institucional
+        de transformá-los em informação
+        <span>compreensível, navegável e acionável.</span>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+<!-- =======================================================
+FOOTER
+======================================================= -->
+
+<footer>
+
+  <div class="container footer-inner">
+
+    <p>
+      Estudo Técnico Aplicado • Comunicação do Orçamento Público ao Cidadão
+    </p>
+
+    <p>
+      Transparência Fiscal • Governo Aberto • Democracia Informacional
+    </p>
+
+  </div>
+
+</footer>
+
+</body>
+</html>
