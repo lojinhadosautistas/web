@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>CCV • Campo Cognitivo Vivo</title>
+
+<style>
+body{
+  margin:0;
+  background:#050816;
+  overflow:hidden;
+  font-family:Inter, sans-serif;
+}
+
+canvas{
+  display:block;
+}
+
+.hud{
+  position:fixed;
+  top:20px;
+  left:20px;
+  color:white;
+  font-size:14px;
+  opacity:.8;
+  background:rgba(0,0,0,.3);
+  padding:10px 14px;
+  border-radius:10px;
+  backdrop-filter:blur(10px);
+}
+
+button{
+  margin-top:8px;
+  padding:8px 10px;
+  border:none;
+  border-radius:8px;
+  cursor:pointer;
+  background:#ffb300;
+  font-weight:700;
+}
+</style>
+</head>
+
+<body>
+
+<canvas id="c"></canvas>
+
+<div class="hud">
+  <div><b>CAMPO COGNITIVO VIVO</b></div>
+  <div>modo: <span id="mode">exploracao</span></div>
+  <div>carga: <span id="load">0</span></div>
+
+  <button onclick="setMode('exploracao')">Exploração</button>
+  <button onclick="setMode('organizacao')">Organização</button>
+  <button onclick="setMode('integracao')">Integração</button>
+</div>
+
+<script>
+
+//////////////////////////////////////////////////////
+// 🧠 CANVAS SETUP
+//////////////////////////////////////////////////////
+
+const canvas = document.getElementById("c");
+const ctx = canvas.getContext("2d");
+
+canvas.width = innerWidth;
+canvas.height = innerHeight;
+
+window.addEventListener("resize", ()=>{
+  canvas.width = innerWidth;
+  canvas.height = innerHeight;
+});
+
+//////////////////////////////////////////////////////
+// 🧠 ESTADO DO ORÁCULO (GRAVIDADE COGNITIVA)
+//////////////////////////////////////////////////////
+
+const state = {
+  mode: "exploracao",
+  carga: 0.5
+};
+
+function setMode(m){
+  state.mode = m;
+
+  if(m === "exploracao") state.carga = 0.9;
+  if(m === "organizacao") state.carga = 0.5;
+  if(m === "integracao") state.carga = 0.2;
+
+  document.getElementById("mode").innerText = m;
+}
+
+//////////////////////////////////////////////////////
+// 🧠 IDEIAS (PARTÍCULAS COGNITIVAS)
+//////////////////////////////////////////////////////
+
+const ideas = [];
+
+const labels = [
+  "incerteza",
+  "observação",
+  "análise",
+  "estrutura",
+  "decisão",
+  "síntese",
+  "fluxo",
+  "ruptura",
+  "ordem",
+  "caos"
+];
+
+for(let i=0;i<40;i++){
+
+  ideas.push({
+    x: Math.random()*canvas.width,
+    y: Math.random()*canvas.height,
+    vx: (Math.random()-0.5)*2,
+    vy: (Math.random()-0.5)*2,
+    r: 3 + Math.random()*3,
+    label: labels[i % labels.length]
+  });
+
+}
+
+//////////////////////////////////////////////////////
+// 🧠 FORÇA ENTRE IDEIAS
+//////////////////////////////////////////////////////
+
+function force(a,b){
+
+  const dx = b.x - a.x;
+  const dy = b.y - a.y;
+  const dist = Math.sqrt(dx*dx + dy*dy) + 0.001;
+
+  let f = 0;
+
+  // atração leve base
+  f += 0.05;
+
+  // se são "conceitos próximos", atraem mais
+  if(a.label === b.label) f += 0.3;
+
+  // se campo está em exploração → dispersa
+  if(state.mode === "exploracao") f -= 0.2;
+
+  // organização → equilíbrio
+  if(state.mode === "organizacao") f += 0;
+
+  // integração → converge
+  if(state.mode === "integracao") f += 0.2;
+
+  return {
+    fx: (dx / dist) * f,
+    fy: (dy / dist) * f
+  };
+
+}
+
+//////////////////////////////////////////////////////
+// 🧠 LOOP DE FÍSICA
+//////////////////////////////////////////////////////
+
+function update(){
+
+  for(let i=0;i<ideas.length;i++){
+
+    let a = ideas[i];
+
+    let fx = 0;
+    let fy = 0;
+
+    for(let j=0;j<ideas.length;j++){
+
+      if(i === j) continue;
+
+      let b = ideas[j];
+
+      let f = force(a,b);
+
+      fx += f.fx;
+      fy += f.fy;
+
+    }
+
+    // gravidade do oráculo (estado geral)
+    fx += (Math.random()-0.5) * state.carga;
+    fy += (Math.random()-0.5) * state.carga;
+
+    a.vx += fx * 0.01;
+    a.vy += fy * 0.01;
+
+    // damping
+    a.vx *= 0.96;
+    a.vy *= 0.96;
+
+    a.x += a.vx;
+    a.y += a.vy;
+
+    // limites
+    if(a.x < 0 || a.x > canvas.width) a.vx *= -1;
+    if(a.y < 0 || a.y > canvas.height) a.vy *= -1;
+
+  }
+
+}
+
+//////////////////////////////////////////////////////
+// 🧠 RENDER VISUAL
+//////////////////////////////////////////////////////
+
+function draw(){
+
+  ctx.clearRect(0,0,canvas.width,canvas.height);
+
+  // linhas (relações cognitivas)
+  for(let i=0;i<ideas.length;i++){
+
+    for(let j=i+1;j<ideas.length;j++){
+
+      const a = ideas[i];
+      const b = ideas[j];
+
+      const dx = a.x - b.x;
+      const dy = a.y - b.y;
+      const dist = Math.sqrt(dx*dx + dy*dy);
+
+      if(dist < 120){
+
+        ctx.strokeStyle = `rgba(255,179,0,${1 - dist/120})`;
+        ctx.lineWidth = 0.5;
+
+        ctx.beginPath();
+        ctx.moveTo(a.x,a.y);
+        ctx.lineTo(b.x,b.y);
+        ctx.stroke();
+
+      }
+
+    }
+
+  }
+
+  // nós
+  for(let i=0;i<ideas.length;i++){
+
+    const n = ideas[i];
+
+    ctx.fillStyle = "#ffb300";
+
+    ctx.beginPath();
+    ctx.arc(n.x,n.y,n.r,0,Math.PI*2);
+    ctx.fill();
+
+  }
+
+}
+
+//////////////////////////////////////////////////////
+// 🧠 LOOP PRINCIPAL
+//////////////////////////////////////////////////////
+
+function loop(){
+
+  update();
+  draw();
+
+  document.getElementById("load").innerText =
+    state.carga.toFixed(2);
+
+  requestAnimationFrame(loop);
+
+}
+
+loop();
+
+</script>
+
+</body>
+</html>
