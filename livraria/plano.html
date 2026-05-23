@@ -1,0 +1,1350 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Plano de Parcerias · Cada Passo, Uma Jornada</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Oswald:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+
+:root{
+
+  --bg:#f4eee5;
+  --panel:#fffaf3;
+  --text:#2f2013;
+  --muted:#6b6157;
+
+  --gold:#b77a28;
+  --gold2:#e1b45b;
+
+  --brown:#4c2c13;
+  --green:#708b68;
+  --purple:#7155a0;
+  --blue:#355f82;
+
+  --border:#e5d8c8;
+
+  --shadow:
+  0 25px 70px rgba(50,25,0,.08);
+
+}
+
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
+
+body{
+
+  background:
+  radial-gradient(circle at top left, rgba(183,122,40,.06), transparent 20%),
+  radial-gradient(circle at bottom right, rgba(113,85,160,.05), transparent 25%),
+  var(--bg);
+
+  color:var(--text);
+
+  font-family:'Inter',sans-serif;
+
+  overflow-x:hidden;
+
+}
+
+.container{
+
+  width:min(1750px,95vw);
+
+  margin:auto;
+
+  padding:28px 0 80px;
+
+}
+
+/* HERO */
+
+.hero{
+
+  position:relative;
+
+  overflow:hidden;
+
+  border-radius:42px;
+
+  padding:80px;
+
+  background:
+  linear-gradient(135deg,#fffdf8,#f5ead8);
+
+  border:1px solid var(--border);
+
+  box-shadow:var(--shadow);
+
+  display:grid;
+
+  grid-template-columns:1.2fr .8fr;
+
+  gap:60px;
+
+}
+
+.hero::before{
+
+  content:'';
+
+  position:absolute;
+
+  width:900px;
+  height:900px;
+
+  border-radius:50%;
+
+  background:
+  radial-gradient(circle,
+  rgba(183,122,40,.08),
+  transparent 70%);
+
+  top:-300px;
+  right:-300px;
+
+}
+
+.kicker{
+
+  display:flex;
+  align-items:center;
+  gap:14px;
+
+  margin-bottom:26px;
+
+}
+
+.kicker span{
+
+  font-family:'Oswald',sans-serif;
+
+  font-size:1rem;
+
+  letter-spacing:2px;
+
+  color:#7a4e20;
+
+}
+
+.dot{
+
+  width:8px;
+  height:8px;
+
+  border-radius:50%;
+
+  background:var(--gold);
+
+}
+
+.hero h1{
+
+  font-family:'Oswald',sans-serif;
+
+  font-size:clamp(4rem,8vw,7rem);
+
+  line-height:.94;
+
+  letter-spacing:-2px;
+
+  margin-bottom:28px;
+
+  color:#311a09;
+
+}
+
+.hero h1 strong{
+
+  color:var(--gold);
+
+  display:block;
+
+}
+
+.hero p{
+
+  font-size:1.18rem;
+
+  line-height:2;
+
+  max-width:850px;
+
+  color:#5f564d;
+
+}
+
+.hero-side{
+
+  display:grid;
+  gap:22px;
+
+}
+
+.side-card{
+
+  background:rgba(255,255,255,.72);
+
+  border:1px solid rgba(0,0,0,.05);
+
+  border-radius:30px;
+
+  padding:30px;
+
+  backdrop-filter:blur(10px);
+
+}
+
+.side-card h3{
+
+  font-family:'Oswald',sans-serif;
+
+  font-size:2rem;
+
+  margin-bottom:14px;
+
+}
+
+.side-card p{
+
+  color:#65584d;
+
+  line-height:1.9;
+
+}
+
+/* IMPACT */
+
+.impact{
+
+  margin-top:28px;
+
+  display:grid;
+
+  grid-template-columns:repeat(4,1fr);
+
+  gap:20px;
+
+}
+
+.metric{
+
+  background:var(--panel);
+
+  border:1px solid var(--border);
+
+  border-radius:30px;
+
+  padding:34px;
+
+  box-shadow:var(--shadow);
+
+}
+
+.metric h2{
+
+  font-family:'Oswald',sans-serif;
+
+  font-size:4rem;
+
+  color:var(--gold);
+
+  line-height:1;
+
+  margin-bottom:14px;
+
+}
+
+.metric p{
+
+  color:#5f554b;
+
+  line-height:1.8;
+
+}
+
+/* GRID */
+
+.grid{
+
+  display:grid;
+
+  grid-template-columns:1.2fr .8fr;
+
+  gap:24px;
+
+  margin-top:28px;
+
+}
+
+/* PANELS */
+
+.panel{
+
+  background:var(--panel);
+
+  border:1px solid var(--border);
+
+  border-radius:34px;
+
+  overflow:hidden;
+
+  box-shadow:var(--shadow);
+
+}
+
+/* EDITORIAL */
+
+.editorial{
+
+  padding:42px;
+
+}
+
+.section-title{
+
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+
+  margin-bottom:34px;
+
+}
+
+.section-title h2{
+
+  font-family:'Oswald',sans-serif;
+
+  font-size:2.8rem;
+
+}
+
+.badge{
+
+  padding:10px 18px;
+
+  border-radius:999px;
+
+  background:#f2e3cd;
+
+  color:#8a5b1f;
+
+  font-weight:700;
+
+  font-size:.9rem;
+
+}
+
+.collections{
+
+  display:grid;
+
+  grid-template-columns:repeat(2,1fr);
+
+  gap:22px;
+
+}
+
+.collection{
+
+  border-radius:28px;
+
+  padding:28px;
+
+  background:
+  linear-gradient(180deg,#fff,#fbf6ef);
+
+  border:1px solid rgba(0,0,0,.05);
+
+  transition:.35s;
+
+}
+
+.collection:hover{
+
+  transform:translateY(-8px);
+
+}
+
+.collection span{
+
+  display:inline-flex;
+
+  width:58px;
+  height:58px;
+
+  border-radius:18px;
+
+  align-items:center;
+  justify-content:center;
+
+  background:#f5ead7;
+
+  margin-bottom:22px;
+
+  font-size:1.5rem;
+
+}
+
+.collection h3{
+
+  font-family:'Oswald',sans-serif;
+
+  font-size:2rem;
+
+  margin-bottom:14px;
+
+}
+
+.collection p{
+
+  line-height:1.8;
+
+  color:#645a50;
+
+}
+
+.collection ul{
+
+  margin-top:18px;
+
+  padding-left:18px;
+
+  display:grid;
+  gap:10px;
+
+  color:#5e544a;
+
+}
+
+/* DIFFERENTIALS */
+
+.diff{
+
+  padding:42px;
+
+  background:
+  linear-gradient(180deg,#fffaf3,#f7efe5);
+
+}
+
+.diff-grid{
+
+  display:grid;
+  gap:18px;
+
+}
+
+.diff-card{
+
+  background:#fff;
+
+  border-radius:24px;
+
+  padding:24px;
+
+  border:1px solid rgba(0,0,0,.05);
+
+}
+
+.diff-card strong{
+
+  display:block;
+
+  margin-bottom:12px;
+
+  font-size:1.05rem;
+
+}
+
+.diff-card p{
+
+  color:#675d52;
+
+  line-height:1.8;
+
+}
+
+/* TIMELINE */
+
+.timeline{
+
+  margin-top:28px;
+
+  padding:42px;
+
+}
+
+.timeline-line{
+
+  position:relative;
+
+  margin-top:50px;
+
+  display:grid;
+
+  grid-template-columns:repeat(4,1fr);
+
+  gap:28px;
+
+}
+
+.timeline-line::before{
+
+  content:'';
+
+  position:absolute;
+
+  top:30px;
+  left:0;
+  right:0;
+
+  height:4px;
+
+  background:#e8d7c2;
+
+  border-radius:999px;
+
+}
+
+.year{
+
+  position:relative;
+
+  z-index:2;
+
+}
+
+.year-dot{
+
+  width:64px;
+  height:64px;
+
+  border-radius:50%;
+
+  background:#fff;
+
+  border:6px solid #e6d3bc;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  margin-bottom:20px;
+
+  font-weight:800;
+
+  color:#8a5b1f;
+
+}
+
+.year h4{
+
+  font-family:'Oswald',sans-serif;
+
+  font-size:1.8rem;
+
+  margin-bottom:14px;
+
+}
+
+.year ul{
+
+  padding-left:18px;
+
+  display:grid;
+  gap:10px;
+
+  color:#65584d;
+
+  line-height:1.7;
+
+}
+
+/* SUPPORT */
+
+.support{
+
+  margin-top:28px;
+
+  display:grid;
+
+  grid-template-columns:repeat(3,1fr);
+
+  gap:20px;
+
+}
+
+.support-card{
+
+  position:relative;
+
+  overflow:hidden;
+
+  background:
+  linear-gradient(135deg,#4b2d12,#83531d);
+
+  color:#fff;
+
+  border-radius:34px;
+
+  padding:34px;
+
+  box-shadow:
+  0 20px 60px rgba(60,30,0,.18);
+
+}
+
+.support-card::before{
+
+  content:'';
+
+  position:absolute;
+
+  width:300px;
+  height:300px;
+
+  border-radius:50%;
+
+  background:
+  radial-gradient(circle,
+  rgba(255,255,255,.08),
+  transparent 70%);
+
+  top:-120px;
+  right:-100px;
+
+}
+
+.support-card h3{
+
+  position:relative;
+
+  z-index:2;
+
+  font-family:'Oswald',sans-serif;
+
+  font-size:2rem;
+
+  margin-bottom:18px;
+
+}
+
+.support-card p{
+
+  position:relative;
+
+  z-index:2;
+
+  line-height:1.9;
+
+  color:rgba(255,255,255,.88);
+
+}
+
+/* CTA */
+
+.cta{
+
+  position:relative;
+
+  overflow:hidden;
+
+  margin-top:28px;
+
+  border-radius:42px;
+
+  padding:70px;
+
+  background:
+  linear-gradient(135deg,#1e1d2a,#46321a);
+
+  color:#fff;
+
+  box-shadow:
+  0 30px 70px rgba(20,20,20,.2);
+
+}
+
+.cta::before{
+
+  content:'';
+
+  position:absolute;
+
+  width:700px;
+  height:700px;
+
+  border-radius:50%;
+
+  background:
+  radial-gradient(circle,
+  rgba(255,255,255,.06),
+  transparent 70%);
+
+  top:-300px;
+  right:-250px;
+
+}
+
+.cta-grid{
+
+  position:relative;
+
+  z-index:2;
+
+  display:grid;
+
+  grid-template-columns:1.1fr .9fr;
+
+  gap:50px;
+
+}
+
+.cta h2{
+
+  font-family:'Oswald',sans-serif;
+
+  font-size:4.5rem;
+
+  line-height:.96;
+
+  margin-bottom:28px;
+
+}
+
+.cta p{
+
+  font-size:1.12rem;
+
+  line-height:2;
+
+  color:rgba(255,255,255,.88);
+
+}
+
+.cta-cards{
+
+  display:grid;
+  gap:18px;
+
+}
+
+.cta-card{
+
+  background:rgba(255,255,255,.08);
+
+  border:1px solid rgba(255,255,255,.08);
+
+  backdrop-filter:blur(10px);
+
+  border-radius:24px;
+
+  padding:24px;
+
+}
+
+.cta-card strong{
+
+  display:block;
+
+  margin-bottom:10px;
+
+}
+
+/* FOOT */
+
+.footer{
+
+  margin-top:24px;
+
+  text-align:center;
+
+  padding:26px;
+
+  color:#7a6b5f;
+
+  font-size:.95rem;
+
+}
+
+/* RESPONSIVO */
+
+@media(max-width:1300px){
+
+  .hero{
+    grid-template-columns:1fr;
+  }
+
+  .grid{
+    grid-template-columns:1fr;
+  }
+
+  .cta-grid{
+    grid-template-columns:1fr;
+  }
+
+}
+
+@media(max-width:1000px){
+
+  .impact{
+    grid-template-columns:1fr 1fr;
+  }
+
+  .support{
+    grid-template-columns:1fr;
+  }
+
+  .collections{
+    grid-template-columns:1fr;
+  }
+
+  .timeline-line{
+    grid-template-columns:1fr;
+  }
+
+  .timeline-line::before{
+    display:none;
+  }
+
+}
+
+@media(max-width:700px){
+
+  .hero{
+    padding:42px;
+  }
+
+  .impact{
+    grid-template-columns:1fr;
+  }
+
+  .cta{
+    padding:42px;
+  }
+
+}
+
+</style>
+
+</head>
+<body>
+
+<div class="container">
+
+  <!-- HERO -->
+
+  <section class="hero">
+
+    <div>
+
+      <div class="kicker">
+
+        <span>PROJETO CADA PASSO, UMA JORNADA</span>
+
+        <div class="dot"></div>
+
+        <span>PLANO DE PARCERIAS</span>
+
+      </div>
+
+      <h1>
+
+        CONHECIMENTO
+        QUE
+        <strong>TRANSFORMA</strong>
+
+      </h1>
+
+      <p>
+
+        O projeto “Cada Passo, Uma Jornada” nasce da necessidade de tornar o autismo na vida adulta mais compreensível, organizado e sustentável através de conteúdo acessível, estrutura aplicada e suporte contextual real.
+        Nossa proposta transforma dados, experiências e conhecimento técnico em materiais visuais, educativos e práticos para pessoas autistas, famílias, profissionais e instituições.
+
+      </p>
+
+    </div>
+
+    <div class="hero-side">
+
+      <div class="side-card">
+
+        <h3>
+          Ecossistema Editorial
+        </h3>
+
+        <p>
+          10 coleções temáticas organizadas em uma arquitetura progressiva e integrada, conectando vida prática, relações, funcionamento cognitivo, regulação emocional e autonomia.
+        </p>
+
+      </div>
+
+      <div class="side-card">
+
+        <h3>
+          Base Metodológica
+        </h3>
+
+        <p>
+          O projeto nasce a partir do Sistema REDE, uma estrutura longitudinal de leitura contextual e modelagem aplicada voltada ao cotidiano da vida adulta no autismo.
+        </p>
+
+      </div>
+
+      <div class="side-card">
+
+        <h3>
+          Impacto Social
+        </h3>
+
+        <p>
+          Mais do que uma iniciativa editorial, o projeto busca construir acessibilidade cognitiva, previsibilidade e qualidade de vida através da informação organizada.
+        </p>
+
+      </div>
+
+    </div>
+
+  </section>
+
+  <!-- IMPACT -->
+
+  <section class="impact">
+
+    <div class="metric">
+
+      <h2>10</h2>
+
+      <p>
+        Coleções editoriais conectadas entre si em um ecossistema progressivo.
+      </p>
+
+    </div>
+
+    <div class="metric">
+
+      <h2>60</h2>
+
+      <p>
+        Volumes planejados com foco prático, acessível e aplicável ao cotidiano.
+      </p>
+
+    </div>
+
+    <div class="metric">
+
+      <h2>4</h2>
+
+      <p>
+        Anos de desenvolvimento editorial contínuo com expansão temática.
+      </p>
+
+    </div>
+
+    <div class="metric">
+
+      <h2>1</h2>
+
+      <p>
+        Missão central: transformar compreensão em caminhos possíveis.
+      </p>
+
+    </div>
+
+  </section>
+
+  <!-- GRID -->
+
+  <section class="grid">
+
+    <!-- LEFT -->
+
+    <div class="panel editorial">
+
+      <div class="section-title">
+
+        <h2>
+          Estrutura Editorial
+        </h2>
+
+        <div class="badge">
+          PLANO QUADRIENAL
+        </div>
+
+      </div>
+
+      <div class="collections">
+
+        <div class="collection">
+
+          <span>🧠</span>
+
+          <h3>
+            Organização e Funcionamento
+          </h3>
+
+          <p>
+            Estruturas práticas voltadas à organização do cotidiano e redução de sobrecarga.
+          </p>
+
+          <ul>
+            <li>Rotina e previsibilidade</li>
+            <li>Ambiente como regulação</li>
+            <li>Tomada de decisão</li>
+          </ul>
+
+        </div>
+
+        <div class="collection">
+
+          <span>👨‍👩‍👧</span>
+
+          <h3>
+            Relações e Mediação
+          </h3>
+
+          <p>
+            Construção de ambientes mais sustentáveis através de compreensão relacional.
+          </p>
+
+          <ul>
+            <li>Comunicação</li>
+            <li>Conflitos repetitivos</li>
+            <li>Mediação cotidiana</li>
+          </ul>
+
+        </div>
+
+        <div class="collection">
+
+          <span>🏠</span>
+
+          <h3>
+            Vida Prática
+          </h3>
+
+          <p>
+            Conteúdos aplicados à autonomia, funcionamento e sustentação da vida adulta.
+          </p>
+
+          <ul>
+            <li>Trabalho</li>
+            <li>Energia mental</li>
+            <li>Vida doméstica</li>
+          </ul>
+
+        </div>
+
+        <div class="collection">
+
+          <span>💛</span>
+
+          <h3>
+            Interioridade e Identidade
+          </h3>
+
+          <p>
+            Reflexões profundas sobre subjetividade, emoções e construção de identidade.
+          </p>
+
+          <ul>
+            <li>Diagnóstico tardio</li>
+            <li>Autoimagem</li>
+            <li>Bem-estar possível</li>
+          </ul>
+
+        </div>
+
+      </div>
+
+    </div>
+
+    <!-- RIGHT -->
+
+    <aside class="panel diff">
+
+      <div class="section-title">
+
+        <h2>
+          Diferenciais
+        </h2>
+
+      </div>
+
+      <div class="diff-grid">
+
+        <div class="diff-card">
+
+          <strong>
+            Foco na vida adulta
+          </strong>
+
+          <p>
+            Uma área ainda pouco explorada no Brasil, especialmente com linguagem prática e acessível.
+          </p>
+
+        </div>
+
+        <div class="diff-card">
+
+          <strong>
+            Aplicabilidade real
+          </strong>
+
+          <p>
+            Conteúdo pensado para funcionar no cotidiano, não apenas em contextos teóricos.
+          </p>
+
+        </div>
+
+        <div class="diff-card">
+
+          <strong>
+            Integração indivíduo e ambiente
+          </strong>
+
+          <p>
+            O projeto não responsabiliza apenas o indivíduo, mas considera o contexto e suas estruturas.
+          </p>
+
+        </div>
+
+        <div class="diff-card">
+
+          <strong>
+            Arquitetura progressiva
+          </strong>
+
+          <p>
+            Os materiais funcionam individualmente, mas também compõem um sistema integrado de aprendizagem.
+          </p>
+
+        </div>
+
+      </div>
+
+    </aside>
+
+  </section>
+
+  <!-- TIMELINE -->
+
+  <section class="panel timeline">
+
+    <div class="section-title">
+
+      <h2>
+        Cronograma Estratégico
+      </h2>
+
+      <div class="badge">
+        2026 · 2029
+      </div>
+
+    </div>
+
+    <div class="timeline-line">
+
+      <div class="year">
+
+        <div class="year-dot">
+          26
+        </div>
+
+        <h4>
+          Base da Experiência
+        </h4>
+
+        <ul>
+          <li>Rotina</li>
+          <li>Previsibilidade</li>
+          <li>Ambiente</li>
+        </ul>
+
+      </div>
+
+      <div class="year">
+
+        <div class="year-dot">
+          27
+        </div>
+
+        <h4>
+          Funcionamento Interno
+        </h4>
+
+        <ul>
+          <li>Cognição</li>
+          <li>Energia mental</li>
+          <li>Mediação</li>
+        </ul>
+
+      </div>
+
+      <div class="year">
+
+        <div class="year-dot">
+          28
+        </div>
+
+        <h4>
+          Vida Prática
+        </h4>
+
+        <ul>
+          <li>Autonomia</li>
+          <li>Crises</li>
+          <li>Trabalho</li>
+        </ul>
+
+      </div>
+
+      <div class="year">
+
+        <div class="year-dot">
+          29
+        </div>
+
+        <h4>
+          Identidade e Mundo
+        </h4>
+
+        <ul>
+          <li>Direitos</li>
+          <li>Interioridade</li>
+          <li>Bem-estar</li>
+        </ul>
+
+      </div>
+
+    </div>
+
+  </section>
+
+  <!-- SUPPORT -->
+
+  <section class="support">
+
+    <div class="support-card">
+
+      <h3>
+        Apoio Institucional
+      </h3>
+
+      <p>
+        Instituições podem apoiar diretamente a produção editorial, impressão, desenvolvimento tecnológico e expansão do ecossistema educacional.
+      </p>
+
+    </div>
+
+    <div class="support-card">
+
+      <h3>
+        Marca com Propósito
+      </h3>
+
+      <p>
+        Associar sua marca ao projeto significa participar da construção de soluções concretas para milhares de famílias e adultos autistas.
+      </p>
+
+    </div>
+
+    <div class="support-card">
+
+      <h3>
+        Expansão Contínua
+      </h3>
+
+      <p>
+        O projeto possui arquitetura escalável, permitindo integração futura com cursos, dashboards, jornadas interativas e ferramentas digitais.
+      </p>
+
+    </div>
+
+  </section>
+
+  <!-- CTA -->
+
+  <section class="cta">
+
+    <div class="cta-grid">
+
+      <div>
+
+        <h2>
+
+          CADA PASSO
+          IMPORTA.
+
+        </h2>
+
+        <p>
+
+          Estamos construindo um ecossistema editorial, tecnológico e educacional voltado à vida adulta no autismo.
+          Procuramos parceiros que compreendam que impacto social sustentável nasce da combinação entre conhecimento, acessibilidade e continuidade.
+
+        </p>
+
+      </div>
+
+      <div class="cta-cards">
+
+        <div class="cta-card">
+
+          <strong>
+            Apoio Editorial
+          </strong>
+
+          Desenvolvimento de livros, coleções, materiais visuais e conteúdos acessíveis.
+
+        </div>
+
+        <div class="cta-card">
+
+          <strong>
+            Tecnologia e Plataforma
+          </strong>
+
+          Expansão do Sistema REDE, dashboards interativos e experiências digitais.
+
+        </div>
+
+        <div class="cta-card">
+
+          <strong>
+            Eventos e Formação
+          </strong>
+
+          Ações educativas, palestras, oficinas e construção de redes de conscientização.
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </section>
+
+  <!-- FOOT -->
+
+  <div class="footer">
+
+    Projeto Cada Passo, Uma Jornada · Sistema REDE · www.autistas.net
+
+  </div>
+
+</div>
+
+</body>
+</html>
