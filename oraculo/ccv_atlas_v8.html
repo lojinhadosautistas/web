@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>CCV V8 — Campo Cognitivo Vivo</title>
+
+<style>
+body{
+margin:0;
+overflow:hidden;
+background:#05070d;
+font-family:Inter, sans-serif;
+color:white;
+}
+
+canvas{
+position:fixed;
+top:0;
+left:0;
+}
+
+#ui{
+position:fixed;
+top:20px;
+left:20px;
+width:420px;
+padding:16px;
+background:rgba(0,0,0,.55);
+border:1px solid rgba(255,255,255,.1);
+backdrop-filter:blur(14px);
+border-radius:14px;
+}
+
+input{
+width:100%;
+padding:10px;
+border-radius:10px;
+border:none;
+outline:none;
+margin-top:10px;
+}
+
+button{
+margin-top:10px;
+padding:10px;
+width:100%;
+border:none;
+border-radius:10px;
+cursor:pointer;
+font-weight:700;
+background:#ffcc66;
+}
+
+#oracle{
+margin-top:10px;
+font-size:13px;
+line-height:1.5;
+opacity:.9;
+}
+
+.tag{
+display:inline-block;
+margin:3px;
+padding:3px 8px;
+border:1px solid rgba(255,255,255,.2);
+border-radius:999px;
+font-size:11px;
+}
+</style>
+</head>
+
+<body>
+
+<canvas id="c"></canvas>
+
+<div id="ui">
+
+<input id="input" placeholder="Injete uma ideia (ex: ansiedade, rotina, caos...)">
+<button onclick="inject()">Injetar no Campo</button>
+
+<div id="oracle">Inicializando memória cognitiva...</div>
+
+<div id="memory"></div>
+
+</div>
+
+<script>
+
+/* =========================
+CANVAS
+========================= */
+const c = document.getElementById("c");
+const ctx = c.getContext("2d");
+
+c.width = innerWidth;
+c.height = innerHeight;
+
+/* =========================
+MEMÓRIA DO SISTEMA
+========================= */
+
+let memory = [];
+
+/* =========================
+NODES INICIAIS (EXPANDEM)
+========================= */
+
+let nodes = [
+makeNode("rotina",["estrutura","controle"]),
+makeNode("sobrecarga",["crise","sensorial"]),
+makeNode("autonomia",["controle","liberdade"]),
+makeNode("relacao",["emocional"])
+];
+
+function makeNode(label,tags){
+return {
+id:label,
+label,
+tags,
+x:Math.random()*c.width,
+y:Math.random()*c.height,
+vx:(Math.random()-0.5)*1.5,
+vy:(Math.random()-0.5)*1.5,
+mass:1
+};
+}
+
+/* =========================
+INJEÇÃO HUMANA
+========================= */
+
+function inject(){
+
+let val = document.getElementById("input").value;
+if(!val) return;
+
+let tags = val.split(",").map(t=>t.trim());
+
+let node = makeNode(val,tags);
+node.mass = 3; // ideias humanas têm mais peso
+
+nodes.push(node);
+
+/* memória */
+memory.push(val);
+
+/* reforço de conexão (aprendizado simples) */
+nodes.forEach(n=>{
+if(n.id !== node.id){
+let common = n.tags.filter(t=>tags.includes(t)).length;
+if(common > 0){
+n.mass += 0.3;
+node.mass += 0.3;
+}
+}
+});
+
+document.getElementById("input").value = "";
+
+}
+
+/* =========================
+FORÇAS (FÍSICA COGNITIVA)
+========================= */
+
+function physics(){
+
+for(let i=0;i<nodes.length;i++){
+for(let j=i+1;j<nodes.length;j++){
+
+let a = nodes[i];
+let b = nodes[j];
+
+let dx = b.x - a.x;
+let dy = b.y - a.y;
+
+let dist = Math.sqrt(dx*dx+dy*dy)+0.01;
+
+let common = a.tags.filter(t=>b.tags.includes(t)).length;
+
+/* atração por semântica */
+let force = common > 0 ? 0.08 : -0.02;
+
+/* massa influencia gravidade */
+force *= (a.mass + b.mass) * 0.2;
+
+let fx = dx/dist * force;
+let fy = dy/dist * force;
+
+a.vx += fx;
+a.vy += fy;
+
+b.vx -= fx;
+b.vy -= fy;
+
+}
+}
+}
+
+/* =========================
+UPDATE
+========================= */
+
+function update(){
+
+physics();
+
+nodes.forEach(n=>{
+
+n.vx *= 0.97;
+n.vy *= 0.97;
+
+n.x += n.vx;
+n.y += n.vy;
+
+if(n.x<0||n.x>c.width) n.vx*=-1;
+if(n.y<0||n.y>c.height) n.vy*=-1;
+
+});
+
+}
+
+/* =========================
+DRAW
+========================= */
+
+function draw(){
+
+ctx.clearRect(0,0,c.width,c.height);
+
+/* links */
+for(let i=0;i<nodes.length;i++){
+for(let j=i+1;j<nodes.length;j++){
+
+let a = nodes[i];
+let b = nodes[j];
+
+let dx = b.x-a.x;
+let dy = b.y-a.y;
+let dist = Math.sqrt(dx*dx+dy*dy);
+
+if(dist < 160){
+
+ctx.strokeStyle =
+a.tags.some(t=>b.tags.includes(t))
+? "rgba(255,200,100,.4)"
+: "rgba(120,160,255,.08)";
+
+ctx.beginPath();
+ctx.moveTo(a.x,a.y);
+ctx.lineTo(b.x,b.y);
+ctx.stroke();
+
+}
+
+}
+}
+
+/* nodes */
+nodes.forEach(n=>{
+
+ctx.beginPath();
+ctx.fillStyle = "white";
+ctx.arc(n.x,n.y,6 + n.mass,0,Math.PI*2);
+ctx.fill();
+
+ctx.fillStyle = "#ffcc66";
+ctx.font = "12px Arial";
+ctx.fillText(n.label,n.x+10,n.y);
+
+});
+
+}
+
+/* =========================
+LINGUAGEM EMERGENTE
+========================= */
+
+function language(){
+
+let clusters = {};
+
+nodes.forEach(n=>{
+n.tags.forEach(t=>{
+clusters[t] = (clusters[t]||0)+1;
+});
+});
+
+let dominant = Object.entries(clusters)
+.sort((a,b)=>b[1]-a[1])[0]?.[0] || "silêncio";
+
+let tension = nodes.filter(n=>n.mass>2).length;
+
+let phrase = "";
+
+if(tension > 4){
+phrase = "O campo entra em estado de reorganização: ideias competem por estrutura.";
+}else{
+phrase = "O campo mantém coerência: ideias coexistem em equilíbrio dinâmico.";
+}
+
+phrase += "<br><br>Cluster dominante: " + dominant;
+
+/* memória influencia leitura */
+if(memory.length > 3){
+phrase += "<br><br>Memória ativa: padrões recorrentes reforçam o campo.";
+}
+
+document.getElementById("oracle").innerHTML = phrase;
+
+/* memória visual */
+document.getElementById("memory").innerHTML =
+memory.slice(-6).map(m=>`<div class="tag">${m}</div>`).join("");
+
+}
+
+/* =========================
+LOOP
+========================= */
+
+function loop(){
+update();
+draw();
+language();
+requestAnimationFrame(loop);
+}
+
+loop();
+
+window.onresize=()=>{
+c.width=innerWidth;
+c.height=innerHeight;
+};
+
+</script>
+
+</body>
+</html>
