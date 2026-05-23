@@ -855,6 +855,225 @@ RESPONSIVO
 
 }
 
+
+
+  /* =======================================================
+DIAGRAMA
+======================================================= */
+
+.diagram-section{
+
+  background:
+  linear-gradient(
+    to bottom,
+    #f7f5f1 0%,
+    #f2eee7 100%
+  );
+
+}
+
+.diagram-card{
+
+  position:relative;
+
+  border-radius:36px;
+
+  overflow:hidden;
+
+  cursor:pointer;
+
+  background:#fff;
+
+  border:1px solid rgba(0,0,0,.06);
+
+  box-shadow:
+  0 30px 80px rgba(0,0,0,.06);
+
+  transition:.45s;
+
+}
+
+.diagram-card:hover{
+
+  transform:translateY(-8px);
+
+}
+
+.diagram-card img{
+
+  width:100%;
+  display:block;
+
+}
+
+.diagram-overlay{
+
+  position:absolute;
+  inset:0;
+
+  background:
+  linear-gradient(
+    to top,
+    rgba(0,0,0,.55),
+    rgba(0,0,0,.05)
+  );
+
+  display:flex;
+  align-items:flex-end;
+  justify-content:flex-start;
+
+  padding:40px;
+
+  opacity:0;
+
+  transition:.4s;
+
+}
+
+.diagram-card:hover .diagram-overlay{
+
+  opacity:1;
+
+}
+
+.diagram-overlay span{
+
+  color:#fff;
+
+  font-size:1rem;
+  font-weight:600;
+
+  padding:14px 22px;
+
+  border-radius:999px;
+
+  backdrop-filter:blur(12px);
+
+  background:rgba(255,255,255,.12);
+
+  border:1px solid rgba(255,255,255,.16);
+
+}
+
+/* =======================================================
+MODAL
+======================================================= */
+
+.diagram-modal{
+
+  position:fixed;
+  inset:0;
+
+  background:rgba(0,0,0,.88);
+
+  z-index:9999;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  opacity:0;
+  visibility:hidden;
+
+  transition:.35s;
+
+  padding:40px;
+
+}
+
+.diagram-modal.active{
+
+  opacity:1;
+  visibility:visible;
+
+}
+
+.diagram-modal-content{
+
+  max-width:95%;
+  max-height:95%;
+
+  overflow:auto;
+
+  border-radius:24px;
+
+}
+
+.diagram-modal-content img{
+
+  width:100%;
+  height:auto;
+
+  display:block;
+
+  border-radius:24px;
+
+  background:#fff;
+
+}
+
+.close-modal{
+
+  position:absolute;
+
+  top:30px;
+  right:30px;
+
+  width:52px;
+  height:52px;
+
+  border:none;
+
+  border-radius:50%;
+
+  background:rgba(255,255,255,.1);
+
+  color:#fff;
+
+  font-size:1.2rem;
+
+  cursor:pointer;
+
+  backdrop-filter:blur(12px);
+
+  transition:.3s;
+
+}
+
+.close-modal:hover{
+
+  background:rgba(255,255,255,.2);
+
+}
+
+/* MOBILE */
+
+@media(max-width:768px){
+
+  .diagram-overlay{
+
+    opacity:1;
+
+    padding:24px;
+
+  }
+
+  .diagram-modal{
+
+    padding:16px;
+
+  }
+
+  .close-modal{
+
+    top:16px;
+    right:16px;
+
+  }
+
+}
+
+  
 </style>
 </head>
 <body>
@@ -1503,7 +1722,54 @@ TIMELINE
   </div>
 
 </section>
+<!-- =======================================================
+DIAGRAMA
+======================================================= -->
 
+<section class="diagram-section">
+
+  <div class="container">
+
+    <div class="section-head">
+
+      <div class="kicker">
+        Arquitetura Sistêmica
+      </div>
+
+      <h2>
+        Estrutura integrada do estudo.
+      </h2>
+
+      <p>
+
+        O projeto articula diagnóstico, benchmarking,
+        diretrizes estratégicas e roadmap operacional
+        em uma arquitetura progressiva de evidências
+        voltada à democratização das informações
+        orçamentárias.
+
+      </p>
+
+    </div>
+
+    <div class="diagram-card" onclick="openDiagram()">
+
+      <div class="diagram-overlay">
+        <span>Expandir Diagrama</span>
+      </div>
+
+      <img
+        src="assets/img/diagrama-projeto.svg"
+        alt="Diagrama sistêmico do estudo"
+      >
+
+    </div>
+
+  </div>
+
+</section>
+
+  
 <!-- =======================================================
 QUOTE
 ======================================================= -->
@@ -1553,5 +1819,52 @@ FOOTER
 
 </footer>
 
+
+<!-- =======================================================
+MODAL DIAGRAMA
+======================================================= -->
+
+<div class="diagram-modal" id="diagramModal">
+
+  <button class="close-modal" onclick="closeDiagram()">
+    ✕
+  </button>
+
+  <div class="diagram-modal-content">
+
+    <img
+      src="img/diagrama-projeto.svg"
+      alt="Diagrama ampliado"
+    >
+
+  </div>
+
+</div>
+
+
+  <script>
+
+function openDiagram(){
+
+  document
+    .getElementById('diagramModal')
+    .classList.add('active');
+
+  document.body.style.overflow='hidden';
+
+}
+
+function closeDiagram(){
+
+  document
+    .getElementById('diagramModal')
+    .classList.remove('active');
+
+  document.body.style.overflow='auto';
+
+}
+
+</script>
+  
 </body>
 </html>
