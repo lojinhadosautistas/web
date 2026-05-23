@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>CCV 10 — Campo Cognitivo Multivisão</title>
+
+<style>
+body{
+margin:0;
+font-family:Arial, sans-serif;
+background:#05070d;
+color:white;
+overflow:hidden;
+}
+
+header{
+position:fixed;
+top:0;
+left:0;
+right:0;
+padding:12px;
+background:rgba(0,0,0,.6);
+display:flex;
+gap:10px;
+z-index:10;
+}
+
+button{
+background:#111a2b;
+color:white;
+border:1px solid #2a3b5a;
+padding:8px 12px;
+cursor:pointer;
+border-radius:8px;
+}
+
+canvas{
+display:block;
+}
+
+#info{
+position:fixed;
+bottom:10px;
+left:10px;
+opacity:.6;
+font-size:12px;
+}
+</style>
+</head>
+<body>
+
+<header>
+<button onclick="setView('radial')">Radial</button>
+<button onclick="setView('flow')">Fluxo</button>
+<button onclick="setView('fishbone')">Ishikawa</button>
+</header>
+
+<canvas id="c"></canvas>
+<div id="info">CCV10 — Multiview Cognitive Field</div>
+
+<script>
+
+const canvas = document.getElementById('c');
+const ctx = canvas.getContext('2d');
+
+function resize(){
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
+}
+window.addEventListener('resize', resize);
+resize();
+
+/* =========================
+DATASET (nodes cognitivos)
+========================= */
+
+const nodes = [
+{ id:0, label:"Rotina", x:0, y:0, vx:0, vy:0 },
+{ id:1, label:"Ansiedade", x:0, y:0, vx:0, vy:0 },
+{ id:2, label:"Sobrecarga", x:0, y:0, vx:0, vy:0 },
+{ id:3, label:"Previsibilidade", x:0, y:0, vx:0, vy:0 },
+{ id:4, label:"Autonomia", x:0, y:0, vx:0, vy:0 },
+{ id:5, label:"Sensorial", x:0, y:0, vx:0, vy:0 },
+{ id:6, label:"Conflito", x:0, y:0, vx:0, vy:0 },
+{ id:7, label:"Regulação", x:0, y:0, vx:0, vy:0 }
+];
+
+const links = [
+[0,3],[3,1],[1,2],[2,4],[5,2],[6,1],[7,4]
+];
+
+let view = "radial";
+
+function setView(v){
+view = v;
+resetLayout();
+}
+
+/* =========================
+LAYOUTS
+========================= */
+
+function resetLayout(){
+const w = canvas.width;
+const h = canvas.height;
+
+if(view === "radial"){
+const cx = w/2;
+const cy = h/2;
+const r = 220;
+
+nodes.forEach((n,i)=>{
+const a = (i/nodes.length)*Math.PI*2;
+n.x = cx + Math.cos(a)*r;
+n.y = cy + Math.sin(a)*r;
+n.vx = n.vy = 0;
+});
+}
+
+if(view === "flow"){
+nodes.forEach((n,i)=>{
+n.x = 100 + i*120;
+n.y = h/2;
+n.vx = n.vy = 0;
+});
+}
+
+if(view === "fishbone"){
+const cx = w/2;
+const cy = h/2;
+
+nodes.forEach((n,i)=>{
+n.x = cx + (i%2===0 ? i*30 : -i*30);
+n.y = cy + (i*40 - 120);
+});
+}
+}
+
+resetLayout();
+
+/* =========================
+DRAW
+========================= */
+
+function draw(){
+ctx.clearRect(0,0,canvas.width,canvas.height);
+
+// links
+ctx.strokeStyle="rgba(255,255,255,0.15)";
+ctx.lineWidth=1;
+
+links.forEach(l=>{
+const a = nodes[l[0]];
+const b = nodes[l[1]];
+ctx.beginPath();
+ctx.moveTo(a.x,a.y);
+ctx.lineTo(b.x,b.y);
+ctx.stroke();
+});
+
+// nodes
+nodes.forEach(n=>{
+ctx.beginPath();
+ctx.fillStyle="#ffb300";
+ctx.arc(n.x,n.y,18,0,Math.PI*2);
+ctx.fill();
+
+ctx.fillStyle="#fff";
+ctx.font="12px Arial";
+ctx.fillText(n.label,n.x+22,n.y+4);
+});
+}
+
+/* =========================
+ANIMATE
+========================= */
+
+function animate(){
+draw();
+requestAnimationFrame(animate);
+}
+animate();
+
+</script>
+
+</body>
+</html>
