@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>CCV v3 • Campo Cognitivo Vivo</title>
+<title>CCV v4 • Identidade Emergente</title>
 
 <style>
 body{
@@ -19,10 +19,10 @@ canvas{display:block;}
   position:fixed;
   top:16px;
   left:16px;
-  width:340px;
-  padding:12px;
+  width:360px;
+  padding:14px;
   border-radius:12px;
-  background:rgba(0,0,0,.4);
+  background:rgba(0,0,0,.45);
   backdrop-filter:blur(12px);
   color:white;
   font-size:13px;
@@ -30,6 +30,7 @@ canvas{display:block;}
 }
 
 .small{opacity:.7;margin-top:6px;}
+span{color:#ffb300;}
 </style>
 </head>
 
@@ -38,12 +39,15 @@ canvas{display:block;}
 <canvas id="c"></canvas>
 
 <div class="hud">
-  <div><b>CCV v3 • REALIMENTAÇÃO SEMÂNTICA</b></div>
+  <div><b>CCV v4 • IDENTIDADE EMERGENTE</b></div>
+
+  <div class="small">estado identitário:</div>
+  <div id="identity"></div>
 
   <div class="small">clusters:</div>
   <div id="clusters">0</div>
 
-  <div class="small">estado do campo:</div>
+  <div class="small">narrativa do campo:</div>
   <div id="oracle"></div>
 </div>
 
@@ -65,25 +69,18 @@ window.addEventListener("resize", ()=>{
 });
 
 //////////////////////////////////////////////////////
-// 🧠 MEMÓRIA SEMÂNTICA GLOBAL (NOVO)
+// 🧠 IDENTIDADE DO CAMPO (NÚCLEO DO v4)
 //////////////////////////////////////////////////////
 
-const semanticMemory = {
-  caos: 0,
-  ordem: 0,
-  fluxo: 0,
-  introspectivo: 0,
-  cognitivo: 0
+const identity = {
+  coherence: 0,
+  stability: 0,
+  dominantMode: "neutro",
+  memory: []
 };
 
 //////////////////////////////////////////////////////
-// 🧠 LINGUAGEM VIVA
-//////////////////////////////////////////////////////
-
-let narratives = [];
-
-//////////////////////////////////////////////////////
-// 🧠 NÓS (CAMPO)
+// 🧠 NÓS
 //////////////////////////////////////////////////////
 
 const tags = [
@@ -132,20 +129,20 @@ function detectClusters(){
   const visited = new Array(nodes.length).fill(false);
   const clusters = [];
 
-  function dfs(i, cluster){
+  function dfs(i,c){
 
     visited[i]=true;
-    cluster.push(nodes[i]);
+    c.push(nodes[i]);
 
     for(let j=0;j<nodes.length;j++){
 
       if(visited[j]) continue;
 
-      const dx = nodes[i].x - nodes[j].x;
-      const dy = nodes[i].y - nodes[j].y;
-      const d = Math.sqrt(dx*dx+dy*dy);
+      const dx=nodes[i].x-nodes[j].x;
+      const dy=nodes[i].y-nodes[j].y;
+      const d=Math.sqrt(dx*dx+dy*dy);
 
-      if(d < 85) dfs(j, cluster);
+      if(d<85) dfs(j,c);
 
     }
 
@@ -169,11 +166,11 @@ function detectClusters(){
 
 function interpret(cluster){
 
-  const freq = {};
+  const freq={};
 
   for(let n of cluster){
-    const g = group(n.label);
-    freq[g] = (freq[g]||0)+1;
+    const g=group(n.label);
+    freq[g]=(freq[g]||0)+1;
   }
 
   return Object.entries(freq)
@@ -182,89 +179,80 @@ function interpret(cluster){
 }
 
 //////////////////////////////////////////////////////
-// 🧠 LINGUAGEM EMERGENTE
+// 🧠 IDENTIDADE DO CAMPO (ATUALIZAÇÃO)
 //////////////////////////////////////////////////////
 
-function generateSentence(g){
+function updateIdentity(clusters){
+
+  const modes = clusters.map(c => interpret(c));
+
+  const freq = {};
+
+  modes.forEach(m=>{
+    freq[m]=(freq[m]||0)+1;
+  });
+
+  const dominant = Object.entries(freq)
+    .sort((a,b)=>b[1]-a[1])[0]?.[0] || "neutro";
+
+  identity.dominantMode = dominant;
+
+  identity.memory.push(dominant);
+
+  if(identity.memory.length > 20){
+    identity.memory.shift();
+  }
+
+  const stabilityScore =
+    identity.memory.filter(m=>m===dominant).length /
+    identity.memory.length;
+
+  identity.stability = stabilityScore;
+
+  identity.coherence = 1 - (clusters.length/10);
+
+  document.getElementById("identity").innerHTML =
+    `modo dominante: <span>${dominant}</span><br>` +
+    `estabilidade: <span>${stabilityScore.toFixed(2)}</span>`;
+
+}
+
+//////////////////////////////////////////////////////
+// 🧠 NARRATIVA DO ORÁCULO (v4)
+//////////////////////////////////////////////////////
+
+function narrative(){
+
+  const m = identity.dominantMode;
 
   const map = {
 
-    caos:"instabilidade estrutural persistente no campo",
-    ordem:"organização progressiva e estabilização sistêmica",
-    fluxo:"movimento contínuo entre estados cognitivos",
-    introspectivo:"internalização dominante do processamento",
-    cognitivo:"convergência de decisões e foco operacional",
-    neutro:"estado híbrido sem dominância estrutural"
+    caos:"o campo mantém identidade instável com tendência à fragmentação recorrente",
+    ordem:"o campo desenvolve coerência estrutural progressiva",
+    fluxo:"o campo evolui em padrão de continuidade adaptativa",
+    introspectivo:"o campo estabiliza interiorização como identidade dominante",
+    cognitivo:"o campo consolida padrão decisório recorrente",
+    neutro:"o campo não apresenta identidade dominante estável"
 
   };
 
-  return map[g] || map.neutro;
+  return map[m];
 
 }
 
 //////////////////////////////////////////////////////
-// 🧠 🔥 REALIMENTAÇÃO SEMÂNTICA (NÚCLEO DO v3)
-//////////////////////////////////////////////////////
-
-function applySemanticForce(g, cluster){
-
-  // intensidade baseada no tamanho do cluster
-  const intensity = cluster.length / 10;
-
-  semanticMemory[g] += intensity;
-
-  // limitar crescimento
-  semanticMemory[g] = Math.min(5, semanticMemory[g]);
-
-}
-
-//////////////////////////////////////////////////////
-// 🧠 FORÇA SEMÂNTICA GLOBAL
-//////////////////////////////////////////////////////
-
-function semanticBias(tag){
-
-  const g = group(tag);
-  return semanticMemory[g] || 0;
-
-}
-
-//////////////////////////////////////////////////////
-// 🧠 UPDATE (FÍSICA + SEMÂNTICA FEEDBACK LOOP)
+// 🧠 FÍSICA (AGORA COM IDENTIDADE GLOBAL)
 //////////////////////////////////////////////////////
 
 function update(){
 
   const clusters = detectClusters();
 
-  let newNarratives = [];
+  updateIdentity(clusters);
 
-  for(let c of clusters){
-
-    const g = interpret(c);
-
-    applySemanticForce(g, c);
-
-    const sentence = generateSentence(g);
-
-    newNarratives.push(sentence);
-
-    narratives.push(sentence);
-
-  }
-
-  if(narratives.length > 10){
-    narratives.shift();
-  }
-
-  // HUD
-  document.getElementById("clusters").innerText = clusters.length;
-  document.getElementById("oracle").innerText = newNarratives.join("\n");
-
-  // FÍSICA
   for(let i=0;i<nodes.length;i++){
 
-    const a = nodes[i];
+    const a=nodes[i];
 
     let fx=0, fy=0;
 
@@ -272,25 +260,28 @@ function update(){
 
       if(i===j) continue;
 
-      const b = nodes[j];
+      const b=nodes[j];
 
-      const dx = b.x - a.x;
-      const dy = b.y - a.y;
-      const d = Math.sqrt(dx*dx+dy*dy)+0.1;
+      const dx=b.x-a.x;
+      const dy=b.y-a.y;
+      const d=Math.sqrt(dx*dx+dy*dy)+0.1;
 
-      let f = (group(a.label) === group(b.label)) ? 0.6 : 0.05;
+      let f = (group(a.label)===group(b.label)) ? 0.6 : 0.05;
 
-      // 🔥 INFLUÊNCIA SEMÂNTICA GLOBAL (v3)
-      f += semanticBias(a.label);
+      // 🔥 v4: identidade influencia o campo inteiro
+      if(group(a.label) === identity.dominantMode){
+        f *= 1.4;
+      } else {
+        f *= 0.85;
+      }
 
       fx += (dx/d)*f;
       fy += (dy/d)*f;
 
     }
 
-    // ruído mínimo
-    fx += (Math.random()-0.5)*0.1;
-    fy += (Math.random()-0.5)*0.1;
+    fx += (Math.random()-0.5)*0.08;
+    fy += (Math.random()-0.5)*0.08;
 
     a.vx += fx*0.02;
     a.vy += fy*0.02;
@@ -303,17 +294,19 @@ function update(){
 
   }
 
+  document.getElementById("clusters").innerText = clusters.length;
+  document.getElementById("oracle").innerText = narrative();
+
 }
 
 //////////////////////////////////////////////////////
-// 🧠 DRAW
+// 🧠 RENDER
 //////////////////////////////////////////////////////
 
 function draw(){
 
   ctx.clearRect(0,0,canvas.width,canvas.height);
 
-  // conexões
   for(let i=0;i<nodes.length;i++){
 
     for(let j=i+1;j<nodes.length;j++){
@@ -340,11 +333,9 @@ function draw(){
 
   }
 
-  // nós
   for(let n of nodes){
 
     ctx.fillStyle="#ffb300";
-
     ctx.beginPath();
     ctx.arc(n.x,n.y,n.r,0,Math.PI*2);
     ctx.fill();
