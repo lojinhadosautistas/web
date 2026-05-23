@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>CCV V9 — Multiview Cognitivo</title>
+
+<style>
+body{
+margin:0;
+overflow:hidden;
+background:#05070d;
+font-family:Inter, sans-serif;
+color:white;
+}
+
+canvas{
+position:absolute;
+top:0;
+left:0;
+}
+
+.panel{
+position:fixed;
+top:15px;
+left:15px;
+width:420px;
+padding:14px;
+background:rgba(0,0,0,.55);
+border:1px solid rgba(255,255,255,.12);
+backdrop-filter:blur(14px);
+border-radius:14px;
+z-index:10;
+}
+
+button{
+margin:3px;
+padding:8px;
+border:none;
+border-radius:8px;
+cursor:pointer;
+font-weight:700;
+}
+
+input{
+width:100%;
+margin-top:8px;
+padding:8px;
+border-radius:8px;
+border:none;
+outline:none;
+}
+
+#oracle{
+margin-top:10px;
+font-size:13px;
+line-height:1.4;
+opacity:.9;
+}
+
+.tag{
+display:inline-block;
+margin:2px;
+padding:3px 7px;
+border:1px solid rgba(255,255,255,.2);
+border-radius:999px;
+font-size:11px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="panel">
+
+<button onclick="setMode('force')">FORÇA</button>
+<button onclick="setMode('radial')">RADIAL</button>
+<button onclick="setMode('layer')">CAMADAS</button>
+<button onclick="setMode('flow')">FLUXO</button>
+
+<input id="input" placeholder="Injetar ideia...">
+<button onclick="inject()">Injetar</button>
+
+<div id="oracle">Inicializando multiview cognitivo...</div>
+<div id="memory"></div>
+
+</div>
+
+<canvas id="c"></canvas>
+
+<script>
+
+/* =========================
+CANVAS
+========================= */
+const c = document.getElementById("c");
+const ctx = c.getContext("2d");
+
+c.width = innerWidth;
+c.height = innerHeight;
+
+/* =========================
+MODE
+========================= */
+let mode = "force";
+
+/* =========================
+MEMÓRIA
+========================= */
+let memory = [];
+
+/* =========================
+NODES BASE
+========================= */
+let nodes = [
+n("rotina",["estrutura","controle"]),
+n("sobrecarga",["crise","sensorial"]),
+n("autonomia",["liberdade","controle"]),
+n("relacao",["emocional"]),
+n("terapia",["processo"]),
+n("mudanca",["transicao"])
+];
+
+function n(label,tags){
+return{
+id:label,
+label,
+tags,
+x:Math.random()*c.width,
+y:Math.random()*c.height,
+vx:0,
+vy:0,
+mass:1
+};
+}
+
+/* =========================
+INJEÇÃO HUMANA
+========================= */
+function inject(){
+
+let v = document.getElementById("input").value;
+if(!v) return;
+
+let tags = v.split(",").map(t=>t.trim());
+
+nodes.push(n(v,tags));
+memory.push(v);
+
+document.getElementById("input").value = "";
+
+}
+
+/* =========================
+FORÇA (BASE)
+========================= */
+function physics(){
+
+for(let i=0;i<nodes.length;i++){
+for(let j=i+1;j<nodes.length;j++){
+
+let a = nodes[i];
+let b = nodes[j];
+
+let dx = b.x-a.x;
+let dy = b.y-a.y;
+
+let d = Math.sqrt(dx*dx+dy*dy)+0.01;
+
+let common = a.tags.filter(t=>b.tags.includes(t)).length;
+
+let f = common>0 ? 0.06 : -0.015;
+
+a.vx += dx/d * f;
+a.vy += dy/d * f;
+
+b.vx -= dx/d * f;
+b.vy -= dy/d * f;
+
+}
+}
+
+nodes.forEach(n=>{
+n.vx*=0.95;
+n.vy*=0.95;
+n.x+=n.vx;
+n.y+=n.vy;
+
+if(n.x<0||n.x>c.width)n.vx*=-1;
+if(n.y<0||n.y>c.height)n.vy*=-1;
+});
+
+}
+
+/* =========================
+MODOS
+========================= */
+function setMode(m){
+mode=m;
+}
+
+/* =========================
+DRAW FORCE
+========================= */
+function drawForce(){
+
+nodes.forEach(n=>{
+ctx.beginPath();
+ctx.fillStyle="white";
+ctx.arc(n.x,n.y,6+n.mass,0,Math.PI*2);
+ctx.fill();
+
+ctx.fillStyle="#ffcc66";
+ctx.fillText(n.label,n.x+8,n.y);
+});
+}
+
+/* =========================
+RADIAL
+========================= */
+function drawRadial(){
+
+let center = nodes[0];
+
+nodes.forEach((n,i)=>{
+
+let angle = (i/nodes.length)*Math.PI*2;
+let r = 200 + n.mass*20;
+
+n.x = c.width/2 + Math.cos(angle)*r;
+n.y = c.height/2 + Math.sin(angle)*r;
+
+ctx.beginPath();
+ctx.arc(n.x,n.y,8,0,Math.PI*2);
+ctx.fillStyle="white";
+ctx.fill();
+
+ctx.fillText(n.label,n.x+8,n.y);
+
+});
+}
+
+/* =========================
+LAYER
+========================= */
+function drawLayer(){
+
+nodes.forEach((n,i)=>{
+
+let layer = n.tags.includes("crise")?1:
+n.tags.includes("emocional")?2:
+n.tags.includes("estrutura")?3:4;
+
+n.x = (layer*120)+200;
+n.y = (i*60)%c.height;
+
+ctx.beginPath();
+ctx.arc(n.x,n.y,8,0,Math.PI*2);
+ctx.fillStyle="white";
+ctx.fill();
+
+ctx.fillText(n.label,n.x+10,n.y);
+
+});
+}
+
+/* =========================
+FLOW
+========================= */
+function drawFlow(){
+
+let x=100;
+let y=200;
+
+nodes.forEach((n,i)=>{
+
+x += 120;
+y += Math.sin(i)*30;
+
+ctx.beginPath();
+ctx.arc(x,y,8,0,Math.PI*2);
+ctx.fillStyle="white";
+ctx.fill();
+
+if(i>0){
+ctx.beginPath();
+ctx.moveTo(x-120,y);
+ctx.lineTo(x,y);
+ctx.stroke();
+}
+
+ctx.fillText(n.label,x+8,y);
+
+});
+}
+
+/* =========================
+ORÁCULO MULTIVIEW
+========================= */
+function oracle(){
+
+let tension = nodes.filter(n=>n.mass>1.5).length;
+
+let text="";
+
+if(tension>3){
+text="Alta tensão cognitiva. O sistema oscila entre controle e instabilidade.";
+}else{
+text="Campo estável. Estruturas cognitivas integradas.";
+}
+
+text += "<br><br>Memória ativa: "+memory.slice(-5).join(", ");
+
+document.getElementById("oracle").innerHTML=text;
+
+document.getElementById("memory").innerHTML=
+memory.map(m=>`<span class="tag">${m}</span>`).join("");
+
+}
+
+/* =========================
+RENDER LOOP
+========================= */
+function loop(){
+
+ctx.clearRect(0,0,c.width,c.height);
+
+if(mode==="force"){
+physics();
+drawForce();
+}
+if(mode==="radial"){
+drawRadial();
+}
+if(mode==="layer"){
+drawLayer();
+}
+if(mode==="flow"){
+drawFlow();
+}
+
+oracle();
+
+requestAnimationFrame(loop);
+}
+
+loop();
+
+/* resize */
+window.onresize=()=>{
+c.width=innerWidth;
+c.height=innerHeight;
+};
+
+</script>
+
+</body>
+</html>
