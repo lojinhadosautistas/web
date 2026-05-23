@@ -1,70 +1,56 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-<meta charset="UTF-8" />
+<meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>ORÁCULO v2 • Motor Narrativo</title>
+<title>ORÁCULO v3 • Motor Narrativo</title>
 
 <style>
-
 body{
   margin:0;
   font-family:Inter, sans-serif;
-  background:#050812;
+  background:#050814;
   color:white;
   display:flex;
   justify-content:center;
   align-items:center;
   min-height:100vh;
-  flex-direction:column;
 }
 
-.container{
-  width:min(900px,92%);
-}
+.container{width:min(900px,92%);}
 
 .card{
   background:rgba(255,255,255,.05);
   border:1px solid rgba(255,255,255,.08);
-  padding:30px;
-  border-radius:20px;
+  border-radius:18px;
+  padding:28px;
   backdrop-filter:blur(12px);
 }
 
-h1{
-  font-size:2.2rem;
-  margin-bottom:10px;
-}
+h1{margin:0 0 10px;font-size:2rem;}
 
 button{
-  padding:14px 20px;
+  margin:6px 6px 0 0;
+  padding:12px 16px;
   border:none;
   border-radius:999px;
   cursor:pointer;
   font-weight:700;
-  margin:6px;
-}
-
-.btn{
   background:#ffb300;
-  color:black;
+  color:#000;
 }
 
 .log{
-  margin-top:20px;
-  padding:20px;
-  background:rgba(0,0,0,.3);
+  margin-top:18px;
+  background:rgba(0,0,0,.35);
+  padding:16px;
   border-radius:12px;
   min-height:120px;
-  line-height:1.6;
-  opacity:.9;
+  line-height:1.5;
+  white-space:pre-line;
 }
 
-.small{
-  opacity:.6;
-  font-size:.9rem;
-}
-
+.small{opacity:.6;font-size:.9rem}
 </style>
 </head>
 
@@ -74,23 +60,17 @@ button{
 
   <div class="card">
 
-    <h1>ORÁCULO v2</h1>
-    <div class="small">
-      Motor Narrativo de Simulação Cognitiva
-    </div>
+    <h1>ORÁCULO v3</h1>
+    <div class="small">Motor narrativo de simulação cognitiva</div>
 
-    <p>
-      Interaja com o sistema. Cada ação gera uma leitura contextual.
-    </p>
+    <p>Interaja com o sistema. Ele interpreta o estado em tempo real.</p>
 
-    <button class="btn" onclick="acao('observar')">Observar</button>
-    <button class="btn" onclick="acao('analisar')">Analisar</button>
-    <button class="btn" onclick="acao('avancar')">Avançar</button>
-    <button class="btn" onclick="acao('fechar')">Fechar Camada</button>
+    <button onclick="acao('observar')">Observar</button>
+    <button onclick="acao('analisar')">Analisar</button>
+    <button onclick="acao('avancar')">Avançar</button>
+    <button onclick="acao('fechar')">Fechar</button>
 
-    <div class="log" id="log">
-      ORÁCULO aguardando interação...
-    </div>
+    <div class="log" id="log">ORÁCULO inicializando...</div>
 
   </div>
 
@@ -98,118 +78,101 @@ button{
 
 <script>
 
-///////////////////////////////////////////////////////////
-// 🧠 ESTADO GLOBAL DO SISTEMA
-///////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////
+// 🧠 ESTADO CENTRAL (MEMÓRIA VIVA)
+//////////////////////////////////////////////////////
 
-const estado = {
-  camada: 1,
+const state = {
   progresso: 0,
-  carga: 0, // densidade cognitiva
-  modo: "exploracao"
+  carga: 0
 };
 
-///////////////////////////////////////////////////////////
-// 🧠 NÚCLEOS NARRATIVOS (SEM BANCO MASSIVO)
-///////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////
+// 🧠 NÚCLEOS NARRATIVOS (COMPACTOS)
+//////////////////////////////////////////////////////
 
-const nucleos = {
-
+const nuclei = {
   exploracao: [
-    "há sinais ainda não organizados no sistema",
-    "o campo de leitura está em formação",
-    "existem variáveis ainda difusas na estrutura"
+    "o campo ainda está se formando",
+    "existem sinais difusos na estrutura",
+    "a leitura ainda não estabilizou"
   ],
-
   organizacao: [
-    "os padrões começam a ganhar estrutura",
-    "há coerência emergindo entre os elementos",
-    "o sistema começa a estabilizar relações internas"
+    "padrões começam a se consolidar",
+    "há coerência emergente no sistema",
+    "as relações internas se alinham"
   ],
-
   fechamento: [
-    "a estrutura atingiu nível suficiente de coerência",
-    "o sistema reconhece consolidação parcial",
-    "há direção definida no campo interpretado"
+    "a estrutura atinge coerência funcional",
+    "o sistema reconhece estabilidade",
+    "há direção consolidada no campo"
   ]
-
 };
 
-///////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////
 // 🧠 DETERMINAÇÃO DO MODO
-///////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////
 
-function calcularModo(){
+function mode(){
 
-  const p = estado.progresso;
-
-  if(p < 0.3) return "exploracao";
-  if(p < 0.7) return "organizacao";
+  if(state.progresso < 0.3) return "exploracao";
+  if(state.progresso < 0.7) return "organizacao";
   return "fechamento";
 
 }
 
-///////////////////////////////////////////////////////////
-// 🧠 ORÁCULO (CORAÇÃO DO SISTEMA)
-///////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////
+// 🧠 MOTOR ORÁCULO (CORE)
+//////////////////////////////////////////////////////
 
-function oraculo(acao){
+function oraculo(action){
 
-  estado.modo = calcularModo();
+  const m = mode();
+  const base = nuclei[m][Math.floor(Math.random()*nuclei[m].length)];
 
-  const pool = nucleos[estado.modo];
+  switch(action){
 
-  const base =
-    pool[Math.floor(Math.random() * pool.length)];
+    case "observar":
+      state.progresso += 0.05;
+      state.carga += 3;
+      return `ORÁCULO: observação registrada.\n${base}`;
 
-  let prefixo = "ORÁCULO";
+    case "analisar":
+      state.progresso += 0.1;
+      state.carga += 7;
+      return `ORÁCULO: análise em curso.\n${base}`;
 
-  if(acao === "observar"){
-    estado.carga += 5;
-    estado.progresso += 0.05;
-    return `${prefixo}: observação registrada. ${base}`;
+    case "avancar":
+      state.progresso += 0.15;
+      state.carga += 5;
+      return `ORÁCULO: avanço reconhecido.\n${base}`;
+
+    case "fechar":
+
+      if(state.progresso < 0.8){
+        return "ORÁCULO: sistema ainda não possui coerência suficiente para fechamento.";
+      }
+
+      return "ORÁCULO: ciclo concluído. estrutura estabilizada.";
+
+    default:
+      return "ORÁCULO: sem leitura válida.";
   }
-
-  if(acao === "analisar"){
-    estado.carga += 10;
-    estado.progresso += 0.1;
-    return `${prefixo}: análise em processamento. ${base}`;
-  }
-
-  if(acao === "avancar"){
-    estado.progresso += 0.15;
-    return `${prefixo}: avanço reconhecido. ${base}`;
-  }
-
-  if(acao === "fechar"){
-
-    if(estado.progresso < 0.8){
-      return `${prefixo}: sistema ainda não está pronto para fechamento.`;
-    }
-
-    return `${prefixo}: ciclo concluído. estrutura consolidada.`;
-  }
-
-  return `${prefixo}: sem leitura definida.`;
-
 }
 
-///////////////////////////////////////////////////////////
-// 🧠 AÇÃO DO USUÁRIO
-///////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////
+// 🧠 INTERFACE
+//////////////////////////////////////////////////////
 
-function acao(tipo){
+function acao(type){
 
-  const resposta = oraculo(tipo);
+  const msg = oraculo(type);
 
   document.getElementById("log").innerText =
-    resposta +
-    "\n\n[estado] progresso: " +
-    estado.progresso.toFixed(2) +
-    " | modo: " +
-    estado.modo +
-    " | carga: " +
-    estado.carga;
+    msg +
+    "\n\nprogresso: " + state.progresso.toFixed(2) +
+    " | carga: " + state.carga +
+    " | modo: " + mode();
 
 }
 
