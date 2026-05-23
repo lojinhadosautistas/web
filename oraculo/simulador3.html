@@ -3,13 +3,13 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>ORÁCULO v3 • Motor Narrativo</title>
+<title>ORÁCULO v4 • Condução Reflexiva</title>
 
 <style>
 body{
   margin:0;
   font-family:Inter, sans-serif;
-  background:#050814;
+  background:#050816;
   color:white;
   display:flex;
   justify-content:center;
@@ -17,7 +17,7 @@ body{
   min-height:100vh;
 }
 
-.container{width:min(900px,92%);}
+.container{width:min(950px,92%);}
 
 .card{
   background:rgba(255,255,255,.05);
@@ -29,6 +29,8 @@ body{
 
 h1{margin:0 0 10px;font-size:2rem;}
 
+.buttons{margin-top:12px;}
+
 button{
   margin:6px 6px 0 0;
   padding:12px 16px;
@@ -37,20 +39,28 @@ button{
   cursor:pointer;
   font-weight:700;
   background:#ffb300;
-  color:#000;
 }
 
-.log{
+.secondary{
+  background:rgba(255,255,255,.08);
+  color:white;
+}
+
+.panel{
   margin-top:18px;
   background:rgba(0,0,0,.35);
   padding:16px;
   border-radius:12px;
-  min-height:120px;
-  line-height:1.5;
+  min-height:160px;
+  line-height:1.6;
   white-space:pre-line;
 }
 
-.small{opacity:.6;font-size:.9rem}
+.meta{
+  margin-top:10px;
+  font-size:.85rem;
+  opacity:.7;
+}
 </style>
 </head>
 
@@ -58,121 +68,167 @@ button{
 
 <div class="container">
 
-  <div class="card">
+<div class="card">
 
-    <h1>ORÁCULO v3</h1>
-    <div class="small">Motor narrativo de simulação cognitiva</div>
+<h1>ORÁCULO v4</h1>
+<div style="opacity:.6">Sistema de Condução Reflexiva</div>
 
-    <p>Interaja com o sistema. Ele interpreta o estado em tempo real.</p>
+<p>
+Este sistema não responde — ele organiza percursos de pensamento.
+</p>
 
-    <button onclick="acao('observar')">Observar</button>
-    <button onclick="acao('analisar')">Analisar</button>
-    <button onclick="acao('avancar')">Avançar</button>
-    <button onclick="acao('fechar')">Fechar</button>
+<div class="buttons">
 
-    <div class="log" id="log">ORÁCULO inicializando...</div>
+<button onclick="acao('ativar')">Ativar Percurso</button>
+<button onclick="acao('contexto')">Contextualizar</button>
+<button onclick="acao('conduzir')">Conduzir Raciocínio</button>
+<button onclick="acao('integrar')">Integrar Evidências</button>
+<button class="secondary" onclick="acao('direcionar')">Direcionamento</button>
 
-  </div>
+</div>
+
+<div class="panel" id="output">
+ORÁCULO aguardando ativação...
+</div>
+
+<div class="meta" id="meta"></div>
+
+</div>
 
 </div>
 
 <script>
 
 //////////////////////////////////////////////////////
-// 🧠 ESTADO CENTRAL (MEMÓRIA VIVA)
+// 🧠 ESTADO COGNITIVO DO SISTEMA
 //////////////////////////////////////////////////////
 
 const state = {
-  progresso: 0,
-  carga: 0
+  fase: "inativo",
+  carga: 0,
+  coerencia: 0.5,
+  tendencia: {
+    analitico: 0.4,
+    exploratorio: 0.3,
+    estruturante: 0.3
+  },
+  memoriaCurta: []
 };
 
 //////////////////////////////////////////////////////
-// 🧠 NÚCLEOS NARRATIVOS (COMPACTOS)
+// 🧩 BLOCOS PROGRAMÁTICOS (BPs)
 //////////////////////////////////////////////////////
 
-const nuclei = {
-  exploracao: [
-    "o campo ainda está se formando",
-    "existem sinais difusos na estrutura",
-    "a leitura ainda não estabilizou"
+const BPs = {
+
+  ativacao: [
+    "Um ponto de entrada foi identificado no sistema cognitivo.",
+    "A demanda foi reconhecida como início de percurso reflexivo.",
+    "O sistema inicia organização de contexto."
   ],
-  organizacao: [
-    "padrões começam a se consolidar",
-    "há coerência emergente no sistema",
-    "as relações internas se alinham"
+
+  contextualizacao: [
+    "O cenário começa a ser estruturado a partir de evidências disponíveis.",
+    "Variáveis relevantes são organizadas em campo interpretativo.",
+    "O sistema delimita o espaço cognitivo da análise."
   ],
-  fechamento: [
-    "a estrutura atinge coerência funcional",
-    "o sistema reconhece estabilidade",
-    "há direção consolidada no campo"
+
+  conducao: [
+    "O raciocínio é orientado por sequências interpretativas progressivas.",
+    "Perguntas estruturam o deslocamento cognitivo.",
+    "O percurso se organiza em camadas de compreensão."
+  ],
+
+  integracao: [
+    "As evidências são articuladas em estrutura coerente.",
+    "O sistema busca alinhamento entre variáveis dispersas.",
+    "A leitura sistêmica começa a estabilizar relações."
+  ],
+
+  direcionamento: [
+    "O sistema não decide, mas qualifica caminhos possíveis.",
+    "As alternativas são organizadas sem imposição.",
+    "O campo decisório é estruturado, não fechado."
   ]
+
 };
 
 //////////////////////////////////////////////////////
-// 🧠 DETERMINAÇÃO DO MODO
+// 🧠 INTERPRETADOR DE ESTADO
 //////////////////////////////////////////////////////
 
-function mode(){
+function modo(){
 
-  if(state.progresso < 0.3) return "exploracao";
-  if(state.progresso < 0.7) return "organizacao";
-  return "fechamento";
+  if(state.coerencia < 0.4) return "contextualizacao";
+  if(state.coerencia < 0.7) return "conducao";
+  return "integracao";
 
 }
 
 //////////////////////////////////////////////////////
-// 🧠 MOTOR ORÁCULO (CORE)
+// 🧠 MOTOR DO ORÁCULO
 //////////////////////////////////////////////////////
 
-function oraculo(action){
+function oraculo(tipo){
 
-  const m = mode();
-  const base = nuclei[m][Math.floor(Math.random()*nuclei[m].length)];
+  let base;
 
-  switch(action){
-
-    case "observar":
-      state.progresso += 0.05;
-      state.carga += 3;
-      return `ORÁCULO: observação registrada.\n${base}`;
-
-    case "analisar":
-      state.progresso += 0.1;
-      state.carga += 7;
-      return `ORÁCULO: análise em curso.\n${base}`;
-
-    case "avancar":
-      state.progresso += 0.15;
-      state.carga += 5;
-      return `ORÁCULO: avanço reconhecido.\n${base}`;
-
-    case "fechar":
-
-      if(state.progresso < 0.8){
-        return "ORÁCULO: sistema ainda não possui coerência suficiente para fechamento.";
-      }
-
-      return "ORÁCULO: ciclo concluído. estrutura estabilizada.";
-
-    default:
-      return "ORÁCULO: sem leitura válida.";
+  if(tipo === "ativar"){
+    state.fase = "ativacao";
+    state.carga += 10;
   }
+
+  if(tipo === "contexto"){
+    state.fase = "contextualizacao";
+    state.carga += 5;
+    state.coerencia += 0.05;
+  }
+
+  if(tipo === "conduzir"){
+    state.fase = "conducao";
+    state.carga += 7;
+    state.coerencia += 0.08;
+  }
+
+  if(tipo === "integrar"){
+    state.fase = "integracao";
+    state.coerencia += 0.1;
+  }
+
+  if(tipo === "direcionar"){
+    state.fase = "direcionamento";
+  }
+
+  const pool = BPs[state.fase] || BPs.contextualizacao;
+
+  base = pool[Math.floor(Math.random() * pool.length)];
+
+  state.memoriaCurta.push(tipo);
+
+  if(state.memoriaCurta.length > 6){
+    state.memoriaCurta.shift();
+  }
+
+  return base;
+
 }
 
 //////////////////////////////////////////////////////
-// 🧠 INTERFACE
+// 🧠 RENDER
 //////////////////////////////////////////////////////
 
-function acao(type){
+function acao(tipo){
 
-  const msg = oraculo(type);
+  const msg = oraculo(tipo);
 
-  document.getElementById("log").innerText =
-    msg +
-    "\n\nprogresso: " + state.progresso.toFixed(2) +
+  document.getElementById("output").innerText =
+    "ORÁCULO: " + msg;
+
+  document.getElementById("meta").innerText =
+    "fase: " + state.fase +
+    " | coerência: " + state.coerencia.toFixed(2) +
     " | carga: " + state.carga +
-    " | modo: " + mode();
+    " | memória: [" + state.memoriaCurta.join(" → ") + "]";
 
 }
 
