@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>CCV v4 • Identidade Emergente</title>
+<title>CCV • Mapa Cognitivo Vivo</title>
 
 <style>
 body{
@@ -13,13 +13,15 @@ body{
   font-family:Inter, sans-serif;
 }
 
-canvas{display:block;}
+canvas{
+  display:block;
+}
 
 .hud{
   position:fixed;
   top:16px;
   left:16px;
-  width:360px;
+  width:320px;
   padding:14px;
   border-radius:12px;
   background:rgba(0,0,0,.45);
@@ -30,7 +32,6 @@ canvas{display:block;}
 }
 
 .small{opacity:.7;margin-top:6px;}
-span{color:#ffb300;}
 </style>
 </head>
 
@@ -39,16 +40,14 @@ span{color:#ffb300;}
 <canvas id="c"></canvas>
 
 <div class="hud">
-  <div><b>CCV v4 • IDENTIDADE EMERGENTE</b></div>
-
-  <div class="small">estado identitário:</div>
-  <div id="identity"></div>
+  <div><b>CCV • MAPA COGNITIVO</b></div>
 
   <div class="small">clusters:</div>
   <div id="clusters">0</div>
 
-  <div class="small">narrativa do campo:</div>
-  <div id="oracle"></div>
+  <div class="small">centros ativos:</div>
+  <div id="centers"></div>
+
 </div>
 
 <script>
@@ -69,25 +68,13 @@ window.addEventListener("resize", ()=>{
 });
 
 //////////////////////////////////////////////////////
-// 🧠 IDENTIDADE DO CAMPO (NÚCLEO DO v4)
-//////////////////////////////////////////////////////
-
-const identity = {
-  coherence: 0,
-  stability: 0,
-  dominantMode: "neutro",
-  memory: []
-};
-
-//////////////////////////////////////////////////////
-// 🧠 NÓS
+// 🧠 NÓS SEMÂNTICOS
 //////////////////////////////////////////////////////
 
 const tags = [
   "incerteza","decisão","estrutura","fluxo","caos",
   "ordem","ansiedade","clareza","ruído","silêncio",
-  "memória","esquecimento","foco","dispersão","conflito",
-  "integração","ruptura","estabilidade","movimento","ação"
+  "memória","foco","dispersão","conflito","integração"
 ];
 
 const nodes = tags.map(t => ({
@@ -95,26 +82,25 @@ const nodes = tags.map(t => ({
   y:Math.random()*innerHeight,
   vx:0,
   vy:0,
-  label:t,
-  r:4
+  label:t
 }));
 
 //////////////////////////////////////////////////////
 // 🧠 GRUPOS
 //////////////////////////////////////////////////////
 
-function group(tag){
+function group(t){
 
   const g = {
-    caos:["caos","ruído","ruptura","conflito","ansiedade"],
-    ordem:["ordem","estrutura","clareza","estabilidade"],
-    fluxo:["fluxo","movimento","ação","integração"],
-    introspectivo:["memória","silêncio","esquecimento"],
+    caos:["caos","ruído","ansiedade","conflito"],
+    ordem:["ordem","estrutura","clareza"],
+    fluxo:["fluxo","movimento","integração"],
+    introspectivo:["memória","silêncio"],
     cognitivo:["decisão","foco"]
   };
 
   for(let k in g){
-    if(g[k].includes(tag)) return k;
+    if(g[k].includes(t)) return k;
   }
 
   return "neutro";
@@ -124,10 +110,10 @@ function group(tag){
 // 🧠 CLUSTERS
 //////////////////////////////////////////////////////
 
-function detectClusters(){
+function clusters(){
 
   const visited = new Array(nodes.length).fill(false);
-  const clusters = [];
+  const out = [];
 
   function dfs(i,c){
 
@@ -138,11 +124,11 @@ function detectClusters(){
 
       if(visited[j]) continue;
 
-      const dx=nodes[i].x-nodes[j].x;
-      const dy=nodes[i].y-nodes[j].y;
-      const d=Math.sqrt(dx*dx+dy*dy);
+      const dx = nodes[i].x - nodes[j].x;
+      const dy = nodes[i].y - nodes[j].y;
+      const d = Math.sqrt(dx*dx+dy*dy);
 
-      if(d<85) dfs(j,c);
+      if(d<90) dfs(j,c);
 
     }
 
@@ -152,107 +138,46 @@ function detectClusters(){
     if(!visited[i]){
       const c=[];
       dfs(i,c);
-      clusters.push(c);
+      out.push(c);
     }
   }
 
-  return clusters;
+  return out;
 
 }
 
 //////////////////////////////////////////////////////
-// 🧠 INTERPRETAÇÃO
+// 🧠 CENTRO DE MASSA
 //////////////////////////////////////////////////////
 
-function interpret(cluster){
+function center(cluster){
 
-  const freq={};
+  let x=0,y=0;
 
   for(let n of cluster){
-    const g=group(n.label);
-    freq[g]=(freq[g]||0)+1;
+    x+=n.x;
+    y+=n.y;
   }
 
-  return Object.entries(freq)
-    .sort((a,b)=>b[1]-a[1])[0]?.[0] || "neutro";
-
-}
-
-//////////////////////////////////////////////////////
-// 🧠 IDENTIDADE DO CAMPO (ATUALIZAÇÃO)
-//////////////////////////////////////////////////////
-
-function updateIdentity(clusters){
-
-  const modes = clusters.map(c => interpret(c));
-
-  const freq = {};
-
-  modes.forEach(m=>{
-    freq[m]=(freq[m]||0)+1;
-  });
-
-  const dominant = Object.entries(freq)
-    .sort((a,b)=>b[1]-a[1])[0]?.[0] || "neutro";
-
-  identity.dominantMode = dominant;
-
-  identity.memory.push(dominant);
-
-  if(identity.memory.length > 20){
-    identity.memory.shift();
-  }
-
-  const stabilityScore =
-    identity.memory.filter(m=>m===dominant).length /
-    identity.memory.length;
-
-  identity.stability = stabilityScore;
-
-  identity.coherence = 1 - (clusters.length/10);
-
-  document.getElementById("identity").innerHTML =
-    `modo dominante: <span>${dominant}</span><br>` +
-    `estabilidade: <span>${stabilityScore.toFixed(2)}</span>`;
-
-}
-
-//////////////////////////////////////////////////////
-// 🧠 NARRATIVA DO ORÁCULO (v4)
-//////////////////////////////////////////////////////
-
-function narrative(){
-
-  const m = identity.dominantMode;
-
-  const map = {
-
-    caos:"o campo mantém identidade instável com tendência à fragmentação recorrente",
-    ordem:"o campo desenvolve coerência estrutural progressiva",
-    fluxo:"o campo evolui em padrão de continuidade adaptativa",
-    introspectivo:"o campo estabiliza interiorização como identidade dominante",
-    cognitivo:"o campo consolida padrão decisório recorrente",
-    neutro:"o campo não apresenta identidade dominante estável"
-
+  return {
+    x:x/cluster.length,
+    y:y/cluster.length,
+    g: group(cluster[0].label)
   };
 
-  return map[m];
-
 }
 
 //////////////////////////////////////////////////////
-// 🧠 FÍSICA (AGORA COM IDENTIDADE GLOBAL)
+// 🧠 FÍSICA
 //////////////////////////////////////////////////////
 
 function update(){
 
-  const clusters = detectClusters();
-
-  updateIdentity(clusters);
+  const cs = clusters();
 
   for(let i=0;i<nodes.length;i++){
 
-    const a=nodes[i];
+    let a = nodes[i];
 
     let fx=0, fy=0;
 
@@ -260,28 +185,18 @@ function update(){
 
       if(i===j) continue;
 
-      const b=nodes[j];
+      let b = nodes[j];
 
-      const dx=b.x-a.x;
-      const dy=b.y-a.y;
-      const d=Math.sqrt(dx*dx+dy*dy)+0.1;
+      const dx = b.x - a.x;
+      const dy = b.y - a.y;
+      const d = Math.sqrt(dx*dx+dy*dy)+0.1;
 
-      let f = (group(a.label)===group(b.label)) ? 0.6 : 0.05;
-
-      // 🔥 v4: identidade influencia o campo inteiro
-      if(group(a.label) === identity.dominantMode){
-        f *= 1.4;
-      } else {
-        f *= 0.85;
-      }
+      const f = (group(a.label)===group(b.label)) ? 0.7 : 0.03;
 
       fx += (dx/d)*f;
       fy += (dy/d)*f;
 
     }
-
-    fx += (Math.random()-0.5)*0.08;
-    fy += (Math.random()-0.5)*0.08;
 
     a.vx += fx*0.02;
     a.vy += fy*0.02;
@@ -294,18 +209,21 @@ function update(){
 
   }
 
-  document.getElementById("clusters").innerText = clusters.length;
-  document.getElementById("oracle").innerText = narrative();
+  draw(cs);
 
 }
 
 //////////////////////////////////////////////////////
-// 🧠 RENDER
+// 🧠 DRAW MAPA COGNITIVO
 //////////////////////////////////////////////////////
 
-function draw(){
+function draw(cs){
 
   ctx.clearRect(0,0,canvas.width,canvas.height);
+
+  //////////////////////////////////////////////////////
+  // linhas
+  //////////////////////////////////////////////////////
 
   for(let i=0;i<nodes.length;i++){
 
@@ -317,9 +235,9 @@ function draw(){
       const dy=a.y-b.y;
       const d=Math.sqrt(dx*dx+dy*dy);
 
-      if(d<110){
+      if(d<120){
 
-        ctx.strokeStyle=`rgba(255,179,0,${1-d/110})`;
+        ctx.strokeStyle=`rgba(255,255,255,${1-d/120})`;
         ctx.lineWidth=0.5;
 
         ctx.beginPath();
@@ -333,14 +251,59 @@ function draw(){
 
   }
 
+  //////////////////////////////////////////////////////
+  // nós
+  //////////////////////////////////////////////////////
+
   for(let n of nodes){
 
-    ctx.fillStyle="#ffb300";
+    ctx.fillStyle = colorByGroup(group(n.label));
+
     ctx.beginPath();
-    ctx.arc(n.x,n.y,n.r,0,Math.PI*2);
+    ctx.arc(n.x,n.y,5,0,Math.PI*2);
     ctx.fill();
 
   }
+
+  //////////////////////////////////////////////////////
+  // centros de cluster
+  //////////////////////////////////////////////////////
+
+  const centers = cs.map(center);
+
+  document.getElementById("clusters").innerText = cs.length;
+
+  document.getElementById("centers").innerHTML =
+    centers.map(c=>`<div>${c.g}</div>`).join("");
+
+  for(let c of centers){
+
+    ctx.fillStyle = "#ffb300";
+
+    ctx.beginPath();
+    ctx.arc(c.x,c.y,10,0,Math.PI*2);
+    ctx.fill();
+
+  }
+
+}
+
+//////////////////////////////////////////////////////
+// 🧠 CORES SEMÂNTICAS
+//////////////////////////////////////////////////////
+
+function colorByGroup(g){
+
+  const map = {
+    caos:"#ff3b3b",
+    ordem:"#3bff8a",
+    fluxo:"#3bb7ff",
+    introspectivo:"#b13bff",
+    cognitivo:"#ffd43b",
+    neutro:"#ffffff"
+  };
+
+  return map[g] || "#ffffff";
 
 }
 
@@ -351,8 +314,6 @@ function draw(){
 function loop(){
 
   update();
-  draw();
-
   requestAnimationFrame(loop);
 
 }
