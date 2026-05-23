@@ -1,0 +1,887 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>OEP Online V2 · ORÁCULO Cognitive System</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Cinzel:wght@400;600;700&display=swap" rel="stylesheet">
+
+<script type="module">
+  import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs';
+
+  mermaid.initialize({
+    startOnLoad: true,
+    theme: 'dark',
+    securityLevel: 'loose',
+    flowchart: {
+      curve: 'basis',
+      useMaxWidth: true,
+      htmlLabels: true
+    }
+  });
+</script>
+
+<style>
+
+:root{
+  --bg:#040611;
+  --bg2:#0a1023;
+  --card:rgba(255,255,255,.05);
+  --border:rgba(255,255,255,.09);
+  --text:#f5f7ff;
+  --muted:#9da8c7;
+  --gold:#ffca63;
+  --blue:#5ca8ff;
+  --purple:#8b6cff;
+  --green:#35d39a;
+  --orange:#ff9950;
+  --shadow:0 30px 80px rgba(0,0,0,.45);
+}
+
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
+
+body{
+  background:
+  radial-gradient(circle at top left, rgba(92,168,255,.15), transparent 30%),
+  radial-gradient(circle at bottom right, rgba(139,108,255,.12), transparent 30%),
+  linear-gradient(180deg,#03050c,#060917 100%);
+  color:var(--text);
+  font-family:'Inter',sans-serif;
+  overflow-x:hidden;
+}
+
+.grid{
+  position:fixed;
+  inset:0;
+  background-image:
+  linear-gradient(rgba(255,255,255,.02) 1px, transparent 1px),
+  linear-gradient(90deg, rgba(255,255,255,.02) 1px, transparent 1px);
+  background-size:44px 44px;
+  pointer-events:none;
+  mask-image:radial-gradient(circle at center, black, transparent 80%);
+}
+
+.container{
+  width:min(1600px,92vw);
+  margin:auto;
+}
+
+.hero{
+  min-height:100vh;
+  position:relative;
+  display:flex;
+  align-items:center;
+  overflow:hidden;
+}
+
+.glow{
+  position:absolute;
+  border-radius:50%;
+  filter:blur(120px);
+  opacity:.35;
+}
+
+.glow.one{
+  width:450px;
+  height:450px;
+  background:var(--blue);
+  top:-120px;
+  left:-120px;
+}
+
+.glow.two{
+  width:400px;
+  height:400px;
+  background:var(--purple);
+  bottom:-100px;
+  right:-100px;
+}
+
+.hero-layout{
+  position:relative;
+  z-index:2;
+  display:grid;
+  grid-template-columns:1fr 500px;
+  gap:70px;
+  align-items:center;
+}
+
+.badge{
+  display:inline-flex;
+  align-items:center;
+  gap:10px;
+  padding:12px 22px;
+  border-radius:999px;
+  background:rgba(255,255,255,.05);
+  border:1px solid rgba(255,255,255,.1);
+  color:var(--gold);
+  letter-spacing:1px;
+  text-transform:uppercase;
+  font-size:.82rem;
+  backdrop-filter:blur(20px);
+  margin-bottom:30px;
+}
+
+h1{
+  font-family:'Cinzel',serif;
+  font-size:clamp(4rem,8vw,8rem);
+  line-height:.9;
+  letter-spacing:-3px;
+  margin-bottom:30px;
+}
+
+.gradient{
+  background:linear-gradient(90deg,var(--gold),#fff,var(--blue));
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+}
+
+.hero p{
+  max-width:850px;
+  color:var(--muted);
+  line-height:2;
+  font-size:1.1rem;
+}
+
+.actions{
+  display:flex;
+  gap:18px;
+  margin-top:40px;
+  flex-wrap:wrap;
+}
+
+.btn{
+  padding:18px 30px;
+  border:none;
+  border-radius:18px;
+  cursor:pointer;
+  font-weight:700;
+  transition:.35s ease;
+}
+
+.btn-primary{
+  background:linear-gradient(135deg,var(--gold),#ff9800);
+  color:#111;
+  box-shadow:0 20px 40px rgba(255,202,99,.22);
+}
+
+.btn-secondary{
+  background:rgba(255,255,255,.05);
+  border:1px solid rgba(255,255,255,.1);
+  color:#fff;
+  backdrop-filter:blur(20px);
+}
+
+.btn:hover{
+  transform:translateY(-6px);
+}
+
+.status-card{
+  position:relative;
+  overflow:hidden;
+  padding:34px;
+  border-radius:34px;
+  background:rgba(255,255,255,.05);
+  border:1px solid rgba(255,255,255,.1);
+  backdrop-filter:blur(30px);
+  box-shadow:var(--shadow);
+}
+
+.status-card::before{
+  content:'';
+  position:absolute;
+  inset:0;
+  background:linear-gradient(180deg,rgba(255,255,255,.08),transparent);
+}
+
+.status-card > *{
+  position:relative;
+  z-index:2;
+}
+
+.status-top{
+  display:flex;
+  justify-content:space-between;
+  margin-bottom:26px;
+}
+
+.status-top strong{
+  letter-spacing:1px;
+}
+
+.online{
+  color:var(--green);
+  text-transform:uppercase;
+  font-size:.8rem;
+}
+
+.status-grid{
+  display:grid;
+  gap:18px;
+}
+
+.status-item{
+  padding:20px;
+  border-radius:20px;
+  background:rgba(255,255,255,.04);
+  border:1px solid rgba(255,255,255,.06);
+}
+
+.status-item small{
+  display:block;
+  color:#8ea2d6;
+  margin-bottom:10px;
+}
+
+.status-item strong{
+  font-size:1.05rem;
+}
+
+section{
+  padding:120px 0;
+}
+
+.section-title{
+  text-align:center;
+  margin-bottom:70px;
+}
+
+.section-title span{
+  color:var(--gold);
+  letter-spacing:2px;
+  text-transform:uppercase;
+  font-size:.82rem;
+}
+
+.section-title h2{
+  font-size:clamp(3rem,6vw,5rem);
+  line-height:1;
+  margin-top:18px;
+}
+
+.section-title p{
+  max-width:950px;
+  margin:24px auto 0;
+  color:var(--muted);
+  line-height:2;
+}
+
+.system-layout{
+  display:grid;
+  grid-template-columns:320px 1fr 360px;
+  gap:28px;
+  align-items:start;
+}
+
+.panel,
+.map-wrapper,
+.insight-panel{
+  position:relative;
+  overflow:hidden;
+  border-radius:32px;
+  background:rgba(255,255,255,.05);
+  border:1px solid rgba(255,255,255,.09);
+  backdrop-filter:blur(30px);
+  box-shadow:var(--shadow);
+}
+
+.panel::before,
+.map-wrapper::before,
+.insight-panel::before{
+  content:'';
+  position:absolute;
+  inset:0;
+  background:linear-gradient(180deg,rgba(255,255,255,.07),transparent);
+  pointer-events:none;
+}
+
+.panel,
+.insight-panel{
+  padding:30px;
+}
+
+.panel h3,
+.insight-panel h3{
+  font-size:1.5rem;
+  margin-bottom:22px;
+}
+
+.panel p,
+.insight-panel p{
+  color:var(--muted);
+  line-height:1.9;
+}
+
+.panel-list{
+  display:grid;
+  gap:16px;
+  margin-top:26px;
+}
+
+.panel-item{
+  padding:18px;
+  border-radius:18px;
+  background:rgba(255,255,255,.04);
+  border:1px solid rgba(255,255,255,.06);
+}
+
+.panel-item strong{
+  display:block;
+  margin-bottom:10px;
+}
+
+.map-wrapper{
+  padding:24px;
+}
+
+.map-top{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:20px;
+}
+
+.map-top strong{
+  letter-spacing:1px;
+}
+
+.map-status{
+  color:var(--green);
+  font-size:.8rem;
+  text-transform:uppercase;
+}
+
+.mermaid-container{
+  position:relative;
+  min-height:900px;
+  border-radius:28px;
+  overflow:auto;
+  background:
+  radial-gradient(circle at center, rgba(92,168,255,.08), transparent 45%),
+  rgba(255,255,255,.03);
+  border:1px solid rgba(255,255,255,.05);
+  padding:40px;
+}
+
+.mermaid{
+  min-width:1200px;
+}
+
+.mermaid svg{
+  max-width:none !important;
+}
+
+.terminal{
+  margin-top:24px;
+  padding:22px;
+  border-radius:22px;
+  background:#03050c;
+  border:1px solid rgba(255,255,255,.06);
+  font-family:monospace;
+  color:#8cffb8;
+  line-height:1.8;
+  overflow:auto;
+}
+
+.insight-badge{
+  display:inline-flex;
+  padding:10px 16px;
+  border-radius:999px;
+  background:rgba(255,202,99,.12);
+  border:1px solid rgba(255,202,99,.18);
+  color:var(--gold);
+  font-size:.8rem;
+  margin-bottom:20px;
+}
+
+.reflection-grid{
+  display:grid;
+  gap:14px;
+  margin-top:24px;
+}
+
+.reflection-card{
+  padding:18px;
+  border-radius:18px;
+  background:rgba(255,255,255,.04);
+  border:1px solid rgba(255,255,255,.06);
+  line-height:1.8;
+}
+
+.mock-visual{
+  margin-top:24px;
+  height:220px;
+  border-radius:24px;
+  background:
+  linear-gradient(135deg,rgba(92,168,255,.15),rgba(139,108,255,.15)),
+  rgba(255,255,255,.04);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+  padding:30px;
+  color:#dce8ff;
+  border:1px solid rgba(255,255,255,.06);
+}
+
+.timeline-grid{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:24px;
+}
+
+.timeline-card{
+  position:relative;
+  overflow:hidden;
+  padding:30px;
+  border-radius:28px;
+  background:rgba(255,255,255,.05);
+  border:1px solid rgba(255,255,255,.08);
+}
+
+.timeline-number{
+  width:60px;
+  height:60px;
+  border-radius:18px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background:linear-gradient(135deg,var(--gold),#ff9800);
+  color:#111;
+  font-weight:800;
+  margin-bottom:24px;
+}
+
+.timeline-card h3{
+  margin-bottom:16px;
+  font-size:1.4rem;
+}
+
+.timeline-card p{
+  color:var(--muted);
+  line-height:1.9;
+}
+
+footer{
+  padding:60px 0 90px;
+  text-align:center;
+  color:#7c89b0;
+}
+
+@media(max-width:1400px){
+
+  .system-layout,
+  .hero-layout,
+  .timeline-grid{
+    grid-template-columns:1fr;
+  }
+
+}
+
+@media(max-width:768px){
+
+  section{
+    padding:90px 0;
+  }
+
+  .actions{
+    flex-direction:column;
+  }
+
+  .btn{
+    width:100%;
+  }
+
+  .panel,
+  .insight-panel,
+  .map-wrapper,
+  .timeline-card,
+  .status-card{
+    padding:22px;
+  }
+
+  .mermaid-container{
+    padding:20px;
+    min-height:700px;
+  }
+
+}
+
+</style>
+</head>
+<body>
+
+<div class="grid"></div>
+
+<header class="hero">
+
+  <div class="glow one"></div>
+  <div class="glow two"></div>
+
+  <div class="container hero-layout">
+
+    <div>
+
+      <div class="badge">
+        ✦ OEP ONLINE V2 · Mermaid Cognitive Interface
+      </div>
+
+      <h1>
+        O <span class="gradient">ORÁCULO</span><br>
+        COMO SISTEMA<br>
+        NAVEGÁVEL
+      </h1>
+
+      <p>
+        O OEP Online V2 transforma o infográfico do ORÁCULO em uma arquitetura cognitiva viva.
+        O Mermaid atua como engine estrutural do sistema, permitindo exploração visual,
+        conexões semânticas, reflexão contextual e futura integração com inteligência adaptativa.
+      </p>
+
+      <div class="actions">
+        <button class="btn btn-primary">
+          Explorar Sistema
+        </button>
+
+        <button class="btn btn-secondary">
+          Simular Reflexão
+        </button>
+      </div>
+
+    </div>
+
+    <div class="status-card">
+
+      <div class="status-top">
+        <strong>STATUS OPERACIONAL</strong>
+        <span class="online">online</span>
+      </div>
+
+      <div class="status-grid">
+
+        <div class="status-item">
+          <small>NÚCLEO</small>
+          <strong>Mermaid Cognitive Engine</strong>
+        </div>
+
+        <div class="status-item">
+          <small>MODO</small>
+          <strong>Arquitetura Reflexiva Experimental</strong>
+        </div>
+
+        <div class="status-item">
+          <small>CONTEXTO</small>
+          <strong>Navegação Semântica Adaptativa</strong>
+        </div>
+
+        <div class="status-item">
+          <small>FOCO</small>
+          <strong>Exploração Contextual Assistida</strong>
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</header>
+
+<section>
+
+  <div class="container">
+
+    <div class="section-title">
+      <span>Mermaid Live Map</span>
+      <h2>Arquitetura Cognitiva Navegável</h2>
+      <p>
+        O diagrama abaixo representa uma primeira simulação do ORÁCULO como sistema operacional cognitivo.
+        Clique nos eixos para simular leituras reflexivas e futuras ativações contextuais.
+      </p>
+    </div>
+
+    <div class="system-layout">
+
+      <aside class="panel">
+
+        <h3>
+          Sistema Contextual
+        </h3>
+
+        <p>
+          O ORÁCULO interpreta relações entre ambiente, comunicação, previsibilidade,
+          regulação emocional e adaptação cognitiva.
+        </p>
+
+        <div class="panel-list">
+
+          <div class="panel-item">
+            <strong>Camada 01</strong>
+            Entrada contextual do usuário.
+          </div>
+
+          <div class="panel-item">
+            <strong>Camada 02</strong>
+            Análise de eixos cognitivos.
+          </div>
+
+          <div class="panel-item">
+            <strong>Camada 03</strong>
+            Reflexões adaptativas.
+          </div>
+
+          <div class="panel-item">
+            <strong>Camada 04</strong>
+            Estratégias e BPs futuras.
+          </div>
+
+        </div>
+
+        <div class="terminal">
+> initializing mermaid engine...
+<br>
+> loading semantic graph...
+<br>
+> cognitive map online.
+<br>
+> awaiting contextual exploration...
+        </div>
+
+      </aside>
+
+      <main class="map-wrapper">
+
+        <div class="map-top">
+          <strong>MERMAID COGNITIVE MAP</strong>
+          <span class="map-status">live prototype</span>
+        </div>
+
+        <div class="mermaid-container">
+
+<div class="mermaid">
+flowchart TD
+
+    O[ORÁCULO ENGINE]
+
+    O --> T[EIXO TERAPÊUTICO]
+    O --> S[EIXO SENSORIAL]
+    O --> P[EIXO PEDAGÓGICO]
+    O --> F[EIXO FAMILIAR]
+
+    T --> T1[Regulação]
+    T --> T2[Previsibilidade]
+    T --> T3[Acolhimento]
+
+    S --> S1[Ruído]
+    S --> S2[Iluminação]
+    S --> S3[Sobrecarga]
+
+    P --> P1[Aprendizagem]
+    P --> P2[Comunicação]
+    P --> P3[Organização]
+
+    F --> F1[Vínculo]
+    F --> F2[Rotina]
+    F --> F3[Segurança]
+
+    O --> C[CONTEXTO]
+    C --> R[REFLEXÕES]
+    R --> B[BPs FUTUROS]
+
+    click T callback "Terapêutico"
+    click S callback "Sensorial"
+    click P callback "Pedagógico"
+    click F callback "Familiar"
+</div>
+
+        </div>
+
+      </main>
+
+      <aside class="insight-panel">
+
+        <div class="insight-badge">
+          Reflexão Dinâmica
+        </div>
+
+        <h3 id="panel-title">
+          Eixo Terapêutico
+        </h3>
+
+        <p id="panel-description">
+          Este eixo concentra leituras relacionadas à estabilidade emocional,
+          previsibilidade contextual e estratégias de segurança cognitiva.
+        </p>
+
+        <div class="reflection-grid" id="reflection-grid">
+
+          <div class="reflection-card">
+            O ambiente atual reduz ou amplia ansiedade contextual?
+          </div>
+
+          <div class="reflection-card">
+            Existem sinais de fadiga emocional acumulada?
+          </div>
+
+          <div class="reflection-card">
+            O contexto favorece sensação de acolhimento?
+          </div>
+
+        </div>
+
+        <div class="mock-visual" id="mock-visual">
+          VISUAL REFLEXIVO · REGULAÇÃO · SEGURANÇA · ACOLHIMENTO
+        </div>
+
+      </aside>
+
+    </div>
+
+  </div>
+
+</section>
+
+<section>
+
+  <div class="container">
+
+    <div class="section-title">
+      <span>Evolução do Sistema</span>
+      <h2>Como o ORÁCULO pode crescer</h2>
+      <p>
+        O protótipo atual demonstra a experiência navegável. As próximas etapas podem transformar
+        o sistema em uma engine cognitiva adaptativa baseada em contexto.
+      </p>
+    </div>
+
+    <div class="timeline-grid">
+
+      <div class="timeline-card">
+        <div class="timeline-number">01</div>
+        <h3>Mapa Visual</h3>
+        <p>
+          Mermaid como núcleo estrutural navegável.
+        </p>
+      </div>
+
+      <div class="timeline-card">
+        <div class="timeline-number">02</div>
+        <h3>JSON Semântico</h3>
+        <p>
+          Reflexões e estratégias externas conectadas aos nós.
+        </p>
+      </div>
+
+      <div class="timeline-card">
+        <div class="timeline-number">03</div>
+        <h3>IA Contextual</h3>
+        <p>
+          Interpretação adaptativa baseada no contexto do usuário.
+        </p>
+      </div>
+
+      <div class="timeline-card">
+        <div class="timeline-number">04</div>
+        <h3>Sistema Cognitivo</h3>
+        <p>
+          Plataforma viva de navegação e orientação contextual.
+        </p>
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+<footer>
+  OEP ONLINE V2 · Mermaid Cognitive System · ORÁCULO EXPERIENCE PROTOTYPE
+</footer>
+
+<script>
+
+const reflections = {
+
+  T:{
+    title:'Eixo Terapêutico',
+    description:'Leituras relacionadas à estabilidade emocional, previsibilidade contextual e estratégias de segurança cognitiva.',
+    items:[
+      'O ambiente atual reduz ou amplia ansiedade contextual?',
+      'Existem sinais de fadiga emocional acumulada?',
+      'O contexto favorece sensação de acolhimento?'
+    ],
+    visual:'VISUAL REFLEXIVO · REGULAÇÃO · SEGURANÇA · ACOLHIMENTO'
+  },
+
+  S:{
+    title:'Eixo Sensorial',
+    description:'Observação de estímulos críticos, processamento perceptivo e impacto ambiental no funcionamento cognitivo.',
+    items:[
+      'Quais estímulos estão consumindo energia cognitiva?',
+      'Existe excesso de ruído ou imprevisibilidade?',
+      'O espaço favorece recuperação sensorial?'
+    ],
+    visual:'VISUAL REFLEXIVO · SENSORIAL · RUÍDO · ILUMINAÇÃO'
+  },
+
+  P:{
+    title:'Eixo Pedagógico',
+    description:'Organização de aprendizagem, clareza comunicacional e adaptação de demandas contextuais.',
+    items:[
+      'A comunicação está clara e acessível?',
+      'Existe sobrecarga de informação simultânea?',
+      'O fluxo atual favorece compreensão?'
+    ],
+    visual:'VISUAL REFLEXIVO · APRENDIZAGEM · ORGANIZAÇÃO'
+  },
+
+  F:{
+    title:'Eixo Familiar',
+    description:'Leituras sobre suporte afetivo, vínculos, rotina e estabilidade do ambiente relacional.',
+    items:[
+      'O contexto favorece sensação de apoio?',
+      'Existe clareza nas expectativas relacionais?',
+      'O ambiente promove segurança emocional?'
+    ],
+    visual:'VISUAL REFLEXIVO · FAMÍLIA · VÍNCULO · ROTINA'
+  }
+
+};
+
+window.callback = function(node){
+
+  const data = reflections[node];
+
+  if(!data) return;
+
+  document.getElementById('panel-title').innerText = data.title;
+  document.getElementById('panel-description').innerText = data.description;
+  document.getElementById('mock-visual').innerText = data.visual;
+
+  const grid = document.getElementById('reflection-grid');
+
+  grid.innerHTML = '';
+
+  data.items.forEach(item=>{
+
+    grid.innerHTML += `
+      <div class="reflection-card">
+        ${item}
+      </div>
+    `;
+
+  });
+
+}
+
+</script>
+
+</body>
+</html>
