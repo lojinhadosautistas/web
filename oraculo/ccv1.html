@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>CCV v2.5 • Campo Cognitivo Reflexivo</title>
+
+<style>
+body{
+  margin:0;
+  overflow:hidden;
+  background:#050816;
+  font-family:Inter, sans-serif;
+}
+
+canvas{display:block;}
+
+.hud{
+  position:fixed;
+  top:16px;
+  left:16px;
+  color:white;
+  font-size:13px;
+  background:rgba(0,0,0,.35);
+  padding:12px;
+  border-radius:12px;
+  backdrop-filter:blur(10px);
+  width:300px;
+  line-height:1.4;
+}
+
+.small{opacity:.7;font-size:12px;margin-top:6px;}
+
+span{color:#ffb300;}
+</style>
+</head>
+
+<body>
+
+<canvas id="c"></canvas>
+
+<div class="hud">
+  <div><b>CCV v2.5 • Linguagem Reflexiva</b></div>
+
+  <div class="small">clusters:</div>
+  <div id="clusters">0</div>
+
+  <div class="small">linguagem do oráculo:</div>
+  <div id="oracle"></div>
+</div>
+
+<script>
+
+//////////////////////////////////////////////////////
+// 🧠 CANVAS
+//////////////////////////////////////////////////////
+
+const canvas = document.getElementById("c");
+const ctx = canvas.getContext("2d");
+
+canvas.width = innerWidth;
+canvas.height = innerHeight;
+
+window.addEventListener("resize", ()=>{
+  canvas.width = innerWidth;
+  canvas.height = innerHeight;
+});
+
+//////////////////////////////////////////////////////
+// 🧠 LINGUAGEM (MEMÓRIA CURTA DO SISTEMA)
+//////////////////////////////////////////////////////
+
+let lastNarratives = [];
+
+//////////////////////////////////////////////////////
+// 🧠 TAGS
+//////////////////////////////////////////////////////
+
+const tags = [
+  "incerteza","decisão","estrutura","fluxo","caos",
+  "ordem","ansiedade","clareza","ruído","silêncio",
+  "memória","esquecimento","foco","dispersão","conflito",
+  "integração","ruptura","estabilidade","movimento","ação"
+];
+
+//////////////////////////////////////////////////////
+// 🧠 NÓS
+//////////////////////////////////////////////////////
+
+const nodes = [];
+
+for(let i=0;i<tags.length;i++){
+
+  nodes.push({
+    x:Math.random()*canvas.width,
+    y:Math.random()*canvas.height,
+    vx:0,
+    vy:0,
+    label:tags[i],
+    r:4
+  });
+
+}
+
+//////////////////////////////////////////////////////
+// 🧠 GRUPOS SEMÂNTICOS
+//////////////////////////////////////////////////////
+
+function group(tag){
+
+  const g = {
+
+    caos:["caos","ruído","ruptura","conflito","ansiedade"],
+    ordem:["ordem","estrutura","clareza","estabilidade","controle"],
+    fluxo:["fluxo","movimento","ação","integração"],
+    introspectivo:["memória","silêncio","esquecimento"],
+    cognitivo:["decisão","foco","estrutura","integração"]
+
+  };
+
+  for(let k in g){
+    if(g[k].includes(tag)) return k;
+  }
+
+  return "neutro";
+}
+
+//////////////////////////////////////////////////////
+// 🧠 SIMILARIDADE (AGORA COM INFLUÊNCIA LINGUÍSTICA)
+//////////////////////////////////////////////////////
+
+function similarity(a,b){
+
+  if(a.label === b.label) return 1;
+
+  let base = (group(a.label) === group(b.label)) ? 0.6 : 0.05;
+
+  // 🔥 INFLUÊNCIA LINGUÍSTICA (v2.5)
+  // linguagem reforça padrões recentes
+  for(let n of lastNarratives){
+
+    if(n.includes(a.label) && n.includes(b.label)){
+      base += 0.25;
+    }
+
+  }
+
+  return base;
+}
+
+//////////////////////////////////////////////////////
+// 🧠 CLUSTERS
+//////////////////////////////////////////////////////
+
+function detectClusters(){
+
+  const visited = new Array(nodes.length).fill(false);
+  let clusters = [];
+
+  function dfs(i, cluster){
+
+    visited[i]=true;
+    cluster.push(nodes[i]);
+
+    for(let j=0;j<nodes.length;j++){
+
+      if(visited[j]) continue;
+
+      const dx = nodes[i].x - nodes[j].x;
+      const dy = nodes[i].y - nodes[j].y;
+      const d = Math.sqrt(dx*dx+dy*dy);
+
+      if(d < 85) dfs(j, cluster);
+
+    }
+
+  }
+
+  for(let i=0;i<nodes.length;i++){
+
+    if(!visited[i]){
+      let cluster=[];
+      dfs(i,cluster);
+      clusters.push(cluster);
+    }
+
+  }
+
+  return clusters;
+
+}
+
+//////////////////////////////////////////////////////
+// 🧠 INTERPRETAÇÃO DO CLUSTER
+//////////////////////////////////////////////////////
+
+function interpret(cluster){
+
+  const freq = {};
+
+  for(let n of cluster){
+    const g = group(n.label);
+    freq[g] = (freq[g]||0)+1;
+  }
+
+  return Object.entries(freq)
+    .sort((a,b)=>b[1]-a[1])[0]?.[0] || "neutro";
+
+}
+
+//////////////////////////////////////////////////////
+// 🧠 LINGUAGEM EMERGENTE
+//////////////////////////////////////////////////////
+
+function sentence(group){
+
+  const map = {
+
+    caos:[
+      "o campo mantém instabilidade recorrente",
+      "há fragmentação estrutural persistente"
+    ],
+
+    ordem:[
+      "estruturas de coerência estão se fortalecendo",
+      "há organização progressiva do sistema"
+    ],
+
+    fluxo:[
+      "o sistema entra em dinâmica de adaptação contínua",
+      "movimento entre estados se intensifica"
+    ],
+
+    introspectivo:[
+      "o campo reduz externalização e entra em interiorização",
+      "memória opera como núcleo dominante"
+    ],
+
+    cognitivo:[
+      "o sistema estabiliza padrões de decisão",
+      "há convergência de estruturas cognitivas"
+    ],
+
+    neutro:[
+      "dinâmica híbrida sem padrão dominante"
+    ]
+
+  };
+
+  const s = map[group] || map.neutro;
+
+  return s[Math.floor(Math.random()*s.length)];
+
+}
+
+//////////////////////////////////////////////////////
+// 🧠 ORÁCULO
+//////////////////////////////////////////////////////
+
+function updateOracle(clusters){
+
+  let narrative = [];
+
+  for(let c of clusters){
+
+    const g = interpret(c);
+    const s = sentence(g);
+
+    narrative.push(s);
+
+    // 🔥 v2.5: memória linguística influencia próximo ciclo
+    lastNarratives.push(s);
+
+  }
+
+  if(lastNarratives.length > 6){
+    lastNarratives.shift();
+  }
+
+  document.getElementById("oracle").innerText =
+    narrative.join("\n");
+
+  document.getElementById("clusters").innerText =
+    clusters.length;
+
+}
+
+//////////////////////////////////////////////////////
+// 🧠 FÍSICA (AGORA INFLUENCIADA POR LINGUAGEM)
+//////////////////////////////////////////////////////
+
+function update(){
+
+  const clusters = detectClusters();
+
+  for(let i=0;i<nodes.length;i++){
+
+    let a = nodes[i];
+
+    let fx=0, fy=0;
+
+    for(let j=0;j<nodes.length;j++){
+
+      if(i===j) continue;
+
+      let b = nodes[j];
+
+      const dx = b.x - a.x;
+      const dy = b.y - a.y;
+      const d = Math.sqrt(dx*dx+dy*dy)+0.1;
+
+      let f = similarity(a,b);
+
+      fx += (dx/d)*f;
+      fy += (dy/d)*f;
+
+    }
+
+    // 🔥 micro feedback da linguagem
+    for(let n of lastNarratives){
+
+      if(n.includes(a.label)){
+        fx *= 1.02;
+        fy *= 1.02;
+      }
+
+    }
+
+    fx += (Math.random()-0.5)*0.2;
+    fy += (Math.random()-0.5)*0.2;
+
+    a.vx += fx*0.02;
+    a.vy += fy*0.02;
+
+    a.vx *= 0.92;
+    a.vy *= 0.92;
+
+    a.x += a.vx;
+    a.y += a.vy;
+
+  }
+
+  updateOracle(clusters);
+
+}
+
+//////////////////////////////////////////////////////
+// 🧠 RENDER
+//////////////////////////////////////////////////////
+
+function draw(){
+
+  ctx.clearRect(0,0,canvas.width,canvas.height);
+
+  for(let i=0;i<nodes.length;i++){
+
+    for(let j=i+1;j<nodes.length;j++){
+
+      const a=nodes[i], b=nodes[j];
+
+      const dx=a.x-b.x;
+      const dy=a.y-b.y;
+      const d=Math.sqrt(dx*dx+dy*dy);
+
+      if(d<110){
+
+        ctx.strokeStyle=`rgba(255,179,0,${1-d/110})`;
+        ctx.lineWidth=0.5;
+
+        ctx.beginPath();
+        ctx.moveTo(a.x,a.y);
+        ctx.lineTo(b.x,b.y);
+        ctx.stroke();
+
+      }
+
+    }
+
+  }
+
+  for(let n of nodes){
+
+    ctx.fillStyle="#ffb300";
+    ctx.beginPath();
+    ctx.arc(n.x,n.y,n.r,0,Math.PI*2);
+    ctx.fill();
+
+  }
+
+}
+
+//////////////////////////////////////////////////////
+// 🧠 LOOP
+//////////////////////////////////////////////////////
+
+function loop(){
+
+  update();
+  draw();
+
+  requestAnimationFrame(loop);
+
+}
+
+loop();
+
+</script>
+
+</body>
+</html>
