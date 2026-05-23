@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>CCV Atlas v5 • Mapa Cognitivo Narrativo</title>
+
+<style>
+body{
+  margin:0;
+  overflow:hidden;
+  background:#050816;
+  font-family:Inter, sans-serif;
+}
+
+canvas{display:block;}
+
+.hud{
+  position:fixed;
+  top:14px;
+  left:14px;
+  width:360px;
+  padding:14px;
+  border-radius:14px;
+  background:rgba(0,0,0,.45);
+  backdrop-filter:blur(12px);
+  color:white;
+  font-size:13px;
+  line-height:1.4;
+  z-index:10;
+}
+
+.small{opacity:.7;margin-top:6px;}
+
+#oracleOverlay{
+  position:fixed;
+  bottom:16px;
+  left:50%;
+  transform:translateX(-50%);
+  width:min(900px,92%);
+  padding:16px;
+  border-radius:18px;
+  background:rgba(0,0,0,.5);
+  backdrop-filter:blur(14px);
+  color:#ffcc70;
+  font-size:14px;
+  text-align:center;
+  z-index:10;
+}
+</style>
+</head>
+
+<body>
+
+<canvas id="c"></canvas>
+
+<div class="hud">
+  <div><b>CCV ATLAS v5</b></div>
+
+  <div class="small">clusters ativos:</div>
+  <div id="clusters">0</div>
+
+  <div class="small">nomes emergentes:</div>
+  <div id="names"></div>
+</div>
+
+<div id="oracleOverlay">
+Inicializando leitura do campo cognitivo...
+</div>
+
+<script>
+
+//////////////////////////////////////////////////////
+// 🧠 CANVAS
+//////////////////////////////////////////////////////
+
+const canvas = document.getElementById("c");
+const ctx = canvas.getContext("2d");
+
+canvas.width = innerWidth;
+canvas.height = innerHeight;
+
+window.addEventListener("resize", ()=>{
+  canvas.width = innerWidth;
+  canvas.height = innerHeight;
+});
+
+//////////////////////////////////////////////////////
+// 🧠 NÓS (CAMPO SEMÂNTICO)
+//////////////////////////////////////////////////////
+
+const tags = [
+  "incerteza","decisão","estrutura","fluxo","caos",
+  "ordem","ansiedade","clareza","ruído","silêncio",
+  "memória","foco","dispersão","conflito","integração",
+  "ruptura","estabilidade","ação","reflexão","controle"
+];
+
+const nodes = tags.map(t => ({
+  x:Math.random()*innerWidth,
+  y:Math.random()*innerHeight,
+  vx:0,
+  vy:0,
+  label:t
+}));
+
+//////////////////////////////////////////////////////
+// 🧠 GRUPOS SEMÂNTICOS
+//////////////////////////////////////////////////////
+
+function group(t){
+
+  const g = {
+    caos:["caos","ruído","ruptura","conflito","ansiedade"],
+    ordem:["ordem","estrutura","clareza","estabilidade","controle"],
+    fluxo:["fluxo","movimento","ação","integração"],
+    introspectivo:["memória","silêncio","reflexão"],
+    cognitivo:["decisão","foco"]
+  };
+
+  for(let k in g){
+    if(g[k].includes(t)) return k;
+  }
+
+  return "neutro";
+}
+
+//////////////////////////////////////////////////////
+// 🧠 CLUSTERS
+//////////////////////////////////////////////////////
+
+function getClusters(){
+
+  const visited = new Array(nodes.length).fill(false);
+  const clusters = [];
+
+  function dfs(i,c){
+
+    visited[i]=true;
+    c.push(nodes[i]);
+
+    for(let j=0;j<nodes.length;j++){
+
+      if(visited[j]) continue;
+
+      const dx=nodes[i].x-nodes[j].x;
+      const dy=nodes[i].y-nodes[j].y;
+      const d=Math.sqrt(dx*dx+dy*dy);
+
+      if(d<95) dfs(j,c);
+
+    }
+
+  }
+
+  for(let i=0;i<nodes.length;i++){
+    if(!visited[i]){
+      const c=[];
+      dfs(i,c);
+      clusters.push(c);
+    }
+  }
+
+  return clusters;
+
+}
+
+//////////////////////////////////////////////////////
+// 🧠 NOMEAÇÃO DE CLUSTERS (LINGUAGEM VIVA)
+//////////////////////////////////////////////////////
+
+function nameCluster(cluster){
+
+  const freq={};
+
+  for(let n of cluster){
+    const g=group(n.label);
+    freq[g]=(freq[g]||0)+1;
+  }
+
+  const dominant = Object.entries(freq)
+    .sort((a,b)=>b[1]-a[1])[0]?.[0] || "neutro";
+
+  const map = {
+
+    caos:"núcleo de instabilidade",
+    ordem:"estrutura emergente",
+    fluxo:"dinâmica de transição",
+    introspectivo:"campo de interiorização",
+    cognitivo:"malha decisória",
+    neutro:"campo híbrido difuso"
+
+  };
+
+  return map[dominant];
+
+}
+
+//////////////////////////////////////////////////////
+// 🧠 CENTRO DO CLUSTER
+//////////////////////////////////////////////////////
+
+function center(c){
+
+  let x=0,y=0;
+
+  for(let n of c){
+    x+=n.x;
+    y+=n.y;
+  }
+
+  return {
+    x:x/c.length,
+    y:y/c.length
+  };
+
+}
+
+//////////////////////////////////////////////////////
+// 🧠 FÍSICA DO CAMPO
+//////////////////////////////////////////////////////
+
+function update(){
+
+  const clusters = getClusters();
+
+  for(let i=0;i<nodes.length;i++){
+
+    const a=nodes[i];
+
+    let fx=0, fy=0;
+
+    for(let j=0;j<nodes.length;j++){
+
+      if(i===j) continue;
+
+      const b=nodes[j];
+
+      const dx=b.x-a.x;
+      const dy=b.y-a.y;
+      const d=Math.sqrt(dx*dx+dy*dy)+0.1;
+
+      const f = (group(a.label)===group(b.label)) ? 0.7 : 0.04;
+
+      fx += (dx/d)*f;
+      fy += (dy/d)*f;
+
+    }
+
+    a.vx += fx*0.02;
+    a.vy += fy*0.02;
+
+    a.vx *= 0.9;
+    a.vy *= 0.9;
+
+    a.x += a.vx;
+    a.y += a.vy;
+
+  }
+
+  render(clusters);
+
+}
+
+//////////////////////////////////////////////////////
+// 🧠 ORÁCULO (LEITURA NARRATIVA GLOBAL)
+//////////////////////////////////////////////////////
+
+function oracleRead(clusters){
+
+  const names = clusters.map(nameCluster);
+
+  const freq={};
+
+  names.forEach(n=>{
+    freq[n]=(freq[n]||0)+1;
+  });
+
+  const dominant = Object.entries(freq)
+    .sort((a,b)=>b[1]-a[1])[0]?.[0] || "";
+
+  const globalMap = {
+
+    "núcleo de instabilidade":
+      "o campo opera sob dispersão estrutural com instabilidade dominante",
+
+    "estrutura emergente":
+      "há formação progressiva de coerência estrutural",
+
+    "dinâmica de transição":
+      "o sistema encontra-se em fluxo adaptativo contínuo",
+
+    "campo de interiorização":
+      "predominância de processamento interno e baixa externalização",
+
+    "malha decisória":
+      "convergência de padrões cognitivos orientados à decisão",
+
+    "campo híbrido difuso":
+      "ausência de dominância estrutural clara no campo"
+
+  };
+
+  document.getElementById("oracleOverlay").innerText =
+    globalMap[dominant] || "campo em estado indeterminado";
+
+}
+
+//////////////////////////////////////////////////////
+// 🧠 RENDER VISUAL
+//////////////////////////////////////////////////////
+
+function render(clusters){
+
+  ctx.clearRect(0,0,canvas.width,canvas.height);
+
+  //////////////////////////////////////////////////////
+  // conexões
+  //////////////////////////////////////////////////////
+
+  for(let i=0;i<nodes.length;i++){
+
+    for(let j=i+1;j<nodes.length;j++){
+
+      const a=nodes[i], b=nodes[j];
+
+      const dx=a.x-b.x;
+      const dy=a.y-b.y;
+      const d=Math.sqrt(dx*dx+dy*dy);
+
+      if(d<120){
+
+        ctx.strokeStyle=`rgba(255,255,255,${1-d/120})`;
+        ctx.lineWidth=0.4;
+
+        ctx.beginPath();
+        ctx.moveTo(a.x,a.y);
+        ctx.lineTo(b.x,b.y);
+        ctx.stroke();
+
+      }
+
+    }
+
+  }
+
+  //////////////////////////////////////////////////////
+  // nós
+  //////////////////////////////////////////////////////
+
+  for(let n of nodes){
+
+    ctx.fillStyle = "#ffb300";
+    ctx.beginPath();
+    ctx.arc(n.x,n.y,5,0,Math.PI*2);
+    ctx.fill();
+
+  }
+
+  //////////////////////////////////////////////////////
+  // clusters + nomes + fluxo
+  //////////////////////////////////////////////////////
+
+  document.getElementById("clusters").innerText = clusters.length;
+
+  const names = clusters.map(nameCluster);
+
+  document.getElementById("names").innerHTML =
+    names.map(n=>`<div>• ${n}</div>`).join("");
+
+  clusters.forEach(c=>{
+
+    const p = center(c);
+
+    ctx.fillStyle="#ffcc70";
+    ctx.beginPath();
+    ctx.arc(p.x,p.y,10,0,Math.PI*2);
+    ctx.fill();
+
+  });
+
+  //////////////////////////////////////////////////////
+  // FLUXO DIRECIONAL (SETAS SIMPLES)
+  //////////////////////////////////////////////////////
+
+  for(let i=0;i<nodes.length;i++){
+
+    for(let j=0;j<nodes.length;j++){
+
+      if(i===j) continue;
+
+      const a=nodes[i], b=nodes[j];
+
+      const dx=b.x-a.x;
+      const dy=b.y-a.y;
+      const d=Math.sqrt(dx*dx+dy*dy);
+
+      if(d<100){
+
+        ctx.strokeStyle="rgba(255,200,100,0.25)";
+
+        ctx.beginPath();
+        ctx.moveTo(a.x,a.y);
+        ctx.lineTo(b.x,b.y);
+        ctx.stroke();
+
+        // seta simples
+        const angle = Math.atan2(dy,dx);
+
+        const x2 = a.x + Math.cos(angle)*20;
+        const y2 = a.y + Math.sin(angle)*20;
+
+        ctx.beginPath();
+        ctx.moveTo(x2,y2);
+        ctx.lineTo(x2-6*Math.cos(angle-0.5), y2-6*Math.sin(angle-0.5));
+        ctx.lineTo(x2-6*Math.cos(angle+0.5), y2-6*Math.sin(angle+0.5));
+        ctx.fillStyle="rgba(255,200,100,0.3)";
+        ctx.fill();
+
+      }
+
+    }
+
+  }
+
+  oracleRead(clusters);
+
+}
+
+//////////////////////////////////////////////////////
+// 🧠 LOOP
+//////////////////////////////////////////////////////
+
+function loop(){
+  update();
+  requestAnimationFrame(loop);
+}
+
+loop();
+
+</script>
+
+</body>
+</html>
