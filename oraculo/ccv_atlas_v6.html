@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>CCV Atlas v6 • Rede Cognitiva Nomeada</title>
+
+<style>
+body{
+  margin:0;
+  overflow:hidden;
+  background:#050816;
+  font-family:Inter, sans-serif;
+}
+
+canvas{display:block;}
+
+.hud{
+  position:fixed;
+  top:14px;
+  left:14px;
+  width:380px;
+  padding:14px;
+  border-radius:14px;
+  background:rgba(0,0,0,.5);
+  backdrop-filter:blur(12px);
+  color:white;
+  font-size:13px;
+  line-height:1.4;
+  z-index:10;
+}
+
+.small{opacity:.7;margin-top:6px;}
+
+#oracle{
+  position:fixed;
+  bottom:14px;
+  left:50%;
+  transform:translateX(-50%);
+  width:min(900px,92%);
+  padding:14px;
+  border-radius:14px;
+  background:rgba(0,0,0,.55);
+  backdrop-filter:blur(14px);
+  color:#ffcc70;
+  text-align:center;
+  z-index:10;
+}
+</style>
+</head>
+
+<body>
+
+<canvas id="c"></canvas>
+
+<div class="hud">
+  <div><b>CCV ATLAS v6</b></div>
+
+  <div class="small">relações cognitivas:</div>
+  <div id="links"></div>
+
+  <div class="small">clusters semânticos:</div>
+  <div id="clusters"></div>
+</div>
+
+<div id="oracle">inicializando leitura cognitiva...</div>
+
+<script>
+
+//////////////////////////////////////////////////////
+// 🧠 CANVAS
+//////////////////////////////////////////////////////
+
+const canvas = document.getElementById("c");
+const ctx = canvas.getContext("2d");
+
+canvas.width = innerWidth;
+canvas.height = innerHeight;
+
+window.addEventListener("resize", ()=>{
+  canvas.width = innerWidth;
+  canvas.height = innerHeight;
+});
+
+//////////////////////////////////////////////////////
+// 🧠 NODES COGNITIVOS (NOMEADOS)
+//////////////////////////////////////////////////////
+
+const nodes = [
+  {name:"Incerteza", type:"estado", x:100, y:200, vx:0, vy:0},
+  {name:"Decisão", type:"ação", x:300, y:120, vx:0, vy:0},
+  {name:"Estrutura", type:"estrutura", x:500, y:300, vx:0, vy:0},
+  {name:"Fluxo", type:"processo", x:700, y:200, vx:0, vy:0},
+  {name:"Caos", type:"estado", x:200, y:500, vx:0, vy:0},
+  {name:"Ordem", type:"estrutura", x:600, y:500, vx:0, vy:0},
+  {name:"Memória", type:"processo", x:900, y:350, vx:0, vy:0},
+  {name:"Foco", type:"ação", x:400, y:450, vx:0, vy:0},
+  {name:"Dispersão", type:"estado", x:250, y:350, vx:0, vy:0},
+  {name:"Integração", type:"processo", x:800, y:450, vx:0, vy:0}
+];
+
+//////////////////////////////////////////////////////
+// 🧠 RELAÇÕES SEMÂNTICAS EXPLÍCITAS
+//////////////////////////////////////////////////////
+
+const links = [
+  ["Incerteza","Decisão","tensão cognitiva"],
+  ["Decisão","Estrutura","organização"],
+  ["Estrutura","Fluxo","processamento"],
+  ["Fluxo","Integração","continuidade"],
+  ["Caos","Dispersão","fragmentação"],
+  ["Ordem","Estrutura","estabilização"],
+  ["Memória","Decisão","referência"],
+  ["Foco","Decisão","direção"],
+  ["Dispersão","Incerteza","ruído"],
+  ["Integração","Estrutura","unificação"]
+];
+
+//////////////////////////////////////////////////////
+// 🧠 CLUSTERS (SEMÂNTICA INTERPRETÁVEL)
+//////////////////////////////////////////////////////
+
+function clusterize(){
+
+  const groups = {
+    estabilidade:[],
+    instabilidade:[],
+    processamento:[],
+    decisão:[]
+  };
+
+  nodes.forEach(n=>{
+
+    if(["Ordem","Estrutura"].includes(n.name))
+      groups.estabilidade.push(n);
+
+    else if(["Caos","Dispersão","Incerteza"].includes(n.name))
+      groups.instabilidade.push(n);
+
+    else if(["Fluxo","Integração","Memória"].includes(n.name))
+      groups.processamento.push(n);
+
+    else
+      groups["decisão"].push(n);
+
+  });
+
+  return groups;
+
+}
+
+//////////////////////////////////////////////////////
+// 🧠 FÍSICA
+//////////////////////////////////////////////////////
+
+function update(){
+
+  for(let i=0;i<nodes.length;i++){
+
+    const a=nodes[i];
+
+    let fx=0, fy=0;
+
+    for(let j=0;j<nodes.length;j++){
+
+      if(i===j) continue;
+
+      const b=nodes[j];
+
+      const dx=b.x-a.x;
+      const dy=b.y-a.y;
+      const d=Math.sqrt(dx*dx+dy*dy)+0.1;
+
+      let force = 0.06;
+
+      if(connected(a.name,b.name)) force = 0.18;
+
+      fx += (dx/d)*force;
+      fy += (dy/d)*force;
+
+    }
+
+    a.vx += fx*0.02;
+    a.vy += fy*0.02;
+
+    a.vx *= 0.88;
+    a.vy *= 0.88;
+
+    a.x += a.vx;
+    a.y += a.vy;
+
+  }
+
+}
+
+//////////////////////////////////////////////////////
+// 🧠 CHECAR RELAÇÃO
+//////////////////////////////////////////////////////
+
+function connected(a,b){
+
+  return links.some(l =>
+    (l[0]===a && l[1]===b) ||
+    (l[1]===a && l[0]===b)
+  );
+
+}
+
+//////////////////////////////////////////////////////
+// 🧠 ORÁCULO (LEITURA DO SISTEMA)
+//////////////////////////////////////////////////////
+
+function oracle(groups){
+
+  let text = "";
+
+  if(groups.instabilidade.length > groups.estabilidade.length){
+    text = "o sistema opera sob dominância de instabilidade cognitiva";
+  }
+
+  if(groups.estabilidade.length > groups.instabilidade.length){
+    text = "o sistema demonstra tendência à estabilização estrutural";
+  }
+
+  if(groups.processamento.length > groups.instabilidade.length){
+    text += " com forte capacidade de integração informacional";
+  }
+
+  document.getElementById("oracle").innerText = text;
+
+}
+
+//////////////////////////////////////////////////////
+// 🧠 RENDER
+//////////////////////////////////////////////////////
+
+function draw(){
+
+  ctx.clearRect(0,0,canvas.width,canvas.height);
+
+  //////////////////////////////////////////////////////
+  // LINKS NOMINAIS
+  //////////////////////////////////////////////////////
+
+  links.forEach(l=>{
+
+    const a = nodes.find(n=>n.name===l[0]);
+    const b = nodes.find(n=>n.name===l[1]);
+
+    if(!a||!b) return;
+
+    ctx.strokeStyle="rgba(255,200,120,0.25)";
+    ctx.beginPath();
+    ctx.moveTo(a.x,a.y);
+    ctx.lineTo(b.x,b.y);
+    ctx.stroke();
+
+  });
+
+  //////////////////////////////////////////////////////
+  // NODES
+  //////////////////////////////////////////////////////
+
+  nodes.forEach(n=>{
+
+    ctx.fillStyle="#ffb300";
+    ctx.beginPath();
+    ctx.arc(n.x,n.y,7,0,Math.PI*2);
+    ctx.fill();
+
+    ctx.fillStyle="#fff";
+    ctx.font="12px sans-serif";
+    ctx.fillText(n.name,n.x+10,n.y+4);
+
+  });
+
+}
+
+//////////////////////////////////////////////////////
+// 🧠 LOOP
+//////////////////////////////////////////////////////
+
+function loop(){
+
+  update();
+
+  const groups = clusterize();
+
+  oracle(groups);
+
+  draw();
+
+  requestAnimationFrame(loop);
+
+}
+
+loop();
+
+</script>
+
+</body>
+</html>
