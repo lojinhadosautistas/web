@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>CCV v2 • Campo Cognitivo Vivo</title>
+
+<style>
+body{
+  margin:0;
+  overflow:hidden;
+  background:#050816;
+  font-family:Inter, sans-serif;
+}
+
+canvas{
+  display:block;
+}
+
+.hud{
+  position:fixed;
+  top:16px;
+  left:16px;
+  color:white;
+  font-size:13px;
+  background:rgba(0,0,0,.35);
+  padding:12px;
+  border-radius:12px;
+  backdrop-filter:blur(10px);
+  width:260px;
+}
+
+.cluster{
+  color:#ffb300;
+}
+
+.small{
+  opacity:.7;
+  margin-top:6px;
+  font-size:12px;
+}
+</style>
+</head>
+
+<body>
+
+<canvas id="c"></canvas>
+
+<div class="hud">
+  <div><b>CCV v2 • ORÁCULO FIELD</b></div>
+
+  <div class="small">clusters detectados:</div>
+  <div id="clusters">0</div>
+
+  <div class="small">leitura do oráculo:</div>
+  <div id="oracle"></div>
+</div>
+
+<script>
+
+//////////////////////////////////////////////////////
+// 🧠 SETUP CANVAS
+//////////////////////////////////////////////////////
+
+const canvas = document.getElementById("c");
+const ctx = canvas.getContext("2d");
+
+canvas.width = innerWidth;
+canvas.height = innerHeight;
+
+window.addEventListener("resize", ()=>{
+  canvas.width = innerWidth;
+  canvas.height = innerHeight;
+});
+
+//////////////////////////////////////////////////////
+// 🧠 ORÁCULO (ESTADO INTERPRETATIVO)
+//////////////////////////////////////////////////////
+
+const oracle = {
+  coerencia: 0,
+  dispersao: 0,
+  clusters: 0,
+  leitura: ""
+};
+
+//////////////////////////////////////////////////////
+// 🧠 30 TAGS SEMÂNTICAS INICIAIS
+//////////////////////////////////////////////////////
+
+const baseTags = [
+  "incerteza",
+  "decisão",
+  "estrutura",
+  "fluxo",
+  "caos",
+  "ordem",
+  "ansiedade",
+  "clareza",
+  "ruído",
+  "silêncio",
+  "memória",
+  "esquecimento",
+  "foco",
+  "dispersão",
+  "conflito",
+  "integração",
+  "ruptura",
+  "estabilidade",
+  "movimento",
+  "paralisação",
+  "observação",
+  "ação",
+  "reflexão",
+  "impulso",
+  "controle",
+  "entrega",
+  "resistência",
+  "adaptação",
+  "tensão",
+  "resolução"
+];
+
+//////////////////////////////////////////////////////
+// 🧠 NÓS DO CAMPO
+//////////////////////////////////////////////////////
+
+const nodes = [];
+
+for(let i=0;i<baseTags.length;i++){
+
+  nodes.push({
+    x: Math.random()*canvas.width,
+    y: Math.random()*canvas.height,
+    vx:(Math.random()-0.5)*2,
+    vy:(Math.random()-0.5)*2,
+    label: baseTags[i],
+    r: 4 + Math.random()*2
+  });
+
+}
+
+//////////////////////////////////////////////////////
+// 🧠 FORÇA SEMÂNTICA
+//////////////////////////////////////////////////////
+
+function similarity(a,b){
+
+  // heurística simples de similaridade
+  if(a.label === b.label) return 1;
+
+  const groupA = semanticGroup(a.label);
+  const groupB = semanticGroup(b.label);
+
+  if(groupA === groupB) return 0.6;
+
+  return 0.05;
+
+}
+
+function semanticGroup(tag){
+
+  const groups = {
+
+    controle: ["controle","estrutura","ordem","estabilidade","clareza"],
+    caos: ["caos","ruído","tensão","ruptura","conflito"],
+    fluxo: ["fluxo","movimento","adaptação","ação","impulso"],
+    introspectivo: ["reflexão","observação","memória","silêncio","esquecimento"],
+    emocional: ["ansiedade","incerteza","resistência","entrega","foco"]
+
+  };
+
+  for(const g in groups){
+    if(groups[g].includes(tag)) return g;
+  }
+
+  return "neutro";
+
+}
+
+//////////////////////////////////////////////////////
+// 🧠 FÍSICA DO CAMPO
+//////////////////////////////////////////////////////
+
+function update(){
+
+  for(let i=0;i<nodes.length;i++){
+
+    let a = nodes[i];
+
+    let fx = 0;
+    let fy = 0;
+
+    for(let j=0;j<nodes.length;j++){
+
+      if(i === j) continue;
+
+      let b = nodes[j];
+
+      const dx = b.x - a.x;
+      const dy = b.y - a.y;
+
+      const dist = Math.sqrt(dx*dx + dy*dy) + 0.1;
+
+      const f = similarity(a,b);
+
+      fx += (dx/dist) * f;
+      fy += (dy/dist) * f;
+
+    }
+
+    // gravidade do campo (instabilidade global)
+    fx += (Math.random()-0.5)*0.3;
+    fy += (Math.random()-0.5)*0.3;
+
+    a.vx += fx * 0.02;
+    a.vy += fy * 0.02;
+
+    a.vx *= 0.92;
+    a.vy *= 0.92;
+
+    a.x += a.vx;
+    a.y += a.vy;
+
+  }
+
+}
+
+//////////////////////////////////////////////////////
+// 🧠 DETECÇÃO DE CLUSTERS
+//////////////////////////////////////////////////////
+
+function detectClusters(){
+
+  const visited = new Array(nodes.length).fill(false);
+  let clusters = 0;
+
+  function dfs(i){
+
+    visited[i] = true;
+
+    for(let j=0;j<nodes.length;j++){
+
+      if(visited[j]) continue;
+
+      const dx = nodes[i].x - nodes[j].x;
+      const dy = nodes[i].y - nodes[j].y;
+
+      const d = Math.sqrt(dx*dx + dy*dy);
+
+      if(d < 80){
+        dfs(j);
+      }
+
+    }
+
+  }
+
+  for(let i=0;i<nodes.length;i++){
+    if(!visited[i]){
+      clusters++;
+      dfs(i);
+    }
+  }
+
+  return clusters;
+
+}
+
+//////////////////////////////////////////////////////
+// 🧠 ORÁCULO (LEITURA DO CAMPO)
+//////////////////////////////////////////////////////
+
+function updateOracle(){
+
+  const clusters = detectClusters();
+
+  oracle.clusters = clusters;
+
+  const avgSpeed =
+    nodes.reduce((s,n)=> s + Math.abs(n.vx)+Math.abs(n.vy),0)
+    / nodes.length;
+
+  oracle.dispersao = avgSpeed;
+  oracle.coerencia = 1 / (1 + avgSpeed);
+
+  if(clusters <= 2){
+    oracle.leitura = "campo convergente — tendência de integração";
+  } else if(clusters <= 4){
+    oracle.leitura = "campo estruturando padrões intermediários";
+  } else {
+    oracle.leitura = "campo fragmentado — alta dispersão cognitiva";
+  }
+
+  document.getElementById("clusters").innerText = clusters;
+
+  document.getElementById("oracle").innerText =
+    oracle.leitura +
+    "\ncoerência: " + oracle.coerencia.toFixed(2);
+
+}
+
+//////////////////////////////////////////////////////
+// 🧠 RENDER
+//////////////////////////////////////////////////////
+
+function draw(){
+
+  ctx.clearRect(0,0,canvas.width,canvas.height);
+
+  // conexões
+  for(let i=0;i<nodes.length;i++){
+
+    for(let j=i+1;j<nodes.length;j++){
+
+      const a = nodes[i];
+      const b = nodes[j];
+
+      const dx = a.x - b.x;
+      const dy = a.y - b.y;
+      const d = Math.sqrt(dx*dx + dy*dy);
+
+      if(d < 120){
+
+        ctx.strokeStyle =
+          `rgba(255,179,0,${1 - d/120})`;
+
+        ctx.lineWidth = 0.4;
+
+        ctx.beginPath();
+        ctx.moveTo(a.x,a.y);
+        ctx.lineTo(b.x,b.y);
+        ctx.stroke();
+
+      }
+
+    }
+
+  }
+
+  // nós
+  for(let n of nodes){
+
+    ctx.fillStyle = "#ffb300";
+
+    ctx.beginPath();
+    ctx.arc(n.x,n.y,n.r,0,Math.PI*2);
+    ctx.fill();
+
+  }
+
+}
+
+//////////////////////////////////////////////////////
+// 🧠 LOOP
+//////////////////////////////////////////////////////
+
+function loop(){
+
+  update();
+  draw();
+  updateOracle();
+
+  requestAnimationFrame(loop);
+
+}
+
+loop();
+
+</script>
+
+</body>
+</html>
