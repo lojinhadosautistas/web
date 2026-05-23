@@ -1,0 +1,1159 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Cada Passo, Uma Jornada · DASH LIVRO 1</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Oswald:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+
+:root{
+
+  --bg:#f5efe6;
+  --panel:#fffaf4;
+  --panel2:#f1e7d8;
+
+  --text:#2b1d12;
+  --muted:#6c6258;
+
+  --gold:#b87a24;
+  --brown:#4e2d12;
+  --green:#6d8d68;
+  --purple:#7052a1;
+  --blue:#355f82;
+  --orange:#cf7d21;
+
+  --border:#e3d6c5;
+
+  --shadow:
+  0 20px 60px rgba(40,20,0,.08);
+
+}
+
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
+
+body{
+
+  background:
+  radial-gradient(circle at top left, rgba(184,122,36,.06), transparent 20%),
+  radial-gradient(circle at bottom right, rgba(112,82,161,.05), transparent 25%),
+  var(--bg);
+
+  color:var(--text);
+
+  font-family:'Inter',sans-serif;
+
+  overflow-x:hidden;
+
+}
+
+.container{
+
+  width:min(1700px,95vw);
+
+  margin:auto;
+
+  padding:28px 0 80px;
+
+}
+
+/* HERO */
+
+.hero{
+
+  position:relative;
+
+  overflow:hidden;
+
+  background:linear-gradient(135deg,#fffdf8,#f4e8d6);
+
+  border:1px solid var(--border);
+
+  border-radius:40px;
+
+  padding:70px;
+
+  display:grid;
+
+  grid-template-columns:1.2fr .9fr;
+
+  gap:60px;
+
+  box-shadow:var(--shadow);
+
+}
+
+.hero::before{
+
+  content:'';
+
+  position:absolute;
+
+  width:800px;
+  height:800px;
+
+  border-radius:50%;
+
+  background:
+  radial-gradient(circle,
+  rgba(184,122,36,.08),
+  transparent 70%);
+
+  top:-300px;
+  right:-250px;
+
+}
+
+.kicker{
+
+  display:flex;
+  align-items:center;
+  gap:14px;
+
+  margin-bottom:26px;
+
+}
+
+.kicker span{
+
+  font-family:'Oswald',sans-serif;
+
+  letter-spacing:2px;
+
+  font-size:1rem;
+
+  color:#7d4e22;
+
+}
+
+.dot{
+
+  width:8px;
+  height:8px;
+
+  border-radius:50%;
+
+  background:var(--gold);
+
+}
+
+.hero h1{
+
+  font-family:'Oswald',sans-serif;
+
+  font-size:clamp(4rem,8vw,7rem);
+
+  line-height:.95;
+
+  letter-spacing:-2px;
+
+  margin-bottom:30px;
+
+  color:#351b08;
+
+}
+
+.hero h1 strong{
+
+  color:var(--gold);
+
+  display:block;
+
+}
+
+.hero p{
+
+  font-size:1.2rem;
+
+  line-height:2;
+
+  max-width:820px;
+
+  color:#5f564d;
+
+}
+
+.hero-right{
+
+  display:flex;
+  flex-direction:column;
+  gap:24px;
+
+}
+
+.info-card{
+
+  background:rgba(255,255,255,.7);
+
+  border:1px solid rgba(0,0,0,.05);
+
+  border-radius:28px;
+
+  padding:28px;
+
+  backdrop-filter:blur(10px);
+
+}
+
+.info-card h3{
+
+  font-family:'Oswald',sans-serif;
+
+  font-size:2rem;
+
+  margin-bottom:12px;
+
+}
+
+.info-card p{
+
+  color:#64584d;
+
+  line-height:1.9;
+
+}
+
+/* GRID */
+
+.grid{
+
+  display:grid;
+
+  grid-template-columns:1.1fr .9fr;
+
+  gap:24px;
+
+  margin-top:28px;
+
+}
+
+/* PANELS */
+
+.panel{
+
+  background:var(--panel);
+
+  border:1px solid var(--border);
+
+  border-radius:34px;
+
+  overflow:hidden;
+
+  box-shadow:var(--shadow);
+
+}
+
+/* BOOK */
+
+.book{
+
+  padding:42px;
+
+}
+
+.section-title{
+
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+
+  margin-bottom:34px;
+
+}
+
+.section-title h2{
+
+  font-family:'Oswald',sans-serif;
+
+  font-size:2.7rem;
+
+}
+
+.badge{
+
+  padding:10px 18px;
+
+  border-radius:999px;
+
+  background:#f0e2cb;
+
+  color:#8a5b1f;
+
+  font-weight:700;
+
+  font-size:.9rem;
+
+}
+
+.chapter-grid{
+
+  display:grid;
+
+  grid-template-columns:repeat(2,1fr);
+
+  gap:22px;
+
+}
+
+.chapter{
+
+  position:relative;
+
+  overflow:hidden;
+
+  border-radius:28px;
+
+  padding:28px;
+
+  min-height:280px;
+
+  background:
+  linear-gradient(180deg,#fff,#fbf6ef);
+
+  border:1px solid rgba(0,0,0,.05);
+
+  transition:.35s;
+
+}
+
+.chapter:hover{
+
+  transform:translateY(-8px);
+
+}
+
+.chapter span{
+
+  display:inline-flex;
+
+  align-items:center;
+  justify-content:center;
+
+  width:58px;
+  height:58px;
+
+  border-radius:18px;
+
+  margin-bottom:22px;
+
+  font-size:1.5rem;
+
+  background:#f5ead7;
+
+}
+
+.chapter h3{
+
+  font-family:'Oswald',sans-serif;
+
+  font-size:2rem;
+
+  line-height:1.1;
+
+  margin-bottom:16px;
+
+}
+
+.chapter p{
+
+  color:#675e55;
+
+  line-height:1.8;
+
+}
+
+.chapter ul{
+
+  margin-top:18px;
+
+  padding-left:18px;
+
+  display:grid;
+  gap:10px;
+
+  color:#5d5349;
+
+  line-height:1.7;
+
+}
+
+/* INSIGHTS */
+
+.insights{
+
+  padding:42px;
+
+  background:
+  linear-gradient(180deg,#fffaf3,#f7f0e7);
+
+}
+
+.quote{
+
+  position:relative;
+
+  padding:34px;
+
+  border-radius:30px;
+
+  background:#fff;
+
+  border:1px solid rgba(0,0,0,.05);
+
+  margin-bottom:28px;
+
+}
+
+.quote::before{
+
+  content:'“';
+
+  position:absolute;
+
+  top:-30px;
+  left:20px;
+
+  font-size:8rem;
+
+  color:rgba(184,122,36,.1);
+
+  font-family:serif;
+
+}
+
+.quote p{
+
+  position:relative;
+
+  z-index:2;
+
+  font-size:1.15rem;
+
+  line-height:2;
+
+  color:#4d4238;
+
+}
+
+.quote small{
+
+  display:block;
+
+  margin-top:20px;
+
+  color:#9c6b29;
+
+  font-weight:700;
+
+}
+
+.insight-grid{
+
+  display:grid;
+  gap:18px;
+
+}
+
+.insight{
+
+  padding:22px;
+
+  border-radius:24px;
+
+  background:#fff;
+
+  border:1px solid rgba(0,0,0,.05);
+
+}
+
+.insight strong{
+
+  display:block;
+
+  margin-bottom:12px;
+
+  font-size:1.1rem;
+
+}
+
+.insight p{
+
+  color:#675c51;
+
+  line-height:1.8;
+
+}
+
+/* TIMELINE */
+
+.timeline{
+
+  margin-top:28px;
+
+  padding:42px;
+
+}
+
+.timeline-line{
+
+  position:relative;
+
+  margin-top:60px;
+
+  display:grid;
+
+  grid-template-columns:repeat(4,1fr);
+
+  gap:30px;
+
+}
+
+.timeline-line::before{
+
+  content:'';
+
+  position:absolute;
+
+  left:0;
+  right:0;
+  top:30px;
+
+  height:4px;
+
+  border-radius:999px;
+
+  background:#eadac7;
+
+}
+
+.year{
+
+  position:relative;
+
+  z-index:2;
+
+}
+
+.year-dot{
+
+  width:64px;
+  height:64px;
+
+  border-radius:50%;
+
+  background:#fff;
+
+  border:6px solid #e5d1b7;
+
+  margin-bottom:22px;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  font-weight:800;
+
+  color:#8a5b1f;
+
+}
+
+.year h4{
+
+  font-family:'Oswald',sans-serif;
+
+  font-size:1.7rem;
+
+  margin-bottom:16px;
+
+}
+
+.year ul{
+
+  padding-left:18px;
+
+  display:grid;
+  gap:10px;
+
+  line-height:1.7;
+
+  color:#66594d;
+
+}
+
+/* CTA */
+
+.cta{
+
+  margin-top:28px;
+
+  position:relative;
+
+  overflow:hidden;
+
+  padding:60px;
+
+  border-radius:40px;
+
+  background:
+  linear-gradient(135deg,#4d2f12,#7d521c);
+
+  color:#fff;
+
+  box-shadow:
+  0 25px 60px rgba(60,30,0,.18);
+
+}
+
+.cta::before{
+
+  content:'';
+
+  position:absolute;
+
+  width:500px;
+  height:500px;
+
+  border-radius:50%;
+
+  background:
+  radial-gradient(circle,
+  rgba(255,255,255,.08),
+  transparent 70%);
+
+  top:-200px;
+  right:-120px;
+
+}
+
+.cta-grid{
+
+  position:relative;
+
+  z-index:2;
+
+  display:grid;
+
+  grid-template-columns:1.2fr .8fr;
+
+  gap:40px;
+
+}
+
+.cta h2{
+
+  font-family:'Oswald',sans-serif;
+
+  font-size:4rem;
+
+  line-height:1;
+
+  margin-bottom:26px;
+
+}
+
+.cta p{
+
+  font-size:1.1rem;
+
+  line-height:2;
+
+  color:rgba(255,255,255,.88);
+
+}
+
+.cta-cards{
+
+  display:grid;
+  gap:18px;
+
+}
+
+.cta-card{
+
+  padding:24px;
+
+  border-radius:24px;
+
+  background:rgba(255,255,255,.08);
+
+  border:1px solid rgba(255,255,255,.08);
+
+  backdrop-filter:blur(10px);
+
+}
+
+.cta-card strong{
+
+  display:block;
+
+  margin-bottom:10px;
+
+}
+
+/* RESPONSIVO */
+
+@media(max-width:1200px){
+
+  .hero{
+    grid-template-columns:1fr;
+  }
+
+  .grid{
+    grid-template-columns:1fr;
+  }
+
+  .cta-grid{
+    grid-template-columns:1fr;
+  }
+
+}
+
+@media(max-width:900px){
+
+  .hero{
+    padding:40px;
+  }
+
+  .chapter-grid{
+    grid-template-columns:1fr;
+  }
+
+  .timeline-line{
+    grid-template-columns:1fr;
+  }
+
+  .timeline-line::before{
+    display:none;
+  }
+
+}
+
+</style>
+
+</head>
+<body>
+
+<div class="container">
+
+  <!-- HERO -->
+
+  <section class="hero">
+
+    <div>
+
+      <div class="kicker">
+
+        <span>PROJETO CADA PASSO, UMA JORNADA</span>
+
+        <div class="dot"></div>
+
+        <span>VOLUME 1</span>
+
+      </div>
+
+      <h1>
+
+        ROTINA E
+        <strong>PREVISIBILIDADE</strong>
+        NO AUTISMO
+        NA VIDA ADULTA
+
+      </h1>
+
+      <p>
+
+        Um material construído para transformar compreensão em organização prática.
+        O livro apresenta a rotina não como rigidez, mas como ferramenta de regulação,
+        previsibilidade e redução de sobrecarga cognitiva na vida adulta.
+
+      </p>
+
+    </div>
+
+    <div class="hero-right">
+
+      <div class="info-card">
+
+        <h3>
+          O que este livro propõe?
+        </h3>
+
+        <p>
+          Uma leitura profunda sobre como estrutura, ambiente, previsibilidade e continuidade influenciam diretamente o funcionamento diário, a energia mental e a capacidade de ação.
+        </p>
+
+      </div>
+
+      <div class="info-card">
+
+        <h3>
+          Linguagem acessível
+        </h3>
+
+        <p>
+          Conteúdo técnico transformado em explicações claras, humanas e aplicáveis para famílias, adultos autistas, profissionais e instituições.
+        </p>
+
+      </div>
+
+      <div class="info-card">
+
+        <h3>
+          Ecossistema integrado
+        </h3>
+
+        <p>
+          O livro faz parte de uma arquitetura maior de suporte à decisão, reflexão contextual e construção de autonomia sustentável.
+        </p>
+
+      </div>
+
+    </div>
+
+  </section>
+
+  <!-- GRID -->
+
+  <section class="grid">
+
+    <!-- BOOK -->
+
+    <div class="panel book">
+
+      <div class="section-title">
+
+        <h2>
+          Capítulos Estruturantes
+        </h2>
+
+        <div class="badge">
+          EXPERIÊNCIA EDITORIAL
+        </div>
+
+      </div>
+
+      <div class="chapter-grid">
+
+        <div class="chapter">
+
+          <span>🧠</span>
+
+          <h3>
+            O Custo Invisível da Imprevisibilidade
+          </h3>
+
+          <p>
+            Como a ausência de estrutura consome energia silenciosamente.
+          </p>
+
+          <ul>
+            <li>Estado de alerta contínuo</li>
+            <li>Antecipação negativa</li>
+            <li>Cansaço mental acumulativo</li>
+          </ul>
+
+        </div>
+
+        <div class="chapter">
+
+          <span>⚡</span>
+
+          <h3>
+            Procrastinação e Paralisia
+          </h3>
+
+          <p>
+            A dificuldade de iniciar tarefas como fenômeno estrutural.
+          </p>
+
+          <ul>
+            <li>Sobrecarga de decisões</li>
+            <li>Bloqueio funcional</li>
+            <li>Fragmentação do comportamento</li>
+          </ul>
+
+        </div>
+
+        <div class="chapter">
+
+          <span>🏠</span>
+
+          <h3>
+            Ambiente e Regulação
+          </h3>
+
+          <p>
+            A relação entre previsibilidade ambiental e estabilidade do sistema.
+          </p>
+
+          <ul>
+            <li>Organização visual</li>
+            <li>Rotina como continuidade</li>
+            <li>Redução de sobrecarga</li>
+          </ul>
+
+        </div>
+
+        <div class="chapter">
+
+          <span>📚</span>
+
+          <h3>
+            Estrutura Como Ferramenta
+          </h3>
+
+          <p>
+            Transformando intenção em ação através de clareza operacional.
+          </p>
+
+          <ul>
+            <li>Sequências práticas</li>
+            <li>Continuidade funcional</li>
+            <li>Construção de autonomia</li>
+          </ul>
+
+        </div>
+
+      </div>
+
+    </div>
+
+    <!-- INSIGHTS -->
+
+    <aside class="panel insights">
+
+      <div class="section-title">
+
+        <h2>
+          Leituras Centrais
+        </h2>
+
+      </div>
+
+      <div class="quote">
+
+        <p>
+
+          “A previsibilidade deixa de ser vista como uma preferência e passa a ser compreendida como um elemento regulador do funcionamento.”
+
+        </p>
+
+        <small>
+          Capítulo 2 · Sistema REDE
+        </small>
+
+      </div>
+
+      <div class="insight-grid">
+
+        <div class="insight">
+
+          <strong>
+            A ansiedade pode emergir da falta de informação
+          </strong>
+
+          <p>
+            Quando o ambiente não oferece clareza suficiente, o sistema tende a preencher lacunas com cenários hipotéticos negativos.
+          </p>
+
+        </div>
+
+        <div class="insight">
+
+          <strong>
+            O desgaste não está apenas no fazer
+          </strong>
+
+          <p>
+            Grande parte da energia é consumida organizando mentalmente o que ainda não está estruturado.
+          </p>
+
+        </div>
+
+        <div class="insight">
+
+          <strong>
+            Rotina reduz carga cognitiva
+          </strong>
+
+          <p>
+            Estruturas previsíveis diminuem decisões constantes e facilitam continuidade comportamental.
+          </p>
+
+        </div>
+
+      </div>
+
+    </aside>
+
+  </section>
+
+  <!-- TIMELINE -->
+
+  <section class="panel timeline">
+
+    <div class="section-title">
+
+      <h2>
+        Expansão do Ecossistema Editorial
+      </h2>
+
+      <div class="badge">
+        PLANO QUADRIENAL
+      </div>
+
+    </div>
+
+    <div class="timeline-line">
+
+      <div class="year">
+
+        <div class="year-dot">
+          1
+        </div>
+
+        <h4>
+          Rotina e Previsibilidade
+        </h4>
+
+        <ul>
+          <li>Estrutura</li>
+          <li>Organização</li>
+          <li>Regulação</li>
+        </ul>
+
+      </div>
+
+      <div class="year">
+
+        <div class="year-dot">
+          2
+        </div>
+
+        <h4>
+          Relações e Mediação
+        </h4>
+
+        <ul>
+          <li>Família</li>
+          <li>Comunicação</li>
+          <li>Interações</li>
+        </ul>
+
+      </div>
+
+      <div class="year">
+
+        <div class="year-dot">
+          3
+        </div>
+
+        <h4>
+          Vida Prática
+        </h4>
+
+        <ul>
+          <li>Autonomia</li>
+          <li>Funcionamento</li>
+          <li>Ambiente real</li>
+        </ul>
+
+      </div>
+
+      <div class="year">
+
+        <div class="year-dot">
+          4
+        </div>
+
+        <h4>
+          Identidade e Mundo
+        </h4>
+
+        <ul>
+          <li>Subjetividade</li>
+          <li>Pertencimento</li>
+          <li>Vida adulta</li>
+        </ul>
+
+      </div>
+
+    </div>
+
+  </section>
+
+  <!-- CTA -->
+
+  <section class="cta">
+
+    <div class="cta-grid">
+
+      <div>
+
+        <h2>
+          UM LIVRO QUE
+          ORGANIZA
+          CAMINHOS.
+        </h2>
+
+        <p>
+
+          Mais do que conteúdo técnico, o projeto Cada Passo, Uma Jornada busca construir compreensão prática, acessível e profundamente humana para pessoas autistas, famílias, profissionais e instituições.
+
+        </p>
+
+      </div>
+
+      <div class="cta-cards">
+
+        <div class="cta-card">
+
+          <strong>
+            Conteúdo acessível
+          </strong>
+
+          Linguagem clara, visual e aplicável ao cotidiano.
+
+        </div>
+
+        <div class="cta-card">
+
+          <strong>
+            Arquitetura integrada
+          </strong>
+
+          Livro, dashboard, protocolos e jornadas conectadas.
+
+        </div>
+
+        <div class="cta-card">
+
+          <strong>
+            Impacto contínuo
+          </strong>
+
+          Um ecossistema editorial construído para crescer ao longo dos anos.
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </section>
+
+</div>
+
+</body>
+</html>
