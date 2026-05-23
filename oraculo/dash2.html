@@ -1,0 +1,1513 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+<title>ORÁCULO · DASH2</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Cinzel:wght@400;600;700&display=swap" rel="stylesheet">
+
+<script src="https://cdn.jsdelivr.net/npm/@panzoom/panzoom/dist/panzoom.min.js"></script>
+
+<style>
+
+:root{
+
+  --bg:#04070f;
+  --panel:#09111f;
+  --border:rgba(255,255,255,.07);
+
+  --text:#f4f7ff;
+  --muted:#9aa7c7;
+
+  --blue:#58a6ff;
+  --green:#92ff8d;
+  --orange:#ffb15c;
+  --purple:#bb7dff;
+
+  --gold:#ffcf7b;
+
+  --shadow:0 30px 80px rgba(0,0,0,.45);
+
+}
+
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
+
+html{
+  scroll-behavior:smooth;
+}
+
+body{
+
+  background:
+  radial-gradient(circle at top left, rgba(88,166,255,.08), transparent 20%),
+  radial-gradient(circle at bottom right, rgba(187,125,255,.08), transparent 25%),
+  linear-gradient(180deg,#02040a,#07101d);
+
+  color:var(--text);
+  font-family:'Inter',sans-serif;
+
+  overflow:hidden;
+
+}
+
+body::before{
+
+  content:'';
+  position:fixed;
+  inset:0;
+
+  background-image:
+  linear-gradient(rgba(255,255,255,.018) 1px, transparent 1px),
+  linear-gradient(90deg, rgba(255,255,255,.018) 1px, transparent 1px);
+
+  background-size:38px 38px;
+
+  mask-image:radial-gradient(circle at center, black, transparent 80%);
+
+  pointer-events:none;
+  z-index:0;
+
+}
+
+.app{
+
+  position:relative;
+  z-index:2;
+
+  width:100vw;
+  height:100vh;
+
+  padding:18px;
+
+  display:grid;
+  grid-template-rows:auto auto 1fr auto;
+  gap:18px;
+
+}
+
+/* TOPBAR */
+
+.topbar{
+
+  background:rgba(8,14,26,.82);
+
+  border:1px solid var(--border);
+
+  border-radius:28px;
+
+  padding:20px 28px;
+
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+
+  backdrop-filter:blur(25px);
+
+  box-shadow:var(--shadow);
+
+}
+
+.brand{
+
+  display:flex;
+  align-items:center;
+  gap:18px;
+
+}
+
+.logo{
+
+  width:62px;
+  height:62px;
+
+  border-radius:20px;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  background:
+  radial-gradient(circle at center, rgba(255,207,123,.25), transparent 70%),
+  rgba(255,255,255,.03);
+
+  border:1px solid rgba(255,255,255,.08);
+
+  font-size:2rem;
+
+}
+
+.brand h1{
+
+  font-family:'Cinzel',serif;
+  font-size:2rem;
+  letter-spacing:2px;
+
+}
+
+.brand small{
+
+  display:block;
+  margin-top:4px;
+
+  color:#6aa9ff;
+  letter-spacing:2px;
+
+}
+
+.top-info{
+
+  text-align:center;
+}
+
+.top-info strong{
+
+  display:block;
+
+  color:var(--gold);
+
+  margin-bottom:6px;
+
+  letter-spacing:1px;
+
+}
+
+.top-info span{
+
+  color:var(--muted);
+
+}
+
+.system{
+
+  display:flex;
+  align-items:center;
+  gap:14px;
+
+  padding:14px 20px;
+
+  border-radius:18px;
+
+  background:rgba(111,255,163,.08);
+  border:1px solid rgba(111,255,163,.18);
+
+}
+
+.live{
+
+  width:10px;
+  height:10px;
+
+  border-radius:50%;
+
+  background:#73ff9b;
+
+  box-shadow:0 0 14px #73ff9b;
+
+}
+
+/* MENU */
+
+.menu{
+
+  display:flex;
+  gap:14px;
+
+}
+
+.menu button{
+
+  border:none;
+
+  padding:16px 22px;
+
+  background:rgba(255,255,255,.04);
+
+  border:1px solid rgba(255,255,255,.06);
+
+  color:#fff;
+
+  border-radius:18px;
+
+  cursor:pointer;
+
+  transition:.35s;
+
+  font-weight:600;
+
+  backdrop-filter:blur(10px);
+
+}
+
+.menu button:hover{
+
+  transform:translateY(-4px);
+
+  background:rgba(255,255,255,.09);
+
+}
+
+.menu button.active{
+
+  background:linear-gradient(135deg,#18406f,#0f6d82);
+
+  border-color:rgba(255,255,255,.1);
+
+  box-shadow:0 0 30px rgba(88,166,255,.18);
+
+}
+
+/* LAYOUT */
+
+.layout{
+
+  display:grid;
+  grid-template-columns:90px 1fr 360px;
+  gap:18px;
+
+  min-height:0;
+
+}
+
+/* SIDEBAR */
+
+.sidebar{
+
+  background:rgba(8,14,26,.82);
+
+  border:1px solid var(--border);
+
+  border-radius:30px;
+
+  padding:16px 12px;
+
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:16px;
+
+  backdrop-filter:blur(20px);
+
+  box-shadow:var(--shadow);
+
+}
+
+.side-btn{
+
+  width:58px;
+  height:58px;
+
+  border-radius:18px;
+
+  background:rgba(255,255,255,.04);
+
+  border:1px solid rgba(255,255,255,.06);
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  font-size:1.3rem;
+
+  transition:.3s;
+
+  cursor:pointer;
+
+}
+
+.side-btn:hover{
+
+  transform:scale(1.08);
+
+  background:rgba(255,255,255,.09);
+
+}
+
+/* CENTER */
+
+.center{
+
+  background:rgba(8,14,26,.82);
+
+  border:1px solid var(--border);
+
+  border-radius:36px;
+
+  overflow:hidden;
+
+  position:relative;
+
+  backdrop-filter:blur(20px);
+
+  box-shadow:var(--shadow);
+
+}
+
+.view{
+
+  position:absolute;
+  inset:0;
+
+  opacity:0;
+  pointer-events:none;
+
+  transform:scale(.98);
+
+  transition:.55s;
+
+}
+
+.view.active{
+
+  opacity:1;
+  pointer-events:auto;
+
+  transform:scale(1);
+
+}
+
+/* MAPA */
+
+.map-wrapper{
+
+  width:100%;
+  height:100%;
+
+  overflow:hidden;
+
+  position:relative;
+
+}
+
+.panzoom-container{
+
+  width:100%;
+  height:100%;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+}
+
+.map-scene{
+
+  width:1400px;
+  height:1400px;
+
+  position:relative;
+
+}
+
+.map-image{
+
+  position:absolute;
+  inset:0;
+
+  width:100%;
+  height:100%;
+
+  object-fit:cover;
+
+  opacity:.95;
+
+}
+
+.glow{
+
+  position:absolute;
+  inset:0;
+
+  background:
+  radial-gradient(circle at center, transparent 20%, rgba(0,0,0,.2)),
+  linear-gradient(180deg, rgba(0,0,0,.05), rgba(0,0,0,.25));
+
+}
+
+.oraculo-core{
+
+  position:absolute;
+
+  left:50%;
+  top:50%;
+
+  transform:translate(-50%,-50%);
+
+  width:260px;
+  height:260px;
+
+  border-radius:50%;
+
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+
+  text-align:center;
+
+  background:
+  radial-gradient(circle at center, rgba(255,255,255,.09), rgba(0,0,0,.88));
+
+  border:2px solid rgba(255,255,255,.18);
+
+  backdrop-filter:blur(25px);
+
+  z-index:5;
+
+  box-shadow:
+  0 0 80px rgba(255,207,123,.22),
+  inset 0 0 40px rgba(255,255,255,.05);
+
+}
+
+.oraculo-core h2{
+
+  font-family:'Cinzel',serif;
+  font-size:3rem;
+
+  margin-bottom:12px;
+
+}
+
+.oraculo-core p{
+
+  width:180px;
+
+  line-height:1.7;
+
+  color:#dce7ff;
+
+}
+
+/* HOTSPOTS */
+
+.hotspot{
+
+  position:absolute;
+
+  width:220px;
+
+  padding:24px;
+
+  border-radius:28px;
+
+  background:rgba(0,0,0,.28);
+
+  border:1px solid rgba(255,255,255,.08);
+
+  backdrop-filter:blur(18px);
+
+  transition:.35s;
+
+  cursor:pointer;
+
+}
+
+.hotspot:hover{
+
+  transform:scale(1.03);
+
+}
+
+.hotspot h3{
+
+  margin-bottom:12px;
+  font-size:1.8rem;
+
+}
+
+.hotspot p{
+
+  line-height:1.8;
+  color:#d9e4ff;
+
+}
+
+.hotspot ul{
+
+  margin-top:18px;
+  padding-left:18px;
+
+  display:grid;
+  gap:10px;
+
+  line-height:1.7;
+
+  color:#c6d4f5;
+
+}
+
+.blue{
+  top:120px;
+  left:100px;
+  box-shadow:0 0 40px rgba(88,166,255,.15);
+}
+
+.green{
+  top:120px;
+  right:100px;
+  box-shadow:0 0 40px rgba(146,255,141,.12);
+}
+
+.orange{
+  bottom:120px;
+  left:100px;
+  box-shadow:0 0 40px rgba(255,177,92,.14);
+}
+
+.purple{
+  bottom:120px;
+  right:100px;
+  box-shadow:0 0 40px rgba(187,125,255,.15);
+}
+
+.blue h3{color:var(--blue);}
+.green h3{color:var(--green);}
+.orange h3{color:var(--orange);}
+.purple h3{color:var(--purple);}
+
+/* PIPELINE */
+
+.pipeline{
+
+  padding:50px;
+
+  height:100%;
+
+  overflow:auto;
+
+}
+
+.pipeline-title{
+
+  font-size:2.3rem;
+  margin-bottom:40px;
+
+}
+
+.pipeline-grid{
+
+  display:grid;
+  grid-template-columns:repeat(7,1fr);
+  gap:18px;
+
+}
+
+.pipe{
+
+  min-height:380px;
+
+  border-radius:28px;
+
+  padding:28px;
+
+  background:rgba(255,255,255,.03);
+
+  border:1px solid rgba(255,255,255,.06);
+
+  position:relative;
+
+  overflow:hidden;
+
+}
+
+.pipe::before{
+
+  content:'';
+
+  position:absolute;
+  inset:0;
+
+  background:
+  linear-gradient(180deg, rgba(255,255,255,.03), transparent);
+
+}
+
+.pipe-number{
+
+  width:58px;
+  height:58px;
+
+  border-radius:18px;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  font-weight:800;
+
+  margin-bottom:20px;
+
+  background:rgba(255,255,255,.05);
+
+  border:1px solid rgba(255,255,255,.08);
+
+}
+
+.pipe h3{
+
+  margin-bottom:16px;
+  font-size:1.4rem;
+
+}
+
+.pipe p{
+
+  color:var(--muted);
+  line-height:1.9;
+
+}
+
+/* TEXT VIEW */
+
+.text-view{
+
+  padding:50px;
+
+  overflow:auto;
+
+  height:100%;
+
+}
+
+.section-title{
+
+  font-size:2.4rem;
+
+  margin-bottom:20px;
+
+}
+
+.section-sub{
+
+  color:var(--muted);
+
+  line-height:1.9;
+
+  max-width:900px;
+
+  margin-bottom:40px;
+
+}
+
+.cards{
+
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+  gap:22px;
+
+}
+
+.card{
+
+  background:rgba(255,255,255,.03);
+
+  border:1px solid rgba(255,255,255,.06);
+
+  border-radius:28px;
+
+  padding:28px;
+
+  transition:.35s;
+
+}
+
+.card:hover{
+
+  transform:translateY(-6px);
+
+  background:rgba(255,255,255,.05);
+
+}
+
+.card h3{
+
+  margin-bottom:14px;
+
+}
+
+.card p{
+
+  line-height:1.8;
+
+  color:var(--muted);
+
+}
+
+/* RIGHT */
+
+.right{
+
+  display:flex;
+  flex-direction:column;
+  gap:18px;
+
+}
+
+.panel{
+
+  background:rgba(8,14,26,.82);
+
+  border:1px solid var(--border);
+
+  border-radius:30px;
+
+  padding:26px;
+
+  backdrop-filter:blur(20px);
+
+  box-shadow:var(--shadow);
+
+}
+
+.panel h3{
+
+  margin-bottom:20px;
+
+}
+
+.info{
+
+  display:grid;
+  gap:14px;
+
+}
+
+.info-item{
+
+  padding:16px;
+
+  border-radius:18px;
+
+  background:rgba(255,255,255,.03);
+
+  border:1px solid rgba(255,255,255,.05);
+
+}
+
+.info-item strong{
+
+  display:block;
+  margin-bottom:8px;
+
+}
+
+/* FOOTER */
+
+.footer{
+
+  display:grid;
+  grid-template-columns:repeat(5,1fr);
+  gap:18px;
+
+}
+
+.footer-card{
+
+  background:rgba(8,14,26,.82);
+
+  border:1px solid var(--border);
+
+  border-radius:24px;
+
+  padding:20px;
+
+  backdrop-filter:blur(20px);
+
+}
+
+.footer-card small{
+
+  display:block;
+  color:var(--muted);
+
+  margin-bottom:10px;
+
+}
+
+.footer-card strong{
+
+  font-size:1.2rem;
+
+}
+
+/* RESPONSIVE */
+
+@media(max-width:1400px){
+
+  .layout{
+    grid-template-columns:1fr;
+  }
+
+  .sidebar{
+    flex-direction:row;
+    justify-content:center;
+  }
+
+}
+
+@media(max-width:1100px){
+
+  .pipeline-grid{
+    grid-template-columns:1fr;
+  }
+
+  .footer{
+    grid-template-columns:1fr 1fr;
+  }
+
+}
+
+@media(max-width:768px){
+
+  body{
+    overflow:auto;
+  }
+
+  .topbar{
+    flex-direction:column;
+    gap:20px;
+  }
+
+  .menu{
+    overflow:auto;
+    padding-bottom:6px;
+  }
+
+  .footer{
+    grid-template-columns:1fr;
+  }
+
+  .map-scene{
+    width:1200px;
+    height:1200px;
+  }
+
+}
+
+</style>
+</head>
+<body>
+
+<div class="app">
+
+  <!-- TOPBAR -->
+
+  <header class="topbar">
+
+    <div class="brand">
+
+      <div class="logo">🧠</div>
+
+      <div>
+
+        <h1>ORÁCULO</h1>
+
+        <small>DECISION SUPPORT SYSTEM</small>
+
+      </div>
+
+    </div>
+
+    <div class="top-info">
+
+      <strong>
+        SISTEMA DE SUPORTE À DECISÃO EM CONTEXTOS COMPLEXOS
+      </strong>
+
+      <span>
+        Interface cognitiva integrada para famílias, profissionais e jornadas humanas.
+      </span>
+
+    </div>
+
+    <div class="system">
+
+      <div class="live"></div>
+
+      <strong>SISTEMA OPERACIONAL</strong>
+
+    </div>
+
+  </header>
+
+  <!-- MENU -->
+
+  <nav class="menu">
+
+    <button class="tab active" data-view="mapa">
+      MAPA COGNITIVO
+    </button>
+
+    <button class="tab" data-view="pipeline">
+      PIPELINE
+    </button>
+
+    <button class="tab" data-view="eixos">
+      EIXOS
+    </button>
+
+    <button class="tab" data-view="bps">
+      BPs
+    </button>
+
+    <button class="tab" data-view="jornadas">
+      JORNADAS
+    </button>
+
+    <button class="tab" data-view="insights">
+      INSIGHTS
+    </button>
+
+    <button class="tab" data-view="config">
+      CONFIGURAÇÕES
+    </button>
+
+  </nav>
+
+  <!-- LAYOUT -->
+
+  <section class="layout">
+
+    <!-- SIDEBAR -->
+
+    <aside class="sidebar">
+
+      <div class="side-btn">🏠</div>
+      <div class="side-btn">🧭</div>
+      <div class="side-btn">➕</div>
+      <div class="side-btn">➖</div>
+      <div class="side-btn">🧠</div>
+      <div class="side-btn">⚙️</div>
+
+    </aside>
+
+    <!-- CENTER -->
+
+    <main class="center">
+
+      <!-- MAPA -->
+
+      <section class="view active" id="mapa">
+
+        <div class="map-wrapper">
+
+          <div class="panzoom-container" id="panzoom-container">
+
+            <div class="map-scene" id="map-scene">
+
+              <img
+                src="oraculo/img/bg-4-eixos.png"
+                class="map-image"
+              >
+
+              <div class="glow"></div>
+
+              <div class="oraculo-core">
+
+                <h2>ORÁCULO</h2>
+
+                <p>
+                  Integração Cognitiva dos 4 Eixos
+                </p>
+
+              </div>
+
+              <div class="hotspot blue">
+
+                <h3>
+                  Terapêutico
+                </h3>
+
+                <p>
+                  Regulação emocional e estabilidade funcional.
+                </p>
+
+                <ul>
+                  <li>Autorregulação</li>
+                  <li>Integração emocional</li>
+                  <li>Estabilidade</li>
+                </ul>
+
+              </div>
+
+              <div class="hotspot green">
+
+                <h3>
+                  Pedagógico
+                </h3>
+
+                <p>
+                  Aprendizagem significativa e adaptação cognitiva.
+                </p>
+
+                <ul>
+                  <li>Engajamento</li>
+                  <li>Aprendizagem</li>
+                  <li>Comunicação</li>
+                </ul>
+
+              </div>
+
+              <div class="hotspot orange">
+
+                <h3>
+                  Familiar
+                </h3>
+
+                <p>
+                  Vínculo, acolhimento e rotina estruturada.
+                </p>
+
+                <ul>
+                  <li>Apoio emocional</li>
+                  <li>Rotina</li>
+                  <li>Parceria</li>
+                </ul>
+
+              </div>
+
+              <div class="hotspot purple">
+
+                <h3>
+                  Sensorial
+                </h3>
+
+                <p>
+                  Processamento ambiental e percepção corporal.
+                </p>
+
+                <ul>
+                  <li>Modulação</li>
+                  <li>Ambiente</li>
+                  <li>Estimulação</li>
+                </ul>
+
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+
+      </section>
+
+      <!-- PIPELINE -->
+
+      <section class="view" id="pipeline">
+
+        <div class="pipeline">
+
+          <h2 class="pipeline-title">
+            Pipeline Cognitivo Integrado
+          </h2>
+
+          <div class="pipeline-grid">
+
+            <div class="pipe">
+              <div class="pipe-number">1</div>
+              <h3>Observação</h3>
+              <p>
+                Captura do contexto real e identificação inicial dos sinais relevantes.
+              </p>
+            </div>
+
+            <div class="pipe">
+              <div class="pipe-number">2</div>
+              <h3>Reconhecimento</h3>
+              <p>
+                Leitura integrada dos padrões presentes nos quatro eixos.
+              </p>
+            </div>
+
+            <div class="pipe">
+              <div class="pipe-number">3</div>
+              <h3>Ativação</h3>
+              <p>
+                Seleção estratégica dos blocos programáticos ativos.
+              </p>
+            </div>
+
+            <div class="pipe">
+              <div class="pipe-number">4</div>
+              <h3>Configuração</h3>
+              <p>
+                Ajustes operacionais personalizados ao contexto.
+              </p>
+            </div>
+
+            <div class="pipe">
+              <div class="pipe-number">5</div>
+              <h3>Integração</h3>
+              <p>
+                Sinergia entre estratégias, eixos e necessidades humanas.
+              </p>
+            </div>
+
+            <div class="pipe">
+              <div class="pipe-number">6</div>
+              <h3>Leitura Dinâmica</h3>
+              <p>
+                Revisão contínua dos indicadores contextuais e emocionais.
+              </p>
+            </div>
+
+            <div class="pipe">
+              <div class="pipe-number">7</div>
+              <h3>Output</h3>
+              <p>
+                Geração do plano programático integrado.
+              </p>
+            </div>
+
+          </div>
+
+        </div>
+
+      </section>
+
+      <!-- EIXOS -->
+
+      <section class="view" id="eixos">
+
+        <div class="map-wrapper">
+
+          <img
+            src="oraculo/img/bg-4-eixos.png"
+            class="map-image"
+          >
+
+          <div class="glow"></div>
+
+        </div>
+
+      </section>
+
+      <!-- BPS -->
+
+      <section class="view" id="bps">
+
+        <div class="text-view">
+
+          <h2 class="section-title">
+            Biblioteca de Blocos Programáticos
+          </h2>
+
+          <p class="section-sub">
+            Estruturas operacionais utilizadas pelo ORÁCULO para transformar leitura contextual em estratégias aplicáveis.
+          </p>
+
+          <div class="cards">
+
+            <div class="card">
+              <h3>BP-014</h3>
+              <p>
+                Estratégias para transições escolares com redução de sobrecarga emocional.
+              </p>
+            </div>
+
+            <div class="card">
+              <h3>BP-027</h3>
+              <p>
+                Organização visual de rotina e suporte à autonomia funcional.
+              </p>
+            </div>
+
+            <div class="card">
+              <h3>BP-041</h3>
+              <p>
+                Regulação ambiental para contextos de hiperestimulação sensorial.
+              </p>
+            </div>
+
+            <div class="card">
+              <h3>BP-055</h3>
+              <p>
+                Fortalecimento do vínculo familiar em contextos de crise adaptativa.
+              </p>
+            </div>
+
+          </div>
+
+        </div>
+
+      </section>
+
+      <!-- JORNADAS -->
+
+      <section class="view" id="jornadas">
+
+        <div class="text-view">
+
+          <h2 class="section-title">
+            Jornadas Humanas
+          </h2>
+
+          <p class="section-sub">
+            Narrativas estruturadas para visualizar evolução, adaptação e construção de autonomia.
+          </p>
+
+          <div class="cards">
+
+            <div class="card">
+              <h3>Jornada Escolar</h3>
+              <p>
+                Contexto → adaptação → estabilização → autonomia.
+              </p>
+            </div>
+
+            <div class="card">
+              <h3>Jornada Familiar</h3>
+              <p>
+                Crise → acolhimento → reorganização → fortalecimento.
+              </p>
+            </div>
+
+            <div class="card">
+              <h3>Jornada Terapêutica</h3>
+              <p>
+                Observação → intervenção → integração → estabilidade.
+              </p>
+            </div>
+
+          </div>
+
+        </div>
+
+      </section>
+
+      <!-- INSIGHTS -->
+
+      <section class="view" id="insights">
+
+        <div class="text-view">
+
+          <h2 class="section-title">
+            Insights Cognitivos
+          </h2>
+
+          <p class="section-sub">
+            Leituras integradas geradas pelo sistema para apoiar decisões conscientes.
+          </p>
+
+          <div class="cards">
+
+            <div class="card">
+              <h3>Padrão recorrente detectado</h3>
+              <p>
+                Sinais de sobrecarga sensorial associados à rotina escolar.
+              </p>
+            </div>
+
+            <div class="card">
+              <h3>Eixo dominante</h3>
+              <p>
+                Predominância do eixo terapêutico em situações de transição.
+              </p>
+            </div>
+
+            <div class="card">
+              <h3>Estratégia sugerida</h3>
+              <p>
+                Implementação gradual de rotina visual adaptativa.
+              </p>
+            </div>
+
+          </div>
+
+        </div>
+
+      </section>
+
+      <!-- CONFIG -->
+
+      <section class="view" id="config">
+
+        <div class="text-view">
+
+          <h2 class="section-title">
+            Configurações do Sistema
+          </h2>
+
+          <p class="section-sub">
+            Ajustes operacionais e preferências da experiência cognitiva.
+          </p>
+
+          <div class="cards">
+
+            <div class="card">
+              <h3>Modo Visual</h3>
+              <p>
+                Controle de intensidade gráfica e experiência imersiva.
+              </p>
+            </div>
+
+            <div class="card">
+              <h3>Exportações</h3>
+              <p>
+                Configuração de relatórios e planos programáticos.
+              </p>
+            </div>
+
+            <div class="card">
+              <h3>Perfis</h3>
+              <p>
+                Diferentes modelos de leitura contextual e navegação.
+              </p>
+            </div>
+
+          </div>
+
+        </div>
+
+      </section>
+
+    </main>
+
+    <!-- RIGHT -->
+
+    <aside class="right">
+
+      <div class="panel">
+
+        <h3>
+          Núcleo Cognitivo
+        </h3>
+
+        <div class="info">
+
+          <div class="info-item">
+            <strong>Coerência Sistêmica</strong>
+            98%
+          </div>
+
+          <div class="info-item">
+            <strong>Eixo Dominante</strong>
+            Não identificado
+          </div>
+
+          <div class="info-item">
+            <strong>BPs Ativos</strong>
+            0
+          </div>
+
+        </div>
+
+      </div>
+
+      <div class="panel">
+
+        <h3>
+          Reflexão Contextual
+        </h3>
+
+        <div class="info">
+
+          <div class="info-item">
+            Contextos complexos exigem leitura integrada e decisões conscientes.
+          </div>
+
+          <div class="info-item">
+            O ORÁCULO atua como suporte à compreensão humana e não substitui relações humanas.
+          </div>
+
+        </div>
+
+      </div>
+
+    </aside>
+
+  </section>
+
+  <!-- FOOTER -->
+
+  <footer class="footer">
+
+    <div class="footer-card">
+      <small>SISTEMA</small>
+      <strong>ONLINE</strong>
+    </div>
+
+    <div class="footer-card">
+      <small>PIPELINE</small>
+      <strong>ATIVO</strong>
+    </div>
+
+    <div class="footer-card">
+      <small>JORNADAS</small>
+      <strong>3</strong>
+    </div>
+
+    <div class="footer-card">
+      <small>BPs</small>
+      <strong>55</strong>
+    </div>
+
+    <div class="footer-card">
+      <small>STATUS</small>
+      <strong>ESTÁVEL</strong>
+    </div>
+
+  </footer>
+
+</div>
+
+<script>
+
+const tabs = document.querySelectorAll('.tab');
+const views = document.querySelectorAll('.view');
+
+tabs.forEach(tab=>{
+
+  tab.addEventListener('click',()=>{
+
+    tabs.forEach(t=>t.classList.remove('active'));
+    tab.classList.add('active');
+
+    const target = tab.dataset.view;
+
+    views.forEach(view=>{
+
+      view.classList.remove('active');
+
+      if(view.id === target){
+
+        view.classList.add('active');
+
+      }
+
+    });
+
+  });
+
+});
+
+/* PANZOOM */
+
+const element = document.getElementById('map-scene');
+
+const panzoom = Panzoom(element, {
+
+  maxScale:3,
+  minScale:.6,
+  contain:'outside'
+
+});
+
+const parent = document.getElementById('panzoom-container');
+
+parent.addEventListener('wheel', panzoom.zoomWithWheel);
+
+</script>
+
+</body>
+</html>
