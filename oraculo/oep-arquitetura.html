@@ -1,0 +1,1079 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>OEP · Arquitetura Cognitiva do ORÁCULO</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+<style>
+
+:root{
+  --bg:#040714;
+  --bg-soft:#0b1024;
+  --card:rgba(255,255,255,.05);
+  --border:rgba(255,255,255,.1);
+  --text:#f6f8ff;
+  --muted:#aeb8d8;
+  --gold:#ffcb5c;
+  --blue:#5da9ff;
+  --purple:#8c6cff;
+  --green:#37d39a;
+  --orange:#ff944d;
+  --pink:#ff6cae;
+  --shadow:0 25px 80px rgba(0,0,0,.45);
+}
+
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
+
+html{
+  scroll-behavior:smooth;
+}
+
+body{
+  background:
+  radial-gradient(circle at top left, rgba(93,169,255,.16), transparent 28%),
+  radial-gradient(circle at bottom right, rgba(140,108,255,.16), transparent 28%),
+  linear-gradient(180deg,#03050d,#040714 100%);
+  color:var(--text);
+  font-family:'Inter',sans-serif;
+  overflow-x:hidden;
+}
+
+.container{
+  width:min(1450px,92vw);
+  margin:auto;
+}
+
+.grid-bg{
+  position:fixed;
+  inset:0;
+  background-image:
+  linear-gradient(rgba(255,255,255,.02) 1px, transparent 1px),
+  linear-gradient(90deg, rgba(255,255,255,.02) 1px, transparent 1px);
+  background-size:40px 40px;
+  mask-image:radial-gradient(circle at center, black, transparent 80%);
+  pointer-events:none;
+}
+
+.hero{
+  min-height:100vh;
+  position:relative;
+  display:flex;
+  align-items:center;
+  overflow:hidden;
+}
+
+.glow{
+  position:absolute;
+  border-radius:50%;
+  filter:blur(100px);
+  opacity:.35;
+}
+
+.glow.one{
+  width:500px;
+  height:500px;
+  background:var(--blue);
+  top:-150px;
+  left:-120px;
+}
+
+.glow.two{
+  width:450px;
+  height:450px;
+  background:var(--purple);
+  right:-100px;
+  top:180px;
+}
+
+.hero-layout{
+  position:relative;
+  z-index:2;
+  display:grid;
+  grid-template-columns:1.05fr .95fr;
+  gap:70px;
+  align-items:center;
+}
+
+.badge{
+  display:inline-flex;
+  align-items:center;
+  gap:10px;
+  padding:12px 20px;
+  border-radius:999px;
+  background:rgba(255,255,255,.05);
+  border:1px solid rgba(255,255,255,.12);
+  color:var(--gold);
+  letter-spacing:1px;
+  text-transform:uppercase;
+  font-size:.82rem;
+  margin-bottom:34px;
+  backdrop-filter:blur(20px);
+}
+
+h1{
+  font-family:'Cinzel',serif;
+  font-size:clamp(4rem,8vw,8rem);
+  line-height:.9;
+  letter-spacing:-3px;
+  margin-bottom:34px;
+}
+
+.gradient{
+  background:linear-gradient(90deg,var(--gold),#fff,var(--blue));
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+}
+
+.hero p{
+  font-size:1.15rem;
+  line-height:1.9;
+  color:var(--muted);
+  max-width:760px;
+}
+
+.hero-actions{
+  display:flex;
+  gap:18px;
+  margin-top:42px;
+  flex-wrap:wrap;
+}
+
+.btn{
+  padding:18px 28px;
+  border-radius:18px;
+  border:none;
+  cursor:pointer;
+  font-weight:700;
+  transition:.35s ease;
+}
+
+.btn-primary{
+  background:linear-gradient(135deg,var(--gold),#ff9c1b);
+  color:#111;
+  box-shadow:0 18px 40px rgba(255,203,92,.25);
+}
+
+.btn-secondary{
+  background:rgba(255,255,255,.05);
+  border:1px solid rgba(255,255,255,.12);
+  color:#fff;
+  backdrop-filter:blur(20px);
+}
+
+.btn:hover{
+  transform:translateY(-5px) scale(1.02);
+}
+
+.hero-panel{
+  position:relative;
+  border-radius:38px;
+  padding:34px;
+  background:rgba(255,255,255,.05);
+  border:1px solid rgba(255,255,255,.1);
+  backdrop-filter:blur(30px);
+  box-shadow:var(--shadow);
+  overflow:hidden;
+}
+
+.hero-panel::before{
+  content:'';
+  position:absolute;
+  inset:0;
+  background:linear-gradient(180deg,rgba(255,255,255,.08),transparent);
+  pointer-events:none;
+}
+
+.panel-title{
+  display:flex;
+  justify-content:space-between;
+  margin-bottom:30px;
+}
+
+.panel-title strong{
+  letter-spacing:1px;
+  color:#dbe7ff;
+}
+
+.panel-title span{
+  color:var(--green);
+  text-transform:uppercase;
+  font-size:.8rem;
+}
+
+.neural-core{
+  position:relative;
+  height:420px;
+  border-radius:28px;
+  background:
+  radial-gradient(circle at center, rgba(93,169,255,.2), transparent 60%),
+  rgba(255,255,255,.03);
+  overflow:hidden;
+}
+
+.node{
+  position:absolute;
+  width:90px;
+  height:90px;
+  border-radius:50%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-weight:700;
+  backdrop-filter:blur(20px);
+  border:1px solid rgba(255,255,255,.15);
+  animation:pulse 6s infinite ease-in-out;
+}
+
+.node:nth-child(1){
+  top:30px;
+  left:50%;
+  transform:translateX(-50%);
+  background:rgba(255,203,92,.18);
+}
+
+.node:nth-child(2){
+  left:40px;
+  top:170px;
+  background:rgba(93,169,255,.18);
+}
+
+.node:nth-child(3){
+  right:40px;
+  top:170px;
+  background:rgba(140,108,255,.18);
+}
+
+.node:nth-child(4){
+  bottom:40px;
+  left:50%;
+  transform:translateX(-50%);
+  background:rgba(55,211,154,.18);
+}
+
+.connection{
+  position:absolute;
+  background:linear-gradient(90deg,transparent,rgba(255,255,255,.35),transparent);
+  height:2px;
+  transform-origin:left center;
+  animation:flow 5s linear infinite;
+}
+
+.connection.one{
+  width:190px;
+  top:130px;
+  left:170px;
+  transform:rotate(25deg);
+}
+
+.connection.two{
+  width:190px;
+  top:130px;
+  right:170px;
+  transform:rotate(-25deg);
+}
+
+.connection.three{
+  width:210px;
+  bottom:145px;
+  left:190px;
+  transform:rotate(-25deg);
+}
+
+.connection.four{
+  width:210px;
+  bottom:145px;
+  right:190px;
+  transform:rotate(25deg);
+}
+
+@keyframes pulse{
+  0%,100%{ transform:translateX(-50%) scale(1); }
+  50%{ transform:translateX(-50%) scale(1.08); }
+}
+
+@keyframes flow{
+  0%{ opacity:.15; }
+  50%{ opacity:1; }
+  100%{ opacity:.15; }
+}
+
+section{
+  padding:140px 0;
+  position:relative;
+}
+
+.section-title{
+  text-align:center;
+  margin-bottom:80px;
+}
+
+.section-title span{
+  color:var(--gold);
+  text-transform:uppercase;
+  letter-spacing:2px;
+  font-size:.82rem;
+}
+
+.section-title h2{
+  font-size:clamp(2.6rem,6vw,5rem);
+  margin-top:20px;
+  line-height:1;
+}
+
+.section-title p{
+  max-width:900px;
+  margin:24px auto 0;
+  line-height:1.9;
+  color:var(--muted);
+  font-size:1.08rem;
+}
+
+.architecture-grid{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:28px;
+}
+
+.arch-card{
+  position:relative;
+  overflow:hidden;
+  border-radius:32px;
+  padding:34px;
+  background:rgba(255,255,255,.05);
+  border:1px solid rgba(255,255,255,.1);
+  backdrop-filter:blur(24px);
+  transition:.4s ease;
+}
+
+.arch-card:hover{
+  transform:translateY(-8px);
+  border-color:rgba(255,255,255,.2);
+}
+
+.arch-card::before{
+  content:'';
+  position:absolute;
+  inset:0;
+  background:linear-gradient(180deg,rgba(255,255,255,.08),transparent);
+  pointer-events:none;
+}
+
+.arch-icon{
+  width:74px;
+  height:74px;
+  border-radius:22px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:2rem;
+  margin-bottom:26px;
+}
+
+.arch-card:nth-child(1) .arch-icon{
+  background:linear-gradient(135deg,var(--blue),#246cff);
+}
+
+.arch-card:nth-child(2) .arch-icon{
+  background:linear-gradient(135deg,var(--purple),#643bff);
+}
+
+.arch-card:nth-child(3) .arch-icon{
+  background:linear-gradient(135deg,var(--green),#0ca678);
+}
+
+.arch-card:nth-child(4) .arch-icon{
+  background:linear-gradient(135deg,var(--orange),#ff6b00);
+}
+
+.arch-card h3{
+  font-size:2rem;
+  margin-bottom:18px;
+}
+
+.arch-card p{
+  line-height:1.9;
+  color:var(--muted);
+  margin-bottom:24px;
+}
+
+.arch-list{
+  display:grid;
+  gap:12px;
+}
+
+.arch-list div{
+  padding:14px 16px;
+  border-radius:16px;
+  background:rgba(255,255,255,.04);
+  border:1px solid rgba(255,255,255,.06);
+  color:#dce7ff;
+}
+
+.pipeline{
+  display:grid;
+  gap:26px;
+}
+
+.pipeline-row{
+  display:grid;
+  grid-template-columns:120px 1fr 320px;
+  gap:28px;
+  align-items:center;
+  padding:30px;
+  border-radius:30px;
+  background:rgba(255,255,255,.05);
+  border:1px solid rgba(255,255,255,.1);
+  backdrop-filter:blur(24px);
+}
+
+.pipeline-id{
+  width:90px;
+  height:90px;
+  border-radius:50%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:2rem;
+  font-weight:800;
+  background:linear-gradient(135deg,var(--gold),#ff8c00);
+  color:#111;
+}
+
+.pipeline-content h3{
+  font-size:2rem;
+  margin-bottom:12px;
+}
+
+.pipeline-content p{
+  color:var(--muted);
+  line-height:1.9;
+}
+
+.pipeline-output{
+  border-radius:24px;
+  background:rgba(255,255,255,.04);
+  border:1px solid rgba(255,255,255,.08);
+  padding:24px;
+}
+
+.pipeline-output small{
+  color:var(--gold);
+  text-transform:uppercase;
+  letter-spacing:1px;
+  display:block;
+  margin-bottom:12px;
+}
+
+.pipeline-output strong{
+  display:block;
+  font-size:1.25rem;
+  margin-bottom:10px;
+}
+
+.pipeline-output p{
+  color:var(--muted);
+  line-height:1.8;
+}
+
+.ecosystem{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:40px;
+}
+
+.glass{
+  position:relative;
+  overflow:hidden;
+  padding:36px;
+  border-radius:34px;
+  background:rgba(255,255,255,.05);
+  border:1px solid rgba(255,255,255,.1);
+  backdrop-filter:blur(24px);
+  box-shadow:var(--shadow);
+}
+
+.glass::before{
+  content:'';
+  position:absolute;
+  inset:0;
+  background:linear-gradient(180deg,rgba(255,255,255,.08),transparent);
+  pointer-events:none;
+}
+
+.glass h3{
+  font-size:2rem;
+  margin-bottom:24px;
+}
+
+.stack{
+  display:grid;
+  gap:16px;
+}
+
+.layer{
+  position:relative;
+  padding:24px;
+  border-radius:22px;
+  background:rgba(255,255,255,.04);
+  border:1px solid rgba(255,255,255,.08);
+}
+
+.layer span{
+  display:inline-block;
+  margin-bottom:12px;
+  color:var(--gold);
+  text-transform:uppercase;
+  letter-spacing:1px;
+  font-size:.8rem;
+}
+
+.layer strong{
+  display:block;
+  margin-bottom:10px;
+  font-size:1.2rem;
+}
+
+.layer p{
+  color:var(--muted);
+  line-height:1.8;
+}
+
+.terminal{
+  border-radius:28px;
+  overflow:hidden;
+  border:1px solid rgba(255,255,255,.08);
+  background:#02040b;
+  margin-top:30px;
+}
+
+.terminal-top{
+  padding:14px 20px;
+  background:#0c1222;
+  border-bottom:1px solid rgba(255,255,255,.08);
+  display:flex;
+  justify-content:space-between;
+}
+
+.terminal-body{
+  padding:30px;
+  font-family:monospace;
+  color:#8ff3ba;
+  line-height:2;
+}
+
+.philosophy{
+  text-align:center;
+}
+
+.philosophy-card{
+  position:relative;
+  overflow:hidden;
+  padding:90px;
+  border-radius:40px;
+  background:
+  linear-gradient(135deg,rgba(93,169,255,.15),rgba(140,108,255,.15)),
+  rgba(255,255,255,.05);
+  border:1px solid rgba(255,255,255,.12);
+  backdrop-filter:blur(30px);
+  box-shadow:var(--shadow);
+}
+
+.philosophy-card::before{
+  content:'';
+  position:absolute;
+  inset:-120px;
+  background:radial-gradient(circle,rgba(255,255,255,.08),transparent 55%);
+  animation:rotate 20s linear infinite;
+}
+
+.philosophy-card > *{
+  position:relative;
+  z-index:2;
+}
+
+@keyframes rotate{
+  from{ transform:rotate(0deg); }
+  to{ transform:rotate(360deg); }
+}
+
+.philosophy h2{
+  font-size:clamp(3rem,7vw,6rem);
+  line-height:.95;
+  margin-bottom:28px;
+}
+
+.philosophy p{
+  max-width:980px;
+  margin:auto;
+  color:var(--muted);
+  line-height:2;
+  font-size:1.12rem;
+}
+
+footer{
+  padding:60px 0 90px;
+  text-align:center;
+  color:#7d89ad;
+}
+
+@media(max-width:1100px){
+
+  .hero-layout,
+  .ecosystem,
+  .architecture-grid{
+    grid-template-columns:1fr;
+  }
+
+  .pipeline-row{
+    grid-template-columns:1fr;
+  }
+
+}
+
+@media(max-width:768px){
+
+  section{
+    padding:100px 0;
+  }
+
+  .hero-actions{
+    flex-direction:column;
+  }
+
+  .btn{
+    width:100%;
+  }
+
+  .philosophy-card{
+    padding:50px 28px;
+  }
+
+  .glass,
+  .arch-card,
+  .pipeline-row,
+  .hero-panel{
+    padding:24px;
+  }
+
+}
+
+</style>
+</head>
+<body>
+
+<div class="grid-bg"></div>
+
+<header class="hero">
+
+  <div class="glow one"></div>
+  <div class="glow two"></div>
+
+  <div class="container hero-layout">
+
+    <div>
+
+      <div class="badge">
+        ✦ Arquitetura Cognitiva do ORÁCULO
+      </div>
+
+      <h1>
+        UM <span class="gradient">SISTEMA</span><br>
+        QUE ORGANIZA<br>
+        COMPLEXIDADE
+      </h1>
+
+      <p>
+        O ORÁCULO não foi concebido como software tradicional.
+        Sua arquitetura combina leitura contextual, modelagem cognitiva,
+        ativação programática e síntese estratégica para transformar sinais dispersos
+        em direção prática, integrada e adaptativa.
+      </p>
+
+      <div class="hero-actions">
+        <button class="btn btn-primary">Explorar Ecossistema</button>
+        <button class="btn btn-secondary">Visualizar Pipeline</button>
+      </div>
+
+    </div>
+
+    <div class="hero-panel">
+
+      <div class="panel-title">
+        <strong>NÚCLEO COGNITIVO</strong>
+        <span>sistema ativo</span>
+      </div>
+
+      <div class="neural-core">
+
+        <div class="connection one"></div>
+        <div class="connection two"></div>
+        <div class="connection three"></div>
+        <div class="connection four"></div>
+
+        <div class="node">OBS</div>
+        <div class="node">PAD</div>
+        <div class="node">BPs</div>
+        <div class="node">PP</div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</header>
+
+<section>
+
+  <div class="container">
+
+    <div class="section-title">
+      <span>Arquitetura Sistêmica</span>
+      <h2>O ORÁCULO como ecossistema cognitivo</h2>
+      <p>
+        O sistema foi desenhado como uma arquitetura modular capaz de observar,
+        interpretar, organizar e responder a contextos complexos de maneira adaptativa.
+        Cada camada possui função operacional específica dentro do pipeline cognitivo.
+      </p>
+    </div>
+
+    <div class="architecture-grid">
+
+      <div class="arch-card">
+        <div class="arch-icon">◎</div>
+        <h3>Camada de Observação</h3>
+        <p>
+          Responsável pela captura contextual do cenário real, sinais críticos,
+          gatilhos, recursos disponíveis e variáveis ambientais relevantes.
+        </p>
+
+        <div class="arch-list">
+          <div>Contexto situacional</div>
+          <div>Leitura de sinais</div>
+          <div>Nível de complexidade</div>
+          <div>Mapeamento ambiental</div>
+        </div>
+      </div>
+
+      <div class="arch-card">
+        <div class="arch-icon">◈</div>
+        <h3>Camada de Reconhecimento</h3>
+        <p>
+          Estrutura padrões recorrentes, identifica relações entre eixos
+          e organiza a leitura integrada do contexto.
+        </p>
+
+        <div class="arch-list">
+          <div>Reconhecimento de padrões</div>
+          <div>Interações sistêmicas</div>
+          <div>Eixos dominantes</div>
+          <div>Mapas cognitivos</div>
+        </div>
+      </div>
+
+      <div class="arch-card">
+        <div class="arch-icon">✦</div>
+        <h3>Camada Programática</h3>
+        <p>
+          Seleciona e organiza Blocos Programáticos compatíveis com o contexto,
+          construindo respostas modulares adaptativas.
+        </p>
+
+        <div class="arch-list">
+          <div>BPs dinâmicos</div>
+          <div>Configuração modular</div>
+          <div>Estratégias integradas</div>
+          <div>Resposta adaptativa</div>
+        </div>
+      </div>
+
+      <div class="arch-card">
+        <div class="arch-icon">⬢</div>
+        <h3>Camada de Síntese</h3>
+        <p>
+          Consolida o plano programático final, garantindo coerência,
+          rastreabilidade e alinhamento estratégico.
+        </p>
+
+        <div class="arch-list">
+          <div>Plano programático</div>
+          <div>Documentação viva</div>
+          <div>Exportação operacional</div>
+          <div>Acompanhamento contínuo</div>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+<section>
+
+  <div class="container">
+
+    <div class="section-title">
+      <span>Pipeline Cognitivo</span>
+      <h2>Fluxo operacional do sistema</h2>
+      <p>
+        O ORÁCULO opera através de um pipeline progressivo de interpretação.
+        Cada etapa transforma dados dispersos em estrutura cognitiva aplicável.
+      </p>
+    </div>
+
+    <div class="pipeline">
+
+      <div class="pipeline-row">
+
+        <div class="pipeline-id">01</div>
+
+        <div class="pipeline-content">
+          <h3>Entrada Contextual</h3>
+          <p>
+            O sistema recebe informações sobre ambiente, rotina, sinais,
+            desafios e recursos presentes na situação observada.
+          </p>
+        </div>
+
+        <div class="pipeline-output">
+          <small>Saída</small>
+          <strong>Mapa Situacional</strong>
+          <p>
+            Organização inicial dos elementos críticos do contexto.
+          </p>
+        </div>
+
+      </div>
+
+      <div class="pipeline-row">
+
+        <div class="pipeline-id">02</div>
+
+        <div class="pipeline-content">
+          <h3>Leitura Integrada</h3>
+          <p>
+            O motor cognitivo identifica padrões, relações sistêmicas,
+            gatilhos recorrentes e eixos dominantes.
+          </p>
+        </div>
+
+        <div class="pipeline-output">
+          <small>Saída</small>
+          <strong>Diagnóstico Funcional</strong>
+          <p>
+            Estrutura cognitiva do cenário atual.
+          </p>
+        </div>
+
+      </div>
+
+      <div class="pipeline-row">
+
+        <div class="pipeline-id">03</div>
+
+        <div class="pipeline-content">
+          <h3>Ativação Programática</h3>
+          <p>
+            Seleção dinâmica de BPs compatíveis com os eixos ativos
+            e com a necessidade contextual.
+          </p>
+        </div>
+
+        <div class="pipeline-output">
+          <small>Saída</small>
+          <strong>Configuração Estratégica</strong>
+          <p>
+            Organização modular da intervenção.
+          </p>
+        </div>
+
+      </div>
+
+      <div class="pipeline-row">
+
+        <div class="pipeline-id">04</div>
+
+        <div class="pipeline-content">
+          <h3>Síntese Operacional</h3>
+          <p>
+            Consolidação do plano integrado com clareza prática,
+            coerência sistêmica e possibilidade de adaptação contínua.
+          </p>
+        </div>
+
+        <div class="pipeline-output">
+          <small>Saída</small>
+          <strong>Plano Programático</strong>
+          <p>
+            Documento vivo pronto para execução e acompanhamento.
+          </p>
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+<section>
+
+  <div class="container ecosystem">
+
+    <div class="glass">
+
+      <h3>Stack Cognitiva</h3>
+
+      <div class="stack">
+
+        <div class="layer">
+          <span>Camada 01</span>
+          <strong>Contextos</strong>
+          <p>
+            Estruturas semânticas que representam situações reais,
+            ambientes, rotinas e cenários complexos.
+          </p>
+        </div>
+
+        <div class="layer">
+          <span>Camada 02</span>
+          <strong>Eixos</strong>
+          <p>
+            Vetores organizacionais que agrupam leituras e prioridades cognitivas.
+          </p>
+        </div>
+
+        <div class="layer">
+          <span>Camada 03</span>
+          <strong>BPs</strong>
+          <p>
+            Blocos Programáticos reutilizáveis capazes de modular estratégias.
+          </p>
+        </div>
+
+        <div class="layer">
+          <span>Camada 04</span>
+          <strong>Plano Programático</strong>
+          <p>
+            Síntese operacional integrada pronta para aplicação prática.
+          </p>
+        </div>
+
+      </div>
+
+    </div>
+
+    <div>
+
+      <div class="glass">
+
+        <h3>Visão de Engenharia</h3>
+
+        <div class="stack">
+
+          <div class="layer">
+            <span>Front-end</span>
+            <strong>HTML · CSS · JS</strong>
+            <p>
+              Interface cognitiva modular orientada à experiência contextual.
+            </p>
+          </div>
+
+          <div class="layer">
+            <span>Dados</span>
+            <strong>JSON · YAML · Markdown</strong>
+            <p>
+              Estruturação semântica do conhecimento institucional.
+            </p>
+          </div>
+
+          <div class="layer">
+            <span>Engine</span>
+            <strong>Leitura Programática</strong>
+            <p>
+              Interpretação contextual baseada em regras, padrões e pesos.
+            </p>
+          </div>
+
+          <div class="layer">
+            <span>Expansão</span>
+            <strong>IA + APIs + Banco</strong>
+            <p>
+              Evolução futura baseada em modularidade e rastreabilidade.
+            </p>
+          </div>
+
+        </div>
+
+      </div>
+
+      <div class="terminal">
+
+        <div class="terminal-top">
+          <span>ORACULO_ARCHITECTURE.LOG</span>
+          <span style="color:#7e8ab0">sistema cognitivo</span>
+        </div>
+
+        <div class="terminal-body">
+          [OK] contexto estrutural carregado...<br>
+          [OK] pipeline cognitivo inicializado...<br>
+          [OK] módulos semânticos conectados...<br>
+          [OK] BPs indexados...<br>
+          [OK] arquitetura adaptativa pronta...<br>
+          [DONE] sistema operacional cognitivo ativo.
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+<section class="philosophy">
+
+  <div class="container">
+
+    <div class="philosophy-card">
+
+      <h2>
+        O ORÁCULO NÃO SUBSTITUI A PERCEPÇÃO HUMANA.<br>
+        ELE ORGANIZA A COMPLEXIDADE DELA.
+      </h2>
+
+      <p>
+        Sua arquitetura foi concebida para apoiar processos decisórios em contextos complexos,
+        transformando observações dispersas em leitura estruturada, estratégias integradas
+        e planos adaptativos. O sistema não busca automatizar pessoas, mas ampliar clareza,
+        coerência e capacidade de ação em cenários de alta variabilidade.
+      </p>
+
+      <div class="hero-actions" style="justify-content:center;margin-top:50px;">
+        <button class="btn btn-primary">Explorar OEP</button>
+        <button class="btn btn-secondary">Visualizar MVP Técnico</button>
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+<footer>
+  OEP · Arquitetura Cognitiva do ORÁCULO · Sistema Operacional de Suporte à Decisão
+</footer>
+
+</body>
+</html>
