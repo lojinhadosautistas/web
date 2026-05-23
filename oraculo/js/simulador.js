@@ -1,10 +1,10 @@
 /* =========================================================
 ORÁCULO • SIMULADOR OPERACIONAL
-simulador.js
+simulador.js • v2 CINEMÁTICO
 ========================================================= */
 
 /* =========================================================
-ESTADO GLOBAL DO SISTEMA
+ESTADO GLOBAL
 ========================================================= */
 
 let camadaAtual = 1;
@@ -13,13 +13,31 @@ let scoreCoerencia = 12;
 
 let reflexoesRespondidas = 0;
 
-let statusSistema = "ONLINE";
-
 let progressoSistema = 0;
+
+let statusSistema = "ONLINE";
 
 const respostasUsuario = {};
 
 const camadasDesbloqueadas = [1];
+
+/* =========================================================
+ESTADO REFLEXIVO INTERNO
+========================================================= */
+
+const estadoSistema = {
+
+    tensao:20,
+
+    clareza:40,
+
+    estabilidade:50,
+
+    coerencia:35,
+
+    profundidade:20
+
+};
 
 /* =========================================================
 CONFIGURAÇÃO DAS CAMADAS
@@ -29,99 +47,120 @@ const camadas = [
 
 {
     id:1,
+
     letra:"O",
+
     nome:"Observação Contextual",
-    cor:"#0f3fff",
+
+    cor:"#2f6bff",
 
     pergunta:
     "O que está acontecendo neste contexto que exige sua atenção neste momento?",
 
     placeholder:
-    "Descreva livremente o cenário, sinais, tensões, padrões ou acontecimentos relevantes..."
+    "Descreva o cenário, tensões, sinais, acontecimentos e percepções relevantes..."
 },
 
 {
     id:2,
+
     letra:"R",
+
     nome:"Reconhecimento de Padrões",
+
     cor:"#7b2cff",
 
     pergunta:
-    "Quais padrões, recorrências ou comportamentos parecem emergir deste contexto?",
+    "Quais padrões, recorrências ou movimentos parecem emergir deste contexto?",
 
     placeholder:
-    "Observe conexões, repetições, influências ou ciclos perceptíveis..."
+    "Observe ciclos, comportamentos repetitivos, conexões e influências..."
 },
 
 {
     id:3,
+
     letra:"A",
+
     nome:"Ativação de BPs",
-    cor:"#00a2b8",
+
+    cor:"#00b7c3",
 
     pergunta:
     "Quais elementos merecem prioridade operacional neste momento?",
 
     placeholder:
-    "Identifique focos estratégicos, eixos ativos ou componentes críticos..."
+    "Identifique focos críticos, tensões centrais e variáveis prioritárias..."
 },
 
 {
     id:4,
+
     letra:"C",
+
     nome:"Configuração Estratégica",
-    cor:"#22aa33",
+
+    cor:"#23b04a",
 
     pergunta:
-    "Quais ajustes ou estratégias podem aumentar a coerência deste cenário?",
+    "Quais ajustes podem aumentar a coerência deste cenário?",
 
     placeholder:
-    "Pense em caminhos possíveis, reorganizações e decisões estruturantes..."
+    "Pense em reorganizações, decisões e alinhamentos possíveis..."
 },
 
 {
     id:5,
+
     letra:"U",
+
     nome:"Unidade Integrada",
+
     cor:"#ffb300",
 
     pergunta:
     "Como integrar as diferentes dimensões deste contexto sem fragmentação?",
 
     placeholder:
-    "Busque coerência entre emoções, lógica, recursos e realidade operacional..."
+    "Conecte emoções, lógica, recursos, contexto e direção..."
 },
 
 {
     id:6,
+
     letra:"L",
+
     nome:"Leitura Dinâmica",
+
     cor:"#ff6b00",
 
     pergunta:
-    "O que mudou ou pode mudar rapidamente neste cenário?",
+    "O que pode mudar rapidamente neste cenário?",
 
     placeholder:
-    "Observe instabilidades, riscos, movimentos emergentes e sinais adaptativos..."
+    "Observe instabilidades, riscos emergentes e movimentos adaptativos..."
 },
 
 {
     id:7,
+
     letra:"O",
+
     nome:"Output Programático",
-    cor:"#0f3fff",
+
+    cor:"#2f6bff",
 
     pergunta:
     "Qual direção prática parece mais coerente após esta trajetória reflexiva?",
 
     placeholder:
-    "Organize sínteses, direcionamentos e possibilidades de ação..."
+    "Organize sínteses, decisões, direcionamentos e possibilidades..."
 }
 
 ];
 
 /* =========================================================
-ELEMENTOS DO DOM
+DOM
 ========================================================= */
 
 const tituloCamada =
@@ -157,27 +196,42 @@ document.getElementById("barraProgresso");
 const mapaNodes =
 document.querySelectorAll(".map-node");
 
+const tensaoElement =
+document.getElementById("nivelTensao");
+
+const clarezaElement =
+document.getElementById("nivelClareza");
+
+const estabilidadeElement =
+document.getElementById("nivelEstabilidade");
+
 /* =========================================================
 INICIALIZAÇÃO
 ========================================================= */
 
+window.onload = ()=>{
+
+    iniciarSistema();
+
+};
+
 function iniciarSistema(){
 
-    atualizarHUD();
-
     renderizarCamada();
+
+    atualizarHUD();
 
     atualizarMapa();
 
     criarParticulas();
+
+    iniciarMonitoramento();
 
     console.log(
     "ORÁCULO • Sistema Inicializado"
     );
 
 }
-
-window.onload = iniciarSistema;
 
 /* =========================================================
 RENDERIZAR CAMADA
@@ -218,13 +272,22 @@ function enviarReflexao(){
     const texto =
     campoResposta.value.trim();
 
-    if(texto.length < 8){
+    /* =====================================================
+    VALIDAÇÃO MÍNIMA
+    ===================================================== */
+
+    if(texto.length < 40){
 
         efeitoErro();
 
         respostaOraculo.innerHTML = `
+
         O ORÁCULO necessita de uma reflexão
-        mais estruturada para prosseguir.
+        mais profunda para estabelecer uma
+        leitura contextual consistente.
+
+        Expanda sua percepção antes de prosseguir.
+
         `;
 
         return;
@@ -236,17 +299,19 @@ function enviarReflexao(){
 
     reflexoesRespondidas++;
 
+    atualizarEstadoInterno(texto);
+
     atualizarScore(texto);
 
     atualizarHUD();
 
-    responderOraculo();
+    responderOraculo(texto);
 
     efeitoPulse();
 
-    desbloquearProximaCamada();
-
     atualizarMapa();
+
+    desbloquearProximaCamada();
 
 }
 
@@ -254,51 +319,123 @@ function enviarReflexao(){
 RESPOSTAS DO ORÁCULO
 ========================================================= */
 
-function responderOraculo(){
+function responderOraculo(texto){
 
-    let resposta = "";
-
-    switch(camadaAtual){
-
-        case 1:
-        resposta =
-        obterRespostaCamada1();
-        break;
-
-        case 2:
-        resposta =
-        obterRespostaCamada2();
-        break;
-
-        case 3:
-        resposta =
-        obterRespostaCamada3();
-        break;
-
-        case 4:
-        resposta =
-        obterRespostaCamada4();
-        break;
-
-        case 5:
-        resposta =
-        obterRespostaCamada5();
-        break;
-
-        case 6:
-        resposta =
-        obterRespostaCamada6();
-        break;
-
-        case 7:
-        resposta =
-        obterRespostaCamada7();
-        break;
-
-    }
+    const resposta =
+    obterResposta(
+        camadaAtual,
+        texto
+    );
 
     respostaOraculo.innerHTML =
     resposta;
+
+}
+
+/* =========================================================
+ESTADO INTERNO
+========================================================= */
+
+function atualizarEstadoInterno(texto){
+
+    const t =
+    texto.toLowerCase();
+
+    /* =====================================================
+    TENSÃO
+    ===================================================== */
+
+    if(
+        t.includes("medo")
+        ||
+        t.includes("pressão")
+        ||
+        t.includes("ansiedade")
+        ||
+        t.includes("conflito")
+        ||
+        t.includes("sobrecarga")
+    ){
+
+        estadoSistema.tensao += 8;
+
+    }
+
+    /* =====================================================
+    CLAREZA
+    ===================================================== */
+
+    if(
+        t.includes("entendo")
+        ||
+        t.includes("clareza")
+        ||
+        t.includes("percebo")
+        ||
+        t.includes("compreendo")
+    ){
+
+        estadoSistema.clareza += 7;
+
+    }
+
+    /* =====================================================
+    ESTABILIDADE
+    ===================================================== */
+
+    if(
+        t.includes("organizar")
+        ||
+        t.includes("equilibrio")
+        ||
+        t.includes("planejamento")
+        ||
+        t.includes("estratégia")
+    ){
+
+        estadoSistema.estabilidade += 6;
+
+    }
+
+    /* =====================================================
+    PROFUNDIDADE
+    ===================================================== */
+
+    if(texto.length > 180){
+
+        estadoSistema.profundidade += 10;
+
+    }else{
+
+        estadoSistema.profundidade += 4;
+
+    }
+
+    limitarEstados();
+
+}
+
+/* =========================================================
+LIMITAR ESTADOS
+========================================================= */
+
+function limitarEstados(){
+
+    Object.keys(estadoSistema).forEach(chave=>{
+
+        if(estadoSistema[chave] > 100){
+
+            estadoSistema[chave] = 100;
+
+        }
+
+        if(estadoSistema[chave] < 0){
+
+            estadoSistema[chave] = 0;
+
+        }
+
+    });
 
 }
 
@@ -308,27 +445,29 @@ ATUALIZAR SCORE
 
 function atualizarScore(texto){
 
-    const tamanho =
-    texto.length;
+    let incremento = 6;
 
-    let incremento =
-    5;
+    if(texto.length > 80){
 
-    if(tamanho > 40){
-        incremento += 5;
+        incremento += 8;
+
     }
 
-    if(tamanho > 100){
-        incremento += 8;
+    if(texto.length > 180){
+
+        incremento += 10;
+
     }
 
     incremento +=
-    Math.floor(Math.random()*7);
+    Math.floor(Math.random()*6);
 
     scoreCoerencia += incremento;
 
     if(scoreCoerencia > 100){
+
         scoreCoerencia = 100;
+
     }
 
     progressoSistema =
@@ -349,14 +488,18 @@ function desbloquearProximaCamada(){
         if(
         !camadasDesbloqueadas.includes(camadaAtual)
         ){
-            camadasDesbloqueadas.push(camadaAtual);
+
+            camadasDesbloqueadas.push(
+            camadaAtual
+            );
+
         }
 
         setTimeout(()=>{
 
             renderizarCamada();
 
-        },1800);
+        },2200);
 
     }else{
 
@@ -367,7 +510,7 @@ function desbloquearProximaCamada(){
 }
 
 /* =========================================================
-CONCLUIR
+CONCLUSÃO
 ========================================================= */
 
 function concluirSimulacao(){
@@ -379,14 +522,15 @@ function concluirSimulacao(){
 
     respostaOraculo.innerHTML = `
 
-    O ORÁCULO consolidou uma trajetória
-    reflexiva completa.
+    O ORÁCULO concluiu a trajetória
+    reflexiva e consolidou um eixo
+    operacional mais coerente.
 
-    A coerência construída ao longo do
-    percurso agora pode ser convertida
-    em direcionamento operacional,
-    planejamento integrado e leitura
-    sistêmica mais consciente.
+    As respostas observadas ao longo
+    do percurso revelam padrões,
+    tensões e possibilidades que agora
+    podem ser convertidas em direção,
+    estratégia e organização consciente.
 
     `;
 
@@ -414,6 +558,27 @@ function atualizarHUD(){
 
     progressoElement.style.width =
     progressoSistema + "%";
+
+    if(tensaoElement){
+
+        tensaoElement.innerHTML =
+        estadoSistema.tensao + "%";
+
+    }
+
+    if(clarezaElement){
+
+        clarezaElement.innerHTML =
+        estadoSistema.clareza + "%";
+
+    }
+
+    if(estabilidadeElement){
+
+        estabilidadeElement.innerHTML =
+        estadoSistema.estabilidade + "%";
+
+    }
 
 }
 
@@ -447,7 +612,7 @@ function atualizarMapa(){
 }
 
 /* =========================================================
-SELEÇÃO MANUAL DE CAMADA
+ABRIR CAMADA
 ========================================================= */
 
 function abrirCamada(numero){
@@ -455,7 +620,9 @@ function abrirCamada(numero){
     if(
     !camadasDesbloqueadas.includes(numero)
     ){
+
         return;
+
     }
 
     camadaAtual = numero;
@@ -498,7 +665,7 @@ function efeitoErro(){
         "erro-system"
         );
 
-    },500);
+    },700);
 
 }
 
@@ -508,7 +675,7 @@ CONFETTI
 
 function criarConfetti(){
 
-    for(let i=0;i<35;i++){
+    for(let i=0;i<40;i++){
 
         const confetti =
         document.createElement("div");
@@ -517,7 +684,7 @@ function criarConfetti(){
         "confetti";
 
         confetti.innerHTML =
-        ["✦","•","⬢","✧","⬡"][
+        ["✦","⬢","✧","⬡","•"][
         Math.floor(Math.random()*5)
         ];
 
@@ -528,10 +695,10 @@ function criarConfetti(){
         "-40px";
 
         confetti.style.fontSize =
-        (12 + Math.random()*24) + "px";
+        (12 + Math.random()*28) + "px";
 
         confetti.style.animationDuration =
-        (2 + Math.random()*3) + "s";
+        (2 + Math.random()*4) + "s";
 
         document.body.appendChild(
         confetti
@@ -557,10 +724,12 @@ function criarParticulas(){
     document.getElementById("particles");
 
     if(!particles){
+
         return;
+
     }
 
-    for(let i=0;i<80;i++){
+    for(let i=0;i<100;i++){
 
         const p =
         document.createElement("div");
@@ -574,13 +743,13 @@ function criarParticulas(){
         Math.random()*100 + "vh";
 
         p.style.animationDuration =
-        (12 + Math.random()*20) + "s";
+        (15 + Math.random()*30) + "s";
 
         p.style.animationDelay =
-        Math.random()*-20 + "s";
+        Math.random()*-30 + "s";
 
         p.style.opacity =
-        Math.random()*.5;
+        Math.random()*.45;
 
         p.style.transform =
         `scale(${Math.random()*2})`;
@@ -588,6 +757,45 @@ function criarParticulas(){
         particles.appendChild(p);
 
     }
+
+}
+
+/* =========================================================
+MONITORAMENTO OPERACIONAL
+========================================================= */
+
+function iniciarMonitoramento(){
+
+    setInterval(()=>{
+
+        const estados = [
+
+        "ONLINE",
+
+        "PROCESSANDO CONTEXTO",
+
+        "ANALISANDO PADRÕES",
+
+        "VALIDANDO COERÊNCIA",
+
+        "MAPEANDO ESTRUTURAS",
+
+        "ORGANIZANDO TRAJETÓRIA",
+
+        "INTEGRANDO CAMADAS"
+
+        ];
+
+        statusSistema =
+        estados[
+        Math.floor(
+        Math.random()*estados.length
+        )
+        ];
+
+        atualizarHUD();
+
+    },9000);
 
 }
 
@@ -614,7 +822,7 @@ function(e){
 });
 
 /* =========================================================
-EXPORTAR DADOS FUTURAMENTE
+EXPORTAÇÃO FUTURA
 ========================================================= */
 
 function exportarSessao(){
@@ -622,6 +830,8 @@ function exportarSessao(){
     const dados = {
 
         score:scoreCoerencia,
+
+        estado:estadoSistema,
 
         reflexoes:
         respostasUsuario,
@@ -634,29 +844,3 @@ function exportarSessao(){
     console.log(dados);
 
 }
-
-/* =========================================================
-MONITORAMENTO VIVO
-========================================================= */
-
-setInterval(()=>{
-
-    const estados = [
-
-    "ONLINE",
-    "PROCESSANDO CONTEXTO",
-    "ANALISANDO PADRÕES",
-    "ORGANIZANDO COERÊNCIA",
-    "MAPEANDO EIXOS",
-    "VALIDANDO TRAJETÓRIA"
-
-    ];
-
-    statusSistema =
-    estados[
-    Math.floor(Math.random()*estados.length)
-    ];
-
-    atualizarHUD();
-
-},10000);
