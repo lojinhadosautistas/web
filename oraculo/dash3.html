@@ -569,37 +569,107 @@ body::before{
   box-shadow:0 0 40px rgba(187,124,255,.12);
 }
 
-/* MAP */
+/* MAPA */
 
 .map{
 
+  position:relative;
+
   width:100%;
   height:100%;
 
-  position:relative;
+  overflow:hidden;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  background:
+  radial-gradient(circle at center,
+  rgba(91,168,255,.08),
+  rgba(5,9,19,1));
 
 }
+
+/* IMAGEM */
 
 .map img{
 
+  position:absolute;
+
+  inset:0;
+
   width:100%;
   height:100%;
 
-  object-fit:cover;
+  object-fit:contain;
 
-  opacity:.92;
+  object-position:center;
+
+  user-select:none;
+
+  pointer-events:none;
+
+  filter:
+  drop-shadow(0 0 40px rgba(91,168,255,.12))
+  saturate(1.05)
+  contrast(1.03);
+
+  transform:scale(.98);
+
+  transition:1.2s ease;
 
 }
 
-.map::after{
+/* EFEITO CINEMÁTICO */
 
-  content:'';
+.map:hover img{
+
+  transform:scale(1);
+
+}
+
+/* OVERLAY */
+
+.map-overlay{
 
   position:absolute;
+
   inset:0;
 
   background:
-  radial-gradient(circle at center, transparent 20%, rgba(0,0,0,.35));
+
+  radial-gradient(
+    circle at center,
+    transparent 35%,
+    rgba(0,0,0,.12) 70%,
+    rgba(0,0,0,.45) 100%
+  ),
+
+  linear-gradient(
+    180deg,
+    rgba(0,0,0,.18),
+    rgba(0,0,0,.28)
+  );
+
+  pointer-events:none;
+
+}
+
+/* RESPONSIVO */
+
+@media(max-width:900px){
+
+  .map img{
+
+    width:100%;
+    height:100%;
+
+    object-fit:contain;
+
+    transform:scale(1.08);
+
+  }
 
 }
 
@@ -1127,15 +1197,17 @@ body::before{
 
       <!-- MAPA -->
 
-      <section class="view" id="mapa">
+<section class="view" id="mapa">
 
-        <div class="map">
+  <div class="map">
 
-          <img src="img/4eixos.png">
+    <img src="img/4eixos.png" alt="Mapa Cognitivo dos 4 Eixos">
 
-        </div>
+    <div class="map-overlay"></div>
 
-      </section>
+  </div>
+
+</section>
 
       <!-- JORNADAS -->
 
