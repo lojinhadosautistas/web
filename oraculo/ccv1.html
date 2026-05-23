@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>CCV v2.5 • Campo Cognitivo Reflexivo</title>
+<title>CCV v3 • Campo Cognitivo Vivo</title>
 
 <style>
 body{
@@ -19,19 +19,17 @@ canvas{display:block;}
   position:fixed;
   top:16px;
   left:16px;
-  color:white;
-  font-size:13px;
-  background:rgba(0,0,0,.35);
+  width:340px;
   padding:12px;
   border-radius:12px;
-  backdrop-filter:blur(10px);
-  width:300px;
+  background:rgba(0,0,0,.4);
+  backdrop-filter:blur(12px);
+  color:white;
+  font-size:13px;
   line-height:1.4;
 }
 
-.small{opacity:.7;font-size:12px;margin-top:6px;}
-
-span{color:#ffb300;}
+.small{opacity:.7;margin-top:6px;}
 </style>
 </head>
 
@@ -40,12 +38,12 @@ span{color:#ffb300;}
 <canvas id="c"></canvas>
 
 <div class="hud">
-  <div><b>CCV v2.5 • Linguagem Reflexiva</b></div>
+  <div><b>CCV v3 • REALIMENTAÇÃO SEMÂNTICA</b></div>
 
   <div class="small">clusters:</div>
   <div id="clusters">0</div>
 
-  <div class="small">linguagem do oráculo:</div>
+  <div class="small">estado do campo:</div>
   <div id="oracle"></div>
 </div>
 
@@ -67,13 +65,25 @@ window.addEventListener("resize", ()=>{
 });
 
 //////////////////////////////////////////////////////
-// 🧠 LINGUAGEM (MEMÓRIA CURTA DO SISTEMA)
+// 🧠 MEMÓRIA SEMÂNTICA GLOBAL (NOVO)
 //////////////////////////////////////////////////////
 
-let lastNarratives = [];
+const semanticMemory = {
+  caos: 0,
+  ordem: 0,
+  fluxo: 0,
+  introspectivo: 0,
+  cognitivo: 0
+};
 
 //////////////////////////////////////////////////////
-// 🧠 TAGS
+// 🧠 LINGUAGEM VIVA
+//////////////////////////////////////////////////////
+
+let narratives = [];
+
+//////////////////////////////////////////////////////
+// 🧠 NÓS (CAMPO)
 //////////////////////////////////////////////////////
 
 const tags = [
@@ -83,39 +93,27 @@ const tags = [
   "integração","ruptura","estabilidade","movimento","ação"
 ];
 
-//////////////////////////////////////////////////////
-// 🧠 NÓS
-//////////////////////////////////////////////////////
-
-const nodes = [];
-
-for(let i=0;i<tags.length;i++){
-
-  nodes.push({
-    x:Math.random()*canvas.width,
-    y:Math.random()*canvas.height,
-    vx:0,
-    vy:0,
-    label:tags[i],
-    r:4
-  });
-
-}
+const nodes = tags.map(t => ({
+  x:Math.random()*innerWidth,
+  y:Math.random()*innerHeight,
+  vx:0,
+  vy:0,
+  label:t,
+  r:4
+}));
 
 //////////////////////////////////////////////////////
-// 🧠 GRUPOS SEMÂNTICOS
+// 🧠 GRUPOS
 //////////////////////////////////////////////////////
 
 function group(tag){
 
   const g = {
-
     caos:["caos","ruído","ruptura","conflito","ansiedade"],
-    ordem:["ordem","estrutura","clareza","estabilidade","controle"],
+    ordem:["ordem","estrutura","clareza","estabilidade"],
     fluxo:["fluxo","movimento","ação","integração"],
     introspectivo:["memória","silêncio","esquecimento"],
-    cognitivo:["decisão","foco","estrutura","integração"]
-
+    cognitivo:["decisão","foco"]
   };
 
   for(let k in g){
@@ -126,36 +124,13 @@ function group(tag){
 }
 
 //////////////////////////////////////////////////////
-// 🧠 SIMILARIDADE (AGORA COM INFLUÊNCIA LINGUÍSTICA)
-//////////////////////////////////////////////////////
-
-function similarity(a,b){
-
-  if(a.label === b.label) return 1;
-
-  let base = (group(a.label) === group(b.label)) ? 0.6 : 0.05;
-
-  // 🔥 INFLUÊNCIA LINGUÍSTICA (v2.5)
-  // linguagem reforça padrões recentes
-  for(let n of lastNarratives){
-
-    if(n.includes(a.label) && n.includes(b.label)){
-      base += 0.25;
-    }
-
-  }
-
-  return base;
-}
-
-//////////////////////////////////////////////////////
 // 🧠 CLUSTERS
 //////////////////////////////////////////////////////
 
 function detectClusters(){
 
   const visited = new Array(nodes.length).fill(false);
-  let clusters = [];
+  const clusters = [];
 
   function dfs(i, cluster){
 
@@ -177,13 +152,11 @@ function detectClusters(){
   }
 
   for(let i=0;i<nodes.length;i++){
-
     if(!visited[i]){
-      let cluster=[];
-      dfs(i,cluster);
-      clusters.push(cluster);
+      const c=[];
+      dfs(i,c);
+      clusters.push(c);
     }
-
   }
 
   return clusters;
@@ -191,7 +164,7 @@ function detectClusters(){
 }
 
 //////////////////////////////////////////////////////
-// 🧠 INTERPRETAÇÃO DO CLUSTER
+// 🧠 INTERPRETAÇÃO
 //////////////////////////////////////////////////////
 
 function interpret(cluster){
@@ -212,90 +185,86 @@ function interpret(cluster){
 // 🧠 LINGUAGEM EMERGENTE
 //////////////////////////////////////////////////////
 
-function sentence(group){
+function generateSentence(g){
 
   const map = {
 
-    caos:[
-      "o campo mantém instabilidade recorrente",
-      "há fragmentação estrutural persistente"
-    ],
-
-    ordem:[
-      "estruturas de coerência estão se fortalecendo",
-      "há organização progressiva do sistema"
-    ],
-
-    fluxo:[
-      "o sistema entra em dinâmica de adaptação contínua",
-      "movimento entre estados se intensifica"
-    ],
-
-    introspectivo:[
-      "o campo reduz externalização e entra em interiorização",
-      "memória opera como núcleo dominante"
-    ],
-
-    cognitivo:[
-      "o sistema estabiliza padrões de decisão",
-      "há convergência de estruturas cognitivas"
-    ],
-
-    neutro:[
-      "dinâmica híbrida sem padrão dominante"
-    ]
+    caos:"instabilidade estrutural persistente no campo",
+    ordem:"organização progressiva e estabilização sistêmica",
+    fluxo:"movimento contínuo entre estados cognitivos",
+    introspectivo:"internalização dominante do processamento",
+    cognitivo:"convergência de decisões e foco operacional",
+    neutro:"estado híbrido sem dominância estrutural"
 
   };
 
-  const s = map[group] || map.neutro;
-
-  return s[Math.floor(Math.random()*s.length)];
+  return map[g] || map.neutro;
 
 }
 
 //////////////////////////////////////////////////////
-// 🧠 ORÁCULO
+// 🧠 🔥 REALIMENTAÇÃO SEMÂNTICA (NÚCLEO DO v3)
 //////////////////////////////////////////////////////
 
-function updateOracle(clusters){
+function applySemanticForce(g, cluster){
 
-  let narrative = [];
+  // intensidade baseada no tamanho do cluster
+  const intensity = cluster.length / 10;
 
-  for(let c of clusters){
+  semanticMemory[g] += intensity;
 
-    const g = interpret(c);
-    const s = sentence(g);
-
-    narrative.push(s);
-
-    // 🔥 v2.5: memória linguística influencia próximo ciclo
-    lastNarratives.push(s);
-
-  }
-
-  if(lastNarratives.length > 6){
-    lastNarratives.shift();
-  }
-
-  document.getElementById("oracle").innerText =
-    narrative.join("\n");
-
-  document.getElementById("clusters").innerText =
-    clusters.length;
+  // limitar crescimento
+  semanticMemory[g] = Math.min(5, semanticMemory[g]);
 
 }
 
 //////////////////////////////////////////////////////
-// 🧠 FÍSICA (AGORA INFLUENCIADA POR LINGUAGEM)
+// 🧠 FORÇA SEMÂNTICA GLOBAL
+//////////////////////////////////////////////////////
+
+function semanticBias(tag){
+
+  const g = group(tag);
+  return semanticMemory[g] || 0;
+
+}
+
+//////////////////////////////////////////////////////
+// 🧠 UPDATE (FÍSICA + SEMÂNTICA FEEDBACK LOOP)
 //////////////////////////////////////////////////////
 
 function update(){
 
   const clusters = detectClusters();
 
+  let newNarratives = [];
+
+  for(let c of clusters){
+
+    const g = interpret(c);
+
+    applySemanticForce(g, c);
+
+    const sentence = generateSentence(g);
+
+    newNarratives.push(sentence);
+
+    narratives.push(sentence);
+
+  }
+
+  if(narratives.length > 10){
+    narratives.shift();
+  }
+
+  // HUD
+  document.getElementById("clusters").innerText = clusters.length;
+  document.getElementById("oracle").innerText = newNarratives.join("\n");
+
+  // FÍSICA
   for(let i=0;i<nodes.length;i++){
 
-    let a = nodes[i];
+    const a = nodes[i];
 
     let fx=0, fy=0;
 
@@ -303,55 +272,48 @@ function update(){
 
       if(i===j) continue;
 
-      let b = nodes[j];
+      const b = nodes[j];
 
       const dx = b.x - a.x;
       const dy = b.y - a.y;
       const d = Math.sqrt(dx*dx+dy*dy)+0.1;
 
-      let f = similarity(a,b);
+      let f = (group(a.label) === group(b.label)) ? 0.6 : 0.05;
+
+      // 🔥 INFLUÊNCIA SEMÂNTICA GLOBAL (v3)
+      f += semanticBias(a.label);
 
       fx += (dx/d)*f;
       fy += (dy/d)*f;
 
     }
 
-    // 🔥 micro feedback da linguagem
-    for(let n of lastNarratives){
-
-      if(n.includes(a.label)){
-        fx *= 1.02;
-        fy *= 1.02;
-      }
-
-    }
-
-    fx += (Math.random()-0.5)*0.2;
-    fy += (Math.random()-0.5)*0.2;
+    // ruído mínimo
+    fx += (Math.random()-0.5)*0.1;
+    fy += (Math.random()-0.5)*0.1;
 
     a.vx += fx*0.02;
     a.vy += fy*0.02;
 
-    a.vx *= 0.92;
-    a.vy *= 0.92;
+    a.vx *= 0.9;
+    a.vy *= 0.9;
 
     a.x += a.vx;
     a.y += a.vy;
 
   }
 
-  updateOracle(clusters);
-
 }
 
 //////////////////////////////////////////////////////
-// 🧠 RENDER
+// 🧠 DRAW
 //////////////////////////////////////////////////////
 
 function draw(){
 
   ctx.clearRect(0,0,canvas.width,canvas.height);
 
+  // conexões
   for(let i=0;i<nodes.length;i++){
 
     for(let j=i+1;j<nodes.length;j++){
@@ -378,9 +340,11 @@ function draw(){
 
   }
 
+  // nós
   for(let n of nodes){
 
     ctx.fillStyle="#ffb300";
+
     ctx.beginPath();
     ctx.arc(n.x,n.y,n.r,0,Math.PI*2);
     ctx.fill();
