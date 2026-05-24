@@ -1,0 +1,1178 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>BookOS | Sistema Imersivo de Revisão Editorial</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+<style>
+
+/* ======================================================
+ROOT
+====================================================== */
+
+:root{
+
+  --bg:#f3efe7;
+
+  --panel:rgba(255,255,255,.72);
+
+  --text:#111111;
+  --muted:#6b7280;
+
+  --line:rgba(0,0,0,.05);
+
+  --primary:#111827;
+  --accent:#b28a52;
+
+  --blue:#818cf8;
+  --green:#34d399;
+  --orange:#fb923c;
+  --purple:#a78bfa;
+  --pink:#f472b6;
+
+  --shadow:
+  0 20px 80px rgba(0,0,0,.08);
+
+}
+
+/* ======================================================
+RESET
+====================================================== */
+
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
+
+html{
+  scroll-behavior:smooth;
+}
+
+body{
+
+  background:
+  radial-gradient(circle at top left,
+  rgba(178,138,82,.08),
+  transparent 18%),
+
+  radial-gradient(circle at bottom right,
+  rgba(129,140,248,.08),
+  transparent 18%),
+
+  linear-gradient(180deg,#f7f5f1,#eee7dd);
+
+  font-family:'Inter',sans-serif;
+
+  color:var(--text);
+
+  overflow:hidden;
+
+  min-height:100vh;
+
+}
+
+body::before{
+
+  content:'';
+
+  position:fixed;
+  inset:0;
+
+  background-image:
+  linear-gradient(rgba(0,0,0,.02) 1px, transparent 1px),
+  linear-gradient(90deg, rgba(0,0,0,.02) 1px, transparent 1px);
+
+  background-size:40px 40px;
+
+  mask-image:
+  radial-gradient(circle at center, black, transparent 80%);
+
+  pointer-events:none;
+
+}
+
+button{
+  font-family:'Inter',sans-serif;
+}
+
+img{
+  display:block;
+  max-width:100%;
+}
+
+iframe{
+  border:none;
+}
+
+a{
+  text-decoration:none;
+  color:inherit;
+}
+
+/* ======================================================
+APP
+====================================================== */
+
+.app{
+
+  width:100%;
+  height:100vh;
+
+  padding:18px;
+
+  display:grid;
+
+  grid-template-rows:auto auto 1fr;
+
+  gap:18px;
+
+}
+
+/* ======================================================
+TOPBAR
+====================================================== */
+
+.topbar{
+
+  background:rgba(255,255,255,.7);
+
+  border:1px solid var(--line);
+
+  border-radius:34px;
+
+  backdrop-filter:blur(18px);
+
+  box-shadow:var(--shadow);
+
+  padding:26px 30px;
+
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+
+  gap:30px;
+
+}
+
+.brand{
+
+  display:flex;
+  align-items:center;
+  gap:18px;
+
+}
+
+.logo{
+
+  width:78px;
+  height:78px;
+
+  border-radius:24px;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  font-size:2rem;
+
+  background:
+  radial-gradient(circle at center,
+  rgba(178,138,82,.16),
+  rgba(178,138,82,.04));
+
+}
+
+.brand h1{
+
+  font-size:2rem;
+
+  letter-spacing:-2px;
+
+}
+
+.brand small{
+
+  display:block;
+
+  margin-top:8px;
+
+  color:var(--accent);
+
+  font-size:.76rem;
+
+  font-weight:700;
+
+  letter-spacing:.18em;
+
+  text-transform:uppercase;
+
+}
+
+.hero{
+
+  max-width:720px;
+
+  text-align:center;
+
+}
+
+.hero strong{
+
+  display:block;
+
+  margin-bottom:14px;
+
+  color:var(--accent);
+
+  font-size:.82rem;
+
+  letter-spacing:.18em;
+
+  text-transform:uppercase;
+
+}
+
+.hero span{
+
+  color:var(--muted);
+
+  line-height:1.9;
+
+}
+
+.system{
+
+  display:flex;
+  align-items:center;
+  gap:14px;
+
+  padding:16px 22px;
+
+  border-radius:20px;
+
+  background:rgba(178,138,82,.08);
+
+  border:1px solid rgba(178,138,82,.12);
+
+}
+
+.pulse{
+
+  width:10px;
+  height:10px;
+
+  border-radius:50%;
+
+  background:var(--accent);
+
+  box-shadow:
+  0 0 18px rgba(178,138,82,.55);
+
+  animation:pulse 2s infinite;
+
+}
+
+@keyframes pulse{
+
+  0%{
+    transform:scale(1);
+    opacity:1;
+  }
+
+  50%{
+    transform:scale(1.4);
+    opacity:.6;
+  }
+
+  100%{
+    transform:scale(1);
+    opacity:1;
+  }
+
+}
+
+/* ======================================================
+MENU
+====================================================== */
+
+.menu{
+
+  display:flex;
+  gap:14px;
+
+  overflow:auto;
+
+}
+
+.menu button{
+
+  border:none;
+
+  padding:16px 24px;
+
+  border-radius:18px;
+
+  background:rgba(255,255,255,.62);
+
+  border:1px solid var(--line);
+
+  backdrop-filter:blur(12px);
+
+  cursor:pointer;
+
+  transition:.35s;
+
+  font-weight:600;
+
+  color:var(--text);
+
+}
+
+.menu button:hover{
+
+  transform:translateY(-4px);
+
+  background:#fff;
+
+}
+
+.menu button.active{
+
+  background:var(--primary);
+
+  color:#fff;
+
+  box-shadow:
+  0 18px 40px rgba(17,24,39,.16);
+
+}
+
+/* ======================================================
+MAIN
+====================================================== */
+
+.main{
+
+  display:grid;
+
+  grid-template-columns:320px 1fr 360px;
+
+  gap:18px;
+
+  min-height:0;
+
+}
+
+/* ======================================================
+PANELS
+====================================================== */
+
+.panel{
+
+  background:var(--panel);
+
+  border:1px solid var(--line);
+
+  border-radius:34px;
+
+  backdrop-filter:blur(18px);
+
+  box-shadow:var(--shadow);
+
+  overflow:hidden;
+
+}
+
+/* ======================================================
+LEFT
+====================================================== */
+
+.left{
+
+  padding:26px;
+
+  overflow:auto;
+
+}
+
+.left h3{
+
+  margin-bottom:22px;
+
+  font-size:1.1rem;
+
+}
+
+.status-grid{
+
+  display:grid;
+
+  gap:18px;
+
+}
+
+.status{
+
+  background:#fff;
+
+  border:1px solid var(--line);
+
+  border-radius:24px;
+
+  padding:22px;
+
+}
+
+.status small{
+
+  display:block;
+
+  margin-bottom:12px;
+
+  color:var(--muted);
+
+}
+
+.status strong{
+
+  font-size:1rem;
+
+}
+
+.level{
+
+  margin-top:18px;
+
+  height:10px;
+
+  border-radius:999px;
+
+  background:#ebe6df;
+
+  overflow:hidden;
+
+}
+
+.level div{
+
+  height:100%;
+
+  border-radius:999px;
+
+}
+
+.b1{width:82%;background:var(--blue);}
+.b2{width:66%;background:var(--green);}
+.b3{width:74%;background:var(--orange);}
+.b4{width:91%;background:var(--purple);}
+
+/* ======================================================
+CENTER
+====================================================== */
+
+.center{
+
+  position:relative;
+
+  overflow:hidden;
+
+}
+
+/* ======================================================
+DOC VIEW
+====================================================== */
+
+.doc-view{
+
+  position:absolute;
+
+  inset:0;
+
+  opacity:0;
+
+  pointer-events:none;
+
+  transition:.4s;
+
+  transform:scale(.985);
+
+}
+
+.doc-view.active{
+
+  opacity:1;
+
+  pointer-events:auto;
+
+  transform:scale(1);
+
+}
+
+.doc-wrapper{
+
+  width:100%;
+  height:100%;
+
+  padding:20px;
+
+}
+
+.doc-wrapper iframe{
+
+  width:100%;
+  height:100%;
+
+  border:none;
+
+  border-radius:26px;
+
+  background:#fff;
+
+  box-shadow:
+  inset 0 0 0 1px rgba(0,0,0,.05);
+
+}
+
+/* ======================================================
+RIGHT
+====================================================== */
+
+.right{
+
+  padding:24px;
+
+  overflow:auto;
+
+}
+
+.side-section{
+
+  margin-bottom:24px;
+
+}
+
+.side-section h3{
+
+  margin-bottom:18px;
+
+}
+
+.quick-grid{
+
+  display:grid;
+
+  gap:16px;
+
+}
+
+.quick{
+
+  background:#fff;
+
+  border:1px solid var(--line);
+
+  border-radius:24px;
+
+  padding:20px;
+
+}
+
+.quick strong{
+
+  display:block;
+
+  margin-bottom:12px;
+
+}
+
+.quick p{
+
+  color:var(--muted);
+
+  line-height:1.8;
+
+}
+
+.safe{
+  border-left:4px solid var(--green);
+}
+
+.alert{
+  border-left:4px solid var(--orange);
+}
+
+.tip{
+  border-left:4px solid var(--purple);
+}
+
+.danger{
+  border-left:4px solid #ef4444;
+}
+
+/* ======================================================
+AMBIENCE
+====================================================== */
+
+.ambient{
+
+  margin-top:26px;
+
+  background:#fff;
+
+  border:1px solid var(--line);
+
+  border-radius:28px;
+
+  padding:24px;
+
+}
+
+.ambient h4{
+
+  margin-bottom:16px;
+
+}
+
+.tags{
+
+  display:flex;
+  flex-wrap:wrap;
+  gap:10px;
+
+}
+
+.tag{
+
+  padding:10px 14px;
+
+  border-radius:999px;
+
+  background:#f3f4f6;
+
+  font-size:.82rem;
+
+  color:#374151;
+
+}
+
+/* ======================================================
+RESPONSIVE
+====================================================== */
+
+@media(max-width:1500px){
+
+  body{
+    overflow:auto;
+  }
+
+  .main{
+    grid-template-columns:1fr;
+  }
+
+}
+
+@media(max-width:980px){
+
+  .topbar{
+
+    flex-direction:column;
+    align-items:flex-start;
+
+  }
+
+  .hero{
+    text-align:left;
+  }
+
+}
+
+@media(max-width:680px){
+
+  .brand h1{
+    font-size:1.6rem;
+  }
+
+}
+
+</style>
+
+</head>
+<body>
+
+<div class="app">
+
+  <!-- TOPBAR -->
+
+  <header class="topbar">
+
+    <div class="brand">
+
+      <div class="logo">
+        📖
+      </div>
+
+      <div>
+
+        <h1>
+          BookOS
+        </h1>
+
+        <small>
+          Sistema Imersivo de Revisão Editorial
+        </small>
+
+      </div>
+
+    </div>
+
+    <div class="hero">
+
+      <strong>
+        Arquitetura Narrativa · Revisão Cognitiva · Escrita Viva
+      </strong>
+
+      <span>
+
+        Um ambiente editorial cinematográfico para revisão,
+        expansão e navegação imersiva do universo do livro.
+
+      </span>
+
+    </div>
+
+    <div class="system">
+
+      <div class="pulse"></div>
+
+      <strong>
+        ESCRITA ATIVA
+      </strong>
+
+    </div>
+
+  </header>
+
+  <!-- MENU -->
+
+  <nav class="menu">
+
+    <button class="tab active" data-view="intro">
+      INTRODUÇÃO
+    </button>
+
+    <button class="tab" data-view="cap1">
+      CAPÍTULO 1
+    </button>
+
+    <button class="tab" data-view="cap2">
+      CAPÍTULO 2
+    </button>
+
+    <button class="tab" data-view="cap3">
+      CAPÍTULO 3
+    </button>
+
+    <button class="tab" data-view="universo">
+      UNIVERSO
+    </button>
+
+    <button class="tab" data-view="notas">
+      NOTAS
+    </button>
+
+    <button class="tab" data-view="referencias">
+      REFERÊNCIAS
+    </button>
+
+  </nav>
+
+  <!-- MAIN -->
+
+  <section class="main">
+
+    <!-- LEFT -->
+
+    <aside class="panel left">
+
+      <h3>
+        Estado Editorial
+      </h3>
+
+      <div class="status-grid">
+
+        <div class="status">
+
+          <small>
+            Estrutura Narrativa
+          </small>
+
+          <strong>
+            Coerência Elevada
+          </strong>
+
+          <div class="level">
+            <div class="b1"></div>
+          </div>
+
+        </div>
+
+        <div class="status">
+
+          <small>
+            Revisão Filosófica
+          </small>
+
+          <strong>
+            Em Desenvolvimento
+          </strong>
+
+          <div class="level">
+            <div class="b2"></div>
+          </div>
+
+        </div>
+
+        <div class="status">
+
+          <small>
+            Densidade Emocional
+          </small>
+
+          <strong>
+            Alto Impacto Narrativo
+          </strong>
+
+          <div class="level">
+            <div class="b3"></div>
+          </div>
+
+        </div>
+
+        <div class="status">
+
+          <small>
+            Universo Simbólico
+          </small>
+
+          <strong>
+            Consistência Avançada
+          </strong>
+
+          <div class="level">
+            <div class="b4"></div>
+          </div>
+
+        </div>
+
+      </div>
+
+    </aside>
+
+    <!-- CENTER -->
+
+    <main class="panel center">
+
+      <!-- INTRO -->
+
+      <section class="doc-view active" id="intro">
+
+        <div class="doc-wrapper">
+
+          <iframe
+            src="https://docs.google.com/document/d/SEU_DOC_ID/preview">
+          </iframe>
+
+        </div>
+
+      </section>
+
+      <!-- CAP1 -->
+
+      <section class="doc-view" id="cap1">
+
+        <div class="doc-wrapper">
+
+          <iframe
+            src="https://docs.google.com/document/d/SEU_DOC_ID/preview">
+          </iframe>
+
+        </div>
+
+      </section>
+
+      <!-- CAP2 -->
+
+      <section class="doc-view" id="cap2">
+
+        <div class="doc-wrapper">
+
+          <iframe
+            src="https://docs.google.com/document/d/SEU_DOC_ID/preview">
+          </iframe>
+
+        </div>
+
+      </section>
+
+      <!-- CAP3 -->
+
+      <section class="doc-view" id="cap3">
+
+        <div class="doc-wrapper">
+
+          <iframe
+            src="https://docs.google.com/document/d/SEU_DOC_ID/preview">
+          </iframe>
+
+        </div>
+
+      </section>
+
+      <!-- UNIVERSO -->
+
+      <section class="doc-view" id="universo">
+
+        <div class="doc-wrapper">
+
+          <iframe
+            src="https://docs.google.com/document/d/SEU_DOC_ID/preview">
+          </iframe>
+
+        </div>
+
+      </section>
+
+      <!-- NOTAS -->
+
+      <section class="doc-view" id="notas">
+
+        <div class="doc-wrapper">
+
+          <iframe
+            src="https://docs.google.com/document/d/SEU_DOC_ID/preview">
+          </iframe>
+
+        </div>
+
+      </section>
+
+      <!-- REFERENCIAS -->
+
+      <section class="doc-view" id="referencias">
+
+        <div class="doc-wrapper">
+
+          <iframe
+            src="https://docs.google.com/document/d/SEU_DOC_ID/preview">
+          </iframe>
+
+        </div>
+
+      </section>
+
+    </main>
+
+    <!-- RIGHT -->
+
+    <aside class="panel right">
+
+      <div class="side-section">
+
+        <h3>
+          Inteligência Editorial
+        </h3>
+
+        <div class="quick-grid">
+
+          <div class="quick safe">
+
+            <strong>
+              Tema Central
+            </strong>
+
+            <p>
+
+              A jornada explora memória,
+              identidade, transcendência
+              e reconstrução simbólica.
+
+            </p>
+
+          </div>
+
+          <div class="quick alert">
+
+            <strong>
+              Atenção Narrativa
+            </strong>
+
+            <p>
+
+              Revisar consistência temporal
+              entre os capítulos 2 e 3.
+
+            </p>
+
+          </div>
+
+          <div class="quick tip">
+
+            <strong>
+              Expansão Potencial
+            </strong>
+
+            <p>
+
+              O universo comporta spin-offs,
+              mapas narrativos e linha temporal.
+
+            </p>
+
+          </div>
+
+          <div class="quick danger">
+
+            <strong>
+              Complexidade Conceitual
+            </strong>
+
+            <p>
+
+              Alguns trechos exigem simplificação
+              cognitiva para fluidez de leitura.
+
+            </p>
+
+          </div>
+
+        </div>
+
+      </div>
+
+      <div class="ambient">
+
+        <h4>
+          Tags Cognitivas
+        </h4>
+
+        <div class="tags">
+
+          <div class="tag">
+            Filosofia
+          </div>
+
+          <div class="tag">
+            Simbolismo
+          </div>
+
+          <div class="tag">
+            Trauma
+          </div>
+
+          <div class="tag">
+            Memória
+          </div>
+
+          <div class="tag">
+            Jornada
+          </div>
+
+          <div class="tag">
+            Existencialismo
+          </div>
+
+          <div class="tag">
+            Humanidade
+          </div>
+
+          <div class="tag">
+            Arquétipos
+          </div>
+
+        </div>
+
+      </div>
+
+    </aside>
+
+  </section>
+
+</div>
+
+<script>
+
+/* ======================================================
+TABS
+====================================================== */
+
+const tabs = document.querySelectorAll('.tab');
+const views = document.querySelectorAll('.doc-view');
+
+tabs.forEach(tab=>{
+
+  tab.addEventListener('click',()=>{
+
+    tabs.forEach(t=>t.classList.remove('active'));
+
+    tab.classList.add('active');
+
+    const target = tab.dataset.view;
+
+    views.forEach(view=>{
+
+      view.classList.remove('active');
+
+      if(view.id === target){
+
+        view.classList.add('active');
+
+      }
+
+    });
+
+  });
+
+});
+
+/* ======================================================
+SHORTCUTS
+====================================================== */
+
+document.addEventListener('keydown',(e)=>{
+
+  const active =
+  [...tabs].findIndex(t=>t.classList.contains('active'));
+
+  if(e.key === 'ArrowRight'){
+
+    const next =
+    (active + 1) % tabs.length;
+
+    tabs[next].click();
+
+  }
+
+  if(e.key === 'ArrowLeft'){
+
+    const prev =
+    (active - 1 + tabs.length) % tabs.length;
+
+    tabs[prev].click();
+
+  }
+
+});
+
+</script>
+
+</body>
+</html>
