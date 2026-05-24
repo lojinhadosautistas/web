@@ -1,0 +1,1540 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>
+BookOS Disclosure | Editorial Governance Operating System
+</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+<!-- ======================================================
+EXTENSÕES / VISUAL ONLY
+====================================================== -->
+
+<link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/echarts/dist/echarts.min.js"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/particles.js"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/gitgraph.js"></script>
+
+<style>
+
+/* ======================================================
+ROOT
+====================================================== */
+
+:root{
+
+  --bg:#f3efe7;
+
+  --panel:rgba(255,255,255,.72);
+
+  --text:#111111;
+
+  --muted:#6b7280;
+
+  --line:rgba(0,0,0,.05);
+
+  --primary:#111827;
+
+  --accent:#b28a52;
+
+  --green:#34d399;
+
+  --blue:#818cf8;
+
+  --orange:#fb923c;
+
+  --purple:#a78bfa;
+
+  --pink:#f472b6;
+
+  --red:#ef4444;
+
+  --shadow:
+  0 20px 80px rgba(0,0,0,.08);
+
+}
+
+/* ======================================================
+RESET
+====================================================== */
+
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
+
+html{
+  scroll-behavior:smooth;
+}
+
+body{
+
+  background:
+  radial-gradient(circle at top left,
+  rgba(178,138,82,.08),
+  transparent 18%),
+
+  radial-gradient(circle at bottom right,
+  rgba(129,140,248,.08),
+  transparent 18%),
+
+  linear-gradient(180deg,#f7f5f1,#eee7dd);
+
+  font-family:'Inter',sans-serif;
+
+  color:var(--text);
+
+  overflow:hidden;
+
+  min-height:100vh;
+
+}
+
+body::before{
+
+  content:'';
+
+  position:fixed;
+  inset:0;
+
+  background-image:
+  linear-gradient(rgba(0,0,0,.02) 1px, transparent 1px),
+  linear-gradient(90deg, rgba(0,0,0,.02) 1px, transparent 1px);
+
+  background-size:40px 40px;
+
+  pointer-events:none;
+
+}
+
+/* ======================================================
+APP
+====================================================== */
+
+.app{
+
+  width:100%;
+  height:100vh;
+
+  padding:18px;
+
+  display:grid;
+
+  grid-template-rows:auto auto 1fr;
+
+  gap:18px;
+
+}
+
+/* ======================================================
+TOPBAR
+====================================================== */
+
+.topbar{
+
+  background:rgba(255,255,255,.7);
+
+  border:1px solid var(--line);
+
+  border-radius:34px;
+
+  backdrop-filter:blur(18px);
+
+  box-shadow:var(--shadow);
+
+  padding:24px 30px;
+
+  display:flex;
+
+  align-items:center;
+
+  justify-content:space-between;
+
+  gap:30px;
+
+}
+
+.brand{
+
+  display:flex;
+
+  align-items:center;
+
+  gap:18px;
+
+}
+
+.logo{
+
+  width:84px;
+  height:84px;
+
+  border-radius:24px;
+
+  background:
+  radial-gradient(circle at center,
+  rgba(178,138,82,.16),
+  rgba(178,138,82,.04));
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  font-size:2rem;
+
+}
+
+.brand h1{
+
+  font-size:2rem;
+
+  letter-spacing:-2px;
+
+}
+
+.brand small{
+
+  display:block;
+
+  margin-top:8px;
+
+  color:var(--accent);
+
+  font-size:.78rem;
+
+  font-weight:700;
+
+  letter-spacing:.18em;
+
+  text-transform:uppercase;
+
+}
+
+.hero{
+
+  max-width:780px;
+
+  text-align:center;
+
+}
+
+.hero strong{
+
+  display:block;
+
+  margin-bottom:14px;
+
+  color:var(--accent);
+
+  font-size:.82rem;
+
+  letter-spacing:.18em;
+
+  text-transform:uppercase;
+
+}
+
+.hero span{
+
+  color:var(--muted);
+
+  line-height:1.9;
+
+}
+
+.system{
+
+  display:flex;
+
+  align-items:center;
+
+  gap:14px;
+
+  padding:16px 22px;
+
+  border-radius:20px;
+
+  background:rgba(178,138,82,.08);
+
+  border:1px solid rgba(178,138,82,.12);
+
+}
+
+.pulse{
+
+  width:10px;
+  height:10px;
+
+  border-radius:50%;
+
+  background:var(--accent);
+
+  box-shadow:
+  0 0 18px rgba(178,138,82,.55);
+
+  animation:pulse 2s infinite;
+
+}
+
+@keyframes pulse{
+
+  0%{
+    transform:scale(1);
+  }
+
+  50%{
+    transform:scale(1.5);
+  }
+
+  100%{
+    transform:scale(1);
+  }
+
+}
+
+/* ======================================================
+MENU
+====================================================== */
+
+.menu{
+
+  display:flex;
+
+  gap:14px;
+
+  overflow:auto;
+
+}
+
+.menu button{
+
+  border:none;
+
+  padding:16px 24px;
+
+  border-radius:18px;
+
+  background:rgba(255,255,255,.62);
+
+  border:1px solid var(--line);
+
+  backdrop-filter:blur(12px);
+
+  cursor:pointer;
+
+  transition:.35s;
+
+  font-weight:600;
+
+}
+
+.menu button:hover{
+
+  transform:translateY(-4px);
+
+}
+
+.menu button.active{
+
+  background:var(--primary);
+
+  color:#fff;
+
+}
+
+/* ======================================================
+MAIN
+====================================================== */
+
+.main{
+
+  display:grid;
+
+  grid-template-columns:340px 1fr 400px;
+
+  gap:18px;
+
+  min-height:0;
+
+}
+
+/* ======================================================
+PANELS
+====================================================== */
+
+.panel{
+
+  background:rgba(255,255,255,.72);
+
+  border:1px solid var(--line);
+
+  border-radius:34px;
+
+  backdrop-filter:blur(18px);
+
+  box-shadow:var(--shadow);
+
+  overflow:hidden;
+
+}
+
+/* ======================================================
+LEFT
+====================================================== */
+
+.left{
+
+  padding:26px;
+
+  overflow:auto;
+
+}
+
+.left h3{
+
+  margin-bottom:22px;
+
+}
+
+.metric{
+
+  background:#fff;
+
+  border:1px solid var(--line);
+
+  border-radius:24px;
+
+  padding:22px;
+
+  margin-bottom:18px;
+
+}
+
+.metric small{
+
+  display:block;
+
+  margin-bottom:12px;
+
+  color:var(--muted);
+
+}
+
+.metric strong{
+
+  font-size:1.4rem;
+
+}
+
+.level{
+
+  margin-top:18px;
+
+  height:10px;
+
+  border-radius:999px;
+
+  background:#ece8e2;
+
+  overflow:hidden;
+
+}
+
+.level div{
+
+  height:100%;
+
+  border-radius:999px;
+
+}
+
+.b1{width:96%;background:var(--green);}
+.b2{width:94%;background:var(--blue);}
+.b3{width:91%;background:var(--purple);}
+.b4{width:88%;background:var(--orange);}
+.b5{width:98%;background:var(--pink);}
+
+/* ======================================================
+CENTER
+====================================================== */
+
+.center{
+
+  position:relative;
+
+  overflow:hidden;
+
+}
+
+.view{
+
+  position:absolute;
+
+  inset:0;
+
+  opacity:0;
+
+  pointer-events:none;
+
+  transition:.35s;
+
+  transform:scale(.985);
+
+}
+
+.view.active{
+
+  opacity:1;
+
+  pointer-events:auto;
+
+  transform:scale(1);
+
+}
+
+.content{
+
+  height:100%;
+
+  overflow:auto;
+
+  padding:28px;
+
+}
+
+/* ======================================================
+CARDS
+====================================================== */
+
+.card{
+
+  background:#fff;
+
+  border:1px solid var(--line);
+
+  border-radius:28px;
+
+  padding:24px;
+
+  margin-bottom:22px;
+
+}
+
+.card h2{
+
+  margin-bottom:16px;
+
+  font-size:1.2rem;
+
+}
+
+.card p{
+
+  color:var(--muted);
+
+  line-height:1.9;
+
+}
+
+/* ======================================================
+TIMELINE
+====================================================== */
+
+.timeline{
+
+  display:grid;
+
+  gap:18px;
+
+}
+
+.timeline-item{
+
+  padding:22px;
+
+  border-radius:22px;
+
+  background:#fff;
+
+  border-left:5px solid var(--accent);
+
+  border:1px solid var(--line);
+
+}
+
+.timeline-item strong{
+
+  display:block;
+
+  margin-bottom:10px;
+
+}
+
+/* ======================================================
+TABLE
+====================================================== */
+
+table{
+
+  width:100%;
+
+  border-collapse:collapse;
+
+}
+
+th,td{
+
+  padding:16px;
+
+  border-bottom:1px solid rgba(0,0,0,.05);
+
+  text-align:left;
+
+}
+
+th{
+
+  background:#faf7f2;
+
+}
+
+/* ======================================================
+RIGHT
+====================================================== */
+
+.right{
+
+  padding:24px;
+
+  overflow:auto;
+
+}
+
+.quick{
+
+  background:#fff;
+
+  border-radius:24px;
+
+  border:1px solid var(--line);
+
+  padding:22px;
+
+  margin-bottom:18px;
+
+}
+
+.quick strong{
+
+  display:block;
+
+  margin-bottom:12px;
+
+}
+
+.quick p{
+
+  color:var(--muted);
+
+  line-height:1.8;
+
+}
+
+.safe{
+  border-left:4px solid var(--green);
+}
+
+.alert{
+  border-left:4px solid var(--orange);
+}
+
+.danger{
+  border-left:4px solid var(--red);
+}
+
+.tip{
+  border-left:4px solid var(--purple);
+}
+
+/* ======================================================
+TAGS
+====================================================== */
+
+.tags{
+
+  display:flex;
+  flex-wrap:wrap;
+  gap:10px;
+
+}
+
+.tag{
+
+  padding:10px 14px;
+
+  border-radius:999px;
+
+  background:#f3f4f6;
+
+  font-size:.82rem;
+
+}
+
+/* ======================================================
+CHARTS
+====================================================== */
+
+.chart{
+
+  height:320px;
+
+  margin-top:20px;
+
+}
+
+/* ======================================================
+RESPONSIVE
+====================================================== */
+
+@media(max-width:1500px){
+
+  body{
+    overflow:auto;
+  }
+
+  .main{
+    grid-template-columns:1fr;
+  }
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div id="particles-js"></div>
+
+<div class="app">
+
+<!-- ======================================================
+TOPBAR
+====================================================== -->
+
+<header class="topbar">
+
+<div class="brand">
+
+<div class="logo">
+📚
+</div>
+
+<div>
+
+<h1>
+BookOS Disclosure
+</h1>
+
+<small>
+Editorial Governance Operating System
+</small>
+
+</div>
+
+</div>
+
+<div class="hero">
+
+<strong>
+TRANSPARÊNCIA · GOVERNANÇA · DISCLOSURE · ACESSIBILIDADE
+</strong>
+
+<span id="typed"></span>
+
+</div>
+
+<div class="system">
+
+<div class="pulse"></div>
+
+<strong>
+DISCLOSURE ACTIVE
+</strong>
+
+</div>
+
+</header>
+
+<!-- ======================================================
+MENU
+====================================================== -->
+
+<nav class="menu">
+
+<button class="tab active" data-view="overview">
+OVERVIEW
+</button>
+
+<button class="tab" data-view="financeiro">
+FINANCEIRO
+</button>
+
+<button class="tab" data-view="roadmap">
+ROADMAP
+</button>
+
+<button class="tab" data-view="governanca">
+GOVERNANÇA
+</button>
+
+<button class="tab" data-view="api">
+API
+</button>
+
+<button class="tab" data-view="versionamento">
+VERSIONAMENTO
+</button>
+
+<button class="tab" data-view="riscos">
+RISCOS
+</button>
+
+<button class="tab" data-view="dataroom">
+DATA ROOM
+</button>
+
+</nav>
+
+<!-- ======================================================
+MAIN
+====================================================== -->
+
+<section class="main">
+
+<!-- ======================================================
+LEFT
+====================================================== -->
+
+<aside class="panel left">
+
+<h3>
+Disclosure Metrics
+</h3>
+
+<div class="metric">
+
+<small>
+Transparência Financeira
+</small>
+
+<strong>
+96 / 100
+</strong>
+
+<div class="level">
+<div class="b1"></div>
+</div>
+
+</div>
+
+<div class="metric">
+
+<small>
+Governança Editorial
+</small>
+
+<strong>
+94 / 100
+</strong>
+
+<div class="level">
+<div class="b2"></div>
+</div>
+
+</div>
+
+<div class="metric">
+
+<small>
+Documentação Pública
+</small>
+
+<strong>
+91 / 100
+</strong>
+
+<div class="level">
+<div class="b3"></div>
+</div>
+
+</div>
+
+<div class="metric">
+
+<small>
+Rastreabilidade
+</small>
+
+<strong>
+98 / 100
+</strong>
+
+<div class="level">
+<div class="b5"></div>
+</div>
+
+</div>
+
+<div class="metric">
+
+<small>
+Disclosure Cognitivo
+</small>
+
+<strong>
+88 / 100
+</strong>
+
+<div class="level">
+<div class="b4"></div>
+</div>
+
+</div>
+
+</aside>
+
+<!-- ======================================================
+CENTER
+====================================================== -->
+
+<main class="panel center">
+
+<!-- OVERVIEW -->
+
+<section class="view active" id="overview">
+
+<div class="content">
+
+<div class="card">
+
+<h2>
+Sistema de Transparência Editorial
+</h2>
+
+<p>
+
+O BookOS Disclosure é um sistema institucional
+desenvolvido para transformar governança editorial,
+prestação de contas, rastreabilidade documental
+e transparência pública em uma experiência visual,
+imersiva e auditável.
+
+</p>
+
+</div>
+
+<div class="card">
+
+<h2>
+Arquitetura Operacional
+</h2>
+
+<div class="mermaid">
+
+graph TD
+
+A[Pesquisa] --> B[Produção Editorial]
+
+B --> C[Revisão Técnica]
+
+C --> D[Diagramação]
+
+D --> E[Publicação]
+
+E --> F[Disclosure Público]
+
+F --> G[Versionamento]
+
+</div>
+
+</div>
+
+<div class="card">
+
+<h2>
+Execução Quadrienal
+</h2>
+
+<div id="financeChart" class="chart"></div>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- FINANCEIRO -->
+
+<section class="view" id="financeiro">
+
+<div class="content">
+
+<div class="card">
+
+<h2>
+Prestação de Contas Editorial
+</h2>
+
+<table>
+
+<thead>
+
+<tr>
+
+<th>Coleção</th>
+
+<th>Ano</th>
+
+<th>Custo</th>
+
+<th>Status</th>
+
+</tr>
+
+</thead>
+
+<tbody>
+
+<tr>
+<td>Rotina e Previsibilidade</td>
+<td>2026</td>
+<td>R$ 2.983,20</td>
+<td>Planejado</td>
+</tr>
+
+<tr>
+<td>Como o Autista Processa o Mundo</td>
+<td>2027</td>
+<td>R$ 2.983,20</td>
+<td>Planejado</td>
+</tr>
+
+<tr>
+<td>Vida Prática no Autismo</td>
+<td>2028</td>
+<td>R$ 4.474,80</td>
+<td>Planejado</td>
+</tr>
+
+<tr>
+<td>Diagnóstico Tardio e Descoberta</td>
+<td>2029</td>
+<td>R$ 4.474,80</td>
+<td>Planejado</td>
+</tr>
+
+</tbody>
+
+</table>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- ROADMAP -->
+
+<section class="view" id="roadmap">
+
+<div class="content">
+
+<div class="timeline">
+
+<div class="timeline-item">
+
+<strong>
+2026 · Fundação Editorial
+</strong>
+
+Construção das coleções iniciais
+e arquitetura de disclosure.
+
+</div>
+
+<div class="timeline-item">
+
+<strong>
+2027 · Consolidação
+</strong>
+
+Expansão da biblioteca
+e dashboards institucionais.
+
+</div>
+
+<div class="timeline-item">
+
+<strong>
+2028 · Governança Pública
+</strong>
+
+Integração com APIs públicas,
+versionamento e snapshots.
+
+</div>
+
+<div class="timeline-item">
+
+<strong>
+2029 · Ecossistema Vivo
+</strong>
+
+Portal editorial aberto,
+transparência contínua
+e inteligência institucional.
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- GOVERNANÇA -->
+
+<section class="view" id="governanca">
+
+<div class="content">
+
+<div class="card">
+
+<h2>
+Princípios de Governança
+</h2>
+
+<p>
+
+• Transparência por padrão<br><br>
+
+• Rastreabilidade documental<br><br>
+
+• Versionamento institucional<br><br>
+
+• Acessibilidade cognitiva<br><br>
+
+• Disclosure contínuo<br><br>
+
+• Accountability pública<br><br>
+
+• Dados auditáveis<br><br>
+
+• Preservação histórica
+
+</p>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- API -->
+
+<section class="view" id="api">
+
+<div class="content">
+
+<div class="card">
+
+<h2>
+Endpoints Públicos
+</h2>
+
+<pre>
+
+/api/disclosure.json
+
+/api/collections.json
+
+/api/financials.json
+
+/api/releases.json
+
+/api/impact.json
+
+/api/governance.json
+
+</pre>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- VERSIONAMENTO -->
+
+<section class="view" id="versionamento">
+
+<div class="content">
+
+<div class="card">
+
+<h2>
+Git Version Graph
+</h2>
+
+<canvas id="gitgraph"></canvas>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- RISCOS -->
+
+<section class="view" id="riscos">
+
+<div class="content">
+
+<div class="card">
+
+<h2>
+Disclosure de Limitações
+</h2>
+
+<p>
+
+• Dependência de financiamento.<br><br>
+
+• Sustentabilidade operacional.<br><br>
+
+• Expansão gradual das coleções.<br><br>
+
+• Necessidade de revisão contínua.<br><br>
+
+• Risco de sobrecarga editorial.<br><br>
+
+• Custos variáveis futuros.
+
+</p>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- DATA ROOM -->
+
+<section class="view" id="dataroom">
+
+<div class="content">
+
+<div class="card">
+
+<h2>
+Data Room Institucional
+</h2>
+
+<p>
+
+snapshot-2026-q1.pdf<br><br>
+
+snapshot-2026-q2.pdf<br><br>
+
+governance-policy-v1.pdf<br><br>
+
+disclosure-report-v2.pdf<br><br>
+
+editorial-roadmap.pdf
+
+</p>
+
+</div>
+
+</div>
+
+</section>
+
+</main>
+
+<!-- ======================================================
+RIGHT
+====================================================== -->
+
+<aside class="panel right">
+
+<div class="quick safe">
+
+<strong>
+GitHub Transparency Stack
+</strong>
+
+<p>
+
+GitHub Pages · Actions · Releases · Discussions · Wiki · Insights · Projects
+
+</p>
+
+</div>
+
+<div class="quick alert">
+
+<strong>
+Disclosure Engine
+</strong>
+
+<p>
+
+Sistema preparado para
+versionamento público,
+auditoria documental
+e snapshots históricos.
+
+</p>
+
+</div>
+
+<div class="quick tip">
+
+<strong>
+Visual Intelligence
+</strong>
+
+<p>
+
+Chart.js · Mermaid · ECharts · GitGraph · Monaco · Swagger UI
+
+</p>
+
+</div>
+
+<div class="quick danger">
+
+<strong>
+Risco Operacional
+</strong>
+
+<p>
+
+Expansão institucional
+exige governança contínua,
+backup documental
+e manutenção de compliance.
+
+</p>
+
+</div>
+
+<div class="card">
+
+<h2>
+Tags Institucionais
+</h2>
+
+<div class="tags">
+
+<div class="tag">Disclosure</div>
+<div class="tag">Governança</div>
+<div class="tag">SEC Inspired</div>
+<div class="tag">Auditável</div>
+<div class="tag">Open Data</div>
+<div class="tag">GitHub</div>
+<div class="tag">Versionamento</div>
+<div class="tag">Acessibilidade</div>
+<div class="tag">Autismo Adulto</div>
+
+</div>
+
+</div>
+
+</aside>
+
+</section>
+
+</div>
+
+<script>
+
+/* ======================================================
+TABS
+====================================================== */
+
+const tabs =
+document.querySelectorAll('.tab');
+
+const views =
+document.querySelectorAll('.view');
+
+tabs.forEach(tab=>{
+
+  tab.addEventListener('click',()=>{
+
+    tabs.forEach(t=>t.classList.remove('active'));
+
+    tab.classList.add('active');
+
+    const target = tab.dataset.view;
+
+    views.forEach(view=>{
+
+      view.classList.remove('active');
+
+      if(view.id === target){
+
+        view.classList.add('active');
+
+      }
+
+    });
+
+  });
+
+});
+
+/* ======================================================
+TYPED
+====================================================== */
+
+new Typed('#typed',{
+
+  strings:[
+
+    'Uma infraestrutura editorial inspirada em disclosure institucional moderno.',
+
+    'Governança pública, rastreabilidade e transparência contínua.',
+
+    'Um terminal institucional para acompanhamento editorial quadrienal.'
+
+  ],
+
+  typeSpeed:28,
+
+  backSpeed:12,
+
+  loop:true
+
+});
+
+/* ======================================================
+MERMAID
+====================================================== */
+
+mermaid.initialize({
+  startOnLoad:true
+});
+
+/* ======================================================
+ECHART
+====================================================== */
+
+const chart =
+echarts.init(document.getElementById('financeChart'));
+
+chart.setOption({
+
+  tooltip:{},
+
+  xAxis:{
+    type:'category',
+    data:['2026','2027','2028','2029']
+  },
+
+  yAxis:{
+    type:'value'
+  },
+
+  series:[{
+
+    data:[2983,2983,4474,4474],
+
+    type:'line',
+
+    smooth:true
+
+  }]
+
+});
+
+/* ======================================================
+PARTICLES
+====================================================== */
+
+particlesJS('particles-js',{
+
+  particles:{
+
+    number:{
+      value:40
+    },
+
+    size:{
+      value:3
+    },
+
+    move:{
+      speed:1
+    },
+
+    line_linked:{
+      enable:true
+    }
+
+  }
+
+});
+
+/* ======================================================
+GITGRAPH
+====================================================== */
+
+const graphContainer =
+document.getElementById("gitgraph");
+
+const gitgraph =
+GitgraphJS.createGitgraph(graphContainer);
+
+const main =
+gitgraph.branch("main");
+
+main.commit("v1.0 Disclosure");
+
+main.commit("Roadmap 2026");
+
+main.commit("Governança");
+
+const release =
+main.branch("release");
+
+release.commit("v1.2");
+
+release.commit("Snapshots");
+
+</script>
+
+</body>
+</html>
