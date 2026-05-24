@@ -1,0 +1,1830 @@
+# bookok-icaro2.html
+
+```html
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>BookOS | Consultoria Icaro</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+<style>
+
+:root{
+
+  --bg:#f3efe7;
+
+  --panel:rgba(255,255,255,.76);
+
+  --text:#101010;
+  --muted:#6b7280;
+
+  --line:rgba(0,0,0,.06);
+
+  --primary:#111827;
+  --accent:#b28a52;
+
+  --blue:#818cf8;
+  --green:#34d399;
+  --orange:#fb923c;
+  --purple:#a78bfa;
+  --pink:#f472b6;
+
+  --shadow:
+  0 20px 80px rgba(0,0,0,.08);
+
+}
+
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
+
+html{
+  scroll-behavior:smooth;
+}
+
+body{
+
+  font-family:'Inter',sans-serif;
+
+  color:var(--text);
+
+  background:
+  radial-gradient(circle at top left,
+  rgba(178,138,82,.08), transparent 18%),
+
+  radial-gradient(circle at bottom right,
+  rgba(129,140,248,.08), transparent 18%),
+
+  linear-gradient(180deg,#f7f5f1,#eee7dd);
+
+  min-height:100vh;
+
+  overflow:hidden;
+
+}
+
+body::before{
+
+  content:'';
+
+  position:fixed;
+  inset:0;
+
+  background-image:
+  linear-gradient(rgba(0,0,0,.02) 1px, transparent 1px),
+  linear-gradient(90deg, rgba(0,0,0,.02) 1px, transparent 1px);
+
+  background-size:40px 40px;
+
+  mask-image:
+  radial-gradient(circle at center, black, transparent 82%);
+
+  pointer-events:none;
+
+}
+
+button{
+  font-family:'Inter',sans-serif;
+}
+
+a{
+  text-decoration:none;
+  color:inherit;
+}
+
+iframe{
+  border:none;
+}
+
+.app{
+
+  width:100%;
+  height:100vh;
+
+  padding:18px;
+
+  display:grid;
+
+  grid-template-rows:auto auto auto 1fr;
+
+  gap:18px;
+
+}
+
+.topbar{
+
+  background:rgba(255,255,255,.72);
+
+  border:1px solid var(--line);
+
+  border-radius:34px;
+
+  backdrop-filter:blur(18px);
+
+  box-shadow:var(--shadow);
+
+  padding:26px 30px;
+
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+
+  gap:30px;
+
+}
+
+.brand{
+
+  display:flex;
+  align-items:center;
+  gap:18px;
+
+}
+
+.logo{
+
+  width:78px;
+  height:78px;
+
+  border-radius:24px;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  font-size:2rem;
+
+  background:
+  radial-gradient(circle at center,
+  rgba(178,138,82,.16),
+  rgba(178,138,82,.04));
+
+}
+
+.brand h1{
+
+  font-size:2rem;
+
+  letter-spacing:-2px;
+
+}
+
+.brand small{
+
+  display:block;
+
+  margin-top:8px;
+
+  color:var(--accent);
+
+  letter-spacing:.18em;
+
+  text-transform:uppercase;
+
+  font-size:.74rem;
+
+  font-weight:700;
+
+}
+
+.hero{
+
+  max-width:820px;
+
+  text-align:center;
+
+}
+
+.hero strong{
+
+  display:block;
+
+  margin-bottom:14px;
+
+  color:var(--accent);
+
+  letter-spacing:.16em;
+
+  text-transform:uppercase;
+
+  font-size:.82rem;
+
+}
+
+.hero span{
+
+  color:var(--muted);
+
+  line-height:1.8;
+
+}
+
+.system{
+
+  display:flex;
+  align-items:center;
+  gap:14px;
+
+  padding:16px 24px;
+
+  border-radius:20px;
+
+  background:rgba(178,138,82,.08);
+
+  border:1px solid rgba(178,138,82,.14);
+
+}
+
+.pulse{
+
+  width:10px;
+  height:10px;
+
+  border-radius:50%;
+
+  background:var(--accent);
+
+  box-shadow:
+  0 0 18px rgba(178,138,82,.55);
+
+  animation:pulse 2s infinite;
+
+}
+
+@keyframes pulse{
+
+  0%{
+    transform:scale(1);
+  }
+
+  50%{
+    transform:scale(1.35);
+  }
+
+  100%{
+    transform:scale(1);
+  }
+
+}
+
+.menu{
+
+  display:flex;
+  gap:14px;
+
+  overflow:auto;
+
+}
+
+.menu button{
+
+  border:none;
+
+  padding:16px 24px;
+
+  border-radius:18px;
+
+  background:rgba(255,255,255,.65);
+
+  border:1px solid var(--line);
+
+  backdrop-filter:blur(12px);
+
+  cursor:pointer;
+
+  transition:.35s;
+
+  font-weight:600;
+
+}
+
+.menu button:hover{
+
+  transform:translateY(-4px);
+
+  background:#fff;
+
+}
+
+.menu button.active{
+
+  background:var(--primary);
+
+  color:#fff;
+
+  box-shadow:
+  0 18px 40px rgba(17,24,39,.16);
+
+}
+
+.workspace-bar{
+
+  background:rgba(255,255,255,.72);
+
+  border:1px solid var(--line);
+
+  border-radius:28px;
+
+  backdrop-filter:blur(18px);
+
+  box-shadow:var(--shadow);
+
+  padding:18px 24px;
+
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+
+  gap:20px;
+
+}
+
+.breadcrumb{
+
+  font-size:.9rem;
+
+  color:var(--muted);
+
+}
+
+.tags{
+
+  display:flex;
+  flex-wrap:wrap;
+  gap:10px;
+
+}
+
+.tag{
+
+  padding:10px 14px;
+
+  border-radius:999px;
+
+  background:#f3f4f6;
+
+  font-size:.82rem;
+
+  color:#374151;
+
+}
+
+
+
+.main{
+
+  display:grid;
+
+  grid-template-columns:320px 1fr 360px;
+
+  gap:18px;
+
+  min-height:0;
+
+}
+
+.panel{
+
+  background:var(--panel);
+
+  border:1px solid var(--line);
+
+  border-radius:34px;
+
+  backdrop-filter:blur(18px);
+
+  box-shadow:var(--shadow);
+
+  overflow:hidden;
+
+}
+
+.left,
+.right{
+
+  padding:24px;
+
+  overflow:auto;
+
+}
+
+.left h3,
+.right h3{
+
+  margin-bottom:18px;
+
+}
+
+.link-group{
+
+  margin-bottom:28px;
+
+}
+
+.link-group small{
+
+  display:block;
+
+  margin-bottom:14px;
+
+  color:var(--accent);
+
+  letter-spacing:.16em;
+
+  text-transform:uppercase;
+
+  font-weight:700;
+
+  font-size:.74rem;
+
+}
+
+.resource{
+
+  display:block;
+
+  padding:18px;
+
+  border-radius:22px;
+
+  background:#fff;
+
+  border:1px solid var(--line);
+
+  margin-bottom:14px;
+
+  transition:.35s;
+
+}
+
+.resource:hover{
+
+  transform:translateY(-4px);
+
+  box-shadow:var(--shadow);
+
+}
+
+.resource strong{
+
+  display:block;
+
+  margin-bottom:10px;
+
+}
+
+.resource span{
+
+  color:var(--muted);
+
+  line-height:1.7;
+
+  font-size:.92rem;
+
+}
+
+.center{
+
+  position:relative;
+
+  overflow:hidden;
+
+}
+
+.view{
+
+  position:absolute;
+  inset:0;
+
+  opacity:0;
+
+  pointer-events:none;
+
+  transition:.4s;
+
+  transform:scale(.985);
+
+}
+
+.view.active{
+
+  opacity:1;
+
+  pointer-events:auto;
+
+  transform:scale(1);
+
+}
+
+.content{
+
+  padding:22px;
+
+  width:100%;
+  height:100%;
+
+  overflow:auto;
+
+}
+
+.grid{
+
+  display:grid;
+
+  grid-template-columns:2fr 1fr;
+
+  gap:18px;
+
+}
+
+.split-workspace{
+
+  align-items:start;
+
+}
+
+.edit-btn{
+
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+
+  padding:12px 18px;
+
+  border-radius:14px;
+
+  background:var(--primary);
+
+  color:#fff;
+
+  font-weight:700;
+
+  transition:.35s;
+
+}
+
+.edit-btn:hover{
+
+  transform:translateY(-3px);
+
+}
+
+.workspace-stack{
+
+  display:grid;
+
+  gap:18px;
+
+}
+
+.multi-docs{
+
+  display:grid;
+
+  gap:14px;
+
+}
+
+.doc-shortcut{
+
+  padding:18px;
+
+  border-radius:20px;
+
+  background:#fff;
+
+  border:1px solid var(--line);
+
+}
+
+.doc-shortcut strong{
+
+  display:block;
+
+  margin-bottom:10px;
+
+}
+
+.doc-shortcut small{
+
+  color:var(--muted);
+
+  line-height:1.7;
+
+}
+
+.grid{
+
+  display:grid;
+
+  grid-template-columns:2fr 1fr;
+
+  gap:18px;
+
+}
+
+.viewer,
+.side-stack{
+
+  display:grid;
+
+  gap:18px;
+
+}
+
+.card{
+
+  background:#fff;
+
+  border:1px solid var(--line);
+
+  border-radius:28px;
+
+  overflow:hidden;
+
+}
+
+.card-header{
+
+  padding:20px 24px;
+
+  border-bottom:1px solid var(--line);
+
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+
+}
+
+.card-header h2{
+
+  font-size:1.2rem;
+
+  letter-spacing:-1px;
+
+}
+
+.card-header span{
+
+  color:var(--muted);
+
+  font-size:.9rem;
+
+}
+
+.embed{
+
+  width:100%;
+
+  height:720px;
+
+}
+
+.insight-grid{
+
+  display:grid;
+
+  gap:16px;
+
+  padding:20px;
+
+}
+
+.insight{
+
+  padding:18px;
+
+  border-radius:22px;
+
+  background:#f8fafc;
+
+  border-left:4px solid var(--accent);
+
+}
+
+.insight p{
+
+  line-height:1.8;
+
+  color:#374151;
+
+}
+
+.module-grid{
+
+  display:grid;
+
+  grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
+
+  gap:18px;
+
+}
+
+.module{
+
+  background:#fff;
+
+  border:1px solid var(--line);
+
+  border-radius:26px;
+
+  padding:24px;
+
+}
+
+.module h4{
+
+  margin-bottom:14px;
+
+}
+
+.module p{
+
+  color:var(--muted);
+
+  line-height:1.8;
+
+}
+
+.calendar{
+
+  width:100%;
+
+  height:320px;
+
+}
+
+.quick-grid{
+
+  display:grid;
+
+  gap:16px;
+
+}
+
+.quick{
+
+  background:#fff;
+
+  border:1px solid var(--line);
+
+  border-radius:22px;
+
+  padding:18px;
+
+}
+
+.quick strong{
+
+  display:block;
+
+  margin-bottom:12px;
+
+}
+
+.quick p{
+
+  color:var(--muted);
+
+  line-height:1.8;
+
+}
+
+.tool-list{
+
+  display:grid;
+
+  gap:12px;
+
+}
+
+.tool{
+
+  padding:16px;
+
+  border-radius:18px;
+
+  background:#fff;
+
+  border:1px solid var(--line);
+
+}
+
+.tool strong{
+
+  display:block;
+
+  margin-bottom:8px;
+
+}
+
+.tool small{
+
+  color:var(--muted);
+
+}
+
+
+
+
+
+@media(max-width:1500px){
+
+  body{
+    overflow:auto;
+  }
+
+  .main{
+    grid-template-columns:1fr;
+  }
+
+  .grid{
+    grid-template-columns:1fr;
+  }
+
+}
+
+@media(max-width:980px){
+
+  .topbar{
+
+    flex-direction:column;
+
+    align-items:flex-start;
+
+  }
+
+  .hero{
+    text-align:left;
+  }
+
+}
+
+</style>
+
+</head>
+<body>
+
+<div class="app">
+
+  <header class="topbar">
+
+    <div class="brand">
+
+      <div class="logo">
+        📖
+      </div>
+
+      <div>
+
+        <h1>
+          BookOS
+        </h1>
+
+        <small>
+          Consultoria Icaro
+        </small>
+
+      </div>
+
+    </div>
+
+    <div class="hero">
+
+      <strong>
+        UX Pública · Transparência Fiscal · Inteligibilidade Orçamentária
+      </strong>
+
+      <span>
+
+        Plataforma operacional de inteligência institucional para revisão,
+        benchmarking e desenvolvimento de roadmaps de democratização
+        da comunicação do orçamento público.
+
+      </span>
+
+    </div>
+
+    <div class="system">
+
+      <div class="pulse"></div>
+
+      <strong>
+        WORKSPACE ATIVO
+      </strong>
+
+    </div>
+
+  </header>
+
+  <nav class="menu">
+
+    <button class="tab active" data-view="overview">
+      VISÃO GERAL
+    </button>
+
+    <button class="tab" data-view="diagnostico">
+      DIAGNÓSTICO
+    </button>
+
+    <button class="tab" data-view="benchmark">
+      BENCHMARK
+    </button>
+
+    <button class="tab" data-view="diretrizes">
+      DIRETRIZES
+    </button>
+
+    <button class="tab" data-view="roadmap">
+      ROADMAP
+    </button>
+
+    <button class="tab" data-view="metricas">
+      MÉTRICAS
+    </button>
+
+    <button class="tab" data-view="referencias">
+      REFERÊNCIAS
+    </button>
+
+    <button class="tab" data-view="evidencias">
+      EVIDÊNCIAS
+    </button>
+
+    <button class="tab" data-view="ia">
+      IA
+    </button>
+
+  </nav>
+
+  <section class="workspace-bar">
+
+    <div class="breadcrumb">
+      BookOS / Benchmark / OECD / Transparência Fiscal
+    </div>
+
+    <div class="tags">
+
+      <div class="tag">
+        #transparencia
+      </div>
+
+      <div class="tag">
+        #uxpublica
+      </div>
+
+      <div class="tag">
+        #governoaberto
+      </div>
+
+      <div class="tag">
+        #benchmark
+      </div>
+
+      <div class="tag">
+        #citizenbudget
+      </div>
+
+      <div class="tag">
+        #accountability
+      </div>
+
+    </div>
+
+    
+
+  </section>
+
+  <section class="main">
+
+    <aside class="panel left">
+
+      <div class="link-group">
+
+        <small>
+          Diagnóstico Brasileiro
+        </small>
+
+        <a class="resource" href="https://www.tesourotransparente.gov.br/" target="_blank">
+          <strong>
+            Tesouro Transparente
+          </strong>
+          <span>
+            Transparência fiscal e instrumentos de governança.
+          </span>
+        </a>
+
+        <a class="resource" href="https://www.gov.br/cgu/pt-br" target="_blank">
+          <strong>
+            CGU
+          </strong>
+          <span>
+            Transparência pública e accountability institucional.
+          </span>
+        </a>
+
+        <a class="resource" href="https://internationalbudget.org/open-budget-survey/" target="_blank">
+          <strong>
+            Open Budget Survey
+          </strong>
+          <span>
+            Indicadores internacionais de transparência fiscal.
+          </span>
+        </a>
+
+        <a class="resource" href="#">
+          <strong>
+            Portais Estaduais
+          </strong>
+          <span>
+            Comparativo de maturidade institucional.
+          </span>
+        </a>
+
+      </div>
+
+      <div class="link-group">
+
+        <small>
+          UX & Arquitetura Informacional
+        </small>
+
+        <a class="resource" href="https://www.nngroup.com/" target="_blank">
+          <strong>
+            NNGroup
+          </strong>
+          <span>
+            Referências internacionais em UX Research.
+          </span>
+        </a>
+
+        <a class="resource" href="https://design-system.service.gov.uk/" target="_blank">
+          <strong>
+            GOV.UK Design System
+          </strong>
+          <span>
+            Sistema de design para serviços públicos.
+          </span>
+        </a>
+
+        <a class="resource" href="https://designsystem.digital.gov/" target="_blank">
+          <strong>
+            US Web Design System
+          </strong>
+          <span>
+            Arquitetura visual para governo digital.
+          </span>
+        </a>
+
+      </div>
+
+      <div class="link-group">
+
+        <small>
+          Workspace & Ferramentas
+        </small>
+
+        <a class="resource" href="#">
+          <strong>
+            Mermaid.js
+          </strong>
+          <span>
+            Diagramas vivos para roadmap institucional e arquitetura de governança.
+          </span>
+        </a>
+
+        <a class="resource" href="#">
+          <strong>
+            Markmap
+          </strong>
+          <span>
+            Mapas mentais dinâmicos derivados do markdown.
+          </span>
+        </a>
+
+        <a class="resource" href="#">
+          <strong>
+            GithubTree
+          </strong>
+          <span>
+            Navegação estrutural da documentação da consultoria.
+          </span>
+        </a>
+
+        <a class="resource" href="#">
+          <strong>
+            Excalidraw
+          </strong>
+          <span>
+            Espaço visual livre para fluxos, wireframes e arquitetura cognitiva.
+          </span>
+        </a>
+
+      </div>
+
+      <div class="link-group">
+
+        <small>
+          Benchmark Internacional
+        </small>
+
+        <a class="resource" href="https://www.oecd.org/gov/budgeting/best-practices-budget-transparency.htm" target="_blank">
+          <strong>
+            OECD
+          </strong>
+          <span>
+            Best practices em budget transparency.
+          </span>
+        </a>
+
+        <a class="resource" href="https://www.imf.org/en/Topics/fiscal-policies/fiscal-transparency" target="_blank">
+          <strong>
+            IMF
+          </strong>
+          <span>
+            Fiscal Transparency Code.
+          </span>
+        </a>
+
+        <a class="resource" href="https://fiscaltransparency.net/" target="_blank">
+          <strong>
+            GIFT
+          </strong>
+          <span>
+            Public participation in fiscal policy.
+          </span>
+        </a>
+
+        <a class="resource" href="https://internationalbudget.org/" target="_blank">
+          <strong>
+            IBP
+          </strong>
+          <span>
+            International Budget Partnership.
+          </span>
+        </a>
+
+      </div>
+
+    </aside>
+
+    <main class="panel center">
+
+      <section class="view active" id="overview">
+
+        <div class="content">
+
+          <div class="grid split-workspace">
+
+            <div class="viewer">
+
+              <div class="card">
+
+                <div class="card-header">
+
+                  <h2>
+                    Documento Central da Consultoria
+                  </h2>
+
+                  <div style="display:flex;align-items:center;gap:14px;">
+
+                    <span>
+                      Google Docs Embed
+                    </span>
+
+                    <a
+                      class="edit-btn"
+                      href="https://docs.google.com/document/d/17oBlFy5p0JsjD7_A2Z80uY7m_o80SJG6OFS9GSRNSMM/edit"
+                      target="_blank">
+                      EDITAR DOCUMENTO
+                    </a>
+
+                  </div>
+
+                </div>
+
+                <iframe
+                  class="embed"
+                  src="https://docs.google.com/document/d/17oBlFy5p0JsjD7_A2Z80uY7m_o80SJG6OFS9GSRNSMM/preview">
+                </iframe>
+
+              </div>
+
+              <div class="module-grid">
+
+                <div class="module">
+                  <h4>
+                    Mermaid.js
+                  </h4>
+                  <p>
+                    Diagramas vivos para roadmap institucional e arquitetura de governança.
+                  </p>
+                </div>
+
+                <div class="module">
+                  <h4>
+                    Markmap
+                  </h4>
+                  <p>
+                    Mapas mentais dinâmicos derivados do markdown.
+                  </p>
+                </div>
+
+                <div class="module">
+                  <h4>
+                    GithubTree
+                  </h4>
+                  <p>
+                    Navegação estrutural da documentação da consultoria.
+                  </p>
+                </div>
+
+                <div class="module">
+                  <h4>
+                    Excalidraw
+                  </h4>
+                  <p>
+                    Fluxos rápidos de arquitetura informacional.
+                  </p>
+                </div>
+
+              </div>
+
+            </div>
+
+            <div class="side-stack workspace-stack">
+
+              <div class="card">
+
+                <div class="card-header">
+
+                  <h2>
+                    Quick Insights
+                  </h2>
+
+                  <span>
+                    Inteligência Estratégica
+                  </span>
+
+                </div>
+
+                <div class="insight-grid">
+
+                  <div class="insight">
+                    <p>
+                      “Disponibilidade de dados não garante inteligibilidade.”
+                    </p>
+                  </div>
+
+                  <div class="insight">
+                    <p>
+                      “UX pública é infraestrutura democrática.”
+                    </p>
+                  </div>
+
+                  <div class="insight">
+                    <p>
+                      “Arquitetura informacional reduz assimetria institucional.”
+                    </p>
+                  </div>
+
+                </div>
+
+              </div>
+
+              <div class="card">
+
+                <div class="card-header">
+
+                  <h2>
+                    Multi-Docs Workspace
+                  </h2>
+
+                  <span>
+                    Estrutura Modular
+                  </span>
+
+                </div>
+
+                <div class="multi-docs" style="padding:20px;">
+
+                  <div class="doc-shortcut">
+                    <strong>
+                      Produto 1 · Plano de Trabalho
+                    </strong>
+                    <small>
+                      Framework metodológico, cronograma e arquitetura analítica.
+                    </small>
+                  </div>
+
+                  <div class="doc-shortcut">
+                    <strong>
+                      Produto 2 · Benchmark Internacional
+                    </strong>
+                    <small>
+                      Casos internacionais, UX pública e transparência fiscal.
+                    </small>
+                  </div>
+
+                  <div class="doc-shortcut">
+                    <strong>
+                      Produto 3 · Roadmap Estratégico
+                    </strong>
+                    <small>
+                      Governança, indicadores e implementação operacional.
+                    </small>
+                  </div>
+
+                </div>
+
+              </div>
+
+              <div class="card">
+
+                <div class="card-header">
+
+                  <h2>
+                    Agenda Operacional
+                  </h2>
+
+                  <span>
+                    Google Calendar
+                  </span>
+
+                </div>
+
+                <iframe
+                  class="calendar"
+                  src="https://calendar.google.com/calendar/embed?src=pt.brazilian%23holiday%40group.v.calendar.google.com">
+                </iframe>
+
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+
+      </section>
+
+      <section class="view" id="diagnostico">
+
+        <div class="content">
+
+          <div class="card">
+
+            <div class="card-header">
+
+              <h2>
+                Diagnóstico Analítico do Caso Brasileiro
+              </h2>
+
+              <span>
+                UX Pública · Transparência · Arquitetura Informacional
+              </span>
+
+            </div>
+
+            <iframe
+              class="embed"
+              src="https://docs.google.com/document/d/17oBlFy5p0JsjD7_A2Z80uY7m_o80SJG6OFS9GSRNSMM/preview">
+            </iframe>
+
+          </div>
+
+        </div>
+
+      </section>
+
+      <section class="view" id="benchmark">
+
+        <div class="content">
+
+          <div class="card">
+
+            <div class="card-header">
+
+              <h2>
+                Benchmark Internacional
+              </h2>
+
+              <span>
+                OECD · IMF · GIFT · IBP
+              </span>
+
+            </div>
+
+            <iframe
+              class="embed"
+              src="https://docs.google.com/document/d/17oBlFy5p0JsjD7_A2Z80uY7m_o80SJG6OFS9GSRNSMM/preview">
+            </iframe>
+
+          </div>
+
+        </div>
+
+      </section>
+
+      <section class="view" id="diretrizes">
+
+        <div class="content">
+
+          <div class="card">
+
+            <div class="card-header">
+
+              <h2>
+                Diretrizes Estratégicas
+              </h2>
+
+              <span>
+                Design Centrado no Usuário
+              </span>
+
+            </div>
+
+            <iframe
+              class="embed"
+              src="https://docs.google.com/document/d/17oBlFy5p0JsjD7_A2Z80uY7m_o80SJG6OFS9GSRNSMM/preview">
+            </iframe>
+
+          </div>
+
+        </div>
+
+      </section>
+
+      <section class="view" id="roadmap">
+
+        <div class="content">
+
+          <div class="card">
+
+            <div class="card-header">
+
+              <h2>
+                Roadmap de Implementação
+              </h2>
+
+              <span>
+                Governança · Indicadores · Cronograma
+              </span>
+
+            </div>
+
+            <iframe
+              class="embed"
+              src="https://docs.google.com/document/d/17oBlFy5p0JsjD7_A2Z80uY7m_o80SJG6OFS9GSRNSMM/preview">
+            </iframe>
+
+          </div>
+
+        </div>
+
+      </section>
+
+      <section class="view" id="metricas">
+
+        <div class="content">
+
+          <div class="module-grid">
+
+            <div class="module">
+              <h4>
+                Apache ECharts
+              </h4>
+              <p>
+                Dashboards interativos de maturidade institucional.
+              </p>
+            </div>
+
+            <div class="module">
+              <h4>
+                Chart.js
+              </h4>
+              <p>
+                Visualização de indicadores de transparência.
+              </p>
+            </div>
+
+            <div class="module">
+              <h4>
+                ObservableHQ
+              </h4>
+              <p>
+                Narrativas analíticas interativas.
+              </p>
+            </div>
+
+            <div class="module">
+              <h4>
+                Métricas de UX Pública
+              </h4>
+              <p>
+                Framework de inteligibilidade e responsividade.
+              </p>
+            </div>
+
+          </div>
+
+        </div>
+
+      </section>
+
+      <section class="view" id="referencias">
+
+        <div class="content">
+
+          <div class="card">
+
+            <div class="card-header">
+
+              <h2>
+                Referências Gerais do Estudo
+              </h2>
+
+              <span>
+                Base Científica e Institucional
+              </span>
+
+            </div>
+
+            <iframe
+              class="embed"
+              src="https://docs.google.com/document/d/17oBlFy5p0JsjD7_A2Z80uY7m_o80SJG6OFS9GSRNSMM/preview">
+            </iframe>
+
+          </div>
+
+        </div>
+
+      </section>
+
+      <section class="view" id="evidencias">
+
+        <div class="content">
+
+          <div class="module-grid">
+
+            <div class="module">
+              <h4>
+                PDFs Técnicos
+              </h4>
+              <p>
+                Relatórios institucionais e documentos de benchmark.
+              </p>
+            </div>
+
+            <div class="module">
+              <h4>
+                Canva Embed
+              </h4>
+              <p>
+                Apresentações executivas e painéis visuais.
+              </p>
+            </div>
+
+            <div class="module">
+              <h4>
+                Miro Boards
+              </h4>
+              <p>
+                Arquitetura sistêmica e mapas estratégicos.
+              </p>
+            </div>
+
+            <div class="module">
+              <h4>
+                Figma
+              </h4>
+              <p>
+                Protótipos de UX pública e experiência cidadã.
+              </p>
+            </div>
+
+          </div>
+
+        </div>
+
+      </section>
+
+      <section class="view" id="ia">
+
+        <div class="content">
+
+          <div class="module-grid">
+
+            <div class="module">
+              <h4>
+                IA Contextual
+              </h4>
+              <p>
+                Resumos automáticos e síntese de evidências.
+              </p>
+            </div>
+
+            <div class="module">
+              <h4>
+                Análise Comparativa
+              </h4>
+              <p>
+                Comparação entre portais e modelos internacionais.
+              </p>
+            </div>
+
+            <div class="module">
+              <h4>
+                Clusterização Temática
+              </h4>
+              <p>
+                Identificação de padrões de transparência.
+              </p>
+            </div>
+
+            <div class="module">
+              <h4>
+                Narrativas Inteligentes
+              </h4>
+              <p>
+                Insights automatizados para gestão pública.
+              </p>
+            </div>
+
+          </div>
+
+        </div>
+
+      </section>
+
+    </main>
+
+    <aside class="panel right">
+
+      <div class="card">
+
+                <div class="card-header">
+
+                  <h2>
+                    Agenda Operacional
+                  </h2>
+
+                  <span>
+                    Google Calendar
+                  </span>
+
+                </div>
+
+                <iframe
+                  class="calendar"
+                  src="https://calendar.google.com/calendar/embed?src=pt.brazilian%23holiday%40group.v.calendar.google.com">
+                </iframe>
+
+              </div>
+
+      <div class="quick-grid" style="margin-top:24px;">
+
+        <div class="quick">
+          <strong>
+            Produto 1
+          </strong>
+          <p>
+            Plano de Trabalho e framework metodológico.
+          </p>
+        </div>
+
+        <div class="quick">
+          <strong>
+            Produto 2
+          </strong>
+          <p>
+            Diagnóstico brasileiro e benchmark internacional.
+          </p>
+        </div>
+
+        <div class="quick">
+          <strong>
+            Produto 3
+          </strong>
+          <p>
+            Roadmap estratégico e instrumento de mensuração.
+          </p>
+        </div>
+
+      </div>
+
+      <div class="link-group" style="margin-top:28px;">
+
+        <small>
+          Ferramentas Gratuitas
+        </small>
+
+        <div class="tool-list">
+
+          <div class="tool">
+            <strong>
+              Docsify
+            </strong>
+            <small>
+              documentação viva baseada em markdown.
+            </small>
+          </div>
+
+          <div class="tool">
+            <strong>
+              Mermaid.js
+            </strong>
+            <small>
+              diagramas institucionais e governança.
+            </small>
+          </div>
+
+          <div class="tool">
+            <strong>
+              Markmap
+            </strong>
+            <small>
+              mapas mentais automáticos.
+            </small>
+          </div>
+
+          <div class="tool">
+            <strong>
+              GithubTree
+            </strong>
+            <small>
+              visualização estrutural do projeto.
+            </small>
+          </div>
+
+          <div class="tool">
+            <strong>
+              Obsidian Publish
+            </strong>
+            <small>
+              publicação premium de conhecimento.
+            </small>
+          </div>
+
+        </div>
+
+      </div>
+
+    </aside>
+
+  </section>
+
+</div>
+
+<script>
+
+const tabs = document.querySelectorAll('.tab');
+const views = document.querySelectorAll('.view');
+
+tabs.forEach(tab=>{
+
+  tab.addEventListener('click',()=>{
+
+    tabs.forEach(t=>t.classList.remove('active'));
+
+    tab.classList.add('active');
+
+    const target = tab.dataset.view;
+
+    views.forEach(view=>{
+
+      view.classList.remove('active');
+
+      if(view.id === target){
+
+        view.classList.add('active');
+
+      }
+
+    });
+
+  });
+
+});
+
+focusBtn.addEventListener('click',()=>{
+
+  document.body.classList.toggle('focus-mode');
+
+});
+
+</script>
+
+</body>
+</html>
+```
