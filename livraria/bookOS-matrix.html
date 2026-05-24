@@ -1,0 +1,923 @@
+# bookOS-matrix.html
+
+```html
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>BookOS Matrix | Disclosure Intelligence System</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+<script src="https://cdn.jsdelivr.net/npm/echarts/dist/echarts.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12"></script>
+<script src="https://cdn.jsdelivr.net/npm/particles.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+<script src="https://cdn.jsdelivr.net/npm/gridstack@9.2.0/dist/gridstack-all.js"></script>
+<link href="https://cdn.jsdelivr.net/npm/gridstack@9.2.0/dist/gridstack.min.css" rel="stylesheet" />
+
+<style>
+
+:root{
+
+--bg:#f3efe7;
+--panel:rgba(255,255,255,.78);
+--text:#111827;
+--muted:#6b7280;
+--line:rgba(0,0,0,.06);
+--accent:#b28a52;
+--primary:#111827;
+--green:#34d399;
+--orange:#fb923c;
+--purple:#8b5cf6;
+--blue:#818cf8;
+--red:#ef4444;
+
+--shadow:
+0 20px 60px rgba(0,0,0,.08);
+
+}
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+}
+
+html{
+scroll-behavior:smooth;
+}
+
+body{
+
+font-family:'Inter',sans-serif;
+
+background:
+radial-gradient(circle at top left,
+rgba(178,138,82,.12),
+transparent 20%),
+
+radial-gradient(circle at bottom right,
+rgba(129,140,248,.12),
+transparent 20%),
+
+linear-gradient(180deg,#f8f6f2,#efe7dc);
+
+color:var(--text);
+
+min-height:100vh;
+overflow-x:hidden;
+
+}
+
+#particles-js{
+position:fixed;
+inset:0;
+z-index:-1;
+opacity:.45;
+}
+
+body::before{
+
+content:'';
+position:fixed;
+inset:0;
+
+background-image:
+linear-gradient(rgba(0,0,0,.02) 1px, transparent 1px),
+linear-gradient(90deg, rgba(0,0,0,.02) 1px, transparent 1px);
+
+background-size:42px 42px;
+
+mask-image:
+radial-gradient(circle at center, black, transparent 85%);
+
+pointer-events:none;
+
+}
+
+.app{
+padding:20px;
+display:flex;
+flex-direction:column;
+gap:20px;
+}
+
+.topbar{
+
+background:var(--panel);
+border:1px solid var(--line);
+border-radius:34px;
+backdrop-filter:blur(20px);
+box-shadow:var(--shadow);
+
+padding:28px;
+
+display:flex;
+justify-content:space-between;
+align-items:center;
+gap:30px;
+
+}
+
+.brand{
+display:flex;
+align-items:center;
+gap:18px;
+}
+
+.logo{
+width:84px;
+height:84px;
+border-radius:24px;
+
+display:flex;
+align-items:center;
+justify-content:center;
+
+font-size:2.2rem;
+
+background:
+radial-gradient(circle at center,
+rgba(178,138,82,.18),
+rgba(178,138,82,.04));
+}
+
+.brand h1{
+font-size:2.2rem;
+letter-spacing:-2px;
+}
+
+.brand small{
+display:block;
+margin-top:6px;
+font-size:.8rem;
+font-weight:700;
+letter-spacing:.18em;
+text-transform:uppercase;
+color:var(--accent);
+}
+
+.hero{
+max-width:720px;
+}
+
+.hero strong{
+color:var(--accent);
+display:block;
+margin-bottom:10px;
+letter-spacing:.14em;
+text-transform:uppercase;
+font-size:.78rem;
+}
+
+.hero p{
+line-height:1.9;
+color:var(--muted);
+}
+
+.system{
+background:rgba(178,138,82,.08);
+padding:18px 22px;
+border-radius:20px;
+border:1px solid rgba(178,138,82,.14);
+min-width:280px;
+}
+
+.pulse{
+width:10px;
+height:10px;
+border-radius:50%;
+background:var(--green);
+box-shadow:0 0 20px rgba(52,211,153,.7);
+animation:pulse 2s infinite;
+margin-bottom:12px;
+}
+
+@keyframes pulse{
+0%{transform:scale(1);opacity:1;}
+50%{transform:scale(1.4);opacity:.5;}
+100%{transform:scale(1);opacity:1;}
+}
+
+.system span{
+font-size:.85rem;
+line-height:1.7;
+color:var(--muted);
+}
+
+.ticker{
+
+overflow:hidden;
+white-space:nowrap;
+
+background:#111827;
+color:#fff;
+
+padding:14px 22px;
+
+border-radius:20px;
+
+font-size:.88rem;
+letter-spacing:.08em;
+
+}
+
+.ticker-track{
+display:inline-block;
+padding-left:100%;
+animation:ticker 26s linear infinite;
+}
+
+@keyframes ticker{
+0%{transform:translateX(0);}
+100%{transform:translateX(-100%);}
+}
+
+.main{
+
+display:grid;
+grid-template-columns:320px 1fr 360px;
+gap:20px;
+
+}
+
+.panel{
+background:var(--panel);
+border:1px solid var(--line);
+border-radius:34px;
+backdrop-filter:blur(18px);
+box-shadow:var(--shadow);
+overflow:hidden;
+}
+
+.left,
+.right{
+padding:24px;
+}
+
+.left h3,
+.right h3{
+margin-bottom:20px;
+font-size:1.1rem;
+}
+
+.status-grid,
+.quick-grid{
+display:grid;
+gap:18px;
+}
+
+.status,
+.quick,
+.feed,
+.metric-card,
+.timeline-card{
+background:#fff;
+border:1px solid var(--line);
+border-radius:24px;
+padding:22px;
+}
+
+.status small,
+.metric-card small{
+color:var(--muted);
+display:block;
+margin-bottom:12px;
+}
+
+.level{
+height:10px;
+border-radius:999px;
+background:#ece8e2;
+overflow:hidden;
+margin-top:18px;
+}
+
+.level div{
+height:100%;
+border-radius:999px;
+}
+
+.b1{width:98%;background:var(--green);}
+.b2{width:92%;background:var(--blue);}
+.b3{width:94%;background:var(--orange);}
+.b4{width:97%;background:var(--purple);}
+.b5{width:88%;background:var(--red);}
+
+.center{
+padding:22px;
+display:flex;
+flex-direction:column;
+gap:20px;
+}
+
+.grid-two{
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:20px;
+}
+
+.card{
+background:#fff;
+border:1px solid var(--line);
+border-radius:30px;
+padding:24px;
+}
+
+.card h2{
+font-size:1.1rem;
+margin-bottom:16px;
+}
+
+.metric-grid{
+display:grid;
+grid-template-columns:repeat(4,1fr);
+gap:16px;
+}
+
+.metric-card strong{
+font-size:2rem;
+display:block;
+margin-bottom:10px;
+}
+
+.terminal{
+background:#0b1120;
+color:#d1fae5;
+font-family:monospace;
+padding:24px;
+border-radius:24px;
+min-height:220px;
+line-height:1.9;
+overflow:hidden;
+}
+
+.log-success{color:#34d399;}
+.log-warning{color:#fbbf24;}
+.log-danger{color:#f87171;}
+.log-info{color:#93c5fd;}
+
+.matrix-table{
+width:100%;
+border-collapse:collapse;
+}
+
+.matrix-table th,
+.matrix-table td{
+padding:16px;
+border-bottom:1px solid rgba(0,0,0,.06);
+text-align:left;
+font-size:.92rem;
+}
+
+.matrix-table th{
+background:#faf7f2;
+}
+
+.badge{
+display:inline-flex;
+align-items:center;
+gap:8px;
+padding:8px 12px;
+border-radius:999px;
+font-size:.78rem;
+font-weight:700;
+}
+
+.green{background:rgba(52,211,153,.12);color:#047857;}
+.orange{background:rgba(251,146,60,.12);color:#c2410c;}
+.blue{background:rgba(129,140,248,.12);color:#4338ca;}
+.purple{background:rgba(139,92,246,.12);color:#6d28d9;}
+.red{background:rgba(239,68,68,.12);color:#b91c1c;}
+
+.feed{
+margin-bottom:16px;
+}
+
+.feed small{
+color:var(--muted);
+}
+
+.tags{
+display:flex;
+flex-wrap:wrap;
+gap:10px;
+margin-top:18px;
+}
+
+.tag{
+padding:10px 14px;
+border-radius:999px;
+background:#f3f4f6;
+font-size:.82rem;
+}
+
+.timeline{
+display:grid;
+gap:18px;
+}
+
+.timeline-item{
+display:flex;
+gap:16px;
+}
+
+.dot{
+width:16px;
+height:16px;
+border-radius:50%;
+margin-top:6px;
+background:var(--accent);
+box-shadow:0 0 14px rgba(178,138,82,.6);
+}
+
+.footer{
+margin-top:20px;
+text-align:center;
+color:var(--muted);
+font-size:.9rem;
+padding:24px;
+}
+
+@media(max-width:1600px){
+.main{
+grid-template-columns:1fr;
+}
+}
+
+@media(max-width:980px){
+.topbar{
+flex-direction:column;
+align-items:flex-start;
+}
+
+.metric-grid,
+.grid-two{
+grid-template-columns:1fr;
+}
+}
+
+</style>
+
+</head>
+<body>
+
+<div id="particles-js"></div>
+
+<div class="app">
+
+<header class="topbar">
+
+<div class="brand">
+
+<div class="logo">
+📚
+</div>
+
+<div>
+<h1>BookOS Matrix</h1>
+<small>Disclosure Intelligence System</small>
+</div>
+
+</div>
+
+<div class="hero">
+
+<strong>
+Governança Editorial • Transparência Institucional • Open Disclosure
+</strong>
+
+<p>
+Uma arquitetura institucional inspirada em SEC Filings, Bloomberg Terminals e sistemas modernos de governança aberta para acompanhamento do ecossistema editorial “Cada Passo, Uma Jornada”.
+</p>
+
+</div>
+
+<div class="system">
+<div class="pulse"></div>
+<strong id="typed"></strong>
+<br><br>
+<span>
+Sistema editorial em modo de disclosure contínuo.
+Governança pública, trilha documental e rastreabilidade institucional.
+</span>
+</div>
+
+</header>
+
+<div class="ticker">
+<div class="ticker-track">
+DISCLOSURE SNAPSHOT v2026.1 • OPEN DATA VERIFIED • COLEÇÃO 01 EM PRODUÇÃO • MATRIZ EDITORIAL VALIDADA • ROADMAP QUADRIENAL PUBLICADO • GOVERNANÇA ATIVA • SISTEMA REDE INTEGRADO •
+</div>
+</div>
+
+<section class="main">
+
+<aside class="panel left">
+
+<h3>Governança Institucional</h3>
+
+<div class="status-grid">
+
+<div class="status">
+<small>Transparency Score</small>
+<strong>98 / 100</strong>
+<div class="level"><div class="b1"></div></div>
+</div>
+
+<div class="status">
+<small>Accessibility Index</small>
+<strong>92 / 100</strong>
+<div class="level"><div class="b2"></div></div>
+</div>
+
+<div class="status">
+<small>Editorial Integrity</small>
+<strong>94 / 100</strong>
+<div class="level"><div class="b3"></div></div>
+</div>
+
+<div class="status">
+<small>Open Governance</small>
+<strong>97 / 100</strong>
+<div class="level"><div class="b4"></div></div>
+</div>
+
+<div class="status">
+<small>Operational Risk</small>
+<strong>Low Risk</strong>
+<div class="level"><div class="b5"></div></div>
+</div>
+
+</div>
+
+<div class="card" style="margin-top:22px;">
+
+<h2>Open Data Architecture</h2>
+
+<div class="tags">
+<div class="tag">/disclosure</div>
+<div class="tag">/financials</div>
+<div class="tag">/governance</div>
+<div class="tag">/roadmap</div>
+<div class="tag">/accessibility</div>
+<div class="tag">/impact</div>
+<div class="tag">/releases</div>
+<div class="tag">/editorial</div>
+</div>
+
+</div>
+
+</aside>
+
+<main class="panel center">
+
+<div class="metric-grid">
+
+<div class="metric-card">
+<small>Coleções</small>
+<strong>10</strong>
+<span>Estrutura editorial modular</span>
+</div>
+
+<div class="metric-card">
+<small>Volumes</small>
+<strong>60</strong>
+<span>Biblioteca longitudinal</span>
+</div>
+
+<div class="metric-card">
+<small>Custo Total</small>
+<strong>R$14.916</strong>
+<span>Disclosure quadrienal</span>
+</div>
+
+<div class="metric-card">
+<small>Status</small>
+<strong>LIVE</strong>
+<span>Disclosure contínuo</span>
+</div>
+
+</div>
+
+<div class="grid-two">
+
+<div class="card">
+<h2>SEC-Style Filings</h2>
+
+<table class="matrix-table">
+<tr>
+<th>Filing</th>
+<th>Status</th>
+<th>Atualização</th>
+</tr>
+
+<tr>
+<td>FORM 10-Q</td>
+<td><span class="badge green">ATIVO</span></td>
+<td>Q1 2026</td>
+</tr>
+
+<tr>
+<td>FORM 10-K</td>
+<td><span class="badge blue">PUBLICADO</span></td>
+<td>2026</td>
+</tr>
+
+<tr>
+<td>FORM ESG</td>
+<td><span class="badge purple">EM ANÁLISE</span></td>
+<td>Impacto Social</td>
+</tr>
+
+<tr>
+<td>FORM ACCESS</td>
+<td><span class="badge orange">REVISÃO</span></td>
+<td>Acessibilidade</td>
+</tr>
+
+</table>
+
+</div>
+
+<div class="card">
+<h2>Disclosure Timeline</h2>
+
+<div class="timeline">
+
+<div class="timeline-item">
+<div class="dot"></div>
+<div>
+<strong>2026.1</strong>
+<p>Início das coleções de rotina e previsibilidade.</p>
+</div>
+</div>
+
+<div class="timeline-item">
+<div class="dot"></div>
+<div>
+<strong>2027.1</strong>
+<p>Expansão para funcionamento cognitivo.</p>
+</div>
+</div>
+
+<div class="timeline-item">
+<div class="dot"></div>
+<div>
+<strong>2028.1</strong>
+<p>Vida prática, crises e regulação.</p>
+</div>
+</div>
+
+<div class="timeline-item">
+<div class="dot"></div>
+<div>
+<strong>2029.2</strong>
+<p>Direitos, subjetividade e disclosure final.</p>
+</div>
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<div class="card">
+<h2>Editorial Intelligence Matrix</h2>
+
+<table class="matrix-table">
+
+<tr>
+<th>Coleção</th>
+<th>Volumes</th>
+<th>Status</th>
+<th>Risco</th>
+<th>Prioridade</th>
+</tr>
+
+<tr>
+<td>Rotina e Previsibilidade</td>
+<td>6</td>
+<td><span class="badge green">ATIVO</span></td>
+<td>Baixo</td>
+<td>Alta</td>
+</tr>
+
+<tr>
+<td>Como o Autista Processa o Mundo</td>
+<td>6</td>
+<td><span class="badge blue">MAPEADO</span></td>
+<td>Médio</td>
+<td>Alta</td>
+</tr>
+
+<tr>
+<td>Vida Prática no Autismo</td>
+<td>6</td>
+<td><span class="badge purple">PLANEJADO</span></td>
+<td>Médio</td>
+<td>Média</td>
+</tr>
+
+<tr>
+<td>Crises e Regulação</td>
+<td>6</td>
+<td><span class="badge orange">REVISÃO</span></td>
+<td>Baixo</td>
+<td>Alta</td>
+</tr>
+
+<tr>
+<td>Vida Emocional e Subjetividade</td>
+<td>6</td>
+<td><span class="badge red">LONGO PRAZO</span></td>
+<td>Médio</td>
+<td>Média</td>
+</tr>
+
+</table>
+
+</div>
+
+<div class="grid-two">
+
+<div class="card">
+<h2>Sistema REDE • Fluxo Cognitivo</h2>
+
+<div class="mermaid">
+
+graph TD
+
+A[Pesquisa Técnica]
+--> B[Sistema REDE]
+
+B --> C[Modelagem Cognitiva]
+
+C --> D[Produção Editorial]
+
+D --> E[Disclosure]
+
+E --> F[Versionamento Público]
+
+F --> G[Prestação de Contas]
+
+</div>
+
+</div>
+
+<div class="card">
+<h2>Disclosure Engine</h2>
+
+<div class="terminal">
+<div class="log-success">[DISCLOSURE] Snapshot v2026.1 publicado</div>
+<div class="log-info">[ROADMAP] Coleção 02 movida para revisão</div>
+<div class="log-warning">[ACCESSIBILITY] revisão cognitiva pendente</div>
+<div class="log-success">[GOVERNANCE] integridade documental validada</div>
+<div class="log-info">[OPEN DATA] métricas sincronizadas</div>
+<div class="log-danger">[RISK ENGINE] dependência editorial monitorada</div>
+</div>
+
+</div>
+
+</div>
+
+<div class="card">
+<h2>Impacto Social</h2>
+<canvas id="impactChart" height="100"></canvas>
+</div>
+
+</main>
+
+<aside class="panel right">
+
+<h3>Feeds Institucionais</h3>
+
+<div class="feed">
+<strong>GitHub Projects</strong>
+<br><br>
+<small>
+Roadmap institucional com acompanhamento público.
+</small>
+</div>
+
+<div class="feed">
+<strong>GitHub Releases</strong>
+<br><br>
+<small>
+Snapshots trimestrais do disclosure.
+</small>
+</div>
+
+<div class="feed">
+<strong>GitHub Discussions</strong>
+<br><br>
+<small>
+Governança comunitária e feedback aberto.
+</small>
+</div>
+
+<div class="feed">
+<strong>GitHub Actions</strong>
+<br><br>
+<small>
+Pipelines de auditoria, integridade e backup.
+</small>
+</div>
+
+<div class="feed">
+<strong>Open Governance</strong>
+<br><br>
+<small>
+Compliance editorial inspirado em estruturas SEC-style.
+</small>
+</div>
+
+<div class="card">
+<h2>Disclosure Tags</h2>
+
+<div class="tags">
+<div class="tag">Governança</div>
+<div class="tag">Autismo Adulto</div>
+<div class="tag">Open Data</div>
+<div class="tag">Accessibility</div>
+<div class="tag">Impacto Social</div>
+<div class="tag">SEC-style</div>
+<div class="tag">Editorial OS</div>
+<div class="tag">BookOS</div>
+</div>
+
+</div>
+
+</aside>
+
+</section>
+
+<footer class="footer">
+© 2026 • BookOS Matrix • Disclosure Intelligence System • Lojinha dos Autistas
+</footer>
+
+</div>
+
+<script>
+
+particlesJS('particles-js', {
+  particles: {
+    number: { value: 60 },
+    color: { value: '#b28a52' },
+    shape: { type: 'circle' },
+    opacity: { value: 0.18 },
+    size: { value: 3 },
+    move: { enable: true, speed: 1 }
+  }
+});
+
+new Typed('#typed', {
+strings:[
+'DISCLOSURE ENGINE ONLINE',
+'OPEN GOVERNANCE ACTIVE',
+'EDITORIAL MATRIX SYNCHRONIZED',
+'ACCESSIBILITY SYSTEM ENABLED'
+],
+typeSpeed:40,
+backSpeed:24,
+loop:true
+});
+
+mermaid.initialize({ startOnLoad:true });
+
+const ctx = document.getElementById('impactChart');
+
+new Chart(ctx, {
+  type:'bar',
+  data:{
+    labels:[
+      'Pesquisa',
+      'Volumes',
+      'Famílias',
+      'Acessibilidade',
+      'Impacto'
+    ],
+    datasets:[{
+      label:'Métricas Institucionais',
+      data:[95,60,84,92,88],
+      borderWidth:1
+    }]
+  },
+  options:{
+    responsive:true,
+    plugins:{
+      legend:{ display:false }
+    }
+  }
+});
+```
