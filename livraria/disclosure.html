@@ -1,0 +1,1045 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+  <title>Disclosure Institucional • Cada Passo, uma Jornada</title>
+
+  <meta name="description"
+    content="Portal de disclosure institucional e prestação de contas do projeto editorial Cada Passo, uma Jornada.">
+
+  <link href="../assets/img/favicon.png" rel="icon">
+
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com" rel="preconnect">
+  <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap"
+    rel="stylesheet">
+
+  <!-- Vendor CSS -->
+  <link href="../assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="../assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+  <link href="../assets/vendor/aos/aos.css" rel="stylesheet">
+
+  <style>
+
+    :root {
+      --bg: #f6f3ee;
+      --card: #ffffff;
+      --primary: #0b422a;
+      --primary-dark: #022416;
+      --gold: #c9a96a;
+      --text: #2f2f2f;
+      --muted: #707070;
+      --border: rgba(11, 66, 42, 0.10);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.7;
+    }
+
+    h1,
+    h2,
+    h3,
+    h4 {
+      font-family: 'Cormorant Garamond', serif;
+      color: var(--primary-dark);
+      font-weight: 600;
+    }
+
+    a {
+      text-decoration: none;
+    }
+
+    .header {
+      background: rgba(255, 255, 255, 0.88);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(0, 0, 0, 0.04);
+      z-index: 999;
+    }
+
+    .logo {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--primary-dark);
+    }
+
+    .logo span {
+      color: var(--gold);
+    }
+
+    .navmenu ul {
+      list-style: none;
+      display: flex;
+      gap: 28px;
+      margin: 0;
+      padding: 0;
+    }
+
+    .navmenu a {
+      color: var(--primary-dark);
+      font-weight: 500;
+      transition: 0.3s;
+    }
+
+    .navmenu a:hover {
+      color: var(--gold);
+    }
+
+    .btn-disclosure {
+      background: var(--primary);
+      color: white;
+      padding: 12px 22px;
+      border-radius: 100px;
+      font-weight: 600;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      transition: 0.3s;
+    }
+
+    .btn-disclosure:hover {
+      background: var(--primary-dark);
+      color: white;
+      transform: translateY(-2px);
+    }
+
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      padding: 180px 0 120px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: "";
+      position: absolute;
+      width: 700px;
+      height: 700px;
+      background: radial-gradient(circle, rgba(201, 169, 106, 0.14), transparent 70%);
+      top: -200px;
+      right: -200px;
+      z-index: 0;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: rgba(11, 66, 42, 0.08);
+      color: var(--primary);
+      padding: 10px 18px;
+      border-radius: 100px;
+      font-size: 0.92rem;
+      font-weight: 600;
+      margin-bottom: 28px;
+    }
+
+    .hero-title {
+      font-size: 5rem;
+      line-height: 0.95;
+      margin-bottom: 30px;
+    }
+
+    .hero-title span {
+      color: var(--gold);
+    }
+
+    .hero-text {
+      font-size: 1.15rem;
+      color: var(--muted);
+      max-width: 720px;
+      margin-bottom: 40px;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 20px;
+      margin-top: 50px;
+    }
+
+    .hero-card {
+      background: rgba(255, 255, 255, 0.78);
+      backdrop-filter: blur(12px);
+      border-radius: 26px;
+      padding: 28px;
+      border: 1px solid rgba(255, 255, 255, 0.5);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.04);
+    }
+
+    .hero-card h3 {
+      font-size: 2.4rem;
+      margin-bottom: 5px;
+    }
+
+    .hero-card p {
+      color: var(--muted);
+      margin: 0;
+    }
+
+    .section-space {
+      padding: 110px 0;
+    }
+
+    .section-title {
+      text-align: center;
+      margin-bottom: 70px;
+    }
+
+    .section-title h2 {
+      font-size: 4rem;
+      margin-bottom: 18px;
+    }
+
+    .section-title p {
+      max-width: 850px;
+      margin: 0 auto;
+      color: var(--muted);
+      font-size: 1.08rem;
+    }
+
+    .governance-card,
+    .timeline-card,
+    .risk-card,
+    .metric-card,
+    .financial-card {
+      background: var(--card);
+      border-radius: 28px;
+      padding: 38px;
+      height: 100%;
+      border: 1px solid var(--border);
+      box-shadow: 0 12px 40px rgba(0, 0, 0, 0.03);
+      transition: 0.3s;
+    }
+
+    .governance-card:hover,
+    .timeline-card:hover,
+    .risk-card:hover,
+    .metric-card:hover,
+    .financial-card:hover {
+      transform: translateY(-5px);
+    }
+
+    .governance-icon {
+      width: 70px;
+      height: 70px;
+      background: rgba(11, 66, 42, 0.08);
+      border-radius: 22px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.8rem;
+      color: var(--primary);
+      margin-bottom: 22px;
+    }
+
+    .governance-card h3,
+    .timeline-card h3,
+    .risk-card h3,
+    .metric-card h3,
+    .financial-card h3 {
+      font-size: 2rem;
+      margin-bottom: 18px;
+    }
+
+    .governance-card p,
+    .timeline-card p,
+    .risk-card p,
+    .metric-card p,
+    .financial-card p {
+      color: var(--muted);
+    }
+
+    .timeline-year {
+      color: var(--gold);
+      font-size: 1rem;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      font-weight: 700;
+      margin-bottom: 14px;
+    }
+
+    .timeline-card ul {
+      padding-left: 18px;
+      color: var(--muted);
+    }
+
+    .timeline-card li {
+      margin-bottom: 10px;
+    }
+
+    .financial-summary {
+      background: linear-gradient(135deg, var(--primary-dark), var(--primary));
+      color: white;
+      border-radius: 36px;
+      padding: 60px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .financial-summary::before {
+      content: "";
+      position: absolute;
+      width: 420px;
+      height: 420px;
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 50%;
+      top: -180px;
+      right: -120px;
+    }
+
+    .financial-summary h2 {
+      color: white;
+      font-size: 4rem;
+      margin-bottom: 10px;
+    }
+
+    .financial-summary p {
+      color: rgba(255, 255, 255, 0.8);
+      max-width: 700px;
+    }
+
+    .financial-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 22px;
+      margin-top: 50px;
+      position: relative;
+      z-index: 2;
+    }
+
+    .financial-item {
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 24px;
+      padding: 30px;
+    }
+
+    .financial-item span {
+      display: block;
+      color: rgba(255, 255, 255, 0.7);
+      margin-bottom: 12px;
+      font-size: 0.92rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .financial-item h3 {
+      color: white;
+      font-size: 2.2rem;
+      margin: 0;
+    }
+
+    .quote-section {
+      background: white;
+    }
+
+    .quote-box {
+      max-width: 980px;
+      margin: auto;
+      text-align: center;
+      padding: 80px 50px;
+      border-radius: 36px;
+      background: linear-gradient(135deg, #f9f6f0, #ffffff);
+      border: 1px solid rgba(0, 0, 0, 0.04);
+    }
+
+    .quote-box p {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2.4rem;
+      line-height: 1.4;
+      color: var(--primary-dark);
+      margin: 0;
+    }
+
+    .disclosure-table {
+      width: 100%;
+      border-collapse: collapse;
+      overflow: hidden;
+      border-radius: 28px;
+      background: white;
+      box-shadow: 0 12px 40px rgba(0, 0, 0, 0.03);
+    }
+
+    .disclosure-table thead {
+      background: var(--primary-dark);
+      color: white;
+    }
+
+    .disclosure-table th,
+    .disclosure-table td {
+      padding: 22px;
+      border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+      vertical-align: top;
+    }
+
+    .disclosure-table tbody tr:hover {
+      background: rgba(11, 66, 42, 0.02);
+    }
+
+    .metric-number {
+      font-size: 3rem;
+      color: var(--gold);
+      font-family: 'Cormorant Garamond', serif;
+      margin-bottom: 10px;
+    }
+
+    .footer {
+      background: var(--primary-dark);
+      color: rgba(255, 255, 255, 0.72);
+      padding: 80px 0;
+      text-align: center;
+    }
+
+    .footer h3 {
+      color: white;
+      font-size: 2.8rem;
+      margin-bottom: 12px;
+    }
+
+    .footer p {
+      margin-bottom: 30px;
+    }
+
+    .footer-links {
+      display: flex;
+      justify-content: center;
+      gap: 18px;
+      flex-wrap: wrap;
+    }
+
+    .footer-links a {
+      width: 52px;
+      height: 52px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(255, 255, 255, 0.06);
+      color: white;
+      font-size: 1.2rem;
+      transition: 0.3s;
+    }
+
+    .footer-links a:hover {
+      background: var(--gold);
+      transform: translateY(-3px);
+    }
+
+    @media (max-width: 991px) {
+
+      .hero-title,
+      .section-title h2,
+      .financial-summary h2 {
+        font-size: 3rem;
+      }
+
+      .financial-grid,
+      .hero-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .hero {
+        padding-top: 150px;
+      }
+
+      .navmenu {
+        display: none;
+      }
+
+      .financial-summary {
+        padding: 40px;
+      }
+
+    }
+
+    @media (max-width: 576px) {
+
+      .hero-title,
+      .section-title h2,
+      .financial-summary h2 {
+        font-size: 2.3rem;
+      }
+
+      .quote-box p {
+        font-size: 1.7rem;
+      }
+
+      .hero-card,
+      .governance-card,
+      .timeline-card,
+      .risk-card,
+      .metric-card,
+      .financial-card {
+        padding: 28px;
+      }
+
+    }
+  </style>
+
+</head>
+
+<body>
+
+  <!-- HEADER -->
+
+  <header id="header" class="header fixed-top d-flex align-items-center">
+
+    <div class="container-fluid container-xl d-flex align-items-center justify-content-between">
+
+      <a href="../index.html" class="logo d-flex align-items-center">
+        Lojinha dos Autistas <span>.</span>
+      </a>
+
+      <nav class="navmenu">
+        <ul>
+          <li><a href="#inicio">Início</a></li>
+          <li><a href="#governanca">Governança</a></li>
+          <li><a href="#financeiro">Financeiro</a></li>
+          <li><a href="#cronograma">Cronograma</a></li>
+          <li><a href="#impacto">Impacto</a></li>
+        </ul>
+      </nav>
+
+      <a href="#financeiro" class="btn-disclosure">
+        <i class="bi bi-bar-chart-line"></i>
+        Disclosure 2026–2029
+      </a>
+
+    </div>
+
+  </header>
+
+  <main>
+
+    <!-- HERO -->
+
+    <section id="inicio" class="hero">
+
+      <div class="container">
+
+        <div class="hero-content" data-aos="fade-up">
+
+          <div class="hero-badge">
+            <i class="bi bi-shield-check"></i>
+            Política Institucional de Disclosure
+          </div>
+
+          <h1 class="hero-title">
+            Transparência<br>
+            <span>como arquitetura</span>
+          </h1>
+
+          <p class="hero-text">
+            O projeto editorial “Cada Passo, uma Jornada” adota uma política contínua de disclosure institucional baseada em princípios de governança, rastreabilidade, responsabilidade documental e prestação pública de contas.
+          </p>
+
+          <p class="hero-text">
+            Inspiramo-nos em práticas internacionais de transparência organizacional para construir um ecossistema editorial acessível, verificável e cognitivamente compreensível para patrocinadores, parceiros, famílias e comunidade.
+          </p>
+
+          <div class="hero-grid">
+
+            <div class="hero-card">
+              <h3>60</h3>
+              <p>Volumes planejados no ciclo quadrienal.</p>
+            </div>
+
+            <div class="hero-card">
+              <h3>10</h3>
+              <p>Coleções editoriais organizadas por eixos temáticos.</p>
+            </div>
+
+            <div class="hero-card">
+              <h3>2026–2029</h3>
+              <p>Horizonte plurianual de produção editorial estruturada.</p>
+            </div>
+
+            <div class="hero-card">
+              <h3>R$ 14.916</h3>
+              <p>Custos editoriais diretos previstos para o ciclo.</p>
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+    <!-- GOVERNANÇA -->
+
+    <section id="governanca" class="section-space">
+
+      <div class="container">
+
+        <div class="section-title" data-aos="fade-up">
+          <h2>Governança Editorial</h2>
+          <p>
+            Nossa política institucional foi construída para transformar prestação de contas em linguagem acessível, documentação permanente e confiança pública.
+          </p>
+        </div>
+
+        <div class="row gy-4">
+
+          <div class="col-lg-4" data-aos="fade-up" data-aos-delay="100">
+            <div class="governance-card">
+              <div class="governance-icon">
+                <i class="bi bi-eye"></i>
+              </div>
+              <h3>Disclosure Contínuo</h3>
+              <p>
+                Publicação estruturada de informações relevantes sobre cronograma, produção, custos, revisões, riscos e entregas.
+              </p>
+            </div>
+          </div>
+
+          <div class="col-lg-4" data-aos="fade-up" data-aos-delay="200">
+            <div class="governance-card">
+              <div class="governance-icon">
+                <i class="bi bi-journal-check"></i>
+              </div>
+              <h3>Rastreabilidade</h3>
+              <p>
+                Todos os ciclos editoriais possuem estrutura documental organizada, permitindo acompanhamento público das etapas do projeto.
+              </p>
+            </div>
+          </div>
+
+          <div class="col-lg-4" data-aos="fade-up" data-aos-delay="300">
+            <div class="governance-card">
+              <div class="governance-icon">
+                <i class="bi bi-diagram-3"></i>
+              </div>
+              <h3>Governança Modular</h3>
+              <p>
+                O projeto é dividido em coleções independentes para facilitar controle operacional, escalabilidade e prestação de contas.
+              </p>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+    <!-- QUOTE -->
+
+    <section class="quote-section section-space">
+
+      <div class="container">
+
+        <div class="quote-box" data-aos="zoom-in">
+          <p>
+            “Transparência não é um diferencial do projeto. É parte da arquitetura do projeto.”
+          </p>
+        </div>
+
+      </div>
+
+    </section>
+
+    <!-- FINANCEIRO -->
+
+    <section id="financeiro" class="section-space">
+
+      <div class="container">
+
+        <div class="financial-summary" data-aos="fade-up">
+
+          <h2>Disclosure Financeiro</h2>
+
+          <p>
+            Os valores abaixo representam os custos editoriais diretos previstos para produção das coleções do ciclo quadrienal 2026–2029.
+            Os dados incluem arte gráfica, diagramação e registro ISBN por volume.
+          </p>
+
+          <div class="financial-grid">
+
+            <div class="financial-item">
+              <span>Arte</span>
+              <h3>R$ 7.200</h3>
+            </div>
+
+            <div class="financial-item">
+              <span>Diagramação</span>
+              <h3>R$ 6.000</h3>
+            </div>
+
+            <div class="financial-item">
+              <span>ISBN</span>
+              <h3>R$ 1.716</h3>
+            </div>
+
+            <div class="financial-item">
+              <span>Total Geral</span>
+              <h3>R$ 14.916</h3>
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+    <!-- CRONOGRAMA -->
+
+    <section id="cronograma" class="section-space">
+
+      <div class="container">
+
+        <div class="section-title" data-aos="fade-up">
+          <h2>Cronograma Executivo</h2>
+          <p>
+            O ciclo editorial foi organizado em quatro anos de execução progressiva, priorizando estabilidade operacional, consistência técnica e previsibilidade institucional.
+          </p>
+        </div>
+
+        <div class="row gy-4">
+
+          <div class="col-lg-3 col-md-6" data-aos="fade-up" data-aos-delay="100">
+            <div class="timeline-card">
+              <div class="timeline-year">2026</div>
+              <h3>Fundação Editorial</h3>
+              <ul>
+                <li>2 coleções</li>
+                <li>12 volumes</li>
+                <li>Rotina e previsibilidade</li>
+                <li>Ambiente e regulação</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="col-lg-3 col-md-6" data-aos="fade-up" data-aos-delay="200">
+            <div class="timeline-card">
+              <div class="timeline-year">2027</div>
+              <h3>Processamento e Relações</h3>
+              <ul>
+                <li>2 coleções</li>
+                <li>12 volumes</li>
+                <li>Funcionamento cognitivo</li>
+                <li>Família e mediação</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="col-lg-3 col-md-6" data-aos="fade-up" data-aos-delay="300">
+            <div class="timeline-card">
+              <div class="timeline-year">2028</div>
+              <h3>Vida Prática</h3>
+              <ul>
+                <li>3 coleções</li>
+                <li>18 volumes</li>
+                <li>Crises e regulação</li>
+                <li>Trabalho e autonomia</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="col-lg-3 col-md-6" data-aos="fade-up" data-aos-delay="400">
+            <div class="timeline-card">
+              <div class="timeline-year">2029</div>
+              <h3>Direitos e Subjetividade</h3>
+              <ul>
+                <li>3 coleções</li>
+                <li>18 volumes</li>
+                <li>Diagnóstico tardio</li>
+                <li>Bem-estar e acessibilidade</li>
+              </ul>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+    <!-- TABELA -->
+
+    <section class="section-space">
+
+      <div class="container">
+
+        <div class="section-title" data-aos="fade-up">
+          <h2>Mapa Consolidado</h2>
+          <p>
+            Estrutura resumida das coleções planejadas para o ciclo quadrienal.
+          </p>
+        </div>
+
+        <div class="table-responsive" data-aos="fade-up">
+
+          <table class="disclosure-table">
+
+            <thead>
+              <tr>
+                <th>Coleção</th>
+                <th>Período</th>
+                <th>Volumes</th>
+                <th>Custo Previsto</th>
+              </tr>
+            </thead>
+
+            <tbody>
+
+              <tr>
+                <td>Rotina e Previsibilidade no Autismo</td>
+                <td>2026.1</td>
+                <td>6 volumes</td>
+                <td>R$ 1.491,60</td>
+              </tr>
+
+              <tr>
+                <td>Organizando o Mundo: Ambiente, Rotina e Regulação</td>
+                <td>2026.2</td>
+                <td>6 volumes</td>
+                <td>R$ 1.491,60</td>
+              </tr>
+
+              <tr>
+                <td>Como o Autista Processa o Mundo</td>
+                <td>2027.1</td>
+                <td>6 volumes</td>
+                <td>R$ 1.491,60</td>
+              </tr>
+
+              <tr>
+                <td>Família, Relações e Mediação</td>
+                <td>2027.2</td>
+                <td>6 volumes</td>
+                <td>R$ 1.491,60</td>
+              </tr>
+
+              <tr>
+                <td>Vida Prática no Autismo</td>
+                <td>2028.1</td>
+                <td>6 volumes</td>
+                <td>R$ 1.491,60</td>
+              </tr>
+
+              <tr>
+                <td>Crises, Colapsos e Regulação</td>
+                <td>2028</td>
+                <td>6 volumes</td>
+                <td>R$ 1.491,60</td>
+              </tr>
+
+              <tr>
+                <td>Trabalho, Estudos e Funcionamento Cognitivo</td>
+                <td>2028.2</td>
+                <td>6 volumes</td>
+                <td>R$ 1.491,60</td>
+              </tr>
+
+              <tr>
+                <td>Diagnóstico Tardio e Descoberta</td>
+                <td>2029.1</td>
+                <td>6 volumes</td>
+                <td>R$ 1.491,60</td>
+              </tr>
+
+              <tr>
+                <td>Direitos, Acessibilidade e Mundo Real</td>
+                <td>2029</td>
+                <td>6 volumes</td>
+                <td>R$ 1.491,60</td>
+              </tr>
+
+              <tr>
+                <td>Vida Emocional e Subjetividade</td>
+                <td>2029.2</td>
+                <td>6 volumes</td>
+                <td>R$ 1.491,60</td>
+              </tr>
+
+            </tbody>
+
+          </table>
+
+        </div>
+
+      </div>
+
+    </section>
+
+    <!-- IMPACTO -->
+
+    <section id="impacto" class="section-space">
+
+      <div class="container">
+
+        <div class="section-title" data-aos="fade-up">
+          <h2>Indicadores de Impacto</h2>
+          <p>
+            O projeto entende impacto social como produção contínua de acessibilidade cognitiva, documentação pública e autonomia informacional.
+          </p>
+        </div>
+
+        <div class="row gy-4">
+
+          <div class="col-lg-3 col-md-6" data-aos="fade-up" data-aos-delay="100">
+            <div class="metric-card text-center">
+              <div class="metric-number">60</div>
+              <h3>Volumes</h3>
+              <p>Materiais editoriais planejados para o ciclo.</p>
+            </div>
+          </div>
+
+          <div class="col-lg-3 col-md-6" data-aos="fade-up" data-aos-delay="200">
+            <div class="metric-card text-center">
+              <div class="metric-number">10</div>
+              <h3>Coleções</h3>
+              <p>Estruturas temáticas independentes.</p>
+            </div>
+          </div>
+
+          <div class="col-lg-3 col-md-6" data-aos="fade-up" data-aos-delay="300">
+            <div class="metric-card text-center">
+              <div class="metric-number">4</div>
+              <h3>Anos</h3>
+              <p>Planejamento plurianual documentado.</p>
+            </div>
+          </div>
+
+          <div class="col-lg-3 col-md-6" data-aos="fade-up" data-aos-delay="400">
+            <div class="metric-card text-center">
+              <div class="metric-number">100%</div>
+              <h3>Disclosure</h3>
+              <p>Compromisso com prestação contínua de contas.</p>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+    <!-- RISCOS -->
+
+    <section class="section-space quote-section">
+
+      <div class="container">
+
+        <div class="section-title" data-aos="fade-up">
+          <h2>Riscos e Limitações</h2>
+          <p>
+            Nosso compromisso com transparência inclui comunicar riscos operacionais, ajustes e revisões institucionais sempre que necessário.
+          </p>
+        </div>
+
+        <div class="row gy-4">
+
+          <div class="col-lg-4" data-aos="fade-up" data-aos-delay="100">
+            <div class="risk-card">
+              <h3>Dependência Financeira</h3>
+              <p>
+                O cronograma editorial pode sofrer alterações em função da disponibilidade de financiamento e apoio institucional.
+              </p>
+            </div>
+          </div>
+
+          <div class="col-lg-4" data-aos="fade-up" data-aos-delay="200">
+            <div class="risk-card">
+              <h3>Expansão de Escopo</h3>
+              <p>
+                Novas demandas editoriais, audiovisuais ou educacionais podem gerar reestruturações no planejamento original.
+              </p>
+            </div>
+          </div>
+
+          <div class="col-lg-4" data-aos="fade-up" data-aos-delay="300">
+            <div class="risk-card">
+              <h3>Revisões Técnicas</h3>
+              <p>
+                O projeto prioriza consistência técnica e poderá realizar revisões, atualizações ou republicações de conteúdos.
+              </p>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+  </main>
+
+  <!-- FOOTER -->
+
+  <footer class="footer">
+
+    <div class="container">
+
+      <h3>Lojinha dos Autistas</h3>
+
+      <p>
+        Disclosure Institucional • Cada Passo, uma Jornada
+      </p>
+
+      <div class="footer-links">
+
+        <a href="https://www.instagram.com/lojinhadosautistas" target="_blank">
+          <i class="bi bi-instagram"></i>
+        </a>
+
+        <a href="#inicio">
+          <i class="bi bi-arrow-up"></i>
+        </a>
+
+      </div>
+
+      <div class="mt-4">
+        © 2026 • Transparência, acessibilidade e governança editorial.
+      </div>
+
+    </div>
+
+  </footer>
+
+  <!-- JS -->
+
+  <script src="../assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="../assets/vendor/aos/aos.js"></script>
+
+  <script>
+    AOS.init({
+      duration: 900,
+      once: true
+    });
+  </script>
+
+</body>
+
+</html>
