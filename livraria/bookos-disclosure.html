@@ -16,12 +16,8 @@ BookOS Disclosure | Editorial Governance Operating System
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 
 <!-- ======================================================
-EXTENSÕES / VISUAL ONLY
+LIBS
 ====================================================== -->
-
-<link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
-
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 <script src="https://cdn.jsdelivr.net/npm/echarts/dist/echarts.min.js"></script>
 
@@ -30,8 +26,6 @@ EXTENSÕES / VISUAL ONLY
 <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12"></script>
 
 <script src="https://cdn.jsdelivr.net/npm/particles.js"></script>
-
-<script src="https://cdn.jsdelivr.net/npm/gitgraph.js"></script>
 
 <style>
 
@@ -103,17 +97,22 @@ body{
 
   color:var(--text);
 
-  overflow:hidden;
+  overflow:auto;
 
   min-height:100vh;
 
 }
+
+/* ======================================================
+GRID AMBIENCE
+====================================================== */
 
 body::before{
 
   content:'';
 
   position:fixed;
+
   inset:0;
 
   background-image:
@@ -121,6 +120,26 @@ body::before{
   linear-gradient(90deg, rgba(0,0,0,.02) 1px, transparent 1px);
 
   background-size:40px 40px;
+
+  pointer-events:none;
+
+  z-index:0;
+
+}
+
+/* ======================================================
+PARTICLES
+====================================================== */
+
+#particles-js{
+
+  position:fixed;
+
+  inset:0;
+
+  z-index:-1;
+
+  opacity:.55;
 
   pointer-events:none;
 
@@ -132,8 +151,13 @@ APP
 
 .app{
 
+  position:relative;
+
+  z-index:2;
+
   width:100%;
-  height:100vh;
+
+  min-height:100vh;
 
   padding:18px;
 
@@ -190,16 +214,16 @@ TOPBAR
 
   border-radius:24px;
 
-  background:
-  radial-gradient(circle at center,
-  rgba(178,138,82,.16),
-  rgba(178,138,82,.04));
-
   display:flex;
   align-items:center;
   justify-content:center;
 
   font-size:2rem;
+
+  background:
+  radial-gradient(circle at center,
+  rgba(178,138,82,.16),
+  rgba(178,138,82,.04));
 
 }
 
@@ -231,7 +255,7 @@ TOPBAR
 
 .hero{
 
-  max-width:780px;
+  max-width:760px;
 
   text-align:center;
 
@@ -369,7 +393,7 @@ MAIN
 
   display:grid;
 
-  grid-template-columns:340px 1fr 400px;
+  grid-template-columns:320px 1fr 360px;
 
   gap:18px;
 
@@ -394,6 +418,14 @@ PANELS
   box-shadow:var(--shadow);
 
   overflow:hidden;
+
+}
+
+.left,
+.center,
+.right{
+
+  min-height:0;
 
 }
 
@@ -481,8 +513,6 @@ CENTER
 
   position:relative;
 
-  overflow:hidden;
-
 }
 
 .view{
@@ -542,8 +572,6 @@ CARDS
 .card h2{
 
   margin-bottom:16px;
-
-  font-size:1.2rem;
 
 }
 
@@ -667,12 +695,12 @@ RIGHT
   border-left:4px solid var(--orange);
 }
 
-.danger{
-  border-left:4px solid var(--red);
-}
-
 .tip{
   border-left:4px solid var(--purple);
+}
+
+.danger{
+  border-left:4px solid var(--red);
 }
 
 /* ======================================================
@@ -682,7 +710,9 @@ TAGS
 .tags{
 
   display:flex;
+
   flex-wrap:wrap;
+
   gap:10px;
 
 }
@@ -717,12 +747,24 @@ RESPONSIVE
 
 @media(max-width:1500px){
 
-  body{
-    overflow:auto;
-  }
-
   .main{
     grid-template-columns:1fr;
+  }
+
+}
+
+@media(max-width:980px){
+
+  .topbar{
+
+    flex-direction:column;
+
+    align-items:flex-start;
+
+  }
+
+  .hero{
+    text-align:left;
   }
 
 }
@@ -756,7 +798,7 @@ BookOS Disclosure
 </h1>
 
 <small>
-Editorial Governance Operating System
+EDITORIAL GOVERNANCE OPERATING SYSTEM
 </small>
 
 </div>
@@ -766,7 +808,7 @@ Editorial Governance Operating System
 <div class="hero">
 
 <strong>
-TRANSPARÊNCIA · GOVERNANÇA · DISCLOSURE · ACESSIBILIDADE
+TRANSPARÊNCIA · DISCLOSURE · GOVERNANÇA · RASTREABILIDADE
 </strong>
 
 <span id="typed"></span>
@@ -811,16 +853,8 @@ GOVERNANÇA
 API
 </button>
 
-<button class="tab" data-view="versionamento">
-VERSIONAMENTO
-</button>
-
 <button class="tab" data-view="riscos">
 RISCOS
-</button>
-
-<button class="tab" data-view="dataroom">
-DATA ROOM
 </button>
 
 </nav>
@@ -831,9 +865,7 @@ MAIN
 
 <section class="main">
 
-<!-- ======================================================
-LEFT
-====================================================== -->
+<!-- LEFT -->
 
 <aside class="panel left">
 
@@ -905,27 +937,9 @@ Rastreabilidade
 
 </div>
 
-<div class="metric">
-
-<small>
-Disclosure Cognitivo
-</small>
-
-<strong>
-88 / 100
-</strong>
-
-<div class="level">
-<div class="b4"></div>
-</div>
-
-</div>
-
 </aside>
 
-<!-- ======================================================
-CENTER
-====================================================== -->
+<!-- CENTER -->
 
 <main class="panel center">
 
@@ -943,11 +957,10 @@ Sistema de Transparência Editorial
 
 <p>
 
-O BookOS Disclosure é um sistema institucional
-desenvolvido para transformar governança editorial,
-prestação de contas, rastreabilidade documental
-e transparência pública em uma experiência visual,
-imersiva e auditável.
+O BookOS Disclosure é um ambiente institucional
+para prestação de contas, governança editorial,
+rastreabilidade documental e disclosure contínuo
+do projeto Cada Passo, uma Jornada.
 
 </p>
 
@@ -956,7 +969,7 @@ imersiva e auditável.
 <div class="card">
 
 <h2>
-Arquitetura Operacional
+Arquitetura Editorial
 </h2>
 
 <div class="mermaid">
@@ -1011,11 +1024,11 @@ Prestação de Contas Editorial
 
 <tr>
 
-<th>Coleção</th>
-
 <th>Ano</th>
 
-<th>Custo</th>
+<th>Coleções</th>
+
+<th>Investimento</th>
 
 <th>Status</th>
 
@@ -1026,29 +1039,29 @@ Prestação de Contas Editorial
 <tbody>
 
 <tr>
-<td>Rotina e Previsibilidade</td>
 <td>2026</td>
+<td>2</td>
 <td>R$ 2.983,20</td>
 <td>Planejado</td>
 </tr>
 
 <tr>
-<td>Como o Autista Processa o Mundo</td>
 <td>2027</td>
+<td>2</td>
 <td>R$ 2.983,20</td>
 <td>Planejado</td>
 </tr>
 
 <tr>
-<td>Vida Prática no Autismo</td>
 <td>2028</td>
+<td>3</td>
 <td>R$ 4.474,80</td>
 <td>Planejado</td>
 </tr>
 
 <tr>
-<td>Diagnóstico Tardio e Descoberta</td>
 <td>2029</td>
+<td>3</td>
 <td>R$ 4.474,80</td>
 <td>Planejado</td>
 </tr>
@@ -1078,7 +1091,7 @@ Prestação de Contas Editorial
 </strong>
 
 Construção das coleções iniciais
-e arquitetura de disclosure.
+e implantação do sistema de disclosure.
 
 </div>
 
@@ -1088,19 +1101,20 @@ e arquitetura de disclosure.
 2027 · Consolidação
 </strong>
 
-Expansão da biblioteca
-e dashboards institucionais.
+Ampliação da biblioteca
+e arquitetura de governança.
 
 </div>
 
 <div class="timeline-item">
 
 <strong>
-2028 · Governança Pública
+2028 · Transparência Expandida
 </strong>
 
-Integração com APIs públicas,
-versionamento e snapshots.
+Dashboards públicos,
+versionamento institucional
+e snapshots trimestrais.
 
 </div>
 
@@ -1110,9 +1124,8 @@ versionamento e snapshots.
 2029 · Ecossistema Vivo
 </strong>
 
-Portal editorial aberto,
-transparência contínua
-e inteligência institucional.
+Portal editorial contínuo,
+dados públicos e documentação aberta.
 
 </div>
 
@@ -1122,7 +1135,7 @@ e inteligência institucional.
 
 </section>
 
-<!-- GOVERNANÇA -->
+<!-- GOVERNANCA -->
 
 <section class="view" id="governanca">
 
@@ -1131,24 +1144,24 @@ e inteligência institucional.
 <div class="card">
 
 <h2>
-Princípios de Governança
+Princípios Institucionais
 </h2>
 
 <p>
 
 • Transparência por padrão<br><br>
 
+• Disclosure contínuo<br><br>
+
+• Dados públicos auditáveis<br><br>
+
+• Governança editorial aberta<br><br>
+
 • Rastreabilidade documental<br><br>
 
 • Versionamento institucional<br><br>
 
 • Acessibilidade cognitiva<br><br>
-
-• Disclosure contínuo<br><br>
-
-• Accountability pública<br><br>
-
-• Dados auditáveis<br><br>
 
 • Preservação histórica
 
@@ -1182,31 +1195,11 @@ Endpoints Públicos
 
 /api/releases.json
 
-/api/impact.json
-
 /api/governance.json
 
+/api/impact.json
+
 </pre>
-
-</div>
-
-</div>
-
-</section>
-
-<!-- VERSIONAMENTO -->
-
-<section class="view" id="versionamento">
-
-<div class="content">
-
-<div class="card">
-
-<h2>
-Git Version Graph
-</h2>
-
-<canvas id="gitgraph"></canvas>
 
 </div>
 
@@ -1228,49 +1221,15 @@ Disclosure de Limitações
 
 <p>
 
-• Dependência de financiamento.<br><br>
+• Dependência de financiamento externo.<br><br>
 
-• Sustentabilidade operacional.<br><br>
+• Expansão gradual da estrutura editorial.<br><br>
 
-• Expansão gradual das coleções.<br><br>
+• Custos futuros variáveis.<br><br>
 
-• Necessidade de revisão contínua.<br><br>
+• Necessidade contínua de revisão.<br><br>
 
-• Risco de sobrecarga editorial.<br><br>
-
-• Custos variáveis futuros.
-
-</p>
-
-</div>
-
-</div>
-
-</section>
-
-<!-- DATA ROOM -->
-
-<section class="view" id="dataroom">
-
-<div class="content">
-
-<div class="card">
-
-<h2>
-Data Room Institucional
-</h2>
-
-<p>
-
-snapshot-2026-q1.pdf<br><br>
-
-snapshot-2026-q2.pdf<br><br>
-
-governance-policy-v1.pdf<br><br>
-
-disclosure-report-v2.pdf<br><br>
-
-editorial-roadmap.pdf
+• Sustentabilidade operacional de longo prazo.
 
 </p>
 
@@ -1282,9 +1241,7 @@ editorial-roadmap.pdf
 
 </main>
 
-<!-- ======================================================
-RIGHT
-====================================================== -->
+<!-- RIGHT -->
 
 <aside class="panel right">
 
@@ -1296,7 +1253,7 @@ GitHub Transparency Stack
 
 <p>
 
-GitHub Pages · Actions · Releases · Discussions · Wiki · Insights · Projects
+Pages · Actions · Releases · Discussions · Wiki · Insights · Projects
 
 </p>
 
@@ -1327,7 +1284,7 @@ Visual Intelligence
 
 <p>
 
-Chart.js · Mermaid · ECharts · GitGraph · Monaco · Swagger UI
+Mermaid · ECharts · Typed.js · Open Data · Timeline · Dashboards
 
 </p>
 
@@ -1341,8 +1298,8 @@ Risco Operacional
 
 <p>
 
-Expansão institucional
-exige governança contínua,
+Expansão institucional exige
+governança contínua,
 backup documental
 e manutenção de compliance.
 
@@ -1360,12 +1317,11 @@ Tags Institucionais
 
 <div class="tag">Disclosure</div>
 <div class="tag">Governança</div>
-<div class="tag">SEC Inspired</div>
-<div class="tag">Auditável</div>
 <div class="tag">Open Data</div>
+<div class="tag">Auditável</div>
 <div class="tag">GitHub</div>
 <div class="tag">Versionamento</div>
-<div class="tag">Acessibilidade</div>
+<div class="tag">SEC Inspired</div>
 <div class="tag">Autismo Adulto</div>
 
 </div>
@@ -1398,7 +1354,8 @@ tabs.forEach(tab=>{
 
     tab.classList.add('active');
 
-    const target = tab.dataset.view;
+    const target =
+    tab.dataset.view;
 
     views.forEach(view=>{
 
@@ -1453,7 +1410,9 @@ ECHART
 ====================================================== */
 
 const chart =
-echarts.init(document.getElementById('financeChart'));
+echarts.init(
+document.getElementById('financeChart')
+);
 
 chart.setOption({
 
@@ -1474,7 +1433,9 @@ chart.setOption({
 
     type:'line',
 
-    smooth:true
+    smooth:true,
+
+    areaStyle:{}
 
   }]
 
@@ -1489,50 +1450,33 @@ particlesJS('particles-js',{
   particles:{
 
     number:{
-      value:40
+      value:24
+    },
+
+    color:{
+      value:'#b28a52'
+    },
+
+    opacity:{
+      value:.18
     },
 
     size:{
-      value:3
+      value:2.2
     },
 
     move:{
-      speed:1
+      speed:.4
     },
 
     line_linked:{
-      enable:true
+      enable:true,
+      opacity:.08
     }
 
   }
 
 });
-
-/* ======================================================
-GITGRAPH
-====================================================== */
-
-const graphContainer =
-document.getElementById("gitgraph");
-
-const gitgraph =
-GitgraphJS.createGitgraph(graphContainer);
-
-const main =
-gitgraph.branch("main");
-
-main.commit("v1.0 Disclosure");
-
-main.commit("Roadmap 2026");
-
-main.commit("Governança");
-
-const release =
-main.branch("release");
-
-release.commit("v1.2");
-
-release.commit("Snapshots");
 
 </script>
 
