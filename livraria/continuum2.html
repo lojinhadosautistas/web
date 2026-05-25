@@ -1,4 +1,3 @@
-<!-- continuum2.html -->
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -19,27 +18,42 @@
 
 <style>
 
+/* =========================================
+   CONTINUUM • PALETA OFICIAL
+========================================= */
+
 :root{
 
---bg:#f3efe7;
+/* BASE */
+
+--bg:#eef3f7;
 --panel:rgba(255,255,255,.78);
 
---text:#111827;
---muted:#6b7280;
+--text:#0b1220;
+--muted:#5f6b7a;
 
---line:rgba(0,0,0,.06);
+--line:rgba(15,23,42,.08);
 
---accent:#b28a52;
---primary:#111827;
+/* PALETA CONTINUUM */
 
---green:#34d399;
---orange:#fb923c;
---purple:#8b5cf6;
---blue:#818cf8;
---red:#ef4444;
+--primary:#0a3d91;
+--secondary:#00b7d9;
+--accent:#63d84e;
+
+--cyan:#17c6d3;
+--blue:#0f5fc4;
+--green:#5ee05b;
+
+/* APOIO */
+
+--purple:#6b7cff;
+--orange:#ff9b52;
+--red:#ff5f6d;
+
+/* SHADOW */
 
 --shadow:
-0 20px 60px rgba(0,0,0,.08);
+0 20px 60px rgba(4,22,44,.10);
 
 }
 
@@ -60,15 +74,24 @@ body{
 font-family:'Inter',sans-serif;
 
 background:
-radial-gradient(circle at top left,
-rgba(178,138,82,.12),
-transparent 20%),
 
-radial-gradient(circle at bottom right,
-rgba(129,140,248,.12),
-transparent 20%),
+radial-gradient(
+circle at top left,
+rgba(15,95,196,.12),
+transparent 22%
+),
 
-linear-gradient(180deg,#f8f6f2,#efe7dc);
+radial-gradient(
+circle at bottom right,
+rgba(99,216,78,.10),
+transparent 24%
+),
+
+linear-gradient(
+180deg,
+#f5f9fc,
+#edf4f8
+);
 
 color:var(--text);
 
@@ -83,7 +106,7 @@ overflow-x:hidden;
 position:fixed;
 inset:0;
 z-index:-1;
-opacity:.4;
+opacity:.45;
 }
 
 /* GRID BG */
@@ -91,12 +114,13 @@ opacity:.4;
 body::before{
 
 content:'';
+
 position:fixed;
 inset:0;
 
 background-image:
-linear-gradient(rgba(0,0,0,.02) 1px, transparent 1px),
-linear-gradient(90deg, rgba(0,0,0,.02) 1px, transparent 1px);
+linear-gradient(rgba(15,95,196,.025) 1px, transparent 1px),
+linear-gradient(90deg, rgba(15,95,196,.025) 1px, transparent 1px);
 
 background-size:42px 42px;
 
@@ -122,7 +146,8 @@ gap:18px;
 
 background:var(--panel);
 
-border:1px solid var(--line);
+border:1px solid rgba(0,183,217,.08);
+
 border-radius:30px;
 
 backdrop-filter:blur(20px);
@@ -163,8 +188,9 @@ overflow:hidden;
 flex-shrink:0;
 
 background:transparent;
-  
+
 backdrop-filter:blur(10px);
+
 }
 
 .logo img{
@@ -173,7 +199,6 @@ width:100%;
 height:100%;
 
 object-fit:contain;
-/* use cover se quiser preencher totalmente */
 
 display:block;
 
@@ -182,9 +207,15 @@ display:block;
 /* BRAND TEXT */
 
 .brand h1{
+
 font-size:clamp(1.9rem,3vw,2.4rem);
+
 letter-spacing:-2px;
+
 line-height:.95;
+
+color:var(--primary);
+
 }
 
 .brand small{
@@ -199,7 +230,7 @@ font-weight:700;
 letter-spacing:.18em;
 text-transform:uppercase;
 
-color:var(--accent);
+color:var(--secondary);
 
 }
 
@@ -211,7 +242,7 @@ max-width:640px;
 
 .hero strong{
 
-color:var(--accent);
+color:var(--secondary);
 
 display:block;
 
@@ -241,15 +272,16 @@ color:var(--muted);
 background:
 linear-gradient(
 135deg,
-rgba(178,138,82,.08),
-rgba(255,255,255,.7)
+rgba(10,61,145,.08),
+rgba(0,183,217,.05),
+rgba(255,255,255,.82)
 );
 
 padding:18px;
 
 border-radius:22px;
 
-border:1px solid rgba(178,138,82,.14);
+border:1px solid rgba(0,183,217,.12);
 
 min-width:290px;
 max-width:340px;
@@ -268,6 +300,7 @@ margin-bottom:12px;
 
 .system strong{
 font-size:1rem;
+color:var(--primary);
 }
 
 .system span{
@@ -293,7 +326,7 @@ border-radius:50%;
 background:var(--green);
 
 box-shadow:
-0 0 20px rgba(52,211,153,.7);
+0 0 20px rgba(94,224,91,.8);
 
 }
 
@@ -316,7 +349,7 @@ gap:18px;
 
 background:var(--panel);
 
-border:1px solid var(--line);
+border:1px solid rgba(0,183,217,.08);
 
 border-radius:30px;
 
@@ -353,13 +386,21 @@ gap:18px;
 
 background:#fff;
 
-border:1px solid var(--line);
+border:1px solid rgba(0,183,217,.08);
 
 border-radius:24px;
 
 padding:20px;
 
 }
+
+/* HEADINGS */
+
+h2,h3{
+color:var(--primary);
+}
+
+/* CARD */
 
 .card h2{
 
@@ -380,6 +421,21 @@ gap:14px;
 
 }
 
+.metric-card{
+
+transition:.35s ease;
+
+}
+
+.metric-card:hover{
+
+transform:translateY(-4px);
+
+box-shadow:
+0 12px 30px rgba(0,183,217,.10);
+
+}
+
 .metric-card strong{
 
 font-size:1.9rem;
@@ -388,12 +444,18 @@ display:block;
 
 margin-bottom:8px;
 
+color:var(--primary);
+
 }
 
 .metric-card small{
 color:var(--muted);
 display:block;
 margin-bottom:8px;
+}
+
+.metric-card span{
+color:var(--muted);
 }
 
 /* STATUS */
@@ -409,7 +471,7 @@ height:10px;
 
 border-radius:999px;
 
-background:#ece8e2;
+background:#e7edf5;
 
 overflow:hidden;
 
@@ -422,11 +484,30 @@ height:100%;
 border-radius:999px;
 }
 
-.b1{width:95%;background:var(--green);}
-.b2{width:88%;background:var(--blue);}
-.b3{width:92%;background:var(--orange);}
-.b4{width:96%;background:var(--purple);}
-.b5{width:82%;background:var(--red);}
+.b1{
+width:95%;
+background:linear-gradient(90deg,#00b7d9,#63d84e);
+}
+
+.b2{
+width:88%;
+background:linear-gradient(90deg,#0a3d91,#00b7d9);
+}
+
+.b3{
+width:92%;
+background:linear-gradient(90deg,#17c6d3,#63d84e);
+}
+
+.b4{
+width:96%;
+background:linear-gradient(90deg,#6b7cff,#00b7d9);
+}
+
+.b5{
+width:82%;
+background:linear-gradient(90deg,#ff9b52,#ff5f6d);
+}
 
 /* TAGS */
 
@@ -446,9 +527,18 @@ padding:9px 13px;
 
 border-radius:999px;
 
-background:#f3f4f6;
+background:
+linear-gradient(
+135deg,
+rgba(15,95,196,.08),
+rgba(0,183,217,.08)
+);
+
+border:1px solid rgba(0,183,217,.08);
 
 font-size:.8rem;
+
+color:var(--primary);
 
 }
 
@@ -473,7 +563,7 @@ font-size:.9rem;
 }
 
 .matrix-table th{
-background:#faf7f2;
+background:#f3fbfd;
 }
 
 /* BADGES */
@@ -494,32 +584,37 @@ font-weight:700;
 }
 
 .green{
-background:rgba(52,211,153,.12);
-color:#047857;
+background:rgba(94,224,91,.12);
+color:#11814a;
 }
 
 .orange{
-background:rgba(251,146,60,.12);
-color:#c2410c;
+background:rgba(255,155,82,.12);
+color:#c75a0b;
 }
 
 .blue{
-background:rgba(129,140,248,.12);
-color:#4338ca;
+background:rgba(0,183,217,.12);
+color:#007da0;
 }
 
 .purple{
-background:rgba(139,92,246,.12);
-color:#6d28d9;
+background:rgba(107,124,255,.12);
+color:#4654cc;
 }
 
 /* TERMINAL */
 
 .terminal{
 
-background:#0b1120;
+background:
+linear-gradient(
+180deg,
+#081421,
+#0b1d2f
+);
 
-color:#d1fae5;
+color:#b9fff2;
 
 font-family:monospace;
 
@@ -530,6 +625,8 @@ border-radius:22px;
 line-height:1.8;
 
 overflow:hidden;
+
+border:1px solid rgba(0,183,217,.12);
 
 }
 
@@ -899,7 +996,7 @@ Integração futura com GitHub Projects, Notion, Google Tasks e automações cog
 particlesJS('particles-js', {
   particles: {
     number: { value: 55 },
-    color: { value: '#b28a52' },
+    color: { value: '#00b7d9' },
     shape: { type: 'circle' },
     opacity: { value: 0.16 },
     size: { value: 3 },
@@ -929,13 +1026,30 @@ new Chart(ctx, {
       label:'Continuidade',
       data:[82,90,86,94,92,88,91],
       tension:.4,
-      borderWidth:3
+      borderWidth:3,
+      borderColor:'#00b7d9',
+      backgroundColor:'rgba(0,183,217,.15)',
+      pointBackgroundColor:'#63d84e',
+      pointBorderColor:'#0a3d91',
+      fill:true
     }]
   },
   options:{
     responsive:true,
     plugins:{
       legend:{ display:false }
+    },
+    scales:{
+      y:{
+        grid:{
+          color:'rgba(15,95,196,.08)'
+        }
+      },
+      x:{
+        grid:{
+          color:'rgba(15,95,196,.04)'
+        }
+      }
     }
   }
 });
