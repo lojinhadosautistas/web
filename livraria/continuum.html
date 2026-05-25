@@ -5,7 +5,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>ContinuumOS • Continuidade Operacional</title>
+<title>Continuum • Sistema Operacional de Continuidade Diária</title>
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -13,30 +13,32 @@
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 
 <script src="https://cdn.jsdelivr.net/npm/particles.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12"></script>
+<script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 <style>
 
 :root{
 
---bg:#f5f1ea;
+--bg:#f3efe7;
+--panel:rgba(255,255,255,.78);
 
---panel:rgba(255,255,255,.72);
-
---text:#171717;
+--text:#111827;
 --muted:#6b7280;
 
 --line:rgba(0,0,0,.06);
 
---accent:#c29a63;
+--accent:#b28a52;
+--primary:#111827;
 
---green:#7dd3a6;
---blue:#9fb7ff;
---purple:#c4b5fd;
---orange:#fdba74;
+--green:#34d399;
+--orange:#fb923c;
+--purple:#8b5cf6;
+--blue:#818cf8;
+--red:#ef4444;
 
 --shadow:
-0 20px 60px rgba(0,0,0,.06);
+0 20px 60px rgba(0,0,0,.08);
 
 }
 
@@ -57,24 +59,15 @@ body{
 font-family:'Inter',sans-serif;
 
 background:
+radial-gradient(circle at top left,
+rgba(178,138,82,.12),
+transparent 20%),
 
-radial-gradient(
-circle at top left,
-rgba(194,154,99,.12),
-transparent 20%
-),
+radial-gradient(circle at bottom right,
+rgba(129,140,248,.12),
+transparent 20%),
 
-radial-gradient(
-circle at bottom right,
-rgba(196,181,253,.12),
-transparent 20%
-),
-
-linear-gradient(
-180deg,
-#faf7f2,
-#efe8dc
-);
+linear-gradient(180deg,#f8f6f2,#efe7dc);
 
 color:var(--text);
 
@@ -89,10 +82,10 @@ overflow-x:hidden;
 position:fixed;
 inset:0;
 z-index:-1;
-opacity:.25;
+opacity:.4;
 }
 
-/* GRID */
+/* GRID BG */
 
 body::before{
 
@@ -101,19 +94,10 @@ position:fixed;
 inset:0;
 
 background-image:
+linear-gradient(rgba(0,0,0,.02) 1px, transparent 1px),
+linear-gradient(90deg, rgba(0,0,0,.02) 1px, transparent 1px);
 
-linear-gradient(
-rgba(0,0,0,.018) 1px,
-transparent 1px
-),
-
-linear-gradient(
-90deg,
-rgba(0,0,0,.018) 1px,
-transparent 1px
-);
-
-background-size:44px 44px;
+background-size:42px 42px;
 
 mask-image:
 radial-gradient(circle at center, black, transparent 85%);
@@ -138,14 +122,13 @@ gap:18px;
 background:var(--panel);
 
 border:1px solid var(--line);
+border-radius:30px;
 
-border-radius:34px;
-
-backdrop-filter:blur(22px);
+backdrop-filter:blur(20px);
 
 box-shadow:var(--shadow);
 
-padding:22px 26px;
+padding:18px 24px;
 
 display:flex;
 justify-content:space-between;
@@ -159,52 +142,57 @@ gap:26px;
 .brand{
 display:flex;
 align-items:center;
-gap:18px;
+gap:16px;
+min-width:300px;
 }
 
 .logo{
 
-width:72px;
-height:72px;
+width:clamp(58px, 8vw, 88px);
+height:clamp(58px, 8vw, 88px);
 
-border-radius:24px;
-
-background:
-linear-gradient(
-135deg,
-rgba(194,154,99,.18),
-rgba(255,255,255,.6)
-);
+border-radius:22px;
 
 display:flex;
 align-items:center;
 justify-content:center;
 
-font-size:1.7rem;
-font-weight:700;
+overflow:hidden;
 
-color:var(--accent);
+flex-shrink:0;
 
-box-shadow:
-inset 0 1px 0 rgba(255,255,255,.8);
+background:transparent;
+  
+backdrop-filter:blur(10px);
+}
+
+.logo img{
+
+width:100%;
+height:100%;
+
+object-fit:contain;
+/* use cover se quiser preencher totalmente */
+
+display:block;
 
 }
 
+/* BRAND TEXT */
+
 .brand h1{
-
-font-size:2.2rem;
+font-size:clamp(1.9rem,3vw,2.4rem);
 letter-spacing:-2px;
-line-height:.9;
-
+line-height:.95;
 }
 
 .brand small{
 
 display:block;
 
-margin-top:8px;
+margin-top:6px;
 
-font-size:.75rem;
+font-size:.72rem;
 font-weight:700;
 
 letter-spacing:.18em;
@@ -217,49 +205,82 @@ color:var(--accent);
 /* HERO */
 
 .hero{
-max-width:720px;
+max-width:640px;
 }
 
 .hero strong{
+
+color:var(--accent);
 
 display:block;
 
 margin-bottom:10px;
 
-font-size:.76rem;
-
-letter-spacing:.18em;
+letter-spacing:.14em;
 text-transform:uppercase;
 
-color:var(--accent);
+font-size:.74rem;
+font-weight:700;
 
 }
 
 .hero p{
 
 line-height:1.7;
-font-size:.98rem;
+font-size:.96rem;
 
 color:var(--muted);
 
 }
 
-/* STATUS */
+/* SYSTEM */
 
 .system{
 
 background:
-rgba(194,154,99,.08);
+linear-gradient(
+135deg,
+rgba(178,138,82,.08),
+rgba(255,255,255,.7)
+);
 
-padding:16px 18px;
+padding:18px;
 
 border-radius:22px;
 
-border:1px solid rgba(194,154,99,.14);
+border:1px solid rgba(178,138,82,.14);
 
 min-width:290px;
+max-width:340px;
 
 }
+
+.system .status-line{
+
+display:flex;
+align-items:center;
+gap:10px;
+
+margin-bottom:12px;
+
+}
+
+.system strong{
+font-size:1rem;
+}
+
+.system span{
+
+font-size:.82rem;
+line-height:1.65;
+
+color:var(--muted);
+
+display:block;
+
+}
+
+/* PULSE */
 
 .pulse{
 
@@ -270,59 +291,19 @@ border-radius:50%;
 
 background:var(--green);
 
-margin-bottom:10px;
-
 box-shadow:
-0 0 20px rgba(125,211,166,.8);
-
-animation:pulse 2s infinite;
+0 0 20px rgba(52,211,153,.7);
 
 }
 
-@keyframes pulse{
-
-0%{
-transform:scale(1);
-opacity:1;
-}
-
-50%{
-transform:scale(1.5);
-opacity:.5;
-}
-
-100%{
-transform:scale(1);
-opacity:1;
-}
-
-}
-
-.system strong{
-font-size:.95rem;
-}
-
-.system span{
-
-display:block;
-
-margin-top:8px;
-
-font-size:.8rem;
-line-height:1.6;
-
-color:var(--muted);
-
-}
-
-/* MAIN */
+/* MAIN GRID */
 
 .main{
 
 display:grid;
 
 grid-template-columns:
-320px 1fr 340px;
+320px 1fr 360px;
 
 gap:18px;
 
@@ -336,9 +317,9 @@ background:var(--panel);
 
 border:1px solid var(--line);
 
-border-radius:34px;
+border-radius:30px;
 
-backdrop-filter:blur(20px);
+backdrop-filter:blur(18px);
 
 box-shadow:var(--shadow);
 
@@ -353,54 +334,72 @@ padding:22px;
 
 .center{
 
-padding:22px;
+padding:20px;
 
 display:flex;
 flex-direction:column;
+
 gap:18px;
-
-}
-
-/* TITLES */
-
-.section-title{
-
-font-size:1rem;
-
-margin-bottom:18px;
-
-letter-spacing:-.5px;
 
 }
 
 /* CARDS */
 
-.card{
+.card,
+.status,
+.feed,
+.metric-card{
 
 background:#fff;
 
-border:1px solid rgba(0,0,0,.05);
+border:1px solid var(--line);
 
-border-radius:26px;
+border-radius:24px;
 
 padding:20px;
 
-margin-bottom:16px;
+}
 
-box-shadow:
-0 4px 14px rgba(0,0,0,.03);
+.card h2{
+
+font-size:1rem;
+margin-bottom:14px;
 
 }
 
-/* ROUTINE */
+/* METRIC GRID */
 
-.routine-item{
-margin-bottom:18px;
+.metric-grid{
+
+display:grid;
+
+grid-template-columns:repeat(4,1fr);
+
+gap:14px;
+
 }
 
-.routine-item strong{
+.metric-card strong{
+
+font-size:1.9rem;
+
+display:block;
+
+margin-bottom:8px;
+
+}
+
+.metric-card small{
+color:var(--muted);
 display:block;
 margin-bottom:8px;
+}
+
+/* STATUS */
+
+.status-grid{
+display:grid;
+gap:16px;
 }
 
 .level{
@@ -413,6 +412,8 @@ background:#ece8e2;
 
 overflow:hidden;
 
+margin-top:14px;
+
 }
 
 .level div{
@@ -420,101 +421,11 @@ height:100%;
 border-radius:999px;
 }
 
-.morning{width:82%;background:var(--orange);}
-.afternoon{width:65%;background:var(--blue);}
-.night{width:48%;background:var(--purple);}
-
-/* CHECKLIST */
-
-.checklist{
-display:grid;
-gap:12px;
-}
-
-.check{
-
-display:flex;
-align-items:center;
-gap:12px;
-
-padding:12px 14px;
-
-border-radius:16px;
-
-background:#faf8f5;
-
-font-size:.9rem;
-
-}
-
-.check input{
-width:18px;
-height:18px;
-accent-color:#c29a63;
-}
-
-/* EMBED */
-
-.embed{
-
-background:#fff;
-
-border-radius:30px;
-
-border:1px solid rgba(0,0,0,.05);
-
-overflow:hidden;
-
-min-height:900px;
-
-}
-
-.embed-header{
-
-padding:18px 22px;
-
-border-bottom:1px solid rgba(0,0,0,.06);
-
-display:flex;
-justify-content:space-between;
-align-items:center;
-
-}
-
-.embed iframe{
-width:100%;
-height:900px;
-border:none;
-}
-
-/* QUICK CARDS */
-
-.quick-grid{
-display:grid;
-gap:16px;
-}
-
-.quick{
-
-background:#fff;
-
-border:1px solid rgba(0,0,0,.05);
-
-border-radius:24px;
-
-padding:18px;
-
-}
-
-.quick small{
-
-display:block;
-
-margin-bottom:10px;
-
-color:var(--muted);
-
-}
+.b1{width:95%;background:var(--green);}
+.b2{width:88%;background:var(--blue);}
+.b3{width:92%;background:var(--orange);}
+.b4{width:96%;background:var(--purple);}
+.b5{width:82%;background:var(--red);}
 
 /* TAGS */
 
@@ -524,49 +435,128 @@ display:flex;
 flex-wrap:wrap;
 gap:10px;
 
-margin-top:12px;
+margin-top:14px;
 
 }
 
 .tag{
 
-padding:9px 14px;
+padding:9px 13px;
 
 border-radius:999px;
 
-background:#f5f3ef;
+background:#f3f4f6;
 
-font-size:.78rem;
-
-}
-
-/* FEED */
-
-.feed{
-
-padding:18px;
-
-background:#fff;
-
-border-radius:24px;
-
-border:1px solid rgba(0,0,0,.05);
-
-margin-bottom:16px;
+font-size:.8rem;
 
 }
 
-.feed strong{
-display:block;
-margin-bottom:10px;
+/* TABLE */
+
+.matrix-table{
+width:100%;
+border-collapse:collapse;
 }
 
-.feed p{
+.matrix-table th,
+.matrix-table td{
+
+padding:14px;
+
+border-bottom:1px solid rgba(0,0,0,.06);
+
+text-align:left;
 
 font-size:.9rem;
-line-height:1.6;
 
+}
+
+.matrix-table th{
+background:#faf7f2;
+}
+
+/* BADGES */
+
+.badge{
+
+display:inline-flex;
+align-items:center;
+gap:8px;
+
+padding:8px 12px;
+
+border-radius:999px;
+
+font-size:.75rem;
+font-weight:700;
+
+}
+
+.green{
+background:rgba(52,211,153,.12);
+color:#047857;
+}
+
+.orange{
+background:rgba(251,146,60,.12);
+color:#c2410c;
+}
+
+.blue{
+background:rgba(129,140,248,.12);
+color:#4338ca;
+}
+
+.purple{
+background:rgba(139,92,246,.12);
+color:#6d28d9;
+}
+
+/* TERMINAL */
+
+.terminal{
+
+background:#0b1120;
+
+color:#d1fae5;
+
+font-family:monospace;
+
+padding:22px;
+
+border-radius:22px;
+
+line-height:1.8;
+
+overflow:hidden;
+
+}
+
+/* FEEDS */
+
+.feed{
+margin-bottom:14px;
+}
+
+.feed small{
 color:var(--muted);
+line-height:1.7;
+}
+
+/* CALENDAR */
+
+.calendar-frame{
+
+width:100%;
+height:520px;
+
+border:none;
+
+border-radius:22px;
+
+overflow:hidden;
+
+background:#fff;
 
 }
 
@@ -574,13 +564,15 @@ color:var(--muted);
 
 .footer{
 
+margin-top:12px;
+
 text-align:center;
 
-padding:24px;
+color:var(--muted);
 
 font-size:.82rem;
 
-color:var(--muted);
+padding:20px;
 
 }
 
@@ -597,8 +589,14 @@ grid-template-columns:1fr;
 @media(max-width:980px){
 
 .topbar{
+
 flex-direction:column;
 align-items:flex-start;
+
+}
+
+.metric-grid{
+grid-template-columns:1fr 1fr;
 }
 
 }
@@ -607,6 +605,7 @@ align-items:flex-start;
 
 .app{
 padding:12px;
+gap:14px;
 }
 
 .topbar{
@@ -614,17 +613,25 @@ padding:18px;
 border-radius:24px;
 }
 
+.brand{
+gap:12px;
+}
+
 .brand h1{
-font-size:1.6rem;
+font-size:1.7rem;
 }
 
 .logo{
-width:58px;
-height:58px;
+width:62px;
+height:62px;
 }
 
-.panel{
-border-radius:24px;
+.hero p{
+font-size:.92rem;
+}
+
+.metric-grid{
+grid-template-columns:1fr;
 }
 
 .left,
@@ -633,18 +640,8 @@ border-radius:24px;
 padding:16px;
 }
 
-.card,
-.quick,
-.feed{
-border-radius:20px;
-}
-
-.embed{
-border-radius:22px;
-}
-
-.embed iframe{
-height:700px;
+.calendar-frame{
+height:480px;
 }
 
 }
@@ -663,17 +660,12 @@ height:700px;
 <div class="brand">
 
 <div class="logo">
-∞
+<img src="img/logo-continuum.png">
 </div>
 
 <div>
-
-<h1>ContinuumOS</h1>
-
-<small>
-CONTINUIDADE • ROTINA • ORGANIZAÇÃO COGNITIVA
-</small>
-
+<h1>Continuum</h1>
+<small>Sistema de Integração Coletiva</small>
 </div>
 
 </div>
@@ -681,25 +673,27 @@ CONTINUIDADE • ROTINA • ORGANIZAÇÃO COGNITIVA
 <div class="hero">
 
 <strong>
-SISTEMA OPERACIONAL DE CONTINUIDADE DIÁRIA
+Rotina • Agenda • Continuidade Sustentável • Sustentação Cognitiva
 </strong>
 
 <p>
-Ambiente compartilhado para organização da rotina, gestão de agenda, sustentação cognitiva e acompanhamento coletivo. Uma arquitetura operacional desenvolvida para reduzir sobrecarga, ampliar previsibilidade e criar continuidade sustentável no cotidiano.
+Ambiente compartilhado para organização da rotina, gestão de agenda, sustentação cognitiva e acompanhamento coletivo. Uma arquitetura operacional desenvolvida para reduzir sobrecarga, ampliar previsibilidade e criar continuidade sustentável.
 </p>
 
 </div>
 
 <div class="system">
 
+<div class="status-line">
 <div class="pulse"></div>
-
-<strong id="typed"></strong>
+<strong>CONTINUUM ACTIVE</strong>
+</div>
 
 <span>
-• ROTINA SINCRONIZADA<br>
-• AGENDA OPERACIONAL ATIVA<br>
-• CONTINUIDADE EM PROGRESSO
+• ROTINA OPERACIONAL ESTÁVEL<br>
+• AGENDA COLETIVA SINCRONIZADA<br>
+• CHECKLISTS EM EXECUÇÃO<br>
+• SUSTENTAÇÃO COGNITIVA ONLINE
 </span>
 
 </div>
@@ -712,102 +706,55 @@ Ambiente compartilhado para organização da rotina, gestão de agenda, sustenta
 
 <aside class="panel left">
 
-<h3 class="section-title">
-Rotina Operacional
-</h3>
+<h3 style="margin-bottom:18px;">Sustentação Diária</h3>
 
-<div class="card">
+<div class="status-grid">
 
-<div class="routine-item">
-<strong>☀️ Manhã</strong>
-<div class="level">
-<div class="morning"></div>
-</div>
+<div class="status">
+<small>Previsibilidade</small>
+<strong>95 / 100</strong>
+<div class="level"><div class="b1"></div></div>
 </div>
 
-<div class="routine-item">
-<strong>🌤 Tarde</strong>
-<div class="level">
-<div class="afternoon"></div>
-</div>
-</div>
-
-<div class="routine-item">
-<strong>🌙 Noite</strong>
-<div class="level">
-<div class="night"></div>
-</div>
+<div class="status">
+<small>Organização da Agenda</small>
+<strong>88 / 100</strong>
+<div class="level"><div class="b2"></div></div>
 </div>
 
+<div class="status">
+<small>Continuidade Cognitiva</small>
+<strong>92 / 100</strong>
+<div class="level"><div class="b3"></div></div>
 </div>
 
-<div class="card">
+<div class="status">
+<small>Integração Coletiva</small>
+<strong>96 / 100</strong>
+<div class="level"><div class="b4"></div></div>
+</div>
 
-<h3 class="section-title">
-Checklist Cognitivo
-</h3>
-
-<div class="checklist">
-
-<label class="check">
-<input type="checkbox" checked>
-Água e alimentação
-</label>
-
-<label class="check">
-<input type="checkbox" checked>
-Revisar agenda
-</label>
-
-<label class="check">
-<input type="checkbox">
-Pausa sensorial
-</label>
-
-<label class="check">
-<input type="checkbox">
-Responder mensagens
-</label>
-
-<label class="check">
-<input type="checkbox">
-Organização emocional
-</label>
-
-<label class="check">
-<input type="checkbox">
-Encerramento gradual do dia
-</label>
-
+<div class="status">
+<small>Sobrecarga Operacional</small>
+<strong>Controlada</strong>
+<div class="level"><div class="b5"></div></div>
 </div>
 
 </div>
 
-<div class="card">
+<div class="card" style="margin-top:20px;">
 
-<h3 class="section-title">
-Estado Operacional
-</h3>
+<h2>Ferramentas de Continuidade</h2>
 
-<div class="routine-item">
-<strong>Energia Mental</strong>
-<div class="level">
-<div class="morning"></div>
-</div>
-</div>
-
-<div class="routine-item">
-<strong>Sobrecarga</strong>
-<div class="level">
-<div class="night"></div>
-</div>
-</div>
-
-<div class="routine-item">
-<strong>Comunicação</strong>
-<div class="level">
-<div class="afternoon"></div>
-</div>
+<div class="tags">
+<div class="tag">Agenda Compartilhada</div>
+<div class="tag">Checklist Diário</div>
+<div class="tag">Reflexões</div>
+<div class="tag">Google Docs</div>
+<div class="tag">Google Calendar</div>
+<div class="tag">GitHub Projects</div>
+<div class="tag">Notion Embed</div>
+<div class="tag">Continuidade</div>
 </div>
 
 </div>
@@ -818,37 +765,92 @@ Estado Operacional
 
 <main class="panel center">
 
-<div class="embed">
+<div class="metric-grid">
 
-<div class="embed-header">
-
-<div>
-<strong>
-Planejamento Semanal
-</strong>
+<div class="metric-card">
+<small>Tarefas Hoje</small>
+<strong>12</strong>
+<span>Fluxo operacional ativo</span>
 </div>
 
-<div class="tags">
-
-<div class="tag">
-Google Docs
+<div class="metric-card">
+<small>Checklists</small>
+<strong>08</strong>
+<span>Rotinas monitoradas</span>
 </div>
 
-<div class="tag">
-Reflexões
+<div class="metric-card">
+<small>Agenda</small>
+<strong>SYNC</strong>
+<span>Integração contínua</span>
 </div>
 
-<div class="tag">
-Agenda Viva
+<div class="metric-card">
+<small>Status</small>
+<strong>ONLINE</strong>
+<span>Continuidade ativa</span>
 </div>
 
 </div>
 
-</div>
+<div class="card">
+
+<h2>Central de Reflexões • Sylvia</h2>
 
 <iframe
-src="https://docs.google.com/document/d/e/2PACX-1vT-placeholder/pub?embedded=true">
+class="calendar-frame"
+src="https://docs.google.com/document/d/e/2PACX-1vSEU_DOCUMENTO_EXEMPLO/pub?embedded=true">
 </iframe>
+
+</div>
+
+<div class="card">
+
+<h2>Fluxo Operacional do Continuum</h2>
+
+<div class="mermaid">
+
+graph TD
+
+A[Agenda Compartilhada]
+--> B[Checklist Diário]
+
+B --> C[Gestão de Energia]
+
+C --> D[Rotina Sustentável]
+
+D --> E[Reflexões Compartilhadas]
+
+E --> F[Continuidade Coletiva]
+
+F --> G[Redução de Sobrecarga]
+
+</div>
+
+</div>
+
+<div class="card">
+
+<h2>Monitor Operacional</h2>
+
+<div class="terminal">
+
+[CONTINUUM] rotina sincronizada<br>
+[AGENDA] compromissos confirmados<br>
+[CHECKLIST] tarefas priorizadas<br>
+[SUPORTE] sustentação cognitiva ativa<br>
+[REFLEXÕES] documentos compartilhados<br>
+[CONTINUIDADE] estabilidade operacional mantida
+
+</div>
+
+</div>
+
+<div class="card">
+
+<h2>Continuidade Operacional</h2>
+
+<canvas id="continuumChart" height="90"></canvas>
 
 </div>
 
@@ -858,112 +860,27 @@ src="https://docs.google.com/document/d/e/2PACX-1vT-placeholder/pub?embedded=tru
 
 <aside class="panel right">
 
-<h3 class="section-title">
-Estrutura Compartilhada
-</h3>
+<h3 style="margin-bottom:18px;">Agenda Compartilhada</h3>
 
-<div class="feed">
+<iframe
+class="calendar-frame"
+src="https://calendar.google.com/calendar/embed?src=pt.brazilian%23holiday%40group.v.calendar.google.com&ctz=America%2FSao_Paulo">
+</iframe>
 
-<strong>
-GitHub Projects
-</strong>
-
-<p>
-Kanban institucional para organização da rotina, prioridades, tarefas e acompanhamento coletivo.
-</p>
-
-</div>
-
-<div class="feed">
-
-<strong>
-GitHub Discussions
-</strong>
-
-<p>
-Espaço para reflexões, alinhamentos internos, decisões operacionais e registros cotidianos.
-</p>
-
-</div>
-
-<div class="feed">
-
-<strong>
-GitHub Issues
-</strong>
-
-<p>
-Gestão de bloqueios, pendências, dificuldades cognitivas e necessidades operacionais.
-</p>
-
-</div>
-
-<div class="feed">
-
-<strong>
-GitHub Wiki
-</strong>
-
-<p>
-Protocolos internos, rotinas sustentáveis, padrões organizacionais e memória institucional.
-</p>
-
-</div>
-
-<div class="feed">
-
-<strong>
-GitHub Actions
-</strong>
-
-<p>
-Backups automáticos, snapshots diários e sincronização operacional contínua.
-</p>
-
-</div>
-
-<div class="quick">
-
+<div class="feed" style="margin-top:18px;">
+<strong>Rotina de Sylvia</strong>
+<br><br>
 <small>
-Tags Operacionais
+Espaço dedicado para organização diária, estrutura emocional, continuidade operacional e acompanhamento coletivo da rotina.
 </small>
-
-<div class="tags">
-
-<div class="tag">
-Rotina
 </div>
 
-<div class="tag">
-Agenda
-</div>
-
-<div class="tag">
-Continuidade
-</div>
-
-<div class="tag">
-Regulação
-</div>
-
-<div class="tag">
-Checklist
-</div>
-
-<div class="tag">
-Planejamento
-</div>
-
-<div class="tag">
-Equipe
-</div>
-
-<div class="tag">
-Sustentação
-</div>
-
-</div>
-
+<div class="feed">
+<strong>Checklist Diário</strong>
+<br><br>
+<small>
+Integração futura com GitHub Projects, Notion, Google Tasks e automações cognitivas.
+</small>
 </div>
 
 </aside>
@@ -971,9 +888,7 @@ Sustentação
 </section>
 
 <footer class="footer">
-
-© 2026 • ContinuumOS • Continuidade Operacional Compartilhada
-
+© 2026 • Continuum • Sistema Operacional de Continuidade Diária
 </footer>
 
 </div>
@@ -981,53 +896,47 @@ Sustentação
 <script>
 
 particlesJS('particles-js', {
-
-particles: {
-
-number: {
-value:50
-},
-
-color: {
-value:'#c29a63'
-},
-
-shape: {
-type:'circle'
-},
-
-opacity: {
-value:.14
-},
-
-size: {
-value:3
-},
-
-move: {
-enable:true,
-speed:.8
-}
-
-}
-
+  particles: {
+    number: { value: 55 },
+    color: { value: '#b28a52' },
+    shape: { type: 'circle' },
+    opacity: { value: 0.16 },
+    size: { value: 3 },
+    move: { enable: true, speed: 1 }
+  }
 });
 
-new Typed('#typed', {
+mermaid.initialize({
+startOnLoad:true
+});
 
-strings:[
+const ctx = document.getElementById('continuumChart');
 
-'CONTINUIDADE OPERACIONAL ONLINE',
-'ROTINA SINCRONIZADA',
-'AMBIENTE COGNITIVO ESTÁVEL',
-'ESTRUTURA COMPARTILHADA ATIVA'
-
-],
-
-typeSpeed:34,
-backSpeed:20,
-loop:true
-
+new Chart(ctx, {
+  type:'line',
+  data:{
+    labels:[
+      'Seg',
+      'Ter',
+      'Qua',
+      'Qui',
+      'Sex',
+      'Sáb',
+      'Dom'
+    ],
+    datasets:[{
+      label:'Continuidade',
+      data:[82,90,86,94,92,88,91],
+      tension:.4,
+      borderWidth:3
+    }]
+  },
+  options:{
+    responsive:true,
+    plugins:{
+      legend:{ display:false }
+    }
+  }
 });
 
 </script>
