@@ -1,0 +1,1036 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>ContinuumOS • Continuidade Operacional</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+<script src="https://cdn.jsdelivr.net/npm/particles.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12"></script>
+
+<style>
+
+:root{
+
+--bg:#f5f1ea;
+
+--panel:rgba(255,255,255,.72);
+
+--text:#171717;
+--muted:#6b7280;
+
+--line:rgba(0,0,0,.06);
+
+--accent:#c29a63;
+
+--green:#7dd3a6;
+--blue:#9fb7ff;
+--purple:#c4b5fd;
+--orange:#fdba74;
+
+--shadow:
+0 20px 60px rgba(0,0,0,.06);
+
+}
+
+/* RESET */
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+}
+
+html{
+scroll-behavior:smooth;
+}
+
+body{
+
+font-family:'Inter',sans-serif;
+
+background:
+
+radial-gradient(
+circle at top left,
+rgba(194,154,99,.12),
+transparent 20%
+),
+
+radial-gradient(
+circle at bottom right,
+rgba(196,181,253,.12),
+transparent 20%
+),
+
+linear-gradient(
+180deg,
+#faf7f2,
+#efe8dc
+);
+
+color:var(--text);
+
+min-height:100vh;
+overflow-x:hidden;
+
+}
+
+/* PARTICLES */
+
+#particles-js{
+position:fixed;
+inset:0;
+z-index:-1;
+opacity:.25;
+}
+
+/* GRID */
+
+body::before{
+
+content:'';
+position:fixed;
+inset:0;
+
+background-image:
+
+linear-gradient(
+rgba(0,0,0,.018) 1px,
+transparent 1px
+),
+
+linear-gradient(
+90deg,
+rgba(0,0,0,.018) 1px,
+transparent 1px
+);
+
+background-size:44px 44px;
+
+mask-image:
+radial-gradient(circle at center, black, transparent 85%);
+
+pointer-events:none;
+
+}
+
+/* APP */
+
+.app{
+padding:18px;
+display:flex;
+flex-direction:column;
+gap:18px;
+}
+
+/* TOPBAR */
+
+.topbar{
+
+background:var(--panel);
+
+border:1px solid var(--line);
+
+border-radius:34px;
+
+backdrop-filter:blur(22px);
+
+box-shadow:var(--shadow);
+
+padding:22px 26px;
+
+display:flex;
+justify-content:space-between;
+align-items:center;
+gap:26px;
+
+}
+
+/* BRAND */
+
+.brand{
+display:flex;
+align-items:center;
+gap:18px;
+}
+
+.logo{
+
+width:72px;
+height:72px;
+
+border-radius:24px;
+
+background:
+linear-gradient(
+135deg,
+rgba(194,154,99,.18),
+rgba(255,255,255,.6)
+);
+
+display:flex;
+align-items:center;
+justify-content:center;
+
+font-size:1.7rem;
+font-weight:700;
+
+color:var(--accent);
+
+box-shadow:
+inset 0 1px 0 rgba(255,255,255,.8);
+
+}
+
+.brand h1{
+
+font-size:2.2rem;
+letter-spacing:-2px;
+line-height:.9;
+
+}
+
+.brand small{
+
+display:block;
+
+margin-top:8px;
+
+font-size:.75rem;
+font-weight:700;
+
+letter-spacing:.18em;
+text-transform:uppercase;
+
+color:var(--accent);
+
+}
+
+/* HERO */
+
+.hero{
+max-width:720px;
+}
+
+.hero strong{
+
+display:block;
+
+margin-bottom:10px;
+
+font-size:.76rem;
+
+letter-spacing:.18em;
+text-transform:uppercase;
+
+color:var(--accent);
+
+}
+
+.hero p{
+
+line-height:1.7;
+font-size:.98rem;
+
+color:var(--muted);
+
+}
+
+/* STATUS */
+
+.system{
+
+background:
+rgba(194,154,99,.08);
+
+padding:16px 18px;
+
+border-radius:22px;
+
+border:1px solid rgba(194,154,99,.14);
+
+min-width:290px;
+
+}
+
+.pulse{
+
+width:10px;
+height:10px;
+
+border-radius:50%;
+
+background:var(--green);
+
+margin-bottom:10px;
+
+box-shadow:
+0 0 20px rgba(125,211,166,.8);
+
+animation:pulse 2s infinite;
+
+}
+
+@keyframes pulse{
+
+0%{
+transform:scale(1);
+opacity:1;
+}
+
+50%{
+transform:scale(1.5);
+opacity:.5;
+}
+
+100%{
+transform:scale(1);
+opacity:1;
+}
+
+}
+
+.system strong{
+font-size:.95rem;
+}
+
+.system span{
+
+display:block;
+
+margin-top:8px;
+
+font-size:.8rem;
+line-height:1.6;
+
+color:var(--muted);
+
+}
+
+/* MAIN */
+
+.main{
+
+display:grid;
+
+grid-template-columns:
+320px 1fr 340px;
+
+gap:18px;
+
+}
+
+/* PANELS */
+
+.panel{
+
+background:var(--panel);
+
+border:1px solid var(--line);
+
+border-radius:34px;
+
+backdrop-filter:blur(20px);
+
+box-shadow:var(--shadow);
+
+overflow:hidden;
+
+}
+
+.left,
+.right{
+padding:22px;
+}
+
+.center{
+
+padding:22px;
+
+display:flex;
+flex-direction:column;
+gap:18px;
+
+}
+
+/* TITLES */
+
+.section-title{
+
+font-size:1rem;
+
+margin-bottom:18px;
+
+letter-spacing:-.5px;
+
+}
+
+/* CARDS */
+
+.card{
+
+background:#fff;
+
+border:1px solid rgba(0,0,0,.05);
+
+border-radius:26px;
+
+padding:20px;
+
+margin-bottom:16px;
+
+box-shadow:
+0 4px 14px rgba(0,0,0,.03);
+
+}
+
+/* ROUTINE */
+
+.routine-item{
+margin-bottom:18px;
+}
+
+.routine-item strong{
+display:block;
+margin-bottom:8px;
+}
+
+.level{
+
+height:10px;
+
+border-radius:999px;
+
+background:#ece8e2;
+
+overflow:hidden;
+
+}
+
+.level div{
+height:100%;
+border-radius:999px;
+}
+
+.morning{width:82%;background:var(--orange);}
+.afternoon{width:65%;background:var(--blue);}
+.night{width:48%;background:var(--purple);}
+
+/* CHECKLIST */
+
+.checklist{
+display:grid;
+gap:12px;
+}
+
+.check{
+
+display:flex;
+align-items:center;
+gap:12px;
+
+padding:12px 14px;
+
+border-radius:16px;
+
+background:#faf8f5;
+
+font-size:.9rem;
+
+}
+
+.check input{
+width:18px;
+height:18px;
+accent-color:#c29a63;
+}
+
+/* EMBED */
+
+.embed{
+
+background:#fff;
+
+border-radius:30px;
+
+border:1px solid rgba(0,0,0,.05);
+
+overflow:hidden;
+
+min-height:900px;
+
+}
+
+.embed-header{
+
+padding:18px 22px;
+
+border-bottom:1px solid rgba(0,0,0,.06);
+
+display:flex;
+justify-content:space-between;
+align-items:center;
+
+}
+
+.embed iframe{
+width:100%;
+height:900px;
+border:none;
+}
+
+/* QUICK CARDS */
+
+.quick-grid{
+display:grid;
+gap:16px;
+}
+
+.quick{
+
+background:#fff;
+
+border:1px solid rgba(0,0,0,.05);
+
+border-radius:24px;
+
+padding:18px;
+
+}
+
+.quick small{
+
+display:block;
+
+margin-bottom:10px;
+
+color:var(--muted);
+
+}
+
+/* TAGS */
+
+.tags{
+
+display:flex;
+flex-wrap:wrap;
+gap:10px;
+
+margin-top:12px;
+
+}
+
+.tag{
+
+padding:9px 14px;
+
+border-radius:999px;
+
+background:#f5f3ef;
+
+font-size:.78rem;
+
+}
+
+/* FEED */
+
+.feed{
+
+padding:18px;
+
+background:#fff;
+
+border-radius:24px;
+
+border:1px solid rgba(0,0,0,.05);
+
+margin-bottom:16px;
+
+}
+
+.feed strong{
+display:block;
+margin-bottom:10px;
+}
+
+.feed p{
+
+font-size:.9rem;
+line-height:1.6;
+
+color:var(--muted);
+
+}
+
+/* FOOTER */
+
+.footer{
+
+text-align:center;
+
+padding:24px;
+
+font-size:.82rem;
+
+color:var(--muted);
+
+}
+
+/* RESPONSIVE */
+
+@media(max-width:1600px){
+
+.main{
+grid-template-columns:1fr;
+}
+
+}
+
+@media(max-width:980px){
+
+.topbar{
+flex-direction:column;
+align-items:flex-start;
+}
+
+}
+
+@media(max-width:680px){
+
+.app{
+padding:12px;
+}
+
+.topbar{
+padding:18px;
+border-radius:24px;
+}
+
+.brand h1{
+font-size:1.6rem;
+}
+
+.logo{
+width:58px;
+height:58px;
+}
+
+.panel{
+border-radius:24px;
+}
+
+.left,
+.center,
+.right{
+padding:16px;
+}
+
+.card,
+.quick,
+.feed{
+border-radius:20px;
+}
+
+.embed{
+border-radius:22px;
+}
+
+.embed iframe{
+height:700px;
+}
+
+}
+
+</style>
+
+</head>
+<body>
+
+<div id="particles-js"></div>
+
+<div class="app">
+
+<header class="topbar">
+
+<div class="brand">
+
+<div class="logo">
+∞
+</div>
+
+<div>
+
+<h1>ContinuumOS</h1>
+
+<small>
+CONTINUIDADE • ROTINA • ORGANIZAÇÃO COGNITIVA
+</small>
+
+</div>
+
+</div>
+
+<div class="hero">
+
+<strong>
+SISTEMA OPERACIONAL DE CONTINUIDADE DIÁRIA
+</strong>
+
+<p>
+Ambiente compartilhado para organização da rotina, gestão de agenda, sustentação cognitiva e acompanhamento coletivo. Uma arquitetura operacional desenvolvida para reduzir sobrecarga, ampliar previsibilidade e criar continuidade sustentável no cotidiano.
+</p>
+
+</div>
+
+<div class="system">
+
+<div class="pulse"></div>
+
+<strong id="typed"></strong>
+
+<span>
+• ROTINA SINCRONIZADA<br>
+• AGENDA OPERACIONAL ATIVA<br>
+• CONTINUIDADE EM PROGRESSO
+</span>
+
+</div>
+
+</header>
+
+<section class="main">
+
+<!-- LEFT -->
+
+<aside class="panel left">
+
+<h3 class="section-title">
+Rotina Operacional
+</h3>
+
+<div class="card">
+
+<div class="routine-item">
+<strong>☀️ Manhã</strong>
+<div class="level">
+<div class="morning"></div>
+</div>
+</div>
+
+<div class="routine-item">
+<strong>🌤 Tarde</strong>
+<div class="level">
+<div class="afternoon"></div>
+</div>
+</div>
+
+<div class="routine-item">
+<strong>🌙 Noite</strong>
+<div class="level">
+<div class="night"></div>
+</div>
+</div>
+
+</div>
+
+<div class="card">
+
+<h3 class="section-title">
+Checklist Cognitivo
+</h3>
+
+<div class="checklist">
+
+<label class="check">
+<input type="checkbox" checked>
+Água e alimentação
+</label>
+
+<label class="check">
+<input type="checkbox" checked>
+Revisar agenda
+</label>
+
+<label class="check">
+<input type="checkbox">
+Pausa sensorial
+</label>
+
+<label class="check">
+<input type="checkbox">
+Responder mensagens
+</label>
+
+<label class="check">
+<input type="checkbox">
+Organização emocional
+</label>
+
+<label class="check">
+<input type="checkbox">
+Encerramento gradual do dia
+</label>
+
+</div>
+
+</div>
+
+<div class="card">
+
+<h3 class="section-title">
+Estado Operacional
+</h3>
+
+<div class="routine-item">
+<strong>Energia Mental</strong>
+<div class="level">
+<div class="morning"></div>
+</div>
+</div>
+
+<div class="routine-item">
+<strong>Sobrecarga</strong>
+<div class="level">
+<div class="night"></div>
+</div>
+</div>
+
+<div class="routine-item">
+<strong>Comunicação</strong>
+<div class="level">
+<div class="afternoon"></div>
+</div>
+</div>
+
+</div>
+
+</aside>
+
+<!-- CENTER -->
+
+<main class="panel center">
+
+<div class="embed">
+
+<div class="embed-header">
+
+<div>
+<strong>
+Planejamento Semanal
+</strong>
+</div>
+
+<div class="tags">
+
+<div class="tag">
+Google Docs
+</div>
+
+<div class="tag">
+Reflexões
+</div>
+
+<div class="tag">
+Agenda Viva
+</div>
+
+</div>
+
+</div>
+
+<iframe
+src="https://docs.google.com/document/d/e/2PACX-1vT-placeholder/pub?embedded=true">
+</iframe>
+
+</div>
+
+</main>
+
+<!-- RIGHT -->
+
+<aside class="panel right">
+
+<h3 class="section-title">
+Estrutura Compartilhada
+</h3>
+
+<div class="feed">
+
+<strong>
+GitHub Projects
+</strong>
+
+<p>
+Kanban institucional para organização da rotina, prioridades, tarefas e acompanhamento coletivo.
+</p>
+
+</div>
+
+<div class="feed">
+
+<strong>
+GitHub Discussions
+</strong>
+
+<p>
+Espaço para reflexões, alinhamentos internos, decisões operacionais e registros cotidianos.
+</p>
+
+</div>
+
+<div class="feed">
+
+<strong>
+GitHub Issues
+</strong>
+
+<p>
+Gestão de bloqueios, pendências, dificuldades cognitivas e necessidades operacionais.
+</p>
+
+</div>
+
+<div class="feed">
+
+<strong>
+GitHub Wiki
+</strong>
+
+<p>
+Protocolos internos, rotinas sustentáveis, padrões organizacionais e memória institucional.
+</p>
+
+</div>
+
+<div class="feed">
+
+<strong>
+GitHub Actions
+</strong>
+
+<p>
+Backups automáticos, snapshots diários e sincronização operacional contínua.
+</p>
+
+</div>
+
+<div class="quick">
+
+<small>
+Tags Operacionais
+</small>
+
+<div class="tags">
+
+<div class="tag">
+Rotina
+</div>
+
+<div class="tag">
+Agenda
+</div>
+
+<div class="tag">
+Continuidade
+</div>
+
+<div class="tag">
+Regulação
+</div>
+
+<div class="tag">
+Checklist
+</div>
+
+<div class="tag">
+Planejamento
+</div>
+
+<div class="tag">
+Equipe
+</div>
+
+<div class="tag">
+Sustentação
+</div>
+
+</div>
+
+</div>
+
+</aside>
+
+</section>
+
+<footer class="footer">
+
+© 2026 • ContinuumOS • Continuidade Operacional Compartilhada
+
+</footer>
+
+</div>
+
+<script>
+
+particlesJS('particles-js', {
+
+particles: {
+
+number: {
+value:50
+},
+
+color: {
+value:'#c29a63'
+},
+
+shape: {
+type:'circle'
+},
+
+opacity: {
+value:.14
+},
+
+size: {
+value:3
+},
+
+move: {
+enable:true,
+speed:.8
+}
+
+}
+
+});
+
+new Typed('#typed', {
+
+strings:[
+
+'CONTINUIDADE OPERACIONAL ONLINE',
+'ROTINA SINCRONIZADA',
+'AMBIENTE COGNITIVO ESTÁVEL',
+'ESTRUTURA COMPARTILHADA ATIVA'
+
+],
+
+typeSpeed:34,
+backSpeed:20,
+loop:true
+
+});
+
+</script>
+
+</body>
+</html>
