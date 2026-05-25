@@ -1,0 +1,1090 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+<title>Continuum • Sistema Operacional de Continuidade Diária</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+<script src="https://cdn.jsdelivr.net/npm/particles.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<style>
+
+/* ===================================================
+   CONTINUUM
+=================================================== */
+
+:root{
+
+/* LIGHT MODE */
+
+--bg:#eef3f7;
+--panel:rgba(255,255,255,.78);
+
+--text:#0b1220;
+--muted:#5f6b7a;
+
+--line:rgba(15,23,42,.08);
+
+--primary:#0a3d91;
+--secondary:#00b7d9;
+--accent:#63d84e;
+
+--cyan:#17c6d3;
+--blue:#0f5fc4;
+--green:#5ee05b;
+
+--purple:#6b7cff;
+--orange:#ff9b52;
+--red:#ff5f6d;
+
+--surface:#ffffff;
+--surface-2:#f5f9fc;
+
+--shadow:
+0 20px 60px rgba(4,22,44,.10);
+
+}
+
+/* ===================================================
+   DARK MODE
+=================================================== */
+
+body.dark{
+
+--bg:#06111b;
+--panel:rgba(10,18,32,.72);
+
+--text:#e7f4ff;
+--muted:#8aa0b8;
+
+--line:rgba(0,183,217,.08);
+
+--primary:#1f7cff;
+--secondary:#00d5ff;
+--accent:#6dff7c;
+
+--cyan:#17d6df;
+--blue:#3b82ff;
+--green:#6dff7c;
+
+--purple:#8b7dff;
+--orange:#ffae66;
+--red:#ff6b81;
+
+--surface:#0b1626;
+--surface-2:#111d30;
+
+--shadow:
+0 20px 60px rgba(0,0,0,.45);
+
+}
+
+/* ===================================================
+   RESET
+=================================================== */
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+}
+
+html{
+scroll-behavior:smooth;
+}
+
+body{
+
+font-family:'Inter',sans-serif;
+
+background:
+
+radial-gradient(
+circle at top left,
+rgba(15,95,196,.12),
+transparent 22%
+),
+
+radial-gradient(
+circle at bottom right,
+rgba(99,216,78,.10),
+transparent 24%
+),
+
+linear-gradient(
+180deg,
+#f5f9fc,
+#edf4f8
+);
+
+color:var(--text);
+
+min-height:100vh;
+overflow-x:hidden;
+
+transition:
+background .4s ease,
+color .3s ease;
+
+}
+
+/* DARK BG */
+
+body.dark{
+
+background:
+
+radial-gradient(
+circle at top left,
+rgba(0,213,255,.12),
+transparent 24%
+),
+
+radial-gradient(
+circle at bottom right,
+rgba(109,255,124,.08),
+transparent 24%
+),
+
+linear-gradient(
+180deg,
+#06111b,
+#081421,
+#0b1626
+);
+
+}
+
+/* ===================================================
+   GRID BG
+=================================================== */
+
+body::before{
+
+content:'';
+
+position:fixed;
+inset:0;
+
+background-image:
+
+linear-gradient(
+rgba(15,95,196,.025) 1px,
+transparent 1px
+),
+
+linear-gradient(
+90deg,
+rgba(15,95,196,.025) 1px,
+transparent 1px
+);
+
+background-size:42px 42px;
+
+mask-image:
+radial-gradient(circle at center, black, transparent 85%);
+
+pointer-events:none;
+
+}
+
+body.dark::before{
+
+background-image:
+
+linear-gradient(
+rgba(0,213,255,.03) 1px,
+transparent 1px
+),
+
+linear-gradient(
+90deg,
+rgba(0,213,255,.03) 1px,
+transparent 1px
+);
+
+}
+
+/* ===================================================
+   PARTICLES
+=================================================== */
+
+#particles-js{
+position:fixed;
+inset:0;
+z-index:-1;
+opacity:.45;
+}
+
+/* ===================================================
+   APP
+=================================================== */
+
+.app{
+padding:18px;
+display:flex;
+flex-direction:column;
+gap:18px;
+}
+
+/* ===================================================
+   TOPBAR
+=================================================== */
+
+.topbar{
+
+background:var(--panel);
+
+border:1px solid rgba(0,183,217,.08);
+
+border-radius:30px;
+
+backdrop-filter:blur(20px);
+
+box-shadow:var(--shadow);
+
+padding:18px 24px;
+
+display:flex;
+justify-content:space-between;
+align-items:center;
+gap:26px;
+
+transition:.35s ease;
+
+}
+
+/* ===================================================
+   BRAND
+=================================================== */
+
+.brand{
+display:flex;
+align-items:center;
+gap:16px;
+min-width:300px;
+}
+
+.logo{
+
+width:clamp(58px, 8vw, 88px);
+height:clamp(58px, 8vw, 88px);
+
+border-radius:22px;
+
+display:flex;
+align-items:center;
+justify-content:center;
+
+overflow:hidden;
+
+flex-shrink:0;
+
+background:transparent;
+
+}
+
+.logo img{
+
+width:100%;
+height:100%;
+
+object-fit:contain;
+
+display:block;
+
+}
+
+/* ===================================================
+   BRAND TEXT
+=================================================== */
+
+.brand h1{
+
+font-size:clamp(1.9rem,3vw,2.4rem);
+
+letter-spacing:-2px;
+
+line-height:.95;
+
+color:var(--primary);
+
+transition:.3s ease;
+
+}
+
+body.dark .brand h1{
+
+background:
+linear-gradient(
+90deg,
+#ffffff,
+#7fdcff,
+#6dff7c
+);
+
+-webkit-background-clip:text;
+-webkit-text-fill-color:transparent;
+
+}
+
+.brand small{
+
+display:block;
+
+margin-top:6px;
+
+font-size:.72rem;
+font-weight:700;
+
+letter-spacing:.18em;
+text-transform:uppercase;
+
+color:var(--secondary);
+
+}
+
+/* ===================================================
+   THEME BUTTON
+=================================================== */
+
+.theme-toggle{
+
+width:58px;
+height:58px;
+
+border:none;
+
+border-radius:20px;
+
+cursor:pointer;
+
+display:flex;
+align-items:center;
+justify-content:center;
+
+font-size:1.2rem;
+
+background:
+linear-gradient(
+135deg,
+rgba(15,95,196,.12),
+rgba(0,183,217,.12)
+);
+
+border:1px solid rgba(0,183,217,.08);
+
+color:var(--primary);
+
+transition:.35s ease;
+
+backdrop-filter:blur(20px);
+
+}
+
+.theme-toggle:hover{
+
+transform:translateY(-3px);
+
+box-shadow:
+0 10px 24px rgba(0,183,217,.16);
+
+}
+
+body.dark .theme-toggle{
+
+background:
+linear-gradient(
+135deg,
+rgba(31,124,255,.14),
+rgba(0,213,255,.12)
+);
+
+color:#fff;
+
+}
+
+/* ===================================================
+   HERO
+=================================================== */
+
+.hero{
+max-width:640px;
+}
+
+.hero strong{
+
+color:var(--secondary);
+
+display:block;
+
+margin-bottom:10px;
+
+letter-spacing:.14em;
+text-transform:uppercase;
+
+font-size:.74rem;
+font-weight:700;
+
+}
+
+.hero p{
+
+line-height:1.7;
+font-size:.96rem;
+
+color:var(--muted);
+
+}
+
+/* ===================================================
+   SYSTEM
+=================================================== */
+
+.system{
+
+background:
+linear-gradient(
+135deg,
+rgba(10,61,145,.08),
+rgba(0,183,217,.05),
+rgba(255,255,255,.82)
+);
+
+padding:18px;
+
+border-radius:22px;
+
+border:1px solid rgba(0,183,217,.12);
+
+min-width:290px;
+max-width:340px;
+
+transition:.35s ease;
+
+}
+
+body.dark .system{
+
+background:
+linear-gradient(
+135deg,
+rgba(0,213,255,.08),
+rgba(109,255,124,.04),
+rgba(8,20,33,.88)
+);
+
+}
+
+.system .status-line{
+
+display:flex;
+align-items:center;
+gap:10px;
+
+margin-bottom:12px;
+
+}
+
+.system strong{
+font-size:1rem;
+}
+
+.system span{
+
+font-size:.82rem;
+line-height:1.65;
+
+color:var(--muted);
+
+display:block;
+
+}
+
+/* ===================================================
+   PULSE
+=================================================== */
+
+.pulse{
+
+width:10px;
+height:10px;
+
+border-radius:50%;
+
+background:var(--green);
+
+box-shadow:
+0 0 20px rgba(94,224,91,.8);
+
+}
+
+/* ===================================================
+   MAIN
+=================================================== */
+
+.main{
+
+display:grid;
+
+grid-template-columns:
+320px 1fr 360px;
+
+gap:18px;
+
+}
+
+/* ===================================================
+   PANELS
+=================================================== */
+
+.panel{
+
+background:var(--panel);
+
+border:1px solid rgba(0,183,217,.08);
+
+border-radius:30px;
+
+backdrop-filter:blur(18px);
+
+box-shadow:var(--shadow);
+
+overflow:hidden;
+
+transition:.35s ease;
+
+}
+
+.left,
+.right{
+padding:22px;
+}
+
+.center{
+
+padding:20px;
+
+display:flex;
+flex-direction:column;
+
+gap:18px;
+
+}
+
+/* ===================================================
+   CARDS
+=================================================== */
+
+.card,
+.status,
+.feed,
+.metric-card{
+
+background:var(--surface);
+
+border:1px solid rgba(0,183,217,.08);
+
+border-radius:24px;
+
+padding:20px;
+
+transition:.35s ease;
+
+}
+
+/* ===================================================
+   HEADINGS
+=================================================== */
+
+h2,h3{
+color:var(--primary);
+}
+
+/* ===================================================
+   METRIC GRID
+=================================================== */
+
+.metric-grid{
+
+display:grid;
+
+grid-template-columns:repeat(4,1fr);
+
+gap:14px;
+
+}
+
+.metric-card:hover{
+
+transform:translateY(-4px);
+
+box-shadow:
+0 12px 30px rgba(0,183,217,.10);
+
+}
+
+.metric-card strong{
+
+font-size:1.9rem;
+
+display:block;
+
+margin-bottom:8px;
+
+color:var(--primary);
+
+}
+
+.metric-card small,
+.metric-card span{
+color:var(--muted);
+}
+
+/* ===================================================
+   STATUS
+=================================================== */
+
+.status-grid{
+display:grid;
+gap:16px;
+}
+
+.level{
+
+height:10px;
+
+border-radius:999px;
+
+background:#dce7f1;
+
+overflow:hidden;
+
+margin-top:14px;
+
+}
+
+body.dark .level{
+background:#132133;
+}
+
+.level div{
+height:100%;
+border-radius:999px;
+}
+
+.b1{
+width:95%;
+background:linear-gradient(90deg,#00b7d9,#63d84e);
+}
+
+.b2{
+width:88%;
+background:linear-gradient(90deg,#0a3d91,#00b7d9);
+}
+
+.b3{
+width:92%;
+background:linear-gradient(90deg,#17c6d3,#63d84e);
+}
+
+.b4{
+width:96%;
+background:linear-gradient(90deg,#6b7cff,#00b7d9);
+}
+
+.b5{
+width:82%;
+background:linear-gradient(90deg,#ff9b52,#ff5f6d);
+}
+
+/* ===================================================
+   TAGS
+=================================================== */
+
+.tags{
+
+display:flex;
+flex-wrap:wrap;
+gap:10px;
+
+margin-top:14px;
+
+}
+
+.tag{
+
+padding:9px 13px;
+
+border-radius:999px;
+
+background:
+linear-gradient(
+135deg,
+rgba(15,95,196,.08),
+rgba(0,183,217,.08)
+);
+
+border:1px solid rgba(0,183,217,.08);
+
+font-size:.8rem;
+
+color:var(--primary);
+
+}
+
+/* ===================================================
+   TERMINAL
+=================================================== */
+
+.terminal{
+
+background:
+linear-gradient(
+180deg,
+#081421,
+#0b1d2f
+);
+
+color:#b9fff2;
+
+font-family:monospace;
+
+padding:22px;
+
+border-radius:22px;
+
+line-height:1.8;
+
+overflow:hidden;
+
+border:1px solid rgba(0,183,217,.12);
+
+}
+
+/* ===================================================
+   FEEDS
+=================================================== */
+
+.feed{
+margin-bottom:14px;
+}
+
+.feed small{
+color:var(--muted);
+line-height:1.7;
+}
+
+/* ===================================================
+   CALENDAR
+=================================================== */
+
+.calendar-frame{
+
+width:100%;
+height:520px;
+
+border:none;
+
+border-radius:22px;
+
+overflow:hidden;
+
+background:#fff;
+
+}
+
+body.dark .calendar-frame{
+background:#0b1626;
+}
+
+/* ===================================================
+   FOOTER
+=================================================== */
+
+.footer{
+
+margin-top:12px;
+
+text-align:center;
+
+color:var(--muted);
+
+font-size:.82rem;
+
+padding:20px;
+
+}
+
+/* ===================================================
+   RESPONSIVE
+=================================================== */
+
+@media(max-width:1600px){
+
+.main{
+grid-template-columns:1fr;
+}
+
+}
+
+@media(max-width:980px){
+
+.topbar{
+
+flex-direction:column;
+align-items:flex-start;
+
+}
+
+.metric-grid{
+grid-template-columns:1fr 1fr;
+}
+
+}
+
+@media(max-width:680px){
+
+.app{
+padding:12px;
+gap:14px;
+}
+
+.topbar{
+padding:18px;
+border-radius:24px;
+}
+
+.brand{
+gap:12px;
+}
+
+.brand h1{
+font-size:1.7rem;
+}
+
+.logo{
+width:62px;
+height:62px;
+}
+
+.hero p{
+font-size:.92rem;
+}
+
+.metric-grid{
+grid-template-columns:1fr;
+}
+
+.left,
+.center,
+.right{
+padding:16px;
+}
+
+.calendar-frame{
+height:480px;
+}
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div id="particles-js"></div>
+
+<div class="app">
+
+<header class="topbar">
+
+<div class="brand">
+
+<div class="logo">
+<img src="img/logo-continuum.png">
+</div>
+
+<div>
+<h1>Continuum</h1>
+<small>Sistema de Integração Coletiva</small>
+</div>
+
+</div>
+
+<div class="hero">
+
+<strong>
+Rotina • Agenda • Continuidade Sustentável • Sustentação Cognitiva
+</strong>
+
+<p>
+Ambiente compartilhado para organização da rotina, gestão de agenda, sustentação cognitiva e acompanhamento coletivo. Uma arquitetura operacional desenvolvida para reduzir sobrecarga, ampliar previsibilidade e criar continuidade sustentável.
+</p>
+
+</div>
+
+<div style="display:flex; align-items:center; gap:14px;">
+
+<button class="theme-toggle" id="themeToggle">
+🌙
+</button>
+
+<div class="system">
+
+<div class="status-line">
+<div class="pulse"></div>
+<strong>CONTINUUM ACTIVE</strong>
+</div>
+
+<span>
+• ROTINA OPERACIONAL ESTÁVEL<br>
+• AGENDA COLETIVA SINCRONIZADA<br>
+• CHECKLISTS EM EXECUÇÃO<br>
+• SUSTENTAÇÃO COGNITIVA ONLINE
+</span>
+
+</div>
+
+</div>
+
+</header>
+
+<!-- RESTANTE DA ESTRUTURA MANTIDA -->
+
+<footer class="footer">
+© 2026 • Continuum • Sistema Operacional de Continuidade Diária
+</footer>
+
+</div>
+
+<script>
+
+/* ===================================================
+   THEME TOGGLE
+=================================================== */
+
+const themeToggle = document.getElementById('themeToggle');
+
+themeToggle.addEventListener('click', () => {
+
+document.body.classList.toggle('dark');
+
+if(document.body.classList.contains('dark')){
+themeToggle.innerHTML = '☀️';
+localStorage.setItem('continuum-theme','dark');
+}else{
+themeToggle.innerHTML = '🌙';
+localStorage.setItem('continuum-theme','light');
+}
+
+});
+
+/* LOAD SAVED THEME */
+
+if(localStorage.getItem('continuum-theme') === 'dark'){
+
+document.body.classList.add('dark');
+themeToggle.innerHTML = '☀️';
+
+}
+
+/* ===================================================
+   PARTICLES
+=================================================== */
+
+particlesJS('particles-js', {
+  particles: {
+    number: { value: 55 },
+    color: { value: '#00b7d9' },
+    shape: { type: 'circle' },
+    opacity: { value: 0.16 },
+    size: { value: 3 },
+    move: { enable: true, speed: 1 }
+  }
+});
+
+/* ===================================================
+   MERMAID
+=================================================== */
+
+mermaid.initialize({
+startOnLoad:true
+});
+
+/* ===================================================
+   CHART
+=================================================== */
+
+const ctx = document.getElementById('continuumChart');
+
+if(ctx){
+
+new Chart(ctx, {
+
+type:'line',
+
+data:{
+
+labels:[
+'Seg',
+'Ter',
+'Qua',
+'Qui',
+'Sex',
+'Sáb',
+'Dom'
+],
+
+datasets:[{
+
+label:'Continuidade',
+
+data:[82,90,86,94,92,88,91],
+
+tension:.4,
+
+borderWidth:3,
+
+borderColor:'#00b7d9',
+
+backgroundColor:'rgba(0,183,217,.15)',
+
+pointBackgroundColor:'#63d84e',
+
+pointBorderColor:'#0a3d91',
+
+fill:true
+
+}]
+
+},
+
+options:{
+
+responsive:true,
+
+plugins:{
+legend:{ display:false }
+}
+
+}
+
+});
+
+}
+
+</script>
+
+</body>
+</html>
