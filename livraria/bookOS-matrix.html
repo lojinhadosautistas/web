@@ -358,6 +358,93 @@ transform:translateX(-100%);
 
 }
 
+
+        /* MENU */
+
+.menu{
+
+display:flex;
+gap:12px;
+
+overflow-x:auto;
+overflow-y:hidden;
+
+padding:6px;
+
+scrollbar-width:none;
+
+background:var(--panel);
+
+border:1px solid var(--line);
+
+border-radius:24px;
+
+backdrop-filter:blur(18px);
+
+box-shadow:var(--shadow);
+
+}
+
+.menu::-webkit-scrollbar{
+display:none;
+}
+
+.tab{
+
+border:none;
+outline:none;
+
+background:transparent;
+
+padding:14px 18px;
+
+border-radius:16px;
+
+font-family:'Inter',sans-serif;
+
+font-size:.78rem;
+font-weight:700;
+
+letter-spacing:.08em;
+text-transform:uppercase;
+
+color:var(--muted);
+
+cursor:pointer;
+
+transition:
+all .25s ease;
+
+white-space:nowrap;
+
+flex-shrink:0;
+
+}
+
+.tab:hover{
+
+background:rgba(178,138,82,.08);
+
+color:var(--text);
+
+transform:translateY(-1px);
+
+}
+
+.tab.active{
+
+background:#111827;
+
+color:#fff;
+
+box-shadow:
+0 10px 25px rgba(0,0,0,.12);
+
+}
+
+
+        
+
 /* MAIN GRID */
 
 .main{
@@ -1381,4 +1468,22 @@ new Chart(ctx, {
     }
   }
 });
+        
+/* MENU ACTIVE */
+
+const tabs = document.querySelectorAll('.tab');
+
+tabs.forEach(tab => {
+
+  tab.addEventListener('click', () => {
+
+    tabs.forEach(t => t.classList.remove('active'));
+
+    tab.classList.add('active');
+
+  });
+
+});
+
+        
 ```
