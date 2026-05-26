@@ -1,0 +1,1109 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+<title>Continuum 4 • Sistema Operacional de Continuidade</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+<script src="https://cdn.jsdelivr.net/npm/particles.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<style>
+
+/* ===================================================
+   ROOT
+=================================================== */
+
+:root{
+
+--bg:#eef3f7;
+--panel:rgba(255,255,255,.78);
+
+--text:#0b1220;
+--muted:#5f6b7a;
+
+--line:rgba(15,23,42,.08);
+
+--primary:#0a3d91;
+--secondary:#00b7d9;
+--accent:#63d84e;
+
+--surface:#ffffff;
+
+--shadow:
+0 20px 60px rgba(4,22,44,.10);
+
+}
+
+/* DARK */
+
+body.dark{
+
+--bg:#06111b;
+--panel:rgba(10,18,32,.72);
+
+--text:#e7f4ff;
+--muted:#8aa0b8;
+
+--primary:#1f7cff;
+--secondary:#00d5ff;
+--accent:#6dff7c;
+
+--surface:#0b1626;
+
+--shadow:
+0 20px 60px rgba(0,0,0,.45);
+
+}
+
+/* ===================================================
+   RESET
+=================================================== */
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+}
+
+html{
+scroll-behavior:smooth;
+}
+
+body{
+
+font-family:'Inter',sans-serif;
+
+background:
+
+radial-gradient(
+circle at top left,
+rgba(15,95,196,.12),
+transparent 22%
+),
+
+radial-gradient(
+circle at bottom right,
+rgba(99,216,78,.10),
+transparent 24%
+),
+
+linear-gradient(
+180deg,
+#f5f9fc,
+#edf4f8
+);
+
+color:var(--text);
+
+min-height:100vh;
+overflow-x:hidden;
+
+transition:.4s ease;
+
+}
+
+body.dark{
+
+background:
+
+radial-gradient(
+circle at top left,
+rgba(0,213,255,.12),
+transparent 24%
+),
+
+radial-gradient(
+circle at bottom right,
+rgba(109,255,124,.08),
+transparent 24%
+),
+
+linear-gradient(
+180deg,
+#06111b,
+#081421,
+#0b1626
+);
+
+}
+
+body::before{
+
+content:'';
+
+position:fixed;
+inset:0;
+
+background-image:
+
+linear-gradient(
+rgba(15,95,196,.025) 1px,
+transparent 1px
+),
+
+linear-gradient(
+90deg,
+rgba(15,95,196,.025) 1px,
+transparent 1px
+);
+
+background-size:42px 42px;
+
+mask-image:
+radial-gradient(circle at center, black, transparent 85%);
+
+pointer-events:none;
+
+}
+
+/* ===================================================
+   PARTICLES
+=================================================== */
+
+#particles-js{
+position:fixed;
+inset:0;
+z-index:-1;
+opacity:.45;
+}
+
+/* ===================================================
+   APP
+=================================================== */
+
+.app{
+padding:18px;
+display:flex;
+flex-direction:column;
+gap:18px;
+}
+
+/* ===================================================
+   TOPBAR
+=================================================== */
+
+.topbar{
+
+background:var(--panel);
+
+border:1px solid rgba(0,183,217,.08);
+
+border-radius:32px;
+
+backdrop-filter:blur(20px);
+
+box-shadow:var(--shadow);
+
+padding:22px 26px;
+
+display:flex;
+justify-content:space-between;
+align-items:center;
+gap:26px;
+
+}
+
+.brand{
+display:flex;
+align-items:center;
+gap:16px;
+}
+
+.logo{
+
+width:84px;
+height:84px;
+
+border-radius:24px;
+
+overflow:hidden;
+
+}
+
+.logo img{
+width:100%;
+height:100%;
+object-fit:contain;
+}
+
+.brand h1{
+
+font-size:2.5rem;
+
+letter-spacing:-3px;
+
+line-height:.9;
+
+color:var(--primary);
+
+}
+
+.brand small{
+
+display:block;
+
+margin-top:6px;
+
+font-size:.72rem;
+font-weight:700;
+
+letter-spacing:.18em;
+text-transform:uppercase;
+
+color:var(--secondary);
+
+}
+
+.hero{
+max-width:620px;
+}
+
+.hero strong{
+
+display:block;
+
+margin-bottom:12px;
+
+font-size:.74rem;
+letter-spacing:.16em;
+text-transform:uppercase;
+
+color:var(--secondary);
+
+}
+
+.hero p{
+
+line-height:1.8;
+font-size:.96rem;
+
+color:var(--muted);
+
+}
+
+/* ===================================================
+   THEME
+=================================================== */
+
+.theme-toggle{
+
+width:58px;
+height:58px;
+
+border:none;
+
+border-radius:20px;
+
+cursor:pointer;
+
+font-size:1.2rem;
+
+background:
+linear-gradient(
+135deg,
+rgba(15,95,196,.12),
+rgba(0,183,217,.12)
+);
+
+color:var(--primary);
+
+}
+
+/* ===================================================
+   MAIN
+=================================================== */
+
+.main{
+
+display:grid;
+
+grid-template-columns:
+300px 1fr 340px;
+
+gap:18px;
+
+}
+
+/* ===================================================
+   PANELS
+=================================================== */
+
+.panel{
+
+background:var(--panel);
+
+border:1px solid rgba(0,183,217,.08);
+
+border-radius:32px;
+
+backdrop-filter:blur(18px);
+
+box-shadow:var(--shadow);
+
+overflow:hidden;
+
+}
+
+.left,
+.center,
+.right{
+padding:22px;
+}
+
+/* ===================================================
+   ADS
+=================================================== */
+
+.ad-premium{
+
+position:relative;
+
+overflow:hidden;
+
+border-radius:28px;
+
+padding:28px;
+
+background:
+
+linear-gradient(
+135deg,
+rgba(10,61,145,.9),
+rgba(0,183,217,.85)
+);
+
+color:white;
+
+min-height:260px;
+
+display:flex;
+flex-direction:column;
+justify-content:space-between;
+
+box-shadow:
+0 20px 40px rgba(0,183,217,.18);
+
+}
+
+.ad-premium::before{
+
+content:'';
+
+position:absolute;
+inset:0;
+
+background:
+linear-gradient(
+120deg,
+transparent,
+rgba(255,255,255,.12),
+transparent
+);
+
+transform:translateX(-100%);
+
+animation:shine 7s infinite;
+
+}
+
+@keyframes shine{
+
+100%{
+transform:translateX(200%);
+}
+
+}
+
+.ad-premium small{
+
+letter-spacing:.18em;
+text-transform:uppercase;
+
+opacity:.7;
+
+font-size:.7rem;
+
+}
+
+.ad-premium h2{
+
+font-size:2rem;
+
+line-height:1;
+
+letter-spacing:-2px;
+
+margin:16px 0;
+
+}
+
+.ad-premium p{
+
+line-height:1.7;
+
+opacity:.9;
+
+max-width:420px;
+
+}
+
+.ad-button{
+
+margin-top:18px;
+
+width:max-content;
+
+padding:14px 20px;
+
+border-radius:16px;
+
+background:rgba(255,255,255,.12);
+
+border:1px solid rgba(255,255,255,.16);
+
+backdrop-filter:blur(10px);
+
+font-weight:600;
+
+}
+
+/* ===================================================
+   METRICS
+=================================================== */
+
+.metric-grid{
+
+display:grid;
+
+grid-template-columns:repeat(4,1fr);
+
+gap:14px;
+
+margin-top:18px;
+
+}
+
+.metric{
+
+background:var(--surface);
+
+border-radius:24px;
+
+padding:22px;
+
+border:1px solid rgba(0,183,217,.08);
+
+}
+
+.metric strong{
+
+display:block;
+
+font-size:2rem;
+
+margin:8px 0;
+
+color:var(--primary);
+
+}
+
+.metric span{
+color:var(--muted);
+font-size:.9rem;
+}
+
+/* ===================================================
+   CARD
+=================================================== */
+
+.card{
+
+background:var(--surface);
+
+border:1px solid rgba(0,183,217,.08);
+
+border-radius:28px;
+
+padding:22px;
+
+margin-top:18px;
+
+}
+
+.card h2{
+margin-bottom:18px;
+color:var(--primary);
+}
+
+/* ===================================================
+   TERMINAL
+=================================================== */
+
+.terminal{
+
+background:
+linear-gradient(
+180deg,
+#081421,
+#0b1d2f
+);
+
+color:#b9fff2;
+
+font-family:monospace;
+
+padding:22px;
+
+border-radius:22px;
+
+line-height:1.8;
+
+}
+
+/* ===================================================
+   SIDEBAR ADS
+=================================================== */
+
+.side-ad{
+
+display:flex;
+flex-direction:column;
+gap:18px;
+
+}
+
+.ad-card{
+
+overflow:hidden;
+
+border-radius:26px;
+
+background:var(--surface);
+
+border:1px solid rgba(0,183,217,.08);
+
+transition:.35s ease;
+
+}
+
+.ad-card:hover{
+
+transform:translateY(-4px);
+
+}
+
+.ad-card img{
+
+width:100%;
+height:180px;
+
+object-fit:cover;
+
+display:block;
+
+}
+
+.ad-content{
+
+padding:20px;
+
+}
+
+.ad-content small{
+
+display:block;
+
+margin-bottom:10px;
+
+font-size:.7rem;
+
+letter-spacing:.16em;
+text-transform:uppercase;
+
+color:var(--secondary);
+
+}
+
+.ad-content h3{
+
+font-size:1.2rem;
+
+line-height:1.2;
+
+margin-bottom:12px;
+
+}
+
+.ad-content p{
+
+font-size:.92rem;
+
+line-height:1.7;
+
+color:var(--muted);
+
+}
+
+/* ===================================================
+   CALENDAR
+=================================================== */
+
+.calendar-frame{
+
+width:100%;
+height:520px;
+
+border:none;
+
+border-radius:22px;
+
+overflow:hidden;
+
+background:#fff;
+
+}
+
+/* ===================================================
+   FOOTER
+=================================================== */
+
+.footer{
+
+padding:28px;
+
+text-align:center;
+
+font-size:.82rem;
+
+color:var(--muted);
+
+}
+
+/* ===================================================
+   RESPONSIVE
+=================================================== */
+
+@media(max-width:1500px){
+
+.main{
+grid-template-columns:1fr;
+}
+
+}
+
+@media(max-width:980px){
+
+.topbar{
+flex-direction:column;
+align-items:flex-start;
+}
+
+.metric-grid{
+grid-template-columns:1fr 1fr;
+}
+
+}
+
+@media(max-width:680px){
+
+.app{
+padding:12px;
+}
+
+.metric-grid{
+grid-template-columns:1fr;
+}
+
+.left,
+.center,
+.right{
+padding:16px;
+}
+
+.brand h1{
+font-size:2rem;
+}
+
+.logo{
+width:68px;
+height:68px;
+}
+
+.ad-premium h2{
+font-size:1.7rem;
+}
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div id="particles-js"></div>
+
+<div class="app">
+
+<!-- TOPBAR -->
+
+<header class="topbar">
+
+<div class="brand">
+
+<div class="logo">
+<img src="img/logo-continuum.png">
+</div>
+
+<div>
+<h1>Continuum</h1>
+<small>Sistema de Integração Coletiva</small>
+</div>
+
+</div>
+
+<div class="hero">
+
+<strong>
+CONTINUIDADE • ROTINA • SUSTENTAÇÃO COGNITIVA
+</strong>
+
+<p>
+Ambiente compartilhado para organização da rotina, gestão de agenda, integração coletiva e sustentação cognitiva operacional.
+</p>
+
+</div>
+
+<button class="theme-toggle" id="themeToggle">
+🌙
+</button>
+
+</header>
+
+<!-- HERO AD -->
+
+<section class="ad-premium">
+
+<div>
+
+<small>APOIO INSTITUCIONAL</small>
+
+<h2>
+Ambientes Digitais Mais Humanos
+</h2>
+
+<p>
+Tecnologia, previsibilidade e integração coletiva para redução de sobrecarga operacional e fortalecimento da continuidade diária.
+</p>
+
+</div>
+
+<div class="ad-button">
+Conhecer iniciativa
+</div>
+
+</section>
+
+<!-- MAIN -->
+
+<section class="main">
+
+<!-- LEFT -->
+
+<aside class="panel left">
+
+<div class="card">
+
+<h2>Sustentação Operacional</h2>
+
+<div class="terminal">
+
+[ROTINA] estabilidade operacional ativa<br>
+[AGENDA] sincronização contínua<br>
+[SUPORTE] sustentação cognitiva online<br>
+[CHECKLIST] continuidade monitorada<br>
+[CONTINUUM] ecossistema integrado
+
+</div>
+
+</div>
+
+<div class="card">
+
+<h2>Ferramentas</h2>
+
+<p style="line-height:1.8;color:var(--muted);">
+
+Agenda Compartilhada<br><br>
+Checklist Diário<br><br>
+Google Calendar<br><br>
+Notion Embed<br><br>
+GitHub Projects<br><br>
+Fluxo Operacional Integrado
+
+</p>
+
+</div>
+
+</aside>
+
+<!-- CENTER -->
+
+<main class="panel center">
+
+<div class="metric-grid">
+
+<div class="metric">
+<small>Tarefas</small>
+<strong>12</strong>
+<span>Fluxo operacional ativo</span>
+</div>
+
+<div class="metric">
+<small>Agenda</small>
+<strong>SYNC</strong>
+<span>Integração contínua</span>
+</div>
+
+<div class="metric">
+<small>Status</small>
+<strong>ONLINE</strong>
+<span>Sistema ativo</span>
+</div>
+
+<div class="metric">
+<small>Rotinas</small>
+<strong>08</strong>
+<span>Checklists monitoradas</span>
+</div>
+
+</div>
+
+<div class="card">
+
+<h2>Central de Reflexões</h2>
+
+<iframe
+class="calendar-frame"
+src="https://docs.google.com/document/d/e/2PACX-1vSEU_DOCUMENTO_EXEMPLO/pub?embedded=true">
+</iframe>
+
+</div>
+
+<div class="card">
+
+<h2>Fluxo Continuum</h2>
+
+<div class="mermaid">
+
+graph TD
+
+A[Agenda]
+--> B[Checklist]
+
+B --> C[Gestão de Energia]
+
+C --> D[Rotina Sustentável]
+
+D --> E[Continuidade]
+
+E --> F[Integração Coletiva]
+
+</div>
+
+</div>
+
+<div class="card">
+
+<h2>Continuidade Operacional</h2>
+
+<canvas id="continuumChart" height="90"></canvas>
+
+</div>
+
+</main>
+
+<!-- RIGHT -->
+
+<aside class="panel right">
+
+<div class="side-ad">
+
+<div class="ad-card">
+
+<img src="img/ad-1.jpg">
+
+<div class="ad-content">
+
+<small>TECNOLOGIA</small>
+
+<h3>
+Integração Cognitiva e Organização Digital
+</h3>
+
+<p>
+Ferramentas para gestão saudável da rotina e sustentação coletiva.
+</p>
+
+</div>
+
+</div>
+
+<div class="ad-card">
+
+<img src="img/ad-2.jpg">
+
+<div class="ad-content">
+
+<small>PARCERIA</small>
+
+<h3>
+Ecossistemas Operacionais Sustentáveis
+</h3>
+
+<p>
+Projetos apoiando continuidade, previsibilidade e integração social.
+</p>
+
+</div>
+
+</div>
+
+<div class="card">
+
+<h2>Agenda Compartilhada</h2>
+
+<iframe
+class="calendar-frame"
+src="https://calendar.google.com/calendar/embed?src=pt.brazilian%23holiday%40group.v.calendar.google.com&ctz=America%2FSao_Paulo">
+</iframe>
+
+</div>
+
+</div>
+
+</aside>
+
+</section>
+
+<footer class="footer">
+© 2026 • Continuum • Sistema Operacional de Continuidade
+</footer>
+
+</div>
+
+<script>
+
+/* THEME */
+
+const themeToggle = document.getElementById('themeToggle');
+
+themeToggle.addEventListener('click', () => {
+
+document.body.classList.toggle('dark');
+
+if(document.body.classList.contains('dark')){
+themeToggle.innerHTML = '☀️';
+localStorage.setItem('continuum-theme','dark');
+}else{
+themeToggle.innerHTML = '🌙';
+localStorage.setItem('continuum-theme','light');
+}
+
+});
+
+if(localStorage.getItem('continuum-theme') === 'dark'){
+
+document.body.classList.add('dark');
+themeToggle.innerHTML = '☀️';
+
+}
+
+/* PARTICLES */
+
+particlesJS('particles-js', {
+  particles: {
+    number: { value: 55 },
+    color: { value: '#00b7d9' },
+    shape: { type: 'circle' },
+    opacity: { value: 0.16 },
+    size: { value: 3 },
+    move: { enable: true, speed: 1 }
+  }
+});
+
+/* MERMAID */
+
+mermaid.initialize({
+startOnLoad:true
+});
+
+/* CHART */
+
+const ctx = document.getElementById('continuumChart');
+
+if(ctx){
+
+new Chart(ctx, {
+
+type:'line',
+
+data:{
+
+labels:[
+'Seg',
+'Ter',
+'Qua',
+'Qui',
+'Sex',
+'Sáb',
+'Dom'
+],
+
+datasets:[{
+
+data:[82,90,86,94,92,88,91],
+
+tension:.4,
+
+borderWidth:3,
+
+borderColor:'#00b7d9',
+
+backgroundColor:'rgba(0,183,217,.15)',
+
+pointBackgroundColor:'#63d84e',
+
+fill:true
+
+}]
+
+},
+
+options:{
+
+responsive:true,
+
+plugins:{
+legend:{ display:false }
+}
+
+}
+
+});
+
+}
+
+</script>
+
+</body>
+</html>
