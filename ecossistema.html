@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Ecossistema REDE | Arquitetura Viva</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+
+<style>
+
+:root{
+--bg:#0b0f17;
+--panel:rgba(255,255,255,.06);
+--line:rgba(255,255,255,.08);
+--text:#e5e7eb;
+--muted:#9ca3af;
+--accent:#b28a52;
+--blue:#60a5fa;
+--purple:#a78bfa;
+}
+
+/* RESET */
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Inter,sans-serif;
+}
+
+body{
+background:
+radial-gradient(circle at top, rgba(178,138,82,.15), transparent 40%),
+radial-gradient(circle at bottom, rgba(96,165,250,.10), transparent 40%),
+var(--bg);
+
+color:var(--text);
+overflow-x:hidden;
+}
+
+/* NEURAL BACKGROUND */
+.neural{
+position:fixed;
+inset:0;
+z-index:0;
+pointer-events:none;
+opacity:.55;
+}
+
+#graph{
+width:100%;
+height:100%;
+}
+
+/* LINKS */
+.link{
+stroke:rgba(178,138,82,.25);
+stroke-width:1;
+}
+
+/* NODE */
+.node{
+fill:rgba(255,255,255,.08);
+stroke:rgba(178,138,82,.5);
+stroke-width:1;
+}
+
+.pulse-dot{
+fill:var(--accent);
+opacity:.6;
+animation:pulse 2.4s infinite;
+}
+
+@keyframes pulse{
+0%{transform:scale(1);opacity:.3;}
+50%{transform:scale(1.8);opacity:1;}
+100%{transform:scale(1);opacity:.3;}
+}
+
+/* HEADER */
+header{
+position:relative;
+z-index:2;
+text-align:center;
+padding:60px 20px 30px;
+}
+
+h1{
+font-size:clamp(2rem,4vw,3.2rem);
+letter-spacing:-1px;
+}
+
+p{
+color:var(--muted);
+max-width:700px;
+margin:12px auto 0;
+line-height:1.6;
+}
+
+/* GRID */
+.grid{
+position:relative;
+z-index:2;
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+gap:16px;
+padding:30px;
+max-width:1200px;
+margin:auto;
+}
+
+/* CARD */
+.card{
+background:var(--panel);
+border:1px solid var(--line);
+border-radius:18px;
+padding:18px;
+backdrop-filter:blur(12px);
+transition:.25s ease;
+}
+
+.card:hover{
+transform:translateY(-4px);
+border-color:rgba(178,138,82,.4);
+}
+
+.card h2{
+font-size:1rem;
+margin-bottom:10px;
+color:var(--accent);
+}
+
+.card a{
+display:block;
+color:var(--text);
+text-decoration:none;
+font-size:.85rem;
+padding:6px 0;
+opacity:.85;
+transition:.2s;
+}
+
+.card a:hover{
+opacity:1;
+transform:translateX(4px);
+color:var(--accent);
+}
+
+/* TAG */
+.tag{
+display:inline-block;
+font-size:.7rem;
+padding:4px 10px;
+border-radius:999px;
+background:rgba(178,138,82,.1);
+color:var(--accent);
+margin-bottom:8px;
+}
+
+/* FOOTER */
+footer{
+position:relative;
+z-index:2;
+text-align:center;
+padding:40px 20px;
+color:var(--muted);
+font-size:.8rem;
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- NEURAL GRAPH -->
+<div class="neural">
+<svg id="graph"></svg>
+</div>
+
+<header>
+<h1>Ecossistema REDE</h1>
+<p>
+Arquitetura viva de sistemas interconectados:
+REDE, JOGOS, LIVRARIA, HUB, ORÁCULO e ATLAS operando como um organismo digital.
+</p>
+</header>
+
+<section class="grid">
+
+<div class="card">
+<div class="tag">CORE</div>
+<h2>Sistema Central</h2>
+<a href="/index.html">Home</a>
+<a href="/hub/">Hub</a>
+<a href="/rede/">REDE</a>
+<a href="/livraria/">Livraria</a>
+<a href="/oraculo/">Oráculo</a>
+</div>
+
+<div class="card">
+<div class="tag">REDE</div>
+<h2>Estrutura Cognitiva</h2>
+<a href="/rede/atlas.html">Atlas</a>
+<a href="/rede/mapa.html">Mapa</a>
+<a href="/rede/mind-map1.html">Mind Map</a>
+<a href="/rede/arquitetura.html">Arquitetura</a>
+<a href="/rede/documentos.html">Documentos</a>
+<a href="/rede/repositorio.html">Repositório</a>
+</div>
+
+<div class="card">
+<div class="tag">JOGOS</div>
+<h2>Ambiente Lúdico</h2>
+<a href="/jogos/jogos.html">Portal</a>
+<a href="/jogos/sudoku.html">Sudoku</a>
+<a href="/jogos/tetris.html">Tetris</a>
+<a href="/jogos/pacman.html">Pac-Man</a>
+<a href="/jogos/mahjong.html">Mahjong</a>
+<a href="/jogos/labirinto.html">Labirinto</a>
+<a href="/jogos/jogo-dos-eixos.html">Jogo dos Eixos</a>
+</div>
+
+<div class="card">
+<div class="tag">FLUXOS</div>
+<h2>Processos Dinâmicos</h2>
+<a href="/jogos/fluxo.html">Fluxo 1</a>
+<a href="/jogos/fluxo2.html">Fluxo 2</a>
+<a href="/rede/calendario-2026.html">Calendário</a>
+<a href="/rede/prisma.html">Prisma</a>
+</div>
+
+<div class="card">
+<div class="tag">ATLAS</div>
+<h2>Mapeamento Cognitivo</h2>
+<a href="/rede/atlas.html">Base</a>
+<a href="/rede/atlas1.html">Camada 1</a>
+<a href="/rede/atlas2.html">Camada 2</a>
+<a href="/rede/atlas_navegando.html">Navegação</a>
+<a href="/rede/atlas_mind-map.html">Mind Map</a>
+</div>
+
+<div class="card">
+<div class="tag">CLÍNICO</div>
+<h2>Sistema Aplicado</h2>
+<a href="/rede/app-clinico.html">App Clínico</a>
+<a href="/rede/app-clinico-v0.html">Versão V0</a>
+<a href="/rede/login.html">Login</a>
+<a href="/rede/login-especial.html">Login Especial</a>
+</div>
+
+<div class="card">
+<div class="tag">ENGENHARIA</div>
+<h2>Infraestrutura</h2>
+<a href="/rede/backend/">Backend</a>
+<a href="/rede/components/">Components</a>
+<a href="/rede/js/">JS Core</a>
+<a href="/rede/prisma.html">Prisma</a>
+</div>
+
+<div class="card">
+<div class="tag">EDITORIAL</div>
+<h2>Livraria</h2>
+<a href="/livraria/bookos-matrix.html">BookOS</a>
+<a href="/livraria/disclosure.html">Disclosure</a>
+<a href="/livraria/continuum3.html">Continuum</a>
+</div>
+
+<div class="card">
+<div class="tag">ACESSO</div>
+<h2>Navegação</h2>
+<a href="/hub/">Hub</a>
+<a href="/rede/hub.html">Hub REDE</a>
+<a href="/tree.html">Tree</a>
+<a href="/index.html">Index</a>
+</div>
+
+</section>
+
+<footer>
+REDE Ecosystem • Sistema modular vivo • 2026
+</footer>
+
+<script>
+/* NEURAL GRAPH */
+const nodes = [
+  { id:'REDE', x:500, y:260 },
+  { id:'JOGOS', x:280, y:460 },
+  { id:'LIVRARIA', x:720, y:460 },
+  { id:'HUB', x:500, y:120 },
+  { id:'ATLAS', x:280, y:260 },
+  { id:'ORACULO', x:720, y:260 }
+];
+
+const links = [
+  ['REDE','JOGOS'],
+  ['REDE','LIVRARIA'],
+  ['REDE','HUB'],
+  ['REDE','ATLAS'],
+  ['REDE','ORACULO']
+];
+
+const svg = document.getElementById("graph");
+
+function draw(){
+
+svg.innerHTML = "";
+
+const w = window.innerWidth;
+const h = window.innerHeight;
+
+nodes.forEach(n=>{
+  n.x = (n.x / 1000) * w;
+  n.y = (n.y / 700) * h;
+});
+
+/* LINKS */
+links.forEach(l=>{
+  const a = nodes.find(n=>n.id===l[0]);
+  const b = nodes.find(n=>n.id===l[1]);
+
+  const line = document.createElementNS("http://www.w3.org/2000/svg","line");
+  line.setAttribute("x1",a.x);
+  line.setAttribute("y1",a.y);
+  line.setAttribute("x2",b.x);
+  line.setAttribute("y2",b.y);
+  line.setAttribute("class","link");
+  svg.appendChild(line);
+});
+
+/* NODES */
+nodes.forEach(n=>{
+
+  const c = document.createElementNS("http://www.w3.org/2000/svg","circle");
+  c.setAttribute("cx",n.x);
+  c.setAttribute("cy",n.y);
+  c.setAttribute("r",7);
+  c.setAttribute("class","node");
+  svg.appendChild(c);
+
+  const p = document.createElementNS("http://www.w3.org/2000/svg","circle");
+  p.setAttribute("cx",n.x);
+  p.setAttribute("cy",n.y);
+  p.setAttribute("r",3);
+  p.setAttribute("class","pulse-dot");
+  svg.appendChild(p);
+
+});
+
+}
+
+draw();
+window.addEventListener("resize",draw);
+</script>
+
+</body>
+</html>
