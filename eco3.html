@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Ecossistema Integrado • Lojinha dos Autistas</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/particles.js"></script>
+
+<style>
+
+:root{
+--bg:#0b0f17;
+--panel:rgba(255,255,255,.06);
+--line:rgba(255,255,255,.08);
+--text:#e5e7eb;
+--muted:#9ca3af;
+--accent:#b28a52;
+--shadow:0 20px 80px rgba(0,0,0,.6);
+}
+
+/* RESET */
+*{margin:0;padding:0;box-sizing:border-box;}
+
+body{
+font-family:'Inter',sans-serif;
+background:
+radial-gradient(circle at top, rgba(178,138,82,.15), transparent 40%),
+radial-gradient(circle at bottom, rgba(96,165,250,.10), transparent 40%),
+var(--bg);
+color:var(--text);
+overflow-x:hidden;
+min-height:100vh;
+}
+
+/* PARTICLES */
+#particles-js{
+position:fixed;
+inset:0;
+opacity:.35;
+z-index:-1;
+}
+
+/* NEURAL GRID (subtle) */
+body::before{
+content:'';
+position:fixed;
+inset:0;
+background-image:
+linear-gradient(rgba(255,255,255,.03) 1px, transparent 1px),
+linear-gradient(90deg, rgba(255,255,255,.03) 1px, transparent 1px);
+background-size:42px 42px;
+opacity:.4;
+mask-image:radial-gradient(circle at center, black, transparent 75%);
+pointer-events:none;
+}
+
+/* WRAP */
+.wrap{
+padding:40px 22px;
+max-width:1200px;
+margin:auto;
+position:relative;
+z-index:2;
+}
+
+/* HEADER */
+header{
+text-align:center;
+margin-bottom:40px;
+}
+
+header h1{
+font-size:clamp(2.2rem,4vw,3.5rem);
+letter-spacing:-2px;
+}
+
+header p{
+color:var(--muted);
+margin-top:12px;
+font-size:.95rem;
+line-height:1.5;
+}
+
+/* GRID (híbrido REDE) */
+.grid{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+gap:18px;
+margin-top:40px;
+}
+
+/* CARD (upgrade visual REDE) */
+.card{
+background:var(--panel);
+border:1px solid var(--line);
+border-radius:20px;
+padding:22px;
+backdrop-filter:blur(14px);
+transition:.25s ease;
+position:relative;
+overflow:hidden;
+}
+
+.card:hover{
+transform:translateY(-6px);
+border-color:rgba(178,138,82,.4);
+box-shadow:var(--shadow);
+}
+
+/* glow neural */
+.card::before{
+content:'';
+position:absolute;
+inset:-2px;
+background:radial-gradient(circle at top left, rgba(178,138,82,.18), transparent 60%);
+opacity:0;
+transition:.4s;
+}
+
+.card:hover::before{opacity:1;}
+
+.card h2{
+font-size:1.05rem;
+margin-bottom:12px;
+color:var(--accent);
+}
+
+.card span{
+font-size:.82rem;
+color:var(--muted);
+line-height:1.45;
+display:block;
+}
+
+/* LINKS (melhor UX) */
+.card a{
+display:block;
+color:var(--text);
+text-decoration:none;
+font-size:.85rem;
+padding:6px 0;
+opacity:.85;
+transition:.2s;
+}
+
+.card a:hover{
+opacity:1;
+transform:translateX(4px);
+color:var(--accent);
+}
+
+/* TAG */
+.tag{
+display:inline-block;
+margin-top:14px;
+font-size:.7rem;
+letter-spacing:.12em;
+text-transform:uppercase;
+color:var(--accent);
+background:rgba(178,138,82,.1);
+padding:4px 10px;
+border-radius:999px;
+}
+
+/* CTA */
+.cta{
+margin-top:40px;
+text-align:center;
+}
+
+.cta a{
+display:inline-block;
+padding:14px 20px;
+border-radius:16px;
+background:#b28a52;
+color:#111827;
+text-decoration:none;
+font-weight:700;
+letter-spacing:.06em;
+transition:.3s;
+}
+
+.cta a:hover{
+transform:scale(1.05);
+opacity:.9;
+}
+
+/* FOOTER */
+footer{
+text-align:center;
+margin-top:50px;
+color:var(--muted);
+font-size:.8rem;
+}
+
+/* RESPONSIVO */
+@media(max-width:600px){
+header h1{font-size:1.9rem;}
+.card{padding:18px;}
+}
+
+</style>
+</head>
+
+<body>
+
+<div id="particles-js"></div>
+
+<div class="wrap">
+
+<header>
+<h1>• Ecossistema Integrado •</h1>
+<p>
+Arquitetura viva de sistemas interconectados: REDE, JOGOS, LIVRARIA, HUB, ORÁCULO e ATLAS operando como um organismo digital.
+</p>
+</header>
+
+<section class="grid">
+
+<!-- CORE -->
+<div class="card">
+<div class="tag">CORE</div>
+<h2>Sistema Central</h2>
+<a href="/index.html">Home</a>
+<a href="/hub/">Hub</a>
+<a href="/rede/">REDE</a>
+<a href="/livraria/">Livraria</a>
+<a href="/oraculo/">Oráculo</a>
+</div>
+
+<!-- REDE -->
+<div class="card">
+<div class="tag">REDE</div>
+<h2>Estrutura Cognitiva</h2>
+<a href="/rede/atlas.html">Atlas</a>
+<a href="/rede/mapa.html">Mapa</a>
+<a href="/rede/mind-map1.html">Mind Map</a>
+<a href="/rede/arquitetura.html">Arquitetura</a>
+<a href="/rede/documentos.html">Documentos</a>
+<a href="/rede/repositorio.html">Repositório</a>
+</div>
+
+<!-- JOGOS -->
+<div class="card">
+<div class="tag">JOGOS</div>
+<h2>Ambiente Lúdico</h2>
+<a href="/jogos/jogos.html">Portal</a>
+<a href="/jogos/sudoku.html">Sudoku</a>
+<a href="/jogos/tetris.html">Tetris</a>
+<a href="/jogos/pacman.html">Pac-Man</a>
+<a href="/jogos/mahjong.html">Mahjong</a>
+<a href="/jogos/labirinto.html">Labirinto</a>
+<a href="/jogos/jogo-dos-eixos.html">Jogo dos Eixos</a>
+</div>
+
+<!-- FLUXOS -->
+<div class="card">
+<div class="tag">FLUXOS</div>
+<h2>Processos Dinâmicos</h2>
+<a href="/jogos/fluxo.html">Fluxo 1</a>
+<a href="/jogos/fluxo2.html">Fluxo 2</a>
+<a href="/rede/calendario-2026.html">Calendário</a>
+<a href="/rede/prisma.html">Prisma</a>
+</div>
+
+<!-- ATLAS -->
+<div class="card">
+<div class="tag">ATLAS</div>
+<h2>Mapeamento Cognitivo</h2>
+<a href="/rede/atlas.html">Base</a>
+<a href="/rede/atlas1.html">Camada 1</a>
+<a href="/rede/atlas2.html">Camada 2</a>
+<a href="/rede/atlas_navegando.html">Navegação</a>
+<a href="/rede/atlas_mind-map.html">Mind Map</a>
+</div>
+
+<!-- CLÍNICO -->
+<div class="card">
+<div class="tag">CLÍNICO</div>
+<h2>Sistema Aplicado</h2>
+<a href="/rede/app-clinico.html">App Clínico</a>
+<a href="/rede/app-clinico-v0.html">Versão V0</a>
+<a href="/rede/login.html">Login</a>
+<a href="/rede/login-especial.html">Login Especial</a>
+</div>
+
+<!-- ENGENHARIA -->
+<div class="card">
+<div class="tag">ENGENHARIA</div>
+<h2>Infraestrutura</h2>
+<a href="/rede/backend/">Backend</a>
+<a href="/rede/components/">Components</a>
+<a href="/rede/js/">JS Core</a>
+<a href="/rede/prisma.html">Prisma</a>
+</div>
+
+<!-- EDITORIAL -->
+<div class="card">
+<div class="tag">EDITORIAL</div>
+<h2>Livraria</h2>
+<a href="/livraria/bookos-matrix.html">BookOS</a>
+<a href="/livraria/disclosure.html">Disclosure</a>
+<a href="/livraria/continuum3.html">Continuum</a>
+</div>
+
+<!-- ACESSO -->
+<div class="card">
+<div class="tag">ACESSO</div>
+<h2>Navegação</h2>
+<a href="/hub/">Hub</a>
+<a href="/rede/hub.html">Hub REDE</a>
+<a href="/tree.html">Tree</a>
+<a href="/index.html">Index</a>
+</div>
+
+</section>
+
+<div class="cta">
+<a href="index.html">Voltar para a Lojinha</a>
+</div>
+
+<footer>
+© 2026 • Lojinha dos Autistas • Integrated Operational Architecture
+</footer>
+
+</div>
+
+<script>
+particlesJS('particles-js',{
+particles:{
+number:{value:50},
+color:{value:'#b28a52'},
+shape:{type:'circle'},
+opacity:{value:0.25},
+size:{value:2},
+move:{enable:true,speed:1}
+}
+});
+</script>
+
+</body>
+</html>
