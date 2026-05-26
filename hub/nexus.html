@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>BookOS • Dashboard Operacional de Reunião</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+
+<style>
+
+:root{
+--bg:#0b0f14;
+--panel:rgba(255,255,255,.06);
+--line:rgba(255,255,255,.08);
+--text:#e5e7eb;
+--muted:#9ca3af;
+--accent:#b28a52;
+--green:#34d399;
+--blue:#60a5fa;
+--purple:#a78bfa;
+--red:#ef4444;
+}
+
+*{margin:0;padding:0;box-sizing:border-box;font-family:Inter,sans-serif;}
+
+body{
+background:radial-gradient(circle at top,#111827,#0b0f14 60%);
+color:var(--text);
+overflow-x:hidden;
+}
+
+/* HEADER */
+header{
+padding:40px 20px;
+text-align:center;
+border-bottom:1px solid var(--line);
+}
+
+header h1{
+font-size:2.4rem;
+letter-spacing:-1px;
+}
+
+header p{
+color:var(--muted);
+margin-top:10px;
+}
+
+/* GRID */
+.grid{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+gap:16px;
+padding:30px;
+max-width:1300px;
+margin:auto;
+}
+
+/* CARD */
+.card{
+background:var(--panel);
+border:1px solid var(--line);
+border-radius:18px;
+padding:18px;
+backdrop-filter:blur(12px);
+transition:.25s;
+}
+
+.card:hover{
+transform:translateY(-4px);
+border-color:rgba(178,138,82,.4);
+}
+
+.card h2{
+font-size:1rem;
+margin-bottom:10px;
+color:var(--accent);
+}
+
+.card p{
+font-size:.85rem;
+color:var(--muted);
+line-height:1.5;
+}
+
+/* TAG */
+.tag{
+display:inline-block;
+font-size:.7rem;
+padding:4px 10px;
+border-radius:999px;
+background:rgba(178,138,82,.1);
+color:var(--accent);
+margin-bottom:10px;
+}
+
+/* STATUS */
+.status{
+display:flex;
+justify-content:space-between;
+margin-top:10px;
+font-size:.8rem;
+}
+
+/* PROGRESS */
+.bar{
+height:6px;
+background:rgba(255,255,255,.08);
+border-radius:999px;
+margin-top:10px;
+overflow:hidden;
+}
+
+.fill{
+height:100%;
+background:var(--accent);
+border-radius:999px;
+}
+
+/* FOOTER */
+footer{
+text-align:center;
+padding:30px;
+color:var(--muted);
+font-size:.8rem;
+border-top:1px solid var(--line);
+}
+
+</style>
+
+</head>
+
+<body>
+
+<header>
+<h1>📊 BookOS • Dashboard Operacional</h1>
+<p>Reunião estratégica • Ecossistema Integrado • Execução viva de projetos</p>
+</header>
+
+<section class="grid">
+
+<!-- ECOSSISTEMA -->
+<div class="card">
+<div class="tag">ECOSSISTEMA</div>
+<h2>Arquitetura Integrada</h2>
+<p>REDE • JOGOS • LIVRARIA • HUB • ORÁCULO • ATLAS operando como sistema vivo.</p>
+<div class="status"><span>Integração</span><span>ATIVA</span></div>
+<div class="bar"><div class="fill" style="width:92%"></div></div>
+</div>
+
+<!-- PROJETO ACADÊMICO -->
+<div class="card">
+<div class="tag">PRODUÇÃO</div>
+<h2>Projeto Acadêmico</h2>
+<p>"Meu filho cresceu: e agora?" como eixo central de produção intelectual.</p>
+<div class="status"><span>Estrutura</span><span>EM DESENV.</span></div>
+<div class="bar"><div class="fill" style="width:75%"></div></div>
+</div>
+
+<!-- REDE DE APOIO -->
+<div class="card">
+<div class="tag">SOCIAL</div>
+<h2>Rede de Apoio</h2>
+<p>Estrutura para autistas adultos e famílias em vulnerabilidade estrutural.</p>
+<div class="status"><span>Impacto</span><span>ALTO</span></div>
+<div class="bar"><div class="fill" style="width:88%"></div></div>
+</div>
+
+<!-- SOLUÇÕES -->
+<div class="card">
+<div class="tag">EXECUÇÃO</div>
+<h2>Soluções Aplicáveis</h2>
+<p>Materiais práticos, áudios, ebooks e guias humanizados de aplicação real.</p>
+<div class="status"><span>Status</span><span>PRIORIDADE</span></div>
+<div class="bar"><div class="fill" style="width:90%"></div></div>
+</div>
+
+<!-- MENTORIAS -->
+<div class="card">
+<div class="tag">APOIO</div>
+<h2>Mentorias</h2>
+<p>Famílias • profissionais • escolas • instituições com acompanhamento contínuo.</p>
+<div class="status"><span>Modelo</span><span>VALIDAÇÃO</span></div>
+<div class="bar"><div class="fill" style="width:70%"></div></div>
+</div>
+
+<!-- EVENTO JULHO -->
+<div class="card">
+<div class="tag">AÇÃO IMEDIATA</div>
+<h2>Evento de Julho</h2>
+<p>Início da promoção do evento "EntrePassos" na próxima semana.</p>
+<div class="status"><span>Preparação</span><span>URGENTE</span></div>
+<div class="bar"><div class="fill" style="width:85%"></div></div>
+</div>
+
+<!-- BOOKOS -->
+<div class="card">
+<div class="tag">SISTEMA</div>
+<h2>BookOS</h2>
+<p>Sistema organizacional de gestão editorial e estrutura de trabalho.</p>
+<div class="status"><span>Uso</span><span>ATIVO</span></div>
+<div class="bar"><div class="fill" style="width:95%"></div></div>
+</div>
+
+<!-- CONTINUUM -->
+<div class="card">
+<div class="tag">INFRA</div>
+<h2>Continuum OS</h2>
+<p>Integração com Google, GitHub e ferramentas externas descentralizadas.</p>
+<div class="status"><span>Arquitetura</span><span>EVOLUINDO</span></div>
+<div class="bar"><div class="fill" style="width:80%"></div></div>
+</div>
+
+<!-- FINANCEIRO -->
+<div class="card">
+<div class="tag">SUSTENTAÇÃO</div>
+<h2>Sustentabilidade</h2>
+<p>Financiamento de livros + expansão de mentorias e rede institucional.</p>
+<div class="status"><span>Estratégia</span><span>ESTRUTURAR</span></div>
+<div class="bar"><div class="fill" style="width:65%"></div></div>
+</div>
+
+<!-- ORGANIZAÇÃO SEMANAL -->
+<div class="card">
+<div class="tag">ROTINA</div>
+<h2>Agenda Semanal</h2>
+<p>Pautas fixas semanais com início de ciclo toda segunda-feira.</p>
+<div class="status"><span>Sistema</span><span>DEFINIDO</span></div>
+<div class="bar"><div class="fill" style="width:100%"></div></div>
+</div>
+
+</section>
+
+<footer>
+BookOS Dashboard • Ecossistema Integrado • Sistema Operacional de Reunião Viva
+</footer>
+
+</body>
+</html>
