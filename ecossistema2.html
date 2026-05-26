@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Ecossistema REDE | Arquitetura Viva</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+
+<style>
+
+:root{
+--bg:#0b0f17;
+--panel:rgba(255,255,255,.06);
+--line:rgba(255,255,255,.08);
+--text:#e5e7eb;
+--muted:#9ca3af;
+--accent:#b28a52;
+--green:#34d399;
+--blue:#60a5fa;
+--purple:#a78bfa;
+}
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Inter,sans-serif;
+}
+
+body{
+background:
+radial-gradient(circle at top, rgba(178,138,82,.15), transparent 40%),
+radial-gradient(circle at bottom, rgba(96,165,250,.10), transparent 40%),
+var(--bg);
+
+color:var(--text);
+overflow-x:hidden;
+}
+
+/* HEADER */
+header{
+padding:60px 20px 30px;
+text-align:center;
+}
+
+h1{
+font-size:clamp(2rem,4vw,3.2rem);
+letter-spacing:-1px;
+}
+
+p{
+color:var(--muted);
+max-width:700px;
+margin:12px auto 0;
+line-height:1.6;
+}
+
+/* GRID */
+.grid{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+gap:16px;
+padding:30px;
+max-width:1200px;
+margin:auto;
+}
+
+/* CARD */
+.card{
+background:var(--panel);
+border:1px solid var(--line);
+border-radius:18px;
+padding:18px;
+backdrop-filter:blur(12px);
+transition:.25s ease;
+}
+
+.card:hover{
+transform:translateY(-4px);
+border-color:rgba(178,138,82,.35);
+}
+
+.card h2{
+font-size:1rem;
+margin-bottom:10px;
+color:var(--accent);
+}
+
+.card a{
+display:block;
+color:var(--text);
+text-decoration:none;
+font-size:.85rem;
+padding:6px 0;
+opacity:.85;
+transition:.2s;
+}
+
+.card a:hover{
+opacity:1;
+transform:translateX(4px);
+color:var(--accent);
+}
+
+/* TAG */
+.tag{
+display:inline-block;
+font-size:.7rem;
+padding:4px 10px;
+border-radius:999px;
+background:rgba(178,138,82,.1);
+color:var(--accent);
+margin-bottom:8px;
+}
+
+/* FOOTER */
+footer{
+text-align:center;
+padding:40px 20px;
+color:var(--muted);
+font-size:.8rem;
+}
+
+/* VISUAL NODES BACKGROUND */
+.orbit{
+position:fixed;
+inset:0;
+pointer-events:none;
+opacity:.15;
+background:
+radial-gradient(circle at 20% 20%, var(--accent), transparent 30%),
+radial-gradient(circle at 80% 30%, var(--blue), transparent 25%),
+radial-gradient(circle at 50% 80%, var(--purple), transparent 30%);
+filter:blur(60px);
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="orbit"></div>
+
+<header>
+<h1>Ecossistema REDE</h1>
+<p>
+Uma arquitetura viva de sistemas interconectados.
+Frontend, dados, jogos, livros, pesquisa, clínica, atlas e governança — tudo integrado como um organismo digital.
+</p>
+</header>
+
+<section class="grid">
+
+<!-- CORE -->
+<div class="card">
+<div class="tag">CORE SYSTEM</div>
+<h2>Estrutura Principal</h2>
+<a href="/index.html">Home</a>
+<a href="/hub/">Hub Central</a>
+<a href="/rede/">REDE</a>
+<a href="/livraria/">Livraria</a>
+<a href="/oraculo/">Oráculo</a>
+</div>
+
+<!-- REDE -->
+<div class="card">
+<div class="tag">INTELLIGENCE</div>
+<h2>REDE</h2>
+<a href="/rede/atlas.html">Atlas</a>
+<a href="/rede/mapa.html">Mapa Cognitivo</a>
+<a href="/rede/mind-map1.html">Mind Map</a>
+<a href="/rede/arquitetura.html">Arquitetura</a>
+<a href="/rede/documentos.html">Documentos</a>
+<a href="/rede/repositorio.html">Repositório</a>
+</div>
+
+<!-- JOGOS -->
+<div class="card">
+<div class="tag">PLAY SYSTEM</div>
+<h2>Jogos Cognitivos</h2>
+<a href="/jogos/jogos.html">Portal de Jogos</a>
+<a href="/jogos/sudoku.html">Sudoku</a>
+<a href="/jogos/tetris.html">Tetris</a>
+<a href="/jogos/pacman.html">Pac-Man</a>
+<a href="/jogos/mahjong.html">Mahjong</a>
+<a href="/jogos/labirinto.html">Labirinto</a>
+<a href="/jogos/jogo-dos-eixos.html">Jogo dos Eixos</a>
+</div>
+
+<!-- FLUXO -->
+<div class="card">
+<div class="tag">PROCESS FLOW</div>
+<h2>Fluxos e Sistemas</h2>
+<a href="/jogos/fluxo.html">Fluxo 1</a>
+<a href="/jogos/fluxo2.html">Fluxo 2</a>
+<a href="/rede/calendario-2026.html">Calendário</a>
+<a href="/rede/prisma.html">Prisma</a>
+</div>
+
+<!-- ATLAS -->
+<div class="card">
+<div class="tag">KNOWLEDGE MAP</div>
+<h2>Atlas Cognitivo</h2>
+<a href="/rede/atlas.html">Atlas Base</a>
+<a href="/rede/atlas1.html">Camada 1</a>
+<a href="/rede/atlas2.html">Camada 2</a>
+<a href="/rede/atlas_navegando.html">Navegação</a>
+<a href="/rede/atlas_mind-map.html">Mind Map</a>
+</div>
+
+<!-- CLÍNICO -->
+<div class="card">
+<div class="tag">CLINICAL SYSTEM</div>
+<h2>Ambiente Clínico</h2>
+<a href="/rede/app-clinico.html">App Clínico</a>
+<a href="/rede/app-clinico-v0.html">Versão V0</a>
+<a href="/rede/login.html">Login</a>
+<a href="/rede/login-especial.html">Login Especial</a>
+</div>
+
+<!-- DEV -->
+<div class="card">
+<div class="tag">ENGINEERING</div>
+<h2>Infra & Backend</h2>
+<a href="/rede/backend/">Backend</a>
+<a href="/rede/components/">Components</a>
+<a href="/rede/js/">JS Core</a>
+<a href="/rede/prisma.html">Prisma</a>
+</div>
+
+<!-- LIVRARIA -->
+<div class="card">
+<div class="tag">EDITORIAL</div>
+<h2>Livraria</h2>
+<a href="/livraria/bookos-matrix.html">BookOS</a>
+<a href="/livraria/disclosure.html">Disclosure Engine</a>
+<a href="/livraria/continuum3.html">Continuum</a>
+</div>
+
+<!-- HUB / EXTRAS -->
+<div class="card">
+<div class="tag">ACCESS</div>
+<h2>Hub & Navegação</h2>
+<a href="/hub/">Hub</a>
+<a href="/rede/hub.html">Hub REDE</a>
+<a href="/tree.html">Tree</a>
+<a href="/index.html">Index</a>
+</div>
+
+</section>
+
+<footer>
+REDE Ecosystem • Arquitetura modular viva • 2026
+</footer>
+
+</body>
+</html>
