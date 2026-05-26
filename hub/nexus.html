@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>BookOS • Dashboard Operacional de Reunião</title>
+<title>Pauta Viva • BookOS Meeting Dashboard</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
 
@@ -17,10 +17,7 @@
 --text:#e5e7eb;
 --muted:#9ca3af;
 --accent:#b28a52;
---green:#34d399;
---blue:#60a5fa;
---purple:#a78bfa;
---red:#ef4444;
+--shadow:0 20px 80px rgba(0,0,0,.6);
 }
 
 *{margin:0;padding:0;box-sizing:border-box;font-family:Inter,sans-serif;}
@@ -28,24 +25,48 @@
 body{
 background:radial-gradient(circle at top,#111827,#0b0f14 60%);
 color:var(--text);
+min-height:100vh;
 overflow-x:hidden;
 }
 
 /* HEADER */
 header{
-padding:40px 20px;
 text-align:center;
-border-bottom:1px solid var(--line);
+padding:60px 20px 30px;
 }
 
 header h1{
-font-size:2.4rem;
+font-size:clamp(2rem,4vw,3rem);
 letter-spacing:-1px;
 }
 
 header p{
 color:var(--muted);
-margin-top:10px;
+max-width:800px;
+margin:12px auto;
+line-height:1.6;
+}
+
+/* ECOSYSTEM STRIP */
+.ecosystem{
+display:flex;
+flex-wrap:wrap;
+gap:10px;
+justify-content:center;
+margin-top:18px;
+}
+
+.pill{
+border:1px solid var(--line);
+padding:8px 12px;
+border-radius:999px;
+font-size:.75rem;
+color:var(--muted);
+background:rgba(255,255,255,.03);
+}
+
+.pill strong{
+color:var(--accent);
 }
 
 /* GRID */
@@ -54,7 +75,7 @@ display:grid;
 grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
 gap:16px;
 padding:30px;
-max-width:1300px;
+max-width:1200px;
 margin:auto;
 }
 
@@ -62,27 +83,45 @@ margin:auto;
 .card{
 background:var(--panel);
 border:1px solid var(--line);
-border-radius:18px;
-padding:18px;
-backdrop-filter:blur(12px);
-transition:.25s;
+border-radius:20px;
+padding:20px;
+backdrop-filter:blur(14px);
+transition:.25s ease;
 }
 
 .card:hover{
-transform:translateY(-4px);
+transform:translateY(-5px);
 border-color:rgba(178,138,82,.4);
 }
 
 .card h2{
-font-size:1rem;
+font-size:1.05rem;
 margin-bottom:10px;
 color:var(--accent);
 }
 
 .card p{
-font-size:.85rem;
+font-size:.9rem;
 color:var(--muted);
 line-height:1.5;
+margin-bottom:12px;
+}
+
+/* LINKS */
+a{
+display:block;
+text-decoration:none;
+color:var(--text);
+font-size:.85rem;
+padding:4px 0;
+opacity:.85;
+transition:.2s;
+}
+
+a:hover{
+opacity:1;
+transform:translateX(4px);
+color:var(--accent);
 }
 
 /* TAG */
@@ -93,148 +132,140 @@ padding:4px 10px;
 border-radius:999px;
 background:rgba(178,138,82,.1);
 color:var(--accent);
-margin-bottom:10px;
-}
-
-/* STATUS */
-.status{
-display:flex;
-justify-content:space-between;
-margin-top:10px;
-font-size:.8rem;
-}
-
-/* PROGRESS */
-.bar{
-height:6px;
-background:rgba(255,255,255,.08);
-border-radius:999px;
-margin-top:10px;
-overflow:hidden;
-}
-
-.fill{
-height:100%;
-background:var(--accent);
-border-radius:999px;
+margin-bottom:8px;
 }
 
 /* FOOTER */
 footer{
 text-align:center;
-padding:30px;
+padding:40px;
 color:var(--muted);
 font-size:.8rem;
-border-top:1px solid var(--line);
 }
 
 </style>
-
 </head>
 
 <body>
 
 <header>
-<h1>📊 BookOS • Dashboard Operacional</h1>
-<p>Reunião estratégica • Ecossistema Integrado • Execução viva de projetos</p>
+<h1>📊 Pauta Viva • BookOS Dashboard</h1>
+<p>
+Reunião operacional estruturada como sistema vivo.
+Integra ecossistema, decisões, protótipos e fluxo estratégico.
+</p>
+
+<div class="ecosystem">
+<span class="pill"><strong>CORE</strong> Sistema Central</span>
+<span class="pill"><strong>REDE</strong> Cognitivo</span>
+<span class="pill"><strong>JOGOS</strong> Interação</span>
+<span class="pill"><strong>EDITORIAL</strong> BookOS</span>
+<span class="pill"><strong>CONTINUUM</strong> OS Operacional</span>
+<span class="pill"><strong>ORÁCULO</strong> Inteligência</span>
+<span class="pill"><strong>ATLAS</strong> Mapeamento</span>
+</div>
 </header>
 
 <section class="grid">
 
-<!-- ECOSSISTEMA -->
+<!-- CAPTAÇÃO -->
 <div class="card">
-<div class="tag">ECOSSISTEMA</div>
-<h2>Arquitetura Integrada</h2>
-<p>REDE • JOGOS • LIVRARIA • HUB • ORÁCULO • ATLAS operando como sistema vivo.</p>
-<div class="status"><span>Integração</span><span>ATIVA</span></div>
-<div class="bar"><div class="fill" style="width:92%"></div></div>
+<div class="tag">FUNDING</div>
+<h2>Captação de Recursos</h2>
+<p>Estrutura editorial para financiamento dos livros e expansão do ecossistema.</p>
+<a href="/livraria/apoio.html">Apoio ao Projeto</a>
 </div>
 
-<!-- PROJETO ACADÊMICO -->
-<div class="card">
-<div class="tag">PRODUÇÃO</div>
-<h2>Projeto Acadêmico</h2>
-<p>"Meu filho cresceu: e agora?" como eixo central de produção intelectual.</p>
-<div class="status"><span>Estrutura</span><span>EM DESENV.</span></div>
-<div class="bar"><div class="fill" style="width:75%"></div></div>
-</div>
-
-<!-- REDE DE APOIO -->
-<div class="card">
-<div class="tag">SOCIAL</div>
-<h2>Rede de Apoio</h2>
-<p>Estrutura para autistas adultos e famílias em vulnerabilidade estrutural.</p>
-<div class="status"><span>Impacto</span><span>ALTO</span></div>
-<div class="bar"><div class="fill" style="width:88%"></div></div>
-</div>
-
-<!-- SOLUÇÕES -->
-<div class="card">
-<div class="tag">EXECUÇÃO</div>
-<h2>Soluções Aplicáveis</h2>
-<p>Materiais práticos, áudios, ebooks e guias humanizados de aplicação real.</p>
-<div class="status"><span>Status</span><span>PRIORIDADE</span></div>
-<div class="bar"><div class="fill" style="width:90%"></div></div>
-</div>
-
-<!-- MENTORIAS -->
-<div class="card">
-<div class="tag">APOIO</div>
-<h2>Mentorias</h2>
-<p>Famílias • profissionais • escolas • instituições com acompanhamento contínuo.</p>
-<div class="status"><span>Modelo</span><span>VALIDAÇÃO</span></div>
-<div class="bar"><div class="fill" style="width:70%"></div></div>
-</div>
-
-<!-- EVENTO JULHO -->
+<!-- EVENTO -->
 <div class="card">
 <div class="tag">AÇÃO IMEDIATA</div>
-<h2>Evento de Julho</h2>
-<p>Início da promoção do evento "EntrePassos" na próxima semana.</p>
-<div class="status"><span>Preparação</span><span>URGENTE</span></div>
-<div class="bar"><div class="fill" style="width:85%"></div></div>
+<h2>Evento Julho</h2>
+<p>Promoção e organização do evento “Entre Passos”.</p>
+<a href="/eventos/entrepassos.html">Abrir evento</a>
 </div>
 
 <!-- BOOKOS -->
 <div class="card">
-<div class="tag">SISTEMA</div>
-<h2>BookOS</h2>
-<p>Sistema organizacional de gestão editorial e estrutura de trabalho.</p>
-<div class="status"><span>Uso</span><span>ATIVO</span></div>
-<div class="bar"><div class="fill" style="width:95%"></div></div>
+<div class="tag">EDITORIAL OS</div>
+<h2>BookOS Volume 4</h2>
+<p>Sistema operacional editorial para revisão e acompanhamento institucional.</p>
+<a href="/rede-dev/icaro/bookos-icaro2.html">Protótipo BookOS</a>
 </div>
 
 <!-- CONTINUUM -->
 <div class="card">
-<div class="tag">INFRA</div>
-<h2>Continuum OS</h2>
-<p>Integração com Google, GitHub e ferramentas externas descentralizadas.</p>
-<div class="status"><span>Arquitetura</span><span>EVOLUINDO</span></div>
-<div class="bar"><div class="fill" style="width:80%"></div></div>
+<div class="tag">OS PILOTO</div>
+<h2>Continuum</h2>
+<p>Integração de ferramentas externas (Google, YouTube, Instagram, GitHub).</p>
+<a href="/livraria/continuum3.html">Ver Continuum</a>
+</div>
+
+<!-- DASHBOARD -->
+<div class="card">
+<div class="tag">ORÁCULO</div>
+<h2>Dashboard Cognitivo</h2>
+<p>Protótipo de organização para oratória, discurso e estrutura de fala.</p>
+<a href="/oraculo/dash3.html">Abrir Dashboard</a>
+</div>
+
+<!-- ECOSSISTEMA -->
+<div class="card">
+<div class="tag">ARQUITETURA</div>
+<h2>Ecossistema Integrado</h2>
+<p>Sistema completo de módulos interconectados (REDE, HUB, JOGOS, LIVRARIA).</p>
+<a href="/index.html">Entrar no Sistema</a>
+</div>
+
+</section>
+
+<section class="grid">
+
+<!-- PAUTA ESTRUTURAL -->
+<div class="card">
+<div class="tag">ESTRUTURA</div>
+<h2>Organização de Trabalho</h2>
+<p>Criação de estrutura mínima para equipe, organização e previsibilidade.</p>
+</div>
+
+<!-- PAUTA SEMANAL -->
+<div class="card">
+<div class="tag">PROCESSO</div>
+<h2>Pauta Semanal</h2>
+<p>Modelo fixo de planejamento semanal (segunda-feira como ciclo base).</p>
+</div>
+
+<!-- PESQUISA -->
+<div class="card">
+<div class="tag">DADOS</div>
+<h2>Pesquisa com Famílias</h2>
+<p>Google Forms e coleta de necessidades reais do público-alvo.</p>
+</div>
+
+<!-- MENTORIAS -->
+<div class="card">
+<div class="tag">EXPANSÃO</div>
+<h2>Mentorias</h2>
+<p>Famílias • escolas • profissionais • instituições.</p>
+</div>
+
+<!-- APLICAÇÃO -->
+<div class="card">
+<div class="tag">PRÁTICA</div>
+<h2>Aplicação em Campo</h2>
+<p>Validação real com pessoas e contextos vulneráveis.</p>
 </div>
 
 <!-- FINANCEIRO -->
 <div class="card">
 <div class="tag">SUSTENTAÇÃO</div>
-<h2>Sustentabilidade</h2>
-<p>Financiamento de livros + expansão de mentorias e rede institucional.</p>
-<div class="status"><span>Estratégia</span><span>ESTRUTURAR</span></div>
-<div class="bar"><div class="fill" style="width:65%"></div></div>
-</div>
-
-<!-- ORGANIZAÇÃO SEMANAL -->
-<div class="card">
-<div class="tag">ROTINA</div>
-<h2>Agenda Semanal</h2>
-<p>Pautas fixas semanais com início de ciclo toda segunda-feira.</p>
-<div class="status"><span>Sistema</span><span>DEFINIDO</span></div>
-<div class="bar"><div class="fill" style="width:100%"></div></div>
+<h2>Sustentabilidade Financeira</h2>
+<p>Equilíbrio entre propósito, operação e financiamento contínuo.</p>
 </div>
 
 </section>
 
 <footer>
-BookOS Dashboard • Ecossistema Integrado • Sistema Operacional de Reunião Viva
+© 2026 • BookOS • Pauta Viva Operacional • Ecossistema Integrado
 </footer>
 
 </body>
