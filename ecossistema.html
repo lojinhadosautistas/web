@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>BookOS • Ecossistema Operacional</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+
+<script src="https://cdn.jsdelivr.net/npm/particles.js"></script>
+
+<style>
+
+:root{
+--bg:#0b0f14;
+--panel:rgba(255,255,255,.06);
+--text:#e5e7eb;
+--muted:#9ca3af;
+--accent:#b28a52;
+--line:rgba(255,255,255,.08);
+--shadow:0 20px 80px rgba(0,0,0,.6);
+}
+
+*{margin:0;padding:0;box-sizing:border-box;}
+
+body{
+font-family:'Inter',sans-serif;
+background:radial-gradient(circle at top,#111827,#0b0f14 60%);
+color:var(--text);
+overflow-x:hidden;
+min-height:100vh;
+}
+
+/* PARTICLES */
+#particles-js{
+position:fixed;
+inset:0;
+opacity:.35;
+z-index:-1;
+}
+
+/* WRAPPER */
+.wrap{
+padding:40px 22px;
+max-width:1200px;
+margin:auto;
+}
+
+/* HEADER */
+header{
+text-align:center;
+margin-bottom:40px;
+}
+
+header h1{
+font-size:clamp(2.2rem,4vw,3.5rem);
+letter-spacing:-2px;
+}
+
+header p{
+color:var(--muted);
+margin-top:12px;
+font-size:.95rem;
+}
+
+/* GRID */
+.grid{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
+gap:18px;
+margin-top:40px;
+}
+
+/* CARD */
+.card{
+background:var(--panel);
+border:1px solid var(--line);
+border-radius:24px;
+padding:22px;
+backdrop-filter:blur(16px);
+transition:.3s ease;
+position:relative;
+overflow:hidden;
+cursor:pointer;
+}
+
+.card:hover{
+transform:translateY(-6px);
+border-color:rgba(178,138,82,.4);
+box-shadow:var(--shadow);
+}
+
+/* glow accent */
+.card::before{
+content:'';
+position:absolute;
+inset:-2px;
+background:radial-gradient(circle at top left,rgba(178,138,82,.25),transparent 60%);
+opacity:0;
+transition:.4s;
+}
+
+.card:hover::before{
+opacity:1;
+}
+
+.card h2{
+font-size:1.1rem;
+margin-bottom:10px;
+}
+
+.card span{
+font-size:.78rem;
+color:var(--muted);
+line-height:1.4;
+display:block;
+}
+
+/* TAG */
+.tag{
+display:inline-block;
+margin-top:14px;
+font-size:.7rem;
+letter-spacing:.12em;
+text-transform:uppercase;
+color:var(--accent);
+}
+
+/* FOOT */
+footer{
+text-align:center;
+margin-top:50px;
+color:var(--muted);
+font-size:.8rem;
+}
+
+/* CTA */
+.cta{
+margin-top:30px;
+text-align:center;
+}
+
+.cta a{
+display:inline-block;
+padding:14px 20px;
+border-radius:16px;
+background:#b28a52;
+color:#111827;
+text-decoration:none;
+font-weight:700;
+letter-spacing:.06em;
+transition:.3s;
+}
+
+.cta a:hover{
+transform:scale(1.05);
+opacity:.9;
+}
+
+</style>
+</head>
+
+<body>
+
+<div id="particles-js"></div>
+
+<div class="wrap">
+
+<header>
+<h1>BookOS • Ecossistema</h1>
+<p>Arquitetura integrada de governança, dados, fluxo e continuidade operacional</p>
+</header>
+
+<section class="grid">
+
+<!-- FRONTEND -->
+<div class="card" onclick="location.href='index.html'">
+<h2>Frontend Institucional</h2>
+<span>Interface principal de apresentação e navegação do sistema.</span>
+<div class="tag">HTML • CSS • JS</div>
+</div>
+
+<!-- DOCS -->
+<div class="card" onclick="location.href='rede/acervo.html'">
+<h2>Documentação Viva</h2>
+<span>Acervo dinâmico de conhecimento e relatórios estruturados.</span>
+<div class="tag">GOOGLE DOCS</div>
+</div>
+
+<!-- SHEETS -->
+<div class="card" onclick="location.href='rede/sheets.html'">
+<h2>Dados Operacionais</h2>
+<span>Métricas, tabelas e estrutura de governança em tempo real.</span>
+<div class="tag">GOOGLE SHEETS</div>
+</div>
+
+<!-- GITHUB -->
+<div class="card">
+<h2>Versionamento</h2>
+<span>Controle de mudanças, histórico e evolução contínua do sistema.</span>
+<div class="tag">GITHUB</div>
+</div>
+
+<!-- MERMAID -->
+<div class="card">
+<h2>Fluxos Cognitivos</h2>
+<span>Mapeamento estrutural de processos e relações sistêmicas.</span>
+<div class="tag">MERMAID</div>
+</div>
+
+<!-- CHART -->
+<div class="card">
+<h2>Analytics</h2>
+<span>Visualização de impacto, métricas e desempenho institucional.</span>
+<div class="tag">CHART.JS</div>
+</div>
+
+<!-- DISCLOSURE -->
+<div class="card" onclick="location.href='livraria/disclosure.html'">
+<h2>Transparência</h2>
+<span>Relatórios públicos, rastreabilidade e abertura institucional.</span>
+<div class="tag">DISCLOSURE ENGINE</div>
+</div>
+
+<!-- BOOKOS -->
+<div class="card" onclick="location.href='livraria/bookos-matrix.html'">
+<h2>Estrutura Editorial</h2>
+<span>Gestão de coleções, volumes e arquitetura editorial.</span>
+<div class="tag">BOOKOS MATRIX</div>
+</div>
+
+<!-- CONTINUUM -->
+<div class="card" onclick="location.href='livraria/continuum3.html'">
+<h2>Continuum</h2>
+<span>Ambiente de organização cognitiva, rotina e continuidade operacional.</span>
+<div class="tag">COGNITIVE OS</div>
+</div>
+
+</section>
+
+<div class="cta">
+<a href="index.html">Entrar no Sistema</a>
+</div>
+
+<footer>
+© 2026 • BookOS Ecosystem • Integrated Operational Architecture
+</footer>
+
+</div>
+
+<script>
+
+particlesJS('particles-js',{
+particles:{
+number:{value:50},
+color:{value:'#b28a52'},
+shape:{type:'circle'},
+opacity:{value:0.25},
+size:{value:2},
+move:{enable:true,speed:1}
+}
+});
+
+</script>
+
+</body>
+</html>
