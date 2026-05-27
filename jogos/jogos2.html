@@ -3,24 +3,25 @@
 
 <head>
 
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
   <meta name="google-adsense-account" content="ca-pub-3277175946272866">
 
   <title>NeuroVerso | Arcade Cognitivo</title>
 
   <meta name="description"
-    content="NeuroVerso é um arcade cognitivo retrô com jogos cerebrais para memória, lógica, estratégia e foco." />
+    content="NeuroVerso é um arcade cognitivo retrô com jogos cerebrais para memória, lógica, foco e estratégia.">
 
   <meta name="keywords"
-    content="neuroverso, jogos cerebrais, sudoku, memória, arcade retrô, labirinto, resta 1">
+    content="neuroverso, jogos cerebrais, sudoku, memória, labirinto, resta 1, arcade cognitivo">
 
   <!-- Open Graph -->
-  <meta property="og:title" content="NeuroVerso 🧠 Arcade Cognitivo" />
+  <meta property="og:title" content="NeuroVerso 🧠 Arcade Cognitivo">
   <meta property="og:description"
-    content="Jogos retrô inteligentes para desenvolver foco, lógica e memória." />
-  <meta property="og:image" content="https://www.autistas.net/jogos/img/logo-neuroverso.png" />
-  <meta property="og:type" content="website" />
+    content="Jogos retrô inteligentes para memória, lógica e desenvolvimento cognitivo.">
+  <meta property="og:image"
+    content="https://www.autistas.net/jogos/img/logo-neuroverso.png">
+  <meta property="og:type" content="website">
 
   <!-- Favicons -->
   <link href="../assets/img/favicon.png" rel="icon">
@@ -30,19 +31,20 @@
   <link href="https://fonts.googleapis.com" rel="preconnect">
   <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
 
-  <link
-    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
     rel="stylesheet">
 
   <!-- Vendor CSS -->
   <link href="../assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
   <link href="../assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
   <link href="../assets/vendor/aos/aos.css" rel="stylesheet">
+  <link href="../assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
+  <link href="../assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
 
   <!-- Main CSS -->
   <link href="../assets/css/main.css" rel="stylesheet">
 
-  <!-- ADSENSE -->
+  <!-- GOOGLE ADSENSE -->
   <script async
     src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3277175946272866"
     crossorigin="anonymous"></script>
@@ -51,45 +53,45 @@
 
     :root {
 
-      --bg: #0c1017;
-      --panel: #151b24;
-      --panel-soft: #1a2230;
+      --neuro-bg: #0b1118;
+      --neuro-panel: #121923;
+      --neuro-panel-2: #182230;
 
-      --gold: #d4a85f;
-      --gold-soft: #f1d9aa;
+      --neuro-gold: #d4a85f;
+      --neuro-gold-soft: #f4d7a1;
 
-      --line: rgba(255,255,255,.06);
+      --neuro-text: #ffffff;
+      --neuro-muted: #9aa4b2;
 
-      --text: #f3f4f6;
-      --muted: #9ca3af;
+      --neuro-line: rgba(255,255,255,.06);
 
-      --shadow: 0 20px 60px rgba(0,0,0,.35);
+      --neuro-radius: 28px;
 
-      --radius: 28px;
+      --neuro-shadow: 0 25px 60px rgba(0,0,0,.35);
 
     }
 
     body {
 
-      background: var(--bg);
+      background: var(--neuro-bg);
 
-      color: var(--text);
+      color: var(--neuro-text);
 
       font-family: 'Inter', sans-serif;
 
     }
 
-    /* =====================================================
+    /* =========================================================
        HEADER
-    ===================================================== */
+    ========================================================== */
 
     .header {
 
-      background: rgba(10,12,18,.88);
+      background: rgba(8,10,14,.92);
 
       backdrop-filter: blur(16px);
 
-      border-bottom: 1px solid var(--line);
+      border-bottom: 1px solid rgba(255,255,255,.04);
 
     }
 
@@ -103,29 +105,49 @@
     .header .navmenu .active,
     .header .navmenu a:hover {
 
-      color: var(--gold) !important;
+      color: var(--neuro-gold) !important;
 
     }
 
-    /* =====================================================
-       HERO
-    ===================================================== */
+    .header .btn-getstarted {
 
-    .hero-neuro {
+      background: var(--neuro-gold);
 
-      padding: 150px 0 70px;
+      color: #111;
+
+      border-radius: 999px;
+
+      font-weight: 700;
+
+      padding: 10px 20px;
+
+    }
+
+    /* =========================================================
+       PAGE TITLE
+    ========================================================== */
+
+    .page-title {
+
+      background:
+      radial-gradient(circle at top right,
+      rgba(212,168,95,.18),
+      transparent 28%),
+      linear-gradient(to bottom,
+      #0a0f15,
+      #0d141d);
+
+      padding-top: 160px;
+
+      padding-bottom: 60px;
 
       position: relative;
 
       overflow: hidden;
 
-      background:
-      radial-gradient(circle at top right, rgba(212,168,95,.12), transparent 30%),
-      linear-gradient(to bottom, #0b0e14, #0f141d);
-
     }
 
-    .hero-neuro::before {
+    .page-title::before {
 
       content: "";
 
@@ -136,13 +158,13 @@
       linear-gradient(rgba(255,255,255,.02) 1px, transparent 1px),
       linear-gradient(90deg, rgba(255,255,255,.02) 1px, transparent 1px);
 
-      background-size: 40px 40px;
+      background-size: 42px 42px;
 
-      opacity: .2;
+      opacity: .18;
 
     }
 
-    .hero-content {
+    .page-title .container {
 
       position: relative;
       z-index: 2;
@@ -151,55 +173,58 @@
 
     .neuro-logo {
 
-      max-width: 240px;
+      max-width: 220px;
 
-      margin-bottom: 30px;
+      margin-bottom: 28px;
 
     }
 
-    .hero-title {
+    .page-title h1 {
 
-      font-size: clamp(2.5rem, 6vw, 4.5rem);
+      font-size: clamp(2.8rem, 6vw, 5rem);
 
       font-weight: 800;
 
-      line-height: 1;
+      color: #fff;
 
       margin-bottom: 24px;
 
-      color: #fff;
-
     }
 
-    .hero-text {
+    .page-title p {
 
-      max-width: 720px;
-
-      color: var(--muted);
-
-      font-size: 1.1rem;
+      color: var(--neuro-muted);
 
       line-height: 1.9;
 
-    }
-
-    /* =====================================================
-       SECTION
-    ===================================================== */
-
-    .section-neuro {
-
-      padding: 90px 0;
+      font-size: 1.1rem;
 
     }
 
-    .section-title {
+    .breadcrumbs {
 
-      margin-bottom: 60px;
+      border-top: 1px solid rgba(255,255,255,.05);
 
-      text-align: center;
+      background: rgba(0,0,0,.12);
 
     }
+
+    .breadcrumbs ol li,
+    .breadcrumbs ol li a {
+
+      color: var(--neuro-muted);
+
+    }
+
+    .breadcrumbs .current {
+
+      color: var(--neuro-gold);
+
+    }
+
+    /* =========================================================
+       SECTION TITLE
+    ========================================================== */
 
     .section-title h2 {
 
@@ -207,37 +232,25 @@
 
       font-weight: 800;
 
-      font-size: clamp(2rem, 4vw, 3rem);
-
-      margin-bottom: 18px;
+      font-size: clamp(2rem, 5vw, 3rem);
 
     }
 
     .section-title p {
 
-      color: var(--muted);
-
-      max-width: 700px;
-
-      margin: auto;
+      color: var(--neuro-muted);
 
       line-height: 1.9;
 
-    }
+      max-width: 760px;
 
-    /* =====================================================
-       GAME GRID
-    ===================================================== */
-
-    .games-grid {
-
-      display: grid;
-
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-
-      gap: 28px;
+      margin: auto;
 
     }
+
+    /* =========================================================
+       GAME CARDS
+    ========================================================== */
 
     .game-card {
 
@@ -245,15 +258,18 @@
 
       overflow: hidden;
 
-      background: linear-gradient(180deg, var(--panel), var(--panel-soft));
+      border-radius: var(--neuro-radius);
 
-      border: 1px solid var(--line);
+      background:
+      linear-gradient(180deg,
+      var(--neuro-panel),
+      var(--neuro-panel-2));
 
-      border-radius: var(--radius);
+      border: 1px solid var(--neuro-line);
 
       transition: .35s ease;
 
-      box-shadow: var(--shadow);
+      box-shadow: var(--neuro-shadow);
 
       height: 100%;
 
@@ -261,9 +277,9 @@
 
     .game-card:hover {
 
-      transform: translateY(-8px);
+      transform: translateY(-10px);
 
-      border-color: rgba(212,168,95,.5);
+      border-color: rgba(212,168,95,.35);
 
     }
 
@@ -271,9 +287,9 @@
 
       position: relative;
 
-      height: 220px;
-
       overflow: hidden;
+
+      height: 240px;
 
     }
 
@@ -284,13 +300,13 @@
 
       object-fit: cover;
 
-      transition: .5s ease;
+      transition: .6s ease;
 
     }
 
-    .game-card:hover .game-image img {
+    .game-card:hover img {
 
-      transform: scale(1.06);
+      transform: scale(1.08);
 
     }
 
@@ -301,14 +317,14 @@
 
       background:
       linear-gradient(to top,
-      rgba(0,0,0,.7),
-      rgba(0,0,0,.05));
+      rgba(0,0,0,.8),
+      rgba(0,0,0,.08));
 
     }
 
     .game-content {
 
-      padding: 30px;
+      padding: 32px;
 
     }
 
@@ -316,17 +332,17 @@
 
       display: inline-flex;
 
-      margin-bottom: 16px;
-
-      font-size: .75rem;
-
-      letter-spacing: 2px;
+      margin-bottom: 18px;
 
       text-transform: uppercase;
 
-      color: var(--gold-soft);
+      letter-spacing: 2px;
+
+      font-size: .75rem;
 
       font-weight: 700;
+
+      color: var(--neuro-gold-soft);
 
     }
 
@@ -334,7 +350,7 @@
 
       color: #fff;
 
-      font-size: 1.5rem;
+      font-size: 1.6rem;
 
       font-weight: 700;
 
@@ -344,9 +360,9 @@
 
     .game-content p {
 
-      color: var(--muted);
+      color: var(--neuro-muted);
 
-      line-height: 1.8;
+      line-height: 1.9;
 
       margin-bottom: 28px;
 
@@ -360,15 +376,17 @@
 
       gap: 10px;
 
-      text-decoration: none;
-
-      color: #111;
-
-      background: linear-gradient(135deg, var(--gold), #b88943);
-
       padding: 12px 22px;
 
       border-radius: 999px;
+
+      background: linear-gradient(135deg,
+      var(--neuro-gold),
+      #b78a44);
+
+      color: #111;
+
+      text-decoration: none;
 
       font-weight: 700;
 
@@ -384,90 +402,105 @@
 
     }
 
-    /* =====================================================
-       ADS
-    ===================================================== */
+    /* =========================================================
+       ADSENSE BOX
+    ========================================================== */
 
-    .ads-wrapper {
-
-      padding: 20px 0 80px;
-
-    }
-
-    .ads-box {
+    .adsense-box {
 
       min-height: 140px;
 
       border-radius: 28px;
 
-      border: 1px dashed rgba(212,168,95,.22);
+      background:
+      linear-gradient(180deg,
+      var(--neuro-panel),
+      var(--neuro-panel-2));
 
-      background: var(--panel);
+      border: 1px dashed rgba(212,168,95,.22);
 
       display: flex;
 
       align-items: center;
       justify-content: center;
 
-      color: var(--muted);
+      color: var(--neuro-muted);
+
+      font-size: .95rem;
 
     }
 
-    /* =====================================================
+    /* =========================================================
        INFO SECTION
-    ===================================================== */
+    ========================================================== */
 
     .info-box {
 
-      padding: 50px;
+      background:
+      linear-gradient(180deg,
+      var(--neuro-panel),
+      var(--neuro-panel-2));
+
+      border: 1px solid var(--neuro-line);
 
       border-radius: 32px;
 
-      background: linear-gradient(180deg, var(--panel), var(--panel-soft));
-
-      border: 1px solid var(--line);
+      padding: 55px;
 
     }
 
     .info-box h3 {
 
-      font-size: 2rem;
+      font-size: 2.2rem;
 
       font-weight: 800;
 
-      margin-bottom: 24px;
+      margin-bottom: 26px;
+
+      color: #fff;
 
     }
 
     .info-box p {
 
-      color: var(--muted);
+      color: var(--neuro-muted);
 
       line-height: 2;
 
+      margin-bottom: 18px;
+
     }
 
-    /* =====================================================
+    /* =========================================================
        FOOTER
-    ===================================================== */
+    ========================================================== */
 
     .footer {
 
-      background: #090c12;
+      background: #080c11;
 
-      border-top: 1px solid var(--line);
+      border-top: 1px solid rgba(255,255,255,.05);
 
     }
 
-    /* =====================================================
+    .footer .sitename,
+    .footer p,
+    .footer span,
+    .footer a {
+
+      color: #fff;
+
+    }
+
+    /* =========================================================
        MOBILE
-    ===================================================== */
+    ========================================================== */
 
     @media(max-width:991px){
 
-      .hero-neuro {
+      .page-title {
 
-        padding: 130px 0 60px;
+        padding-top: 140px;
 
       }
 
@@ -483,13 +516,13 @@
 
       .game-content {
 
-        padding: 24px;
+        padding: 26px;
 
       }
 
       .info-box {
 
-        padding: 32px;
+        padding: 36px;
 
       }
 
@@ -499,7 +532,7 @@
 
 </head>
 
-<body class="index-page">
+<body class="starter-page-page">
 
   <!-- HEADER -->
   <header id="header" class="header d-flex align-items-center fixed-top">
@@ -529,11 +562,19 @@
             <a href="../index.html">Lojinha</a>
           </li>
 
+          <li>
+            <a href="../privacidade.html">Privacidade</a>
+          </li>
+
         </ul>
 
         <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
 
       </nav>
+
+      <a class="btn-getstarted" href="../index.html">
+        Voltar ao Site
+      </a>
 
     </div>
 
@@ -541,203 +582,253 @@
 
   <main class="main">
 
-    <!-- HERO -->
-    <section id="hero" class="hero-neuro">
+    <!-- PAGE TITLE -->
+    <div id="hero" class="page-title dark-background">
 
-      <div class="container">
+      <div class="heading">
 
-        <div class="hero-content text-center" data-aos="fade-up">
+        <div class="container">
 
-          <img src="img/logo-neuroverso.png"
-               class="img-fluid neuro-logo"
-               alt="Logo NeuroVerso">
+          <div class="row d-flex justify-content-center text-center">
 
-          <h1 class="hero-title">
-            Arcade Cognitivo Retrô
-          </h1>
+            <div class="col-lg-8">
 
-          <p class="hero-text mx-auto">
-            Jogos cerebrais inspirados nos clássicos do arcade para fortalecer memória,
-            lógica, foco, estratégia e percepção cognitiva através da diversão.
-          </p>
+              <img src="img/logo-neuroverso.png"
+                   class="img-fluid neuro-logo"
+                   alt="Logo NeuroVerso">
+
+              <h1>
+                Arcade Cognitivo
+              </h1>
+
+              <p class="mb-0">
+
+                Jogos cerebrais retrô inspirados nos clássicos do arcade para fortalecer
+                memória, lógica, estratégia, percepção e foco mental através da diversão.
+
+              </p>
+
+            </div>
+
+          </div>
 
         </div>
 
       </div>
 
-    </section>
+      <nav class="breadcrumbs">
 
-    <!-- GAMES -->
-    <section id="games" class="section-neuro">
+        <div class="container">
 
-      <div class="container">
+          <ol>
 
-        <div class="section-title" data-aos="fade-up">
+            <li>
+              <a href="../index.html">Home</a>
+            </li>
 
-          <h2>
-            Jogos do NeuroVerso
-          </h2>
+            <li class="current">
+              NeuroVerso
+            </li>
 
-          <p>
-            Experiências retrô inteligentes criadas para estimular habilidades cognitivas
-            de forma acessível, divertida e visualmente envolvente.
-          </p>
+          </ol>
 
         </div>
 
-        <div class="games-grid">
+      </nav>
 
-          <!-- Sudoku -->
-          <article class="game-card" data-aos="fade-up">
+    </div>
 
-            <div class="game-image">
+    <!-- STARTER SECTION -->
+    <section id="games" class="starter-section section">
 
-              <img src="https://images.unsplash.com/photo-1511512578047-dfb367046420?q=80&w=1200&auto=format&fit=crop"
-                   alt="Sudoku">
+      <!-- TITLE -->
+      <div class="container section-title" data-aos="fade-up">
 
-              <div class="game-overlay"></div>
+        <h2>
+          Jogos do NeuroVerso
+        </h2>
 
-            </div>
+        <p>
 
-            <div class="game-content">
+          Um ambiente retrô premium com experiências cognitivas acessíveis,
+          modernas e visualmente envolventes.
 
-              <span class="game-tag">
-                Lógica • Estratégia
-              </span>
+        </p>
 
-              <h3>
-                Sudoku
-              </h3>
+      </div>
 
-              <p>
-                Treine percepção lógica, planejamento estratégico e raciocínio matemático.
-              </p>
+      <!-- GAMES -->
+      <div class="container">
 
-              <a href="sudoku.html" class="play-btn">
+        <div class="row gy-5">
 
-                <i class="bi bi-controller"></i>
+          <!-- SUDOKU -->
+          <div class="col-xl-6 col-md-6" data-aos="fade-up">
 
-                Jogar
+            <div class="game-card">
 
-              </a>
+              <div class="game-image">
 
-            </div>
+                <img src="https://images.unsplash.com/photo-1511512578047-dfb367046420?q=80&w=1400&auto=format&fit=crop"
+                     alt="Sudoku">
 
-          </article>
+                <div class="game-overlay"></div>
 
-          <!-- Resta 1 -->
-          <article class="game-card" data-aos="fade-up" data-aos-delay="100">
+              </div>
 
-            <div class="game-image">
+              <div class="game-content">
 
-              <img src="https://images.unsplash.com/photo-1550745165-9bc0b252726f?q=80&w=1200&auto=format&fit=crop"
-                   alt="Resta 1">
+                <span class="game-tag">
+                  Lógica • Estratégia
+                </span>
 
-              <div class="game-overlay"></div>
+                <h3>
+                  Sudoku
+                </h3>
 
-            </div>
+                <p>
+                  Exercite raciocínio lógico, percepção estratégica e organização mental.
+                </p>
 
-            <div class="game-content">
+                <a href="sudoku.html" class="play-btn">
 
-              <span class="game-tag">
-                Estratégia • Planejamento
-              </span>
+                  <i class="bi bi-controller"></i>
 
-              <h3>
-                Resta 1
-              </h3>
+                  Jogar Agora
 
-              <p>
-                Desenvolva pensamento estratégico e resolução inteligente de movimentos.
-              </p>
+                </a>
 
-              <a href="resta 1.html" class="play-btn">
-
-                <i class="bi bi-controller"></i>
-
-                Jogar
-
-              </a>
+              </div>
 
             </div>
 
-          </article>
+          </div>
 
-          <!-- Memória -->
-          <article class="game-card" data-aos="fade-up" data-aos-delay="200">
+          <!-- RESTA 1 -->
+          <div class="col-xl-6 col-md-6" data-aos="fade-up" data-aos-delay="100">
 
-            <div class="game-image">
+            <div class="game-card">
 
-              <img src="https://images.unsplash.com/photo-1493711662062-fa541adb3fc8?q=80&w=1200&auto=format&fit=crop"
-                   alt="Memória">
+              <div class="game-image">
 
-              <div class="game-overlay"></div>
+                <img src="https://images.unsplash.com/photo-1550745165-9bc0b252726f?q=80&w=1400&auto=format&fit=crop"
+                     alt="Resta 1">
 
-            </div>
+                <div class="game-overlay"></div>
 
-            <div class="game-content">
+              </div>
 
-              <span class="game-tag">
-                Memória • Atenção
-              </span>
+              <div class="game-content">
 
-              <h3>
-                Jogo da Memória
-              </h3>
+                <span class="game-tag">
+                  Planejamento • Estratégia
+                </span>
 
-              <p>
-                Estimule memória visual, velocidade cognitiva e concentração.
-              </p>
+                <h3>
+                  Resta 1
+                </h3>
 
-              <a href="memoria.html" class="play-btn">
+                <p>
+                  Desenvolva inteligência estratégica através de movimentos precisos.
+                </p>
 
-                <i class="bi bi-controller"></i>
+                <a href="resta 1.html" class="play-btn">
 
-                Jogar
+                  <i class="bi bi-controller"></i>
 
-              </a>
+                  Jogar Agora
 
-            </div>
+                </a>
 
-          </article>
-
-          <!-- Labirinto -->
-          <article class="game-card" data-aos="fade-up" data-aos-delay="300">
-
-            <div class="game-image">
-
-              <img src="https://images.unsplash.com/photo-1542751371-adc38448a05e?q=80&w=1200&auto=format&fit=crop"
-                   alt="Labirinto">
-
-              <div class="game-overlay"></div>
+              </div>
 
             </div>
 
-            <div class="game-content">
+          </div>
 
-              <span class="game-tag">
-                Foco • Coordenação
-              </span>
+          <!-- MEMÓRIA -->
+          <div class="col-xl-6 col-md-6" data-aos="fade-up" data-aos-delay="200">
 
-              <h3>
-                Labirinto
-              </h3>
+            <div class="game-card">
 
-              <p>
-                Trabalhe percepção espacial, coordenação e foco mental através dos desafios.
-              </p>
+              <div class="game-image">
 
-              <a href="labirinto.html" class="play-btn">
+                <img src="https://images.unsplash.com/photo-1493711662062-fa541adb3fc8?q=80&w=1400&auto=format&fit=crop"
+                     alt="Memória">
 
-                <i class="bi bi-controller"></i>
+                <div class="game-overlay"></div>
 
-                Jogar
+              </div>
 
-              </a>
+              <div class="game-content">
+
+                <span class="game-tag">
+                  Memória • Atenção
+                </span>
+
+                <h3>
+                  Jogo da Memória
+                </h3>
+
+                <p>
+                  Estimule memória visual, velocidade cognitiva e concentração.
+                </p>
+
+                <a href="memoria.html" class="play-btn">
+
+                  <i class="bi bi-controller"></i>
+
+                  Jogar Agora
+
+                </a>
+
+              </div>
 
             </div>
 
-          </article>
+          </div>
+
+          <!-- LABIRINTO -->
+          <div class="col-xl-6 col-md-6" data-aos="fade-up" data-aos-delay="300">
+
+            <div class="game-card">
+
+              <div class="game-image">
+
+                <img src="https://images.unsplash.com/photo-1542751371-adc38448a05e?q=80&w=1400&auto=format&fit=crop"
+                     alt="Labirinto">
+
+                <div class="game-overlay"></div>
+
+              </div>
+
+              <div class="game-content">
+
+                <span class="game-tag">
+                  Foco • Coordenação
+                </span>
+
+                <h3>
+                  Labirinto
+                </h3>
+
+                <p>
+                  Trabalhe percepção espacial, coordenação e foco mental.
+                </p>
+
+                <a href="labirinto.html" class="play-btn">
+
+                  <i class="bi bi-controller"></i>
+
+                  Jogar Agora
+
+                </a>
+
+              </div>
+
+            </div>
+
+          </div>
 
         </div>
 
@@ -746,11 +837,11 @@
     </section>
 
     <!-- ADS -->
-    <section class="ads-wrapper">
+    <section class="section pt-0">
 
       <div class="container">
 
-        <div class="ads-box">
+        <div class="adsense-box">
 
           Espaço otimizado para Google AdSense
 
@@ -761,7 +852,7 @@
     </section>
 
     <!-- INFO -->
-    <section class="section-neuro pt-0">
+    <section class="section pt-0">
 
       <div class="container">
 
@@ -772,14 +863,18 @@
           </h3>
 
           <p>
+
             NeuroVerso é um ambiente digital inspirado nos grandes arcades clássicos,
             combinando jogos retrô, acessibilidade e desenvolvimento cognitivo em uma
             experiência moderna, elegante e acolhedora.
+
           </p>
 
           <p>
+
             Nosso objetivo é transformar jogos em ferramentas de foco, memória,
             percepção e desenvolvimento humano através da diversão.
+
           </p>
 
         </div>
@@ -827,16 +922,25 @@
 
       </div>
 
+      <div class="credits">
+
+        Designed by
+        <a href="https://bootstrapmade.com/" target="blank">
+          BootstrapMade
+        </a>
+
+      </div>
+
     </div>
 
   </footer>
 
-  <!-- Scroll -->
+  <!-- SCROLL -->
   <a href="#"
      id="scroll-top"
      class="scroll-top d-flex align-items-center justify-content-center">
 
-     <i class="bi bi-arrow-up-short"></i>
+    <i class="bi bi-arrow-up-short"></i>
 
   </a>
 
@@ -845,7 +949,12 @@
 
   <!-- Vendor JS -->
   <script src="../assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="../assets/vendor/php-email-form/validate.js"></script>
   <script src="../assets/vendor/aos/aos.js"></script>
+  <script src="../assets/vendor/glightbox/js/glightbox.min.js"></script>
+  <script src="../assets/vendor/swiper/swiper-bundle.min.js"></script>
+  <script src="../assets/vendor/imagesloaded/imagesloaded.pkgd.min.js"></script>
+  <script src="../assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
 
   <!-- Main JS -->
   <script src="../assets/js/main.js"></script>
