@@ -1,0 +1,1570 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+<title>Continuum 6 • Sistema Operacional Longitudinal</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+<script src="https://cdn.jsdelivr.net/npm/particles.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<style>
+
+/* =========================================================
+CONTINUUM 6
+RESPONSIVIDADE DA INFORMAÇÃO
+========================================================= */
+
+:root{
+
+--bg:#edf3f8;
+--panel:rgba(255,255,255,.78);
+
+--surface:#ffffff;
+--surface2:#f5f9fc;
+
+--text:#09111f;
+--muted:#63758a;
+
+--line:rgba(15,23,42,.06);
+
+--primary:#0a3d91;
+--secondary:#00b7d9;
+--accent:#63d84e;
+
+--green:#6dff7c;
+--cyan:#17c6d3;
+--orange:#ffb25a;
+--purple:#7c82ff;
+--red:#ff687d;
+
+--shadow:
+0 20px 60px rgba(5,18,36,.08);
+
+}
+
+body.dark{
+
+--bg:#06111b;
+--panel:rgba(10,18,32,.78);
+
+--surface:#0b1626;
+--surface2:#101b2d;
+
+--text:#e7f4ff;
+--muted:#8ea3b9;
+
+--line:rgba(255,255,255,.05);
+
+--primary:#63a9ff;
+--secondary:#00d5ff;
+--accent:#7dff81;
+
+--shadow:
+0 20px 60px rgba(0,0,0,.45);
+
+}
+
+/* ========================================================= */
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+}
+
+html{
+scroll-behavior:smooth;
+}
+
+body{
+
+font-family:'Inter',sans-serif;
+
+background:
+
+radial-gradient(
+circle at top left,
+rgba(15,95,196,.12),
+transparent 20%
+),
+
+radial-gradient(
+circle at bottom right,
+rgba(99,216,78,.10),
+transparent 22%
+),
+
+linear-gradient(
+180deg,
+#eef4f8,
+#edf3f7
+);
+
+color:var(--text);
+
+min-height:100vh;
+overflow-x:hidden;
+
+transition:.35s ease;
+
+}
+
+body.dark{
+
+background:
+
+radial-gradient(
+circle at top left,
+rgba(0,213,255,.10),
+transparent 22%
+),
+
+radial-gradient(
+circle at bottom right,
+rgba(109,255,124,.08),
+transparent 22%
+),
+
+linear-gradient(
+180deg,
+#06111b,
+#081421,
+#0b1626
+);
+
+}
+
+body::before{
+
+content:'';
+
+position:fixed;
+inset:0;
+
+background-image:
+
+linear-gradient(
+rgba(15,95,196,.025) 1px,
+transparent 1px
+),
+
+linear-gradient(
+90deg,
+rgba(15,95,196,.025) 1px,
+transparent 1px
+);
+
+background-size:42px 42px;
+
+mask-image:
+radial-gradient(circle at center, black, transparent 85%);
+
+pointer-events:none;
+
+}
+
+body.dark::before{
+
+background-image:
+
+linear-gradient(
+rgba(0,213,255,.03) 1px,
+transparent 1px
+),
+
+linear-gradient(
+90deg,
+rgba(0,213,255,.03) 1px,
+transparent 1px
+);
+
+}
+
+#particles-js{
+position:fixed;
+inset:0;
+z-index:-1;
+opacity:.4;
+}
+
+/* =========================================================
+APP
+========================================================= */
+
+.app{
+padding:18px;
+display:flex;
+flex-direction:column;
+gap:18px;
+}
+
+/* =========================================================
+TOPBAR
+========================================================= */
+
+.topbar{
+
+background:var(--panel);
+
+border:1px solid var(--line);
+
+border-radius:30px;
+
+padding:24px;
+
+display:flex;
+justify-content:space-between;
+align-items:center;
+gap:24px;
+
+backdrop-filter:blur(18px);
+
+box-shadow:var(--shadow);
+
+}
+
+.brand{
+display:flex;
+align-items:center;
+gap:18px;
+}
+
+.logo{
+
+width:88px;
+height:88px;
+
+border-radius:24px;
+
+overflow:hidden;
+
+background:#fff;
+
+display:flex;
+align-items:center;
+justify-content:center;
+
+}
+
+.logo img{
+width:100%;
+height:100%;
+object-fit:contain;
+}
+
+.brand h1{
+
+font-size:2.7rem;
+
+line-height:.95;
+
+letter-spacing:-2px;
+
+color:var(--primary);
+
+}
+
+body.dark .brand h1{
+
+background:
+linear-gradient(
+90deg,
+#ffffff,
+#7ddcff,
+#7dff81
+);
+
+-webkit-background-clip:text;
+-webkit-text-fill-color:transparent;
+
+}
+
+.brand small{
+
+display:block;
+
+margin-top:8px;
+
+font-size:.72rem;
+font-weight:700;
+
+letter-spacing:.18em;
+text-transform:uppercase;
+
+color:var(--secondary);
+
+}
+
+.hero{
+max-width:760px;
+}
+
+.hero strong{
+
+display:block;
+
+margin-bottom:12px;
+
+letter-spacing:.14em;
+text-transform:uppercase;
+
+font-size:.74rem;
+font-weight:700;
+
+color:var(--secondary);
+
+}
+
+.hero p{
+
+line-height:1.8;
+font-size:.95rem;
+
+color:var(--muted);
+
+}
+
+.theme-toggle{
+
+width:58px;
+height:58px;
+
+border:none;
+
+border-radius:20px;
+
+cursor:pointer;
+
+font-size:1.1rem;
+
+background:
+linear-gradient(
+135deg,
+rgba(15,95,196,.12),
+rgba(0,183,217,.12)
+);
+
+color:var(--primary);
+
+transition:.35s ease;
+
+}
+
+.theme-toggle:hover{
+transform:translateY(-3px);
+}
+
+/* =========================================================
+HORIZONTAL MENU
+========================================================= */
+
+.horizontal-menu{
+
+display:flex;
+gap:12px;
+
+overflow-x:auto;
+
+padding:6px 2px;
+
+scrollbar-width:none;
+
+}
+
+.horizontal-menu::-webkit-scrollbar{
+display:none;
+}
+
+.menu-tab{
+
+border:none;
+
+padding:14px 18px;
+
+border-radius:18px;
+
+background:var(--surface);
+
+border:1px solid var(--line);
+
+color:var(--muted);
+
+font-weight:600;
+
+cursor:pointer;
+
+white-space:nowrap;
+
+transition:.3s ease;
+
+}
+
+.menu-tab:hover{
+
+transform:translateY(-2px);
+
+border-color:rgba(0,183,217,.18);
+
+}
+
+.menu-tab.active{
+
+background:
+linear-gradient(
+135deg,
+rgba(15,95,196,.12),
+rgba(0,183,217,.10)
+);
+
+color:var(--primary);
+
+border-color:rgba(0,183,217,.18);
+
+}
+
+/* =========================================================
+LAYOUT
+========================================================= */
+
+.layout{
+
+display:grid;
+
+grid-template-columns:
+280px 1fr;
+
+gap:18px;
+
+}
+
+/* =========================================================
+SIDEBAR
+========================================================= */
+
+.sidebar{
+
+background:var(--panel);
+
+border:1px solid var(--line);
+
+border-radius:30px;
+
+padding:24px;
+
+backdrop-filter:blur(18px);
+
+box-shadow:var(--shadow);
+
+position:sticky;
+top:18px;
+
+height:calc(100vh - 36px);
+
+overflow:auto;
+
+}
+
+.sidebar h3{
+
+margin-bottom:18px;
+
+font-size:.92rem;
+
+letter-spacing:.12em;
+text-transform:uppercase;
+
+color:var(--secondary);
+
+}
+
+.side-group{
+margin-bottom:24px;
+}
+
+.side-group strong{
+
+display:block;
+
+margin-bottom:12px;
+
+font-size:.82rem;
+
+letter-spacing:.08em;
+text-transform:uppercase;
+
+color:var(--primary);
+
+}
+
+.side-link{
+
+background:var(--surface);
+
+border:1px solid var(--line);
+
+border-radius:18px;
+
+padding:12px 14px;
+
+margin-bottom:10px;
+
+font-size:.85rem;
+
+color:var(--muted);
+
+transition:.3s ease;
+
+cursor:pointer;
+
+}
+
+.side-link:hover{
+
+transform:translateY(-2px);
+
+border-color:rgba(0,183,217,.18);
+
+}
+
+/* =========================================================
+CONTENT
+========================================================= */
+
+.content{
+display:flex;
+flex-direction:column;
+gap:18px;
+}
+
+/* =========================================================
+TAB CONTENT
+========================================================= */
+
+.tab-content{
+display:none;
+flex-direction:column;
+gap:18px;
+}
+
+.tab-content.active{
+display:flex;
+}
+
+/* =========================================================
+SECTION
+========================================================= */
+
+.section{
+
+background:var(--panel);
+
+border:1px solid var(--line);
+
+border-radius:30px;
+
+padding:24px;
+
+backdrop-filter:blur(18px);
+
+box-shadow:var(--shadow);
+
+}
+
+.section-header{
+
+display:flex;
+justify-content:space-between;
+align-items:center;
+
+margin-bottom:22px;
+
+gap:16px;
+
+}
+
+.section-header h2{
+
+font-size:1.45rem;
+
+letter-spacing:-1px;
+
+color:var(--primary);
+
+}
+
+.section-header small{
+
+font-size:.82rem;
+
+color:var(--muted);
+
+}
+
+/* =========================================================
+GRID
+========================================================= */
+
+.grid{
+
+display:grid;
+
+grid-template-columns:repeat(4,1fr);
+
+gap:16px;
+
+}
+
+.card{
+
+background:var(--surface);
+
+border:1px solid var(--line);
+
+border-radius:24px;
+
+padding:20px;
+
+transition:.3s ease;
+
+}
+
+.card:hover{
+
+transform:translateY(-4px);
+
+box-shadow:
+0 14px 34px rgba(0,183,217,.08);
+
+}
+
+.card strong{
+
+display:block;
+
+font-size:1.9rem;
+
+margin-bottom:8px;
+
+color:var(--primary);
+
+}
+
+.card span,
+.card small{
+
+line-height:1.6;
+
+color:var(--muted);
+
+}
+
+/* =========================================================
+LEVELS
+========================================================= */
+
+.level{
+
+height:10px;
+
+border-radius:999px;
+
+overflow:hidden;
+
+margin-top:14px;
+
+background:#dfe8f1;
+
+}
+
+body.dark .level{
+background:#132133;
+}
+
+.level div{
+height:100%;
+border-radius:999px;
+}
+
+.b1{
+width:92%;
+background:linear-gradient(90deg,#00b7d9,#63d84e);
+}
+
+.b2{
+width:85%;
+background:linear-gradient(90deg,#0a3d91,#00b7d9);
+}
+
+.b3{
+width:94%;
+background:linear-gradient(90deg,#17c6d3,#63d84e);
+}
+
+.b4{
+width:88%;
+background:linear-gradient(90deg,#7c82ff,#00d5ff);
+}
+
+/* =========================================================
+FRAME
+========================================================= */
+
+.frame{
+
+width:100%;
+height:620px;
+
+border:none;
+
+border-radius:24px;
+
+background:#fff;
+
+}
+
+body.dark .frame{
+background:#0b1626;
+}
+
+/* =========================================================
+TIMELINE
+========================================================= */
+
+.timeline{
+display:flex;
+flex-direction:column;
+gap:14px;
+}
+
+.event{
+
+padding:18px;
+
+border-left:3px solid var(--secondary);
+
+background:var(--surface);
+
+border-radius:18px;
+
+}
+
+.event strong{
+
+display:block;
+
+margin-bottom:8px;
+
+color:var(--primary);
+
+}
+
+.event span{
+
+line-height:1.7;
+font-size:.9rem;
+
+color:var(--muted);
+
+}
+
+/* =========================================================
+TAGS
+========================================================= */
+
+.tags{
+display:flex;
+flex-wrap:wrap;
+gap:10px;
+margin-top:14px;
+}
+
+.tag{
+
+padding:10px 14px;
+
+border-radius:999px;
+
+background:
+linear-gradient(
+135deg,
+rgba(15,95,196,.08),
+rgba(0,183,217,.08)
+);
+
+border:1px solid rgba(0,183,217,.08);
+
+font-size:.8rem;
+
+color:var(--primary);
+
+}
+
+/* =========================================================
+TERMINAL
+========================================================= */
+
+.terminal{
+
+background:
+linear-gradient(
+180deg,
+#071421,
+#0b1c2f
+);
+
+color:#b9fff2;
+
+padding:22px;
+
+border-radius:22px;
+
+font-family:monospace;
+
+line-height:1.8;
+
+border:1px solid rgba(0,183,217,.12);
+
+overflow:auto;
+
+}
+
+/* =========================================================
+FOOTER
+========================================================= */
+
+.footer{
+
+padding:24px;
+
+text-align:center;
+
+font-size:.82rem;
+
+color:var(--muted);
+
+}
+
+/* =========================================================
+RESPONSIVE
+========================================================= */
+
+@media(max-width:1450px){
+
+.grid{
+grid-template-columns:repeat(2,1fr);
+}
+
+}
+
+@media(max-width:1180px){
+
+.layout{
+grid-template-columns:1fr;
+}
+
+.sidebar{
+position:relative;
+height:auto;
+}
+
+}
+
+@media(max-width:760px){
+
+.app{
+padding:12px;
+}
+
+.topbar{
+flex-direction:column;
+align-items:flex-start;
+}
+
+.brand h1{
+font-size:2rem;
+}
+
+.grid{
+grid-template-columns:1fr;
+}
+
+.section{
+padding:18px;
+}
+
+.frame{
+height:520px;
+}
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div id="particles-js"></div>
+
+<div class="app">
+
+<!-- =========================================================
+TOPBAR
+========================================================= -->
+
+<header class="topbar">
+
+<div class="brand">
+
+<div class="logo">
+<img src="img/logo-continuum.png">
+</div>
+
+<div>
+<h1>Continuum 6</h1>
+<small>Sistema Operacional Longitudinal</small>
+</div>
+
+</div>
+
+<div class="hero">
+
+<strong>
+RESPONSIVIDADE DA INFORMAÇÃO • CONTINUIDADE • GOVERNANÇA
+</strong>
+
+<p>
+Ecossistema operacional vivo para sustentação cognitiva, inteligência longitudinal, integração programática, memória adaptativa e continuidade sustentável.
+</p>
+
+</div>
+
+<button class="theme-toggle" id="themeToggle">
+🌙
+</button>
+
+</header>
+
+<!-- =========================================================
+HORIZONTAL MENU
+========================================================= -->
+
+<nav class="horizontal-menu">
+
+<button class="menu-tab active" data-tab="painel">
+Painel Vivo
+</button>
+
+<button class="menu-tab" data-tab="sistema">
+Mini Sistema
+</button>
+
+<button class="menu-tab" data-tab="indicadores">
+Indicadores
+</button>
+
+<button class="menu-tab" data-tab="timeline">
+Timeline
+</button>
+
+<button class="menu-tab" data-tab="governanca">
+Governança
+</button>
+
+<button class="menu-tab" data-tab="automacao">
+Automação
+</button>
+
+<button class="menu-tab" data-tab="agenda">
+Agenda
+</button>
+
+<button class="menu-tab" data-tab="biblioteca">
+Biblioteca
+</button>
+
+</nav>
+
+<!-- =========================================================
+LAYOUT
+========================================================= -->
+
+<section class="layout">
+
+<!-- =========================================================
+SIDEBAR
+========================================================= -->
+
+<aside class="sidebar">
+
+<h3>Arquitetura Programática</h3>
+
+<div class="side-group">
+
+<strong>Painel Vivo</strong>
+
+<div class="side-link">Estado Atual</div>
+<div class="side-link">Radar Longitudinal</div>
+<div class="side-link">Continuidade</div>
+
+</div>
+
+<div class="side-group">
+
+<strong>Programação</strong>
+
+<div class="side-link">Agenda Integrada</div>
+<div class="side-link">Hipóteses</div>
+<div class="side-link">Revisões</div>
+
+</div>
+
+<div class="side-group">
+
+<strong>Integração</strong>
+
+<div class="side-link">GitHub Projects</div>
+<div class="side-link">Discussions</div>
+<div class="side-link">Actions</div>
+
+</div>
+
+<div class="side-group">
+
+<strong>Memória Viva</strong>
+
+<div class="side-link">Timeline</div>
+<div class="side-link">Sínteses</div>
+<div class="side-link">Biblioteca</div>
+
+</div>
+
+</aside>
+
+<!-- =========================================================
+CONTENT
+========================================================= -->
+
+<main class="content">
+
+<!-- =========================================================
+PAINEL
+========================================================= -->
+
+<div class="tab-content active" id="painel">
+
+<section class="section">
+
+<div class="section-header">
+
+<div>
+<h2>Painel Vivo • Estado Atual</h2>
+<small>Responsividade contextual do sistema</small>
+</div>
+
+</div>
+
+<div class="grid">
+
+<div class="card">
+<small>Continuidade</small>
+<strong>94%</strong>
+<span>Estabilidade longitudinal preservada.</span>
+<div class="level"><div class="b1"></div></div>
+</div>
+
+<div class="card">
+<small>Conversação</small>
+<strong>ATIVA</strong>
+<span>Trocas espontâneas ampliadas.</span>
+<div class="level"><div class="b2"></div></div>
+</div>
+
+<div class="card">
+<small>Transições</small>
+<strong>ESTÁVEIS</strong>
+<span>Baixa fricção contextual.</span>
+<div class="level"><div class="b3"></div></div>
+</div>
+
+<div class="card">
+<small>Sobrecarga</small>
+<strong>CONTROLADA</strong>
+<span>Fluxo operacional sustentável.</span>
+<div class="level"><div class="b4"></div></div>
+</div>
+
+</div>
+
+</section>
+
+</div>
+
+<!-- =========================================================
+MINI SISTEMA
+========================================================= -->
+
+<div class="tab-content" id="sistema">
+
+<section class="section">
+
+<div class="section-header">
+
+<div>
+<h2>Mini Sistema Operacional Vivo</h2>
+<small>Google Sheets • observação • síntese • continuidade</small>
+</div>
+
+</div>
+
+<iframe
+class="frame"
+src="https://docs.google.com/spreadsheets/d/SEU_ID_AQUI/edit?rm=minimal">
+</iframe>
+
+</section>
+
+</div>
+
+<!-- =========================================================
+INDICADORES
+========================================================= -->
+
+<div class="tab-content" id="indicadores">
+
+<section class="section">
+
+<div class="section-header">
+
+<div>
+<h2>Indicadores Longitudinais</h2>
+<small>Leitura contextual da continuidade operacional</small>
+</div>
+
+</div>
+
+<canvas id="continuumChart" height="100"></canvas>
+
+</section>
+
+</div>
+
+<!-- =========================================================
+TIMELINE
+========================================================= -->
+
+<div class="tab-content" id="timeline">
+
+<section class="section">
+
+<div class="section-header">
+
+<div>
+<h2>Timeline Longitudinal</h2>
+<small>Memória viva e revisão contínua</small>
+</div>
+
+</div>
+
+<div class="timeline">
+
+<div class="event">
+<strong>Semana 01 • Ajuste de previsibilidade</strong>
+<span>
+Maior estabilidade após organização temática contínua.
+</span>
+</div>
+
+<div class="event">
+<strong>Semana 02 • Conversação espontânea</strong>
+<span>
+Ampliação da linguagem funcional compartilhada.
+</span>
+</div>
+
+<div class="event">
+<strong>Semana 03 • Redução de fadiga</strong>
+<span>
+Menor sobrecarga ao final das atividades.
+</span>
+</div>
+
+<div class="event">
+<strong>Semana 04 • Consolidação</strong>
+<span>
+Continuidade sustentada com menor mediação intensa.
+</span>
+</div>
+
+</div>
+
+</section>
+
+</div>
+
+<!-- =========================================================
+GOVERNANÇA
+========================================================= -->
+
+<div class="tab-content" id="governanca">
+
+<section class="section">
+
+<div class="section-header">
+
+<div>
+<h2>GitHub Projects • Governança Viva</h2>
+<small>Hipóteses • integração • revisões • continuidade</small>
+</div>
+
+</div>
+
+<div class="grid">
+
+<div class="card">
+<small>Observações</small>
+<strong>14</strong>
+<span>Registros contextuais ativos.</span>
+</div>
+
+<div class="card">
+<small>Hipóteses</small>
+<strong>06</strong>
+<span>Estratégias em revisão longitudinal.</span>
+</div>
+
+<div class="card">
+<small>Revisões</small>
+<strong>03</strong>
+<span>Ciclos ativos de refinamento.</span>
+</div>
+
+<div class="card">
+<small>Integração</small>
+<strong>SYNC</strong>
+<span>Agentes programáticos sincronizados.</span>
+</div>
+
+</div>
+
+<div class="tags">
+
+<div class="tag">GitHub Projects</div>
+<div class="tag">GitHub Discussions</div>
+<div class="tag">GitHub Actions</div>
+<div class="tag">Versionamento</div>
+<div class="tag">Memória Viva</div>
+
+</div>
+
+</section>
+
+</div>
+
+<!-- =========================================================
+AUTOMAÇÃO
+========================================================= -->
+
+<div class="tab-content" id="automacao">
+
+<section class="section">
+
+<div class="section-header">
+
+<div>
+<h2>Automação Cognitiva</h2>
+<small>IA Assistiva • GitHub Actions • Síntese Longitudinal</small>
+</div>
+
+</div>
+
+<div class="terminal">
+
+[ACTIONS] revisão semanal iniciada<br>
+[SÍNTESE] observações consolidadas<br>
+[PADRÕES] estabilidade detectada<br>
+[INDICADORES] dashboard atualizado<br>
+[IA] resumo longitudinal gerado<br>
+[DISCUSSIONS] sincronização concluída<br>
+[CONTINUUM] continuidade operacional mantida
+
+</div>
+
+</section>
+
+<section class="section">
+
+<div class="section-header">
+
+<div>
+<h2>Arquitetura Viva</h2>
+<small>Fluxo operacional longitudinal</small>
+</div>
+
+</div>
+
+<div class="mermaid">
+
+graph TD
+
+A[Google Sheets]
+--> B[Indicadores]
+
+B --> C[Timeline]
+
+C --> D[GitHub Projects]
+
+D --> E[Discussions]
+
+E --> F[Actions]
+
+F --> G[Síntese Inteligente]
+
+G --> H[Continuidade Sustentável]
+
+</div>
+
+</section>
+
+</div>
+
+<!-- =========================================================
+AGENDA
+========================================================= -->
+
+<div class="tab-content" id="agenda">
+
+<section class="section">
+
+<div class="section-header">
+
+<div>
+<h2>Agenda Integrada</h2>
+<small>Google Calendar • Continuidade temporal</small>
+</div>
+
+</div>
+
+<iframe
+class="frame"
+src="https://calendar.google.com/calendar/embed?src=pt.brazilian%23holiday%40group.v.calendar.google.com&ctz=America%2FSao_Paulo">
+</iframe>
+
+</section>
+
+</div>
+
+<!-- =========================================================
+BIBLIOTECA
+========================================================= -->
+
+<div class="tab-content" id="biblioteca">
+
+<section class="section">
+
+<div class="section-header">
+
+<div>
+<h2>Biblioteca Epistemológica</h2>
+<small>Memória conceitual viva do sistema</small>
+</div>
+
+</div>
+
+<div class="tags">
+
+<div class="tag">ABA contemporânea</div>
+<div class="tag">sistemas vivos</div>
+<div class="tag">governança adaptativa</div>
+<div class="tag">economia da atenção</div>
+<div class="tag">desenvolvimento humano</div>
+<div class="tag">observação qualitativa</div>
+<div class="tag">continuidade longitudinal</div>
+<div class="tag">complexidade</div>
+<div class="tag">aprendizagem experiencial</div>
+
+</div>
+
+</section>
+
+</div>
+
+<footer class="footer">
+© 2026 • Continuum 6 • Sistema Operacional Longitudinal
+</footer>
+
+</main>
+
+</section>
+
+</div>
+
+<script>
+
+/* =========================================================
+THEME
+========================================================= */
+
+const themeToggle = document.getElementById('themeToggle');
+
+themeToggle.addEventListener('click',()=>{
+
+document.body.classList.toggle('dark');
+
+if(document.body.classList.contains('dark')){
+
+themeToggle.innerHTML='☀️';
+localStorage.setItem('continuum-theme','dark');
+
+}else{
+
+themeToggle.innerHTML='🌙';
+localStorage.setItem('continuum-theme','light');
+
+}
+
+});
+
+if(localStorage.getItem('continuum-theme')==='dark'){
+
+document.body.classList.add('dark');
+themeToggle.innerHTML='☀️';
+
+}
+
+/* =========================================================
+MENU TABS
+========================================================= */
+
+const tabs = document.querySelectorAll('.menu-tab');
+const contents = document.querySelectorAll('.tab-content');
+
+tabs.forEach(tab=>{
+
+tab.addEventListener('click',()=>{
+
+tabs.forEach(t=>t.classList.remove('active'));
+contents.forEach(c=>c.classList.remove('active'));
+
+tab.classList.add('active');
+
+document
+.getElementById(tab.dataset.tab)
+.classList.add('active');
+
+});
+
+});
+
+/* =========================================================
+PARTICLES
+========================================================= */
+
+particlesJS('particles-js',{
+
+particles:{
+
+number:{ value:55 },
+
+color:{ value:'#00b7d9' },
+
+shape:{ type:'circle' },
+
+opacity:{ value:.16 },
+
+size:{ value:3 },
+
+move:{
+enable:true,
+speed:1
+}
+
+}
+
+});
+
+/* =========================================================
+MERMAID
+========================================================= */
+
+mermaid.initialize({
+startOnLoad:true
+});
+
+/* =========================================================
+CHART
+========================================================= */
+
+const ctx = document.getElementById('continuumChart');
+
+if(ctx){
+
+new Chart(ctx,{
+
+type:'line',
+
+data:{
+
+labels:[
+'Seg',
+'Ter',
+'Qua',
+'Qui',
+'Sex',
+'Sáb',
+'Dom'
+],
+
+datasets:[{
+
+label:'Continuidade',
+
+data:[82,89,91,94,92,90,95],
+
+tension:.4,
+
+borderWidth:3,
+
+borderColor:'#00b7d9',
+
+backgroundColor:'rgba(0,183,217,.15)',
+
+pointBackgroundColor:'#63d84e',
+
+pointBorderColor:'#0a3d91',
+
+fill:true
+
+}]
+
+},
+
+options:{
+
+responsive:true,
+
+plugins:{
+legend:{
+display:false
+}
+}
+
+}
+
+});
+
+}
+
+</script>
+
+</body>
+</html>
