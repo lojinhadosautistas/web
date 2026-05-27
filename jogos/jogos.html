@@ -3,17 +3,25 @@
 
 <head>
 
-  <meta charset="utf-8">
-  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="google-adsense-account" content="ca-pub-3277175946272866">
 
-  <title>Jogos Cerebrais Retrô | Lojinha dos Autistas</title>
+  <title>NeuroVerso | Jogos Cerebrais Retrô</title>
 
   <meta name="description"
-    content="Jogos cerebrais retrô inspirados em clássicos arcade para memória, lógica, foco e raciocínio rápido.">
+    content="NeuroVerso é o universo gamer cognitivo da Lojinha dos Autistas. Jogos cerebrais retrô para memória, lógica, estratégia e foco." />
 
   <meta name="keywords"
-    content="jogos cerebrais, arcade, retro games, lógica, memória, raciocínio, jogos retrô">
+    content="jogos cerebrais, neuroverso, arcade, retro games, memória, lógica, foco, autismo, desenvolvimento cognitivo">
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="NeuroVerso 🧠 Retro Cognitive Arcade" />
+  <meta property="og:description"
+    content="Jogos retrô inteligentes para desenvolver foco, memória, raciocínio e percepção." />
+  <meta property="og:image" content="https://www.autistas.net/jogos/img/logo-neuroverso.png" />
+  <meta property="og:url" content="https://www.autistas.net/jogos/jogosv3.html" />
+  <meta property="og:type" content="website" />
 
   <!-- Favicons -->
   <link href="../assets/img/favicon.png" rel="icon">
@@ -37,84 +45,101 @@
   <!-- Main CSS -->
   <link href="../assets/css/main.css" rel="stylesheet">
 
-  <!-- ======================================================= GOOGLE ADSENSE ======================================================== -->
+  <!-- GOOGLE ADSENSE -->
   <script async
     src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3277175946272866"
     crossorigin="anonymous"></script>
 
   <style>
 
-    /* =========================================================
-       JOGOS V1 EXPERIMENTAL
-    ========================================================= */
-
     :root {
 
-      --game-bg: #0c0f14;
-      --game-panel: #151922;
-      --game-panel-soft: #1b2130;
+      --nv-bg: #0d1016;
+      --nv-panel: #151922;
+      --nv-soft: #1c2331;
 
-      --game-gold: #c5a15b;
-      --game-gold-soft: #e6ca8f;
+      --nv-gold: #d1a85f;
+      --nv-gold-soft: #f3d7a1;
 
-      --game-line: rgba(197, 161, 91, .18);
+      --nv-line: rgba(209, 168, 95, .14);
 
-      --game-text: #f3f4f6;
-      --game-muted: #9ca3af;
+      --nv-text: #f3f4f6;
+      --nv-muted: #9ca3af;
 
-      --game-shadow: 0 0 30px rgba(197, 161, 91, .08);
+      --nv-shadow: 0 20px 60px rgba(0, 0, 0, .35);
 
     }
 
-    body.games-page {
+    body {
 
-      background: var(--game-bg);
-      color: var(--game-text);
+      background: var(--nv-bg);
+      color: var(--nv-text);
 
       font-family: 'Roboto', sans-serif;
 
     }
 
-    .games-page .header {
+    /* ======================================================
+       HEADER
+    ====================================================== */
 
-      background: rgba(10, 12, 18, .92);
-      backdrop-filter: blur(14px);
+    .header {
 
-      border-bottom: 1px solid var(--game-line);
+      background: rgba(9, 11, 16, .92);
+
+      backdrop-filter: blur(18px);
+
+      border-bottom: 1px solid var(--nv-line);
 
     }
 
-    .games-page .sitename,
-    .games-page .navmenu a,
-    .games-page .btn-getstarted {
+    .header .sitename,
+    .header .navmenu a {
 
       color: #fff !important;
 
     }
 
-    .games-page .btn-getstarted {
+    .header .navmenu a:hover,
+    .header .navmenu .active {
 
-      border: 1px solid var(--game-gold);
-      border-radius: 999px;
-
-      padding: 10px 22px;
-
-      background: linear-gradient(135deg, var(--game-gold), #8f6b32);
-
-      color: #111 !important;
-      font-weight: 700;
+      color: var(--nv-gold) !important;
 
     }
 
-    /* =========================================================
-       HERO
-    ========================================================= */
+    .btn-neuro {
 
-    .games-hero {
+      background: linear-gradient(135deg, var(--nv-gold), #8f6b32);
+
+      color: #111 !important;
+
+      padding: 12px 24px;
+
+      border-radius: 999px;
+
+      font-weight: 700;
+
+      text-decoration: none;
+
+      transition: .3s ease;
+
+    }
+
+    .btn-neuro:hover {
+
+      transform: translateY(-4px);
+
+    }
+
+    /* ======================================================
+       HERO
+    ====================================================== */
+
+    .hero-neuro {
 
       position: relative;
 
-      min-height: 92vh;
+      min-height: 100vh;
 
       display: flex;
       align-items: center;
@@ -122,13 +147,13 @@
       overflow: hidden;
 
       background:
-        radial-gradient(circle at top right, rgba(197, 161, 91, .18), transparent 26%),
-        radial-gradient(circle at bottom left, rgba(255, 180, 70, .08), transparent 30%),
-        linear-gradient(to bottom, #0b0e13, #11151d);
+        radial-gradient(circle at top right, rgba(209, 168, 95, .15), transparent 28%),
+        radial-gradient(circle at bottom left, rgba(209, 168, 95, .08), transparent 30%),
+        linear-gradient(to bottom, #0a0d12, #11151d);
 
     }
 
-    .games-hero::before {
+    .hero-neuro::before {
 
       content: "";
 
@@ -136,25 +161,23 @@
       inset: 0;
 
       background-image:
-        linear-gradient(rgba(255, 255, 255, .03) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(255, 255, 255, .03) 1px, transparent 1px);
+        linear-gradient(rgba(255,255,255,.02) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,.02) 1px, transparent 1px);
 
-      background-size: 40px 40px;
+      background-size: 42px 42px;
 
       opacity: .25;
 
     }
 
-    .games-hero-content {
+    .hero-content {
 
       position: relative;
       z-index: 2;
 
-      max-width: 760px;
-
     }
 
-    .games-badge {
+    .neuro-badge {
 
       display: inline-flex;
 
@@ -162,21 +185,21 @@
 
       border-radius: 999px;
 
-      border: 1px solid var(--game-line);
+      border: 1px solid var(--nv-line);
 
-      background: rgba(197, 161, 91, .08);
+      background: rgba(209, 168, 95, .08);
 
-      color: var(--game-gold-soft);
+      color: var(--nv-gold-soft);
 
       text-transform: uppercase;
       letter-spacing: 2px;
 
-      font-size: .78rem;
+      font-size: .75rem;
       font-weight: 700;
 
     }
 
-    .games-hero h1 {
+    .hero-content h1 {
 
       margin-top: 28px;
       margin-bottom: 28px;
@@ -184,25 +207,27 @@
       font-family: 'Poppins', sans-serif;
       font-weight: 800;
 
-      font-size: clamp(3rem, 8vw, 6rem);
+      font-size: clamp(3rem, 7vw, 6rem);
+
       line-height: 1;
 
       color: #fff;
 
     }
 
-    .games-hero p {
+    .hero-content p {
 
-      max-width: 620px;
+      max-width: 640px;
 
-      font-size: 1.2rem;
+      color: var(--nv-muted);
+
       line-height: 1.9;
 
-      color: var(--game-muted);
+      font-size: 1.15rem;
 
     }
 
-    .games-actions {
+    .hero-actions {
 
       display: flex;
       flex-wrap: wrap;
@@ -212,155 +237,68 @@
 
     }
 
-    .games-btn-primary,
-    .games-btn-secondary {
+    .hero-logo {
 
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-
-      padding: 14px 28px;
-
-      border-radius: 999px;
-
-      text-decoration: none;
-
-      font-weight: 700;
-
-      transition: .35s ease;
-
-    }
-
-    .games-btn-primary {
-
-      background: linear-gradient(135deg, var(--game-gold), #8f6b32);
-
-      color: #111;
-
-      box-shadow: var(--game-shadow);
-
-    }
-
-    .games-btn-primary:hover {
-
-      transform: translateY(-4px);
-
-      color: #111;
-
-    }
-
-    .games-btn-secondary {
-
-      border: 1px solid var(--game-line);
-
-      color: #fff;
-
-      background: rgba(255, 255, 255, .03);
-
-    }
-
-    .games-btn-secondary:hover {
-
-      color: var(--game-gold-soft);
-
-      border-color: var(--game-gold);
-
-    }
-
-    /* =========================================================
-       ADS
-    ========================================================= */
-
-    .games-ad-section {
-
-      padding: 40px 0;
-
-      background: #0f131a;
-
-    }
-
-    .games-ad-label {
-
-      display: block;
-
-      margin-bottom: 12px;
+      position: relative;
+      z-index: 2;
 
       text-align: center;
 
-      color: var(--game-muted);
+    }
 
-      text-transform: uppercase;
-      letter-spacing: 3px;
+    .hero-logo img {
 
-      font-size: .7rem;
+      width: 100%;
+      max-width: 480px;
+
+      filter: drop-shadow(0 20px 50px rgba(0,0,0,.45));
 
     }
 
-    .games-ad-box {
+    /* ======================================================
+       SECTION
+    ====================================================== */
 
-      min-height: 120px;
+    .section-neuro {
 
-      border-radius: 28px;
-
-      border: 1px dashed var(--game-line);
-
-      background:
-        linear-gradient(to bottom,
-          rgba(255, 255, 255, .02),
-          rgba(255, 255, 255, .01));
-
-      display: flex;
-      align-items: center;
-      justify-content: center;
-
-      color: var(--game-muted);
+      padding: 110px 0;
 
     }
 
-    /* =========================================================
-       SECTION TITLE
-    ========================================================= */
-
-    .games-section {
-
-      padding: 90px 0;
-
-    }
-
-    .games-section-title {
+    .section-title-neuro {
 
       text-align: center;
 
-      margin-bottom: 60px;
+      margin-bottom: 70px;
 
     }
 
-    .games-section-title h2 {
+    .section-title-neuro h2 {
 
       font-family: 'Poppins', sans-serif;
       font-weight: 800;
 
-      font-size: clamp(2rem, 4vw, 3.5rem);
-
       color: #fff;
+
+      font-size: clamp(2rem, 5vw, 4rem);
 
     }
 
-    .games-section-title p {
+    .section-title-neuro p {
 
       max-width: 720px;
 
-      margin: 20px auto 0;
+      margin: 24px auto 0;
+
+      color: var(--nv-muted);
 
       line-height: 1.9;
 
-      color: var(--game-muted);
-
     }
 
-    /* =========================================================
-       GAME GRID
-    ========================================================= */
+    /* ======================================================
+       GAMES GRID
+    ====================================================== */
 
     .games-grid {
 
@@ -376,15 +314,15 @@
 
       overflow: hidden;
 
-      border-radius: 28px;
+      border-radius: 30px;
 
-      background: var(--game-panel);
+      background: var(--nv-panel);
 
-      border: 1px solid var(--game-line);
+      border: 1px solid var(--nv-line);
 
       transition: .4s ease;
 
-      box-shadow: var(--game-shadow);
+      box-shadow: var(--nv-shadow);
 
       height: 100%;
 
@@ -394,7 +332,7 @@
 
       transform: translateY(-10px);
 
-      border-color: var(--game-gold);
+      border-color: var(--nv-gold);
 
     }
 
@@ -413,38 +351,41 @@
 
     }
 
-    .game-category {
+    .game-tag {
 
       display: inline-flex;
 
-      margin-bottom: 16px;
+      margin-bottom: 18px;
 
-      color: var(--game-gold-soft);
+      color: var(--nv-gold-soft);
 
       text-transform: uppercase;
+
       letter-spacing: 2px;
 
       font-size: .72rem;
+
       font-weight: 700;
 
     }
 
     .game-content h3 {
 
+      color: #fff;
+
       font-family: 'Poppins', sans-serif;
+
       font-weight: 700;
 
       margin-bottom: 18px;
-
-      color: #fff;
 
     }
 
     .game-content p {
 
-      line-height: 1.9;
+      color: var(--nv-muted);
 
-      color: var(--game-muted);
+      line-height: 1.9;
 
     }
 
@@ -452,20 +393,21 @@
 
       display: inline-flex;
 
-      margin-top: 22px;
+      margin-top: 24px;
 
       padding: 12px 24px;
 
       border-radius: 999px;
 
-      background: linear-gradient(135deg, var(--game-gold), #8f6b32);
+      background: linear-gradient(135deg, var(--nv-gold), #8f6b32);
 
       color: #111;
+
       text-decoration: none;
 
       font-weight: 700;
 
-      transition: .35s ease;
+      transition: .3s ease;
 
     }
 
@@ -477,84 +419,124 @@
 
     }
 
-    /* =========================================================
-       RETRO INFO
-    ========================================================= */
+    /* ======================================================
+       ADS
+    ====================================================== */
 
-    .retro-panel {
+    .ad-section {
 
-      padding: 50px;
+      padding: 50px 0;
+
+    }
+
+    .ad-box {
+
+      min-height: 140px;
+
+      border-radius: 30px;
+
+      border: 1px dashed var(--nv-line);
+
+      background: var(--nv-panel);
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      color: var(--nv-muted);
+
+    }
+
+    /* ======================================================
+       INFO PANEL
+    ====================================================== */
+
+    .neuro-panel {
+
+      padding: 60px;
 
       border-radius: 32px;
 
-      background: var(--game-panel-soft);
+      background: var(--nv-soft);
 
-      border: 1px solid var(--game-line);
+      border: 1px solid var(--nv-line);
 
     }
 
-    .retro-panel h3 {
-
-      font-family: 'Poppins', sans-serif;
-      font-weight: 700;
+    .neuro-panel h3 {
 
       color: #fff;
 
-      margin-bottom: 24px;
+      font-family: 'Poppins', sans-serif;
+
+      font-weight: 700;
+
+      margin-bottom: 28px;
 
     }
 
-    .retro-panel p {
+    .neuro-panel p {
+
+      color: var(--nv-muted);
 
       line-height: 2;
 
-      color: var(--game-muted);
-
     }
 
-    /* =========================================================
+    /* ======================================================
        FOOTER
-    ========================================================= */
+    ====================================================== */
 
-    .games-page .footer {
+    .footer {
 
-      border-top: 1px solid var(--game-line);
+      background: #090c12;
 
-      background: #0a0d12;
+      border-top: 1px solid var(--nv-line);
 
     }
 
-    /* =========================================================
-       RESPONSIVE
-    ========================================================= */
+    /* ======================================================
+       MOBILE
+    ====================================================== */
 
-    @media(max-width:768px) {
+    @media(max-width:991px) {
 
-      .games-hero {
+      .hero-neuro {
 
-        padding-top: 120px;
-        padding-bottom: 80px;
+        padding-top: 140px;
+        padding-bottom: 90px;
 
         min-height: auto;
 
       }
 
-      .games-actions {
+      .hero-logo {
+
+        margin-top: 60px;
+
+      }
+
+    }
+
+    @media(max-width:768px) {
+
+      .hero-actions {
 
         flex-direction: column;
 
       }
 
-      .games-btn-primary,
-      .games-btn-secondary {
+      .hero-actions a {
 
         width: 100%;
 
+        text-align: center;
+
       }
 
-      .retro-panel {
+      .neuro-panel {
 
-        padding: 32px;
+        padding: 35px;
 
       }
 
@@ -564,16 +546,16 @@
 
 </head>
 
-<body class="games-page">
+<body class="index-page">
 
-  <!-- Header -->
+  <!-- HEADER -->
   <header id="header" class="header d-flex align-items-center fixed-top">
 
     <div class="container-fluid container-xl position-relative d-flex align-items-center">
 
-      <a href="index.html" class="logo d-flex align-items-center me-auto">
+      <a href="../index.html" class="logo d-flex align-items-center me-auto">
 
-        <h1 class="sitename">Lojinha dos Autistas</h1>
+        <h1 class="sitename">NeuroVerso</h1>
         <span>.</span>
 
       </a>
@@ -583,23 +565,19 @@
         <ul>
 
           <li>
-            <a href="index.html">Home</a>
+            <a href="#hero" class="active">Home</a>
           </li>
 
           <li>
-            <a href="index.html#about">Sobre</a>
+            <a href="#games">Jogos</a>
           </li>
 
           <li>
-            <a href="index.html#courses">Cursos</a>
+            <a href="#universo">Universo</a>
           </li>
 
           <li>
-            <a href="jogosv1.html" class="active">Jogos</a>
-          </li>
-
-          <li>
-            <a href="privacidade.html">Privacidade</a>
+            <a href="../index.html">Lojinha</a>
           </li>
 
         </ul>
@@ -608,7 +586,7 @@
 
       </nav>
 
-      <a class="btn-getstarted" href="#games-grid">
+      <a class="btn-neuro" href="#games">
         Jogar Agora
       </a>
 
@@ -619,35 +597,52 @@
   <main class="main">
 
     <!-- HERO -->
-    <section class="games-hero">
+    <section id="hero" class="hero-neuro">
 
       <div class="container">
 
-        <div class="games-hero-content" data-aos="fade-up">
+        <div class="row align-items-center gy-5">
 
-          <span class="games-badge">
-            Old Gold Arcade Experience
-          </span>
+          <div class="col-lg-6">
 
-          <h1>
-            Jogos Clássicos.<br>
-            Inteligência Atemporal.
-          </h1>
+            <div class="hero-content" data-aos="fade-up">
 
-          <p>
-            Um espaço retrô premium com experiências inspiradas nos grandes arcades da história.
-            Memória, lógica, estratégia e desafios cognitivos em uma atmosfera clássica.
-          </p>
+              <span class="neuro-badge">
+                Retro Cognitive Arcade
+              </span>
 
-          <div class="games-actions">
+              <h1>
+                Fortaleça sua mente jogando.
+              </h1>
 
-            <a href="#games-grid" class="games-btn-primary">
-              Explorar Jogos
-            </a>
+              <p>
+                NeuroVerso é um universo retrô premium de jogos cerebrais criado para estimular memória,
+                lógica, foco, estratégia e desenvolvimento cognitivo através da experiência gamer clássica.
+              </p>
 
-            <a href="#retro-info" class="games-btn-secondary">
-              Universo Retrô
-            </a>
+              <div class="hero-actions">
+
+                <a href="#games" class="btn-neuro">
+                  Explorar Jogos
+                </a>
+
+                <a href="#universo" class="btn-neuro">
+                  Universo NeuroVerso
+                </a>
+
+              </div>
+
+            </div>
+
+          </div>
+
+          <div class="col-lg-6">
+
+            <div class="hero-logo" data-aos="zoom-in">
+
+              <img src="img/logo-neuroverso.png" class="img-fluid" alt="Logo NeuroVerso">
+
+            </div>
 
           </div>
 
@@ -658,15 +653,11 @@
     </section>
 
     <!-- ADS -->
-    <section class="games-ad-section">
+    <section class="ad-section">
 
       <div class="container">
 
-        <span class="games-ad-label">
-          Publicidade
-        </span>
-
-        <div class="games-ad-box">
+        <div class="ad-box">
 
           Espaço otimizado para Google AdSense
 
@@ -677,70 +668,43 @@
     </section>
 
     <!-- GAMES -->
-    <section class="games-section">
+    <section id="games" class="section-neuro">
 
       <div class="container">
 
-        <div class="games-section-title" data-aos="fade-up">
+        <div class="section-title-neuro" data-aos="fade-up">
 
           <h2>
-            Jogos em Destaque
+            Nossos Jogos
           </h2>
 
           <p>
-            Reviva experiências clássicas enquanto exercita foco, coordenação, percepção espacial e memória.
+            Jogos retrô inspirados nos grandes clássicos do arcade para desenvolver habilidades cognitivas,
+            foco, percepção espacial e memória.
           </p>
 
         </div>
 
-        <div class="games-grid" id="games-grid">
+        <div class="games-grid">
 
-          <!-- CARD -->
+          <!-- GAME -->
           <article class="game-card" data-aos="fade-up">
 
             <img src="https://images.unsplash.com/photo-1511512578047-dfb367046420?q=80&w=1200&auto=format&fit=crop"
-              alt="Arcade clássico" loading="lazy">
+              alt="Arcade">
 
             <div class="game-content">
 
-              <span class="game-category">
-                Arcade Clássico
-              </span>
-
-              <h3>
-                Retro Maze
-              </h3>
-
-              <p>
-                Navegue por labirintos inteligentes inspirados em experiências clássicas de arcade.
-              </p>
-
-              <a href="#" class="play-btn">
-                Jogar Agora
-              </a>
-
-            </div>
-
-          </article>
-
-          <!-- CARD -->
-          <article class="game-card" data-aos="fade-up" data-aos-delay="100">
-
-            <img src="https://images.unsplash.com/photo-1550745165-9bc0b252726f?q=80&w=1200&auto=format&fit=crop"
-              alt="Game retrô" loading="lazy">
-
-            <div class="game-content">
-
-              <span class="game-category">
+              <span class="game-tag">
                 Memória
               </span>
 
               <h3>
-                Neural Memory
+                Retro Memory
               </h3>
 
               <p>
-                Exercícios rápidos para fortalecer memória visual, foco e velocidade cognitiva.
+                Desafios rápidos para fortalecer memória visual e velocidade cognitiva.
               </p>
 
               <a href="#" class="play-btn">
@@ -751,24 +715,52 @@
 
           </article>
 
-          <!-- CARD -->
-          <article class="game-card" data-aos="fade-up" data-aos-delay="200">
+          <!-- GAME -->
+          <article class="game-card" data-aos="fade-up" data-aos-delay="100">
 
-            <img src="https://images.unsplash.com/photo-1493711662062-fa541adb3fc8?q=80&w=1200&auto=format&fit=crop"
-              alt="Console retrô" loading="lazy">
+            <img src="https://images.unsplash.com/photo-1550745165-9bc0b252726f?q=80&w=1200&auto=format&fit=crop"
+              alt="Pixel">
 
             <div class="game-content">
 
-              <span class="game-category">
+              <span class="game-tag">
                 Estratégia
               </span>
 
               <h3>
-                Pixel Tactics
+                Pixel Logic
               </h3>
 
               <p>
-                Planejamento rápido e desafios táticos inspirados nos consoles clássicos.
+                Jogos inspirados em puzzles clássicos para estimular lógica e planejamento.
+              </p>
+
+              <a href="#" class="play-btn">
+                Jogar Agora
+              </a>
+
+            </div>
+
+          </article>
+
+          <!-- GAME -->
+          <article class="game-card" data-aos="fade-up" data-aos-delay="200">
+
+            <img src="https://images.unsplash.com/photo-1493711662062-fa541adb3fc8?q=80&w=1200&auto=format&fit=crop"
+              alt="Console">
+
+            <div class="game-content">
+
+              <span class="game-tag">
+                Reflexos
+              </span>
+
+              <h3>
+                Neuro Reflex
+              </h3>
+
+              <p>
+                Experiências retrô para coordenação motora, percepção espacial e foco.
               </p>
 
               <a href="#" class="play-btn">
@@ -786,15 +778,11 @@
     </section>
 
     <!-- ADS -->
-    <section class="games-ad-section">
+    <section class="ad-section">
 
       <div class="container">
 
-        <span class="games-ad-label">
-          Publicidade
-        </span>
-
-        <div class="games-ad-box">
+        <div class="ad-box">
 
           Área estratégica para anúncios responsivos
 
@@ -804,25 +792,26 @@
 
     </section>
 
-    <!-- RETRO INFO -->
-    <section class="games-section" id="retro-info">
+    <!-- UNIVERSO -->
+    <section id="universo" class="section-neuro">
 
       <div class="container">
 
-        <div class="retro-panel" data-aos="fade-up">
+        <div class="neuro-panel" data-aos="fade-up">
 
           <h3>
-            O universo retrô dos jogos cerebrais
+            O universo gamer cognitivo do NeuroVerso
           </h3>
 
           <p>
-            Os jogos clássicos ajudaram gerações inteiras a desenvolver percepção espacial,
-            coordenação, memória, estratégia e resolução rápida de problemas.
+            O NeuroVerso nasce como uma experiência retrô premium inspirada nos grandes arcades da história.
+            Um espaço criado para transformar jogos em ferramentas de desenvolvimento cognitivo, foco,
+            criatividade e diversão.
           </p>
 
           <p>
-            Nosso hub reúne experiências inspiradas na estética old school para criar um ambiente
-            acessível, divertido e intelectualmente estimulante.
+            Nossa proposta conecta nostalgia, inteligência e acessibilidade em um ambiente visualmente elegante,
+            acolhedor e estimulante.
           </p>
 
         </div>
@@ -833,17 +822,17 @@
 
   </main>
 
-  <!-- Footer -->
+  <!-- FOOTER -->
   <footer id="footer" class="footer dark-background">
 
     <div class="container">
 
       <h3 class="sitename">
-        Lojinha dos Autistas
+        NeuroVerso
       </h3>
 
       <p>
-        Inclusão, autonomia e inovação social com propósito.
+        Jogos cerebrais retrô para fortalecer sua mente.
       </p>
 
       <div class="social-links d-flex justify-content-center">
@@ -863,7 +852,7 @@
         <span>Copyright</span>
 
         <strong class="px-1 sitename">
-          Lojinha dos Autistas
+          NeuroVerso
         </strong>
 
         <span>Todos os direitos reservados</span>
@@ -873,7 +862,7 @@
       <div class="credits">
 
         Designed by
-        <a href="https://bootstrapmade.com/">
+        <a href="https://bootstrapmade.com/" target="blank">
           BootstrapMade
         </a>
 
@@ -900,10 +889,9 @@
   <script src="../assets/vendor/imagesloaded/imagesloaded.pkgd.min.js"></script>
   <script src="../assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
 
-  <!-- Main JS File -->
+  <!-- Main JS -->
   <script src="../assets/js/main.js"></script>
 
 </body>
 
 </html>
-
