@@ -4,7 +4,7 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 
-<title>Mahjong Relax</title>
+<title>Memória Relax</title>
 
 <style>
 
@@ -26,7 +26,7 @@ body{
     padding:30px;
 }
 
-.mahjong-container{
+.Memória-container{
     width:100%;
     max-width:1100px;
     background:rgba(255,255,255,0.05);
@@ -80,7 +80,7 @@ body{
     font-size:22px;
 }
 
-#mahjong-board{
+#Memória-board{
     display:grid;
     grid-template-columns:repeat(8,1fr);
     gap:12px;
@@ -151,7 +151,7 @@ button:hover{
         font-size:30px;
     }
 
-    #mahjong-board{
+    #Memória-board{
         grid-template-columns:repeat(4,1fr);
     }
 
@@ -165,10 +165,10 @@ button:hover{
 </head>
 <body>
 
-<div class="mahjong-container">
+<div class="Memória-container">
 
     <div class="header">
-        <h1>🀄 Mahjong Relax</h1>
+        <h1>🀄 Memória Relax</h1>
         <p>Encontre os pares e limpe o tabuleiro</p>
     </div>
 
@@ -186,7 +186,7 @@ button:hover{
 
     </div>
 
-    <div id="mahjong-board"></div>
+    <div id="Memória-board"></div>
 
     <div class="footer">
         <button onclick="startGame()">
@@ -194,7 +194,7 @@ button:hover{
         </button>
 
         <div class="win-message" id="winMessage">
-            🌸 Parabéns! Você completou o Mahjong!
+            🌸 Parabéns! Você completou o Memória!
         </div>
     </div>
 
@@ -202,7 +202,7 @@ button:hover{
 
 <script>
 
-const board = document.getElementById("mahjong-board");
+const board = document.getElementById("Memória-board");
 const movesDisplay = document.getElementById("moves");
 const remainingDisplay = document.getElementById("remaining");
 const winMessage = document.getElementById("winMessage");
