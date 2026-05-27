@@ -1327,6 +1327,316 @@ align-items:flex-start;
 }
 
 }
+
+
+    /* =========================================================
+INDICADORES LONGITUDINAIS
+========================================================= */
+
+.indicator-grid{
+
+display:grid;
+
+grid-template-columns:repeat(4,1fr);
+
+gap:18px;
+
+margin-bottom:24px;
+
+}
+
+.indicator-card{
+
+background:var(--surface);
+
+border:1px solid var(--line);
+
+border-radius:26px;
+
+padding:24px;
+
+transition:.35s ease;
+
+}
+
+.indicator-card:hover{
+
+transform:translateY(-4px);
+
+box-shadow:
+0 16px 40px rgba(0,183,217,.08);
+
+}
+
+.indicator-label{
+
+display:block;
+
+margin-bottom:10px;
+
+font-size:.78rem;
+font-weight:700;
+
+letter-spacing:.12em;
+text-transform:uppercase;
+
+color:var(--secondary);
+
+}
+
+.indicator-card strong{
+
+display:block;
+
+font-size:2rem;
+
+margin-bottom:12px;
+
+color:var(--primary);
+
+}
+
+.indicator-card small{
+
+display:block;
+
+line-height:1.7;
+
+color:var(--muted);
+
+margin-bottom:18px;
+
+}
+
+.indicator-bar{
+
+height:10px;
+
+border-radius:999px;
+
+background:rgba(15,23,42,.06);
+
+overflow:hidden;
+
+}
+
+.indicator-fill{
+
+height:100%;
+
+border-radius:999px;
+
+}
+
+.continuity{
+
+width:84%;
+
+background:
+linear-gradient(
+90deg,
+#00b7d9,
+#63d84e
+);
+
+}
+
+.conversation{
+
+width:71%;
+
+background:
+linear-gradient(
+90deg,
+#0f5fc4,
+#17c6d3
+);
+
+}
+
+.transition{
+
+width:66%;
+
+background:
+linear-gradient(
+90deg,
+#ffb052,
+#ff8a4c
+);
+
+}
+
+.overload{
+
+width:78%;
+
+background:
+linear-gradient(
+90deg,
+#ff6b81,
+#ff9b52
+);
+
+}
+
+/* =========================================================
+CHART CARD
+========================================================= */
+
+.chart-card{
+
+background:var(--surface);
+
+border:1px solid var(--line);
+
+border-radius:28px;
+
+padding:26px;
+
+margin-bottom:24px;
+
+}
+
+.chart-header{
+
+display:flex;
+justify-content:space-between;
+align-items:center;
+
+gap:18px;
+
+margin-bottom:24px;
+
+flex-wrap:wrap;
+
+}
+
+.chart-header h3{
+
+margin-bottom:6px;
+
+color:var(--primary);
+
+}
+
+.chart-header small{
+
+color:var(--muted);
+
+}
+
+.chart-tags{
+
+display:flex;
+gap:10px;
+flex-wrap:wrap;
+
+}
+
+.chart-tag{
+
+padding:8px 12px;
+
+border-radius:999px;
+
+font-size:.74rem;
+font-weight:700;
+
+background:
+linear-gradient(
+135deg,
+rgba(15,95,196,.08),
+rgba(0,183,217,.08)
+);
+
+border:1px solid rgba(0,183,217,.08);
+
+color:var(--primary);
+
+}
+
+/* =========================================================
+ANÁLISE
+========================================================= */
+
+.indicator-analysis{
+
+background:var(--surface);
+
+border:1px solid var(--line);
+
+border-radius:28px;
+
+padding:28px;
+
+}
+
+.indicator-analysis h3{
+
+margin-bottom:18px;
+
+color:var(--primary);
+
+}
+
+.indicator-analysis p{
+
+line-height:1.9;
+
+color:var(--muted);
+
+margin-bottom:18px;
+
+}
+
+.indicator-analysis ul{
+
+padding-left:20px;
+
+display:flex;
+flex-direction:column;
+gap:10px;
+
+margin-bottom:18px;
+
+}
+
+.indicator-analysis li{
+
+line-height:1.8;
+
+color:var(--muted);
+
+}
+
+/* =========================================================
+RESPONSIVO
+========================================================= */
+
+@media(max-width:1100px){
+
+.indicator-grid{
+grid-template-columns:1fr 1fr;
+}
+
+}
+
+@media(max-width:700px){
+
+.indicator-grid{
+grid-template-columns:1fr;
+}
+
+.chart-card,
+.indicator-analysis,
+.indicator-card{
+padding:22px;
+}
+
+}
+
+    
 </style>
 
 
@@ -1562,7 +1872,7 @@ src="https://docs.google.com/spreadsheets/d/SEU_ID_AQUI/edit?rm=minimal">
 </div>
 
 <!-- =========================================================
-INDICADORES
+INDICADORES LONGITUDINAIS
 ========================================================= -->
 
 <div class="tab-content" id="indicadores">
@@ -1573,12 +1883,197 @@ INDICADORES
 
 <div>
 <h2>Indicadores Longitudinais</h2>
-<small>Leitura contextual da continuidade operacional</small>
+<small>
+Leitura contextual da continuidade operacional • 2025 → 2026
+</small>
 </div>
 
 </div>
 
-<canvas id="continuumChart" height="100"></canvas>
+<!-- =========================================================
+CARDS DE LEITURA
+========================================================= -->
+
+<div class="indicator-grid">
+
+<div class="indicator-card">
+
+<span class="indicator-label">
+Continuidade
+</span>
+
+<strong>
+84%
+</strong>
+
+<small>
+Sustentação preservada apesar das oscilações emocionais.
+</small>
+
+<div class="indicator-bar">
+<div class="indicator-fill continuity"></div>
+</div>
+
+</div>
+
+<div class="indicator-card">
+
+<span class="indicator-label">
+Conversação
+</span>
+
+<strong>
+71%
+</strong>
+
+<small>
+Oscilações relacionadas à pressão contextual e social.
+</small>
+
+<div class="indicator-bar">
+<div class="indicator-fill conversation"></div>
+</div>
+
+</div>
+
+<div class="indicator-card">
+
+<span class="indicator-label">
+Transições
+</span>
+
+<strong>
+66%
+</strong>
+
+<small>
+Mudanças inesperadas seguem exigindo mediação contextual.
+</small>
+
+<div class="indicator-bar">
+<div class="indicator-fill transition"></div>
+</div>
+
+</div>
+
+<div class="indicator-card">
+
+<span class="indicator-label">
+Sobrecarga
+</span>
+
+<strong>
+78%
+</strong>
+
+<small>
+Elevação gradual de fadiga cognitiva longitudinal.
+</small>
+
+<div class="indicator-bar">
+<div class="indicator-fill overload"></div>
+</div>
+
+</div>
+
+</div>
+
+<!-- =========================================================
+GRÁFICO PRINCIPAL
+========================================================= -->
+
+<div class="chart-card">
+
+<div class="chart-header">
+
+<div>
+
+<h3>
+Evolução Longitudinal
+</h3>
+
+<small>
+Leitura contextual baseada nos registros da timeline viva
+</small>
+
+</div>
+
+<div class="chart-tags">
+
+<div class="chart-tag">
+2025 → 2026
+</div>
+
+<div class="chart-tag">
+Longitudinal
+</div>
+
+<div class="chart-tag">
+Responsividade
+</div>
+
+</div>
+
+</div>
+
+<canvas id="continuumChart" height="110"></canvas>
+
+</div>
+
+<!-- =========================================================
+LEITURA INTERPRETATIVA
+========================================================= -->
+
+<div class="indicator-analysis">
+
+<h3>
+Leitura Interpretativa
+</h3>
+
+<p>
+Os indicadores sugerem aumento gradual
+da necessidade de previsibilidade contextual
+ao longo do segundo semestre de 2025,
+com intensificação emocional relevante
+durante períodos de maior sobrecarga simbólica
+e mudanças inesperadas.
+</p>
+
+<p>
+A reorganização operacional observada
+nos primeiros meses de 2026 demonstrou
+impacto positivo sobre:
+</p>
+
+<ul>
+
+<li>
+continuidade longitudinal;
+</li>
+
+<li>
+redução parcial da ansiedade antecipatória;
+</li>
+
+<li>
+maior sustentação conversacional;
+</li>
+
+<li>
+melhor adaptação em transições previsíveis.
+</li>
+
+</ul>
+
+<p>
+Os dados reforçam a hipótese de que
+a previsibilidade explícita,
+a organização temporal
+e os ambientes de baixa pressão contextual
+funcionam como fatores regulatórios centrais.
+</p>
+
+</div>
 
 </section>
 
