@@ -2833,9 +2833,7 @@ da necessidade de organização emocional
 diante de contextos imprevisíveis.
 </p>
 
-</div>
 
-</div>
 
 </div>
 
@@ -3151,36 +3149,46 @@ type:'line',
 data:{
 
 labels:[
-'Seg',
-'Ter',
-'Qua',
-'Qui',
-'Sex',
-'Sáb',
-'Dom'
+'Out/25',
+'Nov/25',
+'Dez/25',
+'Jan/26',
+'Mar/26',
+'Abr/26'
 ],
 
-datasets:[{
+datasets:[
 
+{
 label:'Continuidade',
-
-data:[82,89,91,94,92,90,95],
-
+data:[72,74,61,83,88,79],
 tension:.4,
-
 borderWidth:3,
-
 borderColor:'#00b7d9',
-
-backgroundColor:'rgba(0,183,217,.15)',
-
-pointBackgroundColor:'#63d84e',
-
-pointBorderColor:'#0a3d91',
-
+backgroundColor:'rgba(0,183,217,.12)',
 fill:true
+},
 
-}]
+{
+label:'Sobrecarga',
+data:[58,72,89,48,42,81],
+tension:.4,
+borderWidth:3,
+borderColor:'#ff6b81',
+backgroundColor:'rgba(255,107,129,.08)',
+fill:true
+},
+
+{
+label:'Conversação',
+data:[64,59,52,78,84,63],
+tension:.4,
+borderWidth:3,
+borderColor:'#63d84e',
+backgroundColor:'rgba(109,255,124,.08)',
+fill:true
+}
+]
 
 },
 
