@@ -1636,6 +1636,28 @@ padding:22px;
 
 }
 
+
+
+    /* =========================================================
+CLINICA INTEGRADA
+========================================================= */
+
+.clinic-panel{
+display:none;
+}
+
+.clinic-panel.active-clinic{
+display:block;
+}
+
+.tag{
+text-decoration:none;
+transition:.3s ease;
+}
+
+.tag:hover{
+transform:translateY(-2px);
+}
     
 </style>
 
@@ -1766,21 +1788,21 @@ SIDEBAR
 
 <div class="side-group">
 
-<!--<strong>Integração</strong>
-
-<div class="side-link">GitHub Projects</div>
-<div class="side-link">Discussions</div>
-<div class="side-link">Actions</div>
-
-</div>-->
-
 <div class="side-group">
 
-<strong>Memória Viva</strong>
+<strong>Clínica Integrada</strong>
 
-<div class="side-link">Timeline</div>
-<div class="side-link">Sínteses</div>
-<div class="side-link">Biblioteca</div>
+<div class="side-link clinical-link" data-clinic="gustavo">
+Dr Gustavo
+</div>
+
+<div class="side-link clinical-link" data-clinic="brenda">
+Dra Brenda
+</div>
+
+<div class="side-link clinical-link" data-clinic="rosendo">
+Dr José Rosendo
+</div>
 
 </div>
 
@@ -3039,6 +3061,125 @@ BIBLIOTECA
 
 </div>
 
+
+    <!-- =========================================================
+CLÍNICA INTEGRADA
+========================================================= -->
+
+<div class="tab-content" id="clinica">
+
+<section class="section">
+
+<div class="section-header">
+
+<div>
+<h2>Clínica Integrada</h2>
+<small>
+Integração clínica • documentação longitudinal • continuidade terapêutica
+</small>
+</div>
+
+</div>
+
+<!-- =========================================================
+DR GUSTAVO
+========================================================= -->
+
+<div class="clinic-panel active-clinic" id="gustavo-panel">
+
+<div class="grid">
+
+<div class="card">
+
+<small>Consulta de Hoje</small>
+
+<strong>Dr Gustavo</strong>
+
+<span>
+Registros clínicos compartilhados da sessão longitudinal.
+</span>
+
+<div class="tags">
+
+<a class="tag"
+href="https://drive.google.com/open?id=11_IoMOaS-VOV39kdry5W9HtLKza10l42&usp=drive_copy"
+target="_blank">
+Documento 1
+</a>
+
+<a class="tag"
+href="https://drive.google.com/open?id=1lFuXoyEcy5IkQcOeWujX6ZHZMoQcLyw0&usp=drive_copy"
+target="_blank">
+Documento 2
+</a>
+
+<a class="tag"
+href="https://drive.google.com/open?id=1w3GgzEH0Q8T3jppmL86hHj99CQWQgrYG&usp=drive_copy"
+target="_blank">
+Documento 3
+</a>
+
+<a class="tag"
+href="https://drive.google.com/open?id=14MNjCESQct7hfXqBZl24i7myDjdaqjrl&usp=drive_copy"
+target="_blank">
+Documento 4
+</a>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- =========================================================
+DRA BRENDA
+========================================================= -->
+
+<div class="clinic-panel" id="brenda-panel">
+
+<div class="card">
+
+<small>Acompanhamento Clínico</small>
+
+<strong>Dra Brenda</strong>
+
+<span>
+Espaço reservado para registros, sínteses e observações futuras.
+</span>
+
+</div>
+
+</div>
+
+<!-- =========================================================
+DR ROSENDO
+========================================================= -->
+
+<div class="clinic-panel" id="rosendo-panel">
+
+<div class="card">
+
+<small>Neurologia / Continuidade</small>
+
+<strong>Dr José Rosendo</strong>
+
+<span>
+Espaço reservado para integração clínica longitudinal.
+</span>
+
+</div>
+
+</div>
+
+</section>
+
+</div>
+
+
+    
+
 <footer class="footer">
 © 2026 • Continuum 6 • Sistema Operacional Longitudinal
 </footer>
@@ -3215,6 +3356,39 @@ display:false
 
 }
 
+
+    /* =========================================================
+CLÍNICA INTEGRADA
+========================================================= */
+
+const clinicalLinks = document.querySelectorAll('.clinical-link');
+const clinicPanels = document.querySelectorAll('.clinic-panel');
+
+clinicalLinks.forEach(link=>{
+
+link.addEventListener('click',()=>{
+
+tabs.forEach(t=>t.classList.remove('active'));
+contents.forEach(c=>c.classList.remove('active'));
+
+document
+.getElementById('clinica')
+.classList.add('active');
+
+clinicPanels.forEach(panel=>{
+panel.classList.remove('active-clinic');
+});
+
+const target = link.dataset.clinic;
+
+document
+.getElementById(target + '-panel')
+.classList.add('active-clinic');
+
+});
+
+});
+    
 </script>
 
 </body>
