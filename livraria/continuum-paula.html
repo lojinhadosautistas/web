@@ -1,0 +1,1119 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="google-adsense-account" content="ca-pub-3277175946272866">
+
+<title>Continuum | Ment. Paula • Continuidade Humana</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+<style>
+
+:root{
+
+--bg:#edf3f8;
+--panel:rgba(255,255,255,.78);
+--surface:#ffffff;
+--surface2:#f5f9fc;
+
+--text:#09111f;
+--muted:#5f7287;
+
+--line:rgba(15,23,42,.06);
+
+--primary:#0a3d91;
+--secondary:#00b7d9;
+--accent:#63d84e;
+
+--red:#ff687d;
+--orange:#ffb25a;
+--purple:#7c82ff;
+
+--shadow:0 20px 60px rgba(5,18,36,.08);
+
+}
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+}
+
+html{
+scroll-behavior:smooth;
+}
+
+body{
+
+font-family:'Inter',sans-serif;
+
+background:
+linear-gradient(180deg,#eef4f8,#edf3f7);
+
+color:var(--text);
+
+min-height:100vh;
+overflow-x:hidden;
+
+}
+
+body::before{
+
+content:'';
+position:fixed;
+inset:0;
+
+background-image:
+linear-gradient(rgba(15,95,196,.025) 1px,transparent 1px),
+linear-gradient(90deg,rgba(15,95,196,.025) 1px,transparent 1px);
+
+background-size:42px 42px;
+
+mask-image:
+radial-gradient(circle at center, black, transparent 85%);
+
+pointer-events:none;
+
+}
+
+.app{
+padding:18px;
+display:flex;
+flex-direction:column;
+gap:18px;
+}
+
+.topbar{
+
+background:var(--panel);
+border:1px solid var(--line);
+border-radius:32px;
+padding:28px;
+
+backdrop-filter:blur(18px);
+box-shadow:var(--shadow);
+
+}
+
+.brand{
+display:flex;
+flex-direction:column;
+gap:10px;
+}
+
+.brand h1{
+font-size:3rem;
+letter-spacing:-2px;
+color:var(--primary);
+}
+
+.brand small{
+
+font-size:.8rem;
+font-weight:700;
+letter-spacing:.16em;
+text-transform:uppercase;
+
+color:var(--secondary);
+
+}
+
+.hero{
+
+margin-top:22px;
+max-width:980px;
+
+}
+
+.hero p{
+line-height:1.9;
+font-size:1rem;
+color:var(--muted);
+}
+
+.horizontal-menu{
+
+display:flex;
+gap:12px;
+overflow-x:auto;
+padding-bottom:6px;
+
+}
+
+.menu-tab{
+
+border:none;
+padding:14px 18px;
+border-radius:18px;
+
+background:var(--surface);
+border:1px solid var(--line);
+
+font-weight:600;
+color:var(--muted);
+
+cursor:pointer;
+white-space:nowrap;
+
+transition:.3s ease;
+
+}
+
+.menu-tab.active{
+
+background:
+linear-gradient(
+135deg,
+rgba(15,95,196,.12),
+rgba(0,183,217,.10)
+);
+
+border-color:rgba(0,183,217,.18);
+color:var(--primary);
+
+}
+
+.layout{
+
+display:grid;
+grid-template-columns:320px 1fr;
+gap:18px;
+
+}
+
+.sidebar{
+
+background:var(--panel);
+border:1px solid var(--line);
+border-radius:30px;
+padding:24px;
+
+position:sticky;
+top:18px;
+
+height:calc(100vh - 36px);
+overflow:auto;
+
+box-shadow:var(--shadow);
+
+}
+
+.sidebar h3{
+
+margin-bottom:22px;
+
+font-size:.82rem;
+font-weight:700;
+letter-spacing:.14em;
+text-transform:uppercase;
+
+color:var(--secondary);
+
+}
+
+.side-group{
+margin-bottom:26px;
+}
+
+.side-group strong{
+
+display:block;
+margin-bottom:14px;
+
+font-size:.84rem;
+letter-spacing:.08em;
+text-transform:uppercase;
+
+color:var(--primary);
+
+}
+
+.side-link{
+
+padding:12px 14px;
+margin-bottom:10px;
+
+background:var(--surface);
+border:1px solid var(--line);
+border-radius:18px;
+
+font-size:.88rem;
+color:var(--muted);
+
+}
+
+.content{
+display:flex;
+flex-direction:column;
+gap:18px;
+}
+
+.tab-content{
+display:none;
+flex-direction:column;
+gap:18px;
+}
+
+.tab-content.active{
+display:flex;
+}
+
+.section{
+
+background:var(--panel);
+border:1px solid var(--line);
+border-radius:32px;
+padding:28px;
+
+backdrop-filter:blur(18px);
+box-shadow:var(--shadow);
+
+}
+
+.section-header{
+
+margin-bottom:24px;
+
+}
+
+.section-header h2{
+
+font-size:1.6rem;
+letter-spacing:-1px;
+color:var(--primary);
+
+margin-bottom:8px;
+
+}
+
+.section-header small{
+color:var(--muted);
+}
+
+.grid{
+
+display:grid;
+grid-template-columns:repeat(4,1fr);
+gap:16px;
+
+}
+
+.card{
+
+background:var(--surface);
+border:1px solid var(--line);
+border-radius:26px;
+padding:22px;
+
+transition:.3s ease;
+
+}
+
+.card:hover{
+transform:translateY(-4px);
+}
+
+.card small{
+
+display:block;
+margin-bottom:12px;
+
+font-size:.78rem;
+font-weight:700;
+letter-spacing:.12em;
+text-transform:uppercase;
+
+color:var(--secondary);
+
+}
+
+.card strong{
+
+display:block;
+margin-bottom:10px;
+
+font-size:1.9rem;
+color:var(--primary);
+
+}
+
+.card span,
+.card li,
+.card p{
+line-height:1.8;
+color:var(--muted);
+}
+
+.card ul{
+padding-left:18px;
+}
+
+.mode-grid{
+
+display:grid;
+grid-template-columns:1.3fr .7fr;
+gap:18px;
+
+}
+
+.mode-panel{
+
+background:var(--surface);
+border:1px solid var(--line);
+border-radius:28px;
+padding:26px;
+
+}
+
+.mode-panel h3{
+margin-bottom:18px;
+color:var(--primary);
+}
+
+.today-priority{
+
+padding:18px;
+margin-bottom:18px;
+
+border-radius:22px;
+
+background:
+linear-gradient(
+135deg,
+rgba(15,95,196,.08),
+rgba(0,183,217,.08)
+);
+
+border:1px solid rgba(0,183,217,.12);
+
+}
+
+.today-priority strong{
+
+display:block;
+margin-bottom:10px;
+
+font-size:.82rem;
+letter-spacing:.12em;
+text-transform:uppercase;
+
+color:var(--secondary);
+
+}
+
+.today-priority h2{
+font-size:1.7rem;
+color:var(--primary);
+}
+
+.checklist{
+display:flex;
+flex-direction:column;
+gap:12px;
+}
+
+.check-item{
+
+display:flex;
+align-items:center;
+gap:12px;
+
+padding:14px 16px;
+
+border-radius:18px;
+background:var(--surface2);
+
+}
+
+.check-item input{
+width:18px;
+height:18px;
+}
+
+.continuity-map{
+
+display:grid;
+grid-template-columns:repeat(4,1fr);
+gap:16px;
+
+}
+
+.map-column{
+
+background:var(--surface);
+border:1px solid var(--line);
+border-radius:24px;
+padding:18px;
+
+}
+
+.map-column h3{
+
+margin-bottom:16px;
+
+font-size:.82rem;
+font-weight:700;
+letter-spacing:.12em;
+text-transform:uppercase;
+
+color:var(--secondary);
+
+}
+
+.map-card{
+
+padding:14px;
+margin-bottom:12px;
+
+border-radius:18px;
+background:var(--surface2);
+
+}
+
+.map-card strong{
+
+display:block;
+margin-bottom:8px;
+color:var(--primary);
+
+}
+
+.tags{
+
+display:flex;
+flex-wrap:wrap;
+gap:10px;
+
+}
+
+.tag{
+
+padding:10px 14px;
+border-radius:999px;
+
+background:
+linear-gradient(
+135deg,
+rgba(15,95,196,.08),
+rgba(0,183,217,.08)
+);
+
+border:1px solid rgba(0,183,217,.08);
+
+font-size:.8rem;
+color:var(--primary);
+
+}
+
+.footer{
+
+padding:26px;
+text-align:center;
+
+font-size:.82rem;
+color:var(--muted);
+
+}
+
+@media(max-width:1200px){
+
+.layout{
+grid-template-columns:1fr;
+}
+
+.sidebar{
+position:relative;
+height:auto;
+}
+
+.grid,
+.continuity-map,
+.mode-grid{
+grid-template-columns:1fr 1fr;
+}
+
+}
+
+@media(max-width:760px){
+
+.app{
+padding:12px;
+}
+
+.grid,
+.continuity-map,
+.mode-grid{
+grid-template-columns:1fr;
+}
+
+.brand h1{
+font-size:2.2rem;
+}
+
+.section,
+.sidebar,
+.topbar{
+padding:20px;
+}
+
+}
+
+</style>
+<!-- ======================================================= GOOGLE ADSENSE ======================================================== --> 
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3277175946272866" crossorigin="anonymous"></script>
+
+  
+</head>
+<body>
+
+<div class="app">
+
+<header class="topbar">
+
+<div class="brand">
+<small>CONTINUIDADE HUMANA • REGULAÇÃO • CONTEXTO</small>
+<h1>Continuum Paula</h1>
+</div>
+
+<div class="hero">
+<p>
+Ecossistema longitudinal para organização adaptativa,
+continuidade operacional,
+regulação emocional,
+saúde integrada,
+produção criativa
+ e sustentação cognitiva.
+</p>
+</div>
+
+</header>
+
+<nav class="horizontal-menu">
+
+<button class="menu-tab active" data-tab="hoje">Modo Hoje</button>
+<button class="menu-tab" data-tab="continuidade">Mapa de Continuidade</button>
+<button class="menu-tab" data-tab="universos">Universos</button>
+<button class="menu-tab" data-tab="regulatorio">Núcleo Regulatório</button>
+<button class="menu-tab" data-tab="manutencao">Manutenção</button>
+<button class="menu-tab" data-tab="social">Continuidade Humana</button>
+<button class="menu-tab" data-tab="medico">Médico</button>
+
+</nav>
+
+<section class="layout">
+
+<aside class="sidebar">
+
+<h3>Arquitetura Viva</h3>
+
+<div class="side-group">
+<strong>Hoje</strong>
+<div class="side-link">Prioridade Central</div>
+<div class="side-link">Produção</div>
+<div class="side-link">Manutenção</div>
+<div class="side-link">Regulação</div>
+</div>
+
+<div class="side-group">
+<strong>Universos</strong>
+<div class="side-link">Musical</div>
+<div class="side-link">Editorial</div>
+<div class="side-link">Continuum</div>
+<div class="side-link">Infraestrutura</div>
+</div>
+
+<div class="side-group">
+<strong>Base Biológica</strong>
+<div class="side-link">Água</div>
+<div class="side-link">1 fruta</div>
+<div class="side-link">Folhas medicinais</div>
+<div class="side-link">Quintal</div>
+<div class="side-link">Silêncio</div>
+</div>
+
+<div class="side-group">
+<strong>Saúde</strong>
+<div class="side-link">Dra Daniella</div>
+<div class="side-link">Dr George</div>
+<div class="side-link">Dermatologista</div>
+</div>
+
+</aside>
+
+<main class="content">
+
+<div class="tab-content active" id="hoje">
+
+<section class="section">
+
+<div class="section-header">
+<h2>Modo Hoje</h2>
+<small>Organização adaptativa • continuidade sem rigidez</small>
+</div>
+
+<div class="mode-grid">
+
+<div class="mode-panel">
+
+<div class="today-priority">
+<strong>Universo do Dia</strong>
+<h2>Continuum • Atlas • NeuroVerso</h2>
+</div>
+
+<h3>Produção</h3>
+
+<div class="checklist">
+
+<label class="check-item">
+<input type="checkbox">
+<span>Revisar timeline longitudinal</span>
+</label>
+
+<label class="check-item">
+<input type="checkbox">
+<span>Editar indicadores do Continuum</span>
+</label>
+
+<label class="check-item">
+<input type="checkbox">
+<span>Atualizar arquitetura visual</span>
+</label>
+
+<label class="check-item">
+<input type="checkbox">
+<span>Separar produção de manutenção</span>
+</label>
+
+</div>
+
+</div>
+
+<div class="mode-panel">
+
+<h3>Base Biológica</h3>
+
+<div class="checklist">
+
+<label class="check-item">
+<input type="checkbox">
+<span>Beber água</span>
+</label>
+
+<label class="check-item">
+<input type="checkbox">
+<span>Comer 1 fruta</span>
+</label>
+
+<label class="check-item">
+<input type="checkbox">
+<span>Consumir folhas medicinais do quintal</span>
+</label>
+
+<label class="check-item">
+<input type="checkbox">
+<span>Quintal / Terapia da Enxada</span>
+</label>
+
+<label class="check-item">
+<input type="checkbox">
+<span>Pausa regulatória sem telas</span>
+</label>
+
+</div>
+
+<h3 style="margin-top:28px;">Não Fazer Hoje</h3>
+
+<div class="tags">
+<div class="tag">novo redesign</div>
+<div class="tag">novos projetos</div>
+<div class="tag">excesso social</div>
+<div class="tag">hiperfragmentação</div>
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+</div>
+
+<div class="tab-content" id="continuidade">
+
+<section class="section">
+
+<div class="section-header">
+<h2>Mapa de Continuidade</h2>
+<small>Visualização longitudinal do ecossistema</small>
+</div>
+
+<div class="continuity-map">
+
+<div class="map-column">
+<h3>Em Fluxo</h3>
+
+<div class="map-card">
+<strong>Continuum</strong>
+<p>Arquitetura cognitiva viva.</p>
+</div>
+
+<div class="map-card">
+<strong>Banda Atípicos</strong>
+<p>Produção musical + TI + design.</p>
+</div>
+
+</div>
+
+<div class="map-column">
+<h3>Produção</h3>
+
+<div class="map-card">
+<strong>Cada Passo</strong>
+<p>Livro + BookOS + audiovisual.</p>
+</div>
+
+<div class="map-card">
+<strong>Atlas Cognitivo</strong>
+<p>Narrativas e audiovisual longitudinal.</p>
+</div>
+
+</div>
+
+<div class="map-column">
+<h3>Manutenção</h3>
+
+<div class="map-card">
+<strong>Servidores</strong>
+<p>Megaco • SFL • Roller • Palio.</p>
+</div>
+
+<div class="map-card">
+<strong>Rede-Dev</strong>
+<p>Infraestrutura e estabilidade.</p>
+</div>
+
+</div>
+
+<div class="map-column">
+<h3>Pausa Estratégica</h3>
+
+<div class="map-card">
+<strong>Infoprodutos</strong>
+<p>Monitoramento leve e contínuo.</p>
+</div>
+
+<div class="map-card">
+<strong>Social</strong>
+<p>Continuidade relacional sem pressão.</p>
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+</div>
+
+<div class="tab-content" id="universos">
+
+<section class="section">
+
+<div class="section-header">
+<h2>Universos Operacionais</h2>
+<small>Alternância regulatória com continuidade temática</small>
+</div>
+
+<div class="grid">
+
+<div class="card">
+<small>Universo Musical</small>
+<strong>ATÍPICOS</strong>
+<ul>
+<li>produção musical</li>
+<li>design</li>
+<li>programação</li>
+<li>redes sociais</li>
+<li>audiovisual</li>
+</ul>
+</div>
+
+<div class="card">
+<small>Universo Editorial</small>
+<strong>BOOKOS</strong>
+<ul>
+<li>escrita</li>
+<li>documentação</li>
+<li>captação</li>
+<li>design editorial</li>
+</ul>
+</div>
+
+<div class="card">
+<small>Universo Cognitivo</small>
+<strong>CONTINUUM</strong>
+<ul>
+<li>dashboards</li>
+<li>timeline viva</li>
+<li>atlas cognitivo</li>
+<li>visualização longitudinal</li>
+</ul>
+</div>
+
+<div class="card">
+<small>Infraestrutura</small>
+<strong>REDE-DEV</strong>
+<ul>
+<li>servidores</li>
+<li>github</li>
+<li>actions</li>
+<li>monitoramento</li>
+</ul>
+</div>
+
+</div>
+
+</section>
+
+</div>
+
+<div class="tab-content" id="regulatorio">
+
+<section class="section">
+
+<div class="section-header">
+<h2>Núcleo Regulatório</h2>
+<small>Sustentabilidade cognitiva e emocional</small>
+</div>
+
+<div class="grid">
+
+<div class="card">
+<small>Sinais</small>
+<strong>Leitura Viva</strong>
+<p>
+Observar fadiga,
+pressão contextual,
+fragmentação excessiva
+ e sobrecarga social.
+</p>
+</div>
+
+<div class="card">
+<small>Regulação</small>
+<strong>Ambiente</strong>
+<p>
+Silêncio,
+rotina previsível,
+redução de estímulos
+ e pausas regulatórias.
+</p>
+</div>
+
+<div class="card">
+<small>Base Biológica</small>
+<strong>Quintal</strong>
+<p>
+Terapia da Enxada,
+folhas medicinais,
+alimentação real
+ e recuperação atencional.
+</p>
+</div>
+
+<div class="card">
+<small>Continuidade</small>
+<strong>Sustentação</strong>
+<p>
+O objetivo não é produtividade extrema.
+É continuidade sustentável.
+</p>
+</div>
+
+</div>
+
+</section>
+
+</div>
+
+<div class="tab-content" id="manutencao">
+
+<section class="section">
+
+<div class="section-header">
+<h2>Centro Operacional</h2>
+<small>Checklist longitudinal de manutenção</small>
+</div>
+
+<div class="grid">
+
+<div class="card">
+<small>Servidores</small>
+<strong>Login Diário</strong>
+<ul>
+<li>Megaco</li>
+<li>SFL</li>
+<li>Chainers</li>
+<li>Limer</li>
+<li>Roller</li>
+<li>Palio</li>
+</ul>
+</div>
+
+<div class="card">
+<small>Infraestrutura</small>
+<strong>GitHub</strong>
+<ul>
+<li>Projects</li>
+<li>Discussions</li>
+<li>Actions</li>
+<li>GitHub Pages</li>
+</ul>
+</div>
+
+<div class="card">
+<small>Automação</small>
+<strong>JSON Vivo</strong>
+<ul>
+<li>timelines</li>
+<li>indicadores</li>
+<li>agenda</li>
+<li>snapshots</li>
+</ul>
+</div>
+
+<div class="card">
+<small>Organização</small>
+<strong>Separação</strong>
+<ul>
+<li>produção ≠ manutenção</li>
+<li>menos fragmentação</li>
+<li>mais continuidade</li>
+</ul>
+</div>
+
+</div>
+
+</section>
+
+</div>
+
+<div class="tab-content" id="social">
+
+<section class="section">
+
+<div class="section-header">
+<h2>Continuidade Humana</h2>
+<small>Relações sem sobrecarga social excessiva</small>
+</div>
+
+<div class="tags">
+<div class="tag">Adolfo</div>
+<div class="tag">Jessica</div>
+<div class="tag">Bel</div>
+<div class="tag">Flávia</div>
+<div class="tag">Rodrigo Sena</div>
+<div class="tag">Carol Carvalho</div>
+<div class="tag">Tiquinha</div>
+<div class="tag">Surf com os meninos</div>
+<div class="tag">Krya</div>
+</div>
+
+</section>
+
+</div>
+
+<div class="tab-content" id="medico">
+
+<section class="section">
+
+<div class="section-header">
+<h2>Médico</h2>
+<small>Saúde integrada ao sistema operacional</small>
+</div>
+
+<div class="grid">
+
+<div class="card">
+<small>Dra Daniella</small>
+<strong>Retorno</strong>
+<p>
+Aguardar férias,
+marcar retorno
+ e validar exames.
+</p>
+</div>
+
+<div class="card">
+<small>Dr George</small>
+<strong>Orientação</strong>
+<p>
+Contato com secretária
+informando contexto
+ e solicitar orientação.
+</p>
+</div>
+
+<div class="card">
+<small>Dra José Rosendo</small>
+<strong>Verificar</strong>
+<p>
+Confirmar data de retorno.
+</p>
+</div>
+
+<div class="card">
+<small>Dermatologista</small>
+<strong>Consulta</strong>
+<p>
+Marcar avaliação dos sinais.
+</p>
+</div>
+
+</div>
+
+</section>
+
+</div>
+
+<footer class="footer">
+© 2026 • Continuum Paula • Continuidade Humana Sustentável
+</footer>
+
+</main>
+
+</section>
+
+</div>
+
+<script>
+
+const tabs = document.querySelectorAll('.menu-tab');
+const contents = document.querySelectorAll('.tab-content');
+
+tabs.forEach(tab=>{
+
+  tab.addEventListener('click',()=>{
+
+    tabs.forEach(t=>t.classList.remove('active'));
+    contents.forEach(c=>c.classList.remove('active'));
+
+    tab.classList.add('active');
+
+    document
+      .getElementById(tab.dataset.tab)
+      .classList.add('active');
+
+  });
+
+});
+
+</script>
+
+</body>
+</html>
