@@ -1790,10 +1790,11 @@ SIDEBAR
 
 <strong>Monitoramento Ativo</strong>
 
-<a href="#drgustavo">
-    <div class="side-link clinical-link" data-clinic="gustavo">
+<div class="side-link clinical-link"
+     data-clinic="gustavo"
+     data-anchor="drgustavo-section">
 Dr Gustavo
-</div></a>
+</div>
 
 <div class="side-link clinical-link" data-clinic="brenda">
 Dra Brenda
@@ -3067,7 +3068,7 @@ CLÍNICA INTEGRADA
 
 <div class="tab-content" id="clinica">
 
-<section class="clinic-panel active-clinic" id="drgustavo">
+<section class="clinic-panel active-clinic" id="gustavo-panel">
 
 <div class="section-header">
 
@@ -3085,7 +3086,7 @@ Integração em saúde • acervo de documentação • continuidade terapêutic
 DR GUSTAVO
 ========================================================= -->
 
-<div class="clinic-panel active-clinic" id="drgustavo">
+<div class="clinic-panel active-clinic" id="gustavo-panel">
 
 <!-- =========================================================
 HEADER CLÍNICO
@@ -3977,9 +3978,7 @@ CLÍNICA INTEGRADA
 const clinicalLinks = document.querySelectorAll('.clinical-link');
 const clinicPanels = document.querySelectorAll('.clinic-panel');
 
-clinicalLinks.forEach(link=>{
-
-link.addEventListener('click',()=>{
+/* ativa aba clínica */
 
 tabs.forEach(t=>t.classList.remove('active'));
 contents.forEach(c=>c.classList.remove('active'));
@@ -3987,6 +3986,8 @@ contents.forEach(c=>c.classList.remove('active'));
 document
 .getElementById('clinica')
 .classList.add('active');
+
+/* ativa painel */
 
 clinicPanels.forEach(panel=>{
 panel.classList.remove('active-clinic');
@@ -3997,6 +3998,25 @@ const target = link.dataset.clinic;
 document
 .getElementById(target + '-panel')
 .classList.add('active-clinic');
+
+/* scroll suave */
+
+const anchor = link.dataset.anchor;
+
+setTimeout(()=>{
+
+const element = document.getElementById(anchor);
+
+if(element){
+
+element.scrollIntoView({
+behavior:'smooth',
+block:'start'
+});
+
+}
+
+},120);
 
 });
 
