@@ -1658,7 +1658,8 @@ transition:.3s ease;
 .tag:hover{
 transform:translateY(-2px);
 }
-    
+
+
 </style>
 
 
@@ -3068,7 +3069,7 @@ CLÍNICA INTEGRADA
 
 <div class="tab-content" id="clinica">
 
-<section class="clinic-panel active-clinic" id="gustavo-panel">
+<section>
 
 <div class="section-header">
 
@@ -3971,52 +3972,72 @@ display:false
 }
 
 
-    /* =========================================================
+/* =========================================================
 CLÍNICA INTEGRADA
 ========================================================= */
 
 const clinicalLinks = document.querySelectorAll('.clinical-link');
 const clinicPanels = document.querySelectorAll('.clinic-panel');
 
-/* ativa aba clínica */
+clinicalLinks.forEach(link => {
 
-tabs.forEach(t=>t.classList.remove('active'));
-contents.forEach(c=>c.classList.remove('active'));
+link.addEventListener('click', () => {
 
-document
-.getElementById('clinica')
-.classList.add('active');
+    /* remove seleção anterior */
 
-/* ativa painel */
+    clinicalLinks.forEach(l=>{
+        l.classList.remove('active');
+    });
 
-clinicPanels.forEach(panel=>{
-panel.classList.remove('active-clinic');
-});
+    clinicPanels.forEach(panel=>{
+        panel.classList.remove('active-clinic');
+    });
 
-const target = link.dataset.clinic;
+    /* ativa botão lateral */
 
-document
-.getElementById(target + '-panel')
-.classList.add('active-clinic');
+    link.classList.add('active');
 
-/* scroll suave */
+    /* abre aba principal clínica */
 
-const anchor = link.dataset.anchor;
+    tabs.forEach(t=>t.classList.remove('active'));
+    contents.forEach(c=>c.classList.remove('active'));
 
-setTimeout(()=>{
+    document
+    .getElementById('clinica')
+    .classList.add('active');
 
-const element = document.getElementById(anchor);
+    /* ativa painel correspondente */
 
-if(element){
+    const target = link.dataset.clinic;
 
-element.scrollIntoView({
-behavior:'smooth',
-block:'start'
-});
+    const panel = document.getElementById(target + '-panel');
 
-}
+    if(panel){
+        panel.classList.add('active-clinic');
+    }
 
-},120);
+    /* scroll suave */
+
+    const anchor = link.dataset.anchor;
+
+    if(anchor){
+
+        setTimeout(()=>{
+
+            const element = document.getElementById(anchor);
+
+            if(element){
+
+                element.scrollIntoView({
+                    behavior:'smooth',
+                    block:'start'
+                });
+
+            }
+
+        },120);
+
+    }
 
 });
 
