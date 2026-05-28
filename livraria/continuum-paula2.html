@@ -1,58 +1,44 @@
+```html
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
 
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="google-adsense-account" content="ca-pub-3277175946272866">
 
-<title>Continuum Paula • Mapa de Continuidade</title>
+<title>Continuum Paula 2 | Continuidade Longitudinal Viva</title>
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/frappe-gantt/dist/frappe-gantt.css">
-
-<script src="https://cdn.jsdelivr.net/npm/frappe-gantt/dist/frappe-gantt.umd.js"></script>
-
 <style>
-
-/* =========================================================
-CONTINUUM PAULA 2
-MAPA DE CONTINUIDADE
-========================================================= */
 
 :root{
 
---bg:#06111b;
---panel:rgba(10,18,32,.76);
+--bg:#edf3f8;
+--panel:rgba(255,255,255,.78);
+--surface:#ffffff;
+--surface2:#f5f9fc;
 
---surface:#0b1626;
---surface2:#101b2d;
+--text:#09111f;
+--muted:#5f7287;
 
---text:#e7f4ff;
---muted:#8ea3b9;
+--line:rgba(15,23,42,.06);
 
---line:rgba(255,255,255,.05);
+--primary:#0a3d91;
+--secondary:#00b7d9;
+--accent:#63d84e;
 
---primary:#63a9ff;
---secondary:#00d5ff;
---accent:#7dff81;
-
---green:#63ffb2;
---cyan:#00d5ff;
+--red:#ff687d;
 --orange:#ffb25a;
---purple:#9f8cff;
---pink:#ff7ca8;
---red:#ff6b81;
+--purple:#7c82ff;
 
---shadow:
-0 20px 60px rgba(0,0,0,.45);
+--shadow:0 20px 60px rgba(5,18,36,.08);
 
 }
-
-/* ========================================================= */
 
 *{
 margin:0;
@@ -69,25 +55,7 @@ body{
 font-family:'Inter',sans-serif;
 
 background:
-
-radial-gradient(
-circle at top left,
-rgba(0,213,255,.10),
-transparent 22%
-),
-
-radial-gradient(
-circle at bottom right,
-rgba(109,255,124,.08),
-transparent 22%
-),
-
-linear-gradient(
-180deg,
-#06111b,
-#081421,
-#0b1626
-);
+linear-gradient(180deg,#eef4f8,#edf3f7);
 
 color:var(--text);
 
@@ -96,29 +64,15 @@ overflow-x:hidden;
 
 }
 
-/* =========================================================
-GRID BACKGROUND
-========================================================= */
-
 body::before{
 
 content:'';
-
 position:fixed;
 inset:0;
 
 background-image:
-
-linear-gradient(
-rgba(0,213,255,.025) 1px,
-transparent 1px
-),
-
-linear-gradient(
-90deg,
-rgba(0,213,255,.025) 1px,
-transparent 1px
-);
+linear-gradient(rgba(15,95,196,.025) 1px,transparent 1px),
+linear-gradient(90deg,rgba(15,95,196,.025) 1px,transparent 1px);
 
 background-size:42px 42px;
 
@@ -129,197 +83,141 @@ pointer-events:none;
 
 }
 
-/* =========================================================
-APP
-========================================================= */
-
 .app{
-padding:24px;
+padding:18px;
 display:flex;
 flex-direction:column;
-gap:22px;
+gap:18px;
 }
-
-/* =========================================================
-TOPBAR
-========================================================= */
 
 .topbar{
 
 background:var(--panel);
-
 border:1px solid var(--line);
-
-border-radius:34px;
-
-padding:28px;
-
-display:flex;
-justify-content:space-between;
-align-items:center;
-gap:30px;
+border-radius:32px;
+padding:32px;
 
 backdrop-filter:blur(18px);
-
 box-shadow:var(--shadow);
 
 }
 
 .brand{
 display:flex;
-align-items:center;
-gap:20px;
+flex-direction:column;
+gap:12px;
 }
 
-.logo{
+.brand small{
 
-width:90px;
-height:90px;
+font-size:.8rem;
+font-weight:700;
+letter-spacing:.16em;
+text-transform:uppercase;
 
-border-radius:28px;
-
-background:
-
-linear-gradient(
-135deg,
-rgba(99,169,255,.18),
-rgba(0,213,255,.10)
-);
-
-display:flex;
-align-items:center;
-justify-content:center;
-
-border:1px solid rgba(255,255,255,.06);
-
-box-shadow:
-0 0 40px rgba(0,213,255,.12);
-
-}
-
-.logo span{
-
-font-size:2rem;
-font-weight:800;
-
-background:
-linear-gradient(
-90deg,
-#ffffff,
-#7ddcff,
-#7dff81
-);
-
--webkit-background-clip:text;
--webkit-text-fill-color:transparent;
+color:var(--secondary);
 
 }
 
 .brand h1{
 
 font-size:3rem;
-
-line-height:.95;
-
 letter-spacing:-2px;
 
-background:
-linear-gradient(
-90deg,
-#ffffff,
-#7ddcff,
-#7dff81
-);
-
--webkit-background-clip:text;
--webkit-text-fill-color:transparent;
-
-}
-
-.brand small{
-
-display:block;
-
-margin-top:8px;
-
-font-size:.72rem;
-font-weight:700;
-
-letter-spacing:.18em;
-text-transform:uppercase;
-
-color:var(--secondary);
+color:var(--primary);
 
 }
 
 .hero{
-max-width:760px;
-}
 
-.hero strong{
-
-display:block;
-
-margin-bottom:12px;
-
-letter-spacing:.14em;
-text-transform:uppercase;
-
-font-size:.74rem;
-font-weight:700;
-
-color:var(--secondary);
+margin-top:22px;
+max-width:980px;
 
 }
 
 .hero p{
 
 line-height:1.9;
-font-size:.96rem;
+font-size:1rem;
 
 color:var(--muted);
 
 }
 
-/* =========================================================
-LAYOUT
-========================================================= */
+.horizontal-menu{
+
+display:flex;
+gap:12px;
+overflow-x:auto;
+padding-bottom:4px;
+
+}
+
+.menu-tab{
+
+border:none;
+
+padding:14px 18px;
+border-radius:18px;
+
+background:var(--surface);
+border:1px solid var(--line);
+
+font-weight:600;
+font-size:.92rem;
+
+color:var(--muted);
+
+cursor:pointer;
+white-space:nowrap;
+
+transition:.3s ease;
+
+}
+
+.menu-tab:hover{
+transform:translateY(-2px);
+}
+
+.menu-tab.active{
+
+background:
+linear-gradient(
+135deg,
+rgba(15,95,196,.12),
+rgba(0,183,217,.10)
+);
+
+border-color:rgba(0,183,217,.18);
+
+color:var(--primary);
+
+}
 
 .layout{
 
 display:grid;
-
-grid-template-columns:
-340px 1fr;
-
-gap:22px;
+grid-template-columns:320px 1fr;
+gap:18px;
 
 }
-
-/* =========================================================
-SIDEBAR
-========================================================= */
 
 .sidebar{
 
 background:var(--panel);
-
 border:1px solid var(--line);
-
-border-radius:32px;
+border-radius:30px;
 
 padding:24px;
 
-backdrop-filter:blur(18px);
-
-box-shadow:var(--shadow);
-
 position:sticky;
-top:20px;
+top:18px;
 
-height:calc(100vh - 40px);
+height:calc(100vh - 36px);
 
 overflow:auto;
+
+box-shadow:var(--shadow);
 
 }
 
@@ -327,7 +225,8 @@ overflow:auto;
 
 margin-bottom:22px;
 
-font-size:.9rem;
+font-size:.82rem;
+font-weight:700;
 
 letter-spacing:.14em;
 text-transform:uppercase;
@@ -336,180 +235,60 @@ color:var(--secondary);
 
 }
 
-/* =========================================================
-NUCLEO
-========================================================= */
-
-.nucleus{
-
-display:flex;
-flex-direction:column;
-gap:18px;
-
+.side-group{
 margin-bottom:28px;
-
 }
 
-.nucleus-card{
-
-background:var(--surface);
-
-border:1px solid var(--line);
-
-border-radius:24px;
-
-padding:20px;
-
-}
-
-.nucleus-card small{
+.side-group strong{
 
 display:block;
+margin-bottom:14px;
 
-margin-bottom:10px;
-
-font-size:.72rem;
+font-size:.82rem;
 font-weight:700;
 
-letter-spacing:.12em;
+letter-spacing:.1em;
 text-transform:uppercase;
-
-color:var(--secondary);
-
-}
-
-.nucleus-card strong{
-
-display:block;
-
-font-size:1.4rem;
-
-margin-bottom:10px;
-
-color:var(--text);
-
-}
-
-.nucleus-card span{
-
-line-height:1.8;
-
-font-size:.9rem;
-
-color:var(--muted);
-
-}
-
-.reg-tags{
-display:flex;
-flex-wrap:wrap;
-gap:10px;
-margin-top:16px;
-}
-
-.reg-tag{
-
-padding:8px 12px;
-
-border-radius:999px;
-
-background:
-linear-gradient(
-135deg,
-rgba(99,169,255,.12),
-rgba(0,213,255,.08)
-);
-
-border:1px solid rgba(255,255,255,.05);
-
-font-size:.75rem;
 
 color:var(--primary);
 
 }
 
-/* =========================================================
-STATUS
-========================================================= */
+.side-link{
 
-.status{
-
-display:flex;
-flex-direction:column;
-gap:12px;
-
-}
-
-.status-item{
-
-display:flex;
-justify-content:space-between;
-align-items:center;
-
-padding:14px 16px;
-
-border-radius:18px;
+padding:12px 14px;
+margin-bottom:10px;
 
 background:var(--surface);
-
 border:1px solid var(--line);
+border-radius:18px;
 
-}
-
-.status-item span{
-
-font-size:.86rem;
+font-size:.88rem;
 
 color:var(--muted);
 
 }
 
-.status-pill{
-
-padding:8px 12px;
-
-border-radius:999px;
-
-font-size:.74rem;
-font-weight:700;
-
-}
-
-.green{
-background:rgba(109,255,124,.12);
-color:#7dff81;
-}
-
-.orange{
-background:rgba(255,178,90,.12);
-color:#ffb25a;
-}
-
-.cyan{
-background:rgba(0,213,255,.12);
-color:#00d5ff;
-}
-
-/* =========================================================
-MAIN
-========================================================= */
-
-.main{
+.content{
 display:flex;
 flex-direction:column;
-gap:22px;
+gap:18px;
 }
 
-/* =========================================================
-SECTION
-========================================================= */
+.tab-content{
+display:none;
+flex-direction:column;
+gap:18px;
+}
+
+.tab-content.active{
+display:flex;
+}
 
 .section{
 
 background:var(--panel);
-
 border:1px solid var(--line);
-
 border-radius:32px;
 
 padding:28px;
@@ -521,48 +300,125 @@ box-shadow:var(--shadow);
 }
 
 .section-header{
-
-display:flex;
-justify-content:space-between;
-align-items:center;
-
-gap:20px;
-
 margin-bottom:24px;
-
-flex-wrap:wrap;
-
 }
 
 .section-header h2{
 
 font-size:1.7rem;
-
 letter-spacing:-1px;
 
-color:var(--text);
+color:var(--primary);
+
+margin-bottom:8px;
 
 }
 
 .section-header small{
-
 color:var(--muted);
+}
 
-line-height:1.7;
+.mode-grid{
+
+display:grid;
+grid-template-columns:1.2fr .8fr;
+gap:18px;
 
 }
 
-/* =========================================================
-CHIPS
-========================================================= */
+.mode-panel{
 
-.chips{
+background:var(--surface);
+border:1px solid var(--line);
+
+border-radius:28px;
+padding:26px;
+
+}
+
+.today-priority{
+
+padding:18px;
+margin-bottom:20px;
+
+border-radius:22px;
+
+background:
+linear-gradient(
+135deg,
+rgba(15,95,196,.08),
+rgba(0,183,217,.08)
+);
+
+border:1px solid rgba(0,183,217,.12);
+
+}
+
+.today-priority strong{
+
+display:block;
+margin-bottom:10px;
+
+font-size:.82rem;
+font-weight:700;
+
+letter-spacing:.12em;
+text-transform:uppercase;
+
+color:var(--secondary);
+
+}
+
+.today-priority h2{
+
+font-size:1.7rem;
+
+color:var(--primary);
+
+}
+
+.mode-panel h3{
+
+margin-bottom:18px;
+
+color:var(--primary);
+
+}
+
+.checklist{
 display:flex;
-gap:10px;
-flex-wrap:wrap;
+flex-direction:column;
+gap:12px;
 }
 
-.chip{
+.check-item{
+
+display:flex;
+align-items:center;
+gap:12px;
+
+padding:14px 16px;
+
+border-radius:18px;
+
+background:var(--surface2);
+
+}
+
+.check-item input{
+width:18px;
+height:18px;
+}
+
+.tags{
+
+display:flex;
+flex-wrap:wrap;
+gap:10px;
+
+}
+
+.tag{
 
 padding:10px 14px;
 
@@ -571,136 +427,214 @@ border-radius:999px;
 background:
 linear-gradient(
 135deg,
-rgba(99,169,255,.12),
-rgba(0,213,255,.08)
+rgba(15,95,196,.08),
+rgba(0,183,217,.08)
 );
 
-border:1px solid rgba(255,255,255,.05);
+border:1px solid rgba(0,183,217,.08);
 
-font-size:.75rem;
-font-weight:600;
+font-size:.8rem;
 
 color:var(--primary);
 
 }
 
-/* =========================================================
-GANTT
-========================================================= */
+.longitudinal-grid{
 
-.gantt-wrapper{
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:18px;
+
+}
+
+.timeline-card{
 
 background:var(--surface);
-
 border:1px solid var(--line);
 
 border-radius:28px;
-
-padding:22px;
-
-overflow:auto;
+padding:24px;
 
 }
 
-/* =========================================================
-FRAPPE CUSTOM
-========================================================= */
+.timeline-card h3{
 
-.gantt .bar{
-rx:10;
-ry:10;
-}
-
-.gantt .bar-progress{
-fill-opacity:.75;
-}
-
-.gantt .grid-header{
-fill:#0d1a2b;
-}
-
-.gantt .grid-row{
-fill:#0b1626;
-}
-
-.gantt .row-line{
-stroke:rgba(255,255,255,.04);
-}
-
-.gantt .tick{
-stroke:rgba(255,255,255,.04);
-}
-
-.gantt .today-highlight{
-fill:rgba(0,213,255,.06);
-}
-
-.gantt .lower-text,
-.gantt .upper-text{
-fill:#8ea3b9;
-font-family:'Inter',sans-serif;
-}
-
-.gantt .bar-label{
-fill:#ffffff;
-font-weight:600;
-font-family:'Inter',sans-serif;
-}
-
-.gantt-container{
-border-radius:24px;
-overflow:hidden;
-}
-
-/* =========================================================
-TIMELINE
-========================================================= */
-
-.timeline{
-display:flex;
-flex-direction:column;
-gap:16px;
-}
-
-.event{
-
-background:var(--surface);
-
-border:1px solid var(--line);
-
-border-radius:24px;
-
-padding:22px;
-
-}
-
-.event strong{
-
-display:block;
-
-margin-bottom:12px;
+margin-bottom:18px;
 
 font-size:1rem;
 
-color:var(--text);
+color:var(--primary);
 
 }
 
-.event p{
+.timeline-track{
+margin-bottom:20px;
+}
 
-line-height:1.9;
+.timeline-track strong{
 
-font-size:.92rem;
+display:block;
+margin-bottom:10px;
+
+font-size:.84rem;
 
 color:var(--muted);
 
 }
 
-/* =========================================================
-RESPONSIVE
-========================================================= */
+.bar{
 
-@media(max-width:1280px){
+height:16px;
+border-radius:999px;
+
+overflow:hidden;
+
+background:#dfe8f1;
+
+}
+
+.bar-fill{
+
+height:100%;
+border-radius:999px;
+
+background:
+linear-gradient(
+90deg,
+rgba(15,95,196,.9),
+rgba(0,183,217,.9)
+);
+
+}
+
+.status-grid{
+
+display:grid;
+grid-template-columns:repeat(3,1fr);
+gap:16px;
+
+}
+
+.status-card{
+
+background:var(--surface);
+border:1px solid var(--line);
+
+border-radius:24px;
+padding:22px;
+
+}
+
+.status-card small{
+
+display:block;
+margin-bottom:12px;
+
+font-size:.78rem;
+font-weight:700;
+
+letter-spacing:.12em;
+text-transform:uppercase;
+
+color:var(--secondary);
+
+}
+
+.status-card strong{
+
+display:block;
+margin-bottom:10px;
+
+font-size:1.5rem;
+
+color:var(--primary);
+
+}
+
+.status-card p{
+
+line-height:1.8;
+
+color:var(--muted);
+
+}
+
+.grid{
+
+display:grid;
+grid-template-columns:repeat(4,1fr);
+gap:16px;
+
+}
+
+.card{
+
+background:var(--surface);
+border:1px solid var(--line);
+
+border-radius:26px;
+padding:22px;
+
+transition:.3s ease;
+
+}
+
+.card:hover{
+transform:translateY(-4px);
+}
+
+.card small{
+
+display:block;
+margin-bottom:12px;
+
+font-size:.78rem;
+font-weight:700;
+
+letter-spacing:.12em;
+text-transform:uppercase;
+
+color:var(--secondary);
+
+}
+
+.card strong{
+
+display:block;
+margin-bottom:10px;
+
+font-size:1.8rem;
+
+color:var(--primary);
+
+}
+
+.card p,
+.card li{
+
+line-height:1.8;
+
+color:var(--muted);
+
+}
+
+.card ul{
+padding-left:18px;
+}
+
+.footer{
+
+padding:26px;
+
+text-align:center;
+
+font-size:.82rem;
+
+color:var(--muted);
+
+}
+
+@media(max-width:1200px){
 
 .layout{
 grid-template-columns:1fr;
@@ -711,319 +645,587 @@ position:relative;
 height:auto;
 }
 
+.grid,
+.status-grid,
+.mode-grid,
+.longitudinal-grid{
+grid-template-columns:1fr 1fr;
+}
+
 }
 
 @media(max-width:760px){
 
 .app{
-padding:14px;
+padding:12px;
 }
 
-.topbar{
-flex-direction:column;
-align-items:flex-start;
+.grid,
+.status-grid,
+.mode-grid,
+.longitudinal-grid{
+grid-template-columns:1fr;
 }
 
 .brand h1{
 font-size:2.2rem;
 }
 
-.section{
-padding:22px;
+.section,
+.sidebar,
+.topbar{
+padding:20px;
 }
 
 }
 
 </style>
 
-</head>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3277175946272866" crossorigin="anonymous"></script>
 
+</head>
 <body>
 
 <div class="app">
 
-<!-- =========================================================
-TOPBAR
-========================================================= -->
-
 <header class="topbar">
 
 <div class="brand">
-
-<div class="logo">
-<span>C</span>
-</div>
-
-<div>
-
-<h1>Continuum Paula</h1>
-
-<small>
-MAPA DE CONTINUIDADE LONGITUDINAL
-</small>
-
-</div>
-
+<small>CONTINUIDADE • REGULAÇÃO • CONTEXTO</small>
+<h1>Continuum Paula 2</h1>
 </div>
 
 <div class="hero">
-
-<strong>
-FLOW ENGINE • FRAPPE GANTT • CONTINUIDADE HUMANA
-</strong>
-
 <p>
-Visualização longitudinal do ecossistema operacional, emocional e cognitivo.
-Uma arquitetura viva construída para reduzir fragmentação,
-organizar energia contextual e transformar continuidade em algo visível.
+Sistema longitudinal adaptativo para sustentação cognitiva,
+continuidade operacional,
+produção contextual,
+manutenção regulatória
+e saúde integrada sem hiperfragmentação.
 </p>
-
 </div>
 
 </header>
 
-<!-- =========================================================
-LAYOUT
-========================================================= -->
+<nav class="horizontal-menu">
+
+<button class="menu-tab active" data-tab="hoje">Modo Hoje</button>
+<button class="menu-tab" data-tab="continuidade">Continuidade</button>
+<button class="menu-tab" data-tab="universos">Universos</button>
+<button class="menu-tab" data-tab="regulatorio">Núcleo Regulatório</button>
+<button class="menu-tab" data-tab="infra">Infraestrutura Viva</button>
+
+</nav>
 
 <section class="layout">
 
-<!-- =========================================================
-SIDEBAR
-========================================================= -->
-
 <aside class="sidebar">
 
-<h3>Núcleo Regulatório</h3>
+<h3>Arquitetura Viva</h3>
 
-<div class="nucleus">
+<div class="side-group">
 
-<div class="nucleus-card">
+<strong>Hoje</strong>
 
-<small>Modo Hoje</small>
-
-<strong>
-Fluxo Moderado
-</strong>
-
-<span>
-Alternar entre produção e manutenção
-ajuda na sustentação emocional e reduz saturação cognitiva.
-</span>
-
-<div class="reg-tags">
-
-<div class="reg-tag">
-produção profunda
-</div>
-
-<div class="reg-tag">
-alternância saudável
-</div>
-
-<div class="reg-tag">
-baixa pressão
-</div>
+<div class="side-link">Produção Contextual</div>
+<div class="side-link">Manutenção</div>
+<div class="side-link">Regulação</div>
+<div class="side-link">Continuidade</div>
 
 </div>
 
-</div>
+<div class="side-group">
 
-<div class="nucleus-card">
+<strong>Base Biológica</strong>
 
-<small>Base Biológica</small>
-
-<strong>
-Continuidade Física
-</strong>
-
-<span>
-✔ Comer 1 fruta<br>
-✔ Consumir folhas medicinais<br>
-✔ Água<br>
-✔ Pausas regulatórias
-</span>
+<div class="side-link">Água</div>
+<div class="side-link">1 fruta</div>
+<div class="side-link">Folhas medicinais</div>
+<div class="side-link">Quintal</div>
+<div class="side-link">Silêncio</div>
 
 </div>
 
-</div>
+<div class="side-group">
 
-<h3>Status Longitudinal</h3>
+<strong>GitHub Vivo</strong>
 
-<div class="status">
-
-<div class="status-item">
-
-<span>
-Produção Criativa
-</span>
-
-<div class="status-pill cyan">
-ATIVA
-</div>
-
-</div>
-
-<div class="status-item">
-
-<span>
-Manutenção Operacional
-</span>
-
-<div class="status-pill green">
-ESTÁVEL
-</div>
-
-</div>
-
-<div class="status-item">
-
-<span>
-Sobrecarga Cognitiva
-</span>
-
-<div class="status-pill orange">
-MODERADA
-</div>
-
-</div>
+<div class="side-link">Projects</div>
+<div class="side-link">Actions</div>
+<div class="side-link">JSON Timeline</div>
+<div class="side-link">GitHub Pages</div>
 
 </div>
 
 </aside>
 
-<!-- =========================================================
-MAIN
-========================================================= -->
+<main class="content">
 
-<main class="main">
-
-<!-- =========================================================
-MAPA
-========================================================= -->
+<div class="tab-content active" id="hoje">
 
 <section class="section">
 
 <div class="section-header">
 
-<div>
-
-<h2>
-Mapa de Continuidade
-</h2>
-
-<small>
-Fluxo longitudinal dos universos operacionais • produção • manutenção • saúde • continuidade humana
-</small>
+<h2>Modo Hoje</h2>
+<small>Continuidade adaptativa sem rigidez cognitiva</small>
 
 </div>
 
-<div class="chips">
+<div class="mode-grid">
 
-<div class="chip">
-produção
-</div>
+<div class="mode-panel">
 
-<div class="chip">
-manutenção
-</div>
+<div class="today-priority">
 
-<div class="chip">
-saúde
-</div>
-
-<div class="chip">
-regulação
-</div>
-
-<div class="chip">
-pausa estratégica
-</div>
+<strong>Universo Central</strong>
+<h2>Continuum • Atlas • NeuroVerso</h2>
 
 </div>
 
-</div>
+<h3>Produção do Dia</h3>
 
-<div class="gantt-wrapper">
+<div class="checklist">
 
-<svg id="gantt"></svg>
+<label class="check-item">
+<input type="checkbox">
+<span>Atualizar timeline longitudinal</span>
+</label>
 
-</div>
+<label class="check-item">
+<input type="checkbox">
+<span>Separar produção de manutenção</span>
+</label>
 
-</section>
+<label class="check-item">
+<input type="checkbox">
+<span>Revisar arquitetura visual</span>
+</label>
 
-<!-- =========================================================
-LEITURA
-========================================================= -->
-
-<section class="section">
-
-<div class="section-header">
-
-<div>
-
-<h2>
-Leitura Interpretativa
-</h2>
-
-<small>
-Observação contextual do fluxo longitudinal
-</small>
+<label class="check-item">
+<input type="checkbox">
+<span>Atualizar indicadores vivos</span>
+</label>
 
 </div>
 
 </div>
 
-<div class="timeline">
+<div class="mode-panel">
 
-<div class="event">
+<h3>Base Biológica</h3>
 
-<strong>
-Alternância regulatória saudável
-</strong>
+<div class="checklist">
 
-<p>
-A alternância entre manutenção operacional
-e produção criativa parece funcionar como
-mecanismo importante de regulação sensorial,
-reduzindo saturação cognitiva
-sem interromper continuidade.
-</p>
+<label class="check-item">
+<input type="checkbox">
+<span>Beber água</span>
+</label>
+
+<label class="check-item">
+<input type="checkbox">
+<span>Comer 1 fruta</span>
+</label>
+
+<label class="check-item">
+<input type="checkbox">
+<span>Consumir folhas medicinais</span>
+</label>
+
+<label class="check-item">
+<input type="checkbox">
+<span>Quintal / Terapia da Enxada</span>
+</label>
+
+<label class="check-item">
+<input type="checkbox">
+<span>Pausa regulatória sem telas</span>
+</label>
 
 </div>
 
-<div class="event">
+<h3 style="margin-top:28px;">Evitar Hoje</h3>
 
-<strong>
-Pausa estratégica ≠ abandono
-</strong>
+<div class="tags">
 
-<p>
-Projetos em dormência deixam de ocupar
-o espaço mental de “pendência invisível”
-quando possuem status explícito de pausa estratégica.
-</p>
+<div class="tag">hiperfragmentação</div>
+<div class="tag">novo redesign</div>
+<div class="tag">excesso social</div>
+<div class="tag">pressão excessiva</div>
 
 </div>
-
-<div class="event">
-
-<strong>
-Visualização longitudinal reduz fragmentação
-</strong>
-
-<p>
-O mapa transforma múltiplos universos simultâneos
-em continuidade visível,
-permitindo perceber excesso operacional
-antes da sobrecarga emergir.
-</p>
 
 </div>
 
 </div>
 
 </section>
+
+</div>
+
+<div class="tab-content" id="continuidade">
+
+<section class="section">
+
+<div class="section-header">
+
+<h2>Mapa de Continuidade</h2>
+<small>Visualização longitudinal viva do ecossistema</small>
+
+</div>
+
+<div class="longitudinal-grid">
+
+<div class="timeline-card">
+
+<h3>Fluxo Longitudinal</h3>
+
+<div class="timeline-track">
+<strong>Produção Profunda</strong>
+
+<div class="bar">
+<div class="bar-fill" style="width:78%;"></div>
+</div>
+
+</div>
+
+<div class="timeline-track">
+<strong>Manutenção Operacional</strong>
+
+<div class="bar">
+<div class="bar-fill" style="width:52%;"></div>
+</div>
+
+</div>
+
+<div class="timeline-track">
+<strong>Regulação Cognitiva</strong>
+
+<div class="bar">
+<div class="bar-fill" style="width:64%;"></div>
+</div>
+
+</div>
+
+<div class="timeline-track">
+<strong>Continuidade Social</strong>
+
+<div class="bar">
+<div class="bar-fill" style="width:32%;"></div>
+</div>
+
+</div>
+
+</div>
+
+<div class="timeline-card">
+
+<h3>Status Longitudinal</h3>
+
+<div class="checklist">
+
+<div class="check-item">
+<span>Produção criativa contínua</span>
+</div>
+
+<div class="check-item">
+<span>Manutenção estabilizada</span>
+</div>
+
+<div class="check-item">
+<span>Baixa saturação visual</span>
+</div>
+
+<div class="check-item">
+<span>Alternância saudável entre blocos</span>
+</div>
+
+<div class="check-item">
+<span>Base biológica ativa</span>
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+<section class="section">
+
+<div class="status-grid">
+
+<div class="status-card">
+
+<small>Produção</small>
+<strong>ATIVA</strong>
+
+<p>
+Foco contextual,
+imersão temática
+e continuidade criativa.
+</p>
+
+</div>
+
+<div class="status-card">
+
+<small>Manutenção</small>
+<strong>ESTÁVEL</strong>
+
+<p>
+Separação operacional,
+redução de ruído
+e sustentação contínua.
+</p>
+
+</div>
+
+<div class="status-card">
+
+<small>Regulação</small>
+<strong>MODERADA</strong>
+
+<p>
+Pausas cognitivas,
+quintal,
+silêncio
+e baixa pressão.
+</p>
+
+</div>
+
+</div>
+
+</section>
+
+</div>
+
+<div class="tab-content" id="universos">
+
+<section class="section">
+
+<div class="section-header">
+
+<h2>Universos Operacionais</h2>
+<small>Alternância contextual com continuidade temática</small>
+
+</div>
+
+<div class="grid">
+
+<div class="card">
+
+<small>Musical</small>
+<strong>ATÍPICOS</strong>
+
+<ul>
+<li>produção musical</li>
+<li>audiovisual</li>
+<li>design</li>
+<li>identidade viva</li>
+</ul>
+
+</div>
+
+<div class="card">
+
+<small>Editorial</small>
+<strong>BOOKOS</strong>
+
+<ul>
+<li>escrita</li>
+<li>atlas longitudinal</li>
+<li>narrativas</li>
+<li>documentação viva</li>
+</ul>
+
+</div>
+
+<div class="card">
+
+<small>Cognitivo</small>
+<strong>CONTINUUM</strong>
+
+<ul>
+<li>timeline viva</li>
+<li>regulação</li>
+<li>dashboards</li>
+<li>continuidade humana</li>
+</ul>
+
+</div>
+
+<div class="card">
+
+<small>Infraestrutura</small>
+<strong>REDE-DEV</strong>
+
+<ul>
+<li>github</li>
+<li>actions</li>
+<li>json vivo</li>
+<li>monitoramento</li>
+</ul>
+
+</div>
+
+</div>
+
+</section>
+
+</div>
+
+<div class="tab-content" id="regulatorio">
+
+<section class="section">
+
+<div class="section-header">
+
+<h2>Núcleo Regulatório</h2>
+<small>Sustentação emocional e continuidade biológica</small>
+
+</div>
+
+<div class="grid">
+
+<div class="card">
+
+<small>Base Biológica</small>
+<strong>Quintal</strong>
+
+<p>
+Folhas medicinais,
+água,
+fruta,
+silêncio
+e recuperação cognitiva.
+</p>
+
+</div>
+
+<div class="card">
+
+<small>Ambiente</small>
+<strong>Regulação</strong>
+
+<p>
+Baixo ruído,
+menos estímulos,
+alternância temática
+e previsibilidade leve.
+</p>
+
+</div>
+
+<div class="card">
+
+<small>Continuidade</small>
+<strong>Sustentação</strong>
+
+<p>
+O objetivo não é
+alta performance constante.
+É continuidade sustentável.
+</p>
+
+</div>
+
+<div class="card">
+
+<small>Estratégia</small>
+<strong>Separação</strong>
+
+<p>
+Produção e manutenção
+não devem competir
+pela mesma energia cognitiva.
+</p>
+
+</div>
+
+</div>
+
+</section>
+
+</div>
+
+<div class="tab-content" id="infra">
+
+<section class="section">
+
+<div class="section-header">
+
+<h2>Infraestrutura Viva</h2>
+<small>GitHub como ecossistema longitudinal operacional</small>
+
+</div>
+
+<div class="grid">
+
+<div class="card">
+
+<small>GitHub</small>
+<strong>Projects</strong>
+
+<p>
+Visualização viva,
+ciclos contextuais
+e continuidade longitudinal.
+</p>
+
+</div>
+
+<div class="card">
+
+<small>Actions</small>
+<strong>Automação</strong>
+
+<p>
+Snapshots,
+timelines,
+indicadores
+e sincronização viva.
+</p>
+
+</div>
+
+<div class="card">
+
+<small>JSON</small>
+<strong>Estrutura Viva</strong>
+
+<p>
+Dados longitudinalmente organizados
+para alimentar dashboards adaptativos.
+</p>
+
+</div>
+
+<div class="card">
+
+<small>Pages</small>
+<strong>Continuum Web</strong>
+
+<p>
+Interface contínua,
+leve,
+modular
+e respirável.
+</p>
+
+</div>
+
+</div>
+
+</section>
+
+</div>
+
+<footer class="footer">
+© 2026 • Continuum Paula 2 • Continuidade Humana Sustentável
+</footer>
 
 </main>
 
@@ -1033,276 +1235,28 @@ antes da sobrecarga emergir.
 
 <script>
 
-/* =========================================================
-GANTT TASKS
-========================================================= */
+const tabs = document.querySelectorAll('.menu-tab');
+const contents = document.querySelectorAll('.tab-content');
 
-const tasks = [
+tabs.forEach(tab => {
 
-/* =========================================================
-PRODUÇÃO
-========================================================= */
+tab.addEventListener('click', () => {
 
-{
-id:'1',
-name:'Banda Atípicos',
-start:'2026-05-01',
-end:'2026-09-30',
-progress:78,
-custom_class:'bar-cyan'
-},
+tabs.forEach(t => t.classList.remove('active'));
+contents.forEach(c => c.classList.remove('active'));
 
-{
-id:'2',
-name:'Continuum',
-start:'2026-05-05',
-end:'2026-10-10',
-progress:84,
-custom_class:'bar-blue'
-},
+tab.classList.add('active');
 
-{
-id:'3',
-name:'Atlas Cognitivo',
-start:'2026-06-01',
-end:'2026-11-20',
-progress:52,
-custom_class:'bar-purple'
-},
-
-{
-id:'4',
-name:'NeuroVerso',
-start:'2026-07-01',
-end:'2026-12-12',
-progress:28,
-custom_class:'bar-purple'
-},
-
-/* =========================================================
-MANUTENÇÃO
-========================================================= */
-
-{
-id:'5',
-name:'Servidores / Login Diário',
-start:'2026-05-01',
-end:'2026-12-31',
-progress:92,
-custom_class:'bar-orange'
-},
-
-{
-id:'6',
-name:'Rede-Dev',
-start:'2026-05-10',
-end:'2026-08-10',
-progress:64,
-custom_class:'bar-orange'
-},
-
-/* =========================================================
-VIDA REAL
-========================================================= */
-
-{
-id:'7',
-name:'Terapia da Enxada',
-start:'2026-05-15',
-end:'2026-12-31',
-progress:70,
-custom_class:'bar-green'
-},
-
-{
-id:'8',
-name:'Agenda Social',
-start:'2026-06-01',
-end:'2026-10-30',
-progress:44,
-custom_class:'bar-green'
-},
-
-{
-id:'9',
-name:'Krya',
-start:'2026-06-10',
-end:'2026-07-20',
-progress:18,
-custom_class:'bar-pink'
-},
-
-/* =========================================================
-SAÚDE
-========================================================= */
-
-{
-id:'10',
-name:'Dra Daniella',
-start:'2026-06-01',
-end:'2026-06-20',
-progress:36,
-custom_class:'bar-pink'
-},
-
-{
-id:'11',
-name:'Dr George',
-start:'2026-06-05',
-end:'2026-06-28',
-progress:20,
-custom_class:'bar-pink'
-},
-
-{
-id:'12',
-name:'Dermatologista',
-start:'2026-06-12',
-end:'2026-07-08',
-progress:10,
-custom_class:'bar-pink'
-},
-
-/* =========================================================
-PAUSA ESTRATÉGICA
-========================================================= */
-
-{
-id:'13',
-name:'BookOS-Custos',
-start:'2026-08-01',
-end:'2026-10-15',
-progress:0,
-custom_class:'bar-pause'
-}
-
-];
-
-/* =========================================================
-INIT GANTT
-========================================================= */
-
-const gantt = new Gantt("#gantt", tasks, {
-
-view_mode:'Month',
-
-language:'pt',
-
-today_button:true,
-
-popup_trigger:'click',
-
-custom_popup_html: function(task) {
-
-return `
-
-<div style="
-padding:18px;
-background:#081421;
-border:1px solid rgba(255,255,255,.06);
-border-radius:18px;
-color:white;
-min-width:240px;
-">
-
-<h3 style="
-margin-bottom:10px;
-font-size:1rem;
-">
-${task.name}
-</h3>
-
-<div style="
-line-height:1.8;
-font-size:.85rem;
-color:#9fb3c8;
-">
-
-Estado longitudinal ativo<br>
-Continuidade: ${task.progress}%<br>
-Fluxo contextual em observação
-
-</div>
-
-</div>
-
-`;
-
-}
+document
+.getElementById(tab.dataset.tab)
+.classList.add('active');
 
 });
 
-/* =========================================================
-CUSTOM COLORS
-========================================================= */
-
-const style = document.createElement('style');
-
-style.innerHTML = `
-
-.bar-cyan .bar{
-fill:#00d5ff;
-}
-
-.bar-cyan .bar-progress{
-fill:#63ffdf;
-}
-
-.bar-blue .bar{
-fill:#4d7cff;
-}
-
-.bar-blue .bar-progress{
-fill:#7ddcff;
-}
-
-.bar-purple .bar{
-fill:#8f7cff;
-}
-
-.bar-purple .bar-progress{
-fill:#b4a6ff;
-}
-
-.bar-orange .bar{
-fill:#ffb25a;
-}
-
-.bar-orange .bar-progress{
-fill:#ffd08f;
-}
-
-.bar-green .bar{
-fill:#63ffb2;
-}
-
-.bar-green .bar-progress{
-fill:#b4ffd8;
-}
-
-.bar-pink .bar{
-fill:#ff7ca8;
-}
-
-.bar-pink .bar-progress{
-fill:#ffc0d5;
-}
-
-.bar-pause .bar{
-fill:rgba(255,255,255,.10);
-stroke-dasharray:8;
-}
-
-.bar-pause .bar-progress{
-fill:rgba(255,255,255,.02);
-}
-
-`;
-
-document.head.appendChild(style);
+});
 
 </script>
 
 </body>
 </html>
-
+```
