@@ -1,0 +1,28 @@
+/* =========================================================
+   CONTINUUM.CSS
+   Sistema de Integração Programática
+========================================================= */
+
+:root{
+    --bg:#edf3f8;
+    --panel:rgba(255,255,255,.78);
+    --surface:#ffffff;
+    --surface2:#f5f9fc;
+
+    --text:#09111f;
+    --muted:#5f7287;
+
+    --line:rgba(15,23,42,.06);
+
+    --primary:#0a3d91;
+    --secondary:#00b7d9;
+    --accent:#63d84e;
+
+    --red:#ff687d;
+    --orange:#ffb25a;
+    --purple:#7c82ff;
+
+    --shadow:0 20px 60px rgba(5,18,36,.08);
+}
+
+/* resto do CSS */
