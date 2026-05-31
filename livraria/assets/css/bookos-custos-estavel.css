@@ -467,30 +467,29 @@ color:#fff;
 /* MAIN */
 
 .main{
-
 display:grid;
-
 grid-template-columns:
 320px 1fr 320px;
-
 gap:18px;
+}
 
+.main.two-columns {
+  display:grid;
+  grid-template-columns: 320px 1fr;
+  gap:18px;
+}
+
+.main.one-column {
+  grid-template-columns: 1fr;
 }
 
 .panel{
-
 background:var(--panel);
-
 border:1px solid var(--line);
-
 border-radius:30px;
-
 backdrop-filter:blur(18px);
-
 box-shadow:var(--shadow);
-
 overflow:hidden;
-
 }
 
 .left,
@@ -963,16 +962,5 @@ padding:10px 14px;
 }
 
 
-/* =========================================================
-   LAYOUT VARIÁVEL (BOOKOS)
-========================================================= */
-
-.main.two-columns {
-  grid-template-columns: 320px 1fr;
-}
-
-.main.one-column {
-  grid-template-columns: 1fr;
-}
 
 
