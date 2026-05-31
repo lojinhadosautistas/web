@@ -962,3 +962,17 @@ padding:10px 14px;
 
 }
 
+
+/* =========================================================
+   LAYOUT VARIÁVEL (BOOKOS)
+========================================================= */
+
+.main.two-columns {
+  grid-template-columns: 320px 1fr;
+}
+
+.main.one-column {
+  grid-template-columns: 1fr;
+}
+
+
