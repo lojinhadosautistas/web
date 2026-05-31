@@ -1,12 +1,12 @@
 
 /* =========================================================
-   GOOGLE SHEETS CONTINUUM - VERSÃO PARA PLANILHAS COMPARTILHADAS
+   GOOGLE SHEETS bookos - VERSÃO PARA PLANILHAS COMPARTILHADAS
 ========================================================= */
 
 const sheetButtons = document.querySelectorAll('.gsheet-btn');
-const continuumFrame = document.getElementById('continuumSheet');
+const bookosFrame = document.getElementById('bookosSheet');
 
-if (continuumFrame && sheetButtons.length > 0) {
+if (bookosFrame && sheetButtons.length > 0) {
 
     sheetButtons.forEach(button => {
 
@@ -20,7 +20,7 @@ if (continuumFrame && sheetButtons.length > 0) {
 
             const gid = button.dataset.sheet;
 
-            continuumFrame.src =
+            bookFrame.src =
                 `https://docs.google.com/spreadsheets/d/e/2PACX-1vSAYlRPhAWc23mhdBQaw2aqq9n7oeMof7ReKRUt5cSUx1MI6goE2isbFSho4EYU9e6_hQTOesRIDfZ7/pubhtml?gid=${gid}&single=true&widget=true&headers=false`;
 
         });
