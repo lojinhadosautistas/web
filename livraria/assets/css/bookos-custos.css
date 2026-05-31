@@ -962,5 +962,75 @@ padding:10px 14px;
 }
 
 
+.editorial-table{
+width:100%;
+border-collapse:collapse;
+margin-top:16px;
+}
 
+.editorial-table th,
+.editorial-table td{
+padding:14px;
+border-bottom:1px solid var(--line);
+text-align:left;
+}
+
+.checklist-grid{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+gap:12px;
+margin-top:18px;
+}
+
+.checklist-grid label{
+display:flex;
+align-items:center;
+gap:10px;
+padding:12px;
+border:1px solid var(--line);
+border-radius:14px;
+background:rgba(255,255,255,.5);
+}
+
+.roadmap{
+display:flex;
+flex-direction:column;
+gap:14px;
+margin-top:18px;
+}
+
+.roadmap-item{
+padding:18px;
+border-left:4px solid var(--accent);
+background:rgba(255,255,255,.55);
+border-radius:12px;
+}
+
+.timeline-block{
+display:grid;
+gap:16px;
+}
+
+.timeline-item{
+padding:18px;
+border:1px solid var(--line);
+border-radius:14px;
+background:rgba(255,255,255,.55);
+}
+
+.hero-card{
+position:relative;
+overflow:hidden;
+}
+
+.hero-card::after{
+content:"BOOKOS EDITORIAL";
+position:absolute;
+right:20px;
+top:20px;
+font-size:12px;
+letter-spacing:2px;
+opacity:.15;
+font-weight:800;
+}
 
