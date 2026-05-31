@@ -812,6 +812,11 @@ font-weight:600;
 
 }
 
+.tags a.tag{
+    text-decoration:none;
+    color:inherit;
+}
+
 /* FOOTER */
 
 .footer{
