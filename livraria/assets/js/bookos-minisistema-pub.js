@@ -1,6 +1,6 @@
 
 /* =========================================================
-   GOOGLE SHEETS CONTINUUM
+   GOOGLE SHEETS CONTINUUM - VERSÃO PARA PLANILHAS PÚBLICAS
 ========================================================= */
 
 const sheetButtons = document.querySelectorAll('.gsheet-btn');
