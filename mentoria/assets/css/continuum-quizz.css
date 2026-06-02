@@ -1,4 +1,4 @@
-.quiz-app{
+.quizz-app{
     max-width:1200px;
     margin:auto;
 }
@@ -14,7 +14,7 @@
     opacity:.7;
 }
 
-.quiz-meta{
+.quizz-meta{
     display:flex;
     gap:16px;
     justify-content:center;
@@ -97,7 +97,7 @@
     margin-bottom:8px;
 }
 
-.quiz-nav{
+.quizz-nav{
     margin-top:35px;
     display:flex;
     justify-content:space-between;
