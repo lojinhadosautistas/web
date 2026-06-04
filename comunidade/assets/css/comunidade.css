@@ -42,6 +42,7 @@ html{
   scroll-behavior:smooth;
 }
 
+/* 
 body{
 
   font-family:'Poppins',sans-serif;
@@ -61,6 +62,33 @@ body{
   rgba(0,195,255,.08),
   transparent 35%
   ),
+
+  var(--bg);
+
+  overflow-x:hidden;
+
+}
+*/
+
+body{
+
+  font-family:'Poppins',sans-serif;
+
+  color:var(--text);
+
+  background:
+
+  linear-gradient(
+  180deg,
+  rgba(3,6,15,.82),
+  rgba(3,6,15,.96)
+  ),
+
+  url("../img/Atlas-Cognitivo_Post1.png")
+  center center
+  / cover
+  no-repeat
+  fixed,
 
   var(--bg);
 
