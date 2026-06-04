@@ -1,0 +1,684 @@
+```html
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>ATÍPICOS — Universo Visual</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600&family=Outfit:wght@200;300;400;500&display=swap" rel="stylesheet">
+
+<style>
+
+/* =========================================================
+   RESET
+========================================================= */
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+html{
+    scroll-behavior:smooth;
+}
+
+body{
+    background:#050505;
+    color:#f3ead8;
+    overflow-x:hidden;
+    font-family:'Outfit', sans-serif;
+}
+
+/* =========================================================
+   BACKGROUND ATMOSPHERE
+========================================================= */
+
+body::before{
+    content:'';
+    position:fixed;
+    inset:0;
+    background:
+        radial-gradient(circle at top, rgba(180,140,70,.10), transparent 30%),
+        radial-gradient(circle at bottom, rgba(255,255,255,.03), transparent 40%);
+    pointer-events:none;
+    z-index:0;
+}
+
+body::after{
+    content:'';
+    position:fixed;
+    inset:0;
+    background-image:
+        url('https://www.transparenttextures.com/patterns/french-paper.png');
+    opacity:.07;
+    mix-blend-mode:soft-light;
+    pointer-events:none;
+    z-index:0;
+}
+
+/* =========================================================
+   FLOATING PARTICLES
+========================================================= */
+
+.particles{
+    position:fixed;
+    inset:0;
+    overflow:hidden;
+    z-index:0;
+    pointer-events:none;
+}
+
+.particles span{
+    position:absolute;
+    width:2px;
+    height:2px;
+    border-radius:50%;
+    background:#fff2cf;
+    opacity:.35;
+    animation:float 12s infinite ease-in-out alternate;
+}
+
+@keyframes float{
+    from{
+        transform:translateY(0px);
+        opacity:.15;
+    }
+    to{
+        transform:translateY(-30px);
+        opacity:.7;
+    }
+}
+
+/* =========================================================
+   HERO
+========================================================= */
+
+.hero{
+    position:relative;
+    min-height:100vh;
+    display:flex;
+    align-items:center;
+    overflow:hidden;
+}
+
+.hero-image{
+    position:absolute;
+    inset:0;
+    background:
+        linear-gradient(to right, rgba(0,0,0,.88), rgba(0,0,0,.45)),
+        linear-gradient(to top, rgba(0,0,0,.85), transparent),
+        url('assets/img/img-site1.png');
+
+    background-size:cover;
+    background-position:center;
+    transform:scale(1.05);
+    filter:saturate(.8) brightness(.7);
+
+    animation:heroMove 18s ease-in-out infinite alternate;
+}
+
+@keyframes heroMove{
+    from{
+        transform:scale(1.04) translateX(0px);
+    }
+
+    to{
+        transform:scale(1.1) translateX(-20px);
+    }
+}
+
+.hero-content{
+    position:relative;
+    z-index:5;
+    width:100%;
+    max-width:1500px;
+    padding:100px 8%;
+}
+
+.hero-tag{
+    color:#d1b37c;
+    letter-spacing:.35em;
+    text-transform:uppercase;
+    font-size:.8rem;
+    margin-bottom:35px;
+}
+
+.hero h1{
+    font-family:'Cormorant Garamond', serif;
+    font-size:clamp(5rem,11vw,10rem);
+    line-height:.9;
+    font-weight:500;
+    max-width:800px;
+    margin-bottom:35px;
+}
+
+.hero p{
+    max-width:650px;
+    color:#c3b7a3;
+    line-height:2;
+    font-size:1.05rem;
+    font-weight:300;
+}
+
+.hero-scroll{
+    margin-top:80px;
+    color:#a28c66;
+    letter-spacing:.2em;
+    font-size:.7rem;
+    text-transform:uppercase;
+}
+
+/* =========================================================
+   SPLIT SECTION
+========================================================= */
+
+.split{
+    position:relative;
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    min-height:100vh;
+}
+
+.split-image{
+    position:relative;
+    overflow:hidden;
+}
+
+.split-image img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    filter:brightness(.72) saturate(.82);
+    transition:transform 10s ease;
+}
+
+.split:hover img{
+    transform:scale(1.08);
+}
+
+.split-content{
+    display:flex;
+    align-items:center;
+    padding:120px 9%;
+    position:relative;
+}
+
+.split-content-inner{
+    max-width:620px;
+}
+
+.section-label{
+    color:#caa66c;
+    text-transform:uppercase;
+    letter-spacing:.25em;
+    font-size:.75rem;
+    margin-bottom:28px;
+}
+
+.split-content h2{
+    font-family:'Cormorant Garamond', serif;
+    font-size:clamp(3rem,6vw,5.5rem);
+    line-height:1;
+    margin-bottom:35px;
+    font-weight:500;
+}
+
+.split-content p{
+    color:#b7ab97;
+    line-height:2;
+    font-size:1.02rem;
+    margin-bottom:24px;
+}
+
+/* =========================================================
+   CENTER QUOTE
+========================================================= */
+
+.center-quote{
+    position:relative;
+    padding:220px 8%;
+    text-align:center;
+}
+
+.center-quote h2{
+    font-family:'Cormorant Garamond', serif;
+    font-size:clamp(3rem,8vw,6rem);
+    line-height:1.25;
+    font-weight:400;
+    max-width:1200px;
+    margin:auto;
+}
+
+.center-quote span{
+    display:block;
+    margin-top:40px;
+    color:#caa66c;
+    letter-spacing:.28em;
+    text-transform:uppercase;
+    font-size:.7rem;
+}
+
+/* =========================================================
+   MOSAIC
+========================================================= */
+
+.mosaic{
+    padding:80px 4% 180px;
+    display:grid;
+    grid-template-columns:repeat(12,1fr);
+    gap:24px;
+}
+
+.mosaic-card{
+    position:relative;
+    overflow:hidden;
+    border-radius:30px;
+    min-height:500px;
+}
+
+.mosaic-card.large{
+    grid-column:span 7;
+}
+
+.mosaic-card.medium{
+    grid-column:span 5;
+}
+
+.mosaic-card.full{
+    grid-column:span 12;
+    min-height:700px;
+}
+
+.mosaic-card img{
+    position:absolute;
+    inset:0;
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    filter:brightness(.72) saturate(.82);
+    transition:transform 12s ease;
+}
+
+.mosaic-card:hover img{
+    transform:scale(1.08);
+}
+
+.mosaic-overlay{
+    position:absolute;
+    inset:0;
+    background:
+        linear-gradient(to top, rgba(0,0,0,.92), transparent 50%);
+}
+
+.mosaic-content{
+    position:absolute;
+    left:45px;
+    right:45px;
+    bottom:45px;
+    z-index:5;
+}
+
+.mosaic-content h3{
+    font-family:'Cormorant Garamond', serif;
+    font-size:3rem;
+    margin-bottom:15px;
+    font-weight:500;
+}
+
+.mosaic-content p{
+    max-width:520px;
+    color:#b8ad98;
+    line-height:1.9;
+}
+
+/* =========================================================
+   FOOTER
+========================================================= */
+
+footer{
+    padding:180px 8% 120px;
+    text-align:center;
+    border-top:1px solid rgba(255,255,255,.05);
+}
+
+footer h2{
+    font-family:'Cormorant Garamond', serif;
+    font-size:clamp(4rem,10vw,8rem);
+    font-weight:500;
+    margin-bottom:30px;
+}
+
+footer p{
+    max-width:720px;
+    margin:auto;
+    color:#b6ab98;
+    line-height:2;
+}
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+
+@media(max-width:1100px){
+
+    .split{
+        grid-template-columns:1fr;
+    }
+
+    .mosaic-card.large,
+    .mosaic-card.medium{
+        grid-column:span 12;
+    }
+
+}
+
+@media(max-width:768px){
+
+    .hero-content{
+        padding:80px 24px;
+    }
+
+    .split-content{
+        padding:100px 24px;
+    }
+
+    .center-quote{
+        padding:140px 24px;
+    }
+
+    .mosaic{
+        padding:60px 24px 120px;
+    }
+
+    .mosaic-card{
+        min-height:420px;
+    }
+
+    .mosaic-content{
+        left:28px;
+        right:28px;
+        bottom:28px;
+    }
+
+    .mosaic-content h3{
+        font-size:2.2rem;
+    }
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="particles">
+
+    <span style="top:10%;left:20%"></span>
+    <span style="top:25%;left:70%"></span>
+    <span style="top:40%;left:45%"></span>
+    <span style="top:60%;left:15%"></span>
+    <span style="top:75%;left:65%"></span>
+    <span style="top:80%;left:35%"></span>
+
+</div>
+
+<!-- =========================================================
+     HERO
+========================================================= -->
+
+<section class="hero">
+
+    <div class="hero-image"></div>
+
+    <div class="hero-content">
+
+        <div class="hero-tag">
+            Folk Cósmico • Autenticidade Neurodivergente
+        </div>
+
+        <h1>
+            ATÍPICOS
+        </h1>
+
+        <p>
+            Um universo musical artesanal, contemplativo e emocionalmente honesto.
+            Pessoas que aprenderam a florescer sem precisar se tornar outra coisa.
+        </p>
+
+        <div class="hero-scroll">
+            Explorar Universo
+        </div>
+
+    </div>
+
+</section>
+
+<!-- =========================================================
+     SPLIT 1
+========================================================= -->
+
+<section class="split">
+
+    <div class="split-image">
+        <img src="assets/img/img-site2.png" alt="">
+    </div>
+
+    <div class="split-content">
+
+        <div class="split-content-inner">
+
+            <div class="section-label">
+                Girassóis Noturnos
+            </div>
+
+            <h2>
+                Luz encontrada na escuridão
+            </h2>
+
+            <p>
+                Pessoas que aprenderam a buscar luz mesmo quando o mundo foi escuro demais.
+                Não para se tornarem normais, mas para florescerem como são.
+            </p>
+
+            <p>
+                O universo visual da Banda Atípicos mistura xilogravura contemporânea,
+                psicodelia folk, céu vivo e simbolismo emocional.
+            </p>
+
+        </div>
+
+    </div>
+
+</section>
+
+<!-- =========================================================
+     QUOTE
+========================================================= -->
+
+<section class="center-quote">
+
+    <h2>
+        “Encontramos uns aos outros.<br>
+        Agora podemos ser quem somos.”
+    </h2>
+
+    <span>
+        Banda Atípicos
+    </span>
+
+</section>
+
+<!-- =========================================================
+     SPLIT 2
+========================================================= -->
+
+<section class="split">
+
+    <div class="split-content">
+
+        <div class="split-content-inner">
+
+            <div class="section-label">
+                Jornada Musical
+            </div>
+
+            <h2>
+                A música como mapa interno
+            </h2>
+
+            <p>
+                Ondas sonoras tornam-se paisagens.
+                Frequências emocionais transformam-se em estradas luminosas,
+                estrelas e pertencimento coletivo.
+            </p>
+
+            <p>
+                O universo Atípicos não é futurista.
+                Ele parece analógico, artesanal e espiritual.
+            </p>
+
+        </div>
+
+    </div>
+
+    <div class="split-image">
+        <img src="assets/img/img-site3.png" alt="">
+    </div>
+
+</section>
+
+<!-- =========================================================
+     MOSAIC
+========================================================= -->
+
+<section class="mosaic">
+
+    <article class="mosaic-card large">
+
+        <img src="assets/img/img-site4.png">
+
+        <div class="mosaic-overlay"></div>
+
+        <div class="mosaic-content">
+
+            <h3>
+                Vozes Atípicas
+            </h3>
+
+            <p>
+                O rompimento do silêncio. Vozes antes reprimidas começam a ecoar entre estrelas e constelações.
+            </p>
+
+        </div>
+
+    </article>
+
+    <article class="mosaic-card medium">
+
+        <img src="assets/img/img-site5.png">
+
+        <div class="mosaic-overlay"></div>
+
+        <div class="mosaic-content">
+
+            <h3>
+                Ninho-Lar
+            </h3>
+
+            <p>
+                Existir sem performance.
+            </p>
+
+        </div>
+
+    </article>
+
+    <article class="mosaic-card medium">
+
+        <img src="assets/img/img-site6.png">
+
+        <div class="mosaic-overlay"></div>
+
+        <div class="mosaic-content">
+
+            <h3>
+                Quem É Meu Amor
+            </h3>
+
+            <p>
+                Afeto seguro sem necessidade de adaptação.
+            </p>
+
+        </div>
+
+    </article>
+
+    <article class="mosaic-card large">
+
+        <img src="assets/img/img-site7.png">
+
+        <div class="mosaic-overlay"></div>
+
+        <div class="mosaic-content">
+
+            <h3>
+                Aqueles que se Atrevem a Ser
+            </h3>
+
+            <p>
+                O momento em que deixamos de pedir permissão para existir.
+            </p>
+
+        </div>
+
+    </article>
+
+    <article class="mosaic-card full">
+
+        <img src="assets/img/img-site8.png">
+
+        <div class="mosaic-overlay"></div>
+
+        <div class="mosaic-content">
+
+            <h3 style="font-size:5rem;">
+                Florescer como se é
+            </h3>
+
+            <p style="max-width:760px;">
+                Um abraço musical coletivo entre pessoas que transformaram autenticidade em arte viva.
+            </p>
+
+        </div>
+
+    </article>
+
+</section>
+
+<!-- =========================================================
+     FOOTER
+========================================================= -->
+
+<footer>
+
+    <h2>
+        ATÍPICOS
+    </h2>
+
+    <p>
+        Música autoral, pertencimento sem performance,
+        xilogravura emocional e autenticidade neurodivergente.
+    </p>
+
+</footer>
+
+</body>
+</html>
+```
