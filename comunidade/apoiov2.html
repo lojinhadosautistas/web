@@ -1,0 +1,802 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Rede de Apoio | Lojinha dos Autistas</title>
+
+<meta name="description"
+content="Uma rede de pessoas que escolheu construir possibilidades.">
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+<style>
+
+:root{
+
+--bg:#06101f;
+--bg2:#0c1f3f;
+--card:rgba(255,255,255,.05);
+
+--line:rgba(255,255,255,.08);
+
+--text:#f7f8fb;
+--muted:#aab3c5;
+
+--blue:#5ea0ff;
+--cyan:#79e7ff;
+--gold:#d7b97a;
+
+}
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+}
+
+html{
+scroll-behavior:smooth;
+}
+
+body{
+
+font-family:'Poppins',sans-serif;
+background:
+radial-gradient(circle at top left,#143b7a 0%,transparent 30%),
+radial-gradient(circle at bottom right,#10234d 0%,transparent 35%),
+var(--bg);
+
+color:var(--text);
+overflow-x:hidden;
+
+}
+
+.container{
+
+width:min(1200px,92%);
+margin:auto;
+
+}
+
+section{
+
+padding:120px 0;
+
+}
+
+.hero{
+
+min-height:100vh;
+
+display:flex;
+align-items:center;
+position:relative;
+
+}
+
+.hero::before{
+
+content:"";
+
+position:absolute;
+
+width:900px;
+height:900px;
+
+background:
+radial-gradient(circle,
+rgba(94,160,255,.18),
+transparent 70%);
+
+left:-200px;
+top:-250px;
+
+pointer-events:none;
+
+}
+
+.hero-grid{
+
+display:grid;
+grid-template-columns:1.1fr .9fr;
+gap:60px;
+align-items:center;
+
+}
+
+.badge{
+
+display:inline-flex;
+
+padding:10px 18px;
+
+border:1px solid var(--line);
+
+border-radius:999px;
+
+background:rgba(255,255,255,.04);
+
+font-size:.85rem;
+
+margin-bottom:30px;
+
+}
+
+.hero h1{
+
+font-size:clamp(3rem,8vw,6rem);
+
+line-height:1;
+
+font-weight:800;
+
+letter-spacing:-2px;
+
+margin-bottom:30px;
+
+}
+
+.hero p{
+
+font-size:1.2rem;
+
+line-height:1.8;
+
+color:var(--muted);
+
+max-width:650px;
+
+}
+
+.buttons{
+
+display:flex;
+gap:16px;
+flex-wrap:wrap;
+
+margin-top:40px;
+
+}
+
+.btn{
+
+padding:16px 28px;
+
+border-radius:14px;
+
+text-decoration:none;
+
+font-weight:600;
+
+transition:.3s;
+
+}
+
+.btn-primary{
+
+background:linear-gradient(135deg,var(--blue),var(--cyan));
+
+color:#08111d;
+
+}
+
+.btn-primary:hover{
+
+transform:translateY(-3px);
+
+}
+
+.btn-outline{
+
+border:1px solid var(--line);
+
+color:white;
+
+}
+
+.btn-outline:hover{
+
+background:rgba(255,255,255,.05);
+
+}
+
+.glass{
+
+background:var(--card);
+
+backdrop-filter:blur(18px);
+
+border:1px solid var(--line);
+
+border-radius:28px;
+
+padding:40px;
+
+}
+
+.ecosystem-card{
+
+height:520px;
+
+display:flex;
+
+align-items:center;
+justify-content:center;
+
+font-size:1.1rem;
+
+color:var(--muted);
+
+text-align:center;
+
+}
+
+.section-title{
+
+text-align:center;
+
+margin-bottom:80px;
+
+}
+
+.section-title h2{
+
+font-size:3rem;
+
+margin-bottom:20px;
+
+}
+
+.section-title p{
+
+color:var(--muted);
+
+max-width:700px;
+
+margin:auto;
+
+line-height:1.8;
+
+}
+
+.impact-grid{
+
+display:grid;
+
+grid-template-columns:repeat(4,1fr);
+
+gap:30px;
+
+}
+
+.impact-item{
+
+text-align:center;
+
+}
+
+.impact-number{
+
+font-size:3rem;
+
+font-weight:700;
+
+background:linear-gradient(135deg,var(--cyan),var(--blue));
+
+-webkit-background-clip:text;
+-webkit-text-fill-color:transparent;
+
+margin-bottom:15px;
+
+}
+
+.arch-grid{
+
+display:grid;
+
+grid-template-columns:repeat(3,1fr);
+
+gap:30px;
+
+}
+
+.arch-card{
+
+padding:40px;
+
+border-radius:24px;
+
+background:var(--card);
+
+border:1px solid var(--line);
+
+transition:.3s;
+
+}
+
+.arch-card:hover{
+
+transform:translateY(-8px);
+
+border-color:rgba(121,231,255,.3);
+
+}
+
+.arch-icon{
+
+font-size:2rem;
+
+margin-bottom:20px;
+
+}
+
+.arch-card h3{
+
+margin-bottom:15px;
+
+}
+
+.arch-card p{
+
+color:var(--muted);
+
+line-height:1.8;
+
+}
+
+.missions{
+
+display:grid;
+
+grid-template-columns:repeat(3,1fr);
+
+gap:30px;
+
+}
+
+.mission{
+
+padding:35px;
+
+border-radius:24px;
+
+background:var(--card);
+
+border:1px solid var(--line);
+
+}
+
+.mission span{
+
+font-size:.8rem;
+
+color:var(--cyan);
+
+font-weight:600;
+
+letter-spacing:1px;
+
+}
+
+.mission h3{
+
+margin:20px 0;
+
+}
+
+.journey{
+
+display:flex;
+
+justify-content:center;
+
+align-items:center;
+
+gap:20px;
+
+flex-wrap:wrap;
+
+font-weight:600;
+
+font-size:1.1rem;
+
+}
+
+.arrow{
+
+opacity:.4;
+
+}
+
+.final{
+
+text-align:center;
+
+}
+
+.final h2{
+
+font-size:4rem;
+
+max-width:900px;
+
+margin:auto;
+
+line-height:1.1;
+
+}
+
+.final p{
+
+margin-top:30px;
+
+font-size:1.2rem;
+
+color:var(--muted);
+
+}
+
+footer{
+
+padding:60px 0;
+
+border-top:1px solid var(--line);
+
+text-align:center;
+
+color:var(--muted);
+
+}
+
+@media(max-width:900px){
+
+.hero-grid,
+.arch-grid,
+.impact-grid,
+.missions{
+
+grid-template-columns:1fr;
+
+}
+
+.hero{
+
+padding-top:140px;
+
+}
+
+.final h2{
+
+font-size:2.8rem;
+
+}
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<section class="hero">
+
+<div class="container">
+
+<div class="hero-grid">
+
+<div>
+
+<div class="badge">
+Rede de Apoio • Lojinha dos Autistas
+</div>
+
+<h1>
+
+Tecnologia.
+Conhecimento.
+Inclusão.
+
+</h1>
+
+<p>
+
+Você não está entrando em uma comunidade.
+
+Está entrando em um ecossistema construído por pessoas que acreditam que desenvolvimento humano, autonomia e propósito podem caminhar juntos.
+
+</p>
+
+<div class="buttons">
+
+<a href="#explorar" class="btn btn-primary">
+Explorar a Rede
+</a>
+
+<a href="https://www.instagram.com/lojinhadosautistas"
+target="_blank"
+class="btn btn-outline">
+Instagram
+</a>
+
+</div>
+
+</div>
+
+<div>
+
+<div class="glass ecosystem-card">
+
+SUBSTITUIR AQUI PELA ARTE DO ECOSSISTEMA
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+<section>
+
+<div class="container">
+
+<div class="section-title">
+
+<h2>O que acontece quando alguém ajuda?</h2>
+
+<p>
+
+Uma ideia vira conteúdo.
+O conteúdo vira conhecimento.
+O conhecimento gera autonomia.
+A autonomia transforma vidas.
+
+</p>
+
+</div>
+
+<div class="impact-grid">
+
+<div class="impact-item">
+
+<div class="impact-number">01</div>
+
+Uma ideia nasce.
+
+</div>
+
+<div class="impact-item">
+
+<div class="impact-number">02</div>
+
+Ela é compartilhada.
+
+</div>
+
+<div class="impact-item">
+
+<div class="impact-number">03</div>
+
+Ela alcança pessoas.
+
+</div>
+
+<div class="impact-item">
+
+<div class="impact-number">04</div>
+
+Ela gera transformação.
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+<section id="explorar">
+
+<div class="container">
+
+<div class="section-title">
+
+<h2>Como você deseja contribuir?</h2>
+
+<p>
+Toda pessoa fortalece o ecossistema de uma forma diferente.
+</p>
+
+</div>
+
+<div class="arch-grid">
+
+<div class="arch-card">
+<div class="arch-icon">🌐</div>
+<h3>Amplificador</h3>
+<p>Compartilha conteúdos e amplia nosso alcance.</p>
+</div>
+
+<div class="arch-card">
+<div class="arch-icon">📚</div>
+<h3>Curador</h3>
+<p>Sugere temas, pesquisas e referências.</p>
+</div>
+
+<div class="arch-card">
+<div class="arch-icon">✍️</div>
+<h3>Autor</h3>
+<p>Ajuda a construir livros, artigos e materiais.</p>
+</div>
+
+<div class="arch-card">
+<div class="arch-icon">🤝</div>
+<h3>Conector</h3>
+<p>Apresenta parceiros e oportunidades.</p>
+</div>
+
+<div class="arch-card">
+<div class="arch-icon">🎓</div>
+<h3>Mentor</h3>
+<p>Compartilha experiência e conhecimento.</p>
+</div>
+
+<div class="arch-card">
+<div class="arch-icon">📢</div>
+<h3>Mobilizador</h3>
+<p>Engaja pessoas e fortalece campanhas.</p>
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+<section>
+
+<div class="container">
+
+<div class="section-title">
+
+<h2>Missões da Semana</h2>
+
+<p>
+Pequenas ações geram grandes impactos.
+</p>
+
+</div>
+
+<div class="missions">
+
+<div class="mission">
+
+<span>MISSÃO 001</span>
+
+<h3>Compartilhar o vídeo da semana</h3>
+
+<p>
+Ajude a ampliar o alcance do canal.
+</p>
+
+</div>
+
+<div class="mission">
+
+<span>MISSÃO 002</span>
+
+<h3>Sugerir tema para publicação</h3>
+
+<p>
+Contribua para os próximos conteúdos.
+</p>
+
+</div>
+
+<div class="mission">
+
+<span>MISSÃO 003</span>
+
+<h3>Indicar uma organização parceira</h3>
+
+<p>
+Conecte novas possibilidades.
+</p>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+<section>
+
+<div class="container">
+
+<div class="section-title">
+
+<h2>Jornada da Rede</h2>
+
+</div>
+
+<div class="journey">
+
+Primeiro Passo
+
+<span class="arrow">→</span>
+
+Colaborador
+
+<span class="arrow">→</span>
+
+Construtor
+
+<span class="arrow">→</span>
+
+Embaixador
+
+<span class="arrow">→</span>
+
+Guardião da Rede
+
+</div>
+
+</div>
+
+</section>
+
+<section class="final">
+
+<div class="container">
+
+<h2>
+
+A Lojinha dos Autistas não é construída por algoritmos.
+
+É construída por pessoas.
+
+</h2>
+
+<p>
+
+E talvez a próxima seja você.
+
+</p>
+
+<div class="buttons"
+style="justify-content:center">
+
+<a href="#"
+class="btn btn-primary">
+
+Entrar na Rede
+
+</a>
+
+</div>
+
+</div>
+
+</section>
+
+<footer>
+
+<div class="container">
+
+Lojinha dos Autistas • Tecnologia com Propósito
+
+</div>
+
+</footer>
+
+</body>
+</html>
