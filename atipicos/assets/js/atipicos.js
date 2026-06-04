@@ -1,10 +1,5 @@
-
 /* =========================================================
-   ATÍPICOS — ALBUM EXPERIENCE
-========================================================= */
-
-/* =========================================================
-   ELEMENTS
+ATÍPICOS — ALBUM EXPERIENCE
 ========================================================= */
 
 const items = document.querySelectorAll(".story-item");
@@ -24,7 +19,7 @@ let playlist = [];
 let currentIndex = -1;
 
 /* =========================================================
-   BUILD PLAYLIST
+BUILD PLAYLIST
 ========================================================= */
 
 items.forEach((item,index)=>{
@@ -52,7 +47,7 @@ items.forEach((item,index)=>{
 });
 
 /* =========================================================
-   PLAY STORY
+PLAY STORY
 ========================================================= */
 
 function playStory(item){
@@ -86,7 +81,7 @@ function playStory(item){
 }
 
 /* =========================================================
-   NEXT
+NEXT
 ========================================================= */
 
 nextBtn.onclick = ()=>{
@@ -102,7 +97,7 @@ nextBtn.onclick = ()=>{
 }
 
 /* =========================================================
-   PREV
+PREV
 ========================================================= */
 
 prevBtn.onclick = ()=>{
@@ -118,7 +113,7 @@ prevBtn.onclick = ()=>{
 }
 
 /* =========================================================
-   AUTO NEXT
+AUTO NEXT
 ========================================================= */
 
 audio.addEventListener("ended",()=>{
@@ -134,7 +129,7 @@ audio.addEventListener("ended",()=>{
 });
 
 /* =========================================================
-   PROGRESS BAR
+PROGRESS BAR
 ========================================================= */
 
 audio.addEventListener("timeupdate",()=>{
@@ -158,7 +153,7 @@ audio.addEventListener("timeupdate",()=>{
 });
 
 /* =========================================================
-   FILTERS
+FILTERS
 ========================================================= */
 
 const filters =
@@ -203,7 +198,7 @@ filters.forEach(btn=>{
 });
 
 /* =========================================================
-   HEADER SCROLL EFFECT
+HEADER SCROLL EFFECT
 ========================================================= */
 
 const header =
@@ -224,12 +219,12 @@ window.addEventListener("scroll",()=>{
 });
 
 /* =========================================================
-   REVEAL ANIMATION
+REVEAL ANIMATION
 ========================================================= */
 
 const revealElements =
 document.querySelectorAll(
-    ".section, .card, .quote"
+".section, .card, .quote"
 );
 
 const revealObserver =
@@ -256,13 +251,15 @@ revealElements.forEach(el=>{
 });
 
 /* =========================================================
-   PARALLAX GLOW
+PARALLAX GLOW
 ========================================================= */
 
 const heroGlow =
 document.querySelector(".hero-glow");
 
 window.addEventListener("mousemove",(e)=>{
+
+    if(!heroGlow) return;
 
     const x =
     (e.clientX / window.innerWidth - 0.5) * 40;
