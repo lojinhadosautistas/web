@@ -1,26 +1,22 @@
-```html
+
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-BR">
 <head>
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>ATÍPICOS — Girassóis Noturnos</title>
+<title>ATÍPICOS — Universo Folk Cósmico</title>
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600;700&family=Syne:wght@400;500;600;700&display=swap" rel="stylesheet">
 
 <style>
 
-:root{
-    --bg:#070707;
-    --bg-soft:#111111;
-    --gold:#b89352;
-    --gold-soft:#d7bb85;
-    --ivory:#f1e7d0;
-    --text:#efe6d4;
-    --muted:#c9bea9;
-}
+/* =========================================================
+   RESET
+========================================================= */
 
 *{
     margin:0;
@@ -33,468 +29,1154 @@ html{
 }
 
 body{
-    background:
-        radial-gradient(circle at top, rgba(184,147,82,.12), transparent 35%),
-        linear-gradient(to bottom, #050505, #0b0b0b 35%, #050505);
-    color:var(--text);
-    font-family:'Inter', sans-serif;
+    background:#050505;
+    color:#f5ead7;
     overflow-x:hidden;
+    font-family:'Syne', sans-serif;
 }
 
-/* TEXTURA */
+/* =========================================================
+   ATMOSPHERIC BACKGROUND
+========================================================= */
 
 body::before{
     content:'';
     position:fixed;
     inset:0;
-    background-image:url('https://www.transparenttextures.com/patterns/grunge-wall.png');
-    opacity:.08;
+
+    background:
+        radial-gradient(circle at top left, rgba(201,156,82,.14), transparent 30%),
+        radial-gradient(circle at bottom right, rgba(255,255,255,.03), transparent 40%);
+
     pointer-events:none;
-    z-index:1;
+    z-index:0;
 }
 
-/* ESTRELAS */
-
-.stars{
+body::after{
+    content:'';
     position:fixed;
     inset:0;
-    overflow:hidden;
+
+    background-image:
+        url('https://www.transparenttextures.com/patterns/french-paper.png');
+
+    opacity:.05;
+
+    mix-blend-mode:soft-light;
+
+    pointer-events:none;
     z-index:0;
+}
+
+/* =========================================================
+   NOISE MOTION
+========================================================= */
+
+.noise{
+    position:fixed;
+    inset:0;
+    z-index:1;
+    pointer-events:none;
+
+    opacity:.045;
+
+    background-image:
+        radial-gradient(circle, rgba(255,255,255,.6) 1px, transparent 1px);
+
+    background-size:4px 4px;
+
+    animation:noiseMove .35s infinite linear;
+}
+
+@keyframes noiseMove{
+
+    0%{
+        transform:translate(0,0);
+    }
+
+    25%{
+        transform:translate(1px,-1px);
+    }
+
+    50%{
+        transform:translate(-1px,1px);
+    }
+
+    75%{
+        transform:translate(1px,1px);
+    }
+
+    100%{
+        transform:translate(0,0);
+    }
+
+}
+
+/* =========================================================
+   FLOATING LIGHTS
+========================================================= */
+
+.lights{
+    position:fixed;
+    inset:0;
+    z-index:1;
     pointer-events:none;
 }
 
-.stars span{
+.lights span{
     position:absolute;
+
     width:2px;
     height:2px;
-    background:#fff4d0;
+
     border-radius:50%;
-    opacity:.6;
-    animation:twinkle 4s infinite alternate;
+
+    background:#fff2cf;
+
+    opacity:.25;
+
+    animation:floatLight 10s ease-in-out infinite alternate;
 }
 
-@keyframes twinkle{
+@keyframes floatLight{
+
     from{
-        opacity:.2;
         transform:translateY(0px);
+        opacity:.15;
     }
+
     to{
-        opacity:.8;
-        transform:translateY(-4px);
+        transform:translateY(-18px);
+        opacity:.7;
     }
+
 }
 
-/* HERO */
+/* =========================================================
+   HEADER
+========================================================= */
 
-.hero{
-    min-height:100vh;
-    position:relative;
+.header{
+    position:fixed;
+    top:0;
+    left:0;
+
+    width:100%;
+
+    z-index:100;
+
+    padding:28px 6%;
+
     display:flex;
     align-items:center;
-    justify-content:center;
-    text-align:center;
-    padding:120px 30px;
-    overflow:hidden;
+    justify-content:space-between;
+
+    backdrop-filter:blur(14px);
+
+    background:
+        linear-gradient(to bottom, rgba(0,0,0,.6), rgba(0,0,0,.05));
+
+    border-bottom:1px solid rgba(255,255,255,.05);
+
+    transition:.5s;
 }
 
-.hero::after{
-    content:'';
-    position:absolute;
-    bottom:0;
-    left:0;
-    right:0;
-    height:250px;
-    background:linear-gradient(to top, #050505, transparent);
-    z-index:2;
+.header.scrolled{
+    padding:20px 6%;
+
+    background:
+        rgba(5,5,5,.85);
+}
+
+.logo{
+    font-family:'Cormorant Garamond', serif;
+
+    font-size:2.1rem;
+
+    letter-spacing:.08em;
+
+    color:#f8edd9;
+}
+
+.nav{
+    display:flex;
+    gap:42px;
+}
+
+.nav a{
+    color:#c4b7a1;
+
+    text-decoration:none;
+
+    text-transform:uppercase;
+
+    letter-spacing:.15em;
+
+    font-size:.78rem;
+
+    transition:.35s;
+}
+
+.nav a:hover{
+    color:#fff3d0;
+}
+
+/* =========================================================
+   HERO
+========================================================= */
+
+.hero{
+    position:relative;
+
+    min-height:100vh;
+
+    display:flex;
+    align-items:center;
+
+    overflow:hidden;
 }
 
 .hero-bg{
     position:absolute;
     inset:0;
-    background-image:
-        linear-gradient(rgba(0,0,0,.68), rgba(0,0,0,.78)),
+
+    background:
+        linear-gradient(to right, rgba(0,0,0,.9), rgba(0,0,0,.3)),
+        linear-gradient(to top, rgba(0,0,0,.85), transparent),
         url('assets/img/img-site1.png');
+
     background-size:cover;
     background-position:center;
+
+    filter:saturate(.78) brightness(.7);
+
     transform:scale(1.06);
-    filter:brightness(.72) saturate(.85);
-    animation:slowZoom 20s ease-in-out infinite alternate;
+
+    animation:heroFloat 20s ease-in-out infinite alternate;
 }
 
-@keyframes slowZoom{
+@keyframes heroFloat{
+
     from{
-        transform:scale(1.04);
+        transform:scale(1.04) translateX(0px);
     }
+
     to{
-        transform:scale(1.1);
+        transform:scale(1.12) translateX(-30px);
     }
+
+}
+
+.hero-glow{
+    position:absolute;
+
+    width:900px;
+    height:900px;
+
+    border-radius:50%;
+
+    background:
+        radial-gradient(circle, rgba(204,158,87,.16), transparent 65%);
+
+    top:-20%;
+    right:-10%;
+
+    filter:blur(40px);
+
+    z-index:1;
 }
 
 .hero-content{
     position:relative;
     z-index:5;
-    max-width:950px;
+
+    width:100%;
+    max-width:1500px;
+
+    padding:150px 7%;
+}
+
+.hero-kicker{
+    color:#c9a56b;
+
+    text-transform:uppercase;
+
+    letter-spacing:.35em;
+
+    font-size:.75rem;
+
+    margin-bottom:28px;
+
+    opacity:.85;
 }
 
 .hero h1{
     font-family:'Cormorant Garamond', serif;
-    font-size:clamp(4rem,10vw,8rem);
-    letter-spacing:.15em;
-    color:var(--ivory);
-    font-weight:500;
-    margin-bottom:20px;
-    text-shadow:0 0 35px rgba(184,147,82,.22);
+
+    font-size:clamp(5rem,12vw,11rem);
+
+    line-height:.84;
+
+    max-width:950px;
+
+    margin-bottom:35px;
+
+    font-weight:600;
 }
 
 .hero p{
-    font-size:1.25rem;
-    color:var(--muted);
-    line-height:1.8;
-    max-width:760px;
-    margin:auto;
-    font-weight:300;
+    max-width:720px;
+
+    color:#b7ab97;
+
+    line-height:2;
+
+    font-size:1.05rem;
 }
 
-.hero-symbol{
-    margin-top:50px;
-    font-size:1rem;
-    letter-spacing:.4em;
-    color:var(--gold-soft);
-    opacity:.7;
+.hero-buttons{
+    display:flex;
+    gap:18px;
+
+    margin-top:55px;
 }
 
-/* SECTIONS */
+.btn{
+    padding:16px 34px;
+
+    border-radius:999px;
+
+    text-decoration:none;
+
+    text-transform:uppercase;
+
+    letter-spacing:.15em;
+
+    font-size:.78rem;
+
+    transition:.45s;
+}
+
+.btn-primary{
+    background:#c59d63;
+    color:#050505;
+}
+
+.btn-primary:hover{
+    transform:translateY(-5px);
+    box-shadow:0 20px 50px rgba(197,157,99,.22);
+}
+
+.btn-secondary{
+    border:1px solid rgba(255,255,255,.1);
+    color:#f4ead8;
+}
+
+.btn-secondary:hover{
+    background:rgba(255,255,255,.05);
+}
+
+/* =========================================================
+   SECTION BASE
+========================================================= */
 
 .section{
     position:relative;
-    z-index:2;
-    padding:140px 8%;
+    z-index:3;
+
+    padding:150px 7%;
+}
+
+.section-head{
+    margin-bottom:80px;
+}
+
+.section-kicker{
+    color:#c59f68;
+
+    text-transform:uppercase;
+
+    letter-spacing:.24em;
+
+    font-size:.74rem;
+
+    margin-bottom:24px;
 }
 
 .section-title{
     font-family:'Cormorant Garamond', serif;
-    font-size:4rem;
-    font-weight:500;
+
+    font-size:clamp(3rem,6vw,5.4rem);
+
+    line-height:1;
+
     margin-bottom:30px;
-    color:var(--ivory);
+
+    font-weight:600;
 }
 
-.section-text{
-    max-width:850px;
-    color:var(--muted);
+.section-description{
+    max-width:820px;
+
+    color:#b8ad98;
+
     line-height:2;
-    font-size:1.08rem;
 }
 
-/* GRID VISUAL */
+/* =========================================================
+   CARDS
+========================================================= */
 
-.visual-grid{
-    margin-top:80px;
+.grid{
     display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
-    gap:28px;
+    grid-template-columns:repeat(12,1fr);
+    gap:26px;
 }
 
-.visual-card{
+.card{
     position:relative;
+
     overflow:hidden;
-    min-height:480px;
-    border-radius:30px;
-    background:#111;
-    transition:all .8s ease;
+
+    border-radius:32px;
+
+    min-height:560px;
+
     border:1px solid rgba(255,255,255,.05);
+
+    background:#0c0c0c;
 }
 
-.visual-card:hover{
-    transform:translateY(-10px);
+.card.large{
+    grid-column:span 7;
 }
 
-.visual-card img{
+.card.small{
+    grid-column:span 5;
+}
+
+.card img{
+    position:absolute;
+    inset:0;
+
     width:100%;
     height:100%;
+
     object-fit:cover;
-    filter:brightness(.7) saturate(.9);
-    transition:transform 8s ease;
+
+    filter:saturate(.82) brightness(.72);
+
+    transition:transform 14s ease;
 }
 
-.visual-card:hover img{
+.card:hover img{
     transform:scale(1.08);
 }
 
-.visual-overlay{
+.card-overlay{
     position:absolute;
     inset:0;
+
     background:
-        linear-gradient(to top, rgba(0,0,0,.92), transparent 45%);
+        linear-gradient(to top, rgba(0,0,0,.95), transparent 55%);
 }
 
-.visual-info{
+.card-content{
     position:absolute;
-    bottom:35px;
-    left:35px;
-    right:35px;
-    z-index:3;
+
+    left:40px;
+    right:40px;
+    bottom:40px;
+
+    z-index:5;
 }
 
-.visual-info h3{
+.card-label{
+    color:#d4b07a;
+
+    text-transform:uppercase;
+
+    letter-spacing:.22em;
+
+    font-size:.68rem;
+
+    margin-bottom:18px;
+}
+
+.card h3{
     font-family:'Cormorant Garamond', serif;
-    font-size:2.2rem;
-    margin-bottom:10px;
-    color:var(--ivory);
+
+    font-size:3rem;
+
+    line-height:1;
+
+    margin-bottom:18px;
+
+    font-weight:600;
 }
 
-.visual-info p{
-    color:var(--muted);
-    line-height:1.8;
+.card p{
+    color:#b7ab97;
+
+    line-height:1.9;
+
+    max-width:540px;
 }
 
-/* FRASE */
-
-.quote-section{
-    padding:180px 8%;
-    text-align:center;
-    position:relative;
-}
+/* =========================================================
+   BIG QUOTE
+========================================================= */
 
 .quote{
-    font-family:'Cormorant Garamond', serif;
-    font-size:clamp(2.2rem,5vw,4.5rem);
-    line-height:1.4;
-    max-width:1000px;
-    margin:auto;
-    color:var(--ivory);
-    font-weight:400;
-}
+    position:relative;
 
-.quote-author{
-    margin-top:35px;
-    color:var(--gold-soft);
-    letter-spacing:.3em;
-    font-size:.9rem;
-}
+    padding:220px 7%;
 
-/* FOOTER */
-
-footer{
-    padding:120px 30px 70px;
     text-align:center;
+}
+
+.quote h2{
+    font-family:'Cormorant Garamond', serif;
+
+    font-size:clamp(3rem,8vw,6.5rem);
+
+    line-height:1.18;
+
+    max-width:1200px;
+
+    margin:auto;
+
+    font-weight:500;
+}
+
+.quote span{
+    display:block;
+
+    margin-top:38px;
+
+    color:#cda86f;
+
+    text-transform:uppercase;
+
+    letter-spacing:.3em;
+
+    font-size:.72rem;
+}
+
+/* =========================================================
+   SPLIT
+========================================================= */
+
+.split{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+
+    min-height:100vh;
+}
+
+.split-image{
+    position:relative;
+
+    overflow:hidden;
+}
+
+.split-image img{
+    width:100%;
+    height:100%;
+
+    object-fit:cover;
+
+    filter:saturate(.82) brightness(.74);
+
+    transition:transform 12s ease;
+}
+
+.split:hover img{
+    transform:scale(1.05);
+}
+
+.split-content{
+    display:flex;
+    align-items:center;
+
+    padding:120px 8%;
+}
+
+.split-content-inner{
+    max-width:620px;
+}
+
+.split-content h2{
+    font-family:'Cormorant Garamond', serif;
+
+    font-size:clamp(3rem,6vw,5rem);
+
+    line-height:1;
+
+    margin-bottom:28px;
+
+    font-weight:600;
+}
+
+.split-content p{
+    color:#b8ad98;
+
+    line-height:2;
+
+    margin-bottom:24px;
+}
+
+/* =========================================================
+   SCROLL LINE
+========================================================= */
+
+.scroll-line{
+    position:relative;
+
+    width:1px;
+    height:120px;
+
+    margin:60px auto 0;
+
+    background:
+        linear-gradient(to bottom, rgba(255,255,255,.0), #c89d5f, rgba(255,255,255,.0));
+
+    overflow:hidden;
+}
+
+.scroll-line::after{
+    content:'';
+
+    position:absolute;
+    top:-30px;
+    left:0;
+
+    width:100%;
+    height:30px;
+
+    background:#fff2cb;
+
+    animation:scrollPulse 2.5s infinite ease-in-out;
+}
+
+@keyframes scrollPulse{
+
+    from{
+        top:-30px;
+        opacity:0;
+    }
+
+    to{
+        top:120px;
+        opacity:1;
+    }
+
+}
+
+/* =========================================================
+   FOOTER
+========================================================= */
+
+.footer{
+    padding:180px 7% 110px;
+
+    text-align:center;
+
     border-top:1px solid rgba(255,255,255,.05);
 }
 
-footer h2{
+.footer h2{
     font-family:'Cormorant Garamond', serif;
-    font-size:4rem;
-    font-weight:500;
-    margin-bottom:20px;
+
+    font-size:clamp(4rem,10vw,8rem);
+
+    margin-bottom:28px;
+
+    font-weight:600;
 }
 
-footer p{
-    color:var(--muted);
-    max-width:700px;
+.footer p{
+    max-width:760px;
+
     margin:auto;
-    line-height:1.9;
+
+    color:#b7ab97;
+
+    line-height:2;
 }
 
-/* RESPONSIVO */
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+
+@media(max-width:1100px){
+
+    .card.large,
+    .card.small{
+        grid-column:span 12;
+    }
+
+    .split{
+        grid-template-columns:1fr;
+    }
+
+}
 
 @media(max-width:768px){
 
-    .hero{
-        padding:100px 24px;
+    .header{
+        padding:22px 24px;
     }
 
-    .hero h1{
-        letter-spacing:.08em;
+    .nav{
+        display:none;
+    }
+
+    .hero-content{
+        padding:130px 24px;
     }
 
     .section{
         padding:100px 24px;
     }
 
-    .section-title{
-        font-size:3rem;
+    .split-content{
+        padding:100px 24px;
     }
 
-    .visual-card{
-        min-height:380px;
+    .card{
+        min-height:430px;
+    }
+
+    .card-content{
+        left:26px;
+        right:26px;
+        bottom:26px;
+    }
+
+    .card h3{
+        font-size:2.2rem;
+    }
+
+    .hero-buttons{
+        flex-direction:column;
+        align-items:flex-start;
     }
 
 }
 
 </style>
+
 </head>
+
 <body>
 
-<div class="stars">
-    <span style="top:10%;left:20%"></span>
-    <span style="top:30%;left:70%"></span>
-    <span style="top:60%;left:15%"></span>
-    <span style="top:20%;left:50%"></span>
-    <span style="top:80%;left:60%"></span>
-    <span style="top:50%;left:85%"></span>
-    <span style="top:40%;left:35%"></span>
-    <span style="top:75%;left:45%"></span>
+<div class="noise"></div>
+
+<div class="lights">
+
+    <span style="top:10%;left:18%"></span>
+    <span style="top:24%;left:72%"></span>
+    <span style="top:42%;left:48%"></span>
+    <span style="top:58%;left:16%"></span>
+    <span style="top:74%;left:66%"></span>
+    <span style="top:82%;left:36%"></span>
+    <span style="top:35%;left:85%"></span>
+    <span style="top:66%;left:82%"></span>
+
 </div>
+
+<!-- =========================================================
+     HEADER
+========================================================= -->
+
+<header class="header" id="header">
+
+    <div class="logo">
+        ATÍPICOS
+    </div>
+
+    <nav class="nav">
+
+        <a href="#">Universo</a>
+        <a href="#">Manifesto</a>
+        <a href="#">Músicas</a>
+        <a href="#">Contato</a>
+
+    </nav>
+
+</header>
+
+<!-- =========================================================
+     HERO
+========================================================= -->
 
 <section class="hero">
 
     <div class="hero-bg"></div>
 
+    <div class="hero-glow"></div>
+
     <div class="hero-content">
 
-        <h1>ATÍPICOS</h1>
+        <div class="hero-kicker">
+            Folk Cósmico • Arte Viva • Música Autoral
+        </div>
+
+        <h1>
+            Um universo emocional em forma de música
+        </h1>
 
         <p>
-            Pessoas que aprenderam a florescer sem precisar se tornar outra coisa.
+            A Banda Atípicos transforma autenticidade neurodivergente
+            em paisagens sonoras contemplativas, pertencimento coletivo
+            e símbolos emocionais vivos.
         </p>
 
-        <div class="hero-symbol">
-            GIRASSÓIS NOTURNOS
+        <div class="hero-buttons">
+
+            <a href="#" class="btn btn-primary">
+                Explorar Universo
+            </a>
+
+            <a href="#" class="btn btn-secondary">
+                Ouvir Faixas
+            </a>
+
         </div>
+
+        <div class="scroll-line"></div>
 
     </div>
 
 </section>
 
+<!-- =========================================================
+     SECTION
+========================================================= -->
+
 <section class="section">
 
-    <h2 class="section-title">
-        Um universo emocional
-    </h2>
+    <div class="section-head">
 
-    <p class="section-text">
-        A Banda Atípicos transforma autenticidade neurodivergente em linguagem simbólica,
-        poética e musical. Não como explicação clínica da existência, mas como arte viva:
-        sensorial, contemplativa, íntima e profundamente humana.
-    </p>
+        <div class="section-kicker">
+            Universo Visual
+        </div>
 
-    <div class="visual-grid">
+        <h2 class="section-title">
+            Psicodelia folk, céu vivo e pertencimento
+        </h2>
 
-        <div class="visual-card">
-            <img src="assets/img/img-site2.png">
-            <div class="visual-overlay"></div>
-            <div class="visual-info">
-                <h3>Girassóis Noturnos</h3>
+        <div class="section-description">
+            O universo Atípicos mistura xilogravura contemporânea,
+            contemplação cósmica, atmosferas orgânicas
+            e experiências neurodivergentes transformadas em arte viva.
+        </div>
+
+    </div>
+
+    <div class="grid">
+
+        <article class="card large">
+
+            <img src="assets/img/img-site2.png" alt="">
+
+            <div class="card-overlay"></div>
+
+            <div class="card-content">
+
+                <div class="card-label">
+                    Universo I
+                </div>
+
+                <h3>
+                    Girassóis Noturnos
+                </h3>
+
                 <p>
                     Pessoas que aprenderam a buscar luz mesmo quando o mundo foi escuro demais.
                 </p>
-            </div>
-        </div>
 
-        <div class="visual-card">
-            <img src="assets/img/img-site3.png">
-            <div class="visual-overlay"></div>
-            <div class="visual-info">
-                <h3>Vozes Atípicas</h3>
-                <p>
-                    O momento em que vozes antes reprimidas começam a ecoar.
-                </p>
             </div>
-        </div>
 
-        <div class="visual-card">
-            <img src="assets/img/img-site4.png">
-            <div class="visual-overlay"></div>
-            <div class="visual-info">
-                <h3>Jornada Musical</h3>
-                <p>
-                    A música como mapa interno. Frequências emocionais transformadas em paisagem.
-                </p>
-            </div>
-        </div>
+        </article>
 
-        <div class="visual-card">
-            <img src="assets/img/img-site5.png">
-            <div class="visual-overlay"></div>
-            <div class="visual-info">
-                <h3>Ninho-Lar</h3>
-                <p>
-                    Pertencimento sem performance. Abrigo emocional sem mascaramento.
-                </p>
-            </div>
-        </div>
+        <article class="card small">
 
-        <div class="visual-card">
-            <img src="assets/img/img-site6.png">
-            <div class="visual-overlay"></div>
-            <div class="visual-info">
-                <h3>Quem É Meu Amor</h3>
-                <p>
-                    Ser amado sem precisar se adaptar para caber.
-                </p>
-            </div>
-        </div>
+            <img src="assets/img/img-site3.png" alt="">
 
-        <div class="visual-card">
-            <img src="assets/img/img-site7.png">
-            <div class="visual-overlay"></div>
-            <div class="visual-info">
-                <h3>Aqueles que se Atrevem a Ser</h3>
+            <div class="card-overlay"></div>
+
+            <div class="card-content">
+
+                <div class="card-label">
+                    Vozes
+                </div>
+
+                <h3>
+                    Vozes Atípicas
+                </h3>
+
                 <p>
-                    Não pedir mais permissão para existir como se é.
+                    O rompimento do silêncio transformado em constelações emocionais.
                 </p>
+
             </div>
-        </div>
+
+        </article>
 
     </div>
 
 </section>
 
-<section class="quote-section">
+<!-- =========================================================
+     QUOTE
+========================================================= -->
 
-    <div class="quote">
+<section class="quote">
+
+    <h2>
         “Encontramos uns aos outros.<br>
         Agora podemos ser quem somos.”
+    </h2>
+
+    <span>
+        Banda Atípicos
+    </span>
+
+</section>
+
+<!-- =========================================================
+     SPLIT
+========================================================= -->
+
+<section class="split">
+
+    <div class="split-content">
+
+        <div class="split-content-inner">
+
+            <div class="section-kicker">
+                Jornada Musical
+            </div>
+
+            <h2>
+                Frequências transformadas em paisagens
+            </h2>
+
+            <p>
+                Ondas sonoras tornam-se estradas luminosas,
+                estrelas e caminhos emocionais compartilhados.
+            </p>
+
+            <p>
+                A música funciona como espaço seguro de existência,
+                contemplação e florescimento coletivo.
+            </p>
+
+        </div>
+
     </div>
 
-    <div class="quote-author">
-        BANDA ATÍPICOS
+    <div class="split-image">
+
+        <img src="assets/img/img-site4.png" alt="">
+
     </div>
 
 </section>
+
+<!-- =========================================================
+     SECOND GRID
+========================================================= -->
 
 <section class="section">
 
-    <div class="visual-grid">
+    <div class="grid">
 
-        <div class="visual-card">
-            <img src="assets/img/img-site8.png">
-            <div class="visual-overlay"></div>
-            <div class="visual-info">
-                <h3>Estradas Luminosas</h3>
-                <p>
-                    Caminhos emocionais desenhados entre estrelas, vento e silêncio.
-                </p>
-            </div>
-        </div>
+        <article class="card small">
 
-        <div class="visual-card">
-            <img src="assets/img/img-site1.png">
-            <div class="visual-overlay"></div>
-            <div class="visual-info">
-                <h3>Florescer</h3>
+            <img src="assets/img/img-site5.png" alt="">
+
+            <div class="card-overlay"></div>
+
+            <div class="card-content">
+
+                <div class="card-label">
+                    Pertencimento
+                </div>
+
+                <h3>
+                    Ninho-Lar
+                </h3>
+
                 <p>
-                    A arte como autorrealização e abraço musical coletivo.
+                    Existir sem mascaramento.
                 </p>
+
             </div>
-        </div>
+
+        </article>
+
+        <article class="card large">
+
+            <img src="assets/img/img-site6.png" alt="">
+
+            <div class="card-overlay"></div>
+
+            <div class="card-content">
+
+                <div class="card-label">
+                    Afeto Seguro
+                </div>
+
+                <h3>
+                    Quem É Meu Amor
+                </h3>
+
+                <p>
+                    Ser amado sem precisar se adaptar para caber no mundo.
+                </p>
+
+            </div>
+
+        </article>
 
     </div>
 
 </section>
 
-<footer>
+<!-- =========================================================
+     FINAL HERO
+========================================================= -->
 
-    <h2>ATÍPICOS</h2>
+<section class="section">
+
+    <article class="card" style="min-height:860px;">
+
+        <img src="assets/img/img-site8.png" alt="">
+
+        <div class="card-overlay"></div>
+
+        <div class="card-content">
+
+            <div class="card-label">
+                Florescer
+            </div>
+
+            <h3 style="font-size:5rem;">
+                Aqueles que se atrevem a ser
+            </h3>
+
+            <p style="max-width:760px;">
+                Um abraço musical coletivo entre pessoas
+                que aprenderam a florescer sem abandonar a própria essência.
+            </p>
+
+        </div>
+
+    </article>
+
+</section>
+
+<!-- =========================================================
+     FOOTER
+========================================================= -->
+
+<footer class="footer">
+
+    <h2>
+        ATÍPICOS
+    </h2>
 
     <p>
-        Um projeto de autenticidade neurodivergente, música autoral
-        e pertencimento sem performance.
+        Música autoral, folk cósmico,
+        pertencimento sem performance
+        e autenticidade neurodivergente transformada em arte viva.
     </p>
 
 </footer>
 
+<script>
+
+/* =========================================================
+   HEADER SCROLL
+========================================================= */
+
+const header = document.getElementById('header');
+
+window.addEventListener('scroll', () => {
+
+    if(window.scrollY > 40){
+        header.classList.add('scrolled');
+    }else{
+        header.classList.remove('scrolled');
+    }
+
+});
+
+/* =========================================================
+   PARALLAX
+========================================================= */
+
+const hero = document.querySelector('.hero-bg');
+
+window.addEventListener('scroll', () => {
+
+    const scroll = window.pageYOffset;
+
+    hero.style.transform =
+        `scale(1.08) translateY(${scroll * 0.12}px)`;
+
+});
+
+/* =========================================================
+   CARD REVEAL
+========================================================= */
+
+const cards = document.querySelectorAll('.card');
+
+const observer = new IntersectionObserver((entries)=>{
+
+    entries.forEach(entry=>{
+
+        if(entry.isIntersecting){
+
+            entry.target.animate([
+
+                {
+                    opacity:0,
+                    transform:'translateY(60px)'
+                },
+
+                {
+                    opacity:1,
+                    transform:'translateY(0px)'
+                }
+
+            ],{
+
+                duration:1400,
+                easing:'cubic-bezier(.16,1,.3,1)',
+                fill:'forwards'
+
+            });
+
+        }
+
+    });
+
+},{ threshold:.18 });
+
+cards.forEach(card=>{
+
+    card.style.opacity = 0;
+
+    observer.observe(card);
+
+});
+
+</script>
+
 </body>
 </html>
-```
-
