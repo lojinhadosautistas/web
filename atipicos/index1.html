@@ -1,0 +1,1504 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>ATÍPICOS — Folk Cósmico</title>
+
+    <!-- GOOGLE FONTS -->
+
+    <link
+        rel="preconnect"
+        href="https://fonts.googleapis.com"
+    >
+
+    <link
+        rel="preconnect"
+        href="https://fonts.gstatic.com"
+        crossorigin
+    >
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600;700&family=Syne:wght@400;500;600;700&display=swap"
+        rel="stylesheet"
+    >
+
+    <style>
+
+        /* =========================================================
+        RESET
+        ========================================================= */
+
+        *{
+            margin:0;
+            padding:0;
+            box-sizing:border-box;
+        }
+
+        html{
+            scroll-behavior:smooth;
+        }
+
+        body{
+            background:#050505;
+            color:#f4ead7;
+            font-family:'Syne', sans-serif;
+            overflow-x:hidden;
+            -webkit-font-smoothing:antialiased;
+        }
+
+        a{
+            text-decoration:none;
+        }
+
+        img{
+            display:block;
+            max-width:100%;
+        }
+
+        /* =========================================================
+        SCROLLBAR
+        ========================================================= */
+
+        ::-webkit-scrollbar{
+            width:10px;
+        }
+
+        ::-webkit-scrollbar-track{
+            background:#090909;
+        }
+
+        ::-webkit-scrollbar-thumb{
+            background:#c59d63;
+            border-radius:999px;
+        }
+
+        /* =========================================================
+        BACKGROUND LIGHTS
+        ========================================================= */
+
+        .lights{
+            position:fixed;
+            inset:0;
+            pointer-events:none;
+            z-index:0;
+        }
+
+        .lights span{
+            position:absolute;
+
+            width:5px;
+            height:5px;
+
+            border-radius:50%;
+
+            background:#f4dfbc;
+
+            opacity:.35;
+
+            filter:blur(1px);
+
+            animation:floatLight 7s ease-in-out infinite;
+        }
+
+        @keyframes floatLight{
+
+            0%{
+                transform:translateY(0px);
+                opacity:.2;
+            }
+
+            50%{
+                transform:translateY(-12px);
+                opacity:.7;
+            }
+
+            100%{
+                transform:translateY(0px);
+                opacity:.2;
+            }
+
+        }
+
+        /* =========================================================
+        HEADER
+        ========================================================= */
+
+        .header{
+            position:fixed;
+
+            top:0;
+            left:0;
+
+            width:100%;
+
+            padding:26px 60px;
+
+            display:flex;
+            align-items:center;
+            justify-content:space-between;
+
+            z-index:999;
+
+            transition:.45s ease;
+        }
+
+        .header.scrolled{
+
+            background:rgba(8,8,8,.76);
+
+            backdrop-filter:blur(18px);
+
+            border-bottom:
+                1px solid rgba(255,255,255,.05);
+
+        }
+
+        .logo{
+            font-family:'Cormorant Garamond', serif;
+
+            font-size:1.8rem;
+
+            letter-spacing:.22em;
+
+            font-weight:600;
+        }
+
+        .nav{
+            display:flex;
+            gap:36px;
+        }
+
+        .nav a{
+            color:#d9cfbe;
+
+            font-size:.82rem;
+
+            text-transform:uppercase;
+
+            letter-spacing:.14em;
+
+            transition:.35s;
+        }
+
+        .nav a:hover{
+            color:#c59d63;
+        }
+
+        /* =========================================================
+        HERO
+        ========================================================= */
+
+        .hero{
+            position:relative;
+
+            min-height:100vh;
+
+            display:flex;
+            align-items:center;
+
+            overflow:hidden;
+        }
+
+        .hero-image{
+            position:absolute;
+            inset:0;
+
+            background:
+                linear-gradient(
+                    to right,
+                    rgba(0,0,0,.9),
+                    rgba(0,0,0,.45)
+                ),
+
+                linear-gradient(
+                    to top,
+                    rgba(0,0,0,.88),
+                    transparent
+                ),
+
+                url('assets/img/img-site1.png');
+
+            background-size:cover;
+            background-position:center;
+
+            transform:scale(1.05);
+
+            filter:
+                saturate(.82)
+                brightness(.72);
+
+            animation:
+                heroMove 18s ease-in-out infinite alternate;
+
+            z-index:0;
+        }
+
+        .hero-image::after{
+            content:"";
+
+            position:absolute;
+            inset:0;
+
+            background-image:
+                radial-gradient(
+                    rgba(255,255,255,.04) 1px,
+                    transparent 1px
+                );
+
+            background-size:3px 3px;
+
+            opacity:.08;
+
+            mix-blend-mode:soft-light;
+        }
+
+        @keyframes heroMove{
+
+            0%{
+                transform:
+                    scale(1.05)
+                    translateY(0px);
+            }
+
+            100%{
+                transform:
+                    scale(1.1)
+                    translateY(-12px);
+            }
+
+        }
+
+        .hero-glow{
+            position:absolute;
+
+            width:700px;
+            height:700px;
+
+            border-radius:50%;
+
+            background:
+                radial-gradient(
+                    circle,
+                    rgba(197,157,99,.12),
+                    transparent 70%
+                );
+
+            filter:blur(40px);
+
+            z-index:1;
+        }
+
+        .hero-content{
+            position:relative;
+
+            z-index:2;
+
+            width:100%;
+
+            padding:180px 7vw 120px;
+        }
+
+        .hero-kicker{
+            color:#d2ab74;
+
+            letter-spacing:.28em;
+
+            text-transform:uppercase;
+
+            font-size:.72rem;
+
+            margin-bottom:28px;
+        }
+
+        .hero h1{
+            font-family:'Cormorant Garamond', serif;
+
+            font-size:clamp(3rem, 6vw, 6rem);
+
+            line-height:.92;
+
+            max-width:10ch;
+
+            font-weight:600;
+
+            margin-bottom:34px;
+        }
+
+        .hero p{
+            max-width:720px;
+
+            color:#b7ac97;
+
+            line-height:2;
+
+            font-size:1.05rem;
+        }
+
+        .hero-buttons{
+            margin-top:48px;
+
+            display:flex;
+            flex-wrap:wrap;
+            gap:18px;
+        }
+
+        /* =========================================================
+        BUTTONS
+        ========================================================= */
+
+        .btn{
+            padding:18px 32px;
+
+            border-radius:999px;
+
+            transition:.4s ease;
+
+            letter-spacing:.08em;
+
+            text-transform:uppercase;
+
+            font-size:.84rem;
+        }
+
+        .btn-primary{
+            background:#c59d63;
+            color:#050505;
+        }
+
+        .btn-primary:hover{
+            transform:translateY(-4px);
+
+            box-shadow:
+                0 20px 40px rgba(197,157,99,.22);
+        }
+
+        .btn-secondary{
+            border:
+                1px solid rgba(255,255,255,.08);
+
+            color:#f4ead7;
+        }
+
+        .btn-secondary:hover{
+            border-color:#c59d63;
+            color:#c59d63;
+        }
+
+        /* =========================================================
+        SECTION
+        ========================================================= */
+
+        .section{
+            position:relative;
+
+            padding:140px 7vw;
+
+            z-index:2;
+
+            opacity:0;
+
+            transform:translateY(60px);
+
+            transition:
+                opacity 1s ease,
+                transform 1s ease;
+        }
+
+        .section.revealed{
+            opacity:1;
+            transform:translateY(0px);
+        }
+
+        .section-head{
+            max-width:900px;
+            margin-bottom:80px;
+        }
+
+        .section-kicker{
+            color:#d2ab74;
+
+            text-transform:uppercase;
+
+            letter-spacing:.22em;
+
+            font-size:.72rem;
+
+            margin-bottom:24px;
+        }
+
+        .section-title{
+            font-family:'Cormorant Garamond', serif;
+
+            font-size:clamp(3rem,5vw,5.5rem);
+
+            line-height:1;
+
+            margin-bottom:24px;
+
+            font-weight:600;
+        }
+
+        .section-description{
+            color:#b8ad98;
+
+            line-height:2;
+
+            font-size:1.02rem;
+
+            max-width:760px;
+        }
+
+        /* =========================================================
+        ALBUM EXPERIENCE
+        ========================================================= */
+
+        .album-layout{
+            display:grid;
+
+            grid-template-columns:
+                360px
+                1fr;
+
+            gap:70px;
+
+            align-items:start;
+        }
+
+        .album-left{
+            position:sticky;
+            top:120px;
+        }
+
+        .album-cover{
+            width:100%;
+
+            border-radius:24px;
+
+            margin-bottom:28px;
+
+            border:
+                1px solid rgba(255,255,255,.05);
+
+            box-shadow:
+                0 30px 90px rgba(0,0,0,.45);
+        }
+
+        .album-meta span{
+            color:#c59d63;
+
+            letter-spacing:.18em;
+
+            font-size:.7rem;
+
+            text-transform:uppercase;
+        }
+
+        .album-meta h2{
+            font-family:'Cormorant Garamond', serif;
+
+            font-size:3.4rem;
+
+            line-height:.95;
+
+            margin:18px 0;
+        }
+
+        .album-meta p{
+            color:#b9ad97;
+            line-height:1.9;
+        }
+
+        /* =========================================================
+        TRACKLIST
+        ========================================================= */
+
+        .album-right{
+            display:flex;
+            flex-direction:column;
+            gap:16px;
+        }
+
+        .story-item{
+            position:relative;
+
+            overflow:hidden;
+
+            display:flex;
+
+            align-items:center;
+
+            gap:22px;
+
+            padding:24px 28px;
+
+            border-radius:24px;
+
+            background:
+                linear-gradient(
+                    145deg,
+                    rgba(255,255,255,.025),
+                    rgba(255,255,255,.01)
+                );
+
+            border:
+                1px solid rgba(255,255,255,.05);
+
+            transition:.35s ease;
+        }
+
+        .story-item:hover{
+            transform:translateX(4px);
+
+            border-color:
+                rgba(197,157,99,.22);
+        }
+
+        .story-item.playing{
+            background:
+                linear-gradient(
+                    145deg,
+                    rgba(197,157,99,.12),
+                    rgba(255,255,255,.02)
+                );
+        }
+
+        .track-number{
+            width:42px;
+
+            color:#8f846f;
+
+            font-size:.92rem;
+
+            letter-spacing:.08em;
+        }
+
+        .story-info{
+            flex:1;
+        }
+
+        .story-title{
+            font-family:'Cormorant Garamond', serif;
+
+            font-size:2rem;
+        }
+
+        .story-meta{
+            color:#a79a86;
+
+            font-size:.9rem;
+
+            margin-top:4px;
+        }
+
+        .play-btn{
+            width:58px;
+            height:58px;
+
+            border:none;
+
+            border-radius:50%;
+
+            background:#c59d63;
+
+            color:#050505;
+
+            cursor:pointer;
+
+            font-size:1rem;
+
+            transition:.35s;
+        }
+
+        .play-btn:hover{
+            transform:scale(1.08);
+        }
+
+        .card-progress{
+            position:absolute;
+
+            left:0;
+            bottom:0;
+
+            width:0%;
+
+            height:2px;
+
+            background:#c59d63;
+        }
+
+        /* =========================================================
+        AUDIO PLAYER
+        ========================================================= */
+
+        .audio-player{
+            position:fixed;
+
+            left:50%;
+            bottom:24px;
+
+            transform:translateX(-50%);
+
+            width:min(1100px, calc(100% - 30px));
+
+            display:flex;
+            align-items:center;
+            gap:20px;
+
+            padding:18px 24px;
+
+            border-radius:24px;
+
+            z-index:9999;
+
+            backdrop-filter:blur(24px);
+
+            background:
+                linear-gradient(
+                    145deg,
+                    rgba(12,12,12,.88),
+                    rgba(20,20,20,.82)
+                );
+
+            border:
+                1px solid rgba(255,255,255,.06);
+
+            box-shadow:
+                0 25px 80px rgba(0,0,0,.45);
+        }
+
+        .player-icon{
+            width:58px;
+            height:58px;
+
+            border-radius:50%;
+
+            display:flex;
+            align-items:center;
+            justify-content:center;
+
+            background:
+                radial-gradient(
+                    circle,
+                    rgba(197,157,99,.22),
+                    transparent
+                );
+
+            color:#f4dfbc;
+
+            font-size:1.4rem;
+        }
+
+        .player-info{
+            flex:1;
+        }
+
+        #playerTitle{
+            font-family:'Cormorant Garamond', serif;
+
+            font-size:1.5rem;
+        }
+
+        .player-control{
+            width:52px;
+            height:52px;
+
+            border:none;
+
+            border-radius:50%;
+
+            cursor:pointer;
+
+            background:#c59d63;
+
+            color:#050505;
+
+            font-size:1rem;
+
+            transition:.35s;
+        }
+
+        .player-control:hover{
+            transform:scale(1.08);
+        }
+
+        #audioControl{
+            width:320px;
+            height:42px;
+        }
+
+        /* =========================================================
+        QUOTE
+        ========================================================= */
+
+        .quote{
+            position:relative;
+
+            padding:200px 7vw;
+
+            text-align:center;
+
+            z-index:2;
+        }
+
+        .quote h2{
+            font-family:'Cormorant Garamond', serif;
+
+            font-size:clamp(3rem,5vw,6rem);
+
+            line-height:1.08;
+
+            font-weight:500;
+
+            max-width:14ch;
+
+            margin-inline:auto;
+        }
+
+        .quote span{
+            display:block;
+
+            margin-top:32px;
+
+            color:#c59d63;
+
+            letter-spacing:.2em;
+
+            text-transform:uppercase;
+
+            font-size:.72rem;
+        }
+
+        /* =========================================================
+        FOOTER
+        ========================================================= */
+
+        .footer{
+            position:relative;
+
+            padding:180px 7vw 260px;
+
+            text-align:center;
+
+            z-index:2;
+        }
+
+        .footer h2{
+            font-family:'Cormorant Garamond', serif;
+
+            font-size:4rem;
+
+            letter-spacing:.2em;
+
+            margin-bottom:24px;
+        }
+
+        .footer p{
+            max-width:900px;
+
+            margin-inline:auto;
+
+            color:#9e937f;
+
+            line-height:2;
+        }
+
+        /* =========================================================
+        RESPONSIVE
+        ========================================================= */
+
+        @media(max-width:1100px){
+
+            .album-layout{
+                grid-template-columns:1fr;
+            }
+
+            .album-left{
+                position:relative;
+                top:0;
+            }
+
+        }
+
+        @media(max-width:900px){
+
+            .audio-player{
+                flex-wrap:wrap;
+            }
+
+            #audioControl{
+                width:100%;
+            }
+
+        }
+
+        @media(max-width:768px){
+
+            .header{
+                padding:24px;
+            }
+
+            .nav{
+                display:none;
+            }
+
+            .hero-content{
+                padding:
+                    170px 24px
+                    120px;
+            }
+
+            .section{
+                padding:110px 24px;
+            }
+
+            .quote{
+                padding:160px 24px;
+            }
+
+            .story-item{
+                padding:22px;
+            }
+
+            .story-title{
+                font-size:1.6rem;
+            }
+
+            .album-meta h2{
+                font-size:3rem;
+            }
+
+            .footer h2{
+                font-size:3rem;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+    <!-- ======================================================
+    LIGHTS
+    ======================================================= -->
+
+    <div class="lights">
+
+        <span style="top:10%;left:18%"></span>
+        <span style="top:24%;left:72%"></span>
+        <span style="top:42%;left:48%"></span>
+        <span style="top:58%;left:16%"></span>
+        <span style="top:74%;left:66%"></span>
+        <span style="top:82%;left:36%"></span>
+        <span style="top:35%;left:85%"></span>
+        <span style="top:66%;left:82%"></span>
+
+    </div>
+
+    <!-- ======================================================
+    HEADER
+    ======================================================= -->
+
+    <header class="header" id="header">
+
+        <div class="logo">
+            ATÍPICOS
+        </div>
+
+        <nav class="nav">
+
+            <a href="#manifesto">
+                Manifesto
+            </a>
+
+            <a href="#album">
+                Álbum
+            </a>
+
+            <a href="#universo">
+                Universo
+            </a>
+
+            <a href="#contato">
+                Contato
+            </a>
+
+        </nav>
+
+    </header>
+
+    <!-- ======================================================
+    HERO
+    ======================================================= -->
+
+    <section class="hero">
+
+        <div class="hero-image"></div>
+
+        <div class="hero-glow"></div>
+
+        <div class="hero-content">
+
+            <div class="hero-kicker">
+                Folk Cósmico • Música Autoral • Universo Sensorial
+            </div>
+
+            <h1>
+                Pessoas que aprenderam a florescer
+                sem abandonar quem são
+            </h1>
+
+            <p>
+                A Banda ATÍPICOS transforma experiências neurodivergentes
+                em paisagens emocionais, arte simbólica e canções
+                sobre pertencimento, afeto e existência sem performance.
+            </p>
+
+            <div class="hero-buttons">
+
+                <a href="#album" class="btn btn-primary">
+                    Ouvir Álbum
+                </a>
+
+                <a href="#manifesto" class="btn btn-secondary">
+                    Explorar Universo
+                </a>
+
+            </div>
+
+        </div>
+
+    </section>
+
+    <!-- ======================================================
+    MANIFESTO
+    ======================================================= -->
+
+    <section class="section" id="manifesto">
+
+        <div class="section-head">
+
+            <div class="section-kicker">
+                Manifesto Atípicos
+            </div>
+
+            <h2 class="section-title">
+                Não cantamos sobre “ser diferente”.
+                Cantamos sobre existir sem se abandonar.
+            </h2>
+
+            <div class="section-description">
+
+                A Banda ATÍPICOS é um projeto de autenticidade
+                neurodivergente, focado em música autoral,
+                experiências emocionais reais e pertencimento.
+
+            </div>
+
+        </div>
+
+    </section>
+
+    <!-- ======================================================
+    ALBUM
+    ======================================================= -->
+
+    <section class="section" id="album">
+
+        <div class="album-layout">
+
+            <!-- LEFT -->
+
+            <div class="album-left">
+
+                <img
+                    src="assets/img/girassois-noturnos-capa.png"
+                    class="album-cover"
+                    alt="Girassóis Noturnos"
+                >
+
+                <div class="album-meta">
+
+                    <span>
+                        ÁLBUM OFICIAL
+                    </span>
+
+                    <h2>
+                        Girassóis Noturnos
+                    </h2>
+
+                    <p>
+                        Um álbum sobre pertencimento,
+                        afeto seguro e existência sem masking.
+                    </p>
+
+                </div>
+
+            </div>
+
+            <!-- RIGHT -->
+
+            <div class="album-right">
+
+                <div
+                    class="story-item"
+                    data-audio="assets/audio/era-uma-vez.mp3"
+                >
+
+                    <div class="track-number">
+                        01
+                    </div>
+
+                    <div class="story-info">
+
+                        <div class="story-title">
+                            Era Uma Vez
+                        </div>
+
+                        <div class="story-meta">
+                            Pertencimento • Identidade
+                        </div>
+
+                    </div>
+
+                    <button class="play-btn">
+                        ►
+                    </button>
+
+                </div>
+
+                <div
+                    class="story-item"
+                    data-audio="assets/audio/girassois-noturnos.mp3"
+                >
+
+                    <div class="track-number">
+                        02
+                    </div>
+
+                    <div class="story-info">
+
+                        <div class="story-title">
+                            Girassóis Noturnos
+                        </div>
+
+                        <div class="story-meta">
+                            Acolhimento emocional
+                        </div>
+
+                    </div>
+
+                    <button class="play-btn">
+                        ►
+                    </button>
+
+                </div>
+
+                <div
+                    class="story-item"
+                    data-audio="assets/audio/vozes-atipicas.mp3"
+                >
+
+                    <div class="track-number">
+                        03
+                    </div>
+
+                    <div class="story-info">
+
+                        <div class="story-title">
+                            Vozes Atípicas
+                        </div>
+
+                        <div class="story-meta">
+                            Expressão neurodivergente
+                        </div>
+
+                    </div>
+
+                    <button class="play-btn">
+                        ►
+                    </button>
+
+                </div>
+
+                <div
+                    class="story-item"
+                    data-audio="assets/audio/minha-licao.mp3"
+                >
+
+                    <div class="track-number">
+                        04
+                    </div>
+
+                    <div class="story-info">
+
+                        <div class="story-title">
+                            Minha Lição
+                        </div>
+
+                        <div class="story-meta">
+                            Regulação emocional
+                        </div>
+
+                    </div>
+
+                    <button class="play-btn">
+                        ►
+                    </button>
+
+                </div>
+
+                <div
+                    class="story-item"
+                    data-audio="assets/audio/no-caminho-do-amor.mp3"
+                >
+
+                    <div class="track-number">
+                        05
+                    </div>
+
+                    <div class="story-info">
+
+                        <div class="story-title">
+                            No Caminho do Amor
+                        </div>
+
+                        <div class="story-meta">
+                            Relações • Afeto
+                        </div>
+
+                    </div>
+
+                    <button class="play-btn">
+                        ►
+                    </button>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+    <!-- ======================================================
+    QUOTE
+    ======================================================= -->
+
+    <section class="quote">
+
+        <h2>
+            “Encontramos uns aos outros.
+            Agora podemos ser quem somos.”
+        </h2>
+
+        <span>
+            Universo Atípicos
+        </span>
+
+    </section>
+
+    <!-- ======================================================
+    FOOTER
+    ======================================================= -->
+
+    <footer class="footer" id="contato">
+
+        <h2>
+            ATÍPICOS
+        </h2>
+
+        <p>
+            Música autoral • Folk cósmico • Arte viva •
+            Autenticidade neurodivergente •
+            Pertencimento sem performance •
+            Existência sem masking
+        </p>
+
+    </footer>
+
+    <!-- ======================================================
+    AUDIO PLAYER
+    ======================================================= -->
+
+    <div class="audio-player">
+
+        <div id="playerIcon" class="player-icon">
+            ✦
+        </div>
+
+        <div class="player-info">
+
+            <div id="playerTitle">
+                Escolha um abraço musical.
+            </div>
+
+        </div>
+
+        <button id="prevBtn" class="player-control">
+            ◄
+        </button>
+
+        <audio id="audioControl" controls></audio>
+
+        <button id="nextBtn" class="player-control">
+            ►
+        </button>
+
+    </div>
+
+    <!-- ======================================================
+    JS
+    ======================================================= -->
+
+    <script>
+
+        /* =====================================================
+        PLAYER
+        ====================================================== */
+
+        const items =
+        document.querySelectorAll(".story-item");
+
+        const audio =
+        document.getElementById("audioControl");
+
+        const title =
+        document.getElementById("playerTitle");
+
+        const icon =
+        document.getElementById("playerIcon");
+
+        const nextBtn =
+        document.getElementById("nextBtn");
+
+        const prevBtn =
+        document.getElementById("prevBtn");
+
+        let playlist = [];
+
+        let currentIndex = -1;
+
+        /* BUILD */
+
+        items.forEach((item,index)=>{
+
+            playlist.push(item);
+
+            let progress =
+            document.createElement("div");
+
+            progress.className =
+            "card-progress";
+
+            item.appendChild(progress);
+
+            const playBtn =
+            item.querySelector(".play-btn");
+
+            playBtn.addEventListener("click",(e)=>{
+
+                e.stopPropagation();
+
+                currentIndex = index;
+
+                playStory(item);
+
+            });
+
+        });
+
+        /* PLAY */
+
+        function playStory(item){
+
+            const src =
+            item.getAttribute("data-audio");
+
+            const storyTitle =
+            item.querySelector(".story-title")
+            .innerText;
+
+            audio.src = src;
+
+            audio.load();
+
+            title.textContent =
+            storyTitle;
+
+            icon.innerHTML = "✦";
+
+            audio.play().catch(err=>{
+                console.log(err);
+            });
+
+            items.forEach(el=>
+                el.classList.remove("playing")
+            );
+
+            item.classList.add("playing");
+
+        }
+
+        /* NEXT */
+
+        nextBtn.onclick = ()=>{
+
+            if(currentIndex < playlist.length - 1){
+
+                currentIndex++;
+
+                playStory(
+                    playlist[currentIndex]
+                );
+
+            }
+
+        }
+
+        /* PREV */
+
+        prevBtn.onclick = ()=>{
+
+            if(currentIndex > 0){
+
+                currentIndex--;
+
+                playStory(
+                    playlist[currentIndex]
+                );
+
+            }
+
+        }
+
+        /* AUTO NEXT */
+
+        audio.addEventListener("ended",()=>{
+
+            if(currentIndex < playlist.length - 1){
+
+                currentIndex++;
+
+                playStory(
+                    playlist[currentIndex]
+                );
+
+            }
+
+        });
+
+        /* PROGRESS */
+
+        audio.addEventListener("timeupdate",()=>{
+
+            if(currentIndex === -1 ||
+                !audio.duration)
+            return;
+
+            const progress =
+            (audio.currentTime / audio.duration)
+            * 100;
+
+            const bar =
+            playlist[currentIndex]
+            .querySelector(".card-progress");
+
+            if(bar){
+
+                bar.style.width =
+                progress + "%";
+
+            }
+
+        });
+
+        /* =====================================================
+        HEADER EFFECT
+        ====================================================== */
+
+        const header =
+        document.getElementById("header");
+
+        window.addEventListener("scroll",()=>{
+
+            if(window.scrollY > 40){
+
+                header.classList.add("scrolled");
+
+            } else {
+
+                header.classList.remove("scrolled");
+
+            }
+
+        });
+
+        /* =====================================================
+        REVEAL
+        ====================================================== */
+
+        const revealElements =
+        document.querySelectorAll(
+            ".section, .quote"
+        );
+
+        const revealObserver =
+        new IntersectionObserver((entries)=>{
+
+            entries.forEach(entry=>{
+
+                if(entry.isIntersecting){
+
+                    entry.target.classList
+                    .add("revealed");
+
+                }
+
+            });
+
+        },{
+            threshold:0.1
+        });
+
+        revealElements.forEach(el=>{
+
+            revealObserver.observe(el);
+
+        });
+
+        /* =====================================================
+        PARALLAX
+        ====================================================== */
+
+        const heroGlow =
+        document.querySelector(".hero-glow");
+
+        window.addEventListener("mousemove",(e)=>{
+
+            const x =
+            (e.clientX / window.innerWidth - 0.5)
+            * 40;
+
+            const y =
+            (e.clientY / window.innerHeight - 0.5)
+            * 40;
+
+            heroGlow.style.transform =
+            `translate(${x}px, ${y}px)`;
+
+        });
+
+    </script>
+
+</body>
+</html>
