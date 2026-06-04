@@ -132,6 +132,18 @@ section{
 
 }
 
+.hero-grid{
+
+  display:grid;
+
+  grid-template-columns:1.1fr .9fr;
+
+  gap:60px;
+
+  align-items:center;
+
+}
+
 /* OVERLAY */
 
 .hero-overlay{
