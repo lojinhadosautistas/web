@@ -1,0 +1,595 @@
+:root{
+
+    --bg:#070707;
+    --bg2:#101010;
+    --card:#161616;
+
+    --gold:#d9a441;
+    --gold-soft:#f3d28b;
+
+    --text:#f7f0e8;
+    --muted:#c6b79b;
+
+    --border:rgba(217,164,65,.25);
+
+    --shadow:0 10px 30px rgba(0,0,0,.35);
+
+    --radius:18px;
+
+}
+
+/* ==========================
+RESET
+========================== */
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+html{
+    scroll-behavior:smooth;
+}
+
+body{
+
+    background:
+    radial-gradient(circle at top,#1b1408 0%,#070707 45%);
+
+    color:var(--text);
+
+    font-family:
+    Inter,
+    Segoe UI,
+    sans-serif;
+
+    min-height:100vh;
+
+    overflow-x:hidden;
+}
+
+/* ==========================
+STARFIELD
+========================== */
+
+.starfield{
+
+    position:fixed;
+
+    inset:0;
+
+    pointer-events:none;
+
+    z-index:-1;
+
+    background-image:
+
+    radial-gradient(
+    white 1px,
+    transparent 1px);
+
+    background-size:70px 70px;
+
+    opacity:.12;
+
+}
+
+/* ==========================
+HEADER
+========================== */
+
+.header{
+
+    position:sticky;
+
+    top:0;
+
+    backdrop-filter:blur(16px);
+
+    background:rgba(10,10,10,.8);
+
+    border-bottom:1px solid var(--border);
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    padding:18px 40px;
+
+    z-index:999;
+}
+
+.logo{
+
+    font-size:2rem;
+
+    font-weight:800;
+
+    letter-spacing:4px;
+
+    color:var(--gold);
+
+}
+
+nav{
+
+    display:flex;
+    gap:25px;
+
+}
+
+nav a{
+
+    text-decoration:none;
+
+    color:var(--muted);
+
+    transition:.3s;
+}
+
+nav a:hover{
+
+    color:var(--gold);
+}
+
+/* ==========================
+HERO
+========================== */
+
+.hero{
+
+    min-height:85vh;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    text-align:center;
+
+    padding:80px 20px;
+
+}
+
+.hero-content{
+
+    max-width:900px;
+
+}
+
+.hero-kicker{
+
+    color:var(--gold);
+
+    text-transform:uppercase;
+
+    letter-spacing:3px;
+
+    margin-bottom:15px;
+}
+
+.hero h1{
+
+    font-size:7rem;
+
+    color:var(--gold);
+
+    margin-bottom:20px;
+
+    text-shadow:
+    0 0 30px rgba(217,164,65,.25);
+
+}
+
+.hero p{
+
+    font-size:1.3rem;
+
+    line-height:1.8;
+
+    color:var(--muted);
+
+    max-width:700px;
+
+    margin:auto;
+}
+
+.hero-buttons{
+
+    margin-top:40px;
+
+    display:flex;
+
+    justify-content:center;
+
+    gap:15px;
+
+    flex-wrap:wrap;
+}
+
+.btn-primary,
+.btn-secondary{
+
+    border:none;
+
+    padding:14px 28px;
+
+    border-radius:999px;
+
+    cursor:pointer;
+
+    transition:.3s;
+}
+
+.btn-primary{
+
+    background:var(--gold);
+
+    color:#111;
+
+    font-weight:700;
+}
+
+.btn-secondary{
+
+    background:transparent;
+
+    border:1px solid var(--gold);
+
+    color:var(--gold);
+}
+
+.btn-primary:hover,
+.btn-secondary:hover{
+
+    transform:translateY(-3px);
+}
+
+/* ==========================
+SECTIONS
+========================== */
+
+.module,
+.dashboard{
+
+    width:min(1400px,95%);
+
+    margin:auto;
+
+    padding:80px 0;
+}
+
+.module h2{
+
+    font-size:2.5rem;
+
+    margin-bottom:35px;
+
+    color:var(--gold);
+}
+
+/* ==========================
+DASHBOARD
+========================== */
+
+.dashboard-grid{
+
+    display:grid;
+
+    grid-template-columns:
+    repeat(auto-fit,minmax(250px,1fr));
+
+    gap:25px;
+}
+
+.dashboard-card{
+
+    background:var(--card);
+
+    border:1px solid var(--border);
+
+    border-radius:var(--radius);
+
+    padding:30px;
+
+    transition:.35s;
+
+    box-shadow:var(--shadow);
+}
+
+.dashboard-card:hover{
+
+    transform:
+    translateY(-8px);
+
+    border-color:var(--gold);
+}
+
+.dashboard-card i{
+
+    font-size:2rem;
+
+    color:var(--gold);
+
+    margin-bottom:15px;
+}
+
+.dashboard-card h3{
+
+    margin-bottom:10px;
+}
+
+/* ==========================
+ALBUNS
+========================== */
+
+.album-grid{
+
+    display:grid;
+
+    grid-template-columns:
+    repeat(auto-fit,minmax(320px,1fr));
+
+    gap:25px;
+}
+
+.album-card{
+
+    background:var(--card);
+
+    border-radius:var(--radius);
+
+    overflow:hidden;
+
+    border:1px solid var(--border);
+}
+
+.album-card img{
+
+    width:100%;
+
+    height:250px;
+
+    object-fit:cover;
+}
+
+.album-card h3{
+
+    padding:20px;
+}
+
+.album-card p{
+
+    padding:0 20px 20px;
+
+    color:var(--muted);
+}
+
+.album-placeholder{
+
+    height:250px;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    color:var(--gold);
+
+    background:#0e0e0e;
+}
+
+/* ==========================
+TIMELINE
+========================== */
+
+.timeline{
+
+    border-left:2px solid var(--gold);
+
+    padding-left:30px;
+}
+
+.timeline-item{
+
+    margin-bottom:40px;
+}
+
+.timeline-item h3{
+
+    color:var(--gold);
+
+    margin-bottom:15px;
+}
+
+.timeline-item li{
+
+    margin-bottom:8px;
+}
+
+/* ==========================
+TERMINAL
+========================== */
+
+.terminal{
+
+    background:#050505;
+
+    border:1px solid var(--gold);
+
+    border-radius:18px;
+
+    padding:30px;
+
+    font-family:monospace;
+}
+
+.terminal-line{
+
+    color:#6eff8f;
+
+    margin-bottom:12px;
+
+    cursor:pointer;
+
+    transition:.2s;
+}
+
+.terminal-line:hover{
+
+    transform:translateX(8px);
+}
+
+/* ==========================
+CONSTELAÇÃO
+========================== */
+
+.constellation{
+
+    display:grid;
+
+    grid-template-columns:
+    repeat(auto-fit,minmax(220px,1fr));
+
+    gap:25px;
+}
+
+.symbol{
+
+    background:var(--card);
+
+    border-radius:var(--radius);
+
+    border:1px solid var(--border);
+
+    text-align:center;
+
+    padding:35px;
+}
+
+.symbol h3{
+
+    margin:15px 0;
+}
+
+/* ==========================
+JSON LIBRARY
+========================== */
+
+.json-grid{
+
+    display:grid;
+
+    grid-template-columns:
+    repeat(auto-fit,minmax(220px,1fr));
+
+    gap:20px;
+}
+
+.json-card{
+
+    background:#0f0f0f;
+
+    border:1px solid var(--border);
+
+    border-radius:14px;
+
+    padding:25px;
+
+    font-family:monospace;
+
+    color:var(--gold);
+
+    transition:.3s;
+}
+
+.json-card:hover{
+
+    border-color:var(--gold);
+
+    transform:translateY(-5px);
+}
+
+/* ==========================
+AGENDA
+========================== */
+
+.agenda{
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:15px;
+}
+
+.agenda-item{
+
+    background:var(--card);
+
+    padding:20px;
+
+    border-radius:14px;
+
+    border-left:5px solid var(--gold);
+
+    display:flex;
+
+    gap:20px;
+
+    font-weight:700;
+}
+
+/* ==========================
+FOOTER
+========================== */
+
+footer{
+
+    margin-top:80px;
+
+    text-align:center;
+
+    padding:80px 20px;
+
+    border-top:1px solid var(--border);
+}
+
+footer h2{
+
+    color:var(--gold);
+
+    margin-bottom:20px;
+}
+
+footer p{
+
+    color:var(--muted);
+
+    max-width:700px;
+
+    margin:auto;
+
+    line-height:1.8;
+}
+
+/* ==========================
+RESPONSIVO
+========================== */
+
+@media(max-width:768px){
+
+    .hero h1{
+        font-size:4rem;
+    }
+
+    nav{
+        display:none;
+    }
+
+}
