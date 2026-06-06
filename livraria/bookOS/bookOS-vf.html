@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="google-adsense-account" content="ca-pub-3277175946272866">
+
+<title>BookOS Custos • Sistema de Custos no Setor Público</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+<link href="assets/css/bookos-main-vf.css" rel="stylesheet">
+  
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/particles.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12"></script>
+
+
+
+</head>
+
+<body>
+<div id="header-container"></div>
+<div id="sidebar-container"></div>
+
+<div id="particles-js"></div>
+
+<div class="app">
+
+<header class="topbar">
+
+<div class="brand">
+
+<div class="logo">
+<img src="assets/img/logo-bookos.png">
+</div>
+
+<div>
+<h1>BookOS</h1>
+<small>Governança Editorial Operacional</small>
+</div>
+
+</div>
+
+<div class="hero">
+
+<strong>
+SISTEMA EDITORIAL • DISCLOSURE • VERSIONAMENTO
+</strong>
+
+<p>
+Arquitetura operacional voltada para produção editorial estruturada, atualização normativa, rastreabilidade documental e integração de fluxos acadêmicos aplicados ao Sistema de Custos no Setor Público.
+</p>
+
+</div>
+
+<div class="system book-system">
+
+<div class="system-cover">
+<img src="assets/img/bookos-custos-livro.png" alt="Sistema de Custos no Setor Público">
+</div>
+
+</div>
+
+</header>
+
+  <!-- BOOK BANNER
+<section class="book-banner">
+
+<small>
+LIVRO EM EDITORAÇÃO • 2ª EDIÇÃO REVISADA
+</small>
+
+<h2>
+Sistema de Custos no Setor Público
+</h2>
+
+<p>
+Nova edição revisada e atualizada segundo a NBCT SP 34, incorporando novos estudos de caso, aplicações operacionais, integração ao SICSP e estrutura de governança editorial baseada em disclosure contínuo.
+</p>
+
+</section>
+  BOOK BANNER -->
+
+  
+<nav class="menu">
+
+<button class="tab active" data-target="dashboard-section">Dashboard</button>
+<button class="tab" data-target="capitulos-section">Capítulos</button>
+<button class="tab" data-target="nbct-section">NBCT SP 34</button>
+<button class="tab">Governança</button>
+<button class="tab">Disclosure</button>
+<button class="tab">Roadmap</button>
+
+</nav>
+
+<section class="main">
+
+<aside class="panel left">
+
+<h3>Fluxo Operacional</h3>
+
+<div class="feed">
+<strong>Workspace OneDrive</strong>
+<br><br>
+<small>
+Centralização documental e sincronização editorial contínua.
+</small>
+</div>
+
+<div class="feed">
+<strong>Controle Documental</strong>
+<br><br>
+<small>
+Versionamento operacional de capítulos, anexos e atualizações normativas.
+</small>
+</div>
+
+<div class="feed">
+<strong>Matriz de Conformidade</strong>
+<br><br>
+<small>
+Atualização metodológica segundo a NBCT SP 34 e estruturas CASP.
+</small>
+</div>
+
+<div class="feed">
+<strong>Inteligência Editorial</strong>
+<br><br>
+<small>
+Modelagem estratégica para transformar o livro em plataforma editorial viva e escalável.
+</small>
+</div>
+
+</aside>
+
+<main class="panel center">
+
+<div class="content-section active" id="dashboard-section">
+
+<div class="card">
+
+<div class="metric-grid">
+
+<div class="metric-card">
+<small>Capítulos</small>
+<strong>9</strong>
+<span>Estrutura integrada</span>
+</div>
+
+<div class="metric-card">
+<small>Status</small>
+<strong>72%</strong>
+<span>Edição revisada</span>
+</div>
+
+<div class="metric-card">
+<small>Normativos</small>
+<strong>NBCT</strong>
+<span>SP 34 integrada</span>
+</div>
+
+<div class="metric-card">
+<small>Disclosure</small>
+<strong>LIVE</strong>
+<span>Operação contínua</span>
+</div>
+
+</div>
+
+<h2 style="margin-top:22px;">Impacto Operacional</h2>
+
+<canvas id="impactChart" height="100"></canvas>
+
+</div>
+
+</div>
+
+<div class="content-section" id="capitulos-section">
+
+<div class="card">
+
+<h2>Camada Documental Compartilhada</h2>
+
+<div class="chapter-tabs">
+
+<button class="chapter-btn active" data-doc="doc1">Capítulo 1</button>
+<button class="chapter-btn" data-doc="doc2">Capítulo 2</button>
+<button class="chapter-btn" data-doc="doc3">Capítulo 3</button>
+<button class="chapter-btn" data-doc="doc4">Capítulo 4</button>
+<button class="chapter-btn" data-doc="doc5">Capítulo 5</button>
+<button class="chapter-btn" data-doc="doc6">Capítulo 6</button>
+<button class="chapter-btn" data-doc="doc7">Capítulo 7</button>
+<button class="chapter-btn" data-doc="doc8">Capítulo 8</button>
+<button class="chapter-btn" data-doc="doc9">Capítulo 9</button>
+
+</div>
+
+<div class="doc-page active" id="doc1">
+<div class="doc-header">
+<small class="doc-kicker">CAPÍTULO 1</small>
+<h2>Introdução ao Sistema de Custos no Setor Público</h2>
+<p>Documento operacional sincronizado via OneDrive.</p>
+<a href="https://onedrive.live.com/view.aspx?resid=46BEB8E5D35CAA74!s609410e74be04d1a979a915f4d950b1c" target="_blank" class="doc-button">Abrir Documento</a>
+</div>
+<div class="doc-viewer">
+<iframe src="https://onedrive.live.com/embed?resid=46BEB8E5D35CAA74!s609410e74be04d1a979a915f4d950b1c&em=2"></iframe>
+</div>
+</div>
+
+<div class="doc-page" id="doc2">
+<div class="doc-header">
+<small class="doc-kicker">CAPÍTULO 2</small>
+<h2>Sistema Contábil e Estrutura de Custos</h2>
+<p>Documento operacional sincronizado via OneDrive.</p>
+<a href="https://onedrive.live.com/view.aspx?resid=46BEB8E5D35CAA74!s13e286d7cd124ca59acb1378086bd9f8" target="_blank" class="doc-button">Abrir Documento</a>
+</div>
+<div class="doc-viewer">
+<iframe src="https://onedrive.live.com/embed?resid=46BEB8E5D35CAA74!s13e286d7cd124ca59acb1378086bd9f8&em=2"></iframe>
+</div>
+</div>
+
+<div class="doc-page" id="doc3">
+<div class="doc-header">
+<small class="doc-kicker">CAPÍTULO 3</small>
+<h2>Orçamento Público e Custos Governamentais</h2>
+<p>Documento operacional sincronizado via OneDrive.</p>
+<a href="https://onedrive.live.com/view.aspx?resid=46BEB8E5D35CAA74!s497e25adbd02476e9b90f5f205ba7ec5" target="_blank" class="doc-button">Abrir Documento</a>
+</div>
+<div class="doc-viewer">
+<iframe src="https://onedrive.live.com/embed?resid=46BEB8E5D35CAA74!s497e25adbd02476e9b90f5f205ba7ec5&em=2"></iframe>
+</div>
+</div>
+
+<div class="doc-page" id="doc4"><div class="doc-header"><small class="doc-kicker">CAPÍTULO 4</small><h2>CASP Aplicado ao SICSP</h2><p>Documento operacional sincronizado via OneDrive.</p></div><div class="doc-viewer"><iframe src="https://onedrive.live.com/embed?resid=46BEB8E5D35CAA74!s374864c31dab4d0ca447ce5c75d75179&em=2"></iframe></div></div>
+
+<div class="doc-page" id="doc5"><div class="doc-header"><small class="doc-kicker">CAPÍTULO 5</small><h2>SICSP e Modelagem de Custos</h2><p>Documento operacional sincronizado via OneDrive.</p></div><div class="doc-viewer"><iframe src="https://onedrive.live.com/embed?resid=46BEB8E5D35CAA74!s41e4ed7cfb5c441a9090e0e6326c9a03&em=2"></iframe></div></div>
+
+<div class="doc-page" id="doc6"><div class="doc-header"><small class="doc-kicker">CAPÍTULO 6</small><h2>SICSP-SP</h2><p>Documento operacional sincronizado via OneDrive.</p></div><div class="doc-viewer"><iframe src="https://onedrive.live.com/embed?resid=46BEB8E5D35CAA74!sff4969bdb00645ef817cdf18080ca727&em=2"></iframe></div></div>
+
+<div class="doc-page" id="doc7"><div class="doc-header"><small class="doc-kicker">CAPÍTULO 7</small><h2>Conclusões</h2><p>Documento operacional sincronizado via OneDrive.</p></div><div class="doc-viewer"><iframe src="https://onedrive.live.com/embed?resid=46BEB8E5D35CAA74!s7ce99ee49d3f4101913bdc9f4a44e26f&em=2"></iframe></div></div>
+
+<div class="doc-page" id="doc8"><div class="doc-header"><small class="doc-kicker">CAPÍTULO 8</small><h2>Governança</h2><p>Documento operacional sincronizado via OneDrive.</p></div><div class="doc-viewer"><iframe src="https://onedrive.live.com/embed?resid=46BEB8E5D35CAA74!sf17c8daa5f6d47529de8aa9b5931d16f&em=2"></iframe></div></div>
+
+<div class="doc-page" id="doc9"><div class="doc-header"><small class="doc-kicker">CAPÍTULO 9</small><h2>Implantação</h2><p>Documento operacional sincronizado via OneDrive.</p></div><div class="doc-viewer"><iframe src="https://onedrive.live.com/embed?resid=46BEB8E5D35CAA74!s8cff271c89524f64aff0de1da05de04a&em=2"></iframe></div></div>
+
+</div>
+
+</div>
+
+<div class="content-section" id="nbct-section">
+
+<div class="card nbc-card">
+
+<h2>NBCT SP 34 • Norma Brasileira de Contabilidade Aplicada ao Setor Público</h2>
+
+<p>
+A NBCT SP 34 estabelece diretrizes para implantação, mensuração, evidenciação e governança dos sistemas de custos aplicados ao setor público.
+</p>
+
+<ul>
+<li>Integração entre contabilidade e custos governamentais</li>
+<li>Estruturação de sistemas SICSP</li>
+<li>Mensuração de eficiência operacional</li>
+<li>Transparência e accountability pública</li>
+<li>Suporte à tomada de decisão baseada em evidências</li>
+<li>Integração com CASP e planejamento governamental</li>
+</ul>
+
+<p style="margin-top:22px;">
+A nova edição do livro foi revisada considerando os princípios, requisitos operacionais e atualizações metodológicas da NBCT SP 34.
+</p>
+
+<a class="cfc-link" href="https://cfc.org.br/tecnica/normas-brasileiras-de-contabilidade/nbc-tsp-do-setor-publico/" target="_blank">
+Acessar norma no portal do CFC
+</a>
+
+</div>
+
+</div>
+
+</main>
+
+<aside class="panel right">
+
+<h3>Governança Editorial</h3>
+
+<div class="feed">
+<strong>Pendências Operacionais</strong>
+<br><br>
+<small>
+Atualização textual, revisão normativa e integração dos estudos de caso.
+</small>
+</div>
+
+<div class="feed">
+<strong>Ferramentas BookOS</strong>
+<br><br>
+<small>
+Workspace editorial, disclosure contínuo, indexação e rastreabilidade documental.
+</small>
+</div>
+
+<div class="feed">
+<strong>Roadmap Estratégico</strong>
+<br><br>
+<small>
+Expansão futura para novos livros e módulos temáticos por área.
+</small>
+</div>
+
+<div class="feed">
+<strong>Disclosure Editorial</strong>
+<br><br>
+<small>
+Estrutura de publicação contínua inspirada em sistemas SEC-style.
+</small>
+</div>
+
+<div class="feed">
+<strong>Equipe Editorial</strong>
+<br><br>
+<small>
+Coordenação integrada entre revisão técnica, governança e produção editorial.
+</small>
+</div>
+
+<div class="card">
+
+<h2>Tags Operacionais</h2>
+
+<div class="tags">
+
+<div class="tag">NBCT SP 34</div>
+<div class="tag">SICSP</div>
+<div class="tag">CASP</div>
+<div class="tag">Governança</div>
+<div class="tag">Custos Públicos</div>
+<div class="tag">Disclosure</div>
+<div class="tag">BookOS</div>
+<div class="tag">OneDrive</div>
+
+</div>
+
+</div>
+
+</aside>
+
+</section>
+
+<footer class="footer">
+© 2026 • BookOS Custos • Sistema Editorial Operacional • Disclosure Intelligence
+</footer>
+
+</div>
+
+<script>
+
+particlesJS('particles-js', {
+particles:{
+number:{ value:60 },
+color:{ value:'#b28a52' },
+shape:{ type:'circle' },
+opacity:{ value:.18 },
+size:{ value:3 },
+move:{ enable:true, speed:1 }
+}
+});
+
+const tabs = document.querySelectorAll('.tab[data-target]');
+const sections = document.querySelectorAll('.content-section');
+
+tabs.forEach(tab => {
+
+  tab.addEventListener('click', () => {
+
+    tabs.forEach(t => t.classList.remove('active'));
+    sections.forEach(s => s.classList.remove('active'));
+
+    tab.classList.add('active');
+
+    document
+      .getElementById(tab.dataset.target)
+      .classList.add('active');
+
+  });
+
+});
+
+const chapterButtons =
+document.querySelectorAll('.chapter-btn');
+
+const chapterPages =
+document.querySelectorAll('.doc-page');
+
+chapterButtons.forEach(button => {
+
+button.addEventListener('click', () => {
+
+chapterButtons.forEach(btn =>
+btn.classList.remove('active')
+);
+
+chapterPages.forEach(page =>
+page.classList.remove('active')
+);
+
+button.classList.add('active');
+
+document
+.getElementById(button.dataset.doc)
+.classList.add('active');
+
+});
+
+});
+
+const ctx =
+document.getElementById('impactChart');
+
+new Chart(ctx, {
+
+type:'bar',
+
+data:{
+labels:[
+'Revisão',
+'NBCT',
+'SICSP',
+'Estudos',
+'Governança'
+],
+
+datasets:[{
+
+label:'Maturidade Operacional',
+
+data:[72,94,81,65,92],
+
+borderWidth:1
+
+}]
+
+},
+
+options:{
+responsive:true,
+plugins:{
+legend:{ display:false }
+}
+}
+
+});
+
+</script>
+
+  <script src="assets/js/components.js"></script>
+</body>
+</html>
