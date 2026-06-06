@@ -69,6 +69,11 @@ document.addEventListener("DOMContentLoaded", async () => {
     loadComponent(
       "sidebar-container",
       "assets/components/sidebar.html"
+    ),
+    
+    loadComponent( 
+      "footer-container", 
+      "assets/components/footer.html" 
     )
 
   ]);
