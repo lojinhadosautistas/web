@@ -272,3 +272,72 @@ color:#d1d5db;
 line-height:1.7;
 
 }
+
+
+@media(max-width:1180px){
+
+.topbar{
+flex-wrap:wrap;
+}
+
+.hero{
+max-width:100%;
+}
+
+}
+
+
+@media(max-width:980px){
+
+  .topbar{
+    flex-direction:column;
+    align-items:flex-start;
+  }
+
+  .system.book-system{
+    width:110px;
+    min-width:110px;
+    padding:10px;
+  }
+
+  .system-cover img{
+    width:70px;
+  }
+
+}
+
+@media(max-width:680px){
+
+  .topbar{
+    padding:18px;
+  }
+
+  .logo{
+    width:62px;
+    height:62px;
+  }
+
+  .brand h1{
+    font-size:1.8rem;
+  }
+
+  .book-banner{
+    padding:22px;
+  }
+
+  .book-banner h2{
+    font-size:2rem;
+  }
+
+  .system.book-system{
+    width:95px;
+    min-width:95px;
+    padding:8px;
+    border-radius:18px;
+  }
+
+  .system-cover img{
+    width:58px;
+  }
+
+}
