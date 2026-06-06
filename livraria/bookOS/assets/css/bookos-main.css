@@ -194,9 +194,11 @@ color:#fff;
 display:grid;
 
 grid-template-columns:
-320px 1fr 320px;
+320px 1fr;
 
 gap:18px;
+
+align-items:start;
 
 }
 
@@ -221,14 +223,12 @@ overflow:hidden;
 padding:22px;
 }
 
+
 .center{
 
-padding:22px;
+width:100%;
 
-display:flex;
-flex-direction:column;
-
-gap:18px;
+min-width:0;
 
 }
 
