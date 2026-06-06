@@ -60,7 +60,7 @@
    HOME
    =================================================== */
 
-.page-home .hero {
+.page-home .page-title {
   background-image:
     url("../img/heroes/home.webp");
 }
@@ -69,16 +69,16 @@
    BLOG
    =================================================== */
 
-.page-blog .hero {
+.page-blog .page-title {
   background-image:
-    url("../img/heroes/blog.webp");
+    url("../img/header-blog.jpg");
 }
 
 /* ===================================================
    LIVRARIA
    =================================================== */
 
-.page-livraria .hero {
+.page-livraria .page-title {
   background-image:
     url("../img/heroes/livraria.webp");
 }
@@ -87,7 +87,7 @@
    JOGOS
    =================================================== */
 
-.page-jogos .hero {
+.page-jogos .page-title {
   background-image:
     url("../img/heroes/jogos.webp");
 }
@@ -96,7 +96,7 @@
    CURSOS
    =================================================== */
 
-.page-cursos .hero {
+.page-cursos .page-title {
   background-image:
     url("../img/heroes/cursos.webp");
 }
@@ -105,7 +105,7 @@
    EVENTOS
    =================================================== */
 
-.page-eventos .hero {
+.page-eventos .page-title {
   background-image:
     url("../img/heroes/eventos.webp");
 }
