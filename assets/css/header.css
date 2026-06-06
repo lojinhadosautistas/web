@@ -33,7 +33,7 @@
 }
 
 .page-blog .header::before {
-    background-image: url("../img/header/blog.webp");
+    background-image: url("../img/header-blog.jpg");
 }
 
 .page-livraria .header::before {
