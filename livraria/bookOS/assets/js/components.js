@@ -24,8 +24,8 @@ function initMenuToggle() {
 }
 
 document.addEventListener("DOMContentLoaded", async () => {
-  await loadComponent("header-container", "components/header.html");
-  await loadComponent("sidebar-container", "components/sidebar.html");
+  await loadComponent("header-container", "../components/header.html");
+  await loadComponent("sidebar-container", "../components/sidebar.html");
 
   initMenuToggle();
 });
