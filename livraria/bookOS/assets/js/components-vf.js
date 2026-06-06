@@ -1,4 +1,4 @@
-```javascript
+
 async function loadComponent(id, url) {
   const container = document.getElementById(id);
 
@@ -63,12 +63,12 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     loadComponent(
       "header-container",
-      "components/header.html"
+      "../components/header.html"
     ),
 
     loadComponent(
       "sidebar-container",
-      "components/sidebar.html"
+      "../components/sidebar.html"
     )
 
   ]);
@@ -76,4 +76,3 @@ document.addEventListener("DOMContentLoaded", async () => {
   initMenuToggle();
 
 });
-```
