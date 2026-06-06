@@ -1,0 +1,53 @@
+.header {
+    position: fixed;
+    width: 100%;
+    min-height: 90px;
+    overflow: hidden;
+    z-index: 9999;
+}
+
+.header::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+
+    z-index: -2;
+}
+
+.header::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+
+    background: rgba(0,0,0,.45);
+
+    z-index: -1;
+}
+
+.page-home .header::before {
+    background-image: url("../img/header/home.webp");
+}
+
+.page-blog .header::before {
+    background-image: url("../img/header/blog.webp");
+}
+
+.page-livraria .header::before {
+    background-image: url("../img/header/livraria.webp");
+}
+
+.page-jogos .header::before {
+    background-image: url("../img/header/jogos.webp");
+}
+
+.page-cursos .header::before {
+    background-image: url("../img/header/cursos.webp");
+}
+
+.page-eventos .header::before {
+    background-image: url("../img/header/eventos.webp");
+}
