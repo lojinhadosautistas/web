@@ -115,27 +115,27 @@
 --------------------------------------------------------------*/
 
 .page-home .footer::before {
-  background-image: url("../img/footer/home.webp");
+  background-image: url("../img/hero-eixos.png");
 }
 
 .page-blog .footer::before {
-  background-image: url("../img/footer/blog.webp");
+  background-image: url("../img/hero-blog.png");
 }
 
 .page-livraria .footer::before {
-  background-image: url("../img/footer/livraria.webp");
+  background-image: url("../img/hero-eixos.png");
 }
 
 .page-jogos .footer::before {
-  background-image: url("../img/footer/jogos.webp");
+  background-image: url("../img/hero-eixos.png");
 }
 
 .page-cursos .footer::before {
-  background-image: url("../img/footer/cursos.webp");
+  background-image: url("../img/hero-eixos.png");
 }
 
 .page-eventos .footer::before {
-  background-image: url("../img/footer/eventos.webp");
+  background-image: url("../img/hero-eixos.png");
 }
 
 /* Fallback caso alguma página não tenha classe específica */
