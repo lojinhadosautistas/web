@@ -30,7 +30,7 @@
 
     z-index: -1;
 }
-
+/*
 .page-home .header::before {
     background-image: url("../img/header/home.webp");
 }
@@ -54,3 +54,4 @@
 .page-eventos .header::before {
     background-image: url("../img/header/eventos.webp");
 }
+*/
