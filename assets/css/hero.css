@@ -1,0 +1,117 @@
+/* ===================================================
+   PAGE TITLE / HERO INTERNO
+   =================================================== */
+
+.page-title {
+    position: relative;
+
+    min-height: 500px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    overflow: hidden;
+
+    background-size: cover;
+    background-position: center center;
+    background-repeat: no-repeat;
+}
+
+/* Overlay escuro */
+
+.page-title::before {
+    content: "";
+
+    position: absolute;
+    inset: 0;
+
+    background: rgba(0, 0, 0, .60);
+
+    z-index: 1;
+}
+
+/* Conteúdo acima da imagem */
+
+.page-title .heading,
+.page-title .breadcrumbs {
+    position: relative;
+    z-index: 2;
+}
+
+/* Texto */
+
+.page-title h1 {
+    color: #fff;
+    font-size: clamp(2.2rem, 5vw, 4rem);
+    font-weight: 700;
+}
+
+.page-title p {
+    color: rgba(255,255,255,.92);
+    font-size: 1.15rem;
+}
+
+.page-title .breadcrumbs,
+.page-title .breadcrumbs a {
+    color: #fff;
+}
+
+/* ===================================================
+   BLOG
+   =================================================== */
+
+.page-title.page-blog {
+    background-image: url("../img/hero-blog.jpg");
+}
+
+/* ===================================================
+   LIVRARIA
+   =================================================== */
+
+.page-title.page-livraria {
+    background-image: url("../img/hero-livraria.jpg");
+}
+
+/* ===================================================
+   JOGOS
+   =================================================== */
+
+.page-title.page-jogos {
+    background-image: url("../img/hero-jogos.jpg");
+}
+
+/* ===================================================
+   CURSOS
+   =================================================== */
+
+.page-title.page-cursos {
+    background-image: url("../img/hero-cursos.jpg");
+}
+
+/* ===================================================
+   EVENTOS
+   =================================================== */
+
+.page-title.page-eventos {
+    background-image: url("../img/hero-eventos.jpg");
+}
+
+/* ===================================================
+   RESPONSIVO
+   =================================================== */
+
+@media (max-width: 768px) {
+
+    .page-title {
+        min-height: 380px;
+    }
+
+    .page-title h1 {
+        font-size: 2rem;
+    }
+
+    .page-title p {
+        font-size: 1rem;
+    }
+}
