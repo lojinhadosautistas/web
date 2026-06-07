@@ -1,0 +1,145 @@
+/*--------------------------------------------------------------
+# Global Footer
+--------------------------------------------------------------*/
+
+.footer {
+  color: var(--default-color);
+  background-color: var(--background-color);
+  font-size: 14px;
+  text-align: center;
+  padding: 60px 0 30px;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Imagem de fundo */
+.footer::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: cover;
+
+  z-index: 0;
+}
+
+/* Overlay escuro */
+.footer::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+
+  background: color-mix(
+    in srgb,
+    var(--background-color),
+    transparent 20%
+  );
+
+  z-index: 1;
+}
+
+/* Conteúdo acima das camadas */
+.footer .container {
+  position: relative;
+  z-index: 2;
+}
+
+.footer h3 {
+  font-size: 36px;
+  font-weight: 700;
+  margin: 0 0 15px;
+  padding: 0;
+}
+
+.footer p {
+  font-size: 15px;
+  font-style: italic;
+  margin: 0 0 30px;
+  padding: 0;
+}
+
+.footer .social-links {
+  margin: 0 0 30px;
+}
+
+.footer .social-links a {
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background: var(--accent-color);
+  color: var(--contrast-color);
+
+  width: 36px;
+  height: 36px;
+
+  margin: 0 4px;
+  border-radius: 50%;
+
+  line-height: 1;
+  text-align: center;
+
+  transition: all 0.3s ease;
+}
+
+.footer .social-links a:hover {
+  background: color-mix(
+    in srgb,
+    var(--accent-color),
+    transparent 20%
+  );
+
+  transform: translateY(-2px);
+  text-decoration: none;
+}
+
+.footer .copyright {
+  padding-top: 25px;
+  border-top: 1px solid color-mix(
+    in srgb,
+    var(--default-color),
+    transparent 90%
+  );
+}
+
+.footer .credits {
+  font-size: 13px;
+  padding-top: 5px;
+}
+
+/*--------------------------------------------------------------
+# Footer Backgrounds by Page
+--------------------------------------------------------------*/
+
+.page-home .footer::before {
+  background-image: url("../img/footer/home.webp");
+}
+
+.page-blog .footer::before {
+  background-image: url("../img/footer/blog.webp");
+}
+
+.page-livraria .footer::before {
+  background-image: url("../img/footer/livraria.webp");
+}
+
+.page-jogos .footer::before {
+  background-image: url("../img/footer/jogos.webp");
+}
+
+.page-cursos .footer::before {
+  background-image: url("../img/footer/cursos.webp");
+}
+
+.page-eventos .footer::before {
+  background-image: url("../img/footer/eventos.webp");
+}
+
+/* Fallback caso alguma página não tenha classe específica */
+
+.footer::before {
+  background-image: url("../img/footer/default.webp");
+}
