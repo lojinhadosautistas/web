@@ -1,12 +1,14 @@
 /* ==========================================================
-CONTINUUM EXPORT v1.0
+CONTINUUM EXPORT v2.0
+JSON • Markdown • PDF • Word
 Complemento do Continuum Editor
-JSON • Markdown • TXT • PDF • DOCX
 ========================================================== */
 
 class ContinuumExport {
 
     constructor() {
+
+        this.dropdown = null;
 
         this.init();
 
@@ -22,6 +24,11 @@ class ContinuumExport {
             "DOMContentLoaded",
             () => {
 
+                this.dropdown =
+                    document.getElementById(
+                        "exportDropdown"
+                    );
+
                 this.bindEvents();
 
             }
@@ -30,7 +37,7 @@ class ContinuumExport {
     }
 
     /* ==========================================================
-    GET DATA
+    EDITOR DATA
     ========================================================== */
 
     async getEditorData() {
@@ -52,7 +59,7 @@ class ContinuumExport {
     }
 
     /* ==========================================================
-    TEXT
+    PLAIN TEXT
     ========================================================== */
 
     async getPlainText() {
@@ -70,7 +77,7 @@ class ContinuumExport {
 
                     text +=
                         "\n\n" +
-                        block.data.text +
+                        block.data.text.toUpperCase() +
                         "\n";
 
                     break;
@@ -124,7 +131,7 @@ class ContinuumExport {
 
         });
 
-        return text;
+        return text.trim();
 
     }
 
@@ -147,7 +154,7 @@ class ContinuumExport {
 
                     md +=
                         "#".repeat(
-                            block.data.level
+                            block.data.level || 1
                         ) +
                         " " +
                         block.data.text +
@@ -206,20 +213,50 @@ class ContinuumExport {
 
         });
 
-        return md;
+        return md.trim();
 
     }
 
     /* ==========================================================
-    DOWNLOAD
+    HELPERS
     ========================================================== */
 
-    download(content, filename, type) {
+    today() {
+
+        return new Date()
+            .toISOString()
+            .split("T")[0];
+
+    }
+
+    filename(extension) {
+
+        return
+            `continuum-${this.today()}.${extension}`;
+
+    }
+
+    closeDropdown() {
+
+        this.dropdown
+        ?.classList
+        .remove("active");
+
+    }
+
+    download(
+        content,
+        filename,
+        mimeType
+    ) {
 
         const blob =
             new Blob(
                 [content],
-                { type }
+                {
+                    type:
+                    mimeType
+                }
             );
 
         const url =
@@ -230,32 +267,17 @@ class ContinuumExport {
 
         a.href = url;
 
-        a.download = filename;
+        a.download =
+            filename;
+
+        document.body
+            .appendChild(a);
 
         a.click();
 
+        a.remove();
+
         URL.revokeObjectURL(url);
-
-    }
-
-    /* ==========================================================
-    TXT
-    ========================================================== */
-
-    async exportTXT() {
-
-        const text =
-            await this.getPlainText();
-
-        this.download(
-
-            text,
-
-            `continuum-${this.today()}.txt`,
-
-            "text/plain"
-
-        );
 
     }
 
@@ -265,18 +287,30 @@ class ContinuumExport {
 
     async exportMD() {
 
-        const md =
-            await this.getMarkdown();
+        try {
 
-        this.download(
+            const md =
+                await this.getMarkdown();
 
-            md,
+            this.download(
 
-            `continuum-${this.today()}.md`,
+                md,
 
-            "text/markdown"
+                `continuum-${this.today()}.md`,
 
-        );
+                "text/markdown"
+
+            );
+
+            this.closeDropdown();
+
+        }
+
+        catch(error) {
+
+            console.error(error);
+
+        }
 
     }
 
@@ -286,40 +320,71 @@ class ContinuumExport {
 
     async exportPDF() {
 
-        if (!window.jspdf) {
+        try {
 
-            alert(
-                "jsPDF não carregado."
+            if (!window.jspdf) {
+
+                alert(
+                    "jsPDF não carregado."
+                );
+
+                return;
+
+            }
+
+            const text =
+                await this.getPlainText();
+
+            const { jsPDF } =
+                window.jspdf;
+
+            const doc =
+                new jsPDF();
+
+            const pageWidth =
+                180;
+
+            const lines =
+                doc.splitTextToSize(
+                    text,
+                    pageWidth
+                );
+
+            let y = 20;
+
+            lines.forEach(line => {
+
+                if (y > 270) {
+
+                    doc.addPage();
+
+                    y = 20;
+
+                }
+
+                doc.text(
+                    line,
+                    15,
+                    y
+                );
+
+                y += 7;
+
+            });
+
+            doc.save(
+                `continuum-${this.today()}.pdf`
             );
 
-            return;
+            this.closeDropdown();
 
         }
 
-        const text =
-            await this.getPlainText();
+        catch(error) {
 
-        const { jsPDF } =
-            window.jspdf;
+            console.error(error);
 
-        const doc =
-            new jsPDF();
-
-        const lines =
-            doc.splitTextToSize(
-                text,
-                180
-            );
-
-        doc.text(
-            lines,
-            15,
-            20
-        );
-
-        doc.save(
-            `continuum-${this.today()}.pdf`
-        );
+        }
 
     }
 
@@ -329,70 +394,81 @@ class ContinuumExport {
 
     async exportDOCX() {
 
-        if (
-            !window.docx ||
-            !window.saveAs
-        ) {
+        try {
 
-            alert(
-                "Bibliotecas DOCX não carregadas."
+            if (
+                !window.docx ||
+                !window.saveAs
+            ) {
+
+                alert(
+                    "Bibliotecas DOCX não carregadas."
+                );
+
+                return;
+
+            }
+
+            const text =
+                await this.getPlainText();
+
+            const doc =
+
+                new docx.Document({
+
+                    sections: [
+
+                        {
+
+                            children: [
+
+                                new docx.Paragraph({
+
+                                    text
+
+                                })
+
+                            ]
+
+                        }
+
+                    ]
+
+                });
+
+            const blob =
+                await docx.Packer
+                .toBlob(doc);
+
+            saveAs(
+
+                blob,
+
+                `continuum-${this.today()}.docx`
+
             );
 
-            return;
+            this.closeDropdown();
 
         }
 
-        const text =
-            await this.getPlainText();
+        catch(error) {
 
-        const doc =
+            console.error(error);
 
-            new docx.Document({
-
-                sections: [
-
-                    {
-
-                        children: [
-
-                            new docx.Paragraph(
-                                text
-                            )
-
-                        ]
-
-                    }
-
-                ]
-
-            });
-
-        const blob =
-            await docx.Packer.toBlob(
-                doc
-            );
-
-        saveAs(
-
-            blob,
-
-            `continuum-${this.today()}.docx`
-
-        );
+        }
 
     }
 
     /* ==========================================================
-    DATA
+    DROPDOWN
     ========================================================== */
 
-    today() {
+    toggleDropdown() {
 
-        return new Date()
-
-            .toISOString()
-
-            .split("T")[0];
+        this.dropdown
+        ?.classList
+        .toggle("active");
 
     }
 
@@ -403,31 +479,74 @@ class ContinuumExport {
     bindEvents() {
 
         document
-        .getElementById("exportTXT")
+        .getElementById(
+            "exportMenu"
+        )
         ?.addEventListener(
             "click",
-            () => this.exportTXT()
+            () => {
+
+                this.toggleDropdown();
+
+            }
         );
 
         document
-        .getElementById("exportMD")
+        .getElementById(
+            "exportMD"
+        )
         ?.addEventListener(
             "click",
             () => this.exportMD()
         );
 
         document
-        .getElementById("exportPDF")
+        .getElementById(
+            "exportPDF"
+        )
         ?.addEventListener(
             "click",
             () => this.exportPDF()
         );
 
         document
-        .getElementById("exportDOCX")
+        .getElementById(
+            "exportDOCX"
+        )
         ?.addEventListener(
             "click",
             () => this.exportDOCX()
+        );
+
+        document.addEventListener(
+            "click",
+            event => {
+
+                const menu =
+                    document.getElementById(
+                        "exportMenu"
+                    );
+
+                if (
+                    !menu ||
+                    !this.dropdown
+                ) return;
+
+                if (
+                    !menu.contains(
+                        event.target
+                    )
+                    &&
+                    !this.dropdown.contains(
+                        event.target
+                    )
+                ) {
+
+                    this.closeDropdown();
+
+                }
+
+            }
         );
 
     }
