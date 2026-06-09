@@ -46,6 +46,12 @@
 <script src="https://cdn.jsdelivr.net/npm/@editorjs/quote@latest"></script>
 <script src="https://cdn.jsdelivr.net/npm/@editorjs/delimiter@latest"></script>
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+<script src="https://unpkg.com/docx@8.5.0/build/index.umd.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
+
 
 
     <!-- ======================================================= GOOGLE ADSENSE  ======================================================== -->
@@ -210,29 +216,33 @@ Ecossistema operacional vivo para sustentação cognitiva, inteligência longitu
 
 <div class="editor-actions">
 
-    <button
-        id="saveEditor"
-        class="editor-btn primary">
-        💾 Salvar Local
-    </button>
+    <button id="saveEditor" class="editor-btn primary">
+💾 Salvar
+</button>
 
-    <button
-        id="exportEditor"
-        class="editor-btn">
-        📦 Snapshot
-    </button>
+<button id="exportJSON" class="editor-btn">
+📦 JSON
+</button>
 
-    <button
-        id="importEditor"
-        class="editor-btn">
-        📥 Restaurar
-    </button>
+<button id="exportMD" class="editor-btn">
+📝 MD
+</button>
 
-    <button
-        id="clearEditor"
-        class="editor-btn danger">
-        🗑 Limpar
-    </button>
+<button id="exportPDF" class="editor-btn">
+📄 PDF
+</button>
+
+<button id="exportDOCX" class="editor-btn">
+📘 Word
+</button>
+
+<button id="importEditor" class="editor-btn">
+📥 Restaurar
+</button>
+
+<button id="clearEditor" class="editor-btn danger">
+🗑 Limpar
+</button>
 
     <input
         id="importFile"
