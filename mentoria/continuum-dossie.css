@@ -277,6 +277,27 @@ display:none;
 
 }
 
+.resource-icon{
+
+    width:42px;
+    height:42px;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    border-radius:12px;
+
+    background:rgba(103,232,249,.12);
+
+    color:#06b6d4;
+
+    font-size:1.1rem;
+
+    margin-bottom:10px;
+
+}
+
 /* ==================================================
 TRIPLO PAINEL
 ================================================== */
