@@ -147,6 +147,35 @@
 
 }
 
+
+.resource-card{
+
+    position:relative;
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:8px;
+
+    min-height:unset;
+
+    padding:16px;
+
+    border-radius:18px;
+
+    text-decoration:none;
+
+    color:inherit;
+
+    background:var(--card);
+
+    border:1px solid var(--border);
+
+    transition:.25s ease;
+
+}
+/*
 .resource-card{
 
   position:relative;
@@ -175,7 +204,7 @@
 
   overflow:hidden;
 
-}
+}*/
 
 .resource-card::before{
 
