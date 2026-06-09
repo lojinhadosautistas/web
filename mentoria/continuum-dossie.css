@@ -1,0 +1,407 @@
+/* ==================================================
+   CONTINUUM DOSSIÊ
+   Sylvia Helena
+   ================================================== */
+
+:root{
+
+  --primary:#6ee7ff;
+  --primary-soft:rgba(110,231,255,.08);
+
+  --card:rgba(255,255,255,.04);
+  --card-hover:rgba(255,255,255,.07);
+
+  --border:rgba(255,255,255,.08);
+  --border-hover:rgba(110,231,255,.25);
+
+  --text-soft:rgba(255,255,255,.72);
+
+  --radius:22px;
+
+}
+
+/* ==================================================
+   ESTRUTURA
+   ================================================== */
+
+.section{
+
+  display:flex;
+  flex-direction:column;
+  gap:32px;
+
+}
+
+.content-block{
+
+  width:100%;
+
+}
+
+.card{
+
+  padding:32px;
+
+  border-radius:var(--radius);
+
+  background:var(--card);
+
+  border:1px solid var(--border);
+
+  backdrop-filter:blur(10px);
+
+  transition:.25s ease;
+
+}
+
+.card:hover{
+
+  border-color:var(--border-hover);
+
+}
+
+.card small{
+
+  display:block;
+
+  margin-bottom:12px;
+
+  text-transform:uppercase;
+
+  letter-spacing:.15em;
+
+  font-size:.72rem;
+
+  color:#94a3b8;
+
+}
+
+.card h3{
+
+  margin-bottom:20px;
+
+  font-size:1.55rem;
+
+}
+
+.card p{
+
+  color:var(--text-soft);
+
+  line-height:1.8;
+
+}
+
+/* ==================================================
+   HERO
+   ================================================== */
+
+.hero-card{
+
+  max-width:1000px;
+
+  margin:auto;
+
+  text-align:center;
+
+}
+
+.hero-card h2{
+
+  font-size:2.4rem;
+
+  margin-bottom:18px;
+
+}
+
+.hero-card p{
+
+  max-width:760px;
+
+  margin:auto;
+
+}
+
+.hero-note{
+
+  font-size:1.05rem;
+
+  line-height:1.9;
+
+}
+
+/* ==================================================
+   ARQUIVOS FUNDAMENTAIS
+   ================================================== */
+
+.resource-grid{
+
+  display:grid;
+
+  grid-template-columns:
+  repeat(6,minmax(0,1fr));
+
+  gap:16px;
+
+  margin-top:24px;
+
+}
+
+.resource-card{
+
+  position:relative;
+
+  display:flex;
+
+  flex-direction:column;
+
+  gap:12px;
+
+  min-height:150px;
+
+  padding:20px;
+
+  text-decoration:none;
+
+  color:inherit;
+
+  border-radius:18px;
+
+  background:var(--card);
+
+  border:1px solid var(--border);
+
+  transition:.25s ease;
+
+  overflow:hidden;
+
+}
+
+.resource-card::before{
+
+  content:"";
+
+  position:absolute;
+
+  left:0;
+  top:0;
+
+  width:100%;
+  height:4px;
+
+  background:linear-gradient(
+    90deg,
+    #6ee7ff,
+    #60a5fa
+  );
+
+  opacity:.6;
+
+}
+
+.resource-card:hover{
+
+  transform:translateY(-5px);
+
+  background:var(--card-hover);
+
+  border-color:var(--border-hover);
+
+  box-shadow:
+  0 15px 35px rgba(0,0,0,.12);
+
+}
+
+.resource-card::after{
+
+  content:"↗";
+
+  position:absolute;
+
+  right:16px;
+  bottom:12px;
+
+  opacity:.35;
+
+  font-size:1.1rem;
+
+}
+
+.badge{
+
+  width:max-content;
+
+  padding:6px 10px;
+
+  border-radius:999px;
+
+  font-size:.68rem;
+
+  font-weight:700;
+
+  letter-spacing:.08em;
+
+  color:var(--primary);
+
+  background:var(--primary-soft);
+
+}
+
+.resource-card h4{
+
+  font-size:.95rem;
+
+  line-height:1.4;
+
+  margin:0;
+
+}
+
+.resource-card p{
+
+  margin:0;
+
+  font-size:.82rem;
+
+  line-height:1.55;
+
+  color:var(--text-soft);
+
+}
+
+/* ==================================================
+   TRIPLO PAINEL
+   SÍNTESE + DIRETRIZES + ROADMAP
+   ================================================== */
+
+.analysis-grid{
+
+  display:grid;
+
+  grid-template-columns:
+  repeat(3,minmax(0,1fr));
+
+  gap:20px;
+
+}
+
+.analysis-card{
+
+  height:100%;
+
+}
+
+.analysis-card ul{
+
+  margin:0;
+
+  padding-left:18px;
+
+}
+
+.analysis-card li{
+
+  margin-bottom:14px;
+
+  color:var(--text-soft);
+
+  line-height:1.7;
+
+}
+
+/* ==================================================
+   STATUS
+   ================================================== */
+
+.status-box{
+
+  max-width:1000px;
+
+  margin:auto;
+
+}
+
+.status-box p{
+
+  margin-bottom:14px;
+
+}
+
+/* ==================================================
+   SCROLL SUAVE
+   ================================================== */
+
+html{
+
+  scroll-behavior:smooth;
+
+}
+
+/* ==================================================
+   RESPONSIVO
+   ================================================== */
+
+@media(max-width:1600px){
+
+  .resource-grid{
+
+    grid-template-columns:
+    repeat(3,minmax(0,1fr));
+
+  }
+
+}
+
+@media(max-width:1200px){
+
+  .analysis-grid{
+
+    grid-template-columns:
+    repeat(2,minmax(0,1fr));
+
+  }
+
+}
+
+@media(max-width:900px){
+
+  .resource-grid{
+
+    grid-template-columns:
+    repeat(2,minmax(0,1fr));
+
+  }
+
+}
+
+@media(max-width:768px){
+
+  .analysis-grid{
+
+    grid-template-columns:1fr;
+
+  }
+
+}
+
+@media(max-width:600px){
+
+  .resource-grid{
+
+    grid-template-columns:1fr;
+
+  }
+
+  .card{
+
+    padding:24px;
+
+  }
+
+  .hero-card h2{
+
+    font-size:2rem;
+
+  }
+
+}
