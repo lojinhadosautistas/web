@@ -1653,38 +1653,3 @@ transition:.3s ease;
 transform:translateY(-2px);
 }
 
-
-    /* =========================================================
-EDITOR JS
-========================================================= */
-
-.editor-card{
-    padding:24px;
-    min-height:500px;
-}
-
-.editor-toolbar{
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    margin-bottom:20px;
-}
-
-.editor-toolbar button{
-    background:var(--accent);
-    border:none;
-    padding:10px 18px;
-    border-radius:10px;
-    cursor:pointer;
-    font-weight:600;
-}
-
-#editorjs{
-    min-height:400px;
-}
-
-.codex-editor__redactor{
-    padding-bottom:50px !important;
-}
-
-
