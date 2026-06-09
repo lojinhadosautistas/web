@@ -30,7 +30,10 @@ TOPBAR
 ================================================== */
 
 .brand h1{
-    color:var(--secondary)
+    color:var(--secondary);
+}
+.brand small{
+    color:var(--primary);
 }
     
 /* ==================================================
