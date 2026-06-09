@@ -52,8 +52,6 @@
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
 
-
-
     <!-- ======================================================= GOOGLE ADSENSE  ======================================================== -->
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3277175946272866"
      crossorigin="anonymous"></script>
@@ -216,33 +214,57 @@ Ecossistema operacional vivo para sustentação cognitiva, inteligência longitu
 
 <div class="editor-actions">
 
-    <button id="saveEditor" class="editor-btn primary">
-💾 Salvar
-</button>
+    <button
+        id="saveEditor"
+        class="editor-btn primary">
+        💾 Salvar Local
+    </button>
 
-<button id="exportJSON" class="editor-btn">
-📦 JSON
-</button>
+    <div class="dropdown">
 
-<button id="exportMD" class="editor-btn">
-📝 MD
-</button>
+        <button
+            id="exportMenu"
+            class="editor-btn">
 
-<button id="exportPDF" class="editor-btn">
-📄 PDF
-</button>
+            📤 Exportar ▾
 
-<button id="exportDOCX" class="editor-btn">
-📘 Word
-</button>
+        </button>
 
-<button id="importEditor" class="editor-btn">
-📥 Restaurar
-</button>
+        <div
+            class="dropdown-content"
+            id="exportDropdown">
 
-<button id="clearEditor" class="editor-btn danger">
-🗑 Limpar
-</button>
+            <button id="exportEditor">
+                📦 JSON Snapshot
+            </button>
+
+            <button id="exportMD">
+                📝 Markdown
+            </button>
+
+            <button id="exportPDF">
+                📄 PDF
+            </button>
+
+            <button id="exportDOCX">
+                📘 Word
+            </button>
+
+        </div>
+
+    </div>
+
+    <button
+        id="importEditor"
+        class="editor-btn">
+        📥 Restaurar
+    </button>
+
+    <button
+        id="clearEditor"
+        class="editor-btn danger">
+        🗑 Limpar
+    </button>
 
     <input
         id="importFile"
@@ -665,6 +687,7 @@ scrolling="no">
 
 <script src="assets/js/continuum.js"></script>
 <script src="assets/js/continuum-editor.js"></script>
+<script src="assets/js/continuum-export.js"></script>
 
 </body>
 </html>
