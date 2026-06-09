@@ -24,23 +24,28 @@ Sylvia Helena
 
 }
 
+
+/* ==================================================
+TOPBAR
+================================================== */
+
+.brand h1{
+    color:var(--secondary)
+}
+    
 /* ==================================================
 BASE
 ================================================== */
 
 body{
-
 background:var(--bg);
 color:var(--text);
-
 }
 
 .section{
-
 display:flex;
 flex-direction:column;
 gap:24px;
-
 }
 
 .card{
