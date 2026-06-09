@@ -27,14 +27,31 @@ margin-top:20px;
 }
 
 .resource-card{
-display:block;
-padding:22px;
-border-radius:16px;
-text-decoration:none;
-color:inherit;
-border:1px solid rgba(255,255,255,.08);
-background:rgba(255,255,255,.02);
-transition:.25s ease;
+
+    position:relative;
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:8px;
+
+    min-height:unset;
+
+    padding:16px;
+
+    border-radius:18px;
+
+    text-decoration:none;
+
+    color:inherit;
+
+    background:var(--card);
+
+    border:1px solid var(--border);
+
+    transition:.25s ease;
+
 }
 
 .resource-card:hover{
