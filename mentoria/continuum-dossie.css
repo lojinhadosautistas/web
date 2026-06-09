@@ -1,436 +1,444 @@
 /* ==================================================
-   CONTINUUM DOSSIÊ
-   Sylvia Helena
-   ================================================== */
+CONTINUUM DOSSIÊ
+Sylvia Helena
+================================================== */
 
 :root{
 
-  --primary:#6ee7ff;
-  --primary-soft:rgba(110,231,255,.08);
+--bg:#f3f7fb;
+--card:#ffffff;
 
-  --card:rgba(255,255,255,.04);
-  --card-hover:rgba(255,255,255,.07);
+--primary:#67e8f9;
+--primary-dark:#38bdf8;
 
-  --border:rgba(255,255,255,.08);
-  --border-hover:rgba(110,231,255,.25);
+--border:#e5edf5;
+--border-hover:#b6e3ff;
 
-  --text-soft:rgba(255,255,255,.72);
+--text:#0f172a;
+--text-soft:#64748b;
 
-  --radius:22px;
+--radius:20px;
 
 }
 
 /* ==================================================
-   ESTRUTURA
-   ================================================== */
+BASE
+================================================== */
 
-.section{
+body{
 
-  display:flex;
-  flex-direction:column;
-  gap:32px;
+background:var(--bg);
+color:var(--text);
 
 }
 
-.content-block{
+.section{
 
-  width:100%;
+display:flex;
+flex-direction:column;
+gap:24px;
 
 }
 
 .card{
 
-  padding:32px;
+background:var(--card);
 
-  border-radius:var(--radius);
+border:1px solid var(--border);
 
-  background:var(--card);
+border-radius:var(--radius);
 
-  border:1px solid var(--border);
+padding:28px;
 
-  backdrop-filter:blur(10px);
-
-  transition:.25s ease;
+box-shadow:
+0 2px 8px rgba(15,23,42,.03);
 
 }
 
 .card:hover{
 
-  border-color:var(--border-hover);
+border-color:#d9ecff;
 
 }
 
 .card small{
 
-  display:block;
+display:block;
 
-  margin-bottom:12px;
+margin-bottom:10px;
 
-  text-transform:uppercase;
+color:#94a3b8;
 
-  letter-spacing:.15em;
+font-size:.72rem;
 
-  font-size:.72rem;
+font-weight:700;
 
-  color:#94a3b8;
+text-transform:uppercase;
+
+letter-spacing:.15em;
 
 }
 
 .card h3{
 
-  margin-bottom:20px;
+margin:0 0 20px;
 
-  font-size:1.55rem;
+font-size:1.9rem;
 
 }
 
 .card p{
 
-  color:var(--text-soft);
+color:var(--text-soft);
 
-  line-height:1.8;
+line-height:1.8;
 
 }
 
 /* ==================================================
-   HERO
-   ================================================== */
+HEADER
+================================================== */
+
+.section-header{
+
+display:flex;
+
+justify-content:space-between;
+
+align-items:center;
+
+gap:20px;
+
+}
+
+.section-header h2{
+
+color:#67e8f9;
+
+margin:0;
+
+font-size:2rem;
+
+}
+
+/* ==================================================
+HERO
+================================================== */
 
 .hero-card{
 
-  max-width:1000px;
-
-  margin:auto;
-
-  text-align:center;
+padding:36px;
 
 }
 
-.hero-card h2{
+.hero-card h3{
 
-  font-size:2.4rem;
-
-  margin-bottom:18px;
-
-}
-
-.hero-card p{
-
-  max-width:760px;
-
-  margin:auto;
+font-size:2.2rem;
 
 }
 
 .hero-note{
 
-  font-size:1.05rem;
+max-width:900px;
 
-  line-height:1.9;
+font-size:1rem;
+
+line-height:1.9;
 
 }
 
 /* ==================================================
-   ARQUIVOS FUNDAMENTAIS
-   ================================================== */
+DOCUMENTAÇÃO
+================================================== */
 
 .resource-grid{
 
-  display:grid;
+display:grid;
 
-  grid-template-columns:
-  repeat(6,minmax(0,1fr));
+grid-template-columns:
+repeat(6,minmax(0,1fr));
 
-  gap:16px;
+gap:14px;
 
-  margin-top:24px;
+margin-top:10px;
 
 }
-
 
 .resource-card{
 
-    position:relative;
+position:relative;
 
-    display:flex;
+display:flex;
 
-    flex-direction:column;
+flex-direction:column;
 
-    gap:8px;
+justify-content:flex-start;
 
-    min-height:unset;
+gap:10px;
 
-    padding:16px;
+min-height:120px;
 
-    border-radius:18px;
+padding:16px;
 
-    text-decoration:none;
+border-radius:16px;
 
-    color:inherit;
+text-decoration:none;
 
-    background:var(--card);
+color:inherit;
 
-    border:1px solid var(--border);
+background:#fff;
 
-    transition:.25s ease;
+border:1px solid var(--border);
 
-}
-/*
-.resource-card{
-
-  position:relative;
-
-  display:flex;
-
-  flex-direction:column;
-
-  gap:12px;
-
-  min-height:150px;
-
-  padding:20px;
-
-  text-decoration:none;
-
-  color:inherit;
-
-  border-radius:18px;
-
-  background:var(--card);
-
-  border:1px solid var(--border);
-
-  transition:.25s ease;
-
-  overflow:hidden;
-
-}*/
-
-.resource-card::before{
-
-  content:"";
-
-  position:absolute;
-
-  left:0;
-  top:0;
-
-  width:100%;
-  height:4px;
-
-  background:linear-gradient(
-    90deg,
-    #6ee7ff,
-    #60a5fa
-  );
-
-  opacity:.6;
+transition:.2s ease;
 
 }
 
 .resource-card:hover{
 
-  transform:translateY(-5px);
+transform:translateY(-2px);
 
-  background:var(--card-hover);
+border-color:var(--primary);
 
-  border-color:var(--border-hover);
+box-shadow:
+0 10px 20px rgba(56,189,248,.08);
 
-  box-shadow:
-  0 15px 35px rgba(0,0,0,.12);
+}
+
+.resource-card::before{
+
+content:"";
+
+position:absolute;
+
+left:0;
+top:0;
+
+width:100%;
+height:3px;
+
+background:
+linear-gradient(
+90deg,
+var(--primary),
+var(--primary-dark)
+);
 
 }
 
 .resource-card::after{
 
-  content:"↗";
+content:"↗";
 
-  position:absolute;
+position:absolute;
 
-  right:16px;
-  bottom:12px;
+right:12px;
+bottom:10px;
 
-  opacity:.35;
+opacity:.25;
 
-  font-size:1.1rem;
+font-size:1rem;
 
 }
 
 .badge{
 
-  width:max-content;
+display:inline-flex;
 
-  padding:6px 10px;
+width:max-content;
 
-  border-radius:999px;
+padding:4px 10px;
 
-  font-size:.68rem;
+border-radius:999px;
 
-  font-weight:700;
+background:#ecfeff;
 
-  letter-spacing:.08em;
+color:#0891b2;
 
-  color:var(--primary);
+font-size:.65rem;
 
-  background:var(--primary-soft);
+font-weight:700;
 
 }
 
 .resource-card h4{
 
-  font-size:.95rem;
+margin:0;
 
-  line-height:1.4;
+font-size:.95rem;
 
-  margin:0;
+line-height:1.4;
 
 }
 
 .resource-card p{
 
-  margin:0;
-
-  font-size:.82rem;
-
-  line-height:1.55;
-
-  color:var(--text-soft);
+display:none;
 
 }
 
 /* ==================================================
-   TRIPLO PAINEL
-   SÍNTESE + DIRETRIZES + ROADMAP
-   ================================================== */
+TRIPLO PAINEL
+================================================== */
 
 .analysis-grid{
 
-  display:grid;
+display:grid;
 
-  grid-template-columns:
-  repeat(3,minmax(0,1fr));
+grid-template-columns:
+repeat(3,minmax(0,1fr));
 
-  gap:20px;
+gap:18px;
 
 }
 
 .analysis-card{
 
-  height:100%;
+background:#fff;
+
+border:1px solid var(--border);
+
+border-radius:20px;
+
+padding:24px;
+
+}
+
+.analysis-card h3{
+
+font-size:1.5rem;
+
+margin-bottom:18px;
 
 }
 
 .analysis-card ul{
 
-  margin:0;
+list-style:none;
 
-  padding-left:18px;
+margin:0;
+
+padding:0;
 
 }
 
 .analysis-card li{
 
-  margin-bottom:14px;
+padding:12px 0;
 
-  color:var(--text-soft);
+border-bottom:1px solid #f1f5f9;
 
-  line-height:1.7;
+color:var(--text-soft);
+
+font-size:.95rem;
+
+}
+
+.analysis-card li:last-child{
+
+border-bottom:none;
 
 }
 
 /* ==================================================
-   STATUS
-   ================================================== */
+STATUS
+================================================== */
 
 .status-box{
 
-  max-width:1000px;
-
-  margin:auto;
+max-width:1100px;
 
 }
 
 .status-box p{
 
-  margin-bottom:14px;
+margin-bottom:12px;
 
 }
 
 /* ==================================================
-   SCROLL SUAVE
-   ================================================== */
+FOOTER
+================================================== */
 
-html{
+.footer{
 
-  scroll-behavior:smooth;
+text-align:center;
+
+padding:30px;
+
+color:#94a3b8;
+
+font-size:.9rem;
 
 }
 
 /* ==================================================
-   RESPONSIVO
-   ================================================== */
+RESPONSIVO
+================================================== */
 
-@media(max-width:1600px){
+@media(max-width:1500px){
 
-  .resource-grid{
+.resource-grid{
 
-    grid-template-columns:
-    repeat(3,minmax(0,1fr));
-
-  }
-
-}
-
-@media(max-width:1200px){
-
-  .analysis-grid{
-
-    grid-template-columns:
-    repeat(2,minmax(0,1fr));
-
-  }
+```
+grid-template-columns:
+repeat(3,minmax(0,1fr));
+```
 
 }
 
-@media(max-width:900px){
+}
 
-  .resource-grid{
+@media(max-width:1100px){
 
-    grid-template-columns:
-    repeat(2,minmax(0,1fr));
+.analysis-grid{
 
-  }
+```
+grid-template-columns:
+repeat(2,minmax(0,1fr));
+```
+
+}
 
 }
 
 @media(max-width:768px){
 
-  .analysis-grid{
+.analysis-grid{
 
-    grid-template-columns:1fr;
+```
+grid-template-columns:1fr;
+```
 
-  }
+}
+
+.resource-grid{
+
+```
+grid-template-columns:
+repeat(2,minmax(0,1fr));
+```
+
+}
 
 }
 
 @media(max-width:600px){
 
-  .resource-grid{
+.resource-grid{
 
-    grid-template-columns:1fr;
+```
+grid-template-columns:1fr;
+```
 
-  }
+}
 
-  .card{
+.card{
 
-    padding:24px;
+```
+padding:20px;
+```
 
-  }
-
-  .hero-card h2{
-
-    font-size:2rem;
-
-  }
+}
 
 }
