@@ -10,6 +10,9 @@ Sylvia Helena
 
 --primary:#67e8f9;
 --primary-dark:#38bdf8;
+    
+--secondary:#0a3d91;
+--accent:#00b7d9;
 
 --border:#e5edf5;
 --border-hover:#b6e3ff;
@@ -113,7 +116,7 @@ gap:20px;
 
 .section-header h2{
 
-color:var(--primary);
+color:var(--secondary);
 
 margin:0;
 
@@ -263,7 +266,7 @@ font-weight:700;
 
 .resource-card h4{
 
-    color:#0f172a;
+    color:var(--secondary);
 
     font-weight:700;
 
