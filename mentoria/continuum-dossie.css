@@ -8,12 +8,10 @@ Sylvia Helena
 --bg:#f3f7fb;
 --card:#ffffff;
 
---primary:#67e8f9;
---primary-dark:#38bdf8;
+--primary:#0a3d91;
+--secondary:#00b7d9;
+--accent:#63d84e;
     
---secondary:#0a3d91;
---accent:#00b7d9;
-
 --border:#e5edf5;
 --border-hover:#b6e3ff;
 
@@ -30,10 +28,10 @@ TOPBAR
 ================================================== */
 
 .brand h1{
-    color:var(--secondary);
+    color:var(--primary);
 }
 .brand small{
-    color:var(--primary);
+    color:var(--secondary);
 }
     
 /* ==================================================
@@ -118,12 +116,12 @@ gap:20px;
 }
 
 .section-header h1{
-color:var(--secondary);
+color:var(--primary);
 }
 
 
 .section-header h2{
-color:var(--secondary);
+color:var(--primary);
 margin:0;
 font-size:2rem;
 }
@@ -205,7 +203,7 @@ transition:.2s ease;
 
 transform:translateY(-2px);
 
-border-color:var(--primary);
+border-color:var(--secondary);
 
 box-shadow:
 0 10px 20px rgba(56,189,248,.08);
@@ -270,7 +268,7 @@ font-weight:700;
 
 .resource-card h4{
 
-    color:var(--secondary);
+    color:var(--primary);
 
     font-weight:700;
 
