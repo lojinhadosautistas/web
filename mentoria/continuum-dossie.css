@@ -113,7 +113,7 @@ gap:20px;
 
 .section-header h2{
 
-color:#67e8f9;
+color:var(--primary);
 
 margin:0;
 
