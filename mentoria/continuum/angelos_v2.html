@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>AngelOS v2 • Sistema Cognitivo Infantil</title>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<style>
+    body{
+        margin:0;
+        font-family: Arial, sans-serif;
+        background:#0a0f1d;
+        color:#eaeaea;
+    }
+
+    header{
+        padding:18px;
+        text-align:center;
+        background:#121a2f;
+        border-bottom:1px solid #1f2a44;
+    }
+
+    header h1{ margin:0; font-size:20px; }
+    header small{ opacity:.7; }
+
+    .grid{
+        display:grid;
+        grid-template-columns: 1fr 1fr;
+        gap:14px;
+        padding:14px;
+    }
+
+    .card{
+        background:#121a2f;
+        border:1px solid #1f2a44;
+        border-radius:12px;
+        padding:14px;
+    }
+
+    .full{
+        grid-column: span 2;
+    }
+
+    label{ font-size:12px; opacity:.8; }
+
+    select, input, textarea{
+        width:100%;
+        margin:6px 0 10px;
+        padding:8px;
+        border-radius:8px;
+        border:none;
+        background:#0a0f1d;
+        color:white;
+    }
+
+    button{
+        width:100%;
+        padding:10px;
+        border:none;
+        border-radius:10px;
+        background:#4f7cff;
+        color:white;
+        cursor:pointer;
+    }
+
+    button:hover{ background:#3b63d1; }
+
+    .entry{
+        background:#0a0f1d;
+        border:1px solid #1f2a44;
+        padding:10px;
+        border-radius:10px;
+        margin-bottom:8px;
+        font-size:12px;
+    }
+
+    .tag{
+        display:inline-block;
+        font-size:11px;
+        padding:2px 6px;
+        background:#1f2a44;
+        border-radius:6px;
+        margin-right:4px;
+    }
+
+    canvas{
+        background:#0a0f1d;
+        border-radius:10px;
+        padding:10px;
+    }
+
+    .insight{
+        padding:10px;
+        background:#0d1730;
+        border-left:3px solid #4f7cff;
+        margin-bottom:8px;
+        border-radius:8px;
+        font-size:12px;
+    }
+</style>
+</head>
+
+<body>
+
+<header>
+    <h1>🧠 AngelOS v2</h1>
+    <small>Memória Cognitiva + Evolução + Gráficos</small>
+</header>
+
+<div class="grid">
+
+<!-- CHECK-IN -->
+<div class="card">
+    <h3>📅 Check-in Diário</h3>
+
+    <label>Linguagem</label>
+    <select id="linguagem">
+        <option>baixo</option><option>medio</option><option>alto</option>
+    </select>
+
+    <label>Cognição</label>
+    <select id="cognicao">
+        <option>baixo</option><option>medio</option><option>alto</option>
+    </select>
+
+    <label>Regulação</label>
+    <select id="regulacao">
+        <option>calmo</option><option>instavel</option><option>irritado</option>
+    </select>
+
+    <label>Crises</label>
+    <input type="number" id="crises" value="0"/>
+
+    <label>Observações</label>
+    <textarea id="obs"></textarea>
+
+    <button onclick="save()">Salvar Registro</button>
+</div>
+
+<!-- INSIGHTS -->
+<div class="card">
+    <h3>🔍 Insights do Sistema</h3>
+    <div id="insights"></div>
+</div>
+
+<!-- GRÁFICO -->
+<div class="card full">
+    <h3>📈 Evolução Cognitiva</h3>
+    <canvas id="chart"></canvas>
+</div>
+
+<!-- HISTÓRICO -->
+<div class="card full">
+    <h3>🧭 Linha do Tempo</h3>
+    <div id="history"></div>
+</div>
+
+</div>
+
+<script>
+const KEY = "angelos_v2";
+
+function load(){
+    return JSON.parse(localStorage.getItem(KEY) || "[]");
+}
+
+function store(data){
+    localStorage.setItem(KEY, JSON.stringify(data));
+}
+
+function map(v){
+    return {baixo:1, medio:2, alto:3, calmo:3, instavel:2, irritado:1}[v] || 0;
+}
+
+function save(){
+    const data = load();
+
+    data.push({
+        date: new Date().toISOString().split("T")[0],
+        linguagem: linguagem.value,
+        cognicao: cognicao.value,
+        regulacao: regulacao.value,
+        crises: parseInt(crises.value || 0),
+        obs: obs.value
+    });
+
+    store(data);
+    obs.value = "";
+    render();
+}
+
+function render(){
+    const data = load();
+
+    renderHistory(data);
+    renderInsights(data);
+    renderChart(data);
+}
+
+function renderHistory(data){
+    const box = document.getElementById("history");
+    box.innerHTML = "";
+
+    [...data].reverse().forEach(d=>{
+        const div = document.createElement("div");
+        div.className = "entry";
+        div.innerHTML = `
+            <strong>${d.date}</strong><br>
+            <span class="tag">L:${d.linguagem}</span>
+            <span class="tag">C:${d.cognicao}</span>
+            <span class="tag">R:${d.regulacao}</span>
+            <span class="tag">Cr:${d.crises}</span>
+            <br><small>${d.obs || ""}</small>
+        `;
+        box.appendChild(div);
+    });
+}
+
+function renderInsights(data){
+    const box = document.getElementById("insights");
+    const last7 = data.slice(-7);
+
+    if(last7.length === 0){
+        box.innerHTML = "Sem dados ainda.";
+        return;
+    }
+
+    const avg = (k)=> (last7.reduce((a,b)=>a+map(b[k]),0)/last7.length).toFixed(2);
+    const crises = last7.reduce((a,b)=>a+b.crises,0);
+
+    let out = [];
+
+    if(crises >= 3) out.push("⚠️ Aumento de crises recente.");
+    if(avg("linguagem") > 2.2) out.push("📈 Linguagem em progresso.");
+    if(avg("regulacao") < 2) out.push("⚠️ Regulação instável.");
+
+    if(out.length === 0) out.push("🧠 Desenvolvimento estável.");
+
+    box.innerHTML = out.map(i=>`<div class="insight">${i}</div>`).join("");
+}
+
+let chart;
+
+function renderChart(data){
+    const ctx = document.getElementById("chart");
+
+    const labels = data.map(d=>d.date);
+    const linguagem = data.map(d=>map(d.linguagem));
+    const cognicao = data.map(d=>map(d.cognicao));
+
+    if(chart) chart.destroy();
+
+    chart = new Chart(ctx, {
+        type: "line",
+        data: {
+            labels,
+            datasets: [
+                {
+                    label: "Linguagem",
+                    data: linguagem,
+                    borderColor: "#4f7cff",
+                    tension: 0.3
+                },
+                {
+                    label: "Cognição",
+                    data: cognicao,
+                    borderColor: "#ffb84f",
+                    tension: 0.3
+                }
+            ]
+        },
+        options: {
+            responsive: true,
+            plugins:{
+                legend:{ labels:{ color:"#fff" } }
+            },
+            scales:{
+                x:{ ticks:{ color:"#aaa" } },
+                y:{ ticks:{ color:"#aaa" }, min:0, max:3 }
+            }
+        }
+    });
+}
+
+render();
+</script>
+
+</body>
+</html>
