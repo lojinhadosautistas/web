@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>AngelOS v3 • Sistema Cognitivo</title>
+<title>AngelOS v4 • Sistema Cognitivo Avançado</title>
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
@@ -24,31 +24,18 @@ header{
 
 header h1{ margin:0; font-size:20px; }
 
-.tabs{
-    display:flex;
-    gap:8px;
-    padding:10px;
-    background:#0d1426;
-    flex-wrap:wrap;
+.grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:14px;
+    padding:14px;
 }
-
-.tab{
-    padding:8px 12px;
-    background:#1a2440;
-    border-radius:8px;
-    cursor:pointer;
-    font-size:12px;
-}
-
-.tab.active{ background:#4f7cff; }
-
-.container{ padding:14px; display:grid; grid-template-columns:1fr 1fr; gap:14px; }
 
 .card{
     background:#121a2f;
     border:1px solid #1f2a44;
-    padding:12px;
     border-radius:10px;
+    padding:12px;
 }
 
 .full{ grid-column:span 2; }
@@ -93,13 +80,11 @@ button:hover{ background:#3b63d1; }
     margin-right:4px;
 }
 
-.hidden{ display:none; }
-
 .alert{
     padding:8px;
-    border-left:3px solid #ffb84f;
-    background:#0d1426;
     margin-bottom:6px;
+    border-left:3px solid #4f7cff;
+    background:#0d1426;
     border-radius:8px;
     font-size:12px;
 }
@@ -109,96 +94,79 @@ button:hover{ background:#3b63d1; }
 <body>
 
 <header>
-<h1>🧠 AngelOS v3</h1>
-<small>IA Analítica • Relatórios Automáticos • Painel Cognitivo</small>
+<h1>🧠 AngelOS v4</h1>
+<small>IA Analítica • Correlação • Evolução Cognitiva</small>
 </header>
 
-<div class="tabs">
-<div class="tab active" onclick="show('dashboard')">Dashboard</div>
-<div class="tab" onclick="show('checkin')">Check-in</div>
-<div class="tab" onclick="show('timeline')">Linha do Tempo</div>
-<div class="tab" onclick="show('insights')">IA Analítica</div>
-<div class="tab" onclick="show('reports')">Relatórios</div>
-</div>
+<div class="grid">
 
-<!-- DASHBOARD -->
-<div id="dashboard" class="container">
-
-<div class="card">
-<h3>📊 Evolução Geral</h3>
-<canvas id="chart"></canvas>
-</div>
-
-<div class="card">
-<h3>🧠 Estado Atual</h3>
-<div id="state"></div>
-</div>
-
-</div>
-
-<!-- CHECKIN -->
-<div id="checkin" class="container hidden">
-
+<!-- CHECK-IN -->
 <div class="card">
 <h3>📅 Check-in Diário</h3>
 
 <label>Linguagem</label>
-<select id="linguagem"><option>baixo</option><option>medio</option><option>alto</option></select>
+<select id="linguagem">
+<option>baixo</option><option>medio</option><option>alto</option>
+</select>
 
 <label>Cognição</label>
-<select id="cognicao"><option>baixo</option><option>medio</option><option>alto</option></select>
+<select id="cognicao">
+<option>baixo</option><option>medio</option><option>alto</option>
+</select>
 
 <label>Regulação</label>
-<select id="regulacao"><option>calmo</option><option>instavel</option><option>irritado</option></select>
+<select id="regulacao">
+<option>instavel</option><option>media</option><option>estavel</option>
+</select>
 
 <label>Crises</label>
 <input id="crises" type="number" value="0"/>
 
+<label>Sono (qualidade)</label>
+<select id="sono">
+<option>ruim</option><option>medio</option><option>bom</option>
+</select>
+
+<label>Rotina</label>
+<select id="rotina">
+<option>instavel</option><option>media</option><option>organizada</option>
+</select>
+
 <label>Observações</label>
 <textarea id="obs"></textarea>
 
-<button onclick="save()">Salvar</button>
-
-</div>
-
-</div>
-
-<!-- TIMELINE -->
-<div id="timeline" class="container hidden">
-<div class="card full">
-<h3>🧭 Linha do Tempo Cognitiva</h3>
-<div id="timelineBox"></div>
-</div>
+<button onclick="save()">Salvar Registro</button>
 </div>
 
 <!-- INSIGHTS -->
-<div id="insights" class="container hidden">
+<div class="card">
+<h3>🧠 IA Analítica (Hipóteses)</h3>
+<div id="insights"></div>
+</div>
 
+<!-- GRÁFICO -->
 <div class="card full">
-<h3>🔍 IA Analítica (Motor de Padrões)</h3>
-<div id="ai"></div>
+<h3>📊 Evolução Multivariável</h3>
+<canvas id="chart"></canvas>
 </div>
 
+<!-- CORRELAÇÃO -->
+<div class="card full">
+<h3>🔗 Correlações Detectadas</h3>
+<div id="corr"></div>
 </div>
 
-<!-- REPORTS -->
-<div id="reports" class="container hidden">
-
-<div class="card">
-<h3>📄 Relatório Semanal</h3>
-<button onclick="generateReport()">Gerar Relatório</button>
-<button onclick="exportJSON()">Exportar Backup JSON</button>
-</div>
-
-<div class="card">
-<h3>📦 Resultado</h3>
-<pre id="reportOut"></pre>
+<!-- TIMELINE -->
+<div class="card full">
+<h3>🧭 Linha do Tempo</h3>
+<div id="timeline"></div>
 </div>
 
 </div>
 
 <script>
-const KEY="angelos_v3";
+
+const KEY="angelos_v4";
 
 function load(){
 return JSON.parse(localStorage.getItem(KEY)||"[]");
@@ -209,131 +177,171 @@ localStorage.setItem(KEY,JSON.stringify(d));
 }
 
 function map(v){
-return {baixo:1,medio:2,alto:3,calmo:3,instavel:2,irritado:1}[v]||0;
+return {
+baixo:1,medio:2,alto:3,
+ruim:1,medio:2,bom:3,
+instavel:1,media:2,estavel:3,
+organizada:3
+}[v]||0;
 }
 
 function save(){
 let d=load();
+
 d.push({
 date:new Date().toISOString().split("T")[0],
 linguagem:linguagem.value,
 cognicao:cognicao.value,
 regulacao:regulacao.value,
 crises:+crises.value,
+sono:sono.value,
+rotina:rotina.value,
 obs:obs.value
 });
+
 store(d);
 obs.value="";
 render();
 }
 
-function show(id){
-document.querySelectorAll(".container").forEach(c=>c.classList.add("hidden"));
-document.getElementById(id).classList.remove("hidden");
-}
-
 function render(){
 let d=load();
+
 renderChart(d);
-renderState(d);
 renderTimeline(d);
-renderAI(d);
+renderInsights(d);
+renderCorrelation(d);
 }
 
-function renderChart(d){
-let ctx=document.getElementById("chart");
-if(window.chart) window.chart.destroy();
+let chart;
 
-window.chart=new Chart(ctx,{
+function renderChart(d){
+
+if(chart) chart.destroy();
+
+chart=new Chart(document.getElementById("chart"),{
 type:"line",
 data:{
 labels:d.map(x=>x.date),
 datasets:[
-{label:"Linguagem",data:d.map(x=>map(x.linguagem)),borderColor:"#4f7cff"},
-{label:"Cognição",data:d.map(x=>map(x.cognicao)),borderColor:"#ffb84f"},
-{label:"Regulação",data:d.map(x=>map(x.regulacao)),borderColor:"#4fff9f"}
+{
+label:"Linguagem",
+data:d.map(x=>map(x.linguagem)),
+borderColor:"#4f7cff"
+},
+{
+label:"Cognição",
+data:d.map(x=>map(x.cognicao)),
+borderColor:"#ffb84f"
+},
+{
+label:"Regulação",
+data:d.map(x=>map(x.regulacao)),
+borderColor:"#4fff9f"
+},
+{
+label:"Crises",
+data:d.map(x=>x.crises),
+borderColor:"#ff4f4f"
+}
 ]
 },
-options:{responsive:true,scales:{y:{min:0,max:3}}}
+options:{
+scales:{y:{min:0,max:3}}
+}
 });
 }
 
-function renderState(d){
-let last=d.slice(-7);
-let avg=(k)=>last.reduce((a,b)=>a+map(b[k]),0)/last.length||0;
-document.getElementById("state").innerHTML=`
-<div class="alert">Linguagem média: ${avg("linguagem").toFixed(2)}</div>
-<div class="alert">Cognição média: ${avg("cognicao").toFixed(2)}</div>
-<div class="alert">Regulação média: ${avg("regulacao").toFixed(2)}</div>
-<div class="alert">Crises: ${last.reduce((a,b)=>a+b.crises,0)}</div>
-`;
-}
-
 function renderTimeline(d){
-document.getElementById("timelineBox").innerHTML=
+
+document.getElementById("timeline").innerHTML=
 [...d].reverse().map(x=>`
 <div class="entry">
 <b>${x.date}</b><br>
-<span class="badge">${x.linguagem}</span>
-<span class="badge">${x.cognicao}</span>
-<span class="badge">${x.regulacao}</span>
+<span class="badge">L:${x.linguagem}</span>
+<span class="badge">C:${x.cognicao}</span>
+<span class="badge">R:${x.regulacao}</span>
+<span class="badge">Sono:${x.sono}</span>
+<span class="badge">Rot:${x.rotina}</span>
 <span class="badge">Cr:${x.crises}</span>
 <br>${x.obs||""}
 </div>
 `).join("");
 }
 
-function renderAI(d){
+function avg(arr, key){
+return arr.reduce((a,b)=>a+map(b[key]),0)/arr.length||0;
+}
+
+function corr(x,y,data){
+
+let n=data.length;
+let sx=0,sy=0,sxy=0,sx2=0,sy2=0;
+
+for(let i=0;i<n;i++){
+let a=map(data[i][x]);
+let b=map(data[i][y]);
+sx+=a; sy+=b; sxy+=a*b; sx2+=a*a; sy2+=b*b;
+}
+
+return ((n*sxy - sx*sy) /
+Math.sqrt((n*sx2-sx*sx)*(n*sy2-sy*sy))).toFixed(2);
+}
+
+function renderCorrelation(d){
+
+if(d.length<5){
+document.getElementById("corr").innerHTML="Dados insuficientes.";
+return;
+}
+
+let pairs=[
+["sono","crises"],
+["rotina","regulacao"],
+["regulacao","linguagem"]
+];
+
+document.getElementById("corr").innerHTML=
+pairs.map(p=>{
+let c=corr(p[0],p[1],d);
+return `<div class="alert">Correlação ${p[0]} × ${p[1]}: ${c}</div>`;
+}).join("");
+}
+
+function renderInsights(d){
+
 let last=d.slice(-7);
+
+if(last.length===0){
+document.getElementById("insights").innerHTML="Sem dados.";
+return;
+}
+
+let out=[];
+
 let crises=last.reduce((a,b)=>a+b.crises,0);
-let msg=[];
 
-if(crises>=3) msg.push("⚠️ Padrão de aumento de crises detectado.");
-if(last.filter(x=>x.regulacao==="instavel").length>3)
-msg.push("⚠️ Instabilidade emocional recorrente.");
-if(last.reduce((a,b)=>a+map(b.linguagem),0)/last.length>2.3)
-msg.push("📈 Tendência positiva em linguagem.");
+if(crises>=3)
+out.push("⚠️ Crises elevadas nos últimos dias.");
 
-if(msg.length===0) msg=["🧠 Sistema estável sem anomalias detectadas."];
+if(avg(last,"sono")<2)
+out.push("😴 Sono abaixo do ideal correlacionado a instabilidade.");
 
-document.getElementById("ai").innerHTML=
-msg.map(m=>`<div class="alert">${m}</div>`).join("");
-}
+if(avg(last,"rotina")<2)
+out.push("📉 Rotina instável pode estar influenciando regulação.");
 
-function generateReport(){
-let d=load().slice(-7);
-let txt="RELATÓRIO ANGELoS v3\n\n";
-txt+="Registros: "+d.length+"\n";
-txt+="Crises: "+d.reduce((a,b)=>a+b.crises,0)+"\n\n";
+if(avg(last,"linguagem")>2.2)
+out.push("📈 Linguagem em tendência positiva.");
 
-txt+="Resumo:\n";
-txt+="- Linguagem média: "+avg(d,"linguagem")+"\n";
-txt+="- Cognição média: "+avg(d,"cognicao")+"\n";
-txt+="- Regulação média: "+avg(d,"regulacao")+"\n";
+if(out.length===0)
+out=["🧠 Nenhuma anomalia detectada no período recente."];
 
-document.getElementById("reportOut").innerText=txt;
-
-let blob=new Blob([txt],{type:"text/plain"});
-let a=document.createElement("a");
-a.href=URL.createObjectURL(blob);
-a.download="angelos_relatorio.txt";
-a.click();
-}
-
-function avg(d,k){
-return (d.reduce((a,b)=>a+map(b[k]),0)/d.length||0).toFixed(2);
-}
-
-function exportJSON(){
-let d=load();
-let blob=new Blob([JSON.stringify(d)],{type:"application/json"});
-let a=document.createElement("a");
-a.href=URL.createObjectURL(blob);
-a.download="angelos_backup.json";
-a.click();
+document.getElementById("insights").innerHTML=
+out.map(x=>`<div class="alert">${x}</div>`).join("");
 }
 
 render();
+
 </script>
 
 </body>
