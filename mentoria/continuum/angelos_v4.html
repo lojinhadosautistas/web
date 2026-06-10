@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>AngelOS v4 • Sistema Cognitivo Avançado</title>
+<title>AngelOS v5 • Sistema Preditivo Cognitivo</title>
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
@@ -94,8 +94,8 @@ button:hover{ background:#3b63d1; }
 <body>
 
 <header>
-<h1>🧠 AngelOS v4</h1>
-<small>IA Analítica • Correlação • Evolução Cognitiva</small>
+<h1>🧠 AngelOS v5</h1>
+<small>IA Preditiva • Neurodashboard • Relatórios Clínicos</small>
 </header>
 
 <div class="grid">
@@ -105,32 +105,22 @@ button:hover{ background:#3b63d1; }
 <h3>📅 Check-in Diário</h3>
 
 <label>Linguagem</label>
-<select id="linguagem">
-<option>baixo</option><option>medio</option><option>alto</option>
-</select>
+<select id="linguagem"><option>baixo</option><option>medio</option><option>alto</option></select>
 
 <label>Cognição</label>
-<select id="cognicao">
-<option>baixo</option><option>medio</option><option>alto</option>
-</select>
+<select id="cognicao"><option>baixo</option><option>medio</option><option>alto</option></select>
 
 <label>Regulação</label>
-<select id="regulacao">
-<option>instavel</option><option>media</option><option>estavel</option>
-</select>
+<select id="regulacao"><option>instavel</option><option>media</option><option>estavel</option></select>
+
+<label>Sono</label>
+<select id="sono"><option>ruim</option><option>medio</option><option>bom</option></select>
+
+<label>Rotina</label>
+<select id="rotina"><option>instavel</option><option>media</option><option>organizada</option></select>
 
 <label>Crises</label>
 <input id="crises" type="number" value="0"/>
-
-<label>Sono (qualidade)</label>
-<select id="sono">
-<option>ruim</option><option>medio</option><option>bom</option>
-</select>
-
-<label>Rotina</label>
-<select id="rotina">
-<option>instavel</option><option>media</option><option>organizada</option>
-</select>
 
 <label>Observações</label>
 <textarea id="obs"></textarea>
@@ -138,21 +128,27 @@ button:hover{ background:#3b63d1; }
 <button onclick="save()">Salvar Registro</button>
 </div>
 
-<!-- INSIGHTS -->
+<!-- IA PREDITIVA -->
 <div class="card">
-<h3>🧠 IA Analítica (Hipóteses)</h3>
-<div id="insights"></div>
+<h3>🔮 IA Preditiva (Risco)</h3>
+<div id="risk"></div>
 </div>
 
 <!-- GRÁFICO -->
 <div class="card full">
-<h3>📊 Evolução Multivariável</h3>
+<h3>📊 Evolução Cognitiva Multivariável</h3>
 <canvas id="chart"></canvas>
 </div>
 
-<!-- CORRELAÇÃO -->
-<div class="card full">
-<h3>🔗 Correlações Detectadas</h3>
+<!-- ISC -->
+<div class="card">
+<h3>🧠 Índice de Estabilidade Cognitiva (ISC)</h3>
+<div id="isc"></div>
+</div>
+
+<!-- CORRELAÇÕES -->
+<div class="card">
+<h3>🔗 Correlações</h3>
 <div id="corr"></div>
 </div>
 
@@ -162,11 +158,18 @@ button:hover{ background:#3b63d1; }
 <div id="timeline"></div>
 </div>
 
+<!-- RELATÓRIO -->
+<div class="card full">
+<h3>📄 Relatório Clínico</h3>
+<button onclick="report()">Gerar Relatório (PDF via navegador)</button>
+<pre id="reportOut"></pre>
+</div>
+
 </div>
 
 <script>
 
-const KEY="angelos_v4";
+const KEY="angelos_v5";
 
 function load(){
 return JSON.parse(localStorage.getItem(KEY)||"[]");
@@ -193,9 +196,9 @@ date:new Date().toISOString().split("T")[0],
 linguagem:linguagem.value,
 cognicao:cognicao.value,
 regulacao:regulacao.value,
-crises:+crises.value,
 sono:sono.value,
 rotina:rotina.value,
+crises:+crises.value,
 obs:obs.value
 });
 
@@ -208,9 +211,10 @@ function render(){
 let d=load();
 
 renderChart(d);
+renderRisk(d);
+renderISC(d);
+renderCorr(d);
 renderTimeline(d);
-renderInsights(d);
-renderCorrelation(d);
 }
 
 let chart;
@@ -224,63 +228,79 @@ type:"line",
 data:{
 labels:d.map(x=>x.date),
 datasets:[
-{
-label:"Linguagem",
-data:d.map(x=>map(x.linguagem)),
-borderColor:"#4f7cff"
-},
-{
-label:"Cognição",
-data:d.map(x=>map(x.cognicao)),
-borderColor:"#ffb84f"
-},
-{
-label:"Regulação",
-data:d.map(x=>map(x.regulacao)),
-borderColor:"#4fff9f"
-},
-{
-label:"Crises",
-data:d.map(x=>x.crises),
-borderColor:"#ff4f4f"
-}
+{label:"Linguagem",data:d.map(x=>map(x.linguagem)),borderColor:"#4f7cff"},
+{label:"Cognição",data:d.map(x=>map(x.cognicao)),borderColor:"#ffb84f"},
+{label:"Regulação",data:d.map(x=>map(x.regulacao)),borderColor:"#4fff9f"},
+{label:"Crises",data:d.map(x=>x.crises),borderColor:"#ff4f4f"},
+{label:"Sono",data:d.map(x=>map(x.sono)),borderColor:"#9b7cff"}
 ]
 },
-options:{
-scales:{y:{min:0,max:3}}
-}
+options:{scales:{y:{min:0,max:3}}}
 });
 }
 
-function renderTimeline(d){
+function riskScore(d){
 
-document.getElementById("timeline").innerHTML=
-[...d].reverse().map(x=>`
-<div class="entry">
-<b>${x.date}</b><br>
-<span class="badge">L:${x.linguagem}</span>
-<span class="badge">C:${x.cognicao}</span>
-<span class="badge">R:${x.regulacao}</span>
-<span class="badge">Sono:${x.sono}</span>
-<span class="badge">Rot:${x.rotina}</span>
-<span class="badge">Cr:${x.crises}</span>
-<br>${x.obs||""}
-</div>
-`).join("");
+let last=d.slice(-7);
+
+let score=0;
+
+score += (3 - avg(last,"sono"));
+score += (3 - avg(last,"rotina"));
+score += avg(last,"crises");
+score += (3 - avg(last,"regulacao"));
+
+return Math.round(score);
 }
 
-function avg(arr, key){
-return arr.reduce((a,b)=>a+map(b[key]),0)/arr.length||0;
+function avg(d,k){
+return d.reduce((a,b)=>a+map(b[k]),0)/d.length||0;
 }
 
-function corr(x,y,data){
+function renderRisk(d){
 
-let n=data.length;
+if(d.length<3){
+risk.innerHTML="Sem dados suficientes.";
+return;
+}
+
+let r=riskScore(d);
+
+let level = r<=3?"🟢 Baixo": r<=6?"🟡 Médio":"🔴 Alto";
+
+risk.innerHTML=`
+<div class="alert">Score: ${r}</div>
+<div class="alert">Nível: ${level}</div>
+<div class="alert">Interpretação: risco baseado em sono, rotina, regulação e crises</div>
+`;
+}
+
+function renderISC(d){
+
+let last=d.slice(-7);
+if(last.length===0){isc.innerHTML="Sem dados.";return;}
+
+let val =
+(avg(last,"linguagem")+
+avg(last,"cognicao")+
+avg(last,"regulacao")+
+avg(last,"sono")+
+avg(last,"rotina"))/5;
+
+isc.innerHTML=`
+<div class="alert">ISC: ${val.toFixed(2)}/3</div>
+<div class="alert">Estado: ${val>2.3?"Estável":val>1.8?"Moderado":"Instável"}</div>
+`;
+}
+
+function corr(x,y,d){
+
+let n=d.length;
 let sx=0,sy=0,sxy=0,sx2=0,sy2=0;
 
 for(let i=0;i<n;i++){
-let a=map(data[i][x]);
-let b=map(data[i][y]);
+let a=map(d[i][x]);
+let b=map(d[i][y]);
 sx+=a; sy+=b; sxy+=a*b; sx2+=a*a; sy2+=b*b;
 }
 
@@ -288,56 +308,61 @@ return ((n*sxy - sx*sy) /
 Math.sqrt((n*sx2-sx*sx)*(n*sy2-sy*sy))).toFixed(2);
 }
 
-function renderCorrelation(d){
+function renderCorr(d){
 
 if(d.length<5){
-document.getElementById("corr").innerHTML="Dados insuficientes.";
+corr.innerHTML="Sem dados suficientes.";
 return;
 }
 
-let pairs=[
-["sono","crises"],
-["rotina","regulacao"],
-["regulacao","linguagem"]
-];
-
-document.getElementById("corr").innerHTML=
-pairs.map(p=>{
-let c=corr(p[0],p[1],d);
-return `<div class="alert">Correlação ${p[0]} × ${p[1]}: ${c}</div>`;
-}).join("");
+corr.innerHTML=`
+<div class="alert">Sono × Crises: ${corr("sono","crises",d)}</div>
+<div class="alert">Rotina × Regulação: ${corr("rotina","regulacao",d)}</div>
+<div class="alert">Regulação × Linguagem: ${corr("regulacao","linguagem",d)}</div>
+`;
 }
 
-function renderInsights(d){
+function renderTimeline(d){
 
-let last=d.slice(-7);
-
-if(last.length===0){
-document.getElementById("insights").innerHTML="Sem dados.";
-return;
+timeline.innerHTML=[...d].reverse().map(x=>`
+<div class="entry">
+<b>${x.date}</b><br>
+<span class="badge">${x.linguagem}</span>
+<span class="badge">${x.cognicao}</span>
+<span class="badge">${x.regulacao}</span>
+<span class="badge">${x.sono}</span>
+<span class="badge">${x.rotina}</span>
+<span class="badge">Cr:${x.crises}</span>
+<br>${x.obs||""}
+</div>
+`).join("");
 }
 
-let out=[];
+function report(){
 
-let crises=last.reduce((a,b)=>a+b.crises,0);
+let d=load().slice(-7);
 
-if(crises>=3)
-out.push("⚠️ Crises elevadas nos últimos dias.");
+let txt="ANGELoS v5 - RELATÓRIO CLÍNICO\n\n";
 
-if(avg(last,"sono")<2)
-out.push("😴 Sono abaixo do ideal correlacionado a instabilidade.");
+txt+="Período: últimos 7 registros\n\n";
 
-if(avg(last,"rotina")<2)
-out.push("📉 Rotina instável pode estar influenciando regulação.");
+txt+="ISC: "+((avg(d,"linguagem")+avg(d,"cognicao")+avg(d,"regulacao")+avg(d,"sono")+avg(d,"rotina"))/5).toFixed(2)+"\n\n";
 
-if(avg(last,"linguagem")>2.2)
-out.push("📈 Linguagem em tendência positiva.");
+txt+="Crises: "+d.reduce((a,b)=>a+b.crises,0)+"\n\n";
 
-if(out.length===0)
-out=["🧠 Nenhuma anomalia detectada no período recente."];
+txt+="Correlação Sono × Crises: "+corr("sono","crises",d)+"\n";
 
-document.getElementById("insights").innerHTML=
-out.map(x=>`<div class="alert">${x}</div>`).join("");
+txt+="Correlação Rotina × Regulação: "+corr("rotina","regulacao",d)+"\n";
+
+txt+="\nResumo: sistema baseado em padrões longitudinais e heurísticas comportamentais.";
+
+reportOut.innerText=txt;
+
+let blob=new Blob([txt],{type:"text/plain"});
+let a=document.createElement("a");
+a.href=URL.createObjectURL(blob);
+a.download="angelos_v5_relatorio.txt";
+a.click();
 }
 
 render();
