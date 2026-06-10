@@ -33,23 +33,23 @@ init() {
     EDITOR DATA
     ========================================================== */
 
+
+
     async getEditorData() {
 
-        if (
-            !window.Continuum ||
-            !window.Continuum.editor
-        ) {
+    if (!window.Continuum) {
 
-            throw new Error(
-                "Continuum Editor não encontrado."
-            );
-
-        }
-
-        return await
-            window.Continuum.editor.save();
+        throw new Error(
+            "Continuum não carregado."
+        );
 
     }
+
+    await window.Continuum.editor.isReady;
+
+    return await window.Continuum.editor.save();
+
+}
 
     /* ==========================================================
     PLAIN TEXT
@@ -222,12 +222,7 @@ init() {
 
     }
 
-    filename(extension) {
 
-        return
-            `continuum-${this.today()}.${extension}`;
-
-    }
 
     closeDropdown() {
 
