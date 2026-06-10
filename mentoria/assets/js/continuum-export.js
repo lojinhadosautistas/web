@@ -18,23 +18,16 @@ class ContinuumExport {
     INIT
     ========================================================== */
 
-    init() {
+init() {
 
-        document.addEventListener(
-            "DOMContentLoaded",
-            () => {
-
-                this.dropdown =
-                    document.getElementById(
-                        "exportDropdown"
-                    );
-
-                this.bindEvents();
-
-            }
+    this.dropdown =
+        document.getElementById(
+            "exportDropdown"
         );
 
-    }
+    this.bindEvents();
+
+}
 
     /* ==========================================================
     EDITOR DATA
