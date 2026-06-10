@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta name="google-adsense-account" content="ca-pub-3277175946272866">
+
+<title>Continuum | Angelo Victor • Sistema de Integração Programática</title>
+  <meta name="description" content="A Lojinha dos Autistas é um hub de inovação social com base tecnológica que conecta propósito, desenvolvimento humano e transformação real." />
+
+  <!-- Open Graph (WhatsApp, Facebook, LinkedIn) -->
+  <meta property="og:title" content="Continuum • Lojinha dos Autistas 💙 Tecnologia com Propósito" />
+  <meta property="og:description" content="Sistema de Integração Programática 💙 Tecnologia aplicada ao desenvolvimento humano com foco na regulação emocional, autonomia e melhoria da qualidade de vida." />
+  <meta property="og:image" content="https://www.autistas.net/assets/img/img-share-continuum.jpg" />
+  <meta property="og:url" content="https://www.autistas.net/index.html" />
+  <meta property="og:type" content="website" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+
+  <!-- Twitter Card (melhora compatibilidade geral) -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Continuum • Lojinha dos Autistas 💙 Tecnologia com Propósito" />
+  <meta name="twitter:description" content="Sistema de Integração Programática 💙 Tecnologia aplicada ao desenvolvimento humano com foco na regulação emocional, autonomia e melhoria da qualidade de vida." />
+  <meta name="twitter:image" content="https://www.autistas.net/assets/img/img-share-continuum.jpg" />
+
+  <!-- Favicons -->
+  <link href="assets/img/logo-continuum.png" rel="icon">
+  <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
+
+  <link rel="stylesheet" href="assets/css/continuum.css">
+  <link rel="stylesheet" href="assets/css/continuum-editor.css">
+  
+<script src="https://cdn.jsdelivr.net/npm/particles.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@editorjs/editorjs@latest"></script>
+<script src="https://cdn.jsdelivr.net/npm/@editorjs/header@latest"></script>
+<script src="https://cdn.jsdelivr.net/npm/@editorjs/list@latest"></script>
+<script src="https://cdn.jsdelivr.net/npm/@editorjs/checklist@latest"></script>
+<script src="https://cdn.jsdelivr.net/npm/@editorjs/quote@latest"></script>
+<script src="https://cdn.jsdelivr.net/npm/@editorjs/delimiter@latest"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+<script src="https://unpkg.com/docx@8.5.0/build/index.umd.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
+
+    <!-- ======================================================= GOOGLE ADSENSE  ======================================================== -->
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3277175946272866"
+     crossorigin="anonymous"></script>
+
+  
+</head>
+
+<body>
+
+<div class="app">
+
+<!-- =========================================================
+TOPBAR
+========================================================= -->
+
+            <div id="header-container"></div>
+
+  <!-- BANNER SLOT 
+    <section class="section">
+
+        <div class="section-header">
+            <h2>FOCO AGORA</h2>
+            <small>Prioridade central desta semana</small>
+        </div>
+
+        <div class="today-priority">
+            <strong>MISSÃO DA SEMANA</strong>
+            <h2>
+                Consolidar observações recentes de Guilherme e alinhar os
+                próximos marcos com a família.
+            </h2>
+        </div>
+
+    </section>
+    BANNER SLOT -->
+
+    <div id="sidebar-container"></div>
+
+<main>
+
+<section id="painel" class="section">
+<div class="grid">
+<div class="card"><h3>Comunicação</h3><p>Palavras, gestos, compreensão.</p></div>
+<div class="card"><h3>Socialização</h3><p>Interações e atenção compartilhada.</p></div>
+<div class="card"><h3>Autonomia</h3><p>Alimentação, higiene e escolhas.</p></div>
+<div class="card"><h3>Bem-estar</h3><p>Sono, saúde e qualidade de vida.</p></div>
+</div>
+</section>
+
+<section id="desenvolvimento" class="section">
+<div class="card">
+<h2>Radar de Desenvolvimento</h2>
+<canvas id="radar"></canvas>
+</div>
+</section>
+
+<section id="diario" class="section">
+<div class="card">
+<h2>Diário Longitudinal</h2>
+<div id="editorjs"></div>
+</div>
+</section>
+
+<section id="timeline" class="section">
+<div class="card">
+<h2>Linha do Tempo</h2>
+<ul>
+<li>Primeiras palavras</li>
+<li>Novas habilidades</li>
+<li>Marcos de autonomia</li>
+<li>Eventos importantes</li>
+</ul>
+</div>
+</section>
+
+<section id="biblioteca" class="section">
+<div class="card">
+<h2>Biblioteca Viva</h2>
+<span class="tag">Sono</span>
+<span class="tag">Linguagem</span>
+<span class="tag">Alimentação</span>
+<span class="tag">Sensorial</span>
+<span class="tag">Brincadeiras</span>
+<span class="tag">Autonomia</span>
+</div>
+</section>
+
+<section id="agenda" class="section">
+<div class="card">
+<h2>Agenda Integrada</h2>
+<iframe src="https://calendar.google.com/calendar/embed?ctz=America/Fortaleza"></iframe>
+</div>
+</section>
+
+<section id="rede" class="section">
+<div class="grid">
+<div class="card"><h3>Família</h3></div>
+<div class="card"><h3>Escola</h3></div>
+<div class="card"><h3>Terapias</h3></div>
+<div class="card"><h3>Saúde</h3></div>
+</div>
+</section>
+
+</main>
+</div>
+
+<script>
+new EditorJS({
+ holder:'editorjs',
+ tools:{header:Header,list:List}
+});
+
+new Chart(document.getElementById('radar'),{
+ type:'radar',
+ data:{
+ labels:['Comunicação','Socialização','Autonomia','Sono','Sensorial','Brincar'],
+ datasets:[{data:[4,3,2,4,3,5]}]
+ }
+});
+</script>
+
+</body>
+</html>
