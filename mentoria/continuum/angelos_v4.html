@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>AngelOS v3 • Sistema Cognitivo</title>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<style>
+body{
+    margin:0;
+    font-family: Arial;
+    background:#0a0f1d;
+    color:#eaeaea;
+}
+
+header{
+    background:#121a2f;
+    padding:16px;
+    text-align:center;
+    border-bottom:1px solid #1f2a44;
+}
+
+header h1{ margin:0; font-size:20px; }
+
+.tabs{
+    display:flex;
+    gap:8px;
+    padding:10px;
+    background:#0d1426;
+    flex-wrap:wrap;
+}
+
+.tab{
+    padding:8px 12px;
+    background:#1a2440;
+    border-radius:8px;
+    cursor:pointer;
+    font-size:12px;
+}
+
+.tab.active{ background:#4f7cff; }
+
+.container{ padding:14px; display:grid; grid-template-columns:1fr 1fr; gap:14px; }
+
+.card{
+    background:#121a2f;
+    border:1px solid #1f2a44;
+    padding:12px;
+    border-radius:10px;
+}
+
+.full{ grid-column:span 2; }
+
+input,select,textarea{
+    width:100%;
+    margin:6px 0;
+    padding:8px;
+    border-radius:8px;
+    border:none;
+    background:#0a0f1d;
+    color:white;
+}
+
+button{
+    width:100%;
+    padding:10px;
+    border:none;
+    border-radius:10px;
+    background:#4f7cff;
+    color:white;
+    cursor:pointer;
+}
+
+button:hover{ background:#3b63d1; }
+
+.entry{
+    font-size:12px;
+    padding:10px;
+    margin-bottom:8px;
+    background:#0a0f1d;
+    border-radius:8px;
+    border:1px solid #1f2a44;
+}
+
+.badge{
+    display:inline-block;
+    font-size:11px;
+    padding:2px 6px;
+    background:#1f2a44;
+    border-radius:6px;
+    margin-right:4px;
+}
+
+.hidden{ display:none; }
+
+.alert{
+    padding:8px;
+    border-left:3px solid #ffb84f;
+    background:#0d1426;
+    margin-bottom:6px;
+    border-radius:8px;
+    font-size:12px;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+<h1>🧠 AngelOS v3</h1>
+<small>IA Analítica • Relatórios Automáticos • Painel Cognitivo</small>
+</header>
+
+<div class="tabs">
+<div class="tab active" onclick="show('dashboard')">Dashboard</div>
+<div class="tab" onclick="show('checkin')">Check-in</div>
+<div class="tab" onclick="show('timeline')">Linha do Tempo</div>
+<div class="tab" onclick="show('insights')">IA Analítica</div>
+<div class="tab" onclick="show('reports')">Relatórios</div>
+</div>
+
+<!-- DASHBOARD -->
+<div id="dashboard" class="container">
+
+<div class="card">
+<h3>📊 Evolução Geral</h3>
+<canvas id="chart"></canvas>
+</div>
+
+<div class="card">
+<h3>🧠 Estado Atual</h3>
+<div id="state"></div>
+</div>
+
+</div>
+
+<!-- CHECKIN -->
+<div id="checkin" class="container hidden">
+
+<div class="card">
+<h3>📅 Check-in Diário</h3>
+
+<label>Linguagem</label>
+<select id="linguagem"><option>baixo</option><option>medio</option><option>alto</option></select>
+
+<label>Cognição</label>
+<select id="cognicao"><option>baixo</option><option>medio</option><option>alto</option></select>
+
+<label>Regulação</label>
+<select id="regulacao"><option>calmo</option><option>instavel</option><option>irritado</option></select>
+
+<label>Crises</label>
+<input id="crises" type="number" value="0"/>
+
+<label>Observações</label>
+<textarea id="obs"></textarea>
+
+<button onclick="save()">Salvar</button>
+
+</div>
+
+</div>
+
+<!-- TIMELINE -->
+<div id="timeline" class="container hidden">
+<div class="card full">
+<h3>🧭 Linha do Tempo Cognitiva</h3>
+<div id="timelineBox"></div>
+</div>
+</div>
+
+<!-- INSIGHTS -->
+<div id="insights" class="container hidden">
+
+<div class="card full">
+<h3>🔍 IA Analítica (Motor de Padrões)</h3>
+<div id="ai"></div>
+</div>
+
+</div>
+
+<!-- REPORTS -->
+<div id="reports" class="container hidden">
+
+<div class="card">
+<h3>📄 Relatório Semanal</h3>
+<button onclick="generateReport()">Gerar Relatório</button>
+<button onclick="exportJSON()">Exportar Backup JSON</button>
+</div>
+
+<div class="card">
+<h3>📦 Resultado</h3>
+<pre id="reportOut"></pre>
+</div>
+
+</div>
+
+<script>
+const KEY="angelos_v3";
+
+function load(){
+return JSON.parse(localStorage.getItem(KEY)||"[]");
+}
+
+function store(d){
+localStorage.setItem(KEY,JSON.stringify(d));
+}
+
+function map(v){
+return {baixo:1,medio:2,alto:3,calmo:3,instavel:2,irritado:1}[v]||0;
+}
+
+function save(){
+let d=load();
+d.push({
+date:new Date().toISOString().split("T")[0],
+linguagem:linguagem.value,
+cognicao:cognicao.value,
+regulacao:regulacao.value,
+crises:+crises.value,
+obs:obs.value
+});
+store(d);
+obs.value="";
+render();
+}
+
+function show(id){
+document.querySelectorAll(".container").forEach(c=>c.classList.add("hidden"));
+document.getElementById(id).classList.remove("hidden");
+}
+
+function render(){
+let d=load();
+renderChart(d);
+renderState(d);
+renderTimeline(d);
+renderAI(d);
+}
+
+function renderChart(d){
+let ctx=document.getElementById("chart");
+if(window.chart) window.chart.destroy();
+
+window.chart=new Chart(ctx,{
+type:"line",
+data:{
+labels:d.map(x=>x.date),
+datasets:[
+{label:"Linguagem",data:d.map(x=>map(x.linguagem)),borderColor:"#4f7cff"},
+{label:"Cognição",data:d.map(x=>map(x.cognicao)),borderColor:"#ffb84f"},
+{label:"Regulação",data:d.map(x=>map(x.regulacao)),borderColor:"#4fff9f"}
+]
+},
+options:{responsive:true,scales:{y:{min:0,max:3}}}
+});
+}
+
+function renderState(d){
+let last=d.slice(-7);
+let avg=(k)=>last.reduce((a,b)=>a+map(b[k]),0)/last.length||0;
+document.getElementById("state").innerHTML=`
+<div class="alert">Linguagem média: ${avg("linguagem").toFixed(2)}</div>
+<div class="alert">Cognição média: ${avg("cognicao").toFixed(2)}</div>
+<div class="alert">Regulação média: ${avg("regulacao").toFixed(2)}</div>
+<div class="alert">Crises: ${last.reduce((a,b)=>a+b.crises,0)}</div>
+`;
+}
+
+function renderTimeline(d){
+document.getElementById("timelineBox").innerHTML=
+[...d].reverse().map(x=>`
+<div class="entry">
+<b>${x.date}</b><br>
+<span class="badge">${x.linguagem}</span>
+<span class="badge">${x.cognicao}</span>
+<span class="badge">${x.regulacao}</span>
+<span class="badge">Cr:${x.crises}</span>
+<br>${x.obs||""}
+</div>
+`).join("");
+}
+
+function renderAI(d){
+let last=d.slice(-7);
+let crises=last.reduce((a,b)=>a+b.crises,0);
+let msg=[];
+
+if(crises>=3) msg.push("⚠️ Padrão de aumento de crises detectado.");
+if(last.filter(x=>x.regulacao==="instavel").length>3)
+msg.push("⚠️ Instabilidade emocional recorrente.");
+if(last.reduce((a,b)=>a+map(b.linguagem),0)/last.length>2.3)
+msg.push("📈 Tendência positiva em linguagem.");
+
+if(msg.length===0) msg=["🧠 Sistema estável sem anomalias detectadas."];
+
+document.getElementById("ai").innerHTML=
+msg.map(m=>`<div class="alert">${m}</div>`).join("");
+}
+
+function generateReport(){
+let d=load().slice(-7);
+let txt="RELATÓRIO ANGELoS v3\n\n";
+txt+="Registros: "+d.length+"\n";
+txt+="Crises: "+d.reduce((a,b)=>a+b.crises,0)+"\n\n";
+
+txt+="Resumo:\n";
+txt+="- Linguagem média: "+avg(d,"linguagem")+"\n";
+txt+="- Cognição média: "+avg(d,"cognicao")+"\n";
+txt+="- Regulação média: "+avg(d,"regulacao")+"\n";
+
+document.getElementById("reportOut").innerText=txt;
+
+let blob=new Blob([txt],{type:"text/plain"});
+let a=document.createElement("a");
+a.href=URL.createObjectURL(blob);
+a.download="angelos_relatorio.txt";
+a.click();
+}
+
+function avg(d,k){
+return (d.reduce((a,b)=>a+map(b[k]),0)/d.length||0).toFixed(2);
+}
+
+function exportJSON(){
+let d=load();
+let blob=new Blob([JSON.stringify(d)],{type:"application/json"});
+let a=document.createElement("a");
+a.href=URL.createObjectURL(blob);
+a.download="angelos_backup.json";
+a.click();
+}
+
+render();
+</script>
+
+</body>
+</html>
