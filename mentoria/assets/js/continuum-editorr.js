@@ -1,19 +1,14 @@
 /* ==========================================================
-CONTINUUM EDITOR
-Memória Operacional Longitudinal
+CONTINUUM EXPORT v2.0
+JSON • Markdown • PDF • Word
+Complemento do Continuum Editor
 ========================================================== */
 
-class ContinuumEditor {
+class ContinuumExport {
 
     constructor() {
 
-        this.storageKey = "continuumSylviaEditor";
-
-        this.editor = null;
-
-        this.isSaving = false;
-
-        this.autosaveInterval = 30000;
+        this.dropdown = null;
 
         this.init();
 
@@ -23,223 +18,244 @@ class ContinuumEditor {
     INIT
     ========================================================== */
 
-    async init() {
+    init() {
 
-        if (!document.getElementById("editorjs")) return;
+        document.addEventListener(
+            "DOMContentLoaded",
+            () => {
 
-        const savedData = this.load();
-
-        this.editor = new EditorJS({
-
-            holder: "editorjs",
-
-            autofocus: true,
-
-            placeholder:
-                "Registre observações, aprendizados, decisões e hipóteses...",
-
-            data: savedData || this.defaultData(),
-
-            tools: {
-
-                header: {
-                    class: Header,
-                    inlineToolbar: true
-                },
-
-                list: {
-                    class: EditorjsList,
-                    inlineToolbar: true
-                },
-
-                checklist: {
-                    class: Checklist,
-                    inlineToolbar: true
-                },
-
-                quote: {
-                    class: Quote,
-                    inlineToolbar: true
-                },
-
-                delimiter: Delimiter
-
-            },
-
-            onReady: () => {
-
-                console.log("✓ Continuum Editor iniciado");
+                this.dropdown =
+                    document.getElementById(
+                        "exportDropdown"
+                    );
 
                 this.bindEvents();
 
-                this.startAutosave();
+            }
+        );
 
-                this.updateStatus("Pronto");
+    }
 
-            },
+    /* ==========================================================
+    EDITOR DATA
+    ========================================================== */
 
-            onChange: () => {
+    async getEditorData() {
 
-                this.updateStatus("Editando...");
+        if (
+            !window.Continuum ||
+            !window.Continuum.editor
+        ) {
+
+            throw new Error(
+                "Continuum Editor não encontrado."
+            );
+
+        }
+
+        return await
+            window.Continuum.editor.save();
+
+    }
+
+    /* ==========================================================
+    PLAIN TEXT
+    ========================================================== */
+
+    async getPlainText() {
+
+        const data =
+            await this.getEditorData();
+
+        let text = "";
+
+        data.blocks.forEach(block => {
+
+            switch(block.type) {
+
+                case "header":
+
+                    text +=
+                        "\n\n" +
+                        block.data.text.toUpperCase() +
+                        "\n";
+
+                    break;
+
+                case "paragraph":
+
+                    text +=
+                        block.data.text +
+                        "\n\n";
+
+                    break;
+
+                case "quote":
+
+                    text +=
+                        `"${block.data.text}"\n\n`;
+
+                    break;
+
+                case "list":
+
+                    block.data.items.forEach(item => {
+
+                        text +=
+                            "• " +
+                            item +
+                            "\n";
+
+                    });
+
+                    text += "\n";
+
+                    break;
+
+                case "checklist":
+
+                    block.data.items.forEach(item => {
+
+                        text +=
+                            `[${item.checked ? "x" : " "}] `
+                            + item.text +
+                            "\n";
+
+                    });
+
+                    text += "\n";
+
+                    break;
 
             }
 
         });
 
-    }
-
-    /* ==========================================================
-    DADOS PADRÃO
-    ========================================================== */
-
-    defaultData() {
-
-        return {
-
-            time: Date.now(),
-
-            blocks: [
-
-                {
-                    type: "header",
-                    data: {
-                        text: "Painel Vivo Continuum",
-                        level: 2
-                    }
-                },
-
-                {
-                    type: "paragraph",
-                    data: {
-                        text:
-                            "Este espaço registra observações, decisões, aprendizados e continuidade operacional."
-                    }
-                }
-
-            ]
-
-        };
+        return text.trim();
 
     }
 
     /* ==========================================================
-    SALVAR
+    MARKDOWN
     ========================================================== */
 
-    async save() {
-
-        if (!this.editor) return;
-
-        if (this.isSaving) return;
-
-        try {
-
-            this.isSaving = true;
-
-            this.updateStatus("Salvando...");
-
-            const output = await this.editor.save();
-
-            localStorage.setItem(
-                this.storageKey,
-                JSON.stringify(output)
-            );
-
-            this.updateStatus(
-                `Salvo ${new Date().toLocaleTimeString()}`
-            );
-
-            console.log("✓ Continuum salvo");
-
-            document.dispatchEvent(
-                new CustomEvent(
-                    "continuumSaved",
-                    {
-                        detail: output
-                    }
-                )
-            );
-
-        } catch (error) {
-
-            console.error(error);
-
-            this.updateStatus("Erro ao salvar");
-
-        } finally {
-
-            this.isSaving = false;
-
-        }
-
-    }
-
-    /* ==========================================================
-    CARREGAR
-    ========================================================== */
-
-    load() {
-
-        try {
-
-            const raw =
-                localStorage.getItem(this.storageKey);
-
-            if (!raw) return null;
-
-            return JSON.parse(raw);
-
-        } catch (error) {
-
-            console.error(error);
-
-            return null;
-
-        }
-
-    }
-
-    /* ==========================================================
-    LIMPAR
-    ========================================================== */
-
-    clear() {
-
-        if (
-            !confirm(
-                "Deseja realmente apagar toda a memória local?"
-            )
-        ) return;
-
-        localStorage.removeItem(
-            this.storageKey
-        );
-
-        location.reload();
-
-    }
-
-    /* ==========================================================
-    EXPORTAR
-    ========================================================== */
-
-    async exportJSON() {
+    async getMarkdown() {
 
         const data =
-            await this.editor.save();
+            await this.getEditorData();
+
+        let md = "";
+
+        data.blocks.forEach(block => {
+
+            switch(block.type) {
+
+                case "header":
+
+                    md +=
+                        "#".repeat(
+                            block.data.level || 1
+                        ) +
+                        " " +
+                        block.data.text +
+                        "\n\n";
+
+                    break;
+
+                case "paragraph":
+
+                    md +=
+                        block.data.text +
+                        "\n\n";
+
+                    break;
+
+                case "quote":
+
+                    md +=
+                        "> " +
+                        block.data.text +
+                        "\n\n";
+
+                    break;
+
+                case "list":
+
+                    block.data.items.forEach(item => {
+
+                        md +=
+                            "- " +
+                            item +
+                            "\n";
+
+                    });
+
+                    md += "\n";
+
+                    break;
+
+                case "checklist":
+
+                    block.data.items.forEach(item => {
+
+                        md +=
+                            `- [${item.checked ? "x" : " "}] `
+                            + item.text +
+                            "\n";
+
+                    });
+
+                    md += "\n";
+
+                    break;
+
+            }
+
+        });
+
+        return md.trim();
+
+    }
+
+    /* ==========================================================
+    HELPERS
+    ========================================================== */
+
+    today() {
+
+        return new Date()
+            .toISOString()
+            .split("T")[0];
+
+    }
+
+    filename(extension) {
+
+        return
+            `continuum-${this.today()}.${extension}`;
+
+    }
+
+    closeDropdown() {
+
+        this.dropdown
+        ?.classList
+        .remove("active");
+
+    }
+
+    download(
+        content,
+        filename,
+        mimeType
+    ) {
 
         const blob =
             new Blob(
-                [
-                    JSON.stringify(
-                        data,
-                        null,
-                        2
-                    )
-                ],
+                [content],
                 {
                     type:
-                        "application/json"
+                    mimeType
                 }
             );
 
@@ -252,115 +268,285 @@ class ContinuumEditor {
         a.href = url;
 
         a.download =
-            `continuum-${
-                new Date()
-                    .toISOString()
-                    .split("T")[0]
-            }.json`;
+            filename;
+
+        document.body
+            .appendChild(a);
 
         a.click();
+
+        a.remove();
 
         URL.revokeObjectURL(url);
 
     }
 
     /* ==========================================================
-    IMPORTAR
+    MARKDOWN
     ========================================================== */
 
-    async importJSON(file) {
+    async exportMD() {
 
-        const text =
-            await file.text();
+        try {
 
-        const data =
-            JSON.parse(text);
+            const md =
+                await this.getMarkdown();
 
-        localStorage.setItem(
-            this.storageKey,
-            JSON.stringify(data)
-        );
+            this.download(
 
-        location.reload();
+                md,
 
-    }
+                `continuum-${this.today()}.md`,
 
-    /* ==========================================================
-    NOVA NOTA
-    ========================================================== */
+                "text/markdown"
 
-    async addNote(title) {
-
-        await this.editor.blocks.insert(
-            "header",
-            {
-                text: title,
-                level: 3
-            }
-        );
-
-    }
-
-    /* ==========================================================
-    STATUS
-    ========================================================== */
-
-    updateStatus(text) {
-
-        const status =
-            document.getElementById(
-                "editorStatus"
             );
 
-        if (status)
-            status.textContent = text;
+            this.closeDropdown();
+
+        }
+
+        catch(error) {
+
+            console.error(error);
+
+        }
 
     }
 
     /* ==========================================================
-    AUTOSAVE
+    PDF
     ========================================================== */
 
-    startAutosave() {
+    async exportPDF() {
 
-        setInterval(() => {
+        try {
 
-            this.save();
+            if (!window.jspdf) {
 
-        }, this.autosaveInterval);
+                alert(
+                    "jsPDF não carregado."
+                );
+
+                return;
+
+            }
+
+            const text =
+                await this.getPlainText();
+
+            const { jsPDF } =
+                window.jspdf;
+
+            const doc =
+                new jsPDF();
+
+            const pageWidth =
+                180;
+
+            const lines =
+                doc.splitTextToSize(
+                    text,
+                    pageWidth
+                );
+
+            let y = 20;
+
+            lines.forEach(line => {
+
+                if (y > 270) {
+
+                    doc.addPage();
+
+                    y = 20;
+
+                }
+
+                doc.text(
+                    line,
+                    15,
+                    y
+                );
+
+                y += 7;
+
+            });
+
+            doc.save(
+                `continuum-${this.today()}.pdf`
+            );
+
+            this.closeDropdown();
+
+        }
+
+        catch(error) {
+
+            console.error(error);
+
+        }
 
     }
 
     /* ==========================================================
-    EVENTOS
+    DOCX
+    ========================================================== */
+
+    async exportDOCX() {
+
+        try {
+
+            if (
+                !window.docx ||
+                !window.saveAs
+            ) {
+
+                alert(
+                    "Bibliotecas DOCX não carregadas."
+                );
+
+                return;
+
+            }
+
+            const text =
+                await this.getPlainText();
+
+            const doc =
+
+                new docx.Document({
+
+                    sections: [
+
+                        {
+
+                            children: [
+
+                                new docx.Paragraph({
+
+                                    text
+
+                                })
+
+                            ]
+
+                        }
+
+                    ]
+
+                });
+
+            const blob =
+                await docx.Packer
+                .toBlob(doc);
+
+            saveAs(
+
+                blob,
+
+                `continuum-${this.today()}.docx`
+
+            );
+
+            this.closeDropdown();
+
+        }
+
+        catch(error) {
+
+            console.error(error);
+
+        }
+
+    }
+
+    /* ==========================================================
+    DROPDOWN
+    ========================================================== */
+
+    toggleDropdown() {
+
+        this.dropdown
+        ?.classList
+        .toggle("active");
+
+    }
+
+    /* ==========================================================
+    EVENTS
     ========================================================== */
 
     bindEvents() {
 
         document
-            .getElementById("saveEditor")
-            ?.addEventListener(
-                "click",
-                () => this.save()
-            );
+        .getElementById(
+            "exportMenu"
+        )
+        ?.addEventListener(
+            "click",
+            () => {
+
+                this.toggleDropdown();
+
+            }
+        );
 
         document
-            .getElementById("exportEditor")
-            ?.addEventListener(
-                "click",
-                () => this.exportJSON()
-            );
+        .getElementById(
+            "exportMD"
+        )
+        ?.addEventListener(
+            "click",
+            () => this.exportMD()
+        );
 
         document
-            .getElementById("clearEditor")
-            ?.addEventListener(
-                "click",
-                () => this.clear()
-            );
+        .getElementById(
+            "exportPDF"
+        )
+        ?.addEventListener(
+            "click",
+            () => this.exportPDF()
+        );
 
-        window.addEventListener(
-            "beforeunload",
-            () => this.save()
+        document
+        .getElementById(
+            "exportDOCX"
+        )
+        ?.addEventListener(
+            "click",
+            () => this.exportDOCX()
+        );
+
+        document.addEventListener(
+            "click",
+            event => {
+
+                const menu =
+                    document.getElementById(
+                        "exportMenu"
+                    );
+
+                if (
+                    !menu ||
+                    !this.dropdown
+                ) return;
+
+                if (
+                    !menu.contains(
+                        event.target
+                    )
+                    &&
+                    !this.dropdown.contains(
+                        event.target
+                    )
+                ) {
+
+                    this.closeDropdown();
+
+                }
+
+            }
         );
 
     }
@@ -368,7 +554,8 @@ class ContinuumEditor {
 }
 
 /* ==========================================================
-INSTÂNCIA GLOBAL
+GLOBAL
 ========================================================== */
 
-window.Continuum = new ContinuumEditor();
+window.ContinuumExport =
+    new ContinuumExport();
