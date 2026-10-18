@@ -1,634 +1,501 @@
 <!DOCTYPE html>
-<html lang="en">
-
+<html lang="pt-BR">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="google-adsense-account" content="ca-pub-3277175946272866">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="google-adsense-account" content="ca-pub-3277175946272866">
 
-  <title>Lojinha dos Autistas</title>
-  <meta name="description" content="A Lojinha dos Autistas é um hub de inovação social com base tecnológica que conecta propósito, desenvolvimento humano e transformação real." />
+  <title>Melipocultura e Autismo | Lojinha dos Autistas</title>
+  <meta name="description" content="Um espaço da Lojinha dos Autistas dedicado à meliponicultura, à observação das abelhas sem ferrão, ao aprendizado e ao cuidado com a natureza.">
 
-  <!-- Open Graph (WhatsApp, Facebook, LinkedIn) -->
-  <meta property="og:title" content="Lojinha dos Autistas 💙 Tecnologia com Propósito" />
-  <meta property="og:description" content="Tecnologia aplicada ao desenvolvimento humano com foco na regulação emocional, autonomia e melhoria da qualidade de vida." />
-  <meta property="og:image" content="https://www.autistas.net/assets/img/img-share-autistas.jpg" />
-  <meta property="og:url" content="https://www.autistas.net/index.html" />
-  <meta property="og:type" content="website" />
-  <meta property="og:image:width" content="1200" />
-  <meta property="og:image:height" content="630" />
+  <meta property="og:title" content="Melipocultura e Autismo | Lojinha dos Autistas">
+  <meta property="og:description" content="Aprendizagem, observação da natureza e práticas de cultivo de abelhas sem ferrão.">
+  <meta property="og:type" content="website">
 
-  <!-- Twitter Card (melhora compatibilidade geral) -->
-  <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="Lojinha dos Autistas 💙 Tecnologia com Propósito" />
-  <meta name="twitter:description" content="Tecnologia aplicada ao desenvolvimento humano com foco na regulação emocional, autonomia e melhoria da qualidade de vida." />
-  <meta name="twitter:image" content="https://www.autistas.net/assets/img/img-share-autistas.jpg" />
-
-  <!-- Favicons -->
   <link href="assets/img/favicon.png" rel="icon">
   <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
 
-  <!-- Fonts -->
+  <!-- Mesmas fontes, bibliotecas CSS e arquivos principais do index.html -->
   <link href="https://fonts.googleapis.com" rel="preconnect">
   <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Raleway:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
 
-  <!-- Vendor CSS Files -->
   <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
   <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
   <link href="assets/vendor/aos/aos.css" rel="stylesheet">
   <link href="assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
   <link href="assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
 
-  <!-- Main CSS File -->
   <link href="assets/css/main.css" rel="stylesheet">
   <link href="assets/css/footer.css" rel="stylesheet">
 
-  <!-- =======================================================
-  * Template Name: Bocor
-  * Template URL: https://bootstrapmade.com/bocor-bootstrap-template-nice-animation/
-  * Updated: Aug 07 2024 with Bootstrap v5.3.3
-  * Author: BootstrapMade.com
-  * License: https://bootstrapmade.com/license/
-  ======================================================== -->
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3277175946272866" crossorigin="anonymous"></script>
 
-  <!-- ======================================================= GOOGLE ADSENSE  ======================================================== -->
-  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3277175946272866"
-     crossorigin="anonymous"></script>
+  <!-- CSS complementar apenas para esta página; os arquivos originais permanecem intactos -->
+  <style>
+    :root {
+      --meli-green: #315b43;
+      --meli-green-dark: #203d2d;
+      --meli-honey: #d6a62e;
+      --meli-cream: #fffaf0;
+      --meli-ink: #28332b;
+    }
 
-  
+    html { scroll-behavior: smooth; scroll-padding-top: 100px; }
+    body { color: var(--meli-ink); }
+    .meli-hero {
+      padding: 145px 0 80px;
+      color: #fff;
+      background: linear-gradient(120deg, rgba(28, 57, 40, .96), rgba(53, 91, 62, .86)),
+                  url("assets/img/hero-img.png") center/cover no-repeat;
+    }
+    .meli-hero h1 { color: #fff; font-weight: 800; }
+    .meli-hero p { color: rgba(255,255,255,.9); max-width: 700px; }
+    .meli-eyebrow {
+      display: inline-block; margin-bottom: 14px; padding: 7px 12px;
+      border: 1px solid rgba(255,255,255,.35); border-radius: 999px;
+      font-size: .82rem; letter-spacing: .04em; text-transform: uppercase;
+    }
+    .meli-btn {
+      display: inline-flex; align-items: center; gap: 8px; padding: 12px 18px;
+      border-radius: 6px; text-decoration: none; font-weight: 700;
+      background: var(--meli-honey); color: #292718; border: 0;
+    }
+    .meli-btn:hover { background: #e7bd50; color: #292718; }
+    .meli-btn-outline {
+      background: transparent; color: #fff; border: 1px solid rgba(255,255,255,.7);
+    }
+    .meli-btn-outline:hover { background: rgba(255,255,255,.12); color: #fff; }
+    .meli-intro { background: var(--meli-cream); }
+    .meli-section-heading { max-width: 780px; margin: 0 auto 38px; text-align: center; }
+    .meli-section-heading h2 { color: var(--meli-green-dark); font-weight: 800; }
+    .meli-section-heading p { margin-bottom: 0; }
+    .meli-card {
+      height: 100%; padding: 24px; border: 1px solid #e7e7df;
+      border-radius: 12px; background: #fff; box-shadow: 0 8px 24px rgba(26,43,30,.05);
+    }
+    .meli-card-icon {
+      width: 48px; height: 48px; display: inline-flex; align-items: center; justify-content: center;
+      border-radius: 12px; background: #f8efcf; color: var(--meli-green-dark); font-size: 1.4rem;
+      margin-bottom: 16px;
+    }
+    .meli-card h3 { font-size: 1.15rem; font-weight: 800; color: var(--meli-green-dark); }
+    .meli-note { border-left: 4px solid var(--meli-honey); padding: 14px 18px; background: #fffaf0; border-radius: 0 8px 8px 0; }
+    .meli-filters { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; padding: 0; margin: 0 0 28px; list-style: none; }
+    .meli-filters button {
+      border: 1px solid #d8dfd6; border-radius: 999px; background: #fff; color: var(--meli-green-dark);
+      padding: 8px 14px; font-weight: 700; font-size: .9rem;
+    }
+    .meli-filters button.active, .meli-filters button:hover { background: var(--meli-green); color: #fff; border-color: var(--meli-green); }
+    .meli-video-card { height: 100%; border: 1px solid #e7e7df; border-radius: 12px; overflow: hidden; background: #fff; }
+    .meli-video-thumb { position: relative; display: block; overflow: hidden; background: #edf0e8; }
+    .meli-video-thumb img { display: block; width: 100%; aspect-ratio: 16 / 9; object-fit: cover; transition: transform .25s ease; }
+    .meli-video-thumb:hover img { transform: scale(1.035); }
+    .meli-play {
+      position: absolute; inset: 0; display: grid; place-items: center; color: #fff;
+      font-size: 3rem; text-shadow: 0 2px 10px rgba(0,0,0,.55);
+    }
+    .meli-video-info { padding: 18px; }
+    .meli-video-info h3 { font-size: 1.05rem; font-weight: 800; }
+    .meli-video-info p { font-size: .93rem; }
+    .meli-tag { display: inline-block; padding: 4px 8px; border-radius: 999px; background: #eef3ec; color: #315b43; font-size: .75rem; font-weight: 700; margin-bottom: 9px; }
+    .meli-video-empty { padding: 24px; border: 1px dashed #b8c7b8; border-radius: 10px; text-align: center; background: #fbfcf9; }
+    .meli-journal { background: var(--meli-cream); }
+    .meli-journal label { font-weight: 700; margin-bottom: 6px; }
+    .meli-journal .form-control, .meli-journal .form-select { border-radius: 8px; padding: 11px 12px; }
+    .meli-entry { padding: 18px; border: 1px solid #e3e8df; background: #fff; border-radius: 10px; }
+    .meli-entry h3 { font-size: 1.05rem; font-weight: 800; }
+    .meli-small { font-size: .88rem; color: #667168; }
+    .meli-footer-link { color: inherit; text-decoration: underline; text-underline-offset: 3px; }
+    @media (max-width: 767px) {
+      .meli-hero { padding: 120px 0 58px; }
+      .meli-hero h1 { font-size: 2rem; }
+      .meli-card { padding: 20px; }
+    }
+  </style>
 </head>
 
 <body class="index-page">
 
+  <!-- Cabeçalho no padrão do index.html original -->
   <header id="header" class="header d-flex align-items-center fixed-top">
     <div class="container-fluid container-xl position-relative d-flex align-items-center">
-
-      <a href="index.html" class="logo d-flex align-items-center me-auto">
-        <!-- Uncomment the line below if you also wish to use an image logo -->
-        <!-- <img src="assets/img/logo.png" alt=""> -->
-        <h1 class="sitename">Lojinha dos Autistas</h1>
-        <span>.</span>
+      <a href="../index.html" class="logo d-flex align-items-center me-auto">
+        <h1 class="sitename">Lojinha dos Autistas</h1><span>.</span>
       </a>
 
-      <nav id="navmenu" class="navmenu">
+      <nav id="navmenu" class="navmenu" aria-label="Navegação principal">
         <ul>
-          <li><a href="#hero" class="active">Home</a></li>
-          <li><a href="#about">Sobre</a></li>
-          <li><a href="#produtos">Cursos & Publicações</a></li>
-          <li><a href="#featured-services">Conteúdo</a></li>
-<!--          <li><a href="livraria/livraria.html">Livraria</a></li>
-          <li><a href="jogos/jogos.html" target="_blank">Jogos</a></li>-->
+          <li><a href="../index.html">Home</a></li>
+          <li><a href="#sobre-melipocultura" class="active">O projeto</a></li>
+          <li><a href="#videoteca">Videoteca</a></li>
+          <li><a href="#caderno">Caderno de cultivo</a></li>
+          <li><a href="#diario">Diário</a></li>
         </ul>
-       <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
+        <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
       </nav>
 
-<!--   <a class="btn-getstarted" href="eventos/entrepassos.html">Entre Passos e Afetos</a>-->
-   <a class="btn-getstarted" href="https://www.instagram.com/lojinhadosautistas" target="blank">Contato</a>
-
+      <a class="btn-getstarted" href="https://www.instagram.com/lojinhadosautistas" target="_blank" rel="noopener">Contato</a>
     </div>
   </header>
 
   <main class="main">
 
-    <!-- Hero Section -->
-    <section id="hero" class="hero section dark-background">
-
+    <!-- Apresentação -->
+    <section class="meli-hero">
       <div class="container">
-        <div class="row gy-4">
-          <div class="col-lg-6 order-2 order-lg-1 d-flex flex-column justify-content-center" data-aos="fade-in">
-            <h1>Hub de inovação social com base tecnológica.</h1>
-            <p>Tecnologia, autonomia, desenvolvimento humano e inclusão!</p>
-            <div class="d-flex">
-              <a href="https://pay.kiwify.com.br/Yk52HNr" class="btn-get-started" target="blank"><b>PRISMA®</b></a>
+        <div class="row gy-4 align-items-center">
+          <div class="col-lg-8" data-aos="fade-up">
+            <span class="meli-eyebrow"><i class="bi bi-flower1"></i> Lojinha dos Autistas · Natureza e aprendizagem</span>
+            <h1>Melipocultura e Autismo</h1>
+            <p class="fs-5 mt-3">Um espaço para aprender sobre as abelhas sem ferrão, registrar nossas práticas de cultivo e descobrir, no tempo da natureza, novas formas de observar, cuidar e aprender.</p>
+            <div class="d-flex flex-wrap gap-2 mt-4">
+              <a class="meli-btn" href="#videoteca"><i class="bi bi-play-circle"></i> Explorar a videoteca</a>
+              <a class="meli-btn meli-btn-outline" href="#diario"><i class="bi bi-journal-plus"></i> Registrar observação</a>
             </div>
           </div>
-          <div class="col-lg-6 order-1 order-lg-2 hero-img" data-aos="zoom-out" data-aos-delay="100">
-            <img src="assets/img/hero-img.png" class="img-fluid animated" alt="">
+          <div class="col-lg-4" data-aos="zoom-in" data-aos-delay="100">
+            <div class="meli-card">
+              <div class="meli-card-icon"><i class="bi bi-heart-pulse"></i></div>
+              <h3>Aprender fazendo</h3>
+              <p class="mb-0">A meliponicultura pode oferecer oportunidades de aprendizagem prática, curiosidade, organização e contato com a natureza. Cada pessoa participa conforme seus interesses, limites e preferências sensoriais.</p>
+            </div>
           </div>
         </div>
       </div>
+    </section>
 
-    </section><!-- /Hero Section -->
-
-    <!-- Clients Section -->
-    <section id="clients" class="clients section light-background">
-
+    <!-- Sobre -->
+    <section id="sobre-melipocultura" class="section meli-intro">
       <div class="container">
-
-        <div class="swiper init-swiper">
-          <script type="application/json" class="swiper-config">
-            {
-              "loop": true,
-              "speed": 600,
-              "autoplay": {
-                "delay": 5000
-              },
-              "slidesPerView": "auto",
-              "pagination": {
-                "el": ".swiper-pagination",
-                "type": "bullets",
-                "clickable": true
-              },
-              "breakpoints": {
-                "320": {
-                  "slidesPerView": 2,
-                  "spaceBetween": 40
-                },
-                "480": {
-                  "slidesPerView": 3,
-                  "spaceBetween": 60
-                },
-                "640": {
-                  "slidesPerView": 4,
-                  "spaceBetween": 80
-                },
-                "992": {
-                  "slidesPerView": 6,
-                  "spaceBetween": 120
-                }
-              }
-            }
-          </script>
+        <div class="meli-section-heading" data-aos="fade-up">
+          <h2>Pequenas abelhas, grandes descobertas</h2>
+          <p>Este é o nosso espaço de aprendizagem e documentação da meliponicultura: reunimos referências, compartilhamos experiências e observamos com cuidado o mundo das abelhas nativas sem ferrão.</p>
         </div>
-
-      </div>
-
-    </section><!-- /Clients Section -->
-
-    <!-- About Section -->
-    <section id="about" class="about section">
-
-      <div class="container">
 
         <div class="row gy-4">
+          <div class="col-md-6 col-lg-3" data-aos="fade-up">
+            <div class="meli-card">
+              <div class="meli-card-icon"><i class="bi bi-play-btn"></i></div>
+              <h3>Videoteca</h3>
+              <p>Vídeos selecionados para estudar espécies, caixas, manejo e práticas de cultivo.</p>
+              <a href="#videoteca">Ver os vídeos <i class="bi bi-arrow-right"></i></a>
+            </div>
+          </div>
+          <div class="col-md-6 col-lg-3" data-aos="fade-up" data-aos-delay="50">
+            <div class="meli-card">
+              <div class="meli-card-icon"><i class="bi bi-journal-text"></i></div>
+              <h3>Caderno de cultivo</h3>
+              <p>Conteúdos e lembretes sobre o ambiente, os cuidados e a manutenção responsável.</p>
+              <a href="#caderno">Consultar orientações <i class="bi bi-arrow-right"></i></a>
+            </div>
+          </div>
+          <div class="col-md-6 col-lg-3" data-aos="fade-up" data-aos-delay="100">
+            <div class="meli-card">
+              <div class="meli-card-icon"><i class="bi bi-eye"></i></div>
+              <h3>Observação</h3>
+              <p>Aprender a olhar com atenção para a atividade das abelhas e suas mudanças.</p>
+              <a href="#diario">Abrir o diário <i class="bi bi-arrow-right"></i></a>
+            </div>
+          </div>
+          <div class="col-md-6 col-lg-3" data-aos="fade-up" data-aos-delay="150">
+            <div class="meli-card">
+              <div class="meli-card-icon"><i class="bi bi-infinity"></i></div>
+              <h3>Autismo e natureza</h3>
+              <p>Uma prática educativa que respeita ritmos individuais, interesses e necessidades sensoriais.</p>
+              <a href="#autismo-natureza">Conhecer a proposta <i class="bi bi-arrow-right"></i></a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
 
-          <div class="col-lg-6 position-relative order-lg-last" data-aos="fade-up" data-aos-delay="200">
-            <img src="assets/img/about.jpg" class="img-fluid" alt="">
-            <a href="https://www.youtube.com/watch?v=Jbvewd7jt30" class="glightbox pulsating-play-btn"></a>
+    <!-- Videoteca -->
+    <section id="videoteca" class="section">
+      <div class="container">
+        <div class="meli-section-heading" data-aos="fade-up">
+          <h2>Videoteca de aprendizagem</h2>
+          <p>Uma curadoria de vídeos encontrados na internet para apoiar nossos estudos. Os vídeos abaixo são exemplos de cadastro: substitua os links de demonstração pelos vídeos que vocês realmente utilizam.</p>
+        </div>
+
+        <div class="meli-note mb-4">
+          <strong>Como usar esta videoteca:</strong> selecione uma categoria, assista ao material no YouTube e anote o que pode ser útil para a realidade do nosso cultivo. As orientações devem ser conferidas conforme a espécie criada e fontes técnicas confiáveis.
+        </div>
+
+        <ul class="meli-filters" aria-label="Filtrar vídeos">
+          <li><button type="button" class="active" data-filter="all" aria-pressed="true">Todos</button></li>
+          <li><button type="button" data-filter="introducao" aria-pressed="false">Introdução</button></li>
+          <li><button type="button" data-filter="manejo" aria-pressed="false">Manejo e cuidados</button></li>
+          <li><button type="button" data-filter="observacao" aria-pressed="false">Observação</button></li>
+          <li><button type="button" data-filter="natureza" aria-pressed="false">Natureza e polinização</button></li>
+        </ul>
+
+        <div id="meli-video-grid" class="row gy-4">
+          <!--
+            MODELO PARA CADASTRAR UM VÍDEO:
+            1. Troque VIDEO_ID pelo ID real do YouTube.
+            2. Atualize título, categoria, canal e descrição.
+            3. Use uma das categorias: introducao, manejo, observacao ou natureza.
+            O ID é o trecho depois de v= no endereço do YouTube.
+          -->
+          <div class="col-lg-4 col-md-6 meli-video-item" data-category="introducao">
+            <article class="meli-video-card">
+              <a class="meli-video-thumb glightbox" href="https://www.youtube.com/watch?v=VIDEO_ID_1" data-type="video" data-gallery="melipocultura-videos" aria-label="Assistir vídeo de introdução à meliponicultura">
+                <img src="https://placehold.co/640x360/e8efe4/315b43?text=Introdu%C3%A7%C3%A3o+%C3%A0+meliponicultura" alt="Miniatura ilustrativa: introdução à meliponicultura" loading="lazy">
+                <span class="meli-play"><i class="bi bi-play-circle-fill"></i></span>
+              </a>
+              <div class="meli-video-info">
+                <span class="meli-tag">Introdução</span>
+                <h3>Conhecendo a meliponicultura</h3>
+                <p>Vídeo introdutório sobre a criação de abelhas nativas sem ferrão.</p>
+                <p class="meli-small mb-0">Canal: preencher após selecionar o vídeo</p>
+              </div>
+            </article>
           </div>
 
-          <div class="col-lg-6 content" data-aos="fade-up" data-aos-delay="100">
-            <h3>Sobre a Lojinha</h3>
-            <p>
-              A Lojinha dos Autistas nasce como um hub de negócios com propósito, apoiado por metodologias pedagógicas e de gamificação que conectam empreendedorismo e inclusão.
-            </p>
-            <ul>
-              <li>
-                <i class="bi bi-diagram-3"></i>
-                <div>
-                  <a href="rede/login.html"><h5>Sistema REDE</h5></a>
-                  <p>Ferramenta orientada à gestão de conhecimento que integra bancos de dados, estruturas digitais de memória organizacional e navegação cognitiva em um ambiente web acessível, com foco na construção de caminhos personalizados de desenvolvimento, autonomia e bem-estar.</p>
-                </div>
-              </li>
-              <li>
-                <i class="bi bi-film"></i>
-                <div>
-                  <a href="#featured-services"><h5>Laboratório de Cinema ROTA AZUL</h5></a>
-                  <p>Criatividade, inclusão e desenvolvimento humano através da arte. Utilizando toda a beleza do cinema como ferramenta de expressão, protagonismo e autonomia. </p>
-                </div>
-              </li>
-              <li>
-                <i class="bi bi-brush"></i>
-                <div>
-                  <a href="https://www.instagram.com/p/DS0yuwmDfpz/?img_index=1" target="_blank"><h5>Projeto CORES que CURAM</h5></a>
-                  <p>O encontro entre arte, desenvolvimento humano e cuidado emocional - criando espaços seguros de expressão, escuta e autoconhecimento.</p>
-                </div>
-              </li>
-            </ul>
+          <div class="col-lg-4 col-md-6 meli-video-item" data-category="manejo">
+            <article class="meli-video-card">
+              <a class="meli-video-thumb glightbox" href="https://www.youtube.com/watch?v=VIDEO_ID_2" data-type="video" data-gallery="melipocultura-videos" aria-label="Assistir vídeo sobre caixas e manejo">
+                <img src="https://placehold.co/640x360/f4edda/65501c?text=Caixas+e+manejo" alt="Miniatura ilustrativa: caixas e manejo" loading="lazy">
+                <span class="meli-play"><i class="bi bi-play-circle-fill"></i></span>
+              </a>
+              <div class="meli-video-info">
+                <span class="meli-tag">Manejo e cuidados</span>
+                <h3>Caixas, instalação e cuidados</h3>
+                <p>Referência para estudar estruturas de criação e práticas de manejo responsável.</p>
+                <p class="meli-small mb-0">Canal: preencher após selecionar o vídeo</p>
+              </div>
+            </article>
           </div>
 
+          <div class="col-lg-4 col-md-6 meli-video-item" data-category="observacao">
+            <article class="meli-video-card">
+              <a class="meli-video-thumb glightbox" href="https://www.youtube.com/watch?v=VIDEO_ID_3" data-type="video" data-gallery="melipocultura-videos" aria-label="Assistir vídeo sobre observação das abelhas">
+                <img src="https://placehold.co/640x360/e5ecea/315b43?text=Observa%C3%A7%C3%A3o+das+abelhas" alt="Miniatura ilustrativa: observação das abelhas" loading="lazy">
+                <span class="meli-play"><i class="bi bi-play-circle-fill"></i></span>
+              </a>
+              <div class="meli-video-info">
+                <span class="meli-tag">Observação</span>
+                <h3>O movimento na entrada do ninho</h3>
+                <p>Um convite a observar o fluxo de abelhas e registrar o que acontece ao longo do dia.</p>
+                <p class="meli-small mb-0">Canal: preencher após selecionar o vídeo</p>
+              </div>
+            </article>
+          </div>
+
+          <div class="col-lg-4 col-md-6 meli-video-item" data-category="natureza">
+            <article class="meli-video-card">
+              <a class="meli-video-thumb glightbox" href="https://www.youtube.com/watch?v=VIDEO_ID_4" data-type="video" data-gallery="melipocultura-videos" aria-label="Assistir vídeo sobre polinização e biodiversidade">
+                <img src="https://placehold.co/640x360/f4e9df/65501c?text=Poliniza%C3%A7%C3%A3o+e+biodiversidade" alt="Miniatura ilustrativa: polinização e biodiversidade" loading="lazy">
+                <span class="meli-play"><i class="bi bi-play-circle-fill"></i></span>
+              </a>
+              <div class="meli-video-info">
+                <span class="meli-tag">Natureza e polinização</span>
+                <h3>Abelhas, flores e biodiversidade</h3>
+                <p>Material para conhecer a relação entre abelhas nativas, plantas e ecossistemas.</p>
+                <p class="meli-small mb-0">Canal: preencher após selecionar o vídeo</p>
+              </div>
+            </article>
+          </div>
         </div>
 
+        <p class="meli-small text-center mt-4 mb-0">Os cartões acima são modelos de organização, não recomendações de vídeos específicos. Substitua os IDs de exemplo antes de publicar.</p>
       </div>
+    </section>
 
-    </section><!-- /About Section -->
+    <!-- Caderno de cultivo -->
+    <section id="caderno" class="section meli-intro">
+      <div class="container">
+        <div class="meli-section-heading" data-aos="fade-up">
+          <h2>Caderno de cultivo e cuidados</h2>
+          <p>Uma base inicial de consulta para organizar as práticas. Ajuste os procedimentos às espécies mantidas, às condições locais e às orientações de meliponicultores experientes e fontes técnicas confiáveis.</p>
+        </div>
 
+        <div class="row gy-4">
+          <div class="col-md-6 col-lg-4">
+            <article class="meli-card">
+              <div class="meli-card-icon"><i class="bi bi-geo-alt"></i></div>
+              <h3>Ambiente e instalação</h3>
+              <ul class="mb-0">
+                <li>Registrar o local e as condições do entorno.</li>
+                <li>Observar sombra, ventilação, chuva e exposição ao sol.</li>
+                <li>Verificar se a caixa está estável e protegida.</li>
+                <li>Considerar plantas e fontes de água adequadas no ambiente.</li>
+              </ul>
+            </article>
+          </div>
+          <div class="col-md-6 col-lg-4">
+            <article class="meli-card">
+              <div class="meli-card-icon"><i class="bi bi-shield-check"></i></div>
+              <h3>Cuidados e manejo</h3>
+              <ul class="mb-0">
+                <li>Evitar abrir a caixa sem necessidade ou orientação.</li>
+                <li>Planejar intervenções conforme a espécie e a condição da colônia.</li>
+                <li>Manter ferramentas limpas e adequadas.</li>
+                <li>Registrar qualquer intervenção e o motivo.</li>
+              </ul>
+            </article>
+          </div>
+          <div class="col-md-6 col-lg-4">
+            <article class="meli-card">
+              <div class="meli-card-icon"><i class="bi bi-binoculars"></i></div>
+              <h3>Observação sem interferência</h3>
+              <ul class="mb-0">
+                <li>Observar a entrada do ninho a uma distância confortável.</li>
+                <li>Comparar a atividade em diferentes horários e dias.</li>
+                <li>Anotar mudanças, sem concluir precipitadamente que há um problema.</li>
+                <li>Buscar orientação quando houver sinais incomuns.</li>
+              </ul>
+            </article>
+          </div>
+        </div>
 
+        <div class="meli-note mt-4">
+          <strong>Nota de segurança e responsabilidade:</strong> abelhas sem ferrão não significam ausência total de riscos. Evite manipulações desnecessárias, respeite a legislação aplicável à criação e à origem das colônias e procure orientação qualificada antes de realizar manejo. Este caderno é educativo e não substitui orientação técnica específica.
+        </div>
+      </div>
+    </section>
 
-
-    
-    <!-- Featured Services Section -->
-    <section id="produtos" class="featured-services section">
-
-      <!-- Section Title -->
-      <div class="container section-title" data-aos="fade-up">
-        <h2>Cursos & Publicações</h2>
-        <p>Conteúdo embasado em relatórios técnicos e documentação do Sistema REDE - tecnologia com propósito!</p><br><br><br>
-      </div><!-- End Section Title -->
-
-      <div class="container" data-aos="fade-up" data-aos-delay="100">
-
-        <div class="row gy-5">
-
-
-          <div class="col-xl-4 col-md-6" data-aos="zoom-in" data-aos-delay="200">
-            <div class="service-item">
-              <div class="img">
-                <img src="assets/img/minicurso1.png" class="img-fluid" alt="">
-              </div>
-              <div class="details position-relative">
-                <div class="icon">
-                  <i class="bi bi-puzzle"></i>
-                </div>
-                <a href="https://pay.kiwify.com.br/8L1lo0V" class="stretched-link" target="blank">
-                  <h3>"Autismo e Comportamento | Quando a Rotina Some"</h3>
-                </a>
-                <p><b>Um Guia prático de Sobrevivência Emocional nas Férias.</b></p>
-                <a href="https://pay.kiwify.com.br/8L1lo0V" class="stretched-link" target="blank"></a>
-              </div>
+    <!-- Autismo e natureza -->
+    <section id="autismo-natureza" class="section">
+      <div class="container">
+        <div class="meli-section-heading" data-aos="fade-up">
+          <h2>Autismo, natureza e aprendizagem</h2>
+          <p>Não existe uma única maneira de participar. O objetivo é construir uma experiência acolhedora, com possibilidades de envolvimento compatíveis com os interesses, o conforto e as necessidades de cada pessoa.</p>
+        </div>
+        <div class="row gy-4">
+          <div class="col-md-6">
+            <div class="meli-card">
+              <div class="meli-card-icon"><i class="bi bi-list-check"></i></div>
+              <h3>Atividades possíveis</h3>
+              <ul class="mb-0">
+                <li>Assistir a vídeos e organizar informações.</li>
+                <li>Fotografar e catalogar plantas e abelhas, sem perturbar o ninho.</li>
+                <li>Registrar data, clima e observações.</li>
+                <li>Desenhar mapas do espaço de cultivo ou criar fichas visuais.</li>
+                <li>Participar de tarefas práticas quando houver interesse e segurança.</li>
+              </ul>
             </div>
-          </div><!-- End Service Item -->
-<!--
-          <div class="col-xl-4 col-md-6" data-aos="zoom-in" data-aos-delay="300">
-            <div class="service-item">
-              <div class="img">
-                <img src="assets/img/c1-vol1.png" class="img-fluid" alt="">
-              </div>
-              <div class="details position-relative">
-                <div class="icon">
-                  <i class="bi bi-book"></i>
-                </div>
-                <a href="https://loja.uiclap.com/titulo/ua163815" class="stretched-link" target="blank">
-                  <h3>Volume 1: Rotina e Previsibilidade no Autismo</h3>
-                </a>
-                <p><b>Coleção "Cada Passo, uma Jornada: um Guia do Autismo na Vida Adulta</b></p>
-                <a href="https://loja.uiclap.com/titulo/ua163815" class="stretched-link" target="blank"></a>
-              </div>
+          </div>
+          <div class="col-md-6">
+            <div class="meli-card">
+              <div class="meli-card-icon"><i class="bi bi-ear"></i></div>
+              <h3>Respeito sensorial e autonomia</h3>
+              <ul class="mb-0">
+                <li>Permitir observar de longe ou por fotografias e vídeos.</li>
+                <li>Considerar calor, luz, cheiros, sons e textura dos materiais.</li>
+                <li>Oferecer instruções claras e previsibilidade para as tarefas.</li>
+                <li>Respeitar pausas, recusas e diferentes formas de participação.</li>
+                <li>Não tratar uma atividade agradável como obrigação ou terapia universal.</li>
+              </ul>
             </div>
-          </div> End Service Item -->
-<!--
-          <div class="col-xl-4 col-md-6" data-aos="zoom-in" data-aos-delay="400">
-            <div class="service-item">
-              <div class="img">
-                <img src="assets/img/c1-vol2.png" class="img-fluid" alt="">
-              </div>
-              <div class="details position-relative">
-                <div class="icon">
-                  <i class="bi bi-book"></i>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Diário de observação -->
+    <section id="diario" class="section meli-journal">
+      <div class="container">
+        <div class="meli-section-heading" data-aos="fade-up">
+          <h2>Diário de observação</h2>
+          <p>Registre uma observação e copie o texto para guardar no arquivo ou sistema que vocês utilizam. Nesta versão inicial, os registros não são enviados a um servidor nem salvos automaticamente.</p>
+        </div>
+
+        <div class="row gy-4">
+          <div class="col-lg-7">
+            <form id="meli-journal-form" class="meli-card">
+              <div class="row gy-3">
+                <div class="col-md-6">
+                  <label for="entry-date">Data da observação</label>
+                  <input type="date" id="entry-date" class="form-control" required>
                 </div>
-                <a href="https://loja.uiclap.com/titulo/ua164064" class="stretched-link" target="blank">
-                  <h3>Volume 2: Sobrecarga Sensorial e Hipersensibilidade no Autismo</h3>
-                </a>
-                <p><b>Coleção "Cada Passo, uma Jornada: um Guia do Autismo na Vida Adulta</b></p>
-                <a href="https://loja.uiclap.com/titulo/ua164064" class="stretched-link" target="blank"></a>
-              </div>
-            </div>
-          </div> End Service Item -->
-<!--
-          <div class="col-xl-4 col-md-6" data-aos="zoom-in" data-aos-delay="500">
-            <div class="service-item">
-              <div class="img">
-                <img src="assets/img/c1-vol3.png" class="img-fluid" alt="">
-              </div>
-              <div class="details position-relative">
-                <div class="icon">
-                  <i class="bi bi-book"></i>
+                <div class="col-md-6">
+                  <label for="entry-place">Caixa ou local</label>
+                  <input type="text" id="entry-place" class="form-control" placeholder="Ex.: Caixa 1, jardim...">
                 </div>
-                <a href="https://loja.uiclap.com/titulo/ua165047" class="stretched-link" target="blank">
-                  <h3>Volume 3: Terapias para Autistas na Vida Adulta</h3>
-                </a>
-                <p><b>Coleção "Cada Passo, uma Jornada: um Guia do Autismo na Vida Adulta</b></p>
-                <a href="https://loja.uiclap.com/titulo/ua165047" class="stretched-link" target="blank"></a>
-              </div>
-            </div>
-          </div> End Service Item -->
-
-          <!--<div class="col-xl-4 col-md-6" data-aos="zoom-in" data-aos-delay="600">
-            <div class="service-item">
-              <div class="img">
-                <img src="assets/img/services-6.jpg" class="img-fluid" alt="">
-              </div>
-              <div class="details position-relative">
-                <div class="icon">
-                  <i class="bi bi-clock"></i>
+                <div class="col-md-6">
+                  <label for="entry-weather">Condições do tempo</label>
+                  <select id="entry-weather" class="form-select">
+                    <option value="">Selecione...</option>
+                    <option>Sol</option><option>Nublado</option><option>Chuva recente</option><option>Chuvoso</option><option>Ventoso</option><option>Outro</option>
+                  </select>
                 </div>
-                <a href="https://loja.uiclap.com/titulo/ua165047" class="stretched-link" target="blank">
-                  <h3>Coleção "Cada Passo, uma Jornada: um Guia do Autismo na Vida Adulta</h3>
-                </a>
-                <p><b>Volume 4: Consultas Médicas com Autistas Adultos</b></p>
-                <a href="#" class="stretched-link" target="blank">Em Breve</a>
-              </div>
-            </div>
-          </div> End Service Item -->
-
-        </div>
-
-      </div>
-
-    </section><!-- /Featured Services Section -->
-
-
-
-<!-- Portfolio Section - Playlist YouTube Clean -->
-<section id="portfolio" class="portfolio section light-background">
-
-  <!-- Section Title -->
-  <div class="container section-title" data-aos="fade-up">
-    <h2>Cada PASSO, uma JORNADA</h2>
-    <p>Um canal no Youtube dedicado a explorar o universo do autismo de forma humana, científica e inspiradora.</p>
-  </div>
-
-  <div class="container">
-
-    <!-- Isotope Layout -->
-    <div class="isotope-layout" data-layout="masonry" data-default-filter="*">
-      
-    <!-- Filtros -->
-    <ul class="portfolio-filters isotope-filters" data-aos="fade-up" data-aos-delay="100">
-      <li data-filter="*" class="filter-active">TUDO</li>
-      <li data-filter=".filter-app">CIÊNCIA APLICADA</li>
-      <li data-filter=".filter-traduz">CIÊNCIA TRADUZIDA</li>
-      <li data-filter=".filter-sons">SONS DA NATUREZA</li>
-    </ul>
-
-    <!-- Galeria -->
-    <div class="row gy-4 isotope-container" data-aos="fade-up" data-aos-delay="200">
-
-      <!-- Série Quando a Rotina Some | Sistema REDE -->
-      <!-- Vídeo 1 -->
-      <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-app">
-        <div class="portfolio-thumb-wrapper position-relative">
-          <img src="https://img.youtube.com/vi/HKzfsZmyP_k/hqdefault.jpg" class="img-fluid portfolio-thumb" alt="Vídeo 1">
-          <a href="https://www.youtube.com/watch?v=HKzfsZmyP_k" class="glightbox pulsating-play-btn" data-type="video" data-gallery="youtube-playlist"></a>
-        </div>
-      </div>
-
-      <!-- Vídeo 2 -->
-      <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-app">
-        <div class="portfolio-thumb-wrapper position-relative">
-          <img src="https://img.youtube.com/vi/l6GPbEm072Q/hqdefault.jpg" class="img-fluid portfolio-thumb" alt="Vídeo 2">
-          <a href="https://www.youtube.com/watch?v=l6GPbEm072Q" class="glightbox pulsating-play-btn" data-type="video" data-gallery="youtube-playlist"></a>
-        </div>
-      </div>
-
-      <!-- Vídeo 3 -->
-      <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-app">
-        <div class="portfolio-thumb-wrapper position-relative">
-          <img src="https://img.youtube.com/vi/9mGtuPs55eo/hqdefault.jpg" class="img-fluid portfolio-thumb" alt="Vídeo 3">
-          <a href="https://www.youtube.com/watch?v=9mGtuPs55eo" class="glightbox pulsating-play-btn" data-type="video" data-gallery="youtube-playlist"></a>
-        </div>
-      </div>
-
-      <!-- Vídeo 4 -->
-      <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-app">
-        <div class="portfolio-thumb-wrapper position-relative">
-          <img src="https://img.youtube.com/vi/09YJ7Hgt1GY/hqdefault.jpg" class="img-fluid portfolio-thumb" alt="Vídeo 4">
-          <a href="https://www.youtube.com/watch?v=09YJ7Hgt1GY" class="glightbox pulsating-play-btn" data-type="video" data-gallery="youtube-playlist"></a>
-        </div>
-      </div>
-
-      <!-- Vídeo 5 -->
-      <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-app">
-        <div class="portfolio-thumb-wrapper position-relative">
-          <img src="https://img.youtube.com/vi/yRVKoq2MZeU/hqdefault.jpg" class="img-fluid portfolio-thumb" alt="Vídeo 5">
-          <a href="https://www.youtube.com/watch?v=yRVKoq2MZeU" class="glightbox pulsating-play-btn" data-type="video" data-gallery="youtube-playlist"></a>
-        </div>
-      </div>
-
-      <!-- Vídeo 6 -->
-      <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-app">
-        <div class="portfolio-thumb-wrapper position-relative">
-          <img src="https://img.youtube.com/vi/auEraVtRSZk/hqdefault.jpg" class="img-fluid portfolio-thumb" alt="Vídeo 6">
-          <a href="https://www.youtube.com/watch?v=auEraVtRSZk" class="glightbox pulsating-play-btn" data-type="video" data-gallery="youtube-playlist"></a>
-        </div>
-      </div>
-
-
-      <!-- Série Ciência Traduzida -->
-      <!-- Vídeo 1 -->
-      <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-traduz">
-        <div class="portfolio-thumb-wrapper position-relative">
-          <img src="https://img.youtube.com/vi/WlxTn16wviA/hqdefault.jpg" class="img-fluid portfolio-thumb" alt="Vídeo 1">
-          <a href="https://www.youtube.com/watch?v=WlxTn16wviA" class="glightbox pulsating-play-btn" data-type="video" data-gallery="youtube-playlist"></a>
-        </div>
-      </div>
-
-      <!-- Vídeo 2 -->
-      <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-traduz">
-        <div class="portfolio-thumb-wrapper position-relative">
-          <img src="https://img.youtube.com/vi/FEfl2IXV43w/hqdefault.jpg" class="img-fluid portfolio-thumb" alt="Vídeo 2">
-          <a href="https://www.youtube.com/watch?v=FEfl2IXV43w" class="glightbox pulsating-play-btn" data-type="video" data-gallery="youtube-playlist"></a>
-        </div>
-      </div>
-
-      <!-- Vídeo 3 -->
-      <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-traduz">
-        <div class="portfolio-thumb-wrapper position-relative">
-          <img src="https://img.youtube.com/vi/_hxFrw1VFtQ/hqdefault.jpg" onerror="this.src='https://img.youtube.com/vi/hxFrw1VFtQ/mqdefault.jpg'" class="img-fluid portfolio-thumb" alt="Vídeo 3">
-          <a href="https://www.youtube.com/watch?v=_hxFrw1VFtQ" class="glightbox pulsating-play-btn" data-type="video" data-gallery="youtube-playlist"></a>
-        </div>
-      </div>
-
-      <!-- Vídeo 4 -->
-      <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-traduz">
-        <div class="portfolio-thumb-wrapper position-relative">
-          <img src="https://img.youtube.com/vi/-NAROhjw_Sk/hqdefault.jpg" class="img-fluid portfolio-thumb" alt="Vídeo 4">
-          <a href="https://www.youtube.com/watch?v=-NAROhjw_Sk" class="glightbox pulsating-play-btn" data-type="video" data-gallery="youtube-playlist"></a>
-        </div>
-      </div>
-
-      <!-- Vídeo 5 -->
-      <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-traduz">
-        <div class="portfolio-thumb-wrapper position-relative">
-          <img src="https://img.youtube.com/vi/Lp8ApDX7Ul4/hqdefault.jpg" class="img-fluid portfolio-thumb" alt="Vídeo 5">
-          <a href="https://www.youtube.com/watch?v=Lp8ApDX7Ul4" class="glightbox pulsating-play-btn" data-type="video" data-gallery="youtube-playlist"></a>
-        </div>
-      </div>
-
-      <!-- Vídeo 6 -->
-      <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-traduz">
-        <div class="portfolio-thumb-wrapper position-relative">
-          <img src="https://img.youtube.com/vi/iVhXZB4hBsM/hqdefault.jpg" class="img-fluid portfolio-thumb" alt="Vídeo 6">
-          <a href="https://www.youtube.com/watch?v=iVhXZB4hBsM" class="glightbox pulsating-play-btn" data-type="video" data-gallery="youtube-playlist"></a>
-        </div>
-      </div>
-
-      <!-- Vídeo 7 -->
-      <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-traduz">
-        <div class="portfolio-thumb-wrapper position-relative">
-          <img src="https://img.youtube.com/vi/gjlIGTuGMQQ/hqdefault.jpg" class="img-fluid portfolio-thumb" alt="Vídeo 6">
-          <a href="https://www.youtube.com/watch?v=gjlIGTuGMQQ" class="glightbox pulsating-play-btn" data-type="video" data-gallery="youtube-playlist"></a>
-        </div>
-      </div>
-
-      <!-- Vídeo 8 -->
-      <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-traduz">
-        <div class="portfolio-thumb-wrapper position-relative">
-          <img src="https://img.youtube.com/vi/SENvju8Zv-g/hqdefault.jpg" class="img-fluid portfolio-thumb" alt="Vídeo 6">
-          <a href="https://www.youtube.com/watch?v=SENvju8Zv-g" class="glightbox pulsating-play-btn" data-type="video" data-gallery="youtube-playlist"></a>
-        </div>
-      </div>
-
-
-      <!-- Série SONS da Natureza -->
-      <!-- Vídeo 1 -->
-      <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-sons">
-        <div class="portfolio-thumb-wrapper position-relative">
-          <img src="https://img.youtube.com/vi/Gde9oHzLrQ4/hqdefault.jpg" onerror="this.src='https://img.youtube.com/vi/hxFrw1VFtQ/mqdefault.jpg'" class="img-fluid portfolio-thumb" alt="Vídeo 3">
-          <!-- Play -->
-          <a href="https://www.youtube.com/watch?v=Gde9oHzLrQ4" class="glightbox pulsating-play-btn" data-type="video" data-gallery="youtube-playlist"></a>
-        </div>
-      </div>
-
-      <!-- Vídeo 2 -->
-      <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-sons">
-        <div class="portfolio-thumb-wrapper position-relative">
-          <img src="https://img.youtube.com/vi/AOHf2JbpNMA/hqdefault.jpg" class="img-fluid portfolio-thumb" alt="Vídeo 2">
-          <a href="https://www.youtube.com/watch?v=AOHf2JbpNMA" class="glightbox pulsating-play-btn" data-type="video" data-gallery="youtube-playlist"></a>
-        </div>
-      </div>
-
-      <!-- Vídeo 3 -->
-      <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-sons">
-        <div class="portfolio-thumb-wrapper position-relative">
-          <img src="https://img.youtube.com/vi/q5tcFYU92SU/hqdefault.jpg" class="img-fluid portfolio-thumb" alt="Vídeo 1">
-          <a href="https://www.youtube.com/watch?v=q5tcFYU92SU" class="glightbox pulsating-play-btn" data-type="video" data-gallery="youtube-playlist"></a>
-        </div>
-      </div>
-
-    </div><!-- End Galeria -->
-    </div><!-- End Isotope layout -->
-
-  </div>
-
-</section><!-- /Portfolio Section -->
-
-
-
-
-    
-    <!-- Featured Services Section -->
-    <section id="featured-services" class="featured-services section">
-
-      <!-- Section Title -->
-      <div class="container section-title" data-aos="fade-up">
-        <h2>Conteúdo Interno</h2>
-        <p>Materiais audiovisuais, relatórios técnicos e documentação do Sistema REDE</p><br><br><br>
-      </div><!-- End Section Title -->
-
-      <div class="container" data-aos="fade-up" data-aos-delay="100">
-
-        <div class="row gy-5">
-
-
-          <div class="col-xl-4 col-md-6" data-aos="zoom-in" data-aos-delay="500">
-            <div class="service-item">
-              <div class="img">
-                <img src="assets/img/services-4.jpg" class="img-fluid" alt="">
-              </div>
-              <div class="details position-relative">
-                <div class="icon">
-                  <i class="bi bi-bounding-box-circles"></i>
+                <div class="col-md-6">
+                  <label for="entry-activity">Atividade observada</label>
+                  <select id="entry-activity" class="form-select">
+                    <option value="">Selecione...</option>
+                    <option>Entrada e saída de abelhas</option>
+                    <option>Coleta de recursos</option>
+                    <option>Presença de outras espécies</option>
+                    <option>Alteração visível no entorno</option>
+                    <option>Atividade aparentemente reduzida</option>
+                    <option>Outra observação</option>
+                  </select>
                 </div>
-                <a href="rede/login.html" class="stretched-link">
-                  <h3>Laboratório de Cinema ROTA AZUL</h3>
-                </a>
-                <p>Guia prático da curadoria do Projeto Cinema na Varanda, cartazes dos eventos do projeto, Manual de roteirização.</p>
-                <a href="rede/login.html" class="stretched-link"></a>
-              </div>
-            </div>
-          </div><!-- End Service Item -->
-
-          <div class="col-xl-4 col-md-6" data-aos="zoom-in" data-aos-delay="600">
-            <div class="service-item">
-              <div class="img">
-                <img src="assets/img/services-5.jpg" class="img-fluid" alt="">
-              </div>
-              <div class="details position-relative">
-                <div class="icon">
-                  <i class="bi bi-calendar4-week"></i>
+                <div class="col-12">
+                  <label for="entry-notes">O que observei?</label>
+                  <textarea id="entry-notes" class="form-control" rows="4" placeholder="Descreva o que viu, sem precisar interpretar imediatamente." required></textarea>
                 </div>
-                <a href="rede/login.html" class="stretched-link">
-                  <h3>Estratégia Calendário 2026</h3>
-                </a>
-                <p>Documentação específica, materiais de orientação, manuais técnicos, documentos anexos.</p>
-                <a href="rede/login.html" class="stretched-link"></a>
-              </div>
-            </div>
-          </div><!-- End Service Item -->
-
-          <div class="col-xl-4 col-md-6" data-aos="zoom-in" data-aos-delay="700">
-            <div class="service-item">
-              <div class="img">
-                <img src="assets/img/services-6.jpg" class="img-fluid" alt="">
-              </div>
-              <div class="details position-relative">
-                <div class="icon">
-                  <i class="bi bi-chat-square-text"></i>
+                <div class="col-12">
+                  <label for="entry-next">Dúvidas ou próximos passos</label>
+                  <textarea id="entry-next" class="form-control" rows="2" placeholder="O que vale observar novamente ou pesquisar?"></textarea>
                 </div>
-                <a href="service-details.html" class="stretched-link">
-                  <h3>Relatórios Técnicos & Dossiês</h3>
-                </a>
-                <p>Biblioteca contendo: Relatórios de Alerta, Relatórios de Triggers, Relatórios Clínico-Familiares e Dossiês.</p>
-                <a href="rede/login.html" class="stretched-link"></a>
+                <div class="col-12 d-flex flex-wrap gap-2">
+                  <button type="submit" class="meli-btn"><i class="bi bi-file-earmark-text"></i> Gerar registro</button>
+                  <button type="reset" class="btn btn-outline-secondary">Limpar formulário</button>
+                </div>
               </div>
+            </form>
+          </div>
+          <div class="col-lg-5">
+            <div class="meli-entry" id="meli-entry-output" aria-live="polite">
+              <h3><i class="bi bi-journal-check"></i> Seu registro aparecerá aqui</h3>
+              <p class="mb-0">Preencha o formulário para gerar um texto que poderá ser copiado e arquivado.</p>
             </div>
-          </div><!-- End Service Item -->
-
+            <button type="button" class="meli-btn mt-3" id="meli-copy-entry" disabled><i class="bi bi-clipboard"></i> Copiar registro</button>
+            <p class="meli-small mt-2">Dica: guarde os registros em um documento compartilhado ou pasta organizada por ano e caixa.</p>
+          </div>
         </div>
-
       </div>
+    </section>
 
-    </section><!-- /Featured Services Section -->
-
-
-
-    
+    <!-- Referências e convite -->
+    <section class="section">
+      <div class="container">
+        <div class="row gy-4 align-items-center">
+          <div class="col-lg-8">
+            <h2>Um projeto em construção</h2>
+            <p class="mb-0">Este espaço poderá crescer com nossos registros, fotografias, referências e aprendizados. A ideia é transformar a experiência cotidiana de cultivo em conhecimento organizado, acessível e útil para outras pessoas interessadas no tema.</p>
+          </div>
+          <div class="col-lg-4 text-lg-end">
+            <a class="meli-btn" href="https://www.instagram.com/lojinhadosautistas" target="_blank" rel="noopener"><i class="bi bi-instagram"></i> Fale com a Lojinha</a>
+          </div>
+        </div>
+      </div>
+    </section>
 
   </main>
 
+  <!-- Rodapé no padrão do index.html original -->
   <footer id="footer" class="footer dark-background">
     <div class="container">
       <h3 class="sitename">Lojinha dos Autistas</h3>
       <p>Hub de inovação social com base tecnológica</p>
       <div class="social-links d-flex justify-content-center">
-        <a href="https://www.instagram.com/lojinhadosautistas" target="blank"><i class="bi bi-instagram"></i></a>
-        <a href="https://www.youtube.com/channel/UCRW72C8GafilJKJT2_uwyYQ" target="blank"><i class="bi bi-youtube"></i></a>
-<!--        <a href="rede/login-especial.html"><i class="bi bi-key-fill"></i></a>-->
+        <a href="https://www.instagram.com/lojinhadosautistas" target="_blank" rel="noopener" aria-label="Instagram"><i class="bi bi-instagram"></i></a>
+        <a href="https://www.youtube.com/channel/UCRW72C8GafilJKJT2_uwyYQ" target="_blank" rel="noopener" aria-label="YouTube"><i class="bi bi-youtube"></i></a>
       </div>
-     <!-- <div class="copyright">
-        <span>Copyright</span> <strong class="px-1 sitename">Bocor</strong> <span>All Rights Reserved</span>
-      </div>-->
-
-
-<!-- NOVO RODAPÉ COM PRIVACIDADE -->
-        
-    <div class="mt-4">
-
-      <a href="privacidade.html">
-        Política de Privacidade
-      </a>
-
-    </div>
-
-    <div class="copyright mt-3">
-
-     <span>Copyright</span> <strong class="px-1 sitename">Bocor</strong>
-
-      <span>Todos os direitos reservados</span>
-
-    </div>
-
-
-        
-      <div class="credits">
-        <!-- All the links in the footer should remain intact. -->
-        <!-- You can delete the links only if you've purchased the pro version. -->
-        <!-- Licensing information: https://bootstrapmade.com/license/ -->
-        <!-- Purchase the pro version with working PHP/AJAX contact form: [buy-url] -->
-        Designed by <a href="https://bootstrapmade.com/" target="blank">BootstrapMade</a> | <a href="https://bootstrapmade.com/tools/" target="blank">DevTools</a>
-      </div>
+      <div class="mt-4"><a class="meli-footer-link" href="../privacidade.html">Política de Privacidade</a></div>
+      <div class="copyright mt-3"><span>Copyright</span> <strong class="px-1 sitename">Lojinha dos Autistas</strong> <span>Todos os direitos reservados</span></div>
+      <div class="credits">Designed by <a href="https://bootstrapmade.com/" target="_blank" rel="noopener">BootstrapMade</a></div>
     </div>
   </footer>
 
-  <!-- Scroll Top -->
-  <a href="#" id="scroll-top" class="scroll-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
-
-  <!-- Preloader -->
+  <a href="#" id="scroll-top" class="scroll-top d-flex align-items-center justify-content-center" aria-label="Voltar ao topo"><i class="bi bi-arrow-up-short"></i></a>
   <div id="preloader"></div>
 
-  <!-- Vendor JS Files -->
+  <!-- Mesmos arquivos JavaScript do index.html original -->
   <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
   <script src="assets/vendor/php-email-form/validate.js"></script>
   <script src="assets/vendor/aos/aos.js"></script>
@@ -636,28 +503,99 @@
   <script src="assets/vendor/swiper/swiper-bundle.min.js"></script>
   <script src="assets/vendor/imagesloaded/imagesloaded.pkgd.min.js"></script>
   <script src="assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
-
-  <!-- Main JS File -->
   <script src="assets/js/main.js"></script>
-  
-  <!-- Compartilhar -->
+
+  <!-- Interações específicas desta página -->
   <script>
-  document.addEventListener("click", function (e) {
-    const btn = e.target.closest("[data-copy]");
-    if (!btn) return;
+    document.addEventListener("DOMContentLoaded", function () {
+      // Filtros simples da videoteca
+      const filterButtons = document.querySelectorAll(".meli-filters [data-filter]");
+      const videoItems = document.querySelectorAll(".meli-video-item");
 
-    const link = btn.getAttribute("data-copy");
+      filterButtons.forEach(function (button) {
+        button.addEventListener("click", function () {
+          const selected = button.dataset.filter;
 
-  navigator.clipboard.writeText(link).then(() => {
-    btn.innerHTML = "✓";
-    setTimeout(() => {
-      btn.innerHTML = '<i class="bi bi-link-45deg"></i>';
-      }, 1200);
+          filterButtons.forEach(function (item) {
+            item.classList.toggle("active", item === button);
+            item.setAttribute("aria-pressed", item === button ? "true" : "false");
+          });
+
+          videoItems.forEach(function (item) {
+            const show = selected === "all" || item.dataset.category === selected;
+            item.classList.toggle("d-none", !show);
+          });
+        });
+      });
+
+      // Data atual no formulário
+      const dateInput = document.getElementById("entry-date");
+      if (dateInput && !dateInput.value) {
+        const now = new Date();
+        const localDate = new Date(now.getTime() - now.getTimezoneOffset() * 60000)
+          .toISOString().slice(0, 10);
+        dateInput.value = localDate;
+      }
+
+      // Geração local do texto de observação
+      const form = document.getElementById("meli-journal-form");
+      const output = document.getElementById("meli-entry-output");
+      const copyButton = document.getElementById("meli-copy-entry");
+      let currentEntry = "";
+
+      form.addEventListener("submit", function (event) {
+        event.preventDefault();
+
+        const date = document.getElementById("entry-date").value;
+        const place = document.getElementById("entry-place").value.trim() || "Não informado";
+        const weather = document.getElementById("entry-weather").value || "Não informado";
+        const activity = document.getElementById("entry-activity").value || "Não especificada";
+        const notes = document.getElementById("entry-notes").value.trim();
+        const next = document.getElementById("entry-next").value.trim() || "Não informado";
+
+        currentEntry =
+          "DIÁRIO DE OBSERVAÇÃO — MELIPOCULTURA E AUTISMO\n" +
+          "Data: " + date + "\n" +
+          "Caixa ou local: " + place + "\n" +
+          "Condições do tempo: " + weather + "\n" +
+          "Atividade observada: " + activity + "\n\n" +
+          "O que observei:\n" + notes + "\n\n" +
+          "Dúvidas ou próximos passos:\n" + next;
+
+        const heading = document.createElement("h3");
+        heading.textContent = "Registro preparado";
+        const pre = document.createElement("pre");
+        pre.textContent = currentEntry;
+        pre.style.whiteSpace = "pre-wrap";
+        pre.style.fontFamily = "inherit";
+        pre.style.fontSize = ".92rem";
+        pre.style.marginBottom = "0";
+
+        output.replaceChildren(heading, pre);
+        copyButton.disabled = false;
+      });
+
+      copyButton.addEventListener("click", async function () {
+        if (!currentEntry) return;
+        try {
+          await navigator.clipboard.writeText(currentEntry);
+          copyButton.innerHTML = '<i class="bi bi-check2"></i> Registro copiado';
+          setTimeout(function () {
+            copyButton.innerHTML = '<i class="bi bi-clipboard"></i> Copiar registro';
+          }, 1600);
+        } catch (error) {
+          const textArea = document.createElement("textarea");
+          textArea.value = currentEntry;
+          textArea.style.position = "fixed";
+          textArea.style.opacity = "0";
+          document.body.appendChild(textArea);
+          textArea.select();
+          document.execCommand("copy");
+          textArea.remove();
+          copyButton.innerHTML = '<i class="bi bi-check2"></i> Registro copiado';
+        }
+      });
     });
-   });
   </script>
-
-  
 </body>
-
 </html>
